@@ -837,16 +837,16 @@ __webpack_require__.r(__webpack_exports__);
       if (this.user.type == "student") {
         this.user.student.type = 'student';
         axios.post("/api/register", this.user.student).then(function (response) {
-          if (response.status == 200) {
+          if (response.status == 201) {
             _this.$toasted.success("Registered successfully");
 
             _this.$router.push("/auth?authType=login");
           }
-        });
+        })["catch"](function (error) {});
       } else {
         this.user.tutor.type = 'tutor';
         axios.post("/api/register-tutor", this.user.tutor).then(function (response) {
-          if (response.status == 200) {
+          if (response.status == 201 || response.status == 200) {
             _this.$toasted.success("Registered successfully");
 
             _this.$router.push("/auth?authType=login");
@@ -1300,7 +1300,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.main[data-v-2557a474] {\n  background: repeating-linear-gradient(\n    to right,\n    rgb(15, 122, 138, 0.7) 0%,\n    rgb(15, 122, 138, 0.7) 100%\n  );\n  height: 100vh;\n  position: relative;\n  overflow: hidden;\n}\n.login[data-v-2557a474] {\n}\n.register[data-v-2557a474] {\n  padding-top: 3%;\n}\n.mini_box_1[data-v-2557a474],\n.mini_box_2[data-v-2557a474] {\n  width: 200px;\n  height: 100px;\n  position: absolute;\n}\n.mini_box_1[data-v-2557a474] {\n  background: #333333;\n  top: -6%;\n  right: -6%;\n  transform: rotate(45deg);\n}\n.mini_box_2[data-v-2557a474] {\n  background: yellow;\n  bottom: -6%;\n  left: -6%;\n  transform: rotate(45deg);\n}\n@media (max-width: 1024px) {\n.container[data-v-2557a474] {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    height: 100vh;\n}\n.register .nav-tabs[data-v-2557a474] {\n    width: 35%;\n}\n.mini_box_2[data-v-2557a474] {\n    bottom: -12%;\n    left: -12%;\n}\n.mini_box_1[data-v-2557a474] {\n    top: -12%;\n    right: -12%;\n}\n}\n@media (max-width: 768px) {\n}\n@media (max-width: 425px) {\n.mini_box_2[data-v-2557a474] {\n    bottom: -12%;\n    left: -20%;\n}\n.mini_box_1[data-v-2557a474] {\n    top: -12%;\n    right: -20%;\n}\n}\n", ""]);
+exports.push([module.i, "\n.main[data-v-2557a474] {\n  background: repeating-linear-gradient(\n    to right,\n    rgb(15, 122, 138, 0.7) 0%,\n    rgb(15, 122, 138, 0.7) 100%\n  );\n  height: 100vh;\n  position: relative;\n  overflow: hidden;\n}\n.login[data-v-2557a474] {\n}\n.register[data-v-2557a474] {\n  padding-top: 3%;\n}\n.mini_box_1[data-v-2557a474],\n.mini_box_2[data-v-2557a474] {\n  width: 200px;\n  height: 100px;\n  position: absolute;\n}\n.mini_box_1[data-v-2557a474] {\n  background: yellow;\n  top: -6%;\n  right: -6%;\n  transform: rotate(45deg);\n}\n.mini_box_2[data-v-2557a474] {\n  background: #333;\n  bottom: -6%;\n  left: -6%;\n  transform: rotate(45deg);\n}\n@media (max-width: 1024px) {\n.container[data-v-2557a474] {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    height: 100vh;\n}\n.register .nav-tabs[data-v-2557a474] {\n    width: 35%;\n}\n.mini_box_2[data-v-2557a474] {\n    bottom: -12%;\n    left: -12%;\n}\n.mini_box_1[data-v-2557a474] {\n    top: -12%;\n    right: -12%;\n}\n}\n@media (max-width: 768px) {\n}\n@media (max-width: 425px) {\n.mini_box_2[data-v-2557a474] {\n    bottom: -12%;\n    left: -20%;\n}\n.mini_box_1[data-v-2557a474] {\n    top: -12%;\n    right: -20%;\n}\n}\n", ""]);
 
 // exports
 
@@ -3046,17 +3046,11 @@ var render = function() {
                               _vm._v(" "),
                               _c("option", [_vm._v("300")]),
                               _vm._v(" "),
-                              _c("option", { attrs: { value: "" } }, [
-                                _vm._v("400")
-                              ]),
+                              _c("option", [_vm._v("400")]),
                               _vm._v(" "),
-                              _c("option", { attrs: { value: "" } }, [
-                                _vm._v("600")
-                              ]),
+                              _c("option", [_vm._v("600")]),
                               _vm._v(" "),
-                              _c("option", { attrs: { value: "" } }, [
-                                _vm._v("700")
-                              ]),
+                              _c("option", [_vm._v("700")]),
                               _vm._v(" "),
                               _c("option", [_vm._v("Other")])
                             ]
@@ -4057,17 +4051,11 @@ var render = function() {
                               _vm._v(" "),
                               _c("option", [_vm._v("300")]),
                               _vm._v(" "),
-                              _c("option", { attrs: { value: "" } }, [
-                                _vm._v("400")
-                              ]),
+                              _c("option", [_vm._v("400")]),
                               _vm._v(" "),
-                              _c("option", { attrs: { value: "" } }, [
-                                _vm._v("600")
-                              ]),
+                              _c("option", [_vm._v("600")]),
                               _vm._v(" "),
-                              _c("option", { attrs: { value: "" } }, [
-                                _vm._v("700")
-                              ]),
+                              _c("option", [_vm._v("700")]),
                               _vm._v(" "),
                               _c("option", [_vm._v("Other")])
                             ]

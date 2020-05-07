@@ -255,9 +255,9 @@
                   <option>100</option>
                   <option>200</option>
                   <option>300</option>
-                  <option value>400</option>
-                  <option value>600</option>
-                  <option value>700</option>
+                  <option >400</option>
+                  <option >600</option>
+                  <option >700</option>
                   <option>Other</option>
                 </select>
               </div>
@@ -499,9 +499,9 @@
                   <option>100</option>
                   <option>200</option>
                   <option>300</option>
-                  <option value>400</option>
-                  <option value>600</option>
-                  <option value>700</option>
+                  <option >400</option>
+                  <option >600</option>
+                  <option >700</option>
                   <option>Other</option>
                 </select>
               </div>
@@ -570,15 +570,17 @@ export default {
       if (this.user.type == "student") {
         this.user.student.type = 'student'
         axios.post("/api/register", this.user.student).then(response => {
-          if (response.status == 200) {
+          if (response.status == 201) {
             this.$toasted.success("Registered successfully");
             this.$router.push("/auth?authType=login");
           }
-        });
+        }).catch(error=>{
+          
+        }) ;
       } else {
          this.user.tutor.type = 'tutor'
         axios.post("/api/register-tutor", this.user.tutor).then(response => {
-          if (response.status == 200) {
+          if (response.status == 201 || response.status == 200) {
             this.$toasted.success("Registered successfully");
             this.$router.push("/auth?authType=login");
           }

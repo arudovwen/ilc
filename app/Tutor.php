@@ -17,7 +17,7 @@ class Tutor extends Authenticatable
     use HasApiTokens, Notifiable;
 
     protected $fillable = [
-        'name', 'email', 'password','id_no','phone','gender','  level_of_edu',
+        'name', 'email', 'password','id_no','phone','gender','level_of_edu',
         'school',
         'faculty',
         'department',

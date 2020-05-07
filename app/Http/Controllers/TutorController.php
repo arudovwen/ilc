@@ -20,7 +20,7 @@ class TutorController extends Controller
         'school' => $request['school'],
         'faculty' => $request['faculty'],
         'department' => $request['department'],
-        'course_level '=> $request['course_level']
+        'course_level'=> $request['course_level']
     ]);
    }
 }

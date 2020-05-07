@@ -5,32 +5,57 @@
       <div class="mini_square_2"></div>
       <div class="square_text">
         <div class="main_text josefin">
-            EDUCATION <br>  IN IMO <br> HAS A    NEW FACE
+          EDUCATION
+          <br />IN IMO
+          <br />HAS A NEW FACE
         </div>
         <div class="sub_text">
-        
-           <router-link to="/auth"><button v-waves.button v-waves.float v-waves.light class="bg-white"> <span class="mr-2 sec_color"> Enroll Now</span> <i class="fa fa-long-arrow-right sec_color" aria-hidden="true"></i></button></router-link>
+          <router-link to="/auth" v-if="!auth">
+            <button v-waves.button v-waves.float v-waves.light class="bg-white">
+              <span class="mr-2 sec_color">Enroll Now</span>
+              <i class="fa fa-long-arrow-right sec_color" aria-hidden="true"></i>
+            </button>
+          </router-link>
+          <a href="https://bizguruh.com/courses" v-if="auth">
+            <button v-waves.button v-waves.float v-waves.light class="bg-white">
+              <span class="mr-2 sec_color">Enter classroom</span>
+              <i class="fa fa-long-arrow-right sec_color" aria-hidden="true"></i>
+            </button>
+          </a>
         </div>
       </div>
     </div>
     <div class="circle_1 rounded-circle">
-      <img src="/images/2.jpg" alt="1">
+      <img src="/images/2.jpg" alt="1" />
     </div>
     <div class="circle_2 rounded-circle">
-         <img src="/images/5.jpg" alt="2">
+      <img src="/images/5.jpg" alt="2" />
     </div>
     <div class="circle_3 rounded-circle">
-         <img src="/images/3.jpg" alt="3">
+      <img src="/images/3.jpg" alt="3" />
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      auth: false
+    };
+  },
+  mounted() {
+    let user = JSON.parse(localStorage.getItem("myUser"));
+    if (user !== null) {
+      this.auth = true;
+    } else {
+      this.auth = false;
+    }
+  }
+};
 </script>
 
 <style scoped>
-
 .main_container {
   width: 100%;
   height: 100vh;
@@ -53,28 +78,27 @@ export default {};
   justify-content: flex-start;
   align-items: center;
 }
-.square_text{
-    color: white;
-    width: 100%;
-    min-height: 50%;
-    display: grid;
-    justify-content: flex-start;
-    align-items: center;
-    padding-left: 50px;
-    
+.square_text {
+  color: white;
+  width: 100%;
+  min-height: 50%;
+  display: grid;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 50px;
 }
 
-.main_text{
-    font-weight: 700;
-    font-size: 60px;
-    color: #333333;
+.main_text {
+  font-weight: 700;
+  font-size: 60px;
+  color: #333333;
 }
-.sub_text{
-    color:white;
-    font-size: 24px;
-     font-weight: 700;
-     display: flex;
-     align-items: center;
+.sub_text {
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
 }
 .mini_square_1,
 .mini_square_2 {
@@ -83,8 +107,6 @@ export default {};
   background: yellow;
   position: absolute;
   transform: rotate(-45deg);
-  
-  
 }
 .mini_square_1 {
   top: 0;
@@ -117,10 +139,10 @@ export default {};
   border: 6px solid white;
   overflow: hidden;
 }
-.rounded_circle img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.rounded_circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .circle_1 {
   background: orange;
@@ -132,130 +154,133 @@ export default {};
   bottom: -5%;
   z-index: 3;
 }
-img{
+img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-@media(max-width:1024px){
-.circle_3{
-  width:450px;
-  height: 450px;
-  top: 70%;
-}
-.circle_1,
-.circle_2 {
-  width: 350px;
-  height: 350px;
-}
-.circle_1{
-top:14%;
-}
-.circle_2{
- bottom: 0%;
-}
-.main_text{
-font-size: 40px;
-}
- .mini_square_2,.mini_square_1{
+@media (max-width: 1024px) {
+  .circle_3 {
+    width: 450px;
+    height: 450px;
+    top: 70%;
+  }
+  .circle_1,
+  .circle_2 {
+    width: 350px;
+    height: 350px;
+  }
+  .circle_1 {
+    top: 14%;
+  }
+  .circle_2 {
+    bottom: 0%;
+  }
+  .main_text {
+    font-size: 40px;
+  }
+  .mini_square_2,
+  .mini_square_1 {
     width: 100px;
   }
 }
 
-@media(max-width:768px){
-  .circle_3{
-  width:350px;
-  height: 350px;
-  top: 70%;
+@media (max-width: 768px) {
+  .circle_3 {
+    width: 350px;
+    height: 350px;
+    top: 70%;
+  }
+  .circle_1,
+  .circle_2 {
+    width: 250px;
+    height: 250px;
+  }
+  .circle_1 {
+    top: 14%;
+  }
+  .circle_2 {
+    bottom: 0%;
+  }
+  .main_text {
+    font-size: 38px;
+  }
 }
-.circle_1,
-.circle_2 {
-  width: 250px;
-  height: 250px;
-}
-.circle_1{
-top:14%;
-}
-.circle_2{
- bottom: 0%;
-}
-.main_text{
-font-size: 38px;
-}
-}
-@media(max-width:425px){
-  .square{
+@media (max-width: 425px) {
+  .square {
     width: 100%;
   }
-  .square_text{
+  .square_text {
     padding-left: 25px;
   }
-  .mini_square_2,.mini_square_1{
+  .mini_square_2,
+  .mini_square_1 {
     width: 80px;
   }
-    .circle_3{
-     width: 350px;
+  .circle_3 {
+    width: 350px;
     height: 350px;
     top: 70%;
     right: -45%;
+  }
+  .circle_1,
+  .circle_2 {
+    width: 200px;
+    height: 200px;
+    right: 5%;
+  }
+  .circle_1 {
+    top: 10%;
+  }
+  .circle_2 {
+    bottom: -2%;
+    width: 250px;
+    height: 250px;
+  }
+  .main_text {
+    font-size: 24px;
+  }
+  .sec_color {
+    font-size: 16px;
+  }
 }
-.circle_1,
-.circle_2 {
-  width: 200px;
-  height: 200px;
-  right: 5%;
-}
-.circle_1{
-top:10%;
-}
-.circle_2{
- bottom: -2%;
-   width: 250px;
-  height: 250px;
-}
-.main_text{
-font-size: 24px;
-}
-.sec_color{
-  font-size: 16px;
-}
-}
-@media(max-width:375px){
-  .square{
+@media (max-width: 375px) {
+  .square {
     width: 100%;
   }
-  .square_text{
+  .square_text {
     padding-left: 25px;
   }
-  .mini_square_2,.mini_square_1{
+  .mini_square_2,
+  .mini_square_1 {
     width: 80px;
   }
-    .circle_3{
-     width: 300px;
+  .circle_3 {
+    width: 300px;
     height: 300px;
     top: 70%;
     right: -45%;
-}
-.circle_1,
-.circle_2 {
-  width: 200px;
-  height: 200px;
-  right: 1%;
-}
-.circle_1{
-top:10%;
-}
-.circle_2{
- bottom: -2%;
-   width: 250px;
-  height: 250px;
-}
-.main_text{
-font-size: 22px;
-}
-.sec_color{
-  font-size: 16px;
-}
+  }
+  .circle_1,
+  .circle_2 {
+    width: 200px;
+    height: 200px;
+    right: 1%;
+  }
+  .circle_1 {
+    top: 10%;
+  }
+  .circle_2 {
+    bottom: -2%;
+    width: 250px;
+    height: 250px;
+  }
+  .main_text {
+    font-size: 22px;
+  }
+  .sec_color {
+    font-size: 16px;
+  }
 }
 </style>

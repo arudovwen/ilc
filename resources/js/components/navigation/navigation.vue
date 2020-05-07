@@ -124,7 +124,7 @@ export default {
       }
     },
     logOut(){
-      localStorage.clear()
+     localStorage.removeItem('myUser')
       window.location.reload()
     }
   }

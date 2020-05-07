@@ -904,7 +904,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      auth: false
+    };
+  },
+  mounted: function mounted() {
+    var user = JSON.parse(localStorage.getItem("myUser"));
+
+    if (user !== null) {
+      this.auth = true;
+    } else {
+      this.auth = false;
+    }
+  }
+});
 
 /***/ }),
 
@@ -1318,7 +1345,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     logOut: function logOut() {
-      localStorage.clear();
+      localStorage.removeItem('myUser');
       window.location.reload();
     }
   }
@@ -1441,7 +1468,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.main_container[data-v-45b4b761] {\n  width: 100%;\n  height: 100vh;\n  position: relative;\n  background: repeating-linear-gradient(\n    to right,\n    rgb(15, 122, 138, 0.7) 0%,\n    rgb(15, 122, 138, 0.7) 100%\n  );\n  overflow: hidden;\n}\n.square[data-v-45b4b761] {\n  width: 60%;\n  height: 100%;\n  position: relative;\n  z-index: 4;\n  overflow: hidden;\n  display: flex;\n  justify-content: flex-start;\n  align-items: center;\n}\n.square_text[data-v-45b4b761]{\n    color: white;\n    width: 100%;\n    min-height: 50%;\n    display: grid;\n    justify-content: flex-start;\n    align-items: center;\n    padding-left: 50px;\n}\n.main_text[data-v-45b4b761]{\n    font-weight: 700;\n    font-size: 60px;\n    color: #333333;\n}\n.sub_text[data-v-45b4b761]{\n    color:white;\n    font-size: 24px;\n     font-weight: 700;\n     display: flex;\n     align-items: center;\n}\n.mini_square_1[data-v-45b4b761],\n.mini_square_2[data-v-45b4b761] {\n  width: 150px;\n  height: 250px;\n  background: yellow;\n  position: absolute;\n  transform: rotate(-45deg);\n}\n.mini_square_1[data-v-45b4b761] {\n  top: 0;\n  right: 0;\n  top: -95px;\n  right: -50px;\n}\n.mini_square_2[data-v-45b4b761] {\n  bottom: -95px;\n  left: -50px;\n}\n.circle_1[data-v-45b4b761],\n.circle_2[data-v-45b4b761] {\n  width: 500px;\n  height: 500px;\n  position: absolute;\n  right: 20%;\n  border: 6px solid white;\n  overflow: hidden;\n}\n.circle_3[data-v-45b4b761] {\n  width: 600px;\n  height: 600px;\n  background: white;\n  position: absolute;\n  right: -10%;\n  top: 50%;\n  margin-top: -300px;\n  z-index: 2;\n  border: 6px solid white;\n  overflow: hidden;\n}\n.rounded_circle img[data-v-45b4b761]{\n    width: 100%;\n    height: 100%;\n    -o-object-fit: cover;\n       object-fit: cover;\n}\n.circle_1[data-v-45b4b761] {\n  background: orange;\n  top: -5%;\n  z-index: 1;\n}\n.circle_2[data-v-45b4b761] {\n  background: green;\n  bottom: -5%;\n  z-index: 3;\n}\nimg[data-v-45b4b761]{\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n@media(max-width:1024px){\n.circle_3[data-v-45b4b761]{\n  width:450px;\n  height: 450px;\n  top: 70%;\n}\n.circle_1[data-v-45b4b761],\n.circle_2[data-v-45b4b761] {\n  width: 350px;\n  height: 350px;\n}\n.circle_1[data-v-45b4b761]{\ntop:14%;\n}\n.circle_2[data-v-45b4b761]{\n bottom: 0%;\n}\n.main_text[data-v-45b4b761]{\nfont-size: 40px;\n}\n.mini_square_2[data-v-45b4b761],.mini_square_1[data-v-45b4b761]{\n    width: 100px;\n}\n}\n@media(max-width:768px){\n.circle_3[data-v-45b4b761]{\n  width:350px;\n  height: 350px;\n  top: 70%;\n}\n.circle_1[data-v-45b4b761],\n.circle_2[data-v-45b4b761] {\n  width: 250px;\n  height: 250px;\n}\n.circle_1[data-v-45b4b761]{\ntop:14%;\n}\n.circle_2[data-v-45b4b761]{\n bottom: 0%;\n}\n.main_text[data-v-45b4b761]{\nfont-size: 38px;\n}\n}\n@media(max-width:425px){\n.square[data-v-45b4b761]{\n    width: 100%;\n}\n.square_text[data-v-45b4b761]{\n    padding-left: 25px;\n}\n.mini_square_2[data-v-45b4b761],.mini_square_1[data-v-45b4b761]{\n    width: 80px;\n}\n.circle_3[data-v-45b4b761]{\n     width: 350px;\n    height: 350px;\n    top: 70%;\n    right: -45%;\n}\n.circle_1[data-v-45b4b761],\n.circle_2[data-v-45b4b761] {\n  width: 200px;\n  height: 200px;\n  right: 5%;\n}\n.circle_1[data-v-45b4b761]{\ntop:10%;\n}\n.circle_2[data-v-45b4b761]{\n bottom: -2%;\n   width: 250px;\n  height: 250px;\n}\n.main_text[data-v-45b4b761]{\nfont-size: 24px;\n}\n.sec_color[data-v-45b4b761]{\n  font-size: 16px;\n}\n}\n@media(max-width:375px){\n.square[data-v-45b4b761]{\n    width: 100%;\n}\n.square_text[data-v-45b4b761]{\n    padding-left: 25px;\n}\n.mini_square_2[data-v-45b4b761],.mini_square_1[data-v-45b4b761]{\n    width: 80px;\n}\n.circle_3[data-v-45b4b761]{\n     width: 300px;\n    height: 300px;\n    top: 70%;\n    right: -45%;\n}\n.circle_1[data-v-45b4b761],\n.circle_2[data-v-45b4b761] {\n  width: 200px;\n  height: 200px;\n  right: 1%;\n}\n.circle_1[data-v-45b4b761]{\ntop:10%;\n}\n.circle_2[data-v-45b4b761]{\n bottom: -2%;\n   width: 250px;\n  height: 250px;\n}\n.main_text[data-v-45b4b761]{\nfont-size: 22px;\n}\n.sec_color[data-v-45b4b761]{\n  font-size: 16px;\n}\n}\n", ""]);
+exports.push([module.i, "\n.main_container[data-v-45b4b761] {\n  width: 100%;\n  height: 100vh;\n  position: relative;\n  background: repeating-linear-gradient(\n    to right,\n    rgb(15, 122, 138, 0.7) 0%,\n    rgb(15, 122, 138, 0.7) 100%\n  );\n  overflow: hidden;\n}\n.square[data-v-45b4b761] {\n  width: 60%;\n  height: 100%;\n  position: relative;\n  z-index: 4;\n  overflow: hidden;\n  display: flex;\n  justify-content: flex-start;\n  align-items: center;\n}\n.square_text[data-v-45b4b761] {\n  color: white;\n  width: 100%;\n  min-height: 50%;\n  display: grid;\n  justify-content: flex-start;\n  align-items: center;\n  padding-left: 50px;\n}\n.main_text[data-v-45b4b761] {\n  font-weight: 700;\n  font-size: 60px;\n  color: #333333;\n}\n.sub_text[data-v-45b4b761] {\n  color: white;\n  font-size: 24px;\n  font-weight: 700;\n  display: flex;\n  align-items: center;\n}\n.mini_square_1[data-v-45b4b761],\n.mini_square_2[data-v-45b4b761] {\n  width: 150px;\n  height: 250px;\n  background: yellow;\n  position: absolute;\n  transform: rotate(-45deg);\n}\n.mini_square_1[data-v-45b4b761] {\n  top: 0;\n  right: 0;\n  top: -95px;\n  right: -50px;\n}\n.mini_square_2[data-v-45b4b761] {\n  bottom: -95px;\n  left: -50px;\n}\n.circle_1[data-v-45b4b761],\n.circle_2[data-v-45b4b761] {\n  width: 500px;\n  height: 500px;\n  position: absolute;\n  right: 20%;\n  border: 6px solid white;\n  overflow: hidden;\n}\n.circle_3[data-v-45b4b761] {\n  width: 600px;\n  height: 600px;\n  background: white;\n  position: absolute;\n  right: -10%;\n  top: 50%;\n  margin-top: -300px;\n  z-index: 2;\n  border: 6px solid white;\n  overflow: hidden;\n}\n.rounded_circle img[data-v-45b4b761] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.circle_1[data-v-45b4b761] {\n  background: orange;\n  top: -5%;\n  z-index: 1;\n}\n.circle_2[data-v-45b4b761] {\n  background: green;\n  bottom: -5%;\n  z-index: 3;\n}\nimg[data-v-45b4b761] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n@media (max-width: 1024px) {\n.circle_3[data-v-45b4b761] {\n    width: 450px;\n    height: 450px;\n    top: 70%;\n}\n.circle_1[data-v-45b4b761],\n  .circle_2[data-v-45b4b761] {\n    width: 350px;\n    height: 350px;\n}\n.circle_1[data-v-45b4b761] {\n    top: 14%;\n}\n.circle_2[data-v-45b4b761] {\n    bottom: 0%;\n}\n.main_text[data-v-45b4b761] {\n    font-size: 40px;\n}\n.mini_square_2[data-v-45b4b761],\n  .mini_square_1[data-v-45b4b761] {\n    width: 100px;\n}\n}\n@media (max-width: 768px) {\n.circle_3[data-v-45b4b761] {\n    width: 350px;\n    height: 350px;\n    top: 70%;\n}\n.circle_1[data-v-45b4b761],\n  .circle_2[data-v-45b4b761] {\n    width: 250px;\n    height: 250px;\n}\n.circle_1[data-v-45b4b761] {\n    top: 14%;\n}\n.circle_2[data-v-45b4b761] {\n    bottom: 0%;\n}\n.main_text[data-v-45b4b761] {\n    font-size: 38px;\n}\n}\n@media (max-width: 425px) {\n.square[data-v-45b4b761] {\n    width: 100%;\n}\n.square_text[data-v-45b4b761] {\n    padding-left: 25px;\n}\n.mini_square_2[data-v-45b4b761],\n  .mini_square_1[data-v-45b4b761] {\n    width: 80px;\n}\n.circle_3[data-v-45b4b761] {\n    width: 350px;\n    height: 350px;\n    top: 70%;\n    right: -45%;\n}\n.circle_1[data-v-45b4b761],\n  .circle_2[data-v-45b4b761] {\n    width: 200px;\n    height: 200px;\n    right: 5%;\n}\n.circle_1[data-v-45b4b761] {\n    top: 10%;\n}\n.circle_2[data-v-45b4b761] {\n    bottom: -2%;\n    width: 250px;\n    height: 250px;\n}\n.main_text[data-v-45b4b761] {\n    font-size: 24px;\n}\n.sec_color[data-v-45b4b761] {\n    font-size: 16px;\n}\n}\n@media (max-width: 375px) {\n.square[data-v-45b4b761] {\n    width: 100%;\n}\n.square_text[data-v-45b4b761] {\n    padding-left: 25px;\n}\n.mini_square_2[data-v-45b4b761],\n  .mini_square_1[data-v-45b4b761] {\n    width: 80px;\n}\n.circle_3[data-v-45b4b761] {\n    width: 300px;\n    height: 300px;\n    top: 70%;\n    right: -45%;\n}\n.circle_1[data-v-45b4b761],\n  .circle_2[data-v-45b4b761] {\n    width: 200px;\n    height: 200px;\n    right: 1%;\n}\n.circle_1[data-v-45b4b761] {\n    top: 10%;\n}\n.circle_2[data-v-45b4b761] {\n    bottom: -2%;\n    width: 250px;\n    height: 250px;\n}\n.main_text[data-v-45b4b761] {\n    font-size: 22px;\n}\n.sec_color[data-v-45b4b761] {\n    font-size: 16px;\n}\n}\n", ""]);
 
 // exports
 
@@ -4287,41 +4314,81 @@ var render = function() {
           "div",
           { staticClass: "sub_text" },
           [
-            _c("router-link", { attrs: { to: "/auth" } }, [
-              _c(
-                "button",
-                {
-                  directives: [
+            !_vm.auth
+              ? _c("router-link", { attrs: { to: "/auth" } }, [
+                  _c(
+                    "button",
                     {
-                      name: "waves",
-                      rawName: "v-waves.button",
-                      modifiers: { button: true }
+                      directives: [
+                        {
+                          name: "waves",
+                          rawName: "v-waves.button",
+                          modifiers: { button: true }
+                        },
+                        {
+                          name: "waves",
+                          rawName: "v-waves.float",
+                          modifiers: { float: true }
+                        },
+                        {
+                          name: "waves",
+                          rawName: "v-waves.light",
+                          modifiers: { light: true }
+                        }
+                      ],
+                      staticClass: "bg-white"
                     },
+                    [
+                      _c("span", { staticClass: "mr-2 sec_color" }, [
+                        _vm._v("Enroll Now")
+                      ]),
+                      _vm._v(" "),
+                      _c("i", {
+                        staticClass: "fa fa-long-arrow-right sec_color",
+                        attrs: { "aria-hidden": "true" }
+                      })
+                    ]
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.auth
+              ? _c("a", { attrs: { href: "https://bizguruh.com/courses" } }, [
+                  _c(
+                    "button",
                     {
-                      name: "waves",
-                      rawName: "v-waves.float",
-                      modifiers: { float: true }
+                      directives: [
+                        {
+                          name: "waves",
+                          rawName: "v-waves.button",
+                          modifiers: { button: true }
+                        },
+                        {
+                          name: "waves",
+                          rawName: "v-waves.float",
+                          modifiers: { float: true }
+                        },
+                        {
+                          name: "waves",
+                          rawName: "v-waves.light",
+                          modifiers: { light: true }
+                        }
+                      ],
+                      staticClass: "bg-white"
                     },
-                    {
-                      name: "waves",
-                      rawName: "v-waves.light",
-                      modifiers: { light: true }
-                    }
-                  ],
-                  staticClass: "bg-white"
-                },
-                [
-                  _c("span", { staticClass: "mr-2 sec_color" }, [
-                    _vm._v(" Enroll Now")
-                  ]),
-                  _vm._v(" "),
-                  _c("i", {
-                    staticClass: "fa fa-long-arrow-right sec_color",
-                    attrs: { "aria-hidden": "true" }
-                  })
-                ]
-              )
-            ])
+                    [
+                      _c("span", { staticClass: "mr-2 sec_color" }, [
+                        _vm._v("Enter classroom")
+                      ]),
+                      _vm._v(" "),
+                      _c("i", {
+                        staticClass: "fa fa-long-arrow-right sec_color",
+                        attrs: { "aria-hidden": "true" }
+                      })
+                    ]
+                  )
+                ])
+              : _vm._e()
           ],
           1
         )
@@ -4341,11 +4408,11 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "main_text josefin" }, [
-      _vm._v("\n          EDUCATION "),
+      _vm._v("\n        EDUCATION\n        "),
       _c("br"),
-      _vm._v("  IN IMO "),
+      _vm._v("IN IMO\n        "),
       _c("br"),
-      _vm._v(" HAS A    NEW FACE\n      ")
+      _vm._v("HAS A NEW FACE\n      ")
     ])
   },
   function() {

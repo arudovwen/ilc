@@ -1,120 +1,106 @@
 <template>
   <div class="container register">
+    <form @submit.prevent="submit" class="col-md-9 register-right">
+      <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+        <li @click="changeType('student')" class="nav-item">
+          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home">Student</a>
+        </li>
+        <li @click="changeType('tutor')" class="nav-item">
+          <a
+            class="nav-link"
+            id="profile-tab"
+            data-toggle="tab"
+            href="#profile"
+            role="tab"
+            aria-controls="profile"
+            aria-selected="false"
+          >Tutor</a>
+        </li>
+      </ul>
 
-      <form @submit.prevent="submit" class="col-md-9 register-right">
-        <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-          <li    @click="changeType('student')" class="nav-item">
-            <a
-              class="nav-link active"
-              id="home-tab"
-              data-toggle="tab"
-              href="#home"
-             
-             
-           
-            >Student</a>
-          </li>
-          <li  @click="changeType('tutor')" class="nav-item">
-            <a
-              class="nav-link"
-              id="profile-tab"
-              data-toggle="tab"
-              href="#profile"
-              role="tab"
-              aria-controls="profile"
-              aria-selected="false"
-             
-            >Tutor</a>
-          </li>
-        </ul>
- 
- 
- 
- 
- 
- 
-        <div class="tab-content" id="myTabContent">
-          <div
-          v-if="user.type =='student'" 
-            class="tab-pane fade show active"
-            id="home"
-            role="tabpanel"
-            aria-labelledby="home-tab"
-          >
-            <!-- student starts here  -->
-            <h4 class="register-heading">Login as a Student</h4>
-            <div  class="row register-form">
-              <div class="col-md-9 mx-auto">
-                <div class="form-group">
-                  <input required
-                    type="email"
-                    class="form-control"
-                    placeholder="Your Email *"
-                    v-model="user.email"
-                  />
-                </div>
-                <div class="form-group">
-                  <input required
-                    type="password"
-                    class="form-control"
-                    placeholder="Password *"
-                    v-model="user.password"
-                  />
-                </div>
-
-                <button
-                  v-waves.button
-                  v-waves.float
-                  v-waves.light
-                  type="submit"
-                  class="btnRegister"
-                >Login</button>
+      <div class="tab-content" id="myTabContent">
+        <div
+          v-if="user.type =='student'"
+          class="tab-pane fade show active"
+          id="home"
+          role="tabpanel"
+          aria-labelledby="home-tab"
+        >
+          <!-- student starts here  -->
+          <h4 class="register-heading">Login as a Student</h4>
+          <div class="row register-form">
+            <div class="col-md-9 mx-auto">
+              <div class="form-group">
+                <input
+                  required
+                  type="email"
+                  class="form-control"
+                  placeholder="Your Email *"
+                  v-model="user.email"
+                />
               </div>
+              <div class="form-group">
+                <input
+                  required
+                  type="password"
+                  class="form-control"
+                  placeholder="Password *"
+                  v-model="user.password"
+                />
+              </div>
+
+              <button
+                v-waves.button
+                v-waves.float
+                v-waves.light
+                type="submit"
+                class="btnRegister"
+              >Login</button>
             </div>
           </div>
-          <div
-          v-if="user.type =='tutor'"
-            class="tab-pane fade show"
-            id="profile"
-            role="tabpanel"
-            aria-labelledby="profile-tab"
-          >
-            <!-- tutor starts here  -->
-            <h4   class="register-heading">Login as a Tutor</h4>
-            <div  class="row register-form">
-              <div class="col-md-6 mx-auto">
-                <div class="form-group">
-                  <input required
-                    type="email"
-                    class="form-control"
-                    placeholder="Your Email *"
-                    v-model="user.email"
-                  />
-                </div>
-                <div class="form-group">
-                  <input required
-                    type="password"
-                    class="form-control"
-                    placeholder="Password *"
-                    v-model="user.password"
-                  />
-                </div>
-
-                <button
-                  v-waves.button
-                  v-waves.float
-                  v-waves.light
-                  type="submit"
-                  class="btnRegister"
-                >Login</button>
-              </div>
-            </div>
-          </div>
-
-    
         </div>
-      </form>
-  
+        <div
+          v-if="user.type =='tutor'"
+          class="tab-pane fade show"
+          id="profile"
+          role="tabpanel"
+          aria-labelledby="profile-tab"
+        >
+          <!-- tutor starts here  -->
+          <h4 class="register-heading">Login as a Tutor</h4>
+          <div class="row register-form">
+            <div class="col-md-6 mx-auto">
+              <div class="form-group">
+                <input
+                  required
+                  type="email"
+                  class="form-control"
+                  placeholder="Your Email *"
+                  v-model="user.email"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  required
+                  type="password"
+                  class="form-control"
+                  placeholder="Password *"
+                  v-model="user.password"
+                />
+              </div>
+
+              <button
+                v-waves.button
+                v-waves.float
+                v-waves.light
+                type="submit"
+                class="btnRegister"
+              >Login</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
 </template>
 
@@ -139,39 +125,41 @@ export default {
     },
     submit() {
       let data = {
-        grant_type:"password",
+        grant_type: "password",
         client_id: 2,
         client_secret: "pYVE8LflkBQWKSpKaKYLcCYPnPU7S2sWqJyaSMJ3",
         username: this.user.email,
         password: this.user.password,
-        theNewProvider:'api',
-        
+        theNewProvider: "api"
       };
-   const authUser = {}
- 
-      if (this.user.type =='student') {
-         axios.post("/oauth/token", data).then(res=>{
-           authUser.access_token = res.data.access_token
-           axios.get(`/api/user`,{
-             headers:{Authorization:`Bearer ${res.data.access_token}`}
-           }).then(res=>{
-           
+      const authUser = {};
+
+      if (this.user.type == "student") {
+        axios.post("/oauth/token", data).then(res => {
+          authUser.access_token = res.data.access_token;
+          axios
+            .get(`/api/user`, {
+              headers: { Authorization: `Bearer ${res.data.access_token}` }
+            })
+            .then(res => {
               if (res.status === 200) {
-                authUser.email = this.user.email
-              authUser.name = res.data.name
-              localStorage.setItem("authUser", JSON.stringify(authUser));
-              this.$toasted.success('Sucessful')
-              this.$router.push('/')
+                authUser.email = this.user.email;
+                authUser.name = res.data.name;
+                localStorage.setItem("authUser", JSON.stringify(authUser));
+                this.$toasted.success("Sucessful");
+                if (this.$route.query.redirect_from == "register") {
+                    this.$router.push("/?show=popup");
+                } else { 
+                  this.$router.push("/");
+                }
               }
-             
-           }).catch(error=>{
-             let errors = error.response.data.errors
-             console.log("submit -> errors", error)
-           })
-          
-        })
-      }else{
-        
+            })
+            .catch(error => {
+              let errors = error.response.data.errors;
+              console.log("submit -> errors", error);
+            });
+        });
+      } else {
       }
     }
   }
@@ -180,7 +168,7 @@ export default {
 
 
 <style scoped>
-.container{
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -300,37 +288,33 @@ export default {
   margin-bottom: -15%;
   color: #495057;
 }
-@media(max-width:1024px){
-
-  .register .nav-tabs{
+@media (max-width: 1024px) {
+  .register .nav-tabs {
     width: 35%;
   }
-  h4.register-heading{
+  h4.register-heading {
     font-size: 22px;
   }
-  .register-form{
+  .register-form {
     width: 100%;
   }
-
 }
-@media(max-width:768px){
-   .register .nav-tabs{
+@media (max-width: 768px) {
+  .register .nav-tabs {
     width: 40%;
-  
   }
 }
-@media(max-width:425px){
-.register-right {
-
+@media (max-width: 425px) {
+  .register-right {
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
-  .register .nav-tabs{
-    width: 80%;
-    margin:3% auto 0;
   }
-  .register-left{
+  .register .nav-tabs {
+    width: 80%;
+    margin: 3% auto 0;
+  }
+  .register-left {
     padding-bottom: 20px;
   }
 }

@@ -80,16 +80,22 @@ export default {
   data() {
     return {
       auth: false,
-      name: "Success",
+      name: "",
       show_nav_bar: true,
-      show_white : false
+      show_white : false,
+      user:{}
     };
   },
-  created() {
+  mounted() {
     if (window.innerWidth < 768) {
       this.show_nav_bar = false;
       this.show_white = false
     }
+    let user = JSON.parse(localStorage.getItem('authUser'))
+  if(user!== null){
+   this.name = user.name
+  }
+ 
    this.update()
   
   },

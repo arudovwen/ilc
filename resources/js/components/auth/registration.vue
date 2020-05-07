@@ -573,6 +573,7 @@ export default {
           if (response.status == 201) {
             this.$toasted.success("Registered successfully");
             this.$router.push("/auth?authType=login");
+              this.$router.push("/auth?authType=login&redirect_from=register&level=student");
           }
         }).catch(error=>{
           
@@ -582,7 +583,11 @@ export default {
         axios.post("/api/register-tutor", this.user.tutor).then(response => {
           if (response.status == 201 || response.status == 200) {
             this.$toasted.success("Registered successfully");
-            this.$router.push("/auth?authType=login");
+             this.$router.push({
+               name:Auth,query:{
+                 authType:'login',redirect_from:'register',level:'student'
+               }
+             });
           }
         });
       }

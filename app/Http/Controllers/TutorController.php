@@ -15,7 +15,7 @@ class TutorController extends Controller
         'password' => Hash::make($request['password']),
         'mat_no' => $request['id_no'],
         'phone' => $request['phone'],
-        'gender' => $request['email'],
+        'gender' => $request['gender'],
         'level_of_edu' => $request['level_of_edu'],
         'school' => $request['school'],
         'faculty' => $request['faculty'],

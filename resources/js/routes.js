@@ -12,7 +12,6 @@ let Home = () =>
     );
 
 
-x
     export const routes = [
         { path: "*", redirect: "/" },
         {

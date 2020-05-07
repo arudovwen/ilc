@@ -147,7 +147,6 @@ var Institute = function Institute() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/institute/createInstitute */ "./resources/js/components/institute/createInstitute.vue"));
 };
 
-x;
 var routes = [{
   path: "*",
   redirect: "/"

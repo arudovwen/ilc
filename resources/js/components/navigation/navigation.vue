@@ -221,6 +221,16 @@ ul li span {
   }
   .nav ul li {
   display:block;
+
+}
+.logo_image{
+  width:60px;
+  height:60px;
+}
+.logo_text {
+  font-weight: 700;
+  color: #333;
+  font-size: 18px;
 }
 }
 </style>

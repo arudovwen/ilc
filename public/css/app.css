@@ -384,11 +384,11 @@ td {
 .hamburger.is-active .hamburger-inner,
 .hamburger.is-active .hamburger-inner::before,
 .hamburger.is-active .hamburger-inner::after {
-    background-color: hsl(120, 100%, 95%);
+    background-color: #333;
 }
 
 .hamburger-box {
-    width: 25px;
+    width: 20px;
     height: 20px;
     display: inline-block;
     position: relative;
@@ -403,9 +403,9 @@ td {
 .hamburger-inner,
 .hamburger-inner::before,
 .hamburger-inner::after {
-    width: 25px;
-    height: 2px;
-    background-color: hsl(120, 100%, 95%);
+    width: 20px;
+    height: 3px;
+    background-color: #333;
     border-radius: 4px;
     position: absolute;
     transition-property: transform;

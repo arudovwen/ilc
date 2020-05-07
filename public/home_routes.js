@@ -1358,6 +1358,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   methods: {
     redirect: function redirect() {
@@ -1513,7 +1517,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.overlay[data-v-362a9371] {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  background: rgba(255, 255, 255, 0.7);\n  z-index: 99;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.overlay_box[data-v-362a9371] {\n  position: relative;\n  width: 60%;\n  height: 60%;\n  background: #fff;\n}\n.get_started[data-v-362a9371]{\n    background: #333;\n    color: white !important;\n    margin: 0 auto;\n}\n.sub_text[data-v-362a9371]{\n    text-align: center;\n}\n.close[data-v-362a9371]{\n    position:absolute;\n    top:-15px;\n    right:-15px;\n}\n", ""]);
+exports.push([module.i, "\n.overlay[data-v-362a9371] {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  background: rgba(255, 255, 255, 0.7);\n  z-index: 99;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.overlay_box[data-v-362a9371] {\n  position: relative;\n  width: 60%;\n  height: 60%;\n  background: #fff;\n  border-radius: 5px;\n}\n.overlay_text[data-v-362a9371]{\n  display:grid;\n  justify-content:center;\n  align-items: center;\n  padding:15px;\n  height: 100%;\n}\n.quote[data-v-362a9371]{\n  color:#006600;\n  font-size: 20px;\n}\n.get_started[data-v-362a9371]{\n    background: #333;\n    color: white !important;\n    margin: 0 auto;\n}\n.sub_text[data-v-362a9371]{\n    text-align: center;\n}\n.close[data-v-362a9371]{\n    position:absolute;\n    top:-15px;\n    right:-15px;\n}\n@media(max-width:425px){\n.overlay_box[data-v-362a9371] {\n  position: relative;\n  width: 90%;\n  height: 60%;\n  background: #fff;\n}\n}\n", ""]);
 
 // exports
 
@@ -5299,6 +5303,8 @@ var render = function() {
     _c("div", { staticClass: "overlay_box" }, [
       _c("div", { staticClass: "overlay_text" }, [
         _c("div", { staticClass: "sub_text" }, [
+          _vm._m(0),
+          _vm._v(" "),
           _c("a", { attrs: { href: "https://bizguruh.com/courses" } }, [
             _c(
               "button",
@@ -5323,7 +5329,9 @@ var render = function() {
                 staticClass: "get_started"
               },
               [
-                _c("span", { staticClass: "mr-2 " }, [_vm._v("Get Started")]),
+                _c("span", { staticClass: "mr-2 " }, [
+                  _vm._v("Go to classroom")
+                ]),
                 _vm._v(" "),
                 _c("i", {
                   staticClass: "fa fa-long-arrow-right ",
@@ -5337,7 +5345,26 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "my_text mb-4" }, [
+      _c("p", [_vm._v("Well done ! You're all set to get started ")]),
+      _vm._v(" "),
+      _c("p", { staticClass: "quote" }, [
+        _c("em", [
+          _vm._v(
+            '"The beautiful thing about learning is that no one can take it away from you"'
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("small", [_c("strong", [_vm._v("-B.B. King")])])
+    ])
+  }
+]
 render._withStripped = true
 
 

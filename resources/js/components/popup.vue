@@ -9,10 +9,14 @@
                 </div>
             </div> -->
         <div class="sub_text">
-           
+             <div class="my_text mb-4">
+                <p>Well done ! You're all set to get started </p>
+              <p class="quote"><em>"The beautiful thing about learning is that no one can take it away from you"</em></p>
+              <small><strong>-B.B. King</strong></small>
+             </div>
       
            <a href="https://bizguruh.com/courses"> <button v-waves.button v-waves.float v-waves.light class="get_started">
-              <span class="mr-2 ">Get Started</span>
+              <span class="mr-2 ">Go to classroom</span>
               <i class="fa fa-long-arrow-right " aria-hidden="true"></i>
             </button></a>
          
@@ -51,6 +55,18 @@ export default {
   width: 60%;
   height: 60%;
   background: #fff;
+  border-radius: 5px;
+}
+.overlay_text{
+  display:grid;
+  justify-content:center;
+  align-items: center;
+  padding:15px;
+  height: 100%;
+}
+.quote{
+  color:#006600;
+  font-size: 20px;
 }
 .get_started{
     background: #333;
@@ -65,5 +81,13 @@ export default {
     position:absolute;
     top:-15px;
     right:-15px;
+}
+@media(max-width:425px){
+  .overlay_box {
+  position: relative;
+  width: 90%;
+  height: 60%;
+  background: #fff;
+}
 }
 </style>

@@ -95,7 +95,7 @@
                 v-waves.light
                 type="submit"
                 class="btnRegister"
-              >Login</button>
+              ><span v-if="spin" class="spinner-border spinner-border-sm"></span> Login  </button>
             </div>
           </div>
         </div>
@@ -112,7 +112,8 @@ export default {
       user: {
         type: "student",
         email: "",
-        password: ""
+        password: "",
+        spin:false
       }
     };
   },
@@ -124,6 +125,7 @@ export default {
       this.user.type = value;
     },
     submit() {
+      this.spin = true
       let data = {
         grant_type: "password",
         client_id: 2,
@@ -143,6 +145,7 @@ export default {
             })
             .then(res => {
               if (res.status === 200) {
+                this.spin=false
                 myUser.email = this.user.email;
                 myUser.name = res.data.name;
                 localStorage.setItem("myUser", JSON.stringify(myUser));
@@ -155,8 +158,10 @@ export default {
               }
             })
             .catch(error => {
+               this.$toasted.error("Something is not right");
               let errors = error.response.data.errors;
               console.log("submit -> errors", error);
+              this.spin=false
             });
         });
       } else {

@@ -81,7 +81,7 @@ export default {
 .square_text {
   color: white;
   width: 100%;
-  min-height: 50%;
+  min-height: 45%;
   display: grid;
   justify-content: flex-start;
   align-items: center;
@@ -205,6 +205,9 @@ img {
   }
   .main_text {
     font-size: 38px;
+  }
+  .square_text{
+    min-width: 35%;
   }
 }
 @media (max-width: 425px) {

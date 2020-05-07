@@ -268,7 +268,7 @@
                 v-waves.light
                 type="submit"
                 class="btnRegister"
-              >Register</button>
+              > <span v-if="spin" class="spinner-border spinner-border-sm"></span> Register</button>
             </div>
           </div>
         </div>
@@ -555,7 +555,8 @@ export default {
           faculty: "selected",
           department: "selected",
           course_level: []
-        }
+        },
+        spin:false
       }
     };
   },
@@ -567,21 +568,25 @@ export default {
       this.user.type = value;
     },
     submit() {
+      this.spin = true
       if (this.user.type == "student") {
         this.user.student.type = 'student'
         axios.post("/api/register", this.user.student).then(response => {
           if (response.status == 201) {
+            this.spin = false
             this.$toasted.success("Registered successfully");
             this.$router.push("/auth?authType=login");
               this.$router.push("/auth?authType=login&redirect_from=register&level=student");
           }
         }).catch(error=>{
-          
+           this.spin = false
+            this.$toasted.error("Something is not right");
         }) ;
       } else {
          this.user.tutor.type = 'tutor'
         axios.post("/api/register-tutor", this.user.tutor).then(response => {
           if (response.status == 201 || response.status == 200) {
+             this.spin = false
             this.$toasted.success("Registered successfully");
              this.$router.push({
                name:Auth,query:{

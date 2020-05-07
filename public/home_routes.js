@@ -200,7 +200,8 @@ __webpack_require__.r(__webpack_exports__);
       user: {
         type: "student",
         email: "",
-        password: ""
+        password: "",
+        spin: false
       }
     };
   },
@@ -214,6 +215,7 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit() {
       var _this = this;
 
+      this.spin = true;
       var data = {
         grant_type: "password",
         client_id: 2,
@@ -233,6 +235,7 @@ __webpack_require__.r(__webpack_exports__);
             }
           }).then(function (res) {
             if (res.status === 200) {
+              _this.spin = false;
               myUser.email = _this.user.email;
               myUser.name = res.data.name;
               localStorage.setItem("myUser", JSON.stringify(myUser));
@@ -246,8 +249,11 @@ __webpack_require__.r(__webpack_exports__);
               }
             }
           })["catch"](function (error) {
+            _this.$toasted.error("Something is not right");
+
             var errors = error.response.data.errors;
             console.log("submit -> errors", error);
+            _this.spin = false;
           });
         });
       } else {}
@@ -820,7 +826,8 @@ __webpack_require__.r(__webpack_exports__);
           faculty: "selected",
           department: "selected",
           course_level: []
-        }
+        },
+        spin: false
       }
     };
   },
@@ -834,21 +841,31 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit() {
       var _this = this;
 
+      this.spin = true;
+
       if (this.user.type == "student") {
         this.user.student.type = 'student';
         axios.post("/api/register", this.user.student).then(function (response) {
           if (response.status == 201) {
+            _this.spin = false;
+
             _this.$toasted.success("Registered successfully");
 
             _this.$router.push("/auth?authType=login");
 
             _this.$router.push("/auth?authType=login&redirect_from=register&level=student");
           }
-        })["catch"](function (error) {});
+        })["catch"](function (error) {
+          _this.spin = false;
+
+          _this.$toasted.error("Something is not right");
+        });
       } else {
         this.user.tutor.type = 'tutor';
         axios.post("/api/register-tutor", this.user.tutor).then(function (response) {
           if (response.status == 201 || response.status == 200) {
+            _this.spin = false;
+
             _this.$toasted.success("Registered successfully");
 
             _this.$router.push({
@@ -1468,7 +1485,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.main_container[data-v-45b4b761] {\n  width: 100%;\n  height: 100vh;\n  position: relative;\n  background: repeating-linear-gradient(\n    to right,\n    rgb(15, 122, 138, 0.7) 0%,\n    rgb(15, 122, 138, 0.7) 100%\n  );\n  overflow: hidden;\n}\n.square[data-v-45b4b761] {\n  width: 60%;\n  height: 100%;\n  position: relative;\n  z-index: 4;\n  overflow: hidden;\n  display: flex;\n  justify-content: flex-start;\n  align-items: center;\n}\n.square_text[data-v-45b4b761] {\n  color: white;\n  width: 100%;\n  min-height: 50%;\n  display: grid;\n  justify-content: flex-start;\n  align-items: center;\n  padding-left: 50px;\n}\n.main_text[data-v-45b4b761] {\n  font-weight: 700;\n  font-size: 60px;\n  color: #333333;\n}\n.sub_text[data-v-45b4b761] {\n  color: white;\n  font-size: 24px;\n  font-weight: 700;\n  display: flex;\n  align-items: center;\n}\n.mini_square_1[data-v-45b4b761],\n.mini_square_2[data-v-45b4b761] {\n  width: 150px;\n  height: 250px;\n  background: yellow;\n  position: absolute;\n  transform: rotate(-45deg);\n}\n.mini_square_1[data-v-45b4b761] {\n  top: 0;\n  right: 0;\n  top: -95px;\n  right: -50px;\n}\n.mini_square_2[data-v-45b4b761] {\n  bottom: -95px;\n  left: -50px;\n}\n.circle_1[data-v-45b4b761],\n.circle_2[data-v-45b4b761] {\n  width: 500px;\n  height: 500px;\n  position: absolute;\n  right: 20%;\n  border: 6px solid white;\n  overflow: hidden;\n}\n.circle_3[data-v-45b4b761] {\n  width: 600px;\n  height: 600px;\n  background: white;\n  position: absolute;\n  right: -10%;\n  top: 50%;\n  margin-top: -300px;\n  z-index: 2;\n  border: 6px solid white;\n  overflow: hidden;\n}\n.rounded_circle img[data-v-45b4b761] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.circle_1[data-v-45b4b761] {\n  background: orange;\n  top: -5%;\n  z-index: 1;\n}\n.circle_2[data-v-45b4b761] {\n  background: green;\n  bottom: -5%;\n  z-index: 3;\n}\nimg[data-v-45b4b761] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n@media (max-width: 1024px) {\n.circle_3[data-v-45b4b761] {\n    width: 450px;\n    height: 450px;\n    top: 70%;\n}\n.circle_1[data-v-45b4b761],\n  .circle_2[data-v-45b4b761] {\n    width: 350px;\n    height: 350px;\n}\n.circle_1[data-v-45b4b761] {\n    top: 14%;\n}\n.circle_2[data-v-45b4b761] {\n    bottom: 0%;\n}\n.main_text[data-v-45b4b761] {\n    font-size: 40px;\n}\n.mini_square_2[data-v-45b4b761],\n  .mini_square_1[data-v-45b4b761] {\n    width: 100px;\n}\n}\n@media (max-width: 768px) {\n.circle_3[data-v-45b4b761] {\n    width: 350px;\n    height: 350px;\n    top: 70%;\n}\n.circle_1[data-v-45b4b761],\n  .circle_2[data-v-45b4b761] {\n    width: 250px;\n    height: 250px;\n}\n.circle_1[data-v-45b4b761] {\n    top: 14%;\n}\n.circle_2[data-v-45b4b761] {\n    bottom: 0%;\n}\n.main_text[data-v-45b4b761] {\n    font-size: 38px;\n}\n}\n@media (max-width: 425px) {\n.square[data-v-45b4b761] {\n    width: 100%;\n}\n.square_text[data-v-45b4b761] {\n    padding-left: 25px;\n}\n.mini_square_2[data-v-45b4b761],\n  .mini_square_1[data-v-45b4b761] {\n    width: 80px;\n}\n.circle_3[data-v-45b4b761] {\n    width: 350px;\n    height: 350px;\n    top: 70%;\n    right: -45%;\n}\n.circle_1[data-v-45b4b761],\n  .circle_2[data-v-45b4b761] {\n    width: 200px;\n    height: 200px;\n    right: 5%;\n}\n.circle_1[data-v-45b4b761] {\n    top: 10%;\n}\n.circle_2[data-v-45b4b761] {\n    bottom: -2%;\n    width: 250px;\n    height: 250px;\n}\n.main_text[data-v-45b4b761] {\n    font-size: 24px;\n}\n.sec_color[data-v-45b4b761] {\n    font-size: 16px;\n}\n}\n@media (max-width: 375px) {\n.square[data-v-45b4b761] {\n    width: 100%;\n}\n.square_text[data-v-45b4b761] {\n    padding-left: 25px;\n}\n.mini_square_2[data-v-45b4b761],\n  .mini_square_1[data-v-45b4b761] {\n    width: 80px;\n}\n.circle_3[data-v-45b4b761] {\n    width: 300px;\n    height: 300px;\n    top: 70%;\n    right: -45%;\n}\n.circle_1[data-v-45b4b761],\n  .circle_2[data-v-45b4b761] {\n    width: 200px;\n    height: 200px;\n    right: 1%;\n}\n.circle_1[data-v-45b4b761] {\n    top: 10%;\n}\n.circle_2[data-v-45b4b761] {\n    bottom: -2%;\n    width: 250px;\n    height: 250px;\n}\n.main_text[data-v-45b4b761] {\n    font-size: 22px;\n}\n.sec_color[data-v-45b4b761] {\n    font-size: 16px;\n}\n}\n", ""]);
+exports.push([module.i, "\n.main_container[data-v-45b4b761] {\n  width: 100%;\n  height: 100vh;\n  position: relative;\n  background: repeating-linear-gradient(\n    to right,\n    rgb(15, 122, 138, 0.7) 0%,\n    rgb(15, 122, 138, 0.7) 100%\n  );\n  overflow: hidden;\n}\n.square[data-v-45b4b761] {\n  width: 60%;\n  height: 100%;\n  position: relative;\n  z-index: 4;\n  overflow: hidden;\n  display: flex;\n  justify-content: flex-start;\n  align-items: center;\n}\n.square_text[data-v-45b4b761] {\n  color: white;\n  width: 100%;\n  min-height: 45%;\n  display: grid;\n  justify-content: flex-start;\n  align-items: center;\n  padding-left: 50px;\n}\n.main_text[data-v-45b4b761] {\n  font-weight: 700;\n  font-size: 60px;\n  color: #333333;\n}\n.sub_text[data-v-45b4b761] {\n  color: white;\n  font-size: 24px;\n  font-weight: 700;\n  display: flex;\n  align-items: center;\n}\n.mini_square_1[data-v-45b4b761],\n.mini_square_2[data-v-45b4b761] {\n  width: 150px;\n  height: 250px;\n  background: yellow;\n  position: absolute;\n  transform: rotate(-45deg);\n}\n.mini_square_1[data-v-45b4b761] {\n  top: 0;\n  right: 0;\n  top: -95px;\n  right: -50px;\n}\n.mini_square_2[data-v-45b4b761] {\n  bottom: -95px;\n  left: -50px;\n}\n.circle_1[data-v-45b4b761],\n.circle_2[data-v-45b4b761] {\n  width: 500px;\n  height: 500px;\n  position: absolute;\n  right: 20%;\n  border: 6px solid white;\n  overflow: hidden;\n}\n.circle_3[data-v-45b4b761] {\n  width: 600px;\n  height: 600px;\n  background: white;\n  position: absolute;\n  right: -10%;\n  top: 50%;\n  margin-top: -300px;\n  z-index: 2;\n  border: 6px solid white;\n  overflow: hidden;\n}\n.rounded_circle img[data-v-45b4b761] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.circle_1[data-v-45b4b761] {\n  background: orange;\n  top: -5%;\n  z-index: 1;\n}\n.circle_2[data-v-45b4b761] {\n  background: green;\n  bottom: -5%;\n  z-index: 3;\n}\nimg[data-v-45b4b761] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n@media (max-width: 1024px) {\n.circle_3[data-v-45b4b761] {\n    width: 450px;\n    height: 450px;\n    top: 70%;\n}\n.circle_1[data-v-45b4b761],\n  .circle_2[data-v-45b4b761] {\n    width: 350px;\n    height: 350px;\n}\n.circle_1[data-v-45b4b761] {\n    top: 14%;\n}\n.circle_2[data-v-45b4b761] {\n    bottom: 0%;\n}\n.main_text[data-v-45b4b761] {\n    font-size: 40px;\n}\n.mini_square_2[data-v-45b4b761],\n  .mini_square_1[data-v-45b4b761] {\n    width: 100px;\n}\n}\n@media (max-width: 768px) {\n.circle_3[data-v-45b4b761] {\n    width: 350px;\n    height: 350px;\n    top: 70%;\n}\n.circle_1[data-v-45b4b761],\n  .circle_2[data-v-45b4b761] {\n    width: 250px;\n    height: 250px;\n}\n.circle_1[data-v-45b4b761] {\n    top: 14%;\n}\n.circle_2[data-v-45b4b761] {\n    bottom: 0%;\n}\n.main_text[data-v-45b4b761] {\n    font-size: 38px;\n}\n.square_text[data-v-45b4b761]{\n    min-width: 35%;\n}\n}\n@media (max-width: 425px) {\n.square[data-v-45b4b761] {\n    width: 100%;\n}\n.square_text[data-v-45b4b761] {\n    padding-left: 25px;\n}\n.mini_square_2[data-v-45b4b761],\n  .mini_square_1[data-v-45b4b761] {\n    width: 80px;\n}\n.circle_3[data-v-45b4b761] {\n    width: 350px;\n    height: 350px;\n    top: 70%;\n    right: -45%;\n}\n.circle_1[data-v-45b4b761],\n  .circle_2[data-v-45b4b761] {\n    width: 200px;\n    height: 200px;\n    right: 5%;\n}\n.circle_1[data-v-45b4b761] {\n    top: 10%;\n}\n.circle_2[data-v-45b4b761] {\n    bottom: -2%;\n    width: 250px;\n    height: 250px;\n}\n.main_text[data-v-45b4b761] {\n    font-size: 24px;\n}\n.sec_color[data-v-45b4b761] {\n    font-size: 16px;\n}\n}\n@media (max-width: 375px) {\n.square[data-v-45b4b761] {\n    width: 100%;\n}\n.square_text[data-v-45b4b761] {\n    padding-left: 25px;\n}\n.mini_square_2[data-v-45b4b761],\n  .mini_square_1[data-v-45b4b761] {\n    width: 80px;\n}\n.circle_3[data-v-45b4b761] {\n    width: 300px;\n    height: 300px;\n    top: 70%;\n    right: -45%;\n}\n.circle_1[data-v-45b4b761],\n  .circle_2[data-v-45b4b761] {\n    width: 200px;\n    height: 200px;\n    right: 1%;\n}\n.circle_1[data-v-45b4b761] {\n    top: 10%;\n}\n.circle_2[data-v-45b4b761] {\n    bottom: -2%;\n    width: 250px;\n    height: 250px;\n}\n.main_text[data-v-45b4b761] {\n    font-size: 22px;\n}\n.sec_color[data-v-45b4b761] {\n    font-size: 16px;\n}\n}\n", ""]);
 
 // exports
 
@@ -2150,7 +2167,15 @@ var render = function() {
                             staticClass: "btnRegister",
                             attrs: { type: "submit" }
                           },
-                          [_vm._v("Login")]
+                          [
+                            _vm.spin
+                              ? _c("span", {
+                                  staticClass:
+                                    "spinner-border spinner-border-sm"
+                                })
+                              : _vm._e(),
+                            _vm._v(" Login  ")
+                          ]
                         )
                       ])
                     ])
@@ -3261,7 +3286,15 @@ var render = function() {
                             staticClass: "btnRegister",
                             attrs: { type: "submit" }
                           },
-                          [_vm._v("Register")]
+                          [
+                            _vm.spin
+                              ? _c("span", {
+                                  staticClass:
+                                    "spinner-border spinner-border-sm"
+                                })
+                              : _vm._e(),
+                            _vm._v(" Register")
+                          ]
                         )
                       ])
                     ])

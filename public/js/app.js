@@ -49,7 +49,11 @@ Vue.use(vue_waves_button__WEBPACK_IMPORTED_MODULE_4___default.a, {
   duration: 500,
   delay: 200
 });
-Vue.use(vue_toasted__WEBPACK_IMPORTED_MODULE_5___default.a);
+Vue.use(vue_toasted__WEBPACK_IMPORTED_MODULE_5___default.a, {
+  duration: 2500,
+  icon: null // after: true
+
+});
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 Vue.use(bootstrap_vue__WEBPACK_IMPORTED_MODULE_2__["BootstrapVue"]);
 Vue.use(vue_awesome_swiper__WEBPACK_IMPORTED_MODULE_3___default.a
@@ -143,6 +147,7 @@ var Institute = function Institute() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/institute/createInstitute */ "./resources/js/components/institute/createInstitute.vue"));
 };
 
+x;
 var routes = [{
   path: "*",
   redirect: "/"
@@ -154,7 +159,16 @@ var routes = [{
 }, {
   path: '/auth',
   component: Auth,
-  name: 'Auth'
+  name: 'Auth',
+  beforeEnter: function beforeEnter(to, from, next) {
+    var user = localStorage.getItem('authUser');
+
+    if (user == null) {
+      next();
+    } else {
+      next('/');
+    }
+  }
 }, {
   path: '/create/institute',
   component: Institute,

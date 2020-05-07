@@ -147,7 +147,7 @@ export default {
         theNewProvider:'api',
         
       };
-   let authUser = {}
+   const authUser = {}
  
       if (this.user.type =='student') {
          axios.post("/oauth/token", data).then(res=>{
@@ -159,7 +159,7 @@ export default {
               if (res.status === 200) {
                 authUser.email = this.user.email
               authUser.name = res.data.name
-              localStorage.setItem('authUser',authUser)
+              localStorage.setItem("authUser", JSON.stringify(authUser));
               this.$toasted.success('Sucessful')
               this.$router.push('/')
               }

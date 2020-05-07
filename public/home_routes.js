@@ -249,7 +249,7 @@ __webpack_require__.r(__webpack_exports__);
             if (res.status === 200) {
               authUser.email = _this.user.email;
               authUser.name = res.data.name;
-              localStorage.setItem('authUser', authUser);
+              localStorage.setItem("authUser", JSON.stringify(authUser));
 
               _this.$toasted.success('Sucessful');
 

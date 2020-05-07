@@ -32,7 +32,11 @@ Vue.use(VueWaves, {
   })
 
 
-  Vue.use(Toasted)
+  Vue.use(Toasted, {
+    duration: 2500,
+    icon: null
+    // after: true
+});
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 Vue.use(VueAwesomeSwiper /* { default options with global component } */);

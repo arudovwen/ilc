@@ -12,7 +12,7 @@ let Home = () =>
     );
 
 
-
+x
     export const routes = [
         { path: "*", redirect: "/" },
         {
@@ -21,6 +21,15 @@ let Home = () =>
             name:'Home',
             children: []
         },
-        {path:'/auth', component:Auth,name:'Auth'},
-        {path:'/create/institute', component:Institute, name:'Institute'}
+        {path:'/auth', component:Auth,name:'Auth', beforeEnter: (to, from, next) => {
+            var user = localStorage.getItem('authUser')
+            if (user == null) {
+              next()
+            }else{
+                next('/')
+            }
+          }},
+        {path:'/create/institute', component:Institute, name:'Institute',
+       
+    }
     ];

@@ -1925,8 +1925,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.user.email,
-                            expression: "user.email"
+                            value: _vm.user.password,
+                            expression: "user.password"
                           }
                         ],
                         staticClass: "form-control",
@@ -1935,13 +1935,13 @@ var render = function() {
                           type: "password",
                           placeholder: "Password *"
                         },
-                        domProps: { value: _vm.user.email },
+                        domProps: { value: _vm.user.password },
                         on: {
                           input: function($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.$set(_vm.user, "email", $event.target.value)
+                            _vm.$set(_vm.user, "password", $event.target.value)
                           }
                         }
                       })

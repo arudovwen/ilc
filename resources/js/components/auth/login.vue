@@ -89,7 +89,7 @@
                     type="password"
                     class="form-control"
                     placeholder="Password *"
-                    v-model="user.email"
+                    v-model="user.password"
                   />
                 </div>
 

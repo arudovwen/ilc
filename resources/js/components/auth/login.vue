@@ -3,19 +3,18 @@
 
       <form @submit.prevent="submit" class="col-md-9 register-right">
         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-          <li class="nav-item">
+          <li    @click="changeType('student')" class="nav-item">
             <a
               class="nav-link active"
               id="home-tab"
               data-toggle="tab"
               href="#home"
-              role="tab"
-              aria-controls="home"
-              aria-selected="true"
-              @click="changeType('tutor')"
-            >Tutor</a>
+             
+             
+           
+            >Student</a>
           </li>
-          <li class="nav-item">
+          <li  @click="changeType('tutor')" class="nav-item">
             <a
               class="nav-link"
               id="profile-tab"
@@ -24,20 +23,27 @@
               role="tab"
               aria-controls="profile"
               aria-selected="false"
-              @click="changeType('student')"
-            >Student</a>
+             
+            >Tutor</a>
           </li>
         </ul>
+ 
+ 
+ 
+ 
+ 
+ 
         <div class="tab-content" id="myTabContent">
           <div
+          v-if="user.type =='student'" 
             class="tab-pane fade show active"
             id="home"
             role="tabpanel"
             aria-labelledby="home-tab"
           >
             <!-- student starts here  -->
-            <h4 class="register-heading">Login as a Tutor</h4>
-            <div class="row register-form">
+            <h4 class="register-heading">Login as a Student</h4>
+            <div  class="row register-form">
               <div class="col-md-9 mx-auto">
                 <div class="form-group">
                   <input required
@@ -67,14 +73,15 @@
             </div>
           </div>
           <div
+          v-if="user.type =='tutor'"
             class="tab-pane fade show"
             id="profile"
             role="tabpanel"
             aria-labelledby="profile-tab"
           >
             <!-- tutor starts here  -->
-            <h4 class="register-heading">Login as a Student</h4>
-            <div class="row register-form">
+            <h4   class="register-heading">Login as a Tutor</h4>
+            <div  class="row register-form">
               <div class="col-md-6 mx-auto">
                 <div class="form-group">
                   <input required
@@ -117,7 +124,7 @@ export default {
   data() {
     return {
       user: {
-        type: "tutor",
+        type: "student",
         email: "",
         password: ""
       }
@@ -142,7 +149,8 @@ export default {
       };
    let authUser = {}
  
-       axios.post("/oauth/token", data).then(res=>{
+      if (this.user.type =='student') {
+         axios.post("/oauth/token", data).then(res=>{
            authUser.access_token = res.data.access_token
            axios.get(`/api/user`,{
              headers:{Authorization:`Bearer ${res.data.access_token}`}
@@ -162,6 +170,9 @@ export default {
            })
           
         })
+      }else{
+        
+      }
     }
   }
 };

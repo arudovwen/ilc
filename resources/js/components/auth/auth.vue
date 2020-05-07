@@ -90,13 +90,13 @@ export default {
   position: absolute;
 }
 .mini_box_1 {
-  background: yellow;
+  background: #333 ;
   top: -6%;
   right: -6%;
   transform: rotate(45deg);
 }
 .mini_box_2 {
-  background: #333;
+  background: yellow;
   bottom: -6%;
   left: -6%;
   transform: rotate(45deg);
@@ -128,10 +128,12 @@ export default {
     .mini_box_2 {
     bottom: -12%;
     left: -20%;
+    background: #333;
   }
   .mini_box_1 {
     top: -12%;
     right: -20%;
+    background: yellow;
   }
 }
 </style>

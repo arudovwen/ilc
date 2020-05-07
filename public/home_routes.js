@@ -222,20 +222,20 @@ __webpack_require__.r(__webpack_exports__);
         password: this.user.password,
         theNewProvider: "api"
       };
-      var authUser = {};
+      var myUser = {};
 
       if (this.user.type == "student") {
         axios.post("/oauth/token", data).then(function (res) {
-          authUser.access_token = res.data.access_token;
+          myUser.access_token = res.data.access_token;
           axios.get("/api/user", {
             headers: {
               Authorization: "Bearer ".concat(res.data.access_token)
             }
           }).then(function (res) {
             if (res.status === 200) {
-              authUser.email = _this.user.email;
-              authUser.name = res.data.name;
-              localStorage.setItem("authUser", JSON.stringify(authUser));
+              myUser.email = _this.user.email;
+              myUser.name = res.data.name;
+              localStorage.setItem("myUser", JSON.stringify(myUser));
 
               _this.$toasted.success("Sucessful");
 
@@ -1283,7 +1283,7 @@ __webpack_require__.r(__webpack_exports__);
       this.show_white = false;
     }
 
-    var user = JSON.parse(localStorage.getItem('authUser'));
+    var user = JSON.parse(localStorage.getItem('myUser'));
 
     if (user !== null) {
       this.name = user.name;
@@ -1297,7 +1297,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     update: function update() {
-      var user = localStorage.getItem('authUser');
+      var user = localStorage.getItem('myUser');
 
       if (user !== null) {
         this.auth = true;

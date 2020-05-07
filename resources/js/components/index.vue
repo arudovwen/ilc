@@ -2,7 +2,7 @@
     <div class="main">
         <app-navigation></app-navigation>
         <app-banner></app-banner>
-        <popup v-if="showpop"   />
+        <popup v-if="showpop" />
         
     </div>
 </template>

@@ -160,7 +160,7 @@ var routes = [{
   component: Auth,
   name: 'Auth',
   beforeEnter: function beforeEnter(to, from, next) {
-    var user = localStorage.getItem('authUser');
+    var user = localStorage.getItem('myUser');
 
     if (user == null) {
       next();

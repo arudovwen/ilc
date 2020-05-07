@@ -91,7 +91,7 @@ export default {
       this.show_nav_bar = false;
       this.show_white = false
     }
-    let user = JSON.parse(localStorage.getItem('authUser'))
+    let user = JSON.parse(localStorage.getItem('myUser'))
   if(user!== null){
    this.name = user.name
   }
@@ -105,7 +105,7 @@ export default {
   },
   methods: {
     update(){
-        let user = localStorage.getItem('authUser')
+        let user = localStorage.getItem('myUser')
     if (user!== null) {
       this.auth= true
     }else{

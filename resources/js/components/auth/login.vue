@@ -132,20 +132,20 @@ export default {
         password: this.user.password,
         theNewProvider: "api"
       };
-      const authUser = {};
+      const myUser = {};
 
       if (this.user.type == "student") {
         axios.post("/oauth/token", data).then(res => {
-          authUser.access_token = res.data.access_token;
+          myUser.access_token = res.data.access_token;
           axios
             .get(`/api/user`, {
               headers: { Authorization: `Bearer ${res.data.access_token}` }
             })
             .then(res => {
               if (res.status === 200) {
-                authUser.email = this.user.email;
-                authUser.name = res.data.name;
-                localStorage.setItem("authUser", JSON.stringify(authUser));
+                myUser.email = this.user.email;
+                myUser.name = res.data.name;
+                localStorage.setItem("myUser", JSON.stringify(myUser));
                 this.$toasted.success("Sucessful");
                 if (this.$route.query.redirect_from == "register") {
                     this.$router.push("/?show=popup");

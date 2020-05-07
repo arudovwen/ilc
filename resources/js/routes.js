@@ -21,7 +21,7 @@ let Home = () =>
             children: []
         },
         {path:'/auth', component:Auth,name:'Auth', beforeEnter: (to, from, next) => {
-            var user = localStorage.getItem('authUser')
+            var user = localStorage.getItem('myUser')
             if (user == null) {
               next()
             }else{

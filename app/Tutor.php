@@ -9,7 +9,8 @@ use App\CourseLevel;
 use App\EducationLevel;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\Tutor as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Tutor extends Authenticatable
 {
@@ -23,19 +24,24 @@ class Tutor extends Authenticatable
         'course_level'
     ];
 
-    public function school(){
+    public function school()
+    {
         return $this->belongsTo(School::class);
-      }
-      public function faculty(){
-          return $this->belongsTo(Faculty::class);
-        }
-        public function department(){
-          return $this->belongsTo(Department::class);
-        }
-        public function educationLevel(){
-          return $this->belongsTo(EducationLevel::class);
-        }
-        public function   courseLevel(){
-          return $this->belongsToMany(CourseLevel::class);
-        }
+    }
+    public function faculty()
+    {
+        return $this->belongsTo(Faculty::class);
+    }
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+    public function educationLevel()
+    {
+        return $this->belongsTo(EducationLevel::class);
+    }
+    public function courseLevel()
+    {
+        return $this->belongsToMany(CourseLevel::class);
+    }
 }

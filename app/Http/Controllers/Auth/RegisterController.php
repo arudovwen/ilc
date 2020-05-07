@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use App\Tutor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -38,11 +37,7 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
-
+ 
     /**
      * Get a validator for an incoming registration request.
      *
@@ -59,14 +54,9 @@ class RegisterController extends Controller
 
     protected function register(Request $request)
     {
-        $valid  =  request()->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6'],
-            
-        ]);
+   
 
-        dd($valid);
+    
         if ($request['type']== 'student') {
             return User::create([
                         'name' => $request['name'],
@@ -81,20 +71,8 @@ class RegisterController extends Controller
                         'department' => $request['department'],
                         'course_level '=> $request['course_level']
                     ]);
-        } else {
-            return Tutor::create([
-                        'name' => $request['name'],
-                        'email' => $request['email'],
-                        'password' => Hash::make($request['password']),
-                        'mat_no' => $request['id_no'],
-                        'phone' => $request['phone'],
-                        'gender' => $request['email'],
-                        'level_of_edu' => $request['level_of_edu'],
-                        'school' => $request['school'],
-                        'faculty' => $request['faculty'],
-                        'department' => $request['department'],
-                        'course_level '=> $request['course_level']
-                    ]);
-        }
+        } 
+        
+        
     }
 }

@@ -13,6 +13,8 @@ import { routes } from "./routes";
 import { BootstrapVue } from "bootstrap-vue";
 import VueAwesomeSwiper from "vue-awesome-swiper";
 import VueWaves from 'vue-waves-button';
+import Toasted from 'vue-toasted';
+ 
 
 
 
@@ -30,7 +32,7 @@ Vue.use(VueWaves, {
   })
 
 
-
+  Vue.use(Toasted)
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 Vue.use(VueAwesomeSwiper /* { default options with global component } */);

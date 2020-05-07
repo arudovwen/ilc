@@ -22,3 +22,5 @@ Route::middleware('auth:tutor_api')->get('/tutor', function (Request $request) {
 });
 Route::post('register','Auth\RegisterController@register');
 
+Route::post('register-tutor','TutorController@register');
+

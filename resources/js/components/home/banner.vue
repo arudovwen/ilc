@@ -13,9 +13,15 @@
         </div>
       </div>
     </div>
-    <div class="circle_1 rounded-circle"></div>
-    <div class="circle_2 rounded-circle"></div>
-    <div class="circle_3 rounded-circle"></div>
+    <div class="circle_1 rounded-circle">
+      <img src="/images/2.jpg" alt="1">
+    </div>
+    <div class="circle_2 rounded-circle">
+         <img src="/images/5.jpg" alt="2">
+    </div>
+    <div class="circle_3 rounded-circle">
+         <img src="/images/3.jpg" alt="3">
+    </div>
   </div>
 </template>
 
@@ -125,5 +131,131 @@ export default {};
   background: green;
   bottom: -5%;
   z-index: 3;
+}
+img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media(max-width:1024px){
+.circle_3{
+  width:450px;
+  height: 450px;
+  top: 70%;
+}
+.circle_1,
+.circle_2 {
+  width: 350px;
+  height: 350px;
+}
+.circle_1{
+top:14%;
+}
+.circle_2{
+ bottom: 0%;
+}
+.main_text{
+font-size: 40px;
+}
+ .mini_square_2,.mini_square_1{
+    width: 100px;
+  }
+}
+
+@media(max-width:768px){
+  .circle_3{
+  width:350px;
+  height: 350px;
+  top: 70%;
+}
+.circle_1,
+.circle_2 {
+  width: 250px;
+  height: 250px;
+}
+.circle_1{
+top:14%;
+}
+.circle_2{
+ bottom: 0%;
+}
+.main_text{
+font-size: 38px;
+}
+}
+@media(max-width:425px){
+  .square{
+    width: 100%;
+  }
+  .square_text{
+    padding-left: 25px;
+  }
+  .mini_square_2,.mini_square_1{
+    width: 80px;
+  }
+    .circle_3{
+     width: 350px;
+    height: 350px;
+    top: 70%;
+    right: -45%;
+}
+.circle_1,
+.circle_2 {
+  width: 200px;
+  height: 200px;
+  right: 5%;
+}
+.circle_1{
+top:10%;
+}
+.circle_2{
+ bottom: -2%;
+   width: 250px;
+  height: 250px;
+}
+.main_text{
+font-size: 24px;
+}
+.sec_color{
+  font-size: 16px;
+}
+}
+@media(max-width:375px){
+  .square{
+    width: 100%;
+  }
+  .square_text{
+    padding-left: 25px;
+  }
+  .mini_square_2,.mini_square_1{
+    width: 80px;
+  }
+    .circle_3{
+     width: 300px;
+    height: 300px;
+    top: 70%;
+    right: -45%;
+}
+.circle_1,
+.circle_2 {
+  width: 200px;
+  height: 200px;
+  right: 1%;
+}
+.circle_1{
+top:10%;
+}
+.circle_2{
+ bottom: -2%;
+   width: 250px;
+  height: 250px;
+}
+.main_text{
+font-size: 22px;
+}
+.sec_color{
+  font-size: 16px;
+}
 }
 </style>

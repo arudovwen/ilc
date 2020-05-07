@@ -1,19 +1,6 @@
 <template>
   <div class="container register">
-    <div class="row">
-      <div class="col-md-3 register-left">
-        <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt />
-        <h3 cl>Welcome</h3>
-        <p>You are 30 seconds away from earning your own money!</p>
-        <button
-          v-waves.button
-          v-waves.float
-          class="bg-white rounded-pill sec_color"
-          type="button"
-          @click="register('register')"
-        >Register</button>
-        <br />
-      </div>
+
       <form @submit.prevent="submit" class="col-md-9 register-right">
         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
           <li class="nav-item">
@@ -49,11 +36,11 @@
             aria-labelledby="home-tab"
           >
             <!-- student starts here  -->
-            <h3 class="register-heading">Login as a Student</h3>
+            <h4 class="register-heading">Login as a Tutor</h4>
             <div class="row register-form">
-              <div class="col-md-6 mx-auto">
+              <div class="col-md-9 mx-auto">
                 <div class="form-group">
-                  <input
+                  <input required
                     type="email"
                     class="form-control"
                     placeholder="Your Email *"
@@ -61,7 +48,7 @@
                   />
                 </div>
                 <div class="form-group">
-                  <input
+                  <input required
                     type="password"
                     class="form-control"
                     placeholder="Password *"
@@ -86,11 +73,11 @@
             aria-labelledby="profile-tab"
           >
             <!-- tutor starts here  -->
-            <h3 class="register-heading">Login as a Tutor</h3>
+            <h4 class="register-heading">Login as a Student</h4>
             <div class="row register-form">
               <div class="col-md-6 mx-auto">
                 <div class="form-group">
-                  <input
+                  <input required
                     type="email"
                     class="form-control"
                     placeholder="Your Email *"
@@ -98,7 +85,7 @@
                   />
                 </div>
                 <div class="form-group">
-                  <input
+                  <input required
                     type="password"
                     class="form-control"
                     placeholder="Password *"
@@ -117,33 +104,10 @@
             </div>
           </div>
 
-          <!-- institution  -->
-
-          <!-- <div
-            class="tab-pane fade show"
-            id="profile"
-            role="tabpanel"
-            aria-labelledby="profile-tab"
-          >
-
-        
-            <h3 class="register-heading">Login as a Tutor</h3>
-            <div class="row register-form">
-             <div class="col-md-6">
-                  <div class="form-group">
-                  <input type="email" class="form-control" placeholder="Your Email *" value />
-                </div>
-                <div class="form-group">
-                  <input type="password" class="form-control" placeholder="Password *" value />
-                </div>
-
-                <button v-waves.button v-waves.float v-waves.light  type="submit" class="btnRegister"  >Login</button>
-              </div>
-            </div>
-          </div>-->
+    
         </div>
       </form>
-    </div>
+  
   </div>
 </template>
 
@@ -169,18 +133,30 @@ export default {
     submit() {
       let data = {
         grant_type:"password",
-        client_id: 3,
-        client_secret: "Vq7JaoAeblyt4aHnpJjw4E3YmmkkFe1Q1PnxiQY7",
+        client_id: 2,
+        client_secret: "pYVE8LflkBQWKSpKaKYLcCYPnPU7S2sWqJyaSMJ3",
         username: this.user.email,
         password: this.user.password,
         theNewProvider:'api',
         
       };
-
+   let authUser = {}
+ 
        axios.post("/oauth/token", data).then(res=>{
+           authUser.access_token = res.data.access_token
            axios.get(`/api/user`,{
              headers:{Authorization:`Bearer ${res.data.access_token}`}
-           }).then(res=>{}).catch(error=>{
+           }).then(res=>{
+           
+              if (res.status === 200) {
+                authUser.email = this.user.email
+              authUser.name = res.data.name
+              localStorage.setItem('authUser',authUser)
+              this.$toasted.success('Sucessful')
+              this.$router.push('/')
+              }
+             
+           }).catch(error=>{
              let errors = error.response.data.errors
              console.log("submit -> errors", error)
            })
@@ -193,6 +169,12 @@ export default {
 
 
 <style scoped>
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 .register {
   background: transparent;
   padding: 3%;
@@ -201,6 +183,7 @@ export default {
   text-align: center;
   color: #fff;
   padding-top: 4%;
+  width: 30%;
 }
 .register-left input {
   border: none;
@@ -218,6 +201,7 @@ export default {
   background: #f7f8fa;
   border-top-left-radius: 10% 50%;
   border-bottom-left-radius: 10% 50%;
+  width: 80%;
 }
 .register-left img {
   margin-top: 15%;
@@ -276,7 +260,7 @@ export default {
     rgb(15, 122, 138, 0.7) 100%
   );
   border-radius: 1.5rem;
-  width: 20%;
+  width: 28%;
   float: right;
   font-size: 14px;
 }
@@ -304,5 +288,39 @@ export default {
   margin-top: 8%;
   margin-bottom: -15%;
   color: #495057;
+}
+@media(max-width:1024px){
+
+  .register .nav-tabs{
+    width: 35%;
+  }
+  h4.register-heading{
+    font-size: 22px;
+  }
+  .register-form{
+    width: 100%;
+  }
+
+}
+@media(max-width:768px){
+   .register .nav-tabs{
+    width: 40%;
+  
+  }
+}
+@media(max-width:425px){
+.register-right {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+  .register .nav-tabs{
+    width: 80%;
+    margin:3% auto 0;
+  }
+  .register-left{
+    padding-bottom: 20px;
+  }
 }
 </style>

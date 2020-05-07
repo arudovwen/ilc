@@ -6,6 +6,10 @@ let Home = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/auth/auth.vue"
     );
+    let Institute = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/institute/createInstitute"
+    );
 
 
 
@@ -17,6 +21,6 @@ let Home = () =>
             name:'Home',
             children: []
         },
-        {path:'/auth', component:Auth,name:'Auth'}
-       
+        {path:'/auth', component:Auth,name:'Auth'},
+        {path:'/create/institute', component:Institute, name:'Institute'}
     ];

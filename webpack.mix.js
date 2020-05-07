@@ -27,7 +27,7 @@ mix.js("resources/js/app.js", "public/js")
     })
    .options({ processCssUrls: false })
    ;
-   mix.copyDirectory('resources/images', 'public/images');
+ 
 if (mix.inProduction()) {
    mix.version();
 }

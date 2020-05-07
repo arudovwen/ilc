@@ -215,6 +215,9 @@ ul li span {
   .nav ul li a {
     color: #333333;
   }
+  ul li span{
+    color:#333;
+  }
   .mobile {
     display: block !important;
     padding: 0 15px;

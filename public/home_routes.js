@@ -235,6 +235,9 @@ __webpack_require__.r(__webpack_exports__);
             }
           }).then(function (res) {
             if (res.status === 200) {
+              var bizUser = {};
+              bizUser = res.data;
+              localStorage.setItem("bizUser", JSON.stringify(bizUser));
               _this.spin = false;
               myUser.email = _this.user.email;
               myUser.name = res.data.name;
@@ -828,7 +831,8 @@ __webpack_require__.r(__webpack_exports__);
           course_level: []
         },
         spin: false
-      }
+      },
+      spin: false
     };
   },
   methods: {
@@ -933,19 +937,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      auth: false
+      auth: false,
+      bizUser: {}
     };
   },
   mounted: function mounted() {
     var user = JSON.parse(localStorage.getItem("myUser"));
+    var bizUser = JSON.parse(localStorage.getItem("bizUser"));
 
     if (user !== null) {
       this.auth = true;
     } else {
       this.auth = false;
+    }
+
+    if (bizUser !== null) {
+      this.bizUser = bizUser;
+    }
+  },
+  methods: {
+    redirect: function redirect() {
+      window.location.href = "http://localhost:8000/ilc?name=".concat(this.bizUser.name, "&email= ").concat(this.bizUser.email, " &phone= ").concat(this.bizUser.phone, " &school= ").concat(this.bizUser.school, " &faculty= ").concat(this.bizUser.faculty, "\n        &department= ").concat(this.bizUser.department, " &course_level= ").concat(this.bizUser.course_level, " &mat_no= ").concat(this.bizUser.mat_no, "&gender= ").concat(this.bizUser.gender, "&level_of_edu= ").concat(this.bizUser.level_of_edu, " ");
     }
   }
 });
@@ -1327,7 +1343,7 @@ __webpack_require__.r(__webpack_exports__);
       this.show_white = false;
     }
 
-    var user = JSON.parse(localStorage.getItem('myUser'));
+    var user = JSON.parse(localStorage.getItem("myUser"));
 
     if (user !== null) {
       this.name = user.name;
@@ -1336,12 +1352,12 @@ __webpack_require__.r(__webpack_exports__);
     this.update();
   },
   watch: {
-    $route: 'update',
-    '$route.query.authType': 'closeNav'
+    $route: "update",
+    "$route.query.authType": "closeNav"
   },
   methods: {
     update: function update() {
-      var user = localStorage.getItem('myUser');
+      var user = localStorage.getItem("myUser");
 
       if (user !== null) {
         this.auth = true;
@@ -1362,7 +1378,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     logOut: function logOut() {
-      localStorage.removeItem('myUser');
+      localStorage.removeItem("myUser");
+      localStorage.removeItem("bizUser");
       window.location.reload();
     }
   }
@@ -1407,9 +1424,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      auth: false,
+      bizUser: {}
+    };
+  },
+  mounted: function mounted() {
+    var user = JSON.parse(localStorage.getItem("myUser"));
+    var bizUser = JSON.parse(localStorage.getItem("bizUser"));
+
+    if (user !== null) {
+      this.auth = true;
+    } else {
+      this.auth = false;
+    }
+
+    if (bizUser !== null) {
+      this.bizUser = bizUser;
+    }
+  },
   methods: {
     redirect: function redirect() {
-      window.location.href('bizguruh.com/courses?from=ilc&user=student');
+      window.location.href = "http://localhost:8000/ilc?name=".concat(this.bizUser.name, "&email= ").concat(this.bizUser.email, " &phone= ").concat(this.bizUser.phone, " &school= ").concat(this.bizUser.school, " &faculty= ").concat(this.bizUser.faculty, "\n        &department= ").concat(this.bizUser.department, " &course_level= ").concat(this.bizUser.course_level, " &mat_no= ").concat(this.bizUser.mat_no, "&gender= ").concat(this.bizUser.gender, "&level_of_edu= ").concat(this.bizUser.level_of_edu, " ");
     }
   }
 });
@@ -1542,7 +1579,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n#navigation[data-v-370c6798] {\n  position: absolute;\n  width: 100%;\n  top: 0;\n  z-index: 5;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.logo[data-v-370c6798] {\n  display: flex;\n  justify-content: flex-start;\n  align-items: center;\n  position: relative;\n  padding: 10px;\n}\n.mobile_nav a[data-v-370c6798]{\n  text-decoration: none;\n}\n.mobile[data-v-370c6798] {\n  display: none !important;\n}\n.logo_image[data-v-370c6798] {\n  width: 80px;\n  height: 80px;\n  border-radius: 50%;\n  overflow: hidden;\n  margin-right: 10px;\n}\n.logo_image img[data-v-370c6798] {\n  width: 100%;\n  height: 100%;\n}\n.logo_text[data-v-370c6798] {\n  font-weight: 700;\n  color: #333;\n  font-size: 22px;\n}\nul[data-v-370c6798] {\n  position: relative;\n}\n.nav[data-v-370c6798] {\n  padding: 10px;\n}\n.nav ul li[data-v-370c6798] {\n  display: inline-block;\n}\n.nav ul li a[data-v-370c6798] {\n  color: white;\n  padding: 10px 15px;\n  font-size: 15px;\n  cursor: pointer;\n}\n.nav nav ul li:hover a[data-v-370c6798] {\n  color: #333333;\n}\n.logged_in[data-v-370c6798] {\n  margin-left: auto;\n}\nul li span[data-v-370c6798] {\n  color: white;\n  padding: 10px 15px;\n  font-size: 15px;\n  cursor: pointer;\n}\n.nav nav ul li:hover span[data-v-370c6798] {\n  color: #333333;\n}\n@media (max-width: 1024px) {\n}\n@media (max-width: 768px) {\n}\n@media (max-width: 425px) {\n#navigation[data-v-370c6798]{\n    display: block;\n}\nnav[data-v-370c6798]{\n    width: 100%;\n}\n.mobile_nav[data-v-370c6798]{\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.logg[data-v-370c6798] {\n}\n.nav ul li a[data-v-370c6798] {\n    color: #333333;\n}\nul li span[data-v-370c6798]{\n    color:#333;\n}\n.mobile[data-v-370c6798] {\n    display: block !important;\n    padding: 0 15px;\n}\n.nav ul li[data-v-370c6798] {\n  display:block;\n}\n.logo_image[data-v-370c6798]{\n  width:60px;\n  height:60px;\n}\n.logo_text[data-v-370c6798] {\n  font-weight: 700;\n  color: #333;\n  font-size: 18px;\n}\n}\n", ""]);
+exports.push([module.i, "\n#navigation[data-v-370c6798] {\n  position: absolute;\n  width: 100%;\n  top: 0;\n  z-index: 5;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.logo[data-v-370c6798] {\n  display: flex;\n  justify-content: flex-start;\n  align-items: center;\n  position: relative;\n  padding: 10px;\n}\n.mobile_nav a[data-v-370c6798] {\n  text-decoration: none;\n}\n.mobile[data-v-370c6798] {\n  display: none !important;\n}\n.logo_image[data-v-370c6798] {\n  width: 80px;\n  height: 80px;\n  border-radius: 50%;\n  overflow: hidden;\n  margin-right: 10px;\n}\n.logo_image img[data-v-370c6798] {\n  width: 100%;\n  height: 100%;\n}\n.logo_text[data-v-370c6798] {\n  font-weight: 700;\n  color: #333;\n  font-size: 22px;\n}\nul[data-v-370c6798] {\n  position: relative;\n}\n.nav[data-v-370c6798] {\n  padding: 10px;\n}\n.nav ul li[data-v-370c6798] {\n  display: inline-block;\n}\n.nav ul li a[data-v-370c6798] {\n  color: white;\n  padding: 10px 15px;\n  font-size: 15px;\n  cursor: pointer;\n}\n.nav nav ul li:hover a[data-v-370c6798] {\n  color: #333333;\n}\n.logged_in[data-v-370c6798] {\n  margin-left: auto;\n}\nul li span[data-v-370c6798] {\n  color: white;\n  padding: 10px 15px;\n  font-size: 15px;\n  cursor: pointer;\n}\n.nav nav ul li:hover span[data-v-370c6798] {\n  color: #333333;\n}\n@media (max-width: 1024px) {\n}\n@media (max-width: 768px) {\n}\n@media (max-width: 425px) {\n#navigation[data-v-370c6798] {\n    display: block;\n}\nnav[data-v-370c6798] {\n    width: 100%;\n}\n.mobile_nav[data-v-370c6798] {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.logg[data-v-370c6798] {\n}\n.nav ul li a[data-v-370c6798] {\n    color: #333333;\n}\nul li span[data-v-370c6798] {\n    color: #333;\n}\n.mobile[data-v-370c6798] {\n    display: block !important;\n    padding: 0 15px;\n}\n.nav ul li[data-v-370c6798] {\n    display: block;\n}\n.logo_image[data-v-370c6798] {\n    width: 60px;\n    height: 60px;\n}\n.logo_text[data-v-370c6798] {\n    font-weight: 700;\n    color: #333;\n    font-size: 18px;\n}\n}\n", ""]);
 
 // exports
 
@@ -4386,7 +4423,7 @@ var render = function() {
               : _vm._e(),
             _vm._v(" "),
             _vm.auth
-              ? _c("a", { attrs: { href: "https://bizguruh.com/courses" } }, [
+              ? _c("div", [
                   _c(
                     "button",
                     {
@@ -4407,7 +4444,8 @@ var render = function() {
                           modifiers: { light: true }
                         }
                       ],
-                      staticClass: "bg-white"
+                      staticClass: "bg-white",
+                      on: { click: _vm.redirect }
                     },
                     [
                       _c("span", { staticClass: "mr-2 sec_color" }, [
@@ -5247,9 +5285,9 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "logo_text josefin_bold" }, [
-                _vm._v("\n      Imo State\n      "),
+                _vm._v("\n          Imo State\n          "),
                 _c("br"),
-                _vm._v("Learning Center\n    ")
+                _vm._v("Learning Center\n        ")
               ])
             ])
           ]),
@@ -5278,7 +5316,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "nav" }, [
         _vm.show_nav_bar
-          ? _c("nav", { staticClass: "ml-auto  " }, [
+          ? _c("nav", { staticClass: "ml-auto" }, [
               _vm.auth
                 ? _c("ul", { staticClass: "logged_in" }, [
                     _c("li", [
@@ -5405,7 +5443,7 @@ var render = function() {
         _c("div", { staticClass: "sub_text" }, [
           _vm._m(0),
           _vm._v(" "),
-          _c("a", { attrs: { href: "https://bizguruh.com/courses" } }, [
+          _c("div", [
             _c(
               "button",
               {
@@ -5426,7 +5464,8 @@ var render = function() {
                     modifiers: { light: true }
                   }
                 ],
-                staticClass: "get_started"
+                staticClass: "get_started",
+                on: { click: _vm.redirect }
               },
               [
                 _c("span", { staticClass: "mr-2 " }, [

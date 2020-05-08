@@ -15,10 +15,10 @@
               <small><strong>-B.B. King</strong></small>
              </div>
       
-           <a href="https://bizguruh.com/courses"> <button v-waves.button v-waves.float v-waves.light class="get_started">
+           <div> <button @click="redirect" v-waves.button v-waves.float v-waves.light class="get_started">
               <span class="mr-2 ">Go to classroom</span>
               <i class="fa fa-long-arrow-right " aria-hidden="true"></i>
-            </button></a>
+            </button></div>
          
         </div>
       </div>
@@ -26,14 +26,33 @@
   </div>
 </template>
 <script>
+
 export default {
-
-
-
+  data() {
+    return {
+      auth: false,
+      bizUser:{}
+    };
+  },
+  mounted() {
+    let user = JSON.parse(localStorage.getItem("myUser"));
+    let bizUser = JSON.parse(localStorage.getItem("bizUser"));
+    if (user !== null) {
+      this.auth = true;
+    } else {
+      this.auth = false;
+    }
+    if (bizUser !== null) {
+      this.bizUser = bizUser 
+    }
+  },
     methods: {
-        redirect(){
-           window.location.href('bizguruh.com/courses?from=ilc&user=student')
-        }
+          redirect(){
+  
+      window.location.href=`http://localhost:8000/ilc?name=${this.bizUser.name}&email= ${this.bizUser.email} &phone= ${this.bizUser.phone} &school= ${this.bizUser.school} &faculty= ${this.bizUser.faculty}
+        &department= ${this.bizUser.department} &course_level= ${this.bizUser.course_level} &mat_no= ${this.bizUser.mat_no}&gender= ${this.bizUser.gender}&level_of_edu= ${this.bizUser.level_of_edu} `
+   
+    }
     },
 };
 </script>

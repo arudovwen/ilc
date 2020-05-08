@@ -557,7 +557,8 @@ export default {
           course_level: []
         },
         spin:false
-      }
+      },
+      spin:false
     };
   },
   methods: {

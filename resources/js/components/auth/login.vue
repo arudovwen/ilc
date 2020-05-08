@@ -145,6 +145,9 @@ export default {
             })
             .then(res => {
               if (res.status === 200) {
+                let bizUser = {}
+                bizUser = res.data
+                  localStorage.setItem("bizUser", JSON.stringify(bizUser));
                 this.spin=false
                 myUser.email = this.user.email;
                 myUser.name = res.data.name;

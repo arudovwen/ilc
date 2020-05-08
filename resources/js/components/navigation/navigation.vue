@@ -1,36 +1,36 @@
 <template>
   <div id="navigation" class="animated" :class="{'bg-white':show_white, slideInRight:show_nav_bar}">
-   <div class="mobile_nav">
-     <router-link to="/">
-      <div class="logo">
-      <div class="logo_image">
-        <img src="/images/logo.jpg" alt srcset />
+    <div class="mobile_nav">
+      <router-link to="/">
+        <div class="logo">
+          <div class="logo_image">
+            <img src="/images/logo.jpg" alt srcset />
+          </div>
+          <div class="logo_text josefin_bold">
+            Imo State
+            <br />Learning Center
+          </div>
+        </div>
+      </router-link>
+      <div class="mobile">
+        <button
+          class="hamburger hamburger--collapse"
+          @click="showNav"
+          tabindex="0"
+          aria-controls="navigation"
+          aria-label="Menu"
+          role="button"
+          :class="{'is-active':show_nav_bar}"
+          type="button"
+        >
+          <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+          </span>
+        </button>
       </div>
-      <div class="logo_text josefin_bold">
-        Imo State
-        <br />Learning Center
-      </div>
-    </div></router-link>
-    <div class="mobile">
-      <button
-        class="hamburger hamburger--collapse"
-        @click="showNav"
-        tabindex="0"
-        aria-controls="navigation"
-        aria-label="Menu"
-        role="button"
-        :class="{'is-active':show_nav_bar}"
-        type="button"
-      >
-        <span class="hamburger-box">
-          <span class="hamburger-inner"></span>
-        </span>
-        
-      </button>
     </div>
-   </div>
     <div class="nav">
-      <nav class="ml-auto  " v-if="show_nav_bar">
+      <nav class="ml-auto" v-if="show_nav_bar">
         <ul class="logged_in" v-if="auth">
           <li>
             <span class="name">
@@ -82,50 +82,50 @@ export default {
       auth: false,
       name: "",
       show_nav_bar: true,
-      show_white : false,
-      user:{}
+      show_white: false,
+      user: {}
     };
   },
   mounted() {
     if (window.innerWidth < 768) {
       this.show_nav_bar = false;
-      this.show_white = false
+      this.show_white = false;
     }
-    let user = JSON.parse(localStorage.getItem('myUser'))
-  if(user!== null){
-   this.name = user.name
-  }
- 
-   this.update()
-  
+    let user = JSON.parse(localStorage.getItem("myUser"));
+    if (user !== null) {
+      this.name = user.name;
+    }
+
+    this.update();
   },
   watch: {
-    $route:'update',
-    '$route.query.authType':'closeNav'
+    $route: "update",
+    "$route.query.authType": "closeNav"
   },
   methods: {
-    update(){
-        let user = localStorage.getItem('myUser')
-    if (user!== null) {
-      this.auth= true
-    }else{
-      this.auth = false
-    }
-    this.closeNav()
+    update() {
+      let user = localStorage.getItem("myUser");
+      if (user !== null) {
+        this.auth = true;
+      } else {
+        this.auth = false;
+      }
+      this.closeNav();
     },
     showNav() {
       this.show_nav_bar = !this.show_nav_bar;
-       this.show_white = !this.show_white
+      this.show_white = !this.show_white;
     },
     closeNav() {
       if (window.innerWidth < 768) {
         this.show_nav_bar = false;
-         this.show_white = false
+        this.show_white = false;
       }
     },
-    logOut(){
-     localStorage.removeItem('myUser')
-      window.location.reload()
+    logOut() {
+      localStorage.removeItem("myUser");
+      localStorage.removeItem("bizUser");
+      window.location.reload();
     }
   }
 };
@@ -148,7 +148,7 @@ export default {
   position: relative;
   padding: 10px;
 }
-.mobile_nav a{
+.mobile_nav a {
   text-decoration: none;
 }
 .mobile {
@@ -205,13 +205,13 @@ ul li span {
 @media (max-width: 768px) {
 }
 @media (max-width: 425px) {
-  #navigation{
+  #navigation {
     display: block;
   }
-  nav{
+  nav {
     width: 100%;
   }
-  .mobile_nav{
+  .mobile_nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -221,25 +221,24 @@ ul li span {
   .nav ul li a {
     color: #333333;
   }
-  ul li span{
-    color:#333;
+  ul li span {
+    color: #333;
   }
   .mobile {
     display: block !important;
     padding: 0 15px;
   }
   .nav ul li {
-  display:block;
-
-}
-.logo_image{
-  width:60px;
-  height:60px;
-}
-.logo_text {
-  font-weight: 700;
-  color: #333;
-  font-size: 18px;
-}
+    display: block;
+  }
+  .logo_image {
+    width: 60px;
+    height: 60px;
+  }
+  .logo_text {
+    font-weight: 700;
+    color: #333;
+    font-size: 18px;
+  }
 }
 </style>

@@ -16,12 +16,13 @@
               <i class="fa fa-long-arrow-right sec_color" aria-hidden="true"></i>
             </button>
           </router-link>
-          <a href="https://bizguruh.com/courses" v-if="auth">
-            <button v-waves.button v-waves.float v-waves.light class="bg-white">
+          <div
+          v-if="auth" >
+            <button v-waves.button v-waves.float v-waves.light class="bg-white" @click="redirect">
               <span class="mr-2 sec_color">Enter classroom</span>
               <i class="fa fa-long-arrow-right sec_color" aria-hidden="true"></i>
             </button>
-          </a>
+          </div>
         </div>
       </div>
     </div>
@@ -41,17 +42,30 @@
 export default {
   data() {
     return {
-      auth: false
+      auth: false,
+      bizUser:{}
     };
   },
   mounted() {
     let user = JSON.parse(localStorage.getItem("myUser"));
+    let bizUser = JSON.parse(localStorage.getItem("bizUser"));
     if (user !== null) {
       this.auth = true;
     } else {
       this.auth = false;
     }
-  }
+    if (bizUser !== null) {
+      this.bizUser = bizUser 
+    }
+  },
+  methods: {
+    redirect(){
+  
+      window.location.href=`http://localhost:8000/ilc?name=${this.bizUser.name}&email= ${this.bizUser.email} &phone= ${this.bizUser.phone} &school= ${this.bizUser.school} &faculty= ${this.bizUser.faculty}
+        &department= ${this.bizUser.department} &course_level= ${this.bizUser.course_level} &mat_no= ${this.bizUser.mat_no}&gender= ${this.bizUser.gender}&level_of_edu= ${this.bizUser.level_of_edu} `
+   
+    }
+  },
 };
 </script>
 

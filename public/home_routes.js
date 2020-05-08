@@ -255,9 +255,12 @@ __webpack_require__.r(__webpack_exports__);
             _this.$toasted.error("Something is not right");
 
             var errors = error.response.data.errors;
-            console.log("submit -> errors", error);
             _this.spin = false;
           });
+        })["catch"](function (err) {
+          _this.spin = false;
+
+          _this.$toasted.error("Something is not right");
         });
       } else {}
     }
@@ -2090,7 +2093,15 @@ var render = function() {
                             staticClass: "btnRegister",
                             attrs: { type: "submit" }
                           },
-                          [_vm._v("Login")]
+                          [
+                            _vm.spin
+                              ? _c("span", {
+                                  staticClass:
+                                    "spinner-border spinner-border-sm"
+                                })
+                              : _vm._e(),
+                            _vm._v(" Login")
+                          ]
                         )
                       ])
                     ])

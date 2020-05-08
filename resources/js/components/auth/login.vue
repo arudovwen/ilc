@@ -55,7 +55,7 @@
                 v-waves.light
                 type="submit"
                 class="btnRegister"
-              >Login</button>
+              ><span v-if="spin" class="spinner-border spinner-border-sm"></span> Login</button>
             </div>
           </div>
         </div>
@@ -164,9 +164,11 @@ export default {
             .catch(error => {
                this.$toasted.error("Something is not right");
               let errors = error.response.data.errors;
-              console.log("submit -> errors", error);
               this.spin=false
             });
+        }).catch(err=>{
+          this.spin = false
+           this.$toasted.error("Something is not right");
         });
       } else {
       }

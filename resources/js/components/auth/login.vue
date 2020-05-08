@@ -113,8 +113,9 @@ export default {
         type: "student",
         email: "",
         password: "",
-        spin:false
-      }
+        
+      },
+      spin:false
     };
   },
   methods: {

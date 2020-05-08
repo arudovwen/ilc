@@ -181,12 +181,14 @@ ul {
 }
 .nav ul li a {
   color: white;
-  padding: 10px 15px;
+  padding: 5px 15px;
   font-size: 15px;
   cursor: pointer;
+  text-decoration: none;
 }
 .nav nav ul li:hover a {
   color: #333333;
+  border-bottom: 2px solid white;
 }
 .logged_in {
   margin-left: auto;

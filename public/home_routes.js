@@ -200,9 +200,9 @@ __webpack_require__.r(__webpack_exports__);
       user: {
         type: "student",
         email: "",
-        password: "",
-        spin: false
-      }
+        password: ""
+      },
+      spin: false
     };
   },
   methods: {
@@ -795,10 +795,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -829,8 +825,7 @@ __webpack_require__.r(__webpack_exports__);
           faculty: "selected",
           department: "selected",
           course_level: []
-        },
-        spin: false
+        }
       },
       spin: false
     };
@@ -848,7 +843,7 @@ __webpack_require__.r(__webpack_exports__);
       this.spin = true;
 
       if (this.user.type == "student") {
-        this.user.student.type = 'student';
+        this.user.student.type = "student";
         axios.post("/api/register", this.user.student).then(function (response) {
           if (response.status == 201) {
             _this.spin = false;
@@ -865,7 +860,7 @@ __webpack_require__.r(__webpack_exports__);
           _this.$toasted.error("Something is not right");
         });
       } else {
-        this.user.tutor.type = 'tutor';
+        this.user.tutor.type = "tutor";
         axios.post("/api/register-tutor", this.user.tutor).then(function (response) {
           if (response.status == 201 || response.status == 200) {
             _this.spin = false;
@@ -875,9 +870,9 @@ __webpack_require__.r(__webpack_exports__);
             _this.$router.push({
               name: Auth,
               query: {
-                authType: 'login',
-                redirect_from: 'register',
-                level: 'student'
+                authType: "login",
+                redirect_from: "register",
+                level: "student"
               }
             });
           }
@@ -1579,7 +1574,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n#navigation[data-v-370c6798] {\n  position: absolute;\n  width: 100%;\n  top: 0;\n  z-index: 5;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.logo[data-v-370c6798] {\n  display: flex;\n  justify-content: flex-start;\n  align-items: center;\n  position: relative;\n  padding: 10px;\n}\n.mobile_nav a[data-v-370c6798] {\n  text-decoration: none;\n}\n.mobile[data-v-370c6798] {\n  display: none !important;\n}\n.logo_image[data-v-370c6798] {\n  width: 80px;\n  height: 80px;\n  border-radius: 50%;\n  overflow: hidden;\n  margin-right: 10px;\n}\n.logo_image img[data-v-370c6798] {\n  width: 100%;\n  height: 100%;\n}\n.logo_text[data-v-370c6798] {\n  font-weight: 700;\n  color: #333;\n  font-size: 22px;\n}\nul[data-v-370c6798] {\n  position: relative;\n}\n.nav[data-v-370c6798] {\n  padding: 10px;\n}\n.nav ul li[data-v-370c6798] {\n  display: inline-block;\n}\n.nav ul li a[data-v-370c6798] {\n  color: white;\n  padding: 10px 15px;\n  font-size: 15px;\n  cursor: pointer;\n}\n.nav nav ul li:hover a[data-v-370c6798] {\n  color: #333333;\n}\n.logged_in[data-v-370c6798] {\n  margin-left: auto;\n}\nul li span[data-v-370c6798] {\n  color: white;\n  padding: 10px 15px;\n  font-size: 15px;\n  cursor: pointer;\n}\n.nav nav ul li:hover span[data-v-370c6798] {\n  color: #333333;\n}\n@media (max-width: 1024px) {\n}\n@media (max-width: 768px) {\n}\n@media (max-width: 425px) {\n#navigation[data-v-370c6798] {\n    display: block;\n}\nnav[data-v-370c6798] {\n    width: 100%;\n}\n.mobile_nav[data-v-370c6798] {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.logg[data-v-370c6798] {\n}\n.nav ul li a[data-v-370c6798] {\n    color: #333333;\n}\nul li span[data-v-370c6798] {\n    color: #333;\n}\n.mobile[data-v-370c6798] {\n    display: block !important;\n    padding: 0 15px;\n}\n.nav ul li[data-v-370c6798] {\n    display: block;\n}\n.logo_image[data-v-370c6798] {\n    width: 60px;\n    height: 60px;\n}\n.logo_text[data-v-370c6798] {\n    font-weight: 700;\n    color: #333;\n    font-size: 18px;\n}\n}\n", ""]);
+exports.push([module.i, "\n#navigation[data-v-370c6798] {\n  position: absolute;\n  width: 100%;\n  top: 0;\n  z-index: 5;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.logo[data-v-370c6798] {\n  display: flex;\n  justify-content: flex-start;\n  align-items: center;\n  position: relative;\n  padding: 10px;\n}\n.mobile_nav a[data-v-370c6798] {\n  text-decoration: none;\n}\n.mobile[data-v-370c6798] {\n  display: none !important;\n}\n.logo_image[data-v-370c6798] {\n  width: 80px;\n  height: 80px;\n  border-radius: 50%;\n  overflow: hidden;\n  margin-right: 10px;\n}\n.logo_image img[data-v-370c6798] {\n  width: 100%;\n  height: 100%;\n}\n.logo_text[data-v-370c6798] {\n  font-weight: 700;\n  color: #333;\n  font-size: 22px;\n}\nul[data-v-370c6798] {\n  position: relative;\n}\n.nav[data-v-370c6798] {\n  padding: 10px;\n}\n.nav ul li[data-v-370c6798] {\n  display: inline-block;\n}\n.nav ul li a[data-v-370c6798] {\n  color: white;\n  padding: 5px 15px;\n  font-size: 15px;\n  cursor: pointer;\n  text-decoration: none;\n}\n.nav nav ul li:hover a[data-v-370c6798] {\n  color: #333333;\n  border-bottom: 2px solid white;\n}\n.logged_in[data-v-370c6798] {\n  margin-left: auto;\n}\nul li span[data-v-370c6798] {\n  color: white;\n  padding: 10px 15px;\n  font-size: 15px;\n  cursor: pointer;\n}\n.nav nav ul li:hover span[data-v-370c6798] {\n  color: #333333;\n}\n@media (max-width: 1024px) {\n}\n@media (max-width: 768px) {\n}\n@media (max-width: 425px) {\n#navigation[data-v-370c6798] {\n    display: block;\n}\nnav[data-v-370c6798] {\n    width: 100%;\n}\n.mobile_nav[data-v-370c6798] {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.logg[data-v-370c6798] {\n}\n.nav ul li a[data-v-370c6798] {\n    color: #333333;\n}\nul li span[data-v-370c6798] {\n    color: #333;\n}\n.mobile[data-v-370c6798] {\n    display: block !important;\n    padding: 0 15px;\n}\n.nav ul li[data-v-370c6798] {\n    display: block;\n}\n.logo_image[data-v-370c6798] {\n    width: 60px;\n    height: 60px;\n}\n.logo_text[data-v-370c6798] {\n    font-weight: 700;\n    color: #333;\n    font-size: 18px;\n}\n}\n", ""]);
 
 // exports
 
@@ -3330,7 +3325,7 @@ var render = function() {
                                     "spinner-border spinner-border-sm"
                                 })
                               : _vm._e(),
-                            _vm._v(" Register")
+                            _vm._v(" Register\n            ")
                           ]
                         )
                       ])

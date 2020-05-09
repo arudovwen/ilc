@@ -6,6 +6,7 @@ use App\User;
 use App\School;
 use App\Faculty;
 use App\Department;
+use App\CourseLevel;
 use App\EducationLevel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

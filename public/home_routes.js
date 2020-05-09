@@ -591,6 +591,183 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      user: {
+        type: "student",
+        student: {
+          name: "",
+          password: "",
+          email: "",
+          phone: "",
+          gender: "",
+          mat_no: "",
+          level_of_edu: "selected",
+          school: "selected",
+          faculty: "selected",
+          department: "selected",
+          course_level: "selected"
+        },
+        tutor: {
+          name: "",
+          password: "",
+          email: "",
+          phone: "",
+          gender: "",
+          id_no: "",
+          level_of_edu: "selected",
+          school: "selected",
+          faculty: "selected",
+          department: "selected",
+          course_level: []
+        }
+      },
+      spin: false,
+      educations: [],
+      schools: [],
+      depts: [],
+      faculties: [],
+      levels: []
+    };
+  },
+  mounted: function mounted() {
+    this.getData();
+  },
+  computed: {
+    departments: function departments() {
+      var _this = this;
+
+      return this.depts.filter(function (item) {
+        if (_this.user.type === 'student') {
+          return item.faculty_id == _this.user.student.faculty;
+        } else {
+          return item.faculty_id == _this.user.tutor.faculty;
+        }
+      });
+    }
+  },
+  methods: {
+    getData: function getData() {
+      var _this2 = this;
+
+      axios.get("/api/get-edulevel").then(function (res) {
+        _this2.educations = res.data;
+      });
+      axios.get("/api/get-level").then(function (res) {
+        _this2.levels = res.data;
+      });
+      axios.get("/api/get-schools").then(function (res) {
+        _this2.schools = res.data;
+      });
+      axios.get("/api/get-faculties").then(function (res) {
+        _this2.faculties = res.data;
+      });
+      axios.get("/api/get-dept").then(function (res) {
+        _this2.depts = res.data;
+      });
+    },
+    login: function login(value) {
+      this.$emit("login", value);
+    },
+    changeType: function changeType(value) {
+      this.user.type = value;
+    },
+    submit: function submit() {
+      var _this3 = this;
+
+      this.spin = true;
+
+      if (this.user.type == "student") {
+        this.user.student.type = "student";
+        axios.post("/api/register", this.user.student).then(function (response) {
+          if (response.status == 201) {
+            _this3.spin = false;
+
+            _this3.$toasted.success("Registered successfully");
+
+            _this3.$router.push("/auth?authType=login");
+
+            _this3.$router.push("/auth?authType=login&redirect_from=register&level=student");
+          }
+        })["catch"](function (error) {
+          _this3.spin = false;
+
+          _this3.$toasted.error("Something is not right");
+        });
+      } else {
+        this.user.tutor.type = "tutor";
+        axios.post("/api/register-tutor", this.user.tutor).then(function (response) {
+          if (response.status == 201 || response.status == 200) {
+            _this3.spin = false;
+
+            _this3.$toasted.success("Registered successfully");
+
+            _this3.$router.push({
+              name: Auth,
+              query: {
+                authType: "login",
+                redirect_from: "register",
+                level: "student"
+              }
+            });
+          }
+        });
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/data.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/data.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -802,33 +979,14 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       user: {
-        type: "student",
-        student: {
-          name: "",
-          password: "",
-          email: "",
-          phone: "",
-          gender: "",
-          mat_no: "",
-          level_of_edu: "selected",
-          school: "selected",
-          faculty: "selected",
-          department: "selected",
-          course_level: "selected"
+        level_of_edu: [],
+        school: [],
+        faculty: [],
+        department: {
+          dept: [],
+          faculty: 'selected'
         },
-        tutor: {
-          name: "",
-          password: "",
-          email: "",
-          phone: "",
-          gender: "",
-          id_no: "",
-          level_of_edu: "selected",
-          school: "selected",
-          faculty: "selected",
-          department: "selected",
-          course_level: []
-        }
+        course_level: []
       },
       spin: false
     };
@@ -840,47 +998,85 @@ __webpack_require__.r(__webpack_exports__);
     changeType: function changeType(value) {
       this.user.type = value;
     },
-    submit: function submit() {
+    school: function school() {
       var _this = this;
 
       this.spin = true;
-
-      if (this.user.type == "student") {
-        this.user.student.type = "student";
-        axios.post("/api/register", this.user.student).then(function (response) {
-          if (response.status == 201) {
-            _this.spin = false;
-
-            _this.$toasted.success("Registered successfully");
-
-            _this.$router.push("/auth?authType=login");
-
-            _this.$router.push("/auth?authType=login&redirect_from=register&level=student");
-          }
-        })["catch"](function (error) {
+      axios.post("/api/add-school", this.user.school).then(function (response) {
+        if (response.status == 201) {
           _this.spin = false;
 
-          _this.$toasted.error("Something is not right");
-        });
-      } else {
-        this.user.tutor.type = "tutor";
-        axios.post("/api/register-tutor", this.user.tutor).then(function (response) {
-          if (response.status == 201 || response.status == 200) {
-            _this.spin = false;
+          _this.$toasted.success("Registered successfully");
+        }
+      })["catch"](function (error) {
+        _this.spin = false;
 
-            _this.$toasted.success("Registered successfully");
+        _this.$toasted.error("Something is not right");
+      });
+    },
+    faculty: function faculty() {
+      var _this2 = this;
 
-            _this.$router.push({
-              name: Auth,
-              query: {
-                authType: "login",
-                redirect_from: "register",
-                level: "student"
-              }
-            });
-          }
-        });
-      }
+      this.spin = true;
+      axios.post("/api/add-faculty", this.user.faculty).then(function (response) {
+        if (response.status == 201) {
+          _this2.spin = false;
+
+          _this2.$toasted.success("Registered successfully");
+        }
+      })["catch"](function (error) {
+        _this2.spin = false;
+
+        _this2.$toasted.error("Something is not right");
+      });
+    },
+    dept: function dept() {
+      var _this3 = this;
+
+      this.spin = true;
+      axios.post("/api/add-dept", this.user.department).then(function (response) {
+        if (response.status == 201) {
+          _this3.spin = false;
+
+          _this3.$toasted.success("Registered successfully");
+        }
+      })["catch"](function (error) {
+        _this3.spin = false;
+
+        _this3.$toasted.error("Something is not right");
+      });
+    },
+    level: function level() {
+      var _this4 = this;
+
+      this.spin = true;
+      axios.post("/api/add-level", this.user.course_level).then(function (response) {
+        if (response.status == 201) {
+          _this4.spin = false;
+
+          _this4.$toasted.success("Registered successfully");
+        }
+      })["catch"](function (error) {
+        _this4.spin = false;
+
+        _this4.$toasted.error("Something is not right");
+      });
+    },
+    levelEdu: function levelEdu() {
+      var _this5 = this;
+
+      this.spin = true;
+      axios.post("/api/add-edulevel", this.user.level_of_edu).then(function (response) {
+        if (response.status == 201) {
+          _this5.spin = false;
+
+          _this5.$toasted.success("Registered successfully");
+        }
+      })["catch"](function (error) {
+        _this5.spin = false;
+
+        _this5.$toasted.error("Something is not right");
+      });
     }
   }
 });
@@ -959,7 +1155,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     redirect: function redirect() {
-      window.location.href = "http://localhost:8000/ilc?name=".concat(this.bizUser.name, "&email= ").concat(this.bizUser.email, " &phone= ").concat(this.bizUser.phone, " &school= ").concat(this.bizUser.school, " &faculty= ").concat(this.bizUser.faculty, "\n        &department= ").concat(this.bizUser.department, " &course_level= ").concat(this.bizUser.course_level, " &mat_no= ").concat(this.bizUser.mat_no, "&gender= ").concat(this.bizUser.gender, "&level_of_edu= ").concat(this.bizUser.level_of_edu, " ");
+      window.location.href = "https://bizguruh.com/ilc?name=".concat(this.bizUser.name, "&email= ").concat(this.bizUser.email, " &phone= ").concat(this.bizUser.phone, " &school= ").concat(this.bizUser.school, " &faculty= ").concat(this.bizUser.faculty, "\n        &department= ").concat(this.bizUser.department, " &course_level= ").concat(this.bizUser.course_level, " &mat_no= ").concat(this.bizUser.mat_no, "&gender= ").concat(this.bizUser.gender, "&level_of_edu= ").concat(this.bizUser.level_of_edu, " ");
     }
   }
 });
@@ -1444,7 +1640,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     redirect: function redirect() {
-      window.location.href = "http://localhost:8000/ilc?name=".concat(this.bizUser.name, "&email= ").concat(this.bizUser.email, " &phone= ").concat(this.bizUser.phone, " &school= ").concat(this.bizUser.school, " &faculty= ").concat(this.bizUser.faculty, "\n        &department= ").concat(this.bizUser.department, " &course_level= ").concat(this.bizUser.course_level, " &mat_no= ").concat(this.bizUser.mat_no, "&gender= ").concat(this.bizUser.gender, "&level_of_edu= ").concat(this.bizUser.level_of_edu, " ");
+      window.location.href = "https://bizguruh.com/ilc?name=".concat(this.bizUser.name, "&email= ").concat(this.bizUser.email, " &phone= ").concat(this.bizUser.phone, " &school= ").concat(this.bizUser.school, " &faculty= ").concat(this.bizUser.faculty, "\n        &department= ").concat(this.bizUser.department, " &course_level= ").concat(this.bizUser.course_level, " &mat_no= ").concat(this.bizUser.mat_no, "&gender= ").concat(this.bizUser.gender, "&level_of_edu= ").concat(this.bizUser.level_of_edu, " ");
     }
   }
 });
@@ -1502,6 +1698,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 // module
 exports.push([module.i, "\n.container-fluid[data-v-0a4369f6] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n}\n.register[data-v-0a4369f6] {\n  background: transparent;\n  padding: 3%;\n}\n.register-left[data-v-0a4369f6] {\n  text-align: center;\n  color: #fff;\n  padding-top: 4%;\n}\n.register-left input[data-v-0a4369f6] {\n  border: none;\n  border-radius: 1.5rem;\n  padding: 2%;\n  width: 60%;\n  background: #f7f8fa;\n  font-weight: bold;\n  color: #383d41;\n  margin-top: 28%;\n  margin-bottom: 3%;\n  cursor: pointer;\n}\n.register-right[data-v-0a4369f6] {\n  background: #f7f8fa;\n  border-top-left-radius: 10% 50%;\n  border-bottom-left-radius: 10% 50%;\n  width: 80%;\n  height: 85%;\n  padding: 0 15px;\n}\n.register-left img[data-v-0a4369f6] {\n  margin-top: 15%;\n  margin-bottom: 5%;\n  width: 25%;\n  -webkit-animation: mover-data-v-0a4369f6 2s infinite alternate;\n  animation: mover-data-v-0a4369f6 1s infinite alternate;\n}\n@-webkit-keyframes mover-data-v-0a4369f6 {\n0% {\n    transform: translateY(0);\n}\n100% {\n    transform: translateY(-20px);\n}\n}\n@keyframes mover-data-v-0a4369f6 {\n0% {\n    transform: translateY(0);\n}\n100% {\n    transform: translateY(-20px);\n}\n}\n.register-left p[data-v-0a4369f6] {\n  font-weight: lighter;\n  padding: 12%;\n  margin-top: -9%;\n}\n.register .register-form[data-v-0a4369f6] {\n  padding: 10%;\n  margin-top: 10%;\n}\n.btnRegister[data-v-0a4369f6] {\n  float: right;\n  margin-top: 10%;\n  border: none;\n  border-radius: 1.5rem;\n  padding: 4%;\n  background: repeating-linear-gradient(\n    to right,\n    rgb(15, 122, 138, 0.7) 0%,\n    rgb(15, 122, 138, 0.7) 100%\n  );\n  color: #fff;\n  font-weight: 600;\n  width: 50%;\n  cursor: pointer;\n}\n.register .nav-tabs[data-v-0a4369f6] {\n  margin-top: 3%;\n  border: none;\n  background: repeating-linear-gradient(\n    to right,\n    rgb(15, 122, 138, 0.7) 0%,\n    rgb(15, 122, 138, 0.7) 100%\n  );\n  border-radius: 1.5rem;\n  width: 20%;\n  float: right;\n  font-size: 14px;\n}\n.register .nav-tabs .nav-link[data-v-0a4369f6] {\n  padding: 2%;\n  height: 34px;\n  font-weight: 600;\n  color: #fff;\n  border-top-right-radius: 1.5rem;\n  border-bottom-right-radius: 1.5rem;\n  font-size: 14px;\n}\n.register .nav-tabs .nav-link[data-v-0a4369f6]:hover {\n  border: none;\n}\n.register .nav-tabs .nav-link.active[data-v-0a4369f6] {\n  width: 100px;\n  color: #5fa1ac;\n  border: 2px solid #5fa1ac;\n  border-top-left-radius: 1.5rem;\n  border-bottom-left-radius: 1.5rem;\n}\n.register-heading[data-v-0a4369f6] {\n  text-align: center;\n  margin-top: 8%;\n  margin-bottom: -15%;\n  color: #495057;\n}\n@media (max-width: 1024px) {\n.register .nav-tabs[data-v-0a4369f6] {\n    width: 35%;\n}\nh4.register-heading[data-v-0a4369f6] {\n    font-size: 22px;\n}\n.register-form[data-v-0a4369f6] {\n    width: 100%;\n}\n}\n@media (max-width: 768px) {\n.register .nav-tabs[data-v-0a4369f6] {\n    width: 35%;\n}\n.register-right[data-v-0a4369f6] {\n    width: 90%;\n}\n}\n@media (max-width: 425px) {\n.register-right[data-v-0a4369f6] {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n}\n.register-right[data-v-0a4369f6] {\n    width: 100%;\n    height: 75vh;\n    overflow: scroll;\n    padding-top: 80%;\n}\n.register .nav-tabs[data-v-0a4369f6] {\n    width: 60%;\n    margin: 3% auto 0;\n}\n.register-left[data-v-0a4369f6] {\n    padding-bottom: 20px;\n}\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/data.vue?vue&type=style&index=0&id=0a681d75&scoped=true&lang=css&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/data.vue?vue&type=style&index=0&id=0a681d75&scoped=true&lang=css& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.container-fluid[data-v-0a681d75] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  min-height: 100vh;\n}\n.register[data-v-0a681d75] {\n  background: transparent;\n  padding: 3%;\n}\n.register-left[data-v-0a681d75] {\n  text-align: center;\n  color: #fff;\n  padding-top: 4%;\n}\n.register-left input[data-v-0a681d75] {\n  border: none;\n  border-radius: 1.5rem;\n  padding: 2%;\n  width: 60%;\n  background: #f7f8fa;\n  font-weight: bold;\n  color: #383d41;\n  margin-top: 28%;\n  margin-bottom: 3%;\n  cursor: pointer;\n}\n.register-right[data-v-0a681d75] {\n  background: #f7f8fa;\n  border-top-left-radius: 10% 50%;\n  border-bottom-left-radius: 10% 50%;\n  width: 80%;\n  padding: 0 15px;\n}\n.register-left img[data-v-0a681d75] {\n  margin-top: 15%;\n  margin-bottom: 5%;\n  width: 25%;\n  -webkit-animation: mover-data-v-0a681d75 2s infinite alternate;\n  animation: mover-data-v-0a681d75 1s infinite alternate;\n}\n@-webkit-keyframes mover-data-v-0a681d75 {\n0% {\n    transform: translateY(0);\n}\n100% {\n    transform: translateY(-20px);\n}\n}\n@keyframes mover-data-v-0a681d75 {\n0% {\n    transform: translateY(0);\n}\n100% {\n    transform: translateY(-20px);\n}\n}\n.register-left p[data-v-0a681d75] {\n  font-weight: lighter;\n  padding: 12%;\n  margin-top: -9%;\n}\n.register .register-form[data-v-0a681d75] {\n  padding: 10%;\n  margin-top: 2%;\n}\n.btnRegister[data-v-0a681d75] {\n\n  margin-top: 4%;\n  border: none;\n  border-radius: 1.5rem;\n  padding: 10px 40px;\n  background: repeating-linear-gradient(\n    to right,\n    rgb(15, 122, 138, 0.7) 0%,\n    rgb(15, 122, 138, 0.7) 100%\n  );\n  color: #fff;\n  font-weight: 600;\n  max-width: 50%;\n  cursor: pointer;\n}\n.register .nav-tabs[data-v-0a681d75] {\n  margin-top: 3%;\n  border: none;\n  background: repeating-linear-gradient(\n    to right,\n    rgb(15, 122, 138, 0.7) 0%,\n    rgb(15, 122, 138, 0.7) 100%\n  );\n  border-radius: 1.5rem;\n  width: 20%;\n  float: right;\n  font-size: 14px;\n}\n.register .nav-tabs .nav-link[data-v-0a681d75] {\n  padding: 2%;\n  height: 34px;\n  font-weight: 600;\n  color: #fff;\n  border-top-right-radius: 1.5rem;\n  border-bottom-right-radius: 1.5rem;\n  font-size: 14px;\n}\n.register .nav-tabs .nav-link[data-v-0a681d75]:hover {\n  border: none;\n}\n.register .nav-tabs .nav-link.active[data-v-0a681d75] {\n  width: 100px;\n  color: #5fa1ac;\n  border: 2px solid #5fa1ac;\n  border-top-left-radius: 1.5rem;\n  border-bottom-left-radius: 1.5rem;\n}\n.register-heading[data-v-0a681d75] {\n  text-align: center;\n  margin-top: 8%;\n  margin-bottom: -15%;\n  color: #495057;\n}\n.form-group[data-v-0a681d75]{\n  border:1px solid #ccc;\n  margin-bottom: 24px;\n  padding: 10px;\n}\n@media (max-width: 1024px) {\n.register .nav-tabs[data-v-0a681d75] {\n    width: 35%;\n}\nh4.register-heading[data-v-0a681d75] {\n    font-size: 22px;\n}\n.register-form[data-v-0a681d75] {\n    width: 100%;\n}\n}\n@media (max-width: 768px) {\n.register .nav-tabs[data-v-0a681d75] {\n    width: 35%;\n}\n.register-right[data-v-0a681d75] {\n    width: 90%;\n}\n}\n@media (max-width: 425px) {\n.register-right[data-v-0a681d75] {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n}\n.register-right[data-v-0a681d75] {\n    width: 100%;\n    height: 75vh;\n    overflow: scroll;\n    padding-top: 80%;\n}\n.register .nav-tabs[data-v-0a681d75] {\n    width: 60%;\n    margin: 3% auto 0;\n}\n.register-left[data-v-0a681d75] {\n    padding-bottom: 20px;\n}\n}\n", ""]);
 
 // exports
 
@@ -1686,6 +1901,36 @@ options.transform = transform
 options.insertInto = undefined;
 
 var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/data.vue?vue&type=style&index=0&id=0a681d75&scoped=true&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/data.vue?vue&type=style&index=0&id=0a681d75&scoped=true&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./data.vue?vue&type=style&index=0&id=0a681d75&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/data.vue?vue&type=style&index=0&id=0a681d75&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -2633,20 +2878,15 @@ var render = function() {
                                 ]
                               ),
                               _vm._v(" "),
-                              _c("option", [_vm._v("Professional")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Tertiary")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Secondary")]),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "" } }, [
-                                _vm._v("Primary")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "Other" } }, [
-                                _vm._v("Other")
-                              ])
-                            ]
+                              _vm._l(_vm.educations, function(item, idx) {
+                                return _c(
+                                  "option",
+                                  { key: idx, domProps: { value: item.id } },
+                                  [_vm._v(_vm._s(item.education_level))]
+                                )
+                              })
+                            ],
+                            2
                           )
                         ]),
                         _vm._v(" "),
@@ -2695,30 +2935,15 @@ var render = function() {
                                 [_vm._v("Select School")]
                               ),
                               _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Alvan Ikoku College of Education")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Eastern Palm University, Ogboko, Ideato"
+                              _vm._l(_vm.schools, function(item, idx) {
+                                return _c(
+                                  "option",
+                                  { key: idx, domProps: { value: item.id } },
+                                  [_vm._v(_vm._s(item.school))]
                                 )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Imo State Polytechnic, Umuagwo")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Imo State University, Owerri (IMSU)")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Technological Skills Acquisition Institute, Orlu"
-                                )
-                              ])
-                            ]
+                              })
+                            ],
+                            2
                           )
                         ]),
                         _vm._v(" "),
@@ -2767,40 +2992,15 @@ var render = function() {
                                 [_vm._v("Select Faculty")]
                               ),
                               _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Faculty Of Agriculture & Veterinary Medicine"
+                              _vm._l(_vm.faculties, function(item, idx) {
+                                return _c(
+                                  "option",
+                                  { key: idx, domProps: { value: item.id } },
+                                  [_vm._v(_vm._s(item.faculty))]
                                 )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Faculty Of Business Administration")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Faculty Of Education")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Faculty Of Engineering")]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Faculty Of Environmental Science")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Faculty Of Health Science")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Faculty Of Humanitieso")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Faculty Of Law")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Faculty Of Medicine")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Faculty Of Science")]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Faculty Of Social Science")
-                              ])
-                            ]
+                              })
+                            ],
+                            2
                           )
                         ]),
                         _vm._v(" "),
@@ -2849,398 +3049,15 @@ var render = function() {
                                 [_vm._v("Select Department")]
                               ),
                               _vm._v(" "),
-                              _c(
-                                "option",
-                                {
-                                  staticClass: "hidden",
-                                  attrs: { disabled: "" }
-                                },
-                                [_vm._v("Faculty of Agriculture")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Agriculture Economics")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Extension & Rural Development"
+                              _vm._l(_vm.departments, function(item, idx) {
+                                return _c(
+                                  "option",
+                                  { key: idx, domProps: { value: item.id } },
+                                  [_vm._v(_vm._s(item.department))]
                                 )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Animal science and Fisheries"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Crop Science And Biotechnology"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Soil Science and Environment"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "option",
-                                {
-                                  staticClass: "hidden",
-                                  attrs: { disabled: "" }
-                                },
-                                [_vm._v("Faculty of Business admin")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Management")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Hospitality and Tourism Management"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Department of Marketing")]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Accountancy")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Banking and Finance")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Insurance and Actuarial Science"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "option",
-                                {
-                                  staticClass: "hidden",
-                                  attrs: { disabled: "" }
-                                },
-                                [_vm._v("Faculty of Education")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Arts Education")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Physical Science Education"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Life Science Education")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Language Education")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Library and information Science"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Foundation and Counseling"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "option",
-                                {
-                                  staticClass: "hidden",
-                                  attrs: { disabled: "" }
-                                },
-                                [_vm._v("Faculty of Engineering")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Agricultural Engineering")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Electrical Engineering")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Civil Engineering")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Food Science & Technology"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Mechanical Engineering")
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "option",
-                                {
-                                  staticClass: "hidden",
-                                  attrs: { disabled: "" }
-                                },
-                                [_vm._v("Faculty of Environmental Science")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Surveying & GeoInformatics"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Architecture")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Department of Building")]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Urban and Regional Planning"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Quantity Surveying")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Fine & Applied Arts")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Estate Management")
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "option",
-                                {
-                                  staticClass: "hidden",
-                                  attrs: { disabled: "" }
-                                },
-                                [_vm._v("Faculty of Health Science")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Department of Optometry")]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Medical Laboratory Science"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Nursing Science")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Nutrition and Dietetics")
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "option",
-                                {
-                                  staticClass: "hidden",
-                                  attrs: { disabled: "" }
-                                },
-                                [_vm._v("Faculty of Humanities")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Religious Studies")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Department of French")]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of History and International Studies"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Philosophy")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Theatre arts")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Linguistics and Igbo")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of English language and Literary Studies"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "option",
-                                {
-                                  staticClass: "hidden",
-                                  attrs: { disabled: "" }
-                                },
-                                [_vm._v("Faculty of Medicine")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Department of Anatomy")]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Physiology")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Medical Biochemistry")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Community Medicine")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Medical Microbiology/ Parasitology"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Chemical Pathology")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Morbid Anatomy/ Histopathology"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Haematology and Blood Transfusion Medicine"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Department of Medicine")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Department of Surgery")]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Obstetrics & Gynecology")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Pediatrics")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Pharmacology")
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "option",
-                                {
-                                  staticClass: "hidden",
-                                  attrs: { disabled: "" }
-                                },
-                                [_vm._v("Faculty of Sciences")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Animal Science and Environmental Biology"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Plant Science and Biotechnology"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Physics/ Industrial Physics"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Chemistry/Industrial Chemistry"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Microbiology/Industrial Microbiology"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Biochemistry")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Mathematics")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Statistics")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Computer Science")
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "option",
-                                {
-                                  staticClass: "hidden",
-                                  attrs: { disabled: "" }
-                                },
-                                [_vm._v("Faculty of Social Sciences")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Department of Economics")]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Psychology")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Geography & Environmental Management"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Political Science")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Department of Sociology")]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Mass Communication")
-                              ])
-                            ]
+                              })
+                            ],
+                            2
                           )
                         ]),
                         _vm._v(" "),
@@ -3289,20 +3106,15 @@ var render = function() {
                                 [_vm._v("Select Course Level")]
                               ),
                               _vm._v(" "),
-                              _c("option", [_vm._v("100")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("200")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("300")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("400")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("600")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("700")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Other")])
-                            ]
+                              _vm._l(_vm.levels, function(item, idx) {
+                                return _c(
+                                  "option",
+                                  { key: idx, domProps: { value: item.id } },
+                                  [_vm._v(_vm._s(item.course_level))]
+                                )
+                              })
+                            ],
+                            2
                           )
                         ]),
                         _vm._v(" "),
@@ -3650,16 +3462,15 @@ var render = function() {
                                 ]
                               ),
                               _vm._v(" "),
-                              _c("option", [_vm._v("Professional")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Tertiary")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Secondary")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Primary")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Other")])
-                            ]
+                              _vm._l(_vm.educations, function(item, idx) {
+                                return _c(
+                                  "option",
+                                  { key: idx, domProps: { value: item.id } },
+                                  [_vm._v(_vm._s(item.education_level))]
+                                )
+                              })
+                            ],
+                            2
                           )
                         ]),
                         _vm._v(" "),
@@ -3708,30 +3519,15 @@ var render = function() {
                                 [_vm._v("Select School")]
                               ),
                               _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Alvan Ikoku College of Education")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Eastern Palm University, Ogboko, Ideato"
+                              _vm._l(_vm.schools, function(item, idx) {
+                                return _c(
+                                  "option",
+                                  { key: idx, domProps: { value: item.id } },
+                                  [_vm._v(_vm._s(item.school))]
                                 )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Imo State Polytechnic, Umuagwo")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Imo State University, Owerri (IMSU)")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Technological Skills Acquisition Institute, Orlu"
-                                )
-                              ])
-                            ]
+                              })
+                            ],
+                            2
                           )
                         ]),
                         _vm._v(" "),
@@ -3780,40 +3576,15 @@ var render = function() {
                                 [_vm._v("Select Faculty")]
                               ),
                               _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Faculty Of Agriculture & Veterinary Medicine"
+                              _vm._l(_vm.faculties, function(item, idx) {
+                                return _c(
+                                  "option",
+                                  { key: idx, domProps: { value: item.id } },
+                                  [_vm._v(_vm._s(item.faculty))]
                                 )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Faculty Of Business Administration")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Faculty Of Education")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Faculty Of Engineering")]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Faculty Of Environmental Science")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Faculty Of Health Science")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Faculty Of Humanitieso")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Faculty Of Law")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Faculty Of Medicine")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Faculty Of Sciencesu")]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Faculty Of Social Science")
-                              ])
-                            ]
+                              })
+                            ],
+                            2
                           )
                         ]),
                         _vm._v(" "),
@@ -3862,398 +3633,15 @@ var render = function() {
                                 [_vm._v("Select Department")]
                               ),
                               _vm._v(" "),
-                              _c(
-                                "option",
-                                {
-                                  staticClass: "hidden",
-                                  attrs: { disabled: "" }
-                                },
-                                [_vm._v("Faculty of Agriculture")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Agriculture Economics")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Extension & Rural Development"
+                              _vm._l(_vm.departments, function(item, idx) {
+                                return _c(
+                                  "option",
+                                  { key: idx, domProps: { value: item.id } },
+                                  [_vm._v(_vm._s(item.department))]
                                 )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Animal science and Fisheries"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Crop Science And Biotechnology"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Soil Science and Environment"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "option",
-                                {
-                                  staticClass: "hidden",
-                                  attrs: { disabled: "" }
-                                },
-                                [_vm._v("Faculty of Business admin")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Management")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Hospitality and Tourism Management"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Department of Marketing")]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Accountancy")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Banking and Finance")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Insurance and Actuarial Science"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "option",
-                                {
-                                  staticClass: "hidden",
-                                  attrs: { disabled: "" }
-                                },
-                                [_vm._v("Faculty of Education")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Arts Education")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Physical Science Education"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Life Science Education")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Language Education")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Library and information Science"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Foundation and Counseling"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "option",
-                                {
-                                  staticClass: "hidden",
-                                  attrs: { disabled: "" }
-                                },
-                                [_vm._v("Faculty of Engineering")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Agricultural Engineering")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Electrical Engineering")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Civil Engineering")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Food Science & Technology"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Mechanical Engineering")
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "option",
-                                {
-                                  staticClass: "hidden",
-                                  attrs: { disabled: "" }
-                                },
-                                [_vm._v("Faculty of Environmental Science")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Surveying & GeoInformatics"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Architecture")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Department of Building")]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Urban and Regional Planning"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Quantity Surveying")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Fine & Applied Arts")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Estate Management")
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "option",
-                                {
-                                  staticClass: "hidden",
-                                  attrs: { disabled: "" }
-                                },
-                                [_vm._v("Faculty of Health Science")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Department of Optometry")]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Medical Laboratory Science"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Nursing Science")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Nutrition and Dietetics")
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "option",
-                                {
-                                  staticClass: "hidden",
-                                  attrs: { disabled: "" }
-                                },
-                                [_vm._v("Faculty of Humanities")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Religious Studies")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Department of French")]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of History and International Studies"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Philosophy")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Theatre arts")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Linguistics and Igbo")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of English language and Literary Studies"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "option",
-                                {
-                                  staticClass: "hidden",
-                                  attrs: { disabled: "" }
-                                },
-                                [_vm._v("Faculty of Medicine")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Department of Anatomy")]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Physiology")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Medical Biochemistry")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Community Medicine")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Medical Microbiology/ Parasitology"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Chemical Pathology")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Morbid Anatomy/ Histopathology"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Haematology and Blood Transfusion Medicine"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Department of Medicine")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Department of Surgery")]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Obstetrics & Gynecology")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Pediatrics")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Pharmacology")
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "option",
-                                {
-                                  staticClass: "hidden",
-                                  attrs: { disabled: "" }
-                                },
-                                [_vm._v("Faculty of Sciences")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Animal Science and Environmental Biology"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Plant Science and Biotechnology"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Physics/ Industrial Physics"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Chemistry/Industrial Chemistry"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Microbiology/Industrial Microbiology"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Biochemistry")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Mathematics")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Statistics")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Computer Science")
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "option",
-                                {
-                                  staticClass: "hidden",
-                                  attrs: { disabled: "" }
-                                },
-                                [_vm._v("Faculty of Social Sciences")]
-                              ),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Department of Economics")]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Psychology")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v(
-                                  "Department of Geography & Environmental Management"
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Political Science")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Department of Sociology")]),
-                              _vm._v(" "),
-                              _c("option", [
-                                _vm._v("Department of Mass Communication")
-                              ])
-                            ]
+                              })
+                            ],
+                            2
                           )
                         ]),
                         _vm._v(" "),
@@ -4302,20 +3690,15 @@ var render = function() {
                                 [_vm._v("Select Course Level")]
                               ),
                               _vm._v(" "),
-                              _c("option", [_vm._v("100")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("200")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("300")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("400")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("600")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("700")]),
-                              _vm._v(" "),
-                              _c("option", [_vm._v("Other")])
-                            ]
+                              _vm._l(_vm.levels, function(item, idx) {
+                                return _c(
+                                  "option",
+                                  { key: idx, domProps: { value: item.id } },
+                                  [_vm._v(_vm._s(item.course_level))]
+                                )
+                              })
+                            ],
+                            2
                           )
                         ]),
                         _vm._v(" "),
@@ -4353,6 +3736,893 @@ var render = function() {
         )
       ]
     )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/data.vue?vue&type=template&id=0a681d75&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/data.vue?vue&type=template&id=0a681d75&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container-fluid register" }, [
+    _c("div", { staticClass: "mx-auto register-right" }, [
+      _c("div", { staticClass: "row register-form" }, [
+        _c("div", { staticClass: "col-md-10" }, [
+          _c(
+            "form",
+            {
+              staticClass: "form-group",
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.levelEdu($event)
+                }
+              }
+            },
+            [
+              _c("h4", [_vm._v("Add Education Level")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.user.level_of_edu,
+                      expression: "user.level_of_edu"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { multiple: "" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.user,
+                        "level_of_edu",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "option",
+                    {
+                      staticClass: "hidden",
+                      attrs: { value: "selected", disabled: "" }
+                    },
+                    [_vm._v("Please select your Level of Education")]
+                  ),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Professional")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Tertiary")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Secondary")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Primary")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Other")])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  directives: [
+                    {
+                      name: "waves",
+                      rawName: "v-waves.button",
+                      modifiers: { button: true }
+                    },
+                    {
+                      name: "waves",
+                      rawName: "v-waves.float",
+                      modifiers: { float: true }
+                    },
+                    {
+                      name: "waves",
+                      rawName: "v-waves.light",
+                      modifiers: { light: true }
+                    }
+                  ],
+                  staticClass: "btnRegister",
+                  attrs: { type: "submit" }
+                },
+                [_vm._v("\n            Create\n              ")]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "form",
+            {
+              staticClass: "form-group",
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.school($event)
+                }
+              }
+            },
+            [
+              _c("h4", [_vm._v("Add School")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.user.school,
+                      expression: "user.school"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { multiple: "" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.user,
+                        "school",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "option",
+                    {
+                      staticClass: "hidden",
+                      attrs: { value: "selected", disabled: "" }
+                    },
+                    [_vm._v("Select School")]
+                  ),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Alvan Ikoku College of Education")]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Eastern Palm University, Ogboko, Ideato")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Imo State Polytechnic, Umuagwo")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Imo State University, Owerri (IMSU)")]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Technological Skills Acquisition Institute, Orlu")
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  directives: [
+                    {
+                      name: "waves",
+                      rawName: "v-waves.button",
+                      modifiers: { button: true }
+                    },
+                    {
+                      name: "waves",
+                      rawName: "v-waves.float",
+                      modifiers: { float: true }
+                    },
+                    {
+                      name: "waves",
+                      rawName: "v-waves.light",
+                      modifiers: { light: true }
+                    }
+                  ],
+                  staticClass: "btnRegister",
+                  attrs: { type: "submit" }
+                },
+                [_vm._v("\n            Create\n              ")]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "form",
+            {
+              staticClass: "form-group",
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.faculty($event)
+                }
+              }
+            },
+            [
+              _c("h4", [_vm._v("Add Faculty")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.user.faculty,
+                      expression: "user.faculty"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { multiple: "" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.user,
+                        "faculty",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "option",
+                    {
+                      staticClass: "hidden",
+                      attrs: { value: "selected", disabled: "" }
+                    },
+                    [_vm._v("Select Faculty")]
+                  ),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Faculty Of Agriculture & Veterinary Medicine")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Faculty Of Business Administration")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Faculty Of Education")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Faculty Of Engineering")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Faculty Of Environmental Science")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Faculty Of Health Science")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Faculty Of Humanities")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Faculty Of Law")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Faculty Of Medicine")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Faculty Of Science")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Faculty Of Social Science")])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  directives: [
+                    {
+                      name: "waves",
+                      rawName: "v-waves.button",
+                      modifiers: { button: true }
+                    },
+                    {
+                      name: "waves",
+                      rawName: "v-waves.float",
+                      modifiers: { float: true }
+                    },
+                    {
+                      name: "waves",
+                      rawName: "v-waves.light",
+                      modifiers: { light: true }
+                    }
+                  ],
+                  staticClass: "btnRegister",
+                  attrs: { type: "submit" }
+                },
+                [_vm._v("\n            Create\n              ")]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "form",
+            {
+              staticClass: "form-group",
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.dept($event)
+                }
+              }
+            },
+            [
+              _c("h4", [_vm._v("Add Department ")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "mb-2" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.user.department.faculty,
+                        expression: "user.department.faculty"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.user.department,
+                          "faculty",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "option",
+                      {
+                        staticClass: "hidden",
+                        attrs: { value: "selected", disabled: "" }
+                      },
+                      [_vm._v("Select Faculty")]
+                    ),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "1" } }, [
+                      _vm._v("Faculty Of Agriculture & Veterinary Medicine")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "2" } }, [
+                      _vm._v("Faculty Of Business Administration")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [
+                      _vm._v("Faculty Of Education")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "4" } }, [
+                      _vm._v("Faculty Of Engineering")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "5" } }, [
+                      _vm._v("Faculty Of Environmental Science")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "6" } }, [
+                      _vm._v("Faculty Of Health Science")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "7" } }, [
+                      _vm._v("Faculty Of Humanities")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "8" } }, [
+                      _vm._v("Faculty Of Law")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "9" } }, [
+                      _vm._v("Faculty Of Medicine")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "10" } }, [
+                      _vm._v("Faculty Of Science")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "11" } }, [
+                      _vm._v("Faculty Of Social Science")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.user.department.dept,
+                      expression: "user.department.dept"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { multiple: "" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.user.department,
+                        "dept",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "option",
+                    {
+                      staticClass: "hidden",
+                      attrs: { value: "selected", disabled: "" }
+                    },
+                    [_vm._v("Select Department")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "option",
+                    { staticClass: "hidden", attrs: { disabled: "" } },
+                    [_vm._v("Faculty of Agriculture")]
+                  ),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Agriculture Economics")]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Extension & Rural Development")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Animal science and Fisheries")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Crop Science And Biotechnology")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Soil Science and Environment")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "option",
+                    { staticClass: "hidden", attrs: { disabled: "" } },
+                    [_vm._v("Faculty of Business admin")]
+                  ),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Management")]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Hospitality and Tourism Management")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Marketing")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Accountancy")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Banking and Finance")]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Insurance and Actuarial Science")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "option",
+                    { staticClass: "hidden", attrs: { disabled: "" } },
+                    [_vm._v("Faculty of Education")]
+                  ),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Arts Education")]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Physical Science Education")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Life Science Education")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Language Education")]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Library and information Science")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Foundation and Counseling")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "option",
+                    { staticClass: "hidden", attrs: { disabled: "" } },
+                    [_vm._v("Faculty of Engineering")]
+                  ),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Agricultural Engineering")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Electrical Engineering")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Civil Engineering")]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Food Science & Technology")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Mechanical Engineering")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "option",
+                    { staticClass: "hidden", attrs: { disabled: "" } },
+                    [_vm._v("Faculty of Environmental Science")]
+                  ),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Surveying & GeoInformatics")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Architecture")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Building")]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Urban and Regional Planning")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Quantity Surveying")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Fine & Applied Arts")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Estate Management")]),
+                  _vm._v(" "),
+                  _c(
+                    "option",
+                    { staticClass: "hidden", attrs: { disabled: "" } },
+                    [_vm._v("Faculty of Health Science")]
+                  ),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Optometry")]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Medical Laboratory Science")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Nursing Science")]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Nutrition and Dietetics")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "option",
+                    { staticClass: "hidden", attrs: { disabled: "" } },
+                    [_vm._v("Faculty of Humanities")]
+                  ),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Religious Studies")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of French")]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of History and International Studies")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Philosophy")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Theatre arts")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Linguistics and Igbo")]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v(
+                      "Department of English language and Literary Studies"
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "option",
+                    { staticClass: "hidden", attrs: { disabled: "" } },
+                    [_vm._v("Faculty of Law")]
+                  ),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Law")]),
+                  _vm._v(" "),
+                  _c(
+                    "option",
+                    { staticClass: "hidden", attrs: { disabled: "" } },
+                    [_vm._v("Faculty of Medicine")]
+                  ),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Anatomy")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Physiology")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Medical Biochemistry")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Community Medicine")]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Medical Microbiology/ Parasitology")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Chemical Pathology")]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Morbid Anatomy/ Histopathology")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v(
+                      "Department of Haematology and Blood Transfusion Medicine"
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Medicine")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Surgery")]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Obstetrics & Gynecology")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Pediatrics")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Pharmacology")]),
+                  _vm._v(" "),
+                  _c(
+                    "option",
+                    { staticClass: "hidden", attrs: { disabled: "" } },
+                    [_vm._v("Faculty of Sciences")]
+                  ),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v(
+                      "Department of Animal Science and Environmental Biology"
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Plant Science and Biotechnology")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Physics/ Industrial Physics")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Chemistry/Industrial Chemistry")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Microbiology/Industrial Microbiology")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Biochemistry")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Mathematics")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Statistics")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Computer Science")]),
+                  _vm._v(" "),
+                  _c(
+                    "option",
+                    { staticClass: "hidden", attrs: { disabled: "" } },
+                    [_vm._v("Faculty of Social Sciences")]
+                  ),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Economics")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Psychology")]),
+                  _vm._v(" "),
+                  _c("option", [
+                    _vm._v("Department of Geography & Environmental Management")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Political Science")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Sociology")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Department of Mass Communication")])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  directives: [
+                    {
+                      name: "waves",
+                      rawName: "v-waves.button",
+                      modifiers: { button: true }
+                    },
+                    {
+                      name: "waves",
+                      rawName: "v-waves.float",
+                      modifiers: { float: true }
+                    },
+                    {
+                      name: "waves",
+                      rawName: "v-waves.light",
+                      modifiers: { light: true }
+                    }
+                  ],
+                  staticClass: "btnRegister",
+                  attrs: { type: "submit" }
+                },
+                [_vm._v("\n            Create\n              ")]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "form",
+            {
+              staticClass: "form-group",
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.level($event)
+                }
+              }
+            },
+            [
+              _c("h4", [_vm._v("Add Course Level")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.user.course_level,
+                      expression: "user.course_level"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { multiple: "" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.user,
+                        "course_level",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "option",
+                    {
+                      staticClass: "hidden",
+                      attrs: { value: "selected", disabled: "" }
+                    },
+                    [_vm._v("Select Course Level")]
+                  ),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("100")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("200")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("300")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("400")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("600")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("700")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Other")])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  directives: [
+                    {
+                      name: "waves",
+                      rawName: "v-waves.button",
+                      modifiers: { button: true }
+                    },
+                    {
+                      name: "waves",
+                      rawName: "v-waves.float",
+                      modifiers: { float: true }
+                    },
+                    {
+                      name: "waves",
+                      rawName: "v-waves.light",
+                      modifiers: { light: true }
+                    }
+                  ],
+                  staticClass: "btnRegister",
+                  attrs: { type: "submit" }
+                },
+                [_vm._v("\n            Create\n              ")]
+              )
+            ]
+          )
+        ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = []
@@ -5772,6 +6042,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_registration_vue_vue_type_template_id_0a4369f6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_registration_vue_vue_type_template_id_0a4369f6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/data.vue":
+/*!******************************************!*\
+  !*** ./resources/js/components/data.vue ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _data_vue_vue_type_template_id_0a681d75_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./data.vue?vue&type=template&id=0a681d75&scoped=true& */ "./resources/js/components/data.vue?vue&type=template&id=0a681d75&scoped=true&");
+/* harmony import */ var _data_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./data.vue?vue&type=script&lang=js& */ "./resources/js/components/data.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _data_vue_vue_type_style_index_0_id_0a681d75_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./data.vue?vue&type=style&index=0&id=0a681d75&scoped=true&lang=css& */ "./resources/js/components/data.vue?vue&type=style&index=0&id=0a681d75&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _data_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _data_vue_vue_type_template_id_0a681d75_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _data_vue_vue_type_template_id_0a681d75_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "0a681d75",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/data.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/data.vue?vue&type=script&lang=js&":
+/*!*******************************************************************!*\
+  !*** ./resources/js/components/data.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_data_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./data.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/data.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_data_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/data.vue?vue&type=style&index=0&id=0a681d75&scoped=true&lang=css&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/components/data.vue?vue&type=style&index=0&id=0a681d75&scoped=true&lang=css& ***!
+  \***************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_data_vue_vue_type_style_index_0_id_0a681d75_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./data.vue?vue&type=style&index=0&id=0a681d75&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/data.vue?vue&type=style&index=0&id=0a681d75&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_data_vue_vue_type_style_index_0_id_0a681d75_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_data_vue_vue_type_style_index_0_id_0a681d75_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_data_vue_vue_type_style_index_0_id_0a681d75_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_data_vue_vue_type_style_index_0_id_0a681d75_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_data_vue_vue_type_style_index_0_id_0a681d75_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/data.vue?vue&type=template&id=0a681d75&scoped=true&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/data.vue?vue&type=template&id=0a681d75&scoped=true& ***!
+  \*************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_data_vue_vue_type_template_id_0a681d75_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./data.vue?vue&type=template&id=0a681d75&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/data.vue?vue&type=template&id=0a681d75&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_data_vue_vue_type_template_id_0a681d75_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_data_vue_vue_type_template_id_0a681d75_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

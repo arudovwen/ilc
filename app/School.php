@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class School extends Model
 {
+    protected $table ='school';
+protected $fillable = ['school','abbrevation'];
+
+
     public function user()
     {
         return $this->hasMany(User::class);

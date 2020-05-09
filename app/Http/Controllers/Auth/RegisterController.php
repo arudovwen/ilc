@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\School;
+use App\Faculty;
+use App\Department;
+use App\EducationLevel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -54,7 +58,6 @@ class RegisterController extends Controller
 
     protected function register(Request $request)
     {
-        
         $valid  =  request()->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -76,8 +79,58 @@ class RegisterController extends Controller
                         'department' => $request['department'],
                         'course_level'=> $request['course_level']
                     ]);
-        } 
-        
-        
+        }
+
+    
+    }
+    public function addSchool(Request $request)
+    {
+     
+        foreach ($request->school as $value) {
+            School::create([
+               'school'=> $value,
+            
+           ]);
+        }
+    }
+    public function addFaculty(Request $request)
+    {
+     
+        foreach ($request->faculty as $value) {
+            Faculty::create([
+              'faculty'=> $value,
+           
+          ]);
+        }
+    }
+    public function addDept(Request $request)
+    {
+     
+        foreach ($request->department as $value) {
+            $dept  = new Department;
+            $dept->department = $value;
+            $dept->faculty_id = $id;
+            $dept->save();
+        }
+    }
+    public function addEducationLevel(Request $request)
+    {
+     
+        foreach ($request->school as $value) {
+            EducationLevel::create([
+          'eduacation_level'=> $value,
+       
+      ]);
+        }
+    }
+    public function addCourseLevel(Request $request)
+    {
+     
+        foreach ($request->course_level as $value) {
+            CourseLevel::create([
+          'course_level'=> $value,
+       
+      ]);
+        }
     }
 }

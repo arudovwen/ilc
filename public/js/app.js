@@ -147,31 +147,39 @@ var Institute = function Institute() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/institute/createInstitute */ "./resources/js/components/institute/createInstitute.vue"));
 };
 
+var Data = function Data() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/data */ "./resources/js/components/data.vue"));
+};
+
 var routes = [{
   path: "*",
   redirect: "/"
 }, {
   path: "/",
   component: Home,
-  name: 'Home',
+  name: "Home",
   children: []
 }, {
-  path: '/auth',
+  path: "/auth",
   component: Auth,
-  name: 'Auth',
+  name: "Auth",
   beforeEnter: function beforeEnter(to, from, next) {
-    var user = localStorage.getItem('myUser');
+    var user = localStorage.getItem("myUser");
 
     if (user == null) {
       next();
     } else {
-      next('/');
+      next("/");
     }
   }
 }, {
-  path: '/create/institute',
+  path: "/create/institute",
   component: Institute,
-  name: 'Institute'
+  name: "Institute"
+}, {
+  path: "/data",
+  component: Data,
+  name: "Data"
 }];
 
 /***/ }),

@@ -108,15 +108,15 @@ class RegisterController extends Controller
      
         foreach ($request->department as $value) {
             $dept  = new Department;
-            $dept->department = $value;
-            $dept->faculty_id = $id;
+            $dept->department = $value->dept;
+            $dept->faculty_id = $value->faculty;
             $dept->save();
         }
     }
     public function addEducationLevel(Request $request)
     {
      
-        foreach ($request->school as $value) {
+        foreach ($request->level_of_edu as $value) {
             EducationLevel::create([
           'eduacation_level'=> $value,
        

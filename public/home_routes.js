@@ -1002,7 +1002,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.spin = true;
-      axios.post("/api/add-school", this.user.school).then(function (response) {
+      axios.post("/api/add-school", this.user).then(function (response) {
         if (response.status == 201) {
           _this.spin = false;
 
@@ -1018,7 +1018,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.spin = true;
-      axios.post("/api/add-faculty", this.user.faculty).then(function (response) {
+      axios.post("/api/add-faculty", this.user).then(function (response) {
         if (response.status == 201) {
           _this2.spin = false;
 
@@ -1034,7 +1034,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       this.spin = true;
-      axios.post("/api/add-dept", this.user.department).then(function (response) {
+      axios.post("/api/add-dept", this.user).then(function (response) {
         if (response.status == 201) {
           _this3.spin = false;
 
@@ -1050,7 +1050,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       this.spin = true;
-      axios.post("/api/add-level", this.user.course_level).then(function (response) {
+      axios.post("/api/add-level", this.user).then(function (response) {
         if (response.status == 201) {
           _this4.spin = false;
 
@@ -1066,7 +1066,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this5 = this;
 
       this.spin = true;
-      axios.post("/api/add-edulevel", this.user.level_of_edu).then(function (response) {
+      axios.post("/api/add-edulevel", this.user).then(function (response) {
         if (response.status == 201) {
           _this5.spin = false;
 

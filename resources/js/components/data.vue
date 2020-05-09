@@ -274,7 +274,7 @@ export default {
       this.spin = true;
      
         axios
-          .post("/api/add-school", this.user.school)
+          .post("/api/add-school", this.user)
           .then(response => {
             if (response.status == 201) {
               this.spin = false;
@@ -291,7 +291,7 @@ export default {
       this.spin = true;
      
         axios
-          .post("/api/add-faculty", this.user.faculty)
+          .post("/api/add-faculty", this.user)
           .then(response => {
             if (response.status == 201) {
               this.spin = false;
@@ -308,7 +308,7 @@ export default {
       this.spin = true;
      
         axios
-          .post("/api/add-dept", this.user.department)
+          .post("/api/add-dept", this.user)
           .then(response => {
             if (response.status == 201) {
               this.spin = false;
@@ -325,7 +325,7 @@ export default {
       this.spin = true;
      
         axios
-          .post("/api/add-level", this.user.course_level)
+          .post("/api/add-level", this.user)
           .then(response => {
             if (response.status == 201) {
               this.spin = false;
@@ -342,7 +342,7 @@ export default {
       this.spin = true;
      
         axios
-          .post("/api/add-edulevel", this.user.level_of_edu)
+          .post("/api/add-edulevel", this.user)
           .then(response => {
             if (response.status == 201) {
               this.spin = false;

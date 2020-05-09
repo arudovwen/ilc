@@ -115,10 +115,11 @@ class RegisterController extends Controller
     }
     public function addEducationLevel(Request $request)
     {
-     
+       
         foreach ($request->level_of_edu as $value) {
+           
             EducationLevel::create([
-          'eduacation_level'=> $value,
+          'education_level'=> $value,
        
       ]);
         }

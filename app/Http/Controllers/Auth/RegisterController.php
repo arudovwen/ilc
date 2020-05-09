@@ -106,13 +106,16 @@ class RegisterController extends Controller
     }
     public function addDept(Request $request)
     {
-     
-        foreach ($request->department as $value) {
+    
+        foreach ($request->department as $key => $value) {
+           
+            
             $dept  = new Department;
-            $dept->department = $value->dept;
-            $dept->faculty_id = $value->faculty;
+            $dept->department = $value;
+            $dept->faculty_id = $request->department['faculty'];
             $dept->save();
         }
+        
     }
     public function addEducationLevel(Request $request)
     {

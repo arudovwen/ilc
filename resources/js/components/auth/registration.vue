@@ -26,6 +26,18 @@
           placeholder="example@email.com"
         />
       </div>
+       <div class="form-group">
+        <label for>Password</label>
+        <input
+          type="password"
+          class="form-control"
+          name="password"
+          id="password"
+          v-model="admin.password"
+          aria-describedby="helpId"
+          placeholder=""
+        />
+      </div>
       <div class="form-group">
         <label for>Abbreviation</label>
         <input
@@ -80,7 +92,7 @@ export default {
         email: "",
         phone: null,
         address: "",
-        password: "password"
+        password: ""
       },
       spin: false
     };

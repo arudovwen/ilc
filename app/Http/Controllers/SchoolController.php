@@ -58,7 +58,7 @@ class SchoolController extends Controller
                 'school_id'=>  $school->id,
                 'address'=> $request->address,
                 'role'=> 'administrator',
-                'password'=> Hash::make('password'),
+                'password'=> Hash::make($request->password),
                 
             ]);
             

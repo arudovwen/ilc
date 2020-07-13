@@ -4828,6 +4828,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4837,7 +4849,7 @@ __webpack_require__.r(__webpack_exports__);
         email: "",
         phone: null,
         address: "",
-        password: "password"
+        password: ""
       },
       spin: false
     };
@@ -14779,6 +14791,38 @@ var render = function() {
                   return
                 }
                 _vm.$set(_vm.admin, "email", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Password")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.admin.password,
+                expression: "admin.password"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              type: "password",
+              name: "password",
+              id: "password",
+              "aria-describedby": "helpId",
+              placeholder: ""
+            },
+            domProps: { value: _vm.admin.password },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.admin, "password", $event.target.value)
               }
             }
           })

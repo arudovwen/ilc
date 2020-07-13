@@ -336,6 +336,7 @@ td {
   .toCaps{
       text-transform: capitalize;
   }
+  
   .w-70{
     width: 70% !important;
     }

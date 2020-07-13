@@ -17,10 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::middleware('auth:tutor_api')->get('/tutor', function (Request $request) {
-    return $request->tutor();
-});
-Route::post('register', 'Auth\RegisterController@register');
+Route::middleware('auth:tutor')->get('/tutorDetails', 'TutorController@tutorDetail');
+
+Route::middleware('auth:admin')->get('/adminDetails', 'AdminController@adminDetail');
+
+
 
 Route::post('add-school', 'Auth\RegisterController@addSchool');
 
@@ -40,4 +41,39 @@ Route::get('get-dept', 'GeneralController@getDept');
 Route::get('get-edulevel', 'GeneralController@getEducationLevel');
 Route::get('get-level', 'GeneralController@getCourseLevel');
 
-Route::post('register-tutor', 'TutorController@addCourseLevel');
+
+
+Route::middleware('auth:api')->group(function () {
+});
+
+Route::middleware('auth:tutor')->group(function () {
+    Route::resource('group', 'GroupsController');
+    Route::get('get-messages/{groupId}','MessagesController@getMessages');
+    Route::post('send-message','MessagesController@sendGroupMessage');
+});
+
+Route::post('school-register', 'SchoolController@store');
+
+Route::middleware('auth:admin')->group(function () {
+    Route::resource('admin', 'AdminController');
+    Route::post('multi-admin-drop', 'AdminController@multiDrop');
+    Route::post('multi-tutor-drop', 'TutorController@multiDrop');
+    Route::post('multi-student-drop', 'UserController@multiDrop');
+    Route::post('multi-subject-drop', 'SubjectsController@multiDrop');
+    Route::post('multi-syllabus-drop', 'SyllabusController@multiDrop');
+    Route::post('multi-classes-drop', 'ClassesController@multiDrop');
+    Route::resource('tutor', 'TutorController');
+    Route::resource('student', 'UserController');
+    Route::resource('school', 'SchoolController');
+    Route::resource('subject', 'SubjectsController');
+    Route::resource('syllabus', 'SyllabusController');
+    Route::resource('times-table', 'TimesTableController');
+    Route::resource('classes', 'ClassesController');
+    Route::resource('tutor-course', 'CourseTutorController');
+    Route::resource('tutor-class', 'ClassTeachersController');
+    Route::post('register', 'Auth\RegisterController@register');
+});
+Route::resource('order', 'OrdersController');
+Route::resource('temp-sub', 'TempSubscriptionsController');
+Route::resource('package', 'PackagesController');
+Route::get('verify/{ref}', 'SubscriptionsController@verify');

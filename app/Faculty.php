@@ -22,6 +22,6 @@ protected $fillable = ['faculty','abbrevation'];
         return $this->hasMany(Tutor::class);
     }
     public function departments(){
-        return $this->hasmany(Department::class);
+        return $this->hasMany(Department::class);
     }
 }

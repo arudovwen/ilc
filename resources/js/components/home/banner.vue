@@ -16,13 +16,13 @@
               <i class="fa fa-long-arrow-right sec_color" aria-hidden="true"></i>
             </button>
           </router-link>
-          <div
+          <!-- <div
           v-if="auth" >
             <button v-waves.button v-waves.float v-waves.light class="bg-white" @click="redirect">
               <span class="mr-2 sec_color">Enter classroom</span>
               <i class="fa fa-long-arrow-right sec_color" aria-hidden="true"></i>
             </button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -60,8 +60,8 @@ export default {
   },
   methods: {
     redirect(){
-  
-      window.location.href=`https://bizguruh.com/ilc?name=${this.bizUser.name}&email= ${this.bizUser.email} &phone= ${this.bizUser.phone} &school= ${this.bizUser.school} &faculty= ${this.bizUser.faculty}
+    
+      window.location.href=`http://localhost:8001/ilc?name=${this.bizUser.name}&email= ${this.bizUser.email} &phone= ${this.bizUser.phone} &school= ${this.bizUser.school} &faculty= ${this.bizUser.faculty}
         &department= ${this.bizUser.department} &course_level= ${this.bizUser.course_level} &mat_no= ${this.bizUser.mat_no}&gender= ${this.bizUser.gender}&level_of_edu= ${this.bizUser.level_of_edu} `
    
     }

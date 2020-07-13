@@ -3,7 +3,9 @@
 namespace App;
 
 use App\School;
+use App\Classes;
 use App\Faculty;
+use App\Message;
 use App\Department;
 use App\CourseLevel;
 use App\EducationLevel;
@@ -17,11 +19,12 @@ class Tutor extends Authenticatable
     use HasApiTokens, Notifiable;
 
     protected $fillable = [
-        'name', 'email', 'password','id_no','phone','gender','level_of_edu',
+        'name', 'email', 'password','id_no','phone','gender','level_of_edu','subjects',
         'school',
         'faculty',
         'department',
-        'course_level'
+        'course_level',
+        'school_id'
     ];
 
     public function school()
@@ -43,5 +46,11 @@ class Tutor extends Authenticatable
     public function courseLevel()
     {
         return $this->belongsToMany(CourseLevel::class);
+    }
+    public function classes(){
+        return $this->hasOne(Classes::class);
+    }
+    public function messages(){
+        return $this->hasMany(Message::class);
     }
 }

@@ -1,437 +1,109 @@
 <template>
   <div class="container-fluid register">
-    <form @submit.prevent="submit" class="mx-auto register-right">
-      <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-        <li class="nav-item">
-          <a
-            class="nav-link active"
-            id="home-tab"
-            data-toggle="tab"
-            href="#home"
-            role="tab"
-            aria-controls="home"
-            aria-selected="true"
-            @click="changeType('student')"
-          >Student</a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            id="profile-tab"
-            data-toggle="tab"
-            href="#profile"
-            role="tab"
-            aria-controls="profile"
-            aria-selected="false"
-            @click="changeType('tutor')"
-          >Tutor</a>
-        </li>
-      </ul>
-
-      <!-- Student starts here   -->
-      <div class="tab-content" id="myTabContent">
-        <div
-          class="tab-pane fade show active"
-          id="home"
-          role="tabpanel"
-          aria-labelledby="home-tab"
-          v-if="user.type == 'student'"
-        >
-          <h3 class="register-heading">Apply as a Student</h3>
-          <div class="row register-form">
-            <div class="col-md-6">
-              <div class="form-group">
-                <input
-                  required
-                  type="text"
-                  class="form-control"
-                  placeholder="Full Name *"
-                  v-model="user.student.name"
-                />
-              </div>
-
-              <div class="form-group">
-                <input
-                  required
-                  type="password"
-                  class="form-control"
-                  placeholder="Password *"
-                  v-model="user.student.password"
-                />
-              </div>
-
-              <div class="form-group">
-                <div class="maxl">
-                  <label class="radio inline">
-                    <input required type="radio" value="male" checked v-model="user.student.gender" />
-                    <span>Male</span>
-                  </label>
-                  <label class="radio inline">
-                    <input required type="radio" value="female" v-model="user.student.gender" />
-                    <span>Female</span>
-                  </label>
-                </div>
-              </div>
-              <div class="form-group">
-                <input
-                  required
-                  type="email"
-                  class="form-control"
-                  placeholder="Your Email *"
-                  v-model="user.student.email"
-                />
-              </div>
-              <div class="form-group">
-                <input
-                  required
-                  type="text"
-                  minlength="11"
-                  maxlength="11"
-                  class="form-control"
-                  placeholder="Your Phone *"
-                  v-model="user.student.phone"
-                />
-              </div>
-            </div>
-
-            <!-- For tertiry students  -->
-            <div class="col-md-6">
-              <div class="form-group">
-                <input
-                  required
-                  type="text"
-                  minlength="10"
-                  maxlength="10"
-                  class="form-control"
-                  placeholder="Your Mat No"
-                  v-model="user.student.mat_no"
-                />
-              </div>
-              <div class="form-group">
-                <select required class="form-control" v-model="user.student.level_of_edu">
-                  <option
-                    class="hidden"
-                    value="selected"
-                    disabled
-                  >Please select your Level of Education</option>
-                  <option
-                    :value="item.id"
-                    v-for="(item ,idx) in educations"
-                    :key="idx"
-                  >{{item.education_level}}</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <select required class="form-control" v-model="user.student.school">
-                  <option class="hidden" value="selected" disabled>Select School</option>
-                  <option :value="item.id" v-for="(item ,idx) in schools" :key="idx">{{item.school}}</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <select required class="form-control" v-model="user.student.faculty">
-                  <option class="hidden" value="selected" disabled>Select Faculty</option>
-                  <option
-                    :value="item.id"
-                    v-for="(item ,idx) in faculties"
-                    :key="idx"
-                  >{{item.faculty}}</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <select required class="form-control" v-model="user.student.department">
-                  <option class="hidden" value="selected" disabled>Select Department</option>
-                  <option
-                    :value="item.id"
-                    v-for="(item ,idx) in departments"
-                    :key="idx"
-                  >{{item.department}}</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <select required class="form-control" v-model="user.student.course_level">
-                  <option class="hidden" value="selected" disabled>Select Course Level</option>
-                  <option
-                    :value="item.id"
-                    v-for="(item ,idx) in levels"
-                    :key="idx"
-                  >{{item.course_level}}</option>
-                </select>
-              </div>
-
-              <button v-waves.button v-waves.float v-waves.light type="submit" class="btnRegister">
-                <span v-if="spin" class="spinner-border spinner-border-sm"></span> Register
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- student starts here  -->
-        <div
-          class="tab-pane fade show"
-          id="profile"
-          role="tabpanel"
-          aria-labelledby="profile-tab"
-          v-if="user.type == 'tutor'"
-        >
-          <h3 class="register-heading">Apply as a Tutor</h3>
-          <div class="row register-form">
-            <div class="col-md-6">
-              <div class="form-group">
-                <input
-                  required
-                  type="text"
-                  class="form-control"
-                  placeholder="Full Name *"
-                  v-model="user.tutor.name"
-                />
-              </div>
-
-              <div class="form-group">
-                <input
-                  required
-                  type="password"
-                  class="form-control"
-                  placeholder="Password *"
-                  v-model="user.tutor.password"
-                />
-              </div>
-
-              <div class="form-group">
-                <div class="maxl">
-                  <label class="radio inline">
-                    <input required type="radio" value="male" checked v-model="user.tutor.gender" />
-                    <span>Male</span>
-                  </label>
-                  <label class="radio inline">
-                    <input required type="radio" value="female" v-model="user.tutor.gender" />
-                    <span>Female</span>
-                  </label>
-                </div>
-              </div>
-              <div class="form-group">
-                <input
-                  required
-                  type="email"
-                  class="form-control"
-                  placeholder="Your Email *"
-                  v-model="user.tutor.email"
-                />
-              </div>
-              <div class="form-group">
-                <input
-                  required
-                  type="text"
-                  minlength="11"
-                  maxlength="11"
-                  class="form-control"
-                  placeholder="Your Phone *"
-                  v-model="user.tutor.phone"
-                />
-              </div>
-            </div>
-
-            <!-- For tertiry students  -->
-            <div class="col-md-6">
-              <div class="form-group">
-                <input
-                  required
-                  type="text"
-                  minlength="10"
-                  maxlength="10"
-                  class="form-control"
-                  placeholder="Your Id No"
-                  v-model="user.tutor.id_no"
-                />
-              </div>
-              <div class="form-group">
-                <select required class="form-control" v-model="user.tutor.level_of_edu">
-                  <option
-                    class="hidden"
-                    value="selected"
-                    disabled
-                  >Please select your Level of Education</option>
-                  <option
-                    :value="item.id"
-                    v-for="(item ,idx) in educations"
-                    :key="idx"
-                  >{{item.education_level}}</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <select required class="form-control" v-model="user.tutor.school">
-                  <option class="hidden" value="selected" disabled>Select School</option>
-                  <option :value="item.id" v-for="(item ,idx) in schools" :key="idx">{{item.school}}</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <select required class="form-control" v-model="user.tutor.faculty">
-                  <option class="hidden" value="selected" disabled>Select Faculty</option>
-                  <option
-                    :value="item.id"
-                    v-for="(item ,idx) in faculties"
-                    :key="idx"
-                  >{{item.faculty}}</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <select required class="form-control" v-model="user.tutor.department">
-                  <option class="hidden" value="selected" disabled>Select Department</option>
-                  
-                  <option
-                    :value="item.id"
-                    v-for="(item ,idx) in departments"
-                    :key="idx"
-                  >{{item.department}}</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <select required multiple class="form-control" v-model="user.tutor.course_level">
-                  <option class="hidden" value="selected" disabled>Select Course Level</option>
-                  <option
-                    :value="item.id"
-                    v-for="(item ,idx) in levels"
-                    :key="idx"
-                  >{{item.course_level}}</option>
-                </select>
-              </div>
-
-              <button
-                v-waves.button
-                v-waves.float
-                v-waves.light
-                type="submit"
-                class="btnRegister"
-              >Register</button>
-            </div>
-          </div>
-        </div>
+   <form @submit.prevent="register">
+      <legend>Register School</legend>
+      <div class="form-group">
+        <label for>Name</label>
+        <input
+          type="text"
+          class="form-control"
+          name="name"
+          id="name"
+          v-model="admin.name"
+          aria-describedby="helpId"
+          placeholder="University of Example"
+        />
       </div>
+      <div class="form-group">
+        <label for>Email</label>
+        <input
+          type="email"
+          class="form-control"
+          name="email"
+          id="email"
+          v-model="admin.email"
+          aria-describedby="helpId"
+          placeholder="example@email.com"
+        />
+      </div>
+      <div class="form-group">
+        <label for>Abbreviation</label>
+        <input
+          type="text"
+          class="form-control"
+          name="abbreviation"
+          id="abbreviation"
+          v-model="admin.abbreviation"
+          aria-describedby="helpId"
+          placeholder
+        />
+      </div>
+
+      <div class="form-group">
+        <label for>Phone</label>
+        <input
+          type="tel"
+          class="form-control"
+          name="phone"
+          id="phone"
+          maxlength="11"
+          v-model="admin.phone"
+          aria-describedby="helpId"
+          placeholder
+        />
+      </div>
+      <div class="form-group">
+        <label for>Address</label>
+        <input
+          type="text"
+          class="form-control"
+          name="address"
+          id="address"
+          v-model="admin.address"
+          aria-describedby="helpId"
+          placeholder
+        />
+      </div>
+
+      <button class="button-blue" type="submit">Register</button>
     </form>
   </div>
 </template>
-
 
 <script>
 export default {
   data() {
     return {
-      user: {
-        type: "student",
-        student: {
-          name: "",
-          password: "",
-          email: "",
-          phone: "",
-          gender: "",
-          mat_no: "",
-          level_of_edu: "selected",
-          school: "selected",
-          faculty: "selected",
-          department: "selected",
-          course_level: "selected"
-        },
-        tutor: {
-          name: "",
-          password: "",
-          email: "",
-          phone: "",
-          gender: "",
-          id_no: "",
-          level_of_edu: "selected",
-          school: "selected",
-          faculty: "selected",
-          department: "selected",
-          course_level: []
-        }
+      admin: {
+        name: "",
+        abbreviation: "",
+        email: "",
+        phone: null,
+        address: "",
+        password: "password"
       },
-      spin: false,
-      educations: [],
-      schools: [],
-      depts: [],
-      faculties: [],
-      levels: []
+      spin: false
     };
   },
-  mounted() {
-    this.getData();
-  },
-  computed: {
-    departments(){
-      return this.depts.filter(item=>{
-       if (this.user.type === 'student') {
-           return  item.faculty_id == this.user.student.faculty;
-       }else{
-          return  item.faculty_id == this.user.tutor.faculty;
-       }
-    })
-    }
-  },
   methods: {
-    getData() {
-      axios.get(`/api/get-edulevel`).then(res => {
-        this.educations = res.data;
-      });
-      axios.get(`/api/get-level`).then(res => {
-        this.levels = res.data;
-      });
-      axios.get(`/api/get-schools`).then(res => {
-        this.schools = res.data;
-      });
-      axios.get(`/api/get-faculties`).then(res => {
-        this.faculties = res.data;
-      });
-      axios.get(`/api/get-dept`).then(res => {
-        this.depts = res.data;
+    register() {
+      axios.post("/api/school-register", this.admin).then(res => {
+        if (res.status == 201) {
+          const regDetails = {};
+          regDetails.email = res.data.email;
+          regDetails.name = res.data.schools;
+          regDetails.school_id = res.data.id;
+          localStorage.setItem("regDetails", JSON.stringify(regDetails));
+         
+          this.$toasted.info("Successful");
+          this.$router.push('/checkout?redirection_from=registration')
+        }
       });
     },
-    login(value) {
-      this.$emit("login", value);
-    },
-    changeType(value) {
-      this.user.type = value;
-    },
-    submit() {
-      this.spin = true;
-      if (this.user.type == "student") {
-        this.user.student.type = "student";
-        axios
-          .post("/api/register", this.user.student)
-          .then(response => {
-            if (response.status == 201) {
-              this.spin = false;
-              this.$toasted.success("Registered successfully");
-              this.$router.push("/auth?authType=login");
-              this.$router.push(
-                "/auth?authType=login&redirect_from=register&level=student"
-              );
-            }
-          })
-          .catch(error => {
-            this.spin = false;
-            this.$toasted.error("Something is not right");
-          });
-      } else {
-        this.user.tutor.type = "tutor";
-        axios.post("/api/register-tutor", this.user.tutor).then(response => {
-          if (response.status == 201 || response.status == 200) {
-            this.spin = false;
-            this.$toasted.success("Registered successfully");
-            this.$router.push({
-              name: Auth,
-              query: {
-                authType: "login",
-                redirect_from: "register",
-                level: "student"
-              }
-            });
-          }
-        });
-      }
-    }
+   
   }
 };
 </script>
-
 
 <style scoped>
 .container-fluid {
@@ -439,6 +111,11 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100vh;
+}
+form{
+    width:50%;
+     background: #f7f8fa;
+     padding: 15px;
 }
 .register {
   background: transparent;

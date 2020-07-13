@@ -46,9 +46,14 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
-        'tutor_api' => [
+        'tutor' => [
             'driver' => 'passport',
             'provider' => 'tutors',
+            'hash' => false,
+        ],
+        'admin' => [
+            'driver' => 'passport',
+            'provider' => 'admins',
             'hash' => false,
         ],
     ],
@@ -78,6 +83,10 @@ return [
         'tutors' => [
             'driver' => 'eloquent',
             'model' => App\Tutor::class,
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Admin::class,
         ],
 
         // 'users' => [

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSchoolTable extends Migration
+class AddRegIdSchoolIdToTutorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateSchoolTable extends Migration
      */
     public function up()
     {
-        Schema::create('school', function (Blueprint $table) {
-            $table->id();
-            $table->string('school')->nullable();
-            $table->string('abbrevation')->nullable();
-            $table->timestamps();
+        Schema::table('tutors', function (Blueprint $table) {
+            $table->bigInteger('school_id')->unsigned();
+            $table->foreign('school_id')->references('id')->on('schools')->cascade('delete');
         });
     }
 
@@ -28,6 +26,8 @@ class CreateSchoolTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('school');
+        Schema::table('tutors', function (Blueprint $table) {
+            //
+        });
     }
 }

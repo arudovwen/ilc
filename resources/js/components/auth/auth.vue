@@ -13,9 +13,11 @@
 </template>
 
 <script>
-import login from "./login";
-import registration from "./registration";
-import navigation from "../navigation/navigation";
+const login = () => import('./login');
+const registration = () => import('./registration');
+
+const navigation = () => import('../navigation/navigation');
+
 export default {
   data() {
     return {

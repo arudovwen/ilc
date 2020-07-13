@@ -65,22 +65,23 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:6'],
             
         ]);
-    
-        if ($request['type']== 'student') {
+  
+        $school_id = auth('admin')->user()->school_id;
+        $school_name = School::find($school_id)->schools;
+   
             return User::create([
                         'name' => $request['name'],
                         'email' => $request['email'],
                         'password' => Hash::make($request['password']),
-                        'mat_no' => $request['mat_no'],
+                        'mat_no' => rand(0,9999),
                         'phone' => $request['phone'],
                         'gender' => $request['gender'],
-                        'level_of_edu' => $request['level_of_edu'],
-                        'school' => $request['school'],
-                        'faculty' => $request['faculty'],
-                        'department' => $request['department'],
-                        'course_level'=> $request['course_level']
+                        'address' => $request['address'],
+                        'school' => $school_name,
+                        'student_id'=> rand(0,9999),
+                        'school_id' => $school_id
                     ]);
-        }
+        
 
     
     }

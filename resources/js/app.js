@@ -40,6 +40,7 @@ Vue.use(VueWaves, {
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 Vue.use(VueAwesomeSwiper /* { default options with global component } */);
+Vue.use(require('vue-moment'));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -55,7 +56,56 @@ const router = new VueRouter({
         return null;
     }
 });
-
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.typeAdmin)) {
+      // this route requires auth, check if logged in
+      // if not, redirect to login page.
+      var admin = localStorage.getItem("typeAdmin");
+      if (admin == null) {
+        next({
+          path: '/admin/auth/login',
+          query: { redirect: to.fullPath }
+         
+        })
+      } else {
+        next()
+      }
+    } else {
+      next() // make sure to always call next()!
+    }
+    if (to.matched.some(record => record.meta.typeTutor)) {
+        // this route requires auth, check if logged in
+        // if not, redirect to login page.
+        var admin = localStorage.getItem("typeTutor");
+        if (admin == null) {
+          next({
+            path: '/tutor/auth/login',
+            query: { redirect: to.fullPath }
+           
+          })
+        } else {
+          next()
+        }
+      } else {
+        next() // make sure to always call next()!
+      }
+      if (to.matched.some(record => record.meta.typeStudent)) {
+        // this route requires auth, check if logged in
+        // if not, redirect to login page.
+        var admin = localStorage.getItem("typeStudent");
+        if (admin == null) {
+          next({
+            path: '/student/auth/login',
+            query: { redirect: to.fullPath }
+           
+          })
+        } else {
+          next()
+        }
+      } else {
+        next() // make sure to always call next()!
+      }
+  })
 const app = new Vue({
     el: "#app",
     router

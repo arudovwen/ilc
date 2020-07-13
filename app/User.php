@@ -4,6 +4,7 @@ namespace App;
 
 use App\School;
 use App\Faculty;
+use App\Message;
 use App\Department;
 use App\CourseLevel;
 use App\EducationLevel;
@@ -23,7 +24,7 @@ class User extends Authenticatable
      */
     
     protected $fillable = [
-        'name', 'email', 'password','mat_no','phone','gender','level_of_edu', 'school','faculty', 'department','course_level'
+        'name', 'email', 'password','address','mat_no','phone','gender','level_of_edu', 'school','faculty', 'department','course_level','student_id','school_id'
     ];
 
     /**
@@ -63,5 +64,8 @@ class User extends Authenticatable
     public function courseLevel()
     {
         return $this->belongsTo(CourseLevel::class);
+    }
+    public function messages(){
+        return $this->hasMany(Message::class);
     }
 }

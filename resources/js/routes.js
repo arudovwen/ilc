@@ -106,6 +106,12 @@ const StudentDashboard = () =>
         /* webpackChunkName: "home_routes" */ "./components/student/dashboard"
     );
 
+    const StudentGroups = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/student/groups");
+
+    const StudentGroupChat = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/student/chat");
+
 const AdminStudentCreate = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/student/create"
@@ -442,6 +448,22 @@ export const routes = [
                 path: "",
                 component: StudentHome,
                 name: "StudentHome",
+                meta: {
+                    typeStudent: true
+                }
+            },
+            {
+                path: "groups",
+                component: StudentGroups,
+                name: "StudentGroups",
+                meta: {
+                    typeStudent: true
+                }
+            },
+            {
+                path: "group/:id",
+                component: StudentGroupChat,
+                name: "StudentGroupChat",
                 meta: {
                     typeStudent: true
                 }

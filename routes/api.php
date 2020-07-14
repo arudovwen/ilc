@@ -44,14 +44,17 @@ Route::get('get-level', 'GeneralController@getCourseLevel');
 
 
 Route::middleware('auth:api')->group(function () {
+    Route::get('student-group/{id}', 'GroupsController@getStudentGroup');
+    Route::get('get-student-messages/{groupId}', 'MessagesController@getStudentMessages');
+    Route::post('send-student-message', 'MessagesController@sendStudentGroupMessage');
 });
 
 Route::middleware('auth:tutor')->group(function () {
     Route::resource('group', 'GroupsController');
-    Route::get('get-messages/{groupId}','MessagesController@getMessages');
-    Route::post('send-message','MessagesController@sendGroupMessage');
+    Route::get('get-messages/{groupId}', 'MessagesController@getMessages');
+    Route::post('send-message', 'MessagesController@sendGroupMessage');
 });
-
+Route::get('student-group/{id}', 'GroupsController@show');
 Route::post('school-register', 'SchoolController@store');
 
 Route::middleware('auth:admin')->group(function () {

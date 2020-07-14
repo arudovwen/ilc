@@ -70,7 +70,23 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        $user->name = $request['name'];
+        $user->email = $request['email'];
+        $user->password = Hash::make($request['password']);
+        $user->phone = $request['phone'];
+        $user->gender = $request['gender'];
+        $user->address = $request['address'];
+        $user->course_level= $request['course_level'];
+        $user->dob = $request['dob'];
+        $user->state = $request['state'];
+        $user->lga = $request['lga'];
+        $user->guardian= $request['guardian'];
+        $user->next_of_kin = $request['next_of_kin'];
+        $user->student_level = $request['student_level'];
+        $user->study_course = $request['study_course'];
+        $user->save();
+        
     }
 
     /**

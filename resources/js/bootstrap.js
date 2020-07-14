@@ -30,10 +30,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  */
 
 import Echo from 'laravel-echo';
-let user = JSON.parse(localStorage.getItem('typeTutor'))
+let tutor = JSON.parse(localStorage.getItem('typeTutor'))
+let user = JSON.parse(localStorage.getItem('typeStudent'))
 
 window.Pusher = require('pusher-js');
-if (user !== null) {
+if (tutor !== null) {
     
 window.Echo = new Echo({
     broadcaster: 'pusher',
@@ -41,9 +42,25 @@ window.Echo = new Echo({
     cluster: 'mt1',
     auth: {
         headers: {
-            Authorization: `Bearer ${user.access_token}`
+            Authorization: `Bearer ${tutor.access_token}`
         },
     },
+    // authEndpoint: '/tutor/auth/broadcasting',
     encrypted: true
 });
 }
+if (user !== null) {
+    
+    window.Echo = new Echo({
+        broadcaster: 'pusher',
+        key:'fd4918c68dc27458996d', 
+        cluster: 'mt1',
+        auth: {
+            headers: {
+                Authorization: `Bearer ${user.access_token}`
+            },
+        },
+        // authEndpoint: '/api/auth/broadcasting',
+        encrypted: true
+    });
+    }

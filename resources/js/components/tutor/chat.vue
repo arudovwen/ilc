@@ -3,11 +3,15 @@
     <div class="chat-body">
       <div class="message-body">
         <ul>
-          <li v-for="(item,idx) in messages" :key="idx">{{item.message}}</li>
+          <li class="message" v-for="(item,idx) in messages" :key="idx"  :class="{'text-right':item.sender_id == tutor.id}" >{{item.message}} </li>
         </ul>
       </div>
       <div class="send-tab">
-        <div class="form-group">
+        <button class="button px-2" @click="openEmoji">
+          <i class="fa fa-smile-o" aria-hidden="true"></i>
+        </button>
+        <VEmojiPicker @select="selectEmoji" v-if="showEmoji" class="emoji" />
+        <div class="form-group w-75 m-0">
           <input
             type="text"
             class="form-control"
@@ -15,24 +19,40 @@
             aria-describedby="helpId"
             placeholder
           />
-          <button class="button" @click="submit">Send</button>
+         <label for="attachment"> <i class="fa fa-paperclip" aria-hidden="true"></i></label>
         </div>
+      
+          <input type="file" hidden class="form-control-file" name="attachment" id="attachment" aria-describedby="fileHelpId">
+        
+        <button class="button" @click="submit">Send</button>
       </div>
+    </div>
+    <div class="online">
+      <div class="form-control">Online Students</div>
+      <ul>
+        <li v-for="(user,idx) in users" :key="idx">{{user.name}}</li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
+import VEmojiPicker from "v-emoji-picker";
 export default {
   props: ["tutor"],
   data() {
     return {
       messages: [],
-      message: ""
+      message: "",
+      users: [],
+      myText: "",
+      showEmoji: false
     };
   },
-  created() {},
-  mounted() {
+  components: {
+    VEmojiPicker
+  },
+  created() {
     this.getMessages();
     axios
       .get(`/api/group/${this.$route.params.id}`, {
@@ -42,17 +62,19 @@ export default {
       })
       .then(res => {
         if (res.status == 200) {
-
-          Echo.join(res.data.name + this.$route.params.id + this.$props.tutor.id )
+          Echo.join(res.data.name + this.$route.params.id + this.$props.tutor.id
+          )
             .here(users => {
-              console.log("created -> users", users);
+              this.users = users;
+              console.log("users", users)
             })
             .joining(user => {
-              console.log(user.name);
+              this.users.push(user);
+              console.log("user", user)
             })
             .listen("GroupMessageSent", e => {
-            console.log("created -> e", e)
-            
+            console.log("e", e)
+              this.messages.push(e.message);
             })
             .leaving(user => {
               console.log(user.name);
@@ -61,7 +83,15 @@ export default {
       });
   },
   methods: {
+    openEmoji() {
+      this.showEmoji = !this.showEmoji;
+    },
+     selectEmoji(emoji) {
+      this.message =this.message + emoji.data;
+       this.showEmoji = false
+    },
     submit() {
+        this.showEmoji = false
       let data = {
         message: this.message,
         group_id: this.$route.params.id
@@ -73,8 +103,8 @@ export default {
           }
         })
         .then(res => {
-          if (res.status == 201) {
-            this.getMessages();
+          if (res.status == 200) {
+            this.message = "";
           }
         });
     },
@@ -98,13 +128,28 @@ export default {
 .body {
   background: white;
   position: relative;
+  display: flex;
+  height: 100vh;
+}
+label{
+  margin: 0 !important;
+  display: block;
+}
+.message{
+  font-size: 15px;
+  padding:0 15px;
 }
 .chat-body {
   width: 80%;
   height: 100%;
   background: #f7f8fa;
-  padding: 0;
+  padding:20px 0;
   position: relative;
+}
+.online {
+  height: 100%;
+  width: 20%;
+  border: 2px solid;
 }
 .send-tab {
   position: fixed;
@@ -113,5 +158,25 @@ export default {
   margin: 0 auto;
   padding: 10px;
   background: white;
+  display: flex;
+}
+.emoji {
+  position: absolute;
+  bottom: 100%;
+  overflow: hidden !important;
+}
+.online ul li {
+  font-size: 15px;
+  padding: 10px 15px;
+}
+.form-group {
+  position: relative;
+}
+.fa-paperclip {
+  position: absolute;
+  font-size: 16px;
+  right: 10px;
+  top: 50%;
+  margin-top: -8px;
 }
 </style>

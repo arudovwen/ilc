@@ -79,7 +79,15 @@ class RegisterController extends Controller
                         'address' => $request['address'],
                         'school' => $school_name,
                         'student_id'=> rand(0,9999),
-                        'school_id' => $school_id
+                        'school_id' => $school_id,
+                        'course_level' => $request['course_level'],
+                        'dob' => $request['dob'],
+                        'state' => $request['state'],
+                        'lga' => $request['lga'],
+                        'guardian' => $request['guardian'],
+                        'next_of_kin' => $request['next_of_kin'],
+                        'student_level' => $request['student_level'],
+                        'study_course' => $request['study_course']
                     ]);
         
 

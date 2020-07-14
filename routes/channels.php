@@ -15,11 +15,9 @@ use Illuminate\Support\Facades\Broadcast;
 */
 
 Broadcast::channel('{groupName}{groupId}{tutorId}', function ($user, $tutorId) {
-  $tut = Tutor::where('id', $tutorId)->first();
-  return $tut;
-    // if ($tut->id == $tutorId) {
-    //    return $tut;
-    // }
+  
+  return $user;
+    
    
   
   });

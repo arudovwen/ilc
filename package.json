@@ -36,6 +36,7 @@
         "laravel-echo": "^1.8.0",
         "pusher-js": "^6.0.3",
         "swiper": "^5.3.8",
+        "v-emoji-picker": "^2.2.0",
         "vue-awesome-swiper": "^4.1.1",
         "vue-moment": "^4.1.0",
         "vue-paystack": "^2.0.2",

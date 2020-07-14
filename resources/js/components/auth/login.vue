@@ -49,13 +49,9 @@
                 />
               </div>
 
-              <button
-                v-waves.button
-                v-waves.float
-                v-waves.light
-                type="submit"
-                class="btnRegister"
-              ><span v-if="spin" class="spinner-border spinner-border-sm"></span> Login</button>
+              <button v-waves.button v-waves.float v-waves.light type="submit" class="btnRegister">
+                <span v-if="spin" class="spinner-border spinner-border-sm"></span> Login
+              </button>
             </div>
           </div>
         </div>
@@ -89,13 +85,9 @@
                 />
               </div>
 
-              <button
-                v-waves.button
-                v-waves.float
-                v-waves.light
-                type="submit"
-                class="btnRegister"
-              ><span v-if="spin" class="spinner-border spinner-border-sm"></span> Login  </button>
+              <button v-waves.button v-waves.float v-waves.light type="submit" class="btnRegister">
+                <span v-if="spin" class="spinner-border spinner-border-sm"></span> Login
+              </button>
             </div>
           </div>
         </div>
@@ -112,10 +104,9 @@ export default {
       user: {
         type: "student",
         email: "",
-        password: "",
-        
+        password: ""
       },
-      spin:false
+      spin: false
     };
   },
   methods: {
@@ -125,65 +116,122 @@ export default {
     changeType(value) {
       this.user.type = value;
     },
-      submit() {
+    submit() {
       this.spin = true;
-      let data = {
-        grant_type: "password",
-        client_id: 4,
-        client_secret: "VtKXCNi6gMuUx2XNv30RNl5xWI7Lme5vTjvbB8gD",
-        username: this.user.email,
-        password: this.user.password
-      };
-      const typeAdmin = {};
-      axios
-        .post("/oauth/token", data)
-        .then(res => {
-          if (res.status == 200) {
-            typeAdmin.access_token = res.data.access_token;
-            typeAdmin.refresh_token = res.data.refresh_token;
-            axios
-              .get(`/api/adminDetails`, {
-                headers: { Authorization: `Bearer ${res.data.access_token}` }
-              })
-              .then(res => {
-                if (res.status === 200) {
-                  this.spin = false;
-                  if (res.data.verify == 1) {
-                    typeAdmin.email = res.data.email;
-                    typeAdmin.name = res.data.name;
-                    typeAdmin.school_id = res.data.school_id;
-                    typeAdmin.school = res.data.school;
-                    localStorage.setItem(
-                      "typeAdmin",
-                      JSON.stringify(typeAdmin)
-                    );
-                    this.$toasted.success("Sucessful");
-                    if (this.$route.query.redirect) {
-                      this.$router.push(this.$route.query.redirect);
-                    } else {
-                      this.$toasted.info("Redirecting to dashboard..");
-                      this.$router.push("/admin");
+      if (this.user.type == "student") {
+        let data = {
+          grant_type: "password",
+          client_id: 2,
+          client_secret: "7yRvzmjeVaIpSUJKBW5PCfkVCVSBauhRwRgEvt36",
+          username: this.user.email,
+          password: this.user.password
+        };
+
+        const typeStudent = {};
+        axios
+          .post("/oauth/token", data)
+          .then(res => {
+            if (res.status == 200) {
+              typeStudent.access_token = res.data.access_token;
+              typeStudent.refresh_token = res.data.refresh_token;
+              axios
+                .get(`/api/user`, {
+                  headers: { Authorization: `Bearer ${res.data.access_token}` }
+                })
+                .then(res => {
+                  if (res.status === 200) {
+                    this.spin = false;
+               
+                typeStudent.id = res.data.id;
+                      typeStudent.email = res.data.email;
+                      typeStudent.name = res.data.name;
+                      typeStudent.school_id = res.data.school_id;
+                      typeStudent.school = res.data.school;
+                      localStorage.setItem(
+                        "typeStudent",
+                        JSON.stringify(typeStudent)
+                      );
+                      this.$toasted.success("Sucessful");
+                      if (this.$route.query.redirect) {
+                        this.$router.push(this.$route.query.redirect);
+                      } else {
+                        this.$toasted.info("Redirecting to dashboard..");
+                        this.$router.push("/student");
+                      }
                     }
-                  } else {
-                    this.$toasted.info("Subscribe to access account");
-                    this.$router.push(
-                      "/checkout?redirection_from=registration"
-                    );
+                  
+                })
+                .catch(error => {
+                  console.log("submit -> error", error);
+                  this.$toasted.error("Something is not right");
+                  this.spin = false;
+                });
+            }
+          })
+          .catch(error => {
+            console.log("submit -> error", error);
+            this.$toasted.error("Something is not right");
+            this.spin = false;
+          });
+      } else {
+        let data = {
+          grant_type: "password",
+          client_id: 4,
+          client_secret: "VtKXCNi6gMuUx2XNv30RNl5xWI7Lme5vTjvbB8gD",
+          username: this.user.email,
+          password: this.user.password
+        };
+        const typeAdmin = {};
+        axios
+          .post("/oauth/token", data)
+          .then(res => {
+            if (res.status == 200) {
+              typeAdmin.access_token = res.data.access_token;
+              typeAdmin.refresh_token = res.data.refresh_token;
+              axios
+                .get(`/api/adminDetails`, {
+                  headers: { Authorization: `Bearer ${res.data.access_token}` }
+                })
+                .then(res => {
+                  if (res.status === 200) {
+                    this.spin = false;
+                    if (res.data.verify == 1) {
+                      typeAdmin.email = res.data.email;
+                      typeAdmin.name = res.data.name;
+                      typeAdmin.school_id = res.data.school_id;
+                      typeAdmin.school = res.data.school;
+                      localStorage.setItem(
+                        "typeAdmin",
+                        JSON.stringify(typeAdmin)
+                      );
+                      this.$toasted.success("Sucessful");
+                      if (this.$route.query.redirect) {
+                        this.$router.push(this.$route.query.redirect);
+                      } else {
+                        this.$toasted.info("Redirecting to dashboard..");
+                        this.$router.push("/admin");
+                      }
+                    } else {
+                      this.$toasted.info("Subscribe to access account");
+                      this.$router.push(
+                        "/checkout?redirection_from=registration"
+                      );
+                    }
                   }
-                }
-              })
-              .catch(error => {
-                console.log("submit -> error", error);
-                this.$toasted.error("Something is not right");
-                this.spin = false;
-              });
-          }
-        })
-        .catch(error => {
-          console.log("submit -> error", error);
-          this.$toasted.error("Something is not right");
-          this.spin = false;
-        });
+                })
+                .catch(error => {
+                  console.log("submit -> error", error);
+                  this.$toasted.error("Something is not right");
+                  this.spin = false;
+                });
+            }
+          })
+          .catch(error => {
+            console.log("submit -> error", error);
+            this.$toasted.error("Something is not right");
+            this.spin = false;
+          });
+      }
     }
   }
 };

@@ -1,21 +1,52 @@
 <template>
-    <div>
-       <p @click="logout"> Logout</p>
+   <div>
+        <div class="logo">
+       <p> {{student.name}}</p>
     </div>
+        <nav>
+        <ul>
+           <router-link to="/student/groups"> <li>Groups</li></router-link>
+            <li @click="logout"> Logout </li>
+        </ul>
+      
+    </nav>
+   </div>
 </template>
 
 
 <script>
 export default {
+       props:['student'],
+    data() {
+        return {
+          
+        }
+    },
+    mounted() {
+        
+    },
     methods: {
         logout(){
             localStorage.removeItem('typeStudent')
-            this.$router.push('/student/auth/login')
+            this.$router.push('http://localhost:8000/auth?authType=login')
         }
     },
 }
 </script>
 
-<style scoped>
 
+<style scoped>
+.logo{
+    padding: 10px 20px;
+}
+.logo p{
+    font-weight: bold;
+    font-family: 'Josefin Sans';
+    font-size: 24px;
+}
+nav ul li{
+  padding: 10px 20px;
+  font-size: 15px;
+  cursor: pointer;
+}
 </style>

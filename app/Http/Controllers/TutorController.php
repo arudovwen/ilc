@@ -49,15 +49,28 @@ class TutorController extends Controller
         $school_name = School::find($school_id)->schools;
    
         return Tutor::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-            'id_no' => rand(0,99999),
-            'phone' => $request['phone'],
-            'gender' => $request['gender'],
-            'school' => $school_name,
-            'school_id' => $school_id,
-            'subjects' => $request['subjects']
+            'name' = $request['name'],
+            'email' = $request['email'],
+            'password' = Hash::make($request['password']),
+            'id_no' = rand(0,99999),
+            'phone' = $request['phone'],
+            'gender' = $request['gender'],
+            'school' = $school_name,
+            'school_id' = $school_id,
+            'subjects' = $request['subjects'],
+            'address'  = $request['address'],
+             'dob'  = $request['dob'],
+             'doe'  = $request['doe'], 
+              'lga'  = $request['lga'], 
+              'state'  = $request['state'], 
+              'bank_name'  = $request['bank_name'],
+              'bank_no'  = $request['bank_no'],
+              'bvn'  = $request['bvn'],
+              'sgl'  = $request['sgl'],
+              'rank'  = $request['rank'],
+              'file_no'  = $request['file_no'],
+              'area_of_specialization'  = $request['area_of_specialization'],
+           
             
         
         ]);
@@ -108,9 +121,22 @@ class TutorController extends Controller
         $tutor['course_level']= $request['course_level'];
         $tutor['student_id'] =  $request['student_id'];
         $tutor['subjects'] =  $request['subjects'];
+        $tutor['address' ] = $request['address'];
+        $tutor['dob']  = $request['dob'];
+        $tutor['doe' ] = $request['doe'];
+         $tutor['lga']  = $request['lga'];
+         $tutor['state']  = $request['state'];
+         $tutor['bank_name']  = $request['bank_name'];
+         $tutor['bank_no']  = $request['bank_no'];
+         $tutor['bvn']  = $request['bvn'];
+         $tutor['sgl']  = $request['sgl'];
+         $tutor['rank']  = $request['rank'];
+         $tutor['file_no']  = $request['file_no'];
+         $tutor['area_of_specialization']  = $request['area_of_specialization'];
+     
         $tutor->save();
         return response()->json([
-            'status' => 'Updated'
+            'status' = 'Updated'
         ]);
     }
 
@@ -125,7 +151,7 @@ class TutorController extends Controller
         $tutor = Tutor::find($id);
         $tutor->delete();
         return response()->json([
-            'status' => 'Removed'
+            'status' = 'Removed'
         ]);
     }
 }

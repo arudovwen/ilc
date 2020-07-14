@@ -1,7 +1,7 @@
 <template>
     <div class="my-container d-flex">
-       <Side  class="side"/> 
-       <Main class="main"/>
+       <Side  class="side" :student ='student'/> 
+       <Main class="main" :student ='student'/>
     </div>
 </template>
 
@@ -10,10 +10,18 @@
 import Side from './sideBar'
 import Main from "./main";
 export default {
+    data() {
+        return {
+            student:{}
+        }
+    },
     components:{
         Main,
         Side
-    }
+    },
+     created() {
+       this.student = JSON.parse(localStorage.getItem("typeStudent"));
+    },
 }
 </script>
 

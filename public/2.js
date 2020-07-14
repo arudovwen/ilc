@@ -108,14 +108,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -138,32 +130,33 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.spin = true;
-      var data = {
-        grant_type: "password",
-        client_id: 4,
-        client_secret: "VtKXCNi6gMuUx2XNv30RNl5xWI7Lme5vTjvbB8gD",
-        username: this.user.email,
-        password: this.user.password
-      };
-      var typeAdmin = {};
-      axios.post("/oauth/token", data).then(function (res) {
-        if (res.status == 200) {
-          typeAdmin.access_token = res.data.access_token;
-          typeAdmin.refresh_token = res.data.refresh_token;
-          axios.get("/api/adminDetails", {
-            headers: {
-              Authorization: "Bearer ".concat(res.data.access_token)
-            }
-          }).then(function (res) {
-            if (res.status === 200) {
-              _this.spin = false;
 
-              if (res.data.verify == 1) {
-                typeAdmin.email = res.data.email;
-                typeAdmin.name = res.data.name;
-                typeAdmin.school_id = res.data.school_id;
-                typeAdmin.school = res.data.school;
-                localStorage.setItem("typeAdmin", JSON.stringify(typeAdmin));
+      if (this.user.type == "student") {
+        var data = {
+          grant_type: "password",
+          client_id: 2,
+          client_secret: "7yRvzmjeVaIpSUJKBW5PCfkVCVSBauhRwRgEvt36",
+          username: this.user.email,
+          password: this.user.password
+        };
+        var typeStudent = {};
+        axios.post("/oauth/token", data).then(function (res) {
+          if (res.status == 200) {
+            typeStudent.access_token = res.data.access_token;
+            typeStudent.refresh_token = res.data.refresh_token;
+            axios.get("/api/user", {
+              headers: {
+                Authorization: "Bearer ".concat(res.data.access_token)
+              }
+            }).then(function (res) {
+              if (res.status === 200) {
+                _this.spin = false;
+                typeStudent.id = res.data.id;
+                typeStudent.email = res.data.email;
+                typeStudent.name = res.data.name;
+                typeStudent.school_id = res.data.school_id;
+                typeStudent.school = res.data.school;
+                localStorage.setItem("typeStudent", JSON.stringify(typeStudent));
 
                 _this.$toasted.success("Sucessful");
 
@@ -172,29 +165,83 @@ __webpack_require__.r(__webpack_exports__);
                 } else {
                   _this.$toasted.info("Redirecting to dashboard..");
 
-                  _this.$router.push("/admin");
+                  _this.$router.push("/student");
                 }
-              } else {
-                _this.$toasted.info("Subscribe to access account");
-
-                _this.$router.push("/checkout?redirection_from=registration");
               }
-            }
-          })["catch"](function (error) {
-            console.log("submit -> error", error);
+            })["catch"](function (error) {
+              console.log("submit -> error", error);
 
-            _this.$toasted.error("Something is not right");
+              _this.$toasted.error("Something is not right");
 
-            _this.spin = false;
-          });
-        }
-      })["catch"](function (error) {
-        console.log("submit -> error", error);
+              _this.spin = false;
+            });
+          }
+        })["catch"](function (error) {
+          console.log("submit -> error", error);
 
-        _this.$toasted.error("Something is not right");
+          _this.$toasted.error("Something is not right");
 
-        _this.spin = false;
-      });
+          _this.spin = false;
+        });
+      } else {
+        var _data = {
+          grant_type: "password",
+          client_id: 4,
+          client_secret: "VtKXCNi6gMuUx2XNv30RNl5xWI7Lme5vTjvbB8gD",
+          username: this.user.email,
+          password: this.user.password
+        };
+        var typeAdmin = {};
+        axios.post("/oauth/token", _data).then(function (res) {
+          if (res.status == 200) {
+            typeAdmin.access_token = res.data.access_token;
+            typeAdmin.refresh_token = res.data.refresh_token;
+            axios.get("/api/adminDetails", {
+              headers: {
+                Authorization: "Bearer ".concat(res.data.access_token)
+              }
+            }).then(function (res) {
+              if (res.status === 200) {
+                _this.spin = false;
+
+                if (res.data.verify == 1) {
+                  typeAdmin.email = res.data.email;
+                  typeAdmin.name = res.data.name;
+                  typeAdmin.school_id = res.data.school_id;
+                  typeAdmin.school = res.data.school;
+                  localStorage.setItem("typeAdmin", JSON.stringify(typeAdmin));
+
+                  _this.$toasted.success("Sucessful");
+
+                  if (_this.$route.query.redirect) {
+                    _this.$router.push(_this.$route.query.redirect);
+                  } else {
+                    _this.$toasted.info("Redirecting to dashboard..");
+
+                    _this.$router.push("/admin");
+                  }
+                } else {
+                  _this.$toasted.info("Subscribe to access account");
+
+                  _this.$router.push("/checkout?redirection_from=registration");
+                }
+              }
+            })["catch"](function (error) {
+              console.log("submit -> error", error);
+
+              _this.$toasted.error("Something is not right");
+
+              _this.spin = false;
+            });
+          }
+        })["catch"](function (error) {
+          console.log("submit -> error", error);
+
+          _this.$toasted.error("Something is not right");
+
+          _this.spin = false;
+        });
+      }
     }
   }
 });
@@ -454,7 +501,7 @@ var render = function() {
                                     "spinner-border spinner-border-sm"
                                 })
                               : _vm._e(),
-                            _vm._v(" Login")
+                            _vm._v(" Login\n            ")
                           ]
                         )
                       ])
@@ -571,7 +618,7 @@ var render = function() {
                                     "spinner-border spinner-border-sm"
                                 })
                               : _vm._e(),
-                            _vm._v(" Login  ")
+                            _vm._v(" Login\n            ")
                           ]
                         )
                       ])

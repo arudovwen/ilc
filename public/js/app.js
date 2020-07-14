@@ -184,8 +184,24 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  */
 
 
-var user = JSON.parse(localStorage.getItem('typeTutor'));
+var tutor = JSON.parse(localStorage.getItem('typeTutor'));
+var user = JSON.parse(localStorage.getItem('typeStudent'));
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
+
+if (tutor !== null) {
+  window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
+    broadcaster: 'pusher',
+    key: 'fd4918c68dc27458996d',
+    cluster: 'mt1',
+    auth: {
+      headers: {
+        Authorization: "Bearer ".concat(tutor.access_token)
+      }
+    },
+    // authEndpoint: '/tutor/auth/broadcasting',
+    encrypted: true
+  });
+}
 
 if (user !== null) {
   window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
@@ -197,6 +213,7 @@ if (user !== null) {
         Authorization: "Bearer ".concat(user.access_token)
       }
     },
+    // authEndpoint: '/api/auth/broadcasting',
     encrypted: true
   });
 }
@@ -327,6 +344,14 @@ var StudentHome = function StudentHome() {
 
 var StudentDashboard = function StudentDashboard() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/dashboard */ "./resources/js/components/student/dashboard.vue"));
+};
+
+var StudentGroups = function StudentGroups() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/groups */ "./resources/js/components/student/groups.vue"));
+};
+
+var StudentGroupChat = function StudentGroupChat() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/chat */ "./resources/js/components/student/chat.vue"));
 };
 
 var AdminStudentCreate = function AdminStudentCreate() {
@@ -648,6 +673,20 @@ var routes = [{
     meta: {
       typeStudent: true
     }
+  }, {
+    path: "groups",
+    component: StudentGroups,
+    name: "StudentGroups",
+    meta: {
+      typeStudent: true
+    }
+  }, {
+    path: "group/:id",
+    component: StudentGroupChat,
+    name: "StudentGroupChat",
+    meta: {
+      typeStudent: true
+    }
   }]
 }];
 
@@ -671,8 +710,8 @@ var routes = [{
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/ARUDOVWEN/Desktop/ilc/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/ARUDOVWEN/Desktop/ilc/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/ARUDOVWEN/Desktop/biztest/ilc/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/ARUDOVWEN/Desktop/biztest/ilc/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

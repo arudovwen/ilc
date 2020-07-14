@@ -57,6 +57,10 @@ class MessagesController extends Controller
  
         return Message::with('tutor')->where('group_id', $groupId)->get();
     }
+    public function getStudentMessages($groupId)
+    {
+        return Message::where('group_id', $groupId)->get();
+    }
 
     public function sendGroupMessage(Request $request)
     {
@@ -70,10 +74,26 @@ class MessagesController extends Controller
             'group_id'=> $request->input('group_id')
         ]);
 
-        broadcast(new GroupMessageSent($tutor, $message,$group));
+        broadcast(new GroupMessageSent($tutor, $message, $group));
 
         return ['status' => 'Message Sent!'];
     }
+    public function sendStudentGroupMessage(Request $request)
+    {
+        $user =  auth('api')->user();
+        $group =  Group::where('id', $request->input('group_id'))->first();
+        $tutor = Tutor::where('id', $group->tutor_id)->first();
+        $message = Message::create([
+            'sender_id' => $user->id,
+            'message' => $request->input('message'),
+            'group_id'=> $request->input('group_id')
+        ]);
+
+        broadcast(new GroupMessageSent($tutor, $message, $group));
+
+        return ['status' => 'Message Sent!'];
+    }
+   
     public function show(Message $message)
     {
         //

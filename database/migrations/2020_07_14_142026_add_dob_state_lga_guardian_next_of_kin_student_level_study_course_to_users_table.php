@@ -19,7 +19,7 @@ class AddDobStateLgaGuardianNextOfKinStudentlevelStudyCourseToUsersTable extends
             $table->string('lga')->nullable();
             $table->string('guardian')->nullable();
             $table->string('next_of_kin')->nullable();
-            $table->string('study_level')->nullable();
+            $table->string('student_level')->nullable();
             $table->string('study_course')->nullable();
             
         });

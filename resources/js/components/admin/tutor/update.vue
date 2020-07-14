@@ -27,6 +27,7 @@
         />
       </div>
     
+
       <div class="form-group">
         <label for>Gender</label>
         <select class="form-control"  v-model="tutor.gender">
@@ -49,8 +50,7 @@ export default {
       tutor: {
         'name' :'', 
         'email' :'', 
-        'gender' :'',
-   
+        subjects:''
       },
    
       spin: false

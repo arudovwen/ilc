@@ -62,7 +62,7 @@ class RegisterController extends Controller
         $valid  =  request()->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6'],
+        
             
         ]);
   
@@ -74,13 +74,13 @@ class RegisterController extends Controller
                         'email' => $request['email'],
                         'password' => Hash::make($request['password']),
                         'mat_no' => rand(0,9999),
-                        'phone' => $request['phone'],
-                        'gender' => $request['gender'],
-                        'address' => $request['address'],
+                        'phone' => null,
+                        'gender' => null,
+                        'address' =>null,
                         'school' => $school_name,
                         'student_id'=> rand(0,9999),
                         'school_id' => $school_id,
-                        'course_level' => $request['course_level'],
+                        'course_level' => null,
                         'dob' => $request['dob'],
                         'state' => $request['state'],
                         'lga' => $request['lga'],

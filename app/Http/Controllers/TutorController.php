@@ -49,27 +49,27 @@ class TutorController extends Controller
         $school_name = School::find($school_id)->schools;
    
         return Tutor::create([
-            'name' = $request['name'],
-            'email' = $request['email'],
-            'password' = Hash::make($request['password']),
-            'id_no' = rand(0,99999),
-            'phone' = $request['phone'],
-            'gender' = $request['gender'],
-            'school' = $school_name,
-            'school_id' = $school_id,
-            'subjects' = $request['subjects'],
-            'address'  = $request['address'],
-             'dob'  = $request['dob'],
-             'doe'  = $request['doe'], 
-              'lga'  = $request['lga'], 
-              'state'  = $request['state'], 
-              'bank_name'  = $request['bank_name'],
-              'bank_no'  = $request['bank_no'],
-              'bvn'  = $request['bvn'],
-              'sgl'  = $request['sgl'],
-              'rank'  = $request['rank'],
-              'file_no'  = $request['file_no'],
-              'area_of_specialization'  = $request['area_of_specialization'],
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+            'id_no' => rand(0,99999),
+            'phone' => $request['phone'],
+            'gender' => $request['gender'],
+            'school' => $school_name,
+            'school_id' => $school_id,
+            'subjects' => $request['subjects'],
+            'address'  => $request['address'],
+             'dob'  => $request['dob'],
+             'doe'  => $request['doe'], 
+              'lga'  => $request['lga'], 
+              'state'  => $request['state'], 
+              'bank_name'  => $request['bank_name'],
+              'bank_no'  => $request['bank_no'],
+              'bvn'  => $request['bvn'],
+              'sgl'  => $request['sgl'],
+              'rank'  => $request['rank'],
+              'file_no'  => $request['file_no'],
+              'area_of_specialization'  => $request['area_of_specialization'],
            
             
         
@@ -111,7 +111,7 @@ class TutorController extends Controller
         $tutor['name'] = $request['name'];
         $tutor['email'] = $request['email'];
         $tutor['email'] = Hash::make($request['password']);
-        $tutor['id_no'] = $request['id_no'];
+        $tutor['id_no'] = rand(0,9999);
         $tutor['phone'] = $request['phone'];
         $tutor['gender'] = $request['gender'];
         $tutor['level_of_edu'] = $request['level_of_edu'];
@@ -136,7 +136,7 @@ class TutorController extends Controller
      
         $tutor->save();
         return response()->json([
-            'status' = 'Updated'
+            'status' => 'Updated'
         ]);
     }
 
@@ -151,7 +151,7 @@ class TutorController extends Controller
         $tutor = Tutor::find($id);
         $tutor->delete();
         return response()->json([
-            'status' = 'Removed'
+            'status' => 'Removed'
         ]);
     }
 }

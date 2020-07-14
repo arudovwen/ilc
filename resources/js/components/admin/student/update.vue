@@ -16,7 +16,15 @@
                 />
               </div>
 
-            
+              <div class="form-group">
+                <input
+                  required
+                  type="password"
+                  class="form-control"
+                  placeholder="Password *"
+                  v-model="student.password"
+                />
+              </div>
 
               <div class="form-group">
                 <div class="maxl">
@@ -39,7 +47,31 @@
                   v-model="student.email"
                 />
               </div>
+               <div class="form-group">
+                <input
+                  required
+                  type="text"
+                  class="form-control"
+                  placeholder="Your address *"
+                  v-model="student.address"
+                />
+              </div>
+              
+              <div class="form-group">
+                <input
+                  required
+                  type="text"
+                  minlength="11"
+                  maxlength="11"
+                  class="form-control"
+                  placeholder="Your Phone *"
+                  v-model="student.phone"
+                />
+              </div>
+          
 
+          
+            
 
               <button v-waves.button v-waves.float v-waves.light type="submit" class="btnRegister">
                 <span v-if="spin" class="spinner-border spinner-border-sm"></span> Register
@@ -60,9 +92,13 @@ export default {
     return {
      
         student: {
-          name: "",        
+          name: "",
+          password: "",
           email: "",
+          phone: "",
           gender: "",
+          address:"",
+          profile:""
       
        
       },

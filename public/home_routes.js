@@ -1292,49 +1292,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       student: {
         name: "",
-        password: "",
         email: "",
-        phone: "",
-        gender: "",
-        address: "",
-        profile: ""
+        gender: ""
       },
       spin: false
     };
@@ -3038,55 +3002,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       tutor: {
         'name': '',
         'email': '',
-        'password': '',
-        'phone': null,
-        'gender': '',
-        'school_id': '',
-        subjects: ''
+        'gender': ''
       },
       spin: false
     };
@@ -9779,34 +9701,6 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.student.password,
-                expression: "student.password"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              required: "",
-              type: "password",
-              placeholder: "Password *"
-            },
-            domProps: { value: _vm.student.password },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.student, "password", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
           _c("div", { staticClass: "maxl" }, [
             _c("label", { staticClass: "radio inline" }, [
               _c("input", {
@@ -9878,64 +9772,6 @@ var render = function() {
                   return
                 }
                 _vm.$set(_vm.student, "email", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.student.address,
-                expression: "student.address"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              required: "",
-              type: "text",
-              placeholder: "Your address *"
-            },
-            domProps: { value: _vm.student.address },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.student, "address", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.student.phone,
-                expression: "student.phone"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              required: "",
-              type: "text",
-              minlength: "11",
-              maxlength: "11",
-              placeholder: "Your Phone *"
-            },
-            domProps: { value: _vm.student.phone },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.student, "phone", $event.target.value)
               }
             }
           })
@@ -12156,100 +11992,6 @@ var render = function() {
                   return
                 }
                 _vm.$set(_vm.tutor, "email", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("Password")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.tutor.password,
-                expression: "tutor.password"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "password",
-              name: "pasword",
-              id: "password",
-              "aria-describedby": "helpId",
-              placeholder: "******"
-            },
-            domProps: { value: _vm.tutor.password },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.tutor, "password", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("Phone")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.tutor.phone,
-                expression: "tutor.phone"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "number",
-              name: "phone",
-              id: "phone",
-              maxlength: "11",
-              "aria-describedby": "helpId",
-              placeholder: ""
-            },
-            domProps: { value: _vm.tutor.phone },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.tutor, "phone", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("Subjects")]),
-          _vm._v(" "),
-          _c("textarea", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.tutor.subjects,
-                expression: "tutor.subjects"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              placeholder: "Subject1, Subject 2, Subject 3 ...",
-              rows: "3"
-            },
-            domProps: { value: _vm.tutor.subjects },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.tutor, "subjects", $event.target.value)
               }
             }
           })

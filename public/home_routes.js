@@ -6669,7 +6669,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -6759,7 +6758,7 @@ __webpack_require__.r(__webpack_exports__);
     getgroups: function getgroups() {
       var _this5 = this;
 
-      axios.get("/api/group", {
+      axios.get("/api/student-group", {
         headers: {
           Authorization: "Bearer ".concat(this.$props.student.access_token)
         }

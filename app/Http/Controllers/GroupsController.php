@@ -52,6 +52,11 @@ class GroupsController extends Controller
      * @param  \App\Group  $group
      * @return \Illuminate\Http\Response
      */
+    public function getStudentGroups(){
+        $user = auth('api')->user();
+   
+        return Group::where('school_id',$user->school_id)->get();
+    }
     public function show( $id)
     {
         return Group::find($id);

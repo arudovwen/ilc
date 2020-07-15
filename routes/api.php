@@ -45,6 +45,7 @@ Route::get('get-level', 'GeneralController@getCourseLevel');
 
 Route::middleware('auth:api')->group(function () {
     Route::get('student-group/{id}', 'GroupsController@getStudentGroup');
+    Route::get('student-group', 'GroupsController@getStudentGroups');
     Route::get('get-student-messages/{groupId}', 'MessagesController@getStudentMessages');
     Route::post('send-student-message', 'MessagesController@sendStudentGroupMessage');
     Route::get('get-user', 'UserController@getUser');

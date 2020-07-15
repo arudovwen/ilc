@@ -51,7 +51,6 @@
           </tr>
         </tbody>
       </table>
-   
     </div>
   </div>
 </template>
@@ -124,8 +123,8 @@ export default {
           }
         });
     },
-    gotoGroup(id){
-this.$router.push(`/student/group/${id}`)
+    gotoGroup(id) {
+      this.$router.push(`/student/group/${id}`);
     },
     edit(id) {
       axios
@@ -143,7 +142,7 @@ this.$router.push(`/student/group/${id}`)
     },
     getgroups() {
       axios
-        .get("/api/group", {
+        .get("/api/student-group", {
           headers: {
             Authorization: `Bearer ${this.$props.student.access_token}`
           }

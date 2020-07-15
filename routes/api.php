@@ -47,12 +47,15 @@ Route::middleware('auth:api')->group(function () {
     Route::get('student-group/{id}', 'GroupsController@getStudentGroup');
     Route::get('get-student-messages/{groupId}', 'MessagesController@getStudentMessages');
     Route::post('send-student-message', 'MessagesController@sendStudentGroupMessage');
+    Route::get('get-user', 'UserController@getUser');
+    Route::resource('user', 'UserController');
 });
 
 Route::middleware('auth:tutor')->group(function () {
     Route::resource('group', 'GroupsController');
     Route::get('get-messages/{groupId}', 'MessagesController@getMessages');
     Route::post('send-message', 'MessagesController@sendGroupMessage');
+    Route::resource('tutors', 'TutorController');
 });
 Route::get('student-group/{id}', 'GroupsController@show');
 Route::post('school-register', 'SchoolController@store');
@@ -75,6 +78,8 @@ Route::middleware('auth:admin')->group(function () {
     Route::resource('tutor-course', 'CourseTutorController');
     Route::resource('tutor-class', 'ClassTeachersController');
     Route::post('register', 'Auth\RegisterController@register');
+    Route::get('admin-get-user/{id}', 'UserController@adminGetUser');
+    Route::put('update-user/{id}', 'UserController@store');
 });
 Route::resource('order', 'OrdersController');
 Route::resource('temp-sub', 'TempSubscriptionsController');

@@ -37,15 +37,16 @@ class SyllabusController extends Controller
     public function store(Request $request)
     {
 
-        dd($request->all());
+      
         $school_id = auth('admin')->user()->school_id;
         return Syllabus::create([
             'school_id'=>  $school_id,
             'myclass'=> $request->myclass,
             'topic'=> $request->topic,
-            'syllabus'=> json_encode($request->myclass),
+            'syllabus'=> json_encode($request->syllabus),
             'subject' => $request->subject
         ]);
+        
     }
 
     /**
@@ -83,7 +84,7 @@ class SyllabusController extends Controller
         $s->myclass = $request->myclass;
         $s->topic = $request->topic;
         $s->subject = $request->subject;
-        $s->syllabus = json_encode($request->myclass);
+        $s->syllabus = json_encode($request->syllable);
         $s->save();
     }
 
@@ -99,8 +100,8 @@ class SyllabusController extends Controller
     }
     public function multiDrop(Request $request)
     {
-        dd($request->all());
-        foreach ($request as $id) {
+      
+        foreach ($request->data as $id) {
             $find = Syllabus::find($id);
             $find->delete();
         }

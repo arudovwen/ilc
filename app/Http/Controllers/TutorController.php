@@ -107,19 +107,17 @@ class TutorController extends Controller
      */
     public function update(Request $request, $id)
     {
+      
         $tutor = Tutor::find($id);
         $tutor['name'] = $request['name'];
         $tutor['email'] = $request['email'];
-        $tutor['email'] = Hash::make($request['password']);
-        $tutor['id_no'] = rand(0,9999);
+        $tutor['password'] = Hash::make($request['password']);
         $tutor['phone'] = $request['phone'];
         $tutor['gender'] = $request['gender'];
         $tutor['level_of_edu'] = $request['level_of_edu'];
-        $tutor['tutor'] = $request['tutor'];
         $tutor['faculty'] = $request['faculty'];
         $tutor['department'] = $request['department'];
         $tutor['course_level']= $request['course_level'];
-        $tutor['student_id'] =  $request['student_id'];
         $tutor['subjects'] =  $request['subjects'];
         $tutor['address' ] = $request['address'];
         $tutor['dob']  = $request['dob'];

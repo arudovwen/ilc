@@ -230,7 +230,7 @@
               v-model="data.syllabus.grading_scale"
             ></editor>
           </div>
-           <div class="form-group">
+          <div class="form-group">
             <label for>Book References</label>
 
             <editor
@@ -281,7 +281,7 @@ export default {
           course_format: "",
           evaluation: "",
           outcome: "",
-          references:''
+          references: ""
         }
       },
 
@@ -300,19 +300,36 @@ export default {
   mounted() {
     this.getSubjects();
     this.getclasses();
+    this.getSyllabus();
   },
   methods: {
     createSyllabus() {
       axios
-        .post("/api/syllabus", this.data, {
+        .post(`/api/syllabus/${this.$route.params.id}`, this.data, {
           headers: {
             Authorization: `Bearer ${this.$props.admin.access_token}`
           }
         })
         .then(res => {
-          if (res.status == 201) {
+          if (res.status == 200) {
             this.$toasted.info("Success");
-            this.$router.push('/admin/syllabus/home')
+            this.$router.push("/admin/syllabus/home");
+          }
+        });
+    },
+    getSyllabus() {
+      axios
+        .get(`/api/syllabus/${this.$route.params.id}`, {
+          headers: {
+            Authorization: `Bearer ${this.$props.admin.access_token}`
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.data.myclass = res.data.myclass;
+            this.data.subject = res.data.subject;
+            this.data.topic = res.data.topic;
+            this.data.syllabus = JSON.parse(res.data.syllabus);
           }
         });
     },
@@ -433,10 +450,10 @@ nav {
   padding: 20px 20px 70px;
   height: 100%;
 }
-label{
-    font-weight:bold;
-}
 form {
   padding-bottom: 70px;
+}
+label{
+    font-weight:bold;
 }
 </style>

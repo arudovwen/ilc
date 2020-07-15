@@ -29,7 +29,8 @@
       <thead class="thead-inverse">
         <tr>
           <th>Class</th>
-
+           <th>Subject</th>
+         <th>Topic</th>
           <th>Action</th>
           <th>
             <input type="checkbox" v-model="item" />
@@ -39,9 +40,11 @@
       <tbody>
         <tr v-for="(item,idx) in syllabus" :key="idx">
         
-          <td scope="row" class="toCaps">{{item.name}}</td>
+          <td scope="row" class="toCaps">{{item.myclass}}</td>
+           <td scope="row" class="toCaps">{{item.subject}}</td>
+              <td scope="row" class="toCaps">{{item.topic}}</td>
           <td class="d-flex justify-content-around">
-             <span class="mr-3" @click="drop(item.id)">
+             <span class="mr-3" @click="view(item.id)">
               
               <i class="fa fa-eye" aria-hidden="true"></i> View
             </span>
@@ -121,9 +124,12 @@ export default {
     },
     multiDrop() {
       let del = confirm("Are you sure about this?");
+            let data = {
+        data:this.items
+        }
       if (del) {
         axios
-          .post("/api/multi-syllabus-drop", this.items , {
+          .post("/api/multi-syllabus-drop",data , {
           headers: {
             Authorization: `Bearer ${this.$props.admin.access_token}`
           }
@@ -139,7 +145,10 @@ export default {
       }
     },
     edit(id) {
-        this.$router.push(`/admin/student/edit/${id}`)
+        this.$router.push(`/admin/syllabus/edit/${id}`)
+    },
+     view(id) {
+        this.$router.push(`/admin/syllabus/view/${id}`)
     }
   }
 };

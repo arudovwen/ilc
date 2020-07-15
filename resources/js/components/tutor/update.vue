@@ -26,7 +26,7 @@
           placeholder="example@email.com"
         />
       </div>
-      <div class="form-group">
+       <div class="form-group">
         <label for>Password</label>
         <input
           type="password"
@@ -38,7 +38,7 @@
           placeholder="*******"
         />
       </div>
-      <div class="form-group">
+     <div class="form-group">
         <label for>Phone</label>
         <input
           type="phone"
@@ -59,19 +59,11 @@
         </select>
       </div>
 
-      <div class="form-group">
+       <div class="form-group">
         <label for>Subjects</label>
-        <textarea
-          name="subjects"
-          id="subjects"
-          cols="30"
-          rows="5"
-          v-model="tutor.subjects"
-          class="form-control"
-          placeholder="Subject 1, Subject 2"
-        ></textarea>
+        <textarea name="subjects" id="subjects" class="form-control" cols="30" v-model="tutor.subjects" rows="5" placeholder="Subject 1, Subject 2"></textarea>
       </div>
-      <div class="form-group">
+       <div class="form-group">
         <label for>Faculty</label>
         <input
           type="text"
@@ -80,10 +72,10 @@
           id="faculty"
           v-model="tutor.faculty"
           aria-describedby="helpId"
-          placeholder
+          placeholder=""
         />
       </div>
-      <div class="form-group">
+       <div class="form-group">
         <label for>Department</label>
         <input
           type="text"
@@ -92,10 +84,10 @@
           id="department"
           v-model="tutor.department"
           aria-describedby="helpId"
-          placeholder
+          placeholder=""
         />
       </div>
-      <div class="form-group">
+       <div class="form-group">
         <label for>Address</label>
         <input
           type="text"
@@ -104,10 +96,10 @@
           id="address"
           v-model="tutor.address"
           aria-describedby="helpId"
-          placeholder
+          placeholder=""
         />
       </div>
-      <div class="form-group">
+       <div class="form-group">
         <label for>DOB</label>
         <input
           type="date"
@@ -116,10 +108,10 @@
           id="dob"
           v-model="tutor.dob"
           aria-describedby="helpId"
-          placeholder
+          placeholder=""
         />
       </div>
-      <div class="form-group">
+       <div class="form-group">
         <label for>DOE</label>
         <input
           type="date"
@@ -128,10 +120,10 @@
           id="doe"
           v-model="tutor.doe"
           aria-describedby="helpId"
-          placeholder
+          placeholder=""
         />
       </div>
-      <div class="form-group">
+       <div class="form-group">
         <label for>Lga</label>
         <input
           type="text"
@@ -140,10 +132,10 @@
           id="lga"
           v-model="tutor.lga"
           aria-describedby="helpId"
-          placeholder
+          placeholder=""
         />
       </div>
-      <div class="form-group">
+       <div class="form-group">
         <label for>State</label>
         <input
           type="text"
@@ -152,10 +144,10 @@
           id="state"
           v-model="tutor.state"
           aria-describedby="helpId"
-          placeholder
+          placeholder=""
         />
       </div>
-      <div class="form-group">
+       <div class="form-group">
         <label for>Bank Name</label>
         <input
           type="text"
@@ -164,11 +156,11 @@
           id="bank_name"
           v-model="tutor.bank_name"
           aria-describedby="helpId"
-          placeholder
+          placeholder=""
         />
       </div>
 
-      <div class="form-group">
+       <div class="form-group">
         <label for>Bank No</label>
         <input
           type="text"
@@ -177,10 +169,10 @@
           id="bank_no"
           v-model="tutor.bank_no"
           aria-describedby="helpId"
-          placeholder
+          placeholder=""
         />
       </div>
-      <div class="form-group">
+       <div class="form-group">
         <label for>Bvn</label>
         <input
           type="text"
@@ -189,10 +181,10 @@
           id="bvn"
           v-model="tutor.bvn"
           aria-describedby="helpId"
-          placeholder
+          placeholder=""
         />
       </div>
-      <div class="form-group">
+       <div class="form-group">
         <label for>SGL</label>
         <input
           type="text"
@@ -201,11 +193,11 @@
           id="sgl"
           v-model="tutor.sgl"
           aria-describedby="helpId"
-          placeholder
+          placeholder=""
         />
       </div>
 
-      <div class="form-group">
+       <div class="form-group">
         <label for>Rank</label>
         <input
           type="text"
@@ -214,10 +206,10 @@
           id="rank"
           v-model="tutor.rank"
           aria-describedby="helpId"
-          placeholder
+          placeholder=""
         />
       </div>
-      <div class="form-group">
+       <div class="form-group">
         <label for>File No</label>
         <input
           type="text"
@@ -226,11 +218,11 @@
           id="file_no"
           v-model="tutor.file_no"
           aria-describedby="helpId"
-          placeholder
+          placeholder=""
         />
       </div>
 
-      <div class="form-group">
+       <div class="form-group">
         <label for>Area of Specialization</label>
         <input
           type="text"
@@ -239,7 +231,7 @@
           id="area_of_specialization"
           v-model="tutor.area_of_specialization"
           aria-describedby="helpId"
-          placeholder
+          placeholder=""
         />
       </div>
 
@@ -251,7 +243,6 @@
 
 <script>
 export default {
-  props:['admin'],
   data() {
     return {
       tutor: {
@@ -285,23 +276,24 @@ export default {
   mounted() {
     this.getTutor()
   },
-    methods: {
+   methods: {
     register() {
-        let admin = JSON.parse(localStorage.getItem('typeAdmin'))
-      axios.put(`/api/tutor/${this.$route.params.id}`, this.tutor,{headers:{
-          Authorization: `Bearer ${admin.access_token}`
+        let tutor = JSON.parse(localStorage.getItem('typeTutor'))
+      axios.put(`/api/tutors/${tutor.id}`, this.tutor,{headers:{
+          Authorization: `Bearer ${tutor.access_token}`
       }}).then(res => {
         if (res.status == 200) {
           this.$toasted.info("Successful");
-          this.$router.push("/admin/tutor");
+          this.$router.push("/tutor/profile");
         }
       });
     },
     getTutor(){
+       let tutor = JSON.parse(localStorage.getItem('typeTutor'))
           axios
-        .get(`/api/tutor/${this.$route.params.id}`, {
+        .get(`/api/tutorDetails`, {
           headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
+            Authorization: `Bearer ${tutor.access_token}`
           }
         })
         .then(res => {
@@ -317,11 +309,11 @@ export default {
 
 <style scoped>
 .container {
-
-  padding:70px 0;
+  
 }
 form {
   width: 70%;
-  margin:0 auto
+  margin:0 auto;
+  padding:70px 0;
 }
 </style>

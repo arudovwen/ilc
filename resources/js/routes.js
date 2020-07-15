@@ -33,7 +33,7 @@ const TutorHome = () =>
 const TutorGroups = () =>
     import(/* webpackChunkName: "home_routes" */ "./components/tutor/groups");
 
-    const TutorGroupChat = () =>
+const TutorGroupChat = () =>
     import(/* webpackChunkName: "home_routes" */ "./components/tutor/chat");
 
 const TutorDashboard = () =>
@@ -46,9 +46,25 @@ const TutorAuth = () =>
         /* webpackChunkName: "home_routes" */ "./components/tutor/auth/auth"
     );
 
+    const TutorProfile = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/tutor/profile"
+    );
+
+    const StudentProfile = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/student/profile"
+    );
+
+
 const AdminTutorCreate = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/tutor/create"
+    );
+
+const AdminTutorUpdate = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/admin/tutor/update"
     );
 
 const AdminAdd = () =>
@@ -76,6 +92,14 @@ const Courses = () =>
 const Syllabus = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/syllabus/syllabus"
+    );
+    const SyllabusView = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/admin/syllabus/view"
+    );
+    const SyllabusEdit = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/admin/syllabus/edit" 
     );
 const SyllabusHome = () =>
     import(
@@ -106,15 +130,19 @@ const StudentDashboard = () =>
         /* webpackChunkName: "home_routes" */ "./components/student/dashboard"
     );
 
-    const StudentGroups = () =>
+const StudentGroups = () =>
     import(/* webpackChunkName: "home_routes" */ "./components/student/groups");
 
-    const StudentGroupChat = () =>
+const StudentGroupChat = () =>
     import(/* webpackChunkName: "home_routes" */ "./components/student/chat");
 
 const AdminStudentCreate = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/student/create"
+    );
+const AdminStudentUpdate = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/admin/student/update"
     );
 
 const AdminStudentEdit = () =>
@@ -134,9 +162,17 @@ const Students = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/student/home"
     );
+const StudentUpdate = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/student/update"
+    );
 const Tutors = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/tutor/home"
+    );
+const TutorUpdate = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/tutor/update"
     );
 const AssignTutor = () =>
     import(
@@ -315,6 +351,22 @@ export const routes = [
                 }
             },
             {
+                path: "syllabus/view/:id",
+                component: SyllabusView,
+                name: "SyllabusView",
+                meta: {
+                    typeAdmin: true
+                }
+            },
+            {
+                path: "syllabus/edit/:id",
+                component: SyllabusEdit,
+                name: "SyllabusEdit",
+                meta: {
+                    typeAdmin: true
+                }
+            },
+            {
                 path: "time-table",
                 component: TimeTable,
                 name: "TimeTable",
@@ -371,6 +423,22 @@ export const routes = [
                 }
             },
             {
+                path: "student/update/:id",
+                component: AdminStudentUpdate,
+                name: "AdminStudentUpdate",
+                meta: {
+                    typeAdmin: true
+                }
+            },
+            {
+                path: "tutor/update/:id",
+                component: AdminTutorUpdate,
+                name: "AdminTutorUpdate",
+                meta: {
+                    typeAdmin: true
+                }
+            },
+            {
                 path: "head/assign",
                 component: AssignHead,
                 name: "AssignHead",
@@ -403,6 +471,22 @@ export const routes = [
                 path: "",
                 component: TutorHome,
                 name: "TutorHome",
+                meta: {
+                    typeTutor: true
+                }
+            },
+            {
+                path: "update",
+                component: TutorUpdate,
+                name: "TutorUpdate",
+                meta: {
+                    typeTutor: true
+                }
+            },
+            {
+                path: "profile",
+                component: TutorProfile,
+                name: "TutorProfile",
                 meta: {
                     typeTutor: true
                 }
@@ -448,6 +532,22 @@ export const routes = [
                 path: "",
                 component: StudentHome,
                 name: "StudentHome",
+                meta: {
+                    typeStudent: true
+                }
+            },
+            {
+                path: "update",
+                component: StudentUpdate,
+                name: "StudentUpdate",
+                meta: {
+                    typeStudent: true
+                }
+            },
+            {
+                path: "profile",
+                component: StudentProfile,
+                name: "StudentProfile",
                 meta: {
                     typeStudent: true
                 }

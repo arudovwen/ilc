@@ -286,8 +286,20 @@ var TutorAuth = function TutorAuth() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/auth/auth */ "./resources/js/components/tutor/auth/auth.vue"));
 };
 
+var TutorProfile = function TutorProfile() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/profile */ "./resources/js/components/tutor/profile.vue"));
+};
+
+var StudentProfile = function StudentProfile() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/profile */ "./resources/js/components/student/profile.vue"));
+};
+
 var AdminTutorCreate = function AdminTutorCreate() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/tutor/create */ "./resources/js/components/admin/tutor/create.vue"));
+};
+
+var AdminTutorUpdate = function AdminTutorUpdate() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/tutor/update */ "./resources/js/components/admin/tutor/update.vue"));
 };
 
 var AdminAdd = function AdminAdd() {
@@ -316,6 +328,14 @@ var Courses = function Courses() {
 
 var Syllabus = function Syllabus() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/syllabus/syllabus */ "./resources/js/components/admin/syllabus/syllabus.vue"));
+};
+
+var SyllabusView = function SyllabusView() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/syllabus/view */ "./resources/js/components/admin/syllabus/view.vue"));
+};
+
+var SyllabusEdit = function SyllabusEdit() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/syllabus/edit */ "./resources/js/components/admin/syllabus/edit.vue"));
 };
 
 var SyllabusHome = function SyllabusHome() {
@@ -358,6 +378,10 @@ var AdminStudentCreate = function AdminStudentCreate() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/student/create */ "./resources/js/components/admin/student/create.vue"));
 };
 
+var AdminStudentUpdate = function AdminStudentUpdate() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/student/update */ "./resources/js/components/admin/student/update.vue"));
+};
+
 var AdminStudentEdit = function AdminStudentEdit() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/student/edit */ "./resources/js/components/admin/student/edit.vue"));
 };
@@ -374,8 +398,16 @@ var Students = function Students() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/student/home */ "./resources/js/components/admin/student/home.vue"));
 };
 
+var StudentUpdate = function StudentUpdate() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/update */ "./resources/js/components/student/update.vue"));
+};
+
 var Tutors = function Tutors() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/tutor/home */ "./resources/js/components/admin/tutor/home.vue"));
+};
+
+var TutorUpdate = function TutorUpdate() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/update */ "./resources/js/components/tutor/update.vue"));
 };
 
 var AssignTutor = function AssignTutor() {
@@ -552,6 +584,20 @@ var routes = [{
       typeAdmin: true
     }
   }, {
+    path: "syllabus/view/:id",
+    component: SyllabusView,
+    name: "SyllabusView",
+    meta: {
+      typeAdmin: true
+    }
+  }, {
+    path: "syllabus/edit/:id",
+    component: SyllabusEdit,
+    name: "SyllabusEdit",
+    meta: {
+      typeAdmin: true
+    }
+  }, {
     path: "time-table",
     component: TimeTable,
     name: "TimeTable",
@@ -601,6 +647,20 @@ var routes = [{
       typeAdmin: true
     }
   }, {
+    path: "student/update/:id",
+    component: AdminStudentUpdate,
+    name: "AdminStudentUpdate",
+    meta: {
+      typeAdmin: true
+    }
+  }, {
+    path: "tutor/update/:id",
+    component: AdminTutorUpdate,
+    name: "AdminTutorUpdate",
+    meta: {
+      typeAdmin: true
+    }
+  }, {
     path: "head/assign",
     component: AssignHead,
     name: "AssignHead",
@@ -630,6 +690,20 @@ var routes = [{
     path: "",
     component: TutorHome,
     name: "TutorHome",
+    meta: {
+      typeTutor: true
+    }
+  }, {
+    path: "update",
+    component: TutorUpdate,
+    name: "TutorUpdate",
+    meta: {
+      typeTutor: true
+    }
+  }, {
+    path: "profile",
+    component: TutorProfile,
+    name: "TutorProfile",
     meta: {
       typeTutor: true
     }
@@ -670,6 +744,20 @@ var routes = [{
     path: "",
     component: StudentHome,
     name: "StudentHome",
+    meta: {
+      typeStudent: true
+    }
+  }, {
+    path: "update",
+    component: StudentUpdate,
+    name: "StudentUpdate",
+    meta: {
+      typeStudent: true
+    }
+  }, {
+    path: "profile",
+    component: StudentProfile,
+    name: "StudentProfile",
     meta: {
       typeStudent: true
     }

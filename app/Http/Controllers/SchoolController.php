@@ -124,4 +124,16 @@ class SchoolController extends Controller
             'status' => 'Removed'
         ]);
     }
+    public function multiDrop(Request $request)
+    {
+        foreach ($request as $id) {
+            $find = School::find($id);
+             $find->delete();
+           
+        }
+     
+        return response()->json([
+            'status'=>'Deleted'
+        ]);
+    }
 }

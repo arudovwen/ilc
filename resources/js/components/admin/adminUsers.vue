@@ -108,9 +108,12 @@ export default {
     },
     multiDrop() {
       let del = confirm("Are you sure about this?");
+      let data = {
+        data:this.items
+        }
       if (del) {
         axios
-          .post("/api/multi-admin-drop", this.items , {
+          .post("/api/multi-admin-drop", data , {
           headers: {
             Authorization: `Bearer ${this.$props.admin.access_token}`
           }

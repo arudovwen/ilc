@@ -36,7 +36,7 @@ export default {
 }
 .main{
     width:85%;
-    min-height: 100vh;
+ height: 100vh;
     overflow: scroll;
 }
 </style>

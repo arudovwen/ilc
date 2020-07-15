@@ -38,7 +38,17 @@ class AddAddressDobDoeLgaStateBankNameBankNoBvnSglRankFileNoAreaOfSpecialization
     public function down()
     {
         Schema::table('tutors', function (Blueprint $table) {
-            //
+            $table->dropColumn('address');
+            $table->dropColumn('dob');
+            $table->dropColumn('doe');
+            $table->dropColumn('lga');
+            $table->dropColumn('state');
+            $table->dropColumn('bank_name');
+            $table->dropColumn('bank_no');
+            $table->dropColumn('bvn');
+            $table->dropColumn('rank');
+            $table->dropColumn('file_no');
+            $table->dropColumn('area_of_specialization');
         });
     }
 }

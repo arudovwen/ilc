@@ -94,4 +94,16 @@ class TimesTableController extends Controller
     {
         TimesTable::find($id)->delete();
     }
+    public function multiDrop(Request $request)
+    {
+        foreach ($request as $id) {
+            $find = TimesTable::find($id);
+             $find->delete();
+           
+        }
+     
+        return response()->json([
+            'status'=>'Deleted'
+        ]);
+    }
 }

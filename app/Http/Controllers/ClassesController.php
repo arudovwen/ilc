@@ -84,14 +84,18 @@ class ClassesController extends Controller
      * @param  \App\Classes  $classes
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $id)
+    public function destroy($id)
     {
-        Classes::find($id)->delete();
+        $admin = Classes::find($id);
+        $admin->delete();
+        return response()->json([
+            'status' => 'Removed'
+        ]);
     }
     public function multiDrop(Request $request)
     {
-        dd($request->all());
-        foreach ($request as $id) {
+ 
+        foreach ($request->data as $id) {
             $find = Classes::find($id);
             $find->delete();
         }

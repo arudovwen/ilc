@@ -29,9 +29,9 @@
           <option
             v-for="(item,idx) in classes"
             :key="idx"
-            :value="item.class_name"
+            :value="item"
             class="toCaps"
-          >{{item.class_name}}</option>
+          >{{item.toLowerCase()}}</option>
         </select>
       </div>
       <table class="table table-bordered">
@@ -154,7 +154,7 @@ export default {
         })
         .then(res => {
           if (res.status == 201) {
-              this.$toasted.info(' Created')
+            this.$toasted.info(" Created");
             this.table = [
               {
                 day: "monday",
@@ -167,9 +167,8 @@ export default {
                 ]
               }
             ];
-          }else{
-            this.$toasted.info('Already created')
-            
+          } else {
+            this.$toasted.info("Already created");
           }
         });
     },
@@ -195,7 +194,15 @@ export default {
         })
         .then(res => {
           if (res.status == 200) {
-            this.classes = res.data;
+            res.data.forEach(item => {
+              this.classes.push(item.class_name);
+              if (item.sub_class !== "") {
+                item.sub_class.split(",").forEach(i => {
+                  this.classes.push(i);
+                });
+              }
+            });
+          
           }
         });
     },

@@ -95,8 +95,8 @@ class SubjectsController extends Controller
     }
     public function multiDrop(Request $request)
     {
-        dd($request->all());
-        foreach ($request as $id) {
+        
+        foreach ($request->data as $id) {
             $find = Subject::find($id);
             $find->delete();
         }

@@ -35,7 +35,7 @@
         </thead>
         <tbody>
           <tr v-for="(item,idx) in groups" :key="idx">
-            <td class="toCaps" @click="gotoGroup(item.id)">{{item.name}}</td>
+            <td class="toCaps" @click="gotoGroup(item.id)">{{item.name}}  <i class="fas enter fa-sign-in-alt    "></i></td>
 
             <td class="d-flex justify-content-around">
               <span class="mr-3" @click="drop(item.id)">
@@ -191,9 +191,12 @@ this.$router.push(`/tutor/group/${id}`)
     },
     multiDrop() {
       let del = confirm("Are you sure about this?");
+            let data = {
+        data:this.items
+        }
       if (del) {
         axios
-          .post("/api/multi-group-drop", this.items, {
+          .post("/api/multi-group-drop", data, {
             headers: {
               Authorization: `Bearer ${this.$props.tutor.access_token}`
             }
@@ -221,6 +224,13 @@ nav {
 
 td {
   text-transform: capitalize;
+  position:relative;
+}
+.enter{
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  margin-top: -10px;
 }
 .hiden {
   opacity: 0;

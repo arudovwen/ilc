@@ -45,8 +45,19 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
+        $id = auth('api')->user()->id;
+        return User::find($id);
+    }
+    public function adminGetUser($id)
+    {
+        return User::find($id);
+    }
+    
+    public function getUser()
+    {
+        $id = auth('api')->user()->id;
         return User::find($id);
     }
 
@@ -74,7 +85,6 @@ class UserController extends Controller
         $user->name = $request['name'];
         $user->email = $request['email'];
         $user->password = Hash::make($request['password']);
-        
         $user->phone = $request['phone'];
         $user->gender = $request['gender'];
         $user->address = $request['address'];
@@ -83,11 +93,15 @@ class UserController extends Controller
         $user->state = $request['state'];
         $user->lga = $request['lga'];
         $user->guardian= $request['guardian'];
+        $user->guardian_phone= $request['guardian_phone'];
         $user->next_of_kin = $request['next_of_kin'];
+        $user->next_of_kin_phone = $request['next_of_kin_phone'];
         $user->student_level = $request['student_level'];
         $user->study_course = $request['study_course'];
         $user->save();
-        
+        return response()->json([
+            'status'=>'updated'
+        ]);
     }
 
     /**
@@ -98,6 +112,22 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $admin = User::find($id);
+        $admin->delete();
+        return response()->json([
+            'status' => 'Removed'
+        ]);
+    }
+    public function multiDrop(Request $request)
+    {
+        foreach ($request as $id) {
+            $find = User::find($id);
+             $find->delete();
+           
+        }
+     
+        return response()->json([
+            'status'=>'Deleted'
+        ]);
     }
 }

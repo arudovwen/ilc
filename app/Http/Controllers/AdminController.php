@@ -123,8 +123,8 @@ class AdminController extends Controller
     }
     public function multiDrop(Request $request)
     {
-       
-        foreach ($request as $id) {
+ 
+        foreach ($request->data as $id) {
             $find = Admin::find($id);
             $find->delete();
         }

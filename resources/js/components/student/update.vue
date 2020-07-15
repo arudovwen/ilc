@@ -6,6 +6,7 @@
       <legend>Update Info</legend>
 
       <div class="form-group">
+        <label for="">Full Name</label>
         <input
           required
           type="text"
@@ -16,6 +17,7 @@
       </div>
 
       <div class="form-group">
+        <label for="">Password</label>
         <input
           required
           type="password"
@@ -26,6 +28,7 @@
       </div>
 
       <div class="form-group">
+        <label for="Gender"></label>
         <div class="maxl">
           <label class="radio inline">
             <input required type="radio" value="male" checked v-model="student.gender" />
@@ -38,6 +41,7 @@
         </div>
       </div>
       <div class="form-group">
+        <label for="">Email</label>
         <input
           required
           type="email"
@@ -47,6 +51,7 @@
         />
       </div>
       <div class="form-group">
+        <label for="">Address</label>
         <input
           required
           type="text"
@@ -57,6 +62,7 @@
       </div>
 
       <div class="form-group">
+        <label for="">Phone No</label>
         <input
           required
           type="text"
@@ -67,17 +73,7 @@
           v-model="student.phone"
         />
       </div>
-      <div class="form-group">
-        <input
-          required
-          type="text"
-          minlength="11"
-          maxlength="11"
-          class="form-control"
-          placeholder="Your Phone *"
-          v-model="student.phone"
-        />
-      </div>
+   
 
       <div class="form-group">
         <label for>Faculty</label>
@@ -202,7 +198,6 @@
 
 <script>
 export default {
-  props:['admin'],
   data() {
     return {
       student: {
@@ -229,25 +224,26 @@ export default {
     };
   },
   mounted() {
-    this.getStudent()
+    this.getUser()
   },
-   methods: {
+  methods: {
     register() {
-        let admin = JSON.parse(localStorage.getItem('typeAdmin'))
-      axios.put(`/api/update-user/${this.$route.params.id}`, this.student,{headers:{
-          Authorization: `Bearer ${admin.access_token}`
+        let user = JSON.parse(localStorage.getItem('typeStudent'))
+      axios.put(`/api/user/${user.id}`, this.student,{headers:{
+          Authorization: `Bearer ${user.access_token}`
       }}).then(res => {
         if (res.status == 200) {
           this.$toasted.info("Successful");
-          this.$router.push("/admin");
+          this.$router.push("/student/profile");
         }
       });
     },
-    getStudent(){
+    getUser(){
+        let user = JSON.parse(localStorage.getItem('typeStudent'))
           axios
-        .get(`/api/admin-get-user/${this.$route.params.id}`, {
+        .get(`/api/get-user`, {
           headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
+            Authorization: `Bearer ${user.access_token}`
           }
         })
         .then(res => {
@@ -263,11 +259,11 @@ export default {
 
 <style scoped>
 .container {
-
-  padding:70px 0;
+  position: relative;
 }
 form {
   width: 70%;
-  margin:0 auto
+  margin:0 auto;
+  padding:70px 0
 }
 </style>

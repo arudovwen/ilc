@@ -241,9 +241,12 @@ export default {
     },
     multiDrop() {
       let del = confirm("Are you sure about this?");
+            let data = {
+        data:this.items
+        }
       if (del) {
         axios
-          .post("/api/multi-classes-drop", this.items, {
+          .post("/api/multi-classes-drop", data, {
             headers: {
               Authorization: `Bearer ${this.$props.admin.access_token}`
             }

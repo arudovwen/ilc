@@ -93,4 +93,17 @@ class GroupsController extends Controller
     {
         Group::find($id)->delete();
     }
+    public function multiDrop(Request $request)
+    {
+        foreach ($request as $id) {
+            $find = Group::find($id);
+             $find->delete();
+           
+        }
+     
+        return response()->json([
+            'status'=>'Deleted'
+        ]);
+    }
 }
+

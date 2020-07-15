@@ -174,63 +174,44 @@ export default {
             this.spin = false;
           });
       } else {
-        let data = {
-          grant_type: "password",
-          client_id: 4,
-          client_secret: "VtKXCNi6gMuUx2XNv30RNl5xWI7Lme5vTjvbB8gD",
-          username: this.user.email,
-          password: this.user.password
-        };
-        const typeAdmin = {};
-        axios
-          .post("/oauth/token", data)
-          .then(res => {
-            if (res.status == 200) {
-              typeAdmin.access_token = res.data.access_token;
-              typeAdmin.refresh_token = res.data.refresh_token;
-              axios
-                .get(`/api/adminDetails`, {
-                  headers: { Authorization: `Bearer ${res.data.access_token}` }
-                })
-                .then(res => {
-                  if (res.status === 200) {
-                    this.spin = false;
-                    if (res.data.verify == 1) {
-                      typeAdmin.email = res.data.email;
-                      typeAdmin.name = res.data.name;
-                      typeAdmin.school_id = res.data.school_id;
-                      typeAdmin.school = res.data.school;
-                      localStorage.setItem(
-                        "typeAdmin",
-                        JSON.stringify(typeAdmin)
-                      );
-                      this.$toasted.success("Sucessful");
-                      if (this.$route.query.redirect) {
-                        this.$router.push(this.$route.query.redirect);
-                      } else {
-                        this.$toasted.info("Redirecting to dashboard..");
-                        this.$router.push("/admin");
-                      }
-                    } else {
-                      this.$toasted.info("Subscribe to access account");
-                      this.$router.push(
-                        "/checkout?redirection_from=registration"
-                      );
-                    }
-                  }
-                })
-                .catch(error => {
-                  console.log("submit -> error", error);
-                  this.$toasted.error("Something is not right");
-                  this.spin = false;
-                });
-            }
-          })
-          .catch(error => {
-            console.log("submit -> error", error);
-            this.$toasted.error("Something is not right");
-            this.spin = false;
-          });
+          this.spin = true;
+      let data = {
+        grant_type: "password",
+        client_id: 3,
+        client_secret: "MK7qWmbsqhwtUXfr3f3OgEm0uHLw3hm3EsGycQDs",
+        username: this.user.email,
+        password: this.user.password,
+        
+      };
+      const typeTutor = {};
+      axios.post("/oauth/token", data).then(res => {
+        if (res.status == 200) {
+          typeTutor.access_token = res.data.access_token;
+          typeTutor.refresh_token = res.data.refresh_token;
+            axios
+            .get(`/api/tutorDetails`, {
+              headers: { Authorization: `Bearer ${res.data.access_token}` }
+            }).then(res => {
+              if (res.status === 200) {
+                this.spin = false;
+                 typeTutor.id = res.data.id;
+                typeTutor.email = res.data.email;
+                typeTutor.name = res.data.name;
+                localStorage.setItem("typeTutor", JSON.stringify(typeTutor));
+                this.$toasted.success("Sucessful");
+                this.$router.push('/tutor')
+              }
+            }).catch(error => {
+            console.log("submit -> error", error)
+              this.$toasted.error("Something is not right");
+              this.spin = false;
+            });
+        }
+      }).catch(error => {
+            console.log("submit -> error", error)
+              this.$toasted.error("Something is not right");
+              this.spin = false;
+            });
       }
     }
   }

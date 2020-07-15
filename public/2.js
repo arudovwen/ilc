@@ -184,47 +184,34 @@ __webpack_require__.r(__webpack_exports__);
           _this.spin = false;
         });
       } else {
+        this.spin = true;
         var _data = {
           grant_type: "password",
-          client_id: 4,
-          client_secret: "VtKXCNi6gMuUx2XNv30RNl5xWI7Lme5vTjvbB8gD",
+          client_id: 3,
+          client_secret: "MK7qWmbsqhwtUXfr3f3OgEm0uHLw3hm3EsGycQDs",
           username: this.user.email,
           password: this.user.password
         };
-        var typeAdmin = {};
+        var typeTutor = {};
         axios.post("/oauth/token", _data).then(function (res) {
           if (res.status == 200) {
-            typeAdmin.access_token = res.data.access_token;
-            typeAdmin.refresh_token = res.data.refresh_token;
-            axios.get("/api/adminDetails", {
+            typeTutor.access_token = res.data.access_token;
+            typeTutor.refresh_token = res.data.refresh_token;
+            axios.get("/api/tutorDetails", {
               headers: {
                 Authorization: "Bearer ".concat(res.data.access_token)
               }
             }).then(function (res) {
               if (res.status === 200) {
                 _this.spin = false;
+                typeTutor.id = res.data.id;
+                typeTutor.email = res.data.email;
+                typeTutor.name = res.data.name;
+                localStorage.setItem("typeTutor", JSON.stringify(typeTutor));
 
-                if (res.data.verify == 1) {
-                  typeAdmin.email = res.data.email;
-                  typeAdmin.name = res.data.name;
-                  typeAdmin.school_id = res.data.school_id;
-                  typeAdmin.school = res.data.school;
-                  localStorage.setItem("typeAdmin", JSON.stringify(typeAdmin));
+                _this.$toasted.success("Sucessful");
 
-                  _this.$toasted.success("Sucessful");
-
-                  if (_this.$route.query.redirect) {
-                    _this.$router.push(_this.$route.query.redirect);
-                  } else {
-                    _this.$toasted.info("Redirecting to dashboard..");
-
-                    _this.$router.push("/admin");
-                  }
-                } else {
-                  _this.$toasted.info("Subscribe to access account");
-
-                  _this.$router.push("/checkout?redirection_from=registration");
-                }
+                _this.$router.push('/tutor');
               }
             })["catch"](function (error) {
               console.log("submit -> error", error);

@@ -22,6 +22,7 @@ import "swiper/css/swiper.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import 'vue-waves-button/waves.css';
+import '../sass/app.scss';
 
 
 

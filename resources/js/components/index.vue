@@ -1,8 +1,9 @@
 <template>
     <div class="main">
-        <app-navigation></app-navigation>
+        <!-- <app-navigation></app-navigation>
         <app-banner></app-banner>
-        <popup v-if="showpop" />
+        <popup v-if="showpop" /> -->
+        <app-landingPage></app-landingPage>
         
     </div>
 </template>
@@ -11,6 +12,7 @@
 import navigation from './navigation/navigation'
 import banner from './home/banner'
 import popup from './popup'
+import landing from './home/landingPage'
 export default {
 
     data() {
@@ -20,9 +22,10 @@ export default {
     },
     
     components:{
-        'app-navigation':navigation,
-        'app-banner':banner,
-        popup,
+        'app-landingPage': landing,
+        // 'app-navigation':navigation,
+        // 'app-banner':banner,
+        // popup,
     },
     mounted() {
         this.show()

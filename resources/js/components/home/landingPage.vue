@@ -124,6 +124,13 @@
           <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
       </div>
        </div>
+       <div class="sponsors"></div>
+
+    <div class="footer">
+        <div class="overlay">
+            <img src="" alt="">
+        </div>
+    </div>
     </div> 
 </template>
 

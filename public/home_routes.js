@@ -5611,6 +5611,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -18861,7 +18868,11 @@ var render = function() {
     _vm._v(" "),
     _vm._m(2),
     _vm._v(" "),
-    _vm._m(3)
+    _vm._m(3),
+    _vm._v(" "),
+    _c("div", { staticClass: "sponsors" }),
+    _vm._v(" "),
+    _vm._m(4)
   ])
 }
 var staticRenderFns = [
@@ -19112,6 +19123,16 @@ var staticRenderFns = [
             allowfullscreen: ""
           }
         })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "footer" }, [
+      _c("div", { staticClass: "overlay" }, [
+        _c("img", { attrs: { src: "", alt: "" } })
       ])
     ])
   }

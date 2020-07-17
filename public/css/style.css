@@ -121,7 +121,7 @@ body{
 }
 
 .mid-section{
-    margin-top: 2rem;
+    margin-top: 5rem;
     margin-bottom: 3.5rem;
     
 }
@@ -140,6 +140,14 @@ body{
     margin-top: 3rem;
     text-align: center;
     font-size: 18px;
+}
+
+.who-can-section{
+    margin-top: 6rem;
+    margin-bottom: 5rem;
+}
+.who-can-section h2{
+    font-weight: 700;
 }
 .who-card{
     position: relative;
@@ -161,9 +169,14 @@ body{
 .who-card-inner{
     padding: 40px 30px 30px 20px;
 }
+.who-card-inner h3{
+    padding-top: 1.5rem;
+}
+
 .who-card-inner p{
     line-height: 2rem;
     text-align: justify;
+    padding-top: 1rem;
 }
 .who-card-inner a{
     color: var(--primary-btn);

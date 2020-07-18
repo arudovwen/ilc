@@ -190,7 +190,46 @@ body{
 }
 
 .video-section{
+    background: url(/images/youtube-img.png) no-repeat;
     margin: 2.5rem auto;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sponsors{
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+
+.sponsors h2{
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+.footer{
+    margin-top: 2rem;
+    background: url(/images/footer-img-1.png) no-repeat;
+    width: 100%;
+    padding: 30px;
+}
+.footer-inner{
+  color: var(--primary-font-color);
+}
+.footer-end{
+    display: flex;
+    justify-content: space-between;
+}
+.footer-end-right{
+    display: flex;
+    justify-content: space-evenly;
+}
+.footer-end-right img{
+    width: 30px;
+    height: 30px;
+}
+.footer-end-right p{
+    padding-left: 15px;
 }
 /* * {
     margin: 0;

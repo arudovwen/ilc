@@ -57,7 +57,10 @@
        <div class="container">
            <div class="row mid-section">
                    <div class="col-md-6 mid-section-text">
-                   <h2>About Us</h2>
+                   <div class="text-center heading mb-5">
+               <h2 class="mb-0">About Us</h2>
+               <img src="/images/after-img.png" class="img-fluid" alt="">
+           </div>
                    <p>Education in imo state has brought a new face with the help of the goverment we hop in achiveing great thing with student ,
                         tutors and parents alike. we hope that this new face achieves great things and put the students of imo state at the forefront of education in nigeria.
                          God bless the people of imo state</p>
@@ -70,7 +73,10 @@
        </div>
 
        <div class="who-can-section">
-           <h2 class="text-center">Who Can Use The Service</h2>
+           <div class="text-center heading mb-5">
+               <h2 class="mb-0">Who Can Use The Service</h2>
+               <img src="/images/after-img.png" class="img-fluid" alt="">
+           </div>
            <div class="container">
                <div class="row">
                    <div class="col-md-4">
@@ -119,16 +125,49 @@
            </div>
        </div>
 
-       <div class="video-section container">
-           <div class="embed-responsive embed-responsive-16by9">
-          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
-      </div>
+       <div class="video-section container mb-5">
+          <img src="/images/play-svg.png" alt="">
        </div>
-       <div class="sponsors"></div>
+       <div class="sponsors ">
+           <div class="text-center heading mb-5">
+               <h2 class="mb-0">Our Sponsors</h2>
+               <img src="/images/after-img.png" class="img-fluid" alt="">
+           </div>
+           
+           <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="/images/sponsor-img-1.png" alt="">
+                    </div>
+                    <div class="col-md-3">
+                        <img src="/images/sponsor-img-2.png" alt="">
+                    </div>
+                    <div class="col-md-3">
+                        <img src="/images/sponsor-img-1.png" alt="">
+                    </div>
+                    <div class="col-md-3">
+                        <img src="/images/sponsor-img-2.png" alt="">
+                    </div>
+                </div>
+           </div>
+       </div>
 
     <div class="footer">
-        <div class="overlay">
-            <img src="" alt="">
+        <div class="footer-inner container">
+            <img src="/images/footer-logo.png" alt="">
+            <h5>About Us</h5>
+            <p>This is an initiative of the federal ministry of education imo state</p>
+            <img src="/images/footer-divider.png" class="img-fluid" alt="">
+            <div class="footer-end">
+                <div class="footer-end-right">
+                  <img src="/images/phone-ilc.png" alt="">  
+                  <p>+239000000000</p>
+                </div>
+               <div class="footer-end-right">
+                  <img src="/images/mail-ilc.png" alt="">  
+                  <p>imlc@yahoo.com</p>
+                </div>
+            </div>
         </div>
     </div>
     </div> 

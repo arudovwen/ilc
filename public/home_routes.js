@@ -5618,6 +5618,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -18870,9 +18909,9 @@ var render = function() {
     _vm._v(" "),
     _vm._m(3),
     _vm._v(" "),
-    _c("div", { staticClass: "sponsors" }),
+    _vm._m(4),
     _vm._v(" "),
-    _vm._m(4)
+    _vm._m(5)
   ])
 }
 var staticRenderFns = [
@@ -19008,7 +19047,14 @@ var staticRenderFns = [
     return _c("div", { staticClass: "container" }, [
       _c("div", { staticClass: "row mid-section" }, [
         _c("div", { staticClass: "col-md-6 mid-section-text" }, [
-          _c("h2", [_vm._v("About Us")]),
+          _c("div", { staticClass: "text-center heading mb-5" }, [
+            _c("h2", { staticClass: "mb-0" }, [_vm._v("About Us")]),
+            _vm._v(" "),
+            _c("img", {
+              staticClass: "img-fluid",
+              attrs: { src: "/images/after-img.png", alt: "" }
+            })
+          ]),
           _vm._v(" "),
           _c("p", [
             _vm._v(
@@ -19028,8 +19074,13 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "who-can-section" }, [
-      _c("h2", { staticClass: "text-center" }, [
-        _vm._v("Who Can Use The Service")
+      _c("div", { staticClass: "text-center heading mb-5" }, [
+        _c("h2", { staticClass: "mb-0" }, [_vm._v("Who Can Use The Service")]),
+        _vm._v(" "),
+        _c("img", {
+          staticClass: "img-fluid",
+          attrs: { src: "/images/after-img.png", alt: "" }
+        })
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "container" }, [
@@ -19114,15 +19165,42 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "video-section container" }, [
-      _c("div", { staticClass: "embed-responsive embed-responsive-16by9" }, [
-        _c("iframe", {
-          staticClass: "embed-responsive-item",
-          attrs: {
-            src: "https://www.youtube.com/embed/zpOULjyy-n8?rel=0",
-            allowfullscreen: ""
-          }
+    return _c("div", { staticClass: "video-section container mb-5" }, [
+      _c("img", { attrs: { src: "/images/play-svg.png", alt: "" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "sponsors " }, [
+      _c("div", { staticClass: "text-center heading mb-5" }, [
+        _c("h2", { staticClass: "mb-0" }, [_vm._v("Our Sponsors")]),
+        _vm._v(" "),
+        _c("img", {
+          staticClass: "img-fluid",
+          attrs: { src: "/images/after-img.png", alt: "" }
         })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-3" }, [
+            _c("img", { attrs: { src: "/images/sponsor-img-1.png", alt: "" } })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-3" }, [
+            _c("img", { attrs: { src: "/images/sponsor-img-2.png", alt: "" } })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-3" }, [
+            _c("img", { attrs: { src: "/images/sponsor-img-1.png", alt: "" } })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-3" }, [
+            _c("img", { attrs: { src: "/images/sponsor-img-2.png", alt: "" } })
+          ])
+        ])
       ])
     ])
   },
@@ -19131,8 +19209,35 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "footer" }, [
-      _c("div", { staticClass: "overlay" }, [
-        _c("img", { attrs: { src: "", alt: "" } })
+      _c("div", { staticClass: "footer-inner container" }, [
+        _c("img", { attrs: { src: "/images/footer-logo.png", alt: "" } }),
+        _vm._v(" "),
+        _c("h5", [_vm._v("About Us")]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "This is an initiative of the federal ministry of education imo state"
+          )
+        ]),
+        _vm._v(" "),
+        _c("img", {
+          staticClass: "img-fluid",
+          attrs: { src: "/images/footer-divider.png", alt: "" }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "footer-end" }, [
+          _c("div", { staticClass: "footer-end-right" }, [
+            _c("img", { attrs: { src: "/images/phone-ilc.png", alt: "" } }),
+            _vm._v(" "),
+            _c("p", [_vm._v("+239000000000")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "footer-end-right" }, [
+            _c("img", { attrs: { src: "/images/mail-ilc.png", alt: "" } }),
+            _vm._v(" "),
+            _c("p", [_vm._v("imlc@yahoo.com")])
+          ])
+        ])
       ])
     ])
   }

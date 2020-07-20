@@ -66,7 +66,7 @@ class TutorController extends Controller
               'bank_name'  => $request['bank_name'],
               'bank_no'  => $request['bank_no'],
               'bvn'  => $request['bvn'],
-              'sgl'  => $request['sgl'],
+              'cgl'  => $request['cgl'],
               'rank'  => $request['rank'],
               'file_no'  => $request['file_no'],
               'area_of_specialization'  => $request['area_of_specialization'],
@@ -121,13 +121,14 @@ class TutorController extends Controller
         $tutor['subjects'] =  $request['subjects'];
         $tutor['address' ] = $request['address'];
         $tutor['dob']  = $request['dob'];
+        $tutor['profile']  = $request['profile'];
         $tutor['doe' ] = $request['doe'];
          $tutor['lga']  = $request['lga'];
          $tutor['state']  = $request['state'];
          $tutor['bank_name']  = $request['bank_name'];
          $tutor['bank_no']  = $request['bank_no'];
          $tutor['bvn']  = $request['bvn'];
-         $tutor['sgl']  = $request['sgl'];
+         $tutor['cgl']  = $request['cgl'];
          $tutor['rank']  = $request['rank'];
          $tutor['file_no']  = $request['file_no'];
          $tutor['area_of_specialization']  = $request['area_of_specialization'];

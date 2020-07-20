@@ -17,9 +17,9 @@
           <hr />
         </div>
       </router-link>
-      <router-link to="/admin/add">
+      <router-link to="/admin/student/assign/class">
         <div class="nav_box shadow-sm">
-          <p class="mx-auto">Assign Level</p>
+          <p class="mx-auto">Assign Class</p>
           <hr />
         </div>
       </router-link>
@@ -33,8 +33,8 @@
    All
 
   </div>
-  <div class="single-class shadow-sm" @click="selectClass(item)" v-for="(item,idx) in allClass" :key ="idx">
-    {{item.toLowerCase()}}
+  <div class="single-class shadow-sm" @click="selectClass(item.class_name)" v-for="(item,idx) in allClass" :key ="idx">
+    {{item.class_name.toLowerCase()}}
 
   </div>
 </div>
@@ -135,16 +135,17 @@ export default {
         })
         .then(res => {
           if (res.status == 200) {
-            res.data.forEach(item => {
+            this.allClass = res.data
+            // res.data.forEach(item => {
              
-              if (item.sub_class !== "") {
-                item.sub_class.split(",").forEach(i => {
-                  this.allClass.push(i);
-                });
-              }else{
-                 this.allClass.push(item.class_name);
-              }
-            });
+            //   if (item.sub_class !== "") {
+            //     item.sub_class.split(",").forEach(i => {
+            //       this.allClass.push(i);
+            //     });
+            //   }else{
+            //      this.allClass.push(item.class_name);
+            //   }
+            // });
           }
         });
     },
@@ -210,7 +211,7 @@ export default {
       }
     },
     edit(id) {
-        this.$router.push(`/admin/student/edit/${id}`)
+        this.$router.push(`/admin/student/update/${id}`)
     },
      view(id) {
         this.$router.push(`/admin/student/view/${id}`)

@@ -14,7 +14,18 @@ class CourseStudentsController extends Controller
      */
     public function index()
     {
-        //
+        $school_id = auth('tutor')->user()->school_id;
+        return CourseStudent::where('school_id', $school_id)->get();
+    }
+    public function indexAdmin()
+    {
+        $school_id = auth('admin')->user()->school_id;
+        return CourseStudent::where('school_id', $school_id)->get();
+    }
+    public function indexUser()
+    {
+        $school_id = auth('api')->user()->school_id;
+        return CourseStudent::where('school_id', $school_id)->get();
     }
 
     /**
@@ -34,8 +45,24 @@ class CourseStudentsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    { 
+       
+      
+        $find = CourseStudent::where('student_id',  $request->student['id'])->first();
+        $school_id = auth('admin')->user()->school_id;
+        if (is_null($find)) {
+            return CourseStudent::create([
+            'school_id'=>  $school_id,
+            'student_id'=>  $request->student['id'],
+            'courses' => json_encode($request->choosen_course)
+        ]);
+        } else {
+          
+          
+            $find->courses = json_encode($request->choosen_course);
+            $find->save();
+            return $find;
+        }
     }
 
     /**
@@ -46,7 +73,7 @@ class CourseStudentsController extends Controller
      */
     public function show(CourseStudent $courseStudent)
     {
-        //
+        return CourseStudent::find($id);
     }
 
     /**
@@ -78,8 +105,20 @@ class CourseStudentsController extends Controller
      * @param  \App\CourseStudent  $courseStudent
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CourseStudent $courseStudent)
+    public function destroy($id)
     {
-        //
+        CourseStudent::find($id)->delete();
+    }
+    public function multiDrop(Request $request)
+    {
+      
+        foreach ($request->data as $id) {
+            $find = CourseStudent::find($id);
+            $find->delete();
+        }
+     
+        return response()->json([
+            'status'=>'Deleted'
+        ]);
     }
 }

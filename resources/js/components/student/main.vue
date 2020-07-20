@@ -54,6 +54,12 @@ export default {
         this.getNotifications();
       }
     );
+     Echo.private("resource-added" + this.$props.student.id).listen(
+      "ResourceAdded",
+      e => {
+        this.getNotifications();
+      }
+    );
     Echo.private("deleted-group" + this.$props.student.id).listen(
       "DeletedGroup",
       e => {

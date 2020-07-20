@@ -5,14 +5,14 @@
     </div>
         <nav>
         <ul>
-             <router-link to="/tutor/profile"> <li>Home</li></router-link>
-              <router-link to="/tutor/profile"> <li>Profile</li></router-link>
-               <router-link to="/tutor/syllabus"> <li>Curriculum & Syllabus</li></router-link>
-               <router-link to="/tutor/profile"> <li>Assessments</li></router-link>
-                <router-link to="/tutor/profile"> <li>Resources</li></router-link>
-              <router-link to="/tutor/profile"> <li>Activities</li></router-link>
-               <router-link to="/tutor/profile"> <li>Attendance Sheet</li></router-link>
-                <router-link to="/tutor/profile"> <li>Grade Book</li></router-link>
+            <router-link to="/tutor/profile"> <li>Home</li></router-link>
+            <router-link to="/tutor/profile"> <li>Profile</li></router-link>
+            <router-link to="/tutor/resources"> <li>Resources</li></router-link>
+            <router-link to="/tutor/syllabus"> <li>Curriculum & Syllabus</li></router-link>
+            <router-link to="/tutor/profile"> <li>Assessments</li></router-link>              
+            <router-link to="/tutor/profile"> <li>Activities</li></router-link>
+            <router-link to="/tutor/profile"> <li>Attendance Sheet</li></router-link>
+            <router-link to="/tutor/profile"> <li>Grade Book</li></router-link>
            <router-link to="/tutor/groups"> <li>Groups</li></router-link>
 
                 <router-link to="/tutor/profile"> <li>Virtual Classroom</li></router-link>

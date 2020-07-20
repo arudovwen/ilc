@@ -216,7 +216,7 @@
             <input
               v-model="item.question"
               type="text"
-              required
+              
               class="form-control w-75 mb-2"
               aria-describedby="helpId"
               placeholder="Question"
@@ -227,7 +227,7 @@
             <input
               v-model="item.answer"
               type="text"
-              required
+              
               class="form-control w-75"
               aria-describedby="helpId"
               placeholder="Answer"

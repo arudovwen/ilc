@@ -43,7 +43,7 @@
             <label for>Choose Class Level</label>
             <select class="custom-select" v-model="student.student_level">
               <option selected value>Select Class</option>
-              <option :value="item" v-for="(item,idx) in allClass" :key="idx">{{item}}</option>
+              <option :value="item.class_name.toLowerCase()" v-for="(item,idx) in allClass" :key="idx">{{item.class_name}}</option>
             </select>
           </div>
 
@@ -102,15 +102,7 @@ export default {
         })
         .then(res => {
           if (res.status == 200) {
-            res.data.forEach(item => {
-                 if (item.sub_class !== "") {
-                item.sub_class.split(",").forEach(i => {
-                  this.allClass.push(i);
-                });
-              }else{
-                 this.allClass.push(item.class_name);
-              }
-            });
+           this.allClass = res.data
           }
         });
     },

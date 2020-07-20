@@ -6,8 +6,9 @@
       <legend>Update Info</legend>
 
       <div class="form-group">
+        <label for="">Full Name</label>
         <input
-          required
+          
           type="text"
           class="form-control"
           placeholder="Full Name *"
@@ -16,8 +17,9 @@
       </div>
 
       <div class="form-group">
+        <label for="">Password</label>
         <input
-          required
+          
           type="password"
           class="form-control"
           placeholder="Password *"
@@ -26,20 +28,22 @@
       </div>
 
       <div class="form-group">
+        <label for="">Gender</label>
         <div class="maxl">
           <label class="radio inline">
-            <input required type="radio" value="male" checked v-model="student.gender" />
+            <input  type="radio" value="male" checked v-model="student.gender" />
             <span>Male</span>
           </label>
           <label class="radio inline">
-            <input required type="radio" value="female" v-model="student.gender" />
+            <input  type="radio" value="female" v-model="student.gender" />
             <span>Female</span>
           </label>
         </div>
       </div>
       <div class="form-group">
+        <label for="">Email</label>
         <input
-          required
+          
           type="email"
           class="form-control"
           placeholder="Your Email *"
@@ -47,8 +51,9 @@
         />
       </div>
       <div class="form-group">
+        <label for="">Address</label>
         <input
-          required
+          
           type="text"
           class="form-control"
           placeholder="Your address *"
@@ -57,19 +62,9 @@
       </div>
 
       <div class="form-group">
+        <label for="">Phone</label>
         <input
-          required
-          type="text"
-          minlength="11"
-          maxlength="11"
-          class="form-control"
-          placeholder="Your Phone *"
-          v-model="student.phone"
-        />
-      </div>
-      <div class="form-group">
-        <input
-          required
+          
           type="text"
           minlength="11"
           maxlength="11"
@@ -81,20 +76,16 @@
 
       <div class="form-group">
         <label for>Faculty</label>
-        <select class="custom-select" name id>
-          <option selected>Select one</option>
-          <option value></option>
-          <option value></option>
-          <option value></option>
+        <select class="custom-select" v-model="student.faculty">
+          <option selected disabled value="">Select one</option>
+        
         </select>
       </div>
       <div class="form-group">
         <label for>Department</label>
-        <select class="custom-select" name id>
-          <option selected>Select one</option>
-          <option value></option>
-          <option value></option>
-          <option value></option>
+        <select class="custom-select" v-model="student.department">
+          <option selected disabled value="">Select one</option>
+         
         </select>
       </div>
 
@@ -239,7 +230,7 @@ export default {
       }}).then(res => {
         if (res.status == 200) {
           this.$toasted.info("Successful");
-          this.$router.push("/admin");
+          this.$router.push("/admin/students");
         }
       });
     },

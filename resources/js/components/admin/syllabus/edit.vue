@@ -187,7 +187,7 @@
             <label for="Question" class="side-label">Question</label>
             <input
               v-model="item.question"
-              type="text" required
+              type="text" 
               class="form-control w-75 mb-2"
               aria-describedby="helpId"
               placeholder="Question"
@@ -197,7 +197,7 @@
             <label for class="side-label">Answer</label>
             <input
               v-model="item.answer"
-              type="text" required
+              type="text" 
               class="form-control w-75"
               aria-describedby="helpId"
               placeholder="Answer"
@@ -297,8 +297,10 @@ export default {
         })
         .then(res => {
           if (res.status == 200) {
-            this.syllabus = JSON.parse(res.data.syllabus);
-            this.$toasted.info('Updated successfully')
+            if ( JSON.parse(res.data.syllabus) != null) {
+                this.syllabus = JSON.parse(res.data.syllabus);
+            }
+          
           }
         });
     },
@@ -317,6 +319,7 @@ export default {
         .then(res => {
           if (res.status == 200) {
             this.$router.push("/admin/syllabus/home");
+              this.$toasted.info('Updated successfully')
           }
         });
     },

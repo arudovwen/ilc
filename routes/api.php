@@ -60,14 +60,17 @@ Route::middleware('auth:tutor')->group(function () {
     Route::get('get-messages/{groupId}', 'MessagesController@getMessages');
     Route::post('send-message', 'MessagesController@sendGroupMessage');
     Route::resource('tutors', 'TutorController');
+    Route::resource('resource', 'ResourceController');
+  
     Route::get('tutor-syllabus', 'SyllabusController@getTutorSyllabuses');
+    Route::get('tutor-module/{myclass}/{subject}', 'SyllabusController@getTutorModules');
     Route::get('tutor-curriculum', 'CurriculumController@getTutorCurriculums');
     Route::get('tutor-syllabus/{id}', 'SyllabusController@getTutorSyllabus');
     Route::get('tutor-curriculum/{id}', 'CurriculumController@getTutorCurriculum');
     Route::get('all-classes','ClassesController@getAllTutorClasses');
     Route::get('all-students/{name}','UserController@tutorGetStudents');
     Route::get('tutor-notifications/{id}','NotificationController@showTutorNotifications');
-
+    Route::get('tutor-all-subjects', 'SubjectsController@tutorGetAllSubjects');
     Route::get('clear-tutor-notifications/{id}','NotificationController@updateTutorStatus');
 });
 Route::get('student-group/{id}', 'GroupsController@show');
@@ -98,6 +101,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('register', 'Auth\RegisterController@register');
     Route::get('admin-get-user/{id}', 'UserController@adminGetUser');
     Route::put('update-user/{id}', 'UserController@store');
+    Route::resource('students-course', 'CourseStudentsController');
 });
 Route::resource('order', 'OrdersController');
 Route::resource('temp-sub', 'TempSubscriptionsController');

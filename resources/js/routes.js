@@ -206,6 +206,10 @@ const AssignStudent = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/student/assign"
     );
+    const AssignStudentClass = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/admin/student/assignLevel"
+    );
 const AssignHead = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/tutor/assignHead"
@@ -213,6 +217,23 @@ const AssignHead = () =>
 const SchoolRegister = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/school/register"
+    );
+
+    const ResourcesHome = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/tutor/resources/home"
+    );
+    const ResourcesCreate = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/tutor/resources/create"
+    );
+    const ResourcesEdit = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/tutor/resources/edit"
+    );
+    const ResourcesView = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/tutor/resources/view"
     );
 
 export const routes = [
@@ -501,6 +522,14 @@ export const routes = [
                 meta: {
                     typeAdmin: true
                 }
+            },
+            {
+                path: "student/assign/class",
+                component: AssignStudentClass,
+                name: "AssignStudentClass",
+                meta: {
+                    typeAdmin: true
+                }
             }
         ]
     },
@@ -532,7 +561,7 @@ export const routes = [
                 }
             },
             {
-                path: "update",
+                path: "update/:id",
                 component: TutorUpdate,
                 name: "TutorUpdate",
                 meta: {
@@ -583,6 +612,38 @@ export const routes = [
                 path: "syllabus",
                 component:TutorSyllabus,
                 name: "TutorSyllabus",
+                meta: {
+                    typeTutor: true
+                }
+            },
+            {
+                path: "resources",
+                component:ResourcesHome,
+                name: "ResourcesHome",
+                meta: {
+                    typeTutor: true
+                }
+            },
+            {
+                path: "resource/create",
+                component:ResourcesCreate,
+                name: "ResourcesCreate",
+                meta: {
+                    typeTutor: true
+                }
+            },
+            {
+                path: "resource/edit/:id",
+                component:ResourcesEdit,
+                name: "ResourcesEdit",
+                meta: {
+                    typeTutor: true
+                }
+            },
+            {
+                path: "resource/view/:id",
+                component:ResourcesView,
+                name: "ResourcesView",
                 meta: {
                     typeTutor: true
                 }

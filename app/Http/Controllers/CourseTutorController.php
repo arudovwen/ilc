@@ -92,8 +92,19 @@ class CourseTutorController extends Controller
      * @param  \App\CourseTutor  $courseTutor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CourseTutor $courseTutor)
+    public function destroy($id)
     {
-        //
+        CourseTutor::find($id)->delete();
+    }
+    public function multiDrop(Request $request)
+    {
+        foreach ($request->data as $id) {
+            $find = CourseTutor::find($id);
+            $find->delete();
+        }
+     
+        return response()->json([
+            'status'=>'Deleted'
+        ]);
     }
 }

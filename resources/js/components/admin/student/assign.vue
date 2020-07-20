@@ -5,7 +5,7 @@
         <table class="table table-bordered table-hover">
           <thead class="thead-light">
             <tr>
-              <th>student List</th>
+              <th>Student List</th>
             </tr>
           </thead>
           <tbody>
@@ -43,7 +43,7 @@
             </tr>
           </tbody>
         </table>
-        <div class="my-3">
+        <div class="my-3" v-if="data.student.name !== ''">
           <button type="button" @click="submit">Submit</button>
         </div>
       </div>
@@ -68,17 +68,21 @@ export default {
     };
   },
   mounted() {
-    this.getstudents();
+    this.getStudents();
     this.getSubjects();
   },
   methods: {
     submit() {
         let admin = JSON.parse(localStorage.getItem('typeAdmin'))
-      axios.post("/api/student", this.data,{headers:{
+      axios.post("/api/students-course", this.data,{headers:{
           Authorization: `Bearer ${admin.access_token}`
       }}).then(res => {
         if (res.status == 201) {
           this.$toasted.info("Successful");
+          this.$router.push("/admin/students");
+        }
+         if (res.status == 200) {
+          this.$toasted.info("Saved Successful");
           this.$router.push("/admin/students");
         }
       });
@@ -108,9 +112,9 @@ export default {
       this.data.student.name = name;
       this.data.student.id = id;
     },
-    getstudents() {
+     getStudents() {
       axios
-        .get("/api/student", {
+        .get("/api/admin-get-students", {
           headers: {
             Authorization: `Bearer ${this.$props.admin.access_token}`
           }

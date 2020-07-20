@@ -146,7 +146,7 @@ export default {
       }
     },
     edit(id) {
-        this.$router.push(`/admin/tutor/edit/${id}`)
+        this.$router.push(`/admin/tutor/update/${id}`)
     },
     view(id) {
         this.$router.push(`/admin/tutor/view/${id}`)

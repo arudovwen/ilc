@@ -1,26 +1,6 @@
 <template>
     <div class="">
-        <div class="">
-                <b-navbar toggleable="lg" type="light" variant="faded">
-                    <b-navbar-brand href="#"><img src="/images/ilc-logo.png" class="d-inline-block align-top" alt="logo"></b-navbar-brand>
-
-                    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-                    <b-collapse id="nav-collapse" is-nav>
-                    <b-navbar-nav class="mx-auto">
-                        <b-nav-item href="#">Home</b-nav-item>
-                        <b-nav-item href="#" >About</b-nav-item>
-                        <b-nav-item href="#" >Sponsors</b-nav-item>
-                        <b-nav-item href="#" >Contact</b-nav-item>
-                    </b-navbar-nav>
-                    <!-- Right aligned nav items -->
-                        <b-navbar-nav class="ml-auto">
-                            <b-nav-item href="#" class="login-btn" >LOGIN</b-nav-item>
-                            <b-nav-item href="#" class="reg-btn" >REGISTER</b-nav-item>
-                        </b-navbar-nav>
-                    </b-collapse>
-            </b-navbar>
-        </div>
+        <Navigation/>
         <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                         <div class="carousel-item active" data-interval="10000">
@@ -50,7 +30,11 @@
                         <h1>EDUCATION IN IMO STATE <br>
                         HAS A NEW FACE
                         </h1>
-                        <button class="reg-btn">ENROLL NOW</button>
+                       
+                        <router-link to="/school/register"> <button v-waves.button v-waves.float v-waves.light class="sec_color">
+              <span >Enroll Today </span>
+              <!-- <i class="fa fa-long-arrow-right sec_color" aria-hidden="true"></i> -->
+            </button></router-link>
                     </div>
             </div>
        
@@ -80,7 +64,7 @@
            <div class="container">
                <div class="row">
                    <div class="col-md-4">
-                       <div class="card who-card">
+                       <div class="card who-card shadow-sm">
                            <img src="/images/school-svg.png" class="img-fluid" alt="">
                            <div class="who-card-inner">
                             <h3>Schools</h3>
@@ -94,7 +78,7 @@
                        </div>
                    </div>
                     <div class="col-md-4">
-                       <div class="card who-card">
+                       <div class="card who-card shadow-sm">
                            <img src="/images/tutors-svg.png" class="img-fluid" alt="">
                            <div class="who-card-inner">
                                <h3>Tutors</h3>
@@ -108,7 +92,7 @@
                        </div>
                    </div>
                     <div class="col-md-4">
-                       <div class="card who-card">
+                       <div class="card who-card shadow-sm">
                            <img src="/images/school-svg.png" class="img-fluid" alt="">
                            <div class="who-card-inner">
                                <h3>Students</h3>
@@ -174,7 +158,26 @@
 </template>
 
 <script>
+import Navigation from '../navigation/navigation'
 export default {
-    
+   components:{
+       Navigation
+   } 
 }
 </script>
+<style scoped lang="scss">
+a{
+    text-decoration: none;
+}
+
+.card{
+    background-color: #f7f8fa;
+    border: none;
+}
+.sec_color{
+    background-color: var(--primary-btn);
+    color: #fff;
+    font-size: 18px;
+}
+
+</style>

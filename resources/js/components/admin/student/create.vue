@@ -39,6 +39,13 @@
                   v-model="student.email"
                 />
               </div>
+               <div class="form-group">
+            <label for>Choose Class Level</label>
+            <select class="custom-select" v-model="student.student_level">
+              <option selected value>Select Class</option>
+              <option :value="item" v-for="(item,idx) in allClass" :key="idx">{{item}}</option>
+            </select>
+          </div>
 
 
               <button v-waves.button v-waves.float v-waves.light type="submit" class="btnRegister">
@@ -63,12 +70,15 @@ export default {
           name: "",        
           email: "",
           gender: "",
-      
-       
+          student_level:'',  
       },
       spin: false,
+       allClass: []
       
     };
+  },
+  mounted() {
+    this.getCLasses()
   },
   methods: {
     register() {
@@ -78,9 +88,31 @@ export default {
       }}).then(res => {
         if (res.status == 201) {
           this.$toasted.info("Successful");
-          this.$router.push("/admin/home");
+          this.$router.push("/admin/students");
         }
       });
+    },
+     getCLasses() {
+         let admin = JSON.parse(localStorage.getItem('typeAdmin'))
+      axios
+        .get("/api/classes", {
+          headers: {
+            Authorization: `Bearer ${admin.access_token}`
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            res.data.forEach(item => {
+                 if (item.sub_class !== "") {
+                item.sub_class.split(",").forEach(i => {
+                  this.allClass.push(i);
+                });
+              }else{
+                 this.allClass.push(item.class_name);
+              }
+            });
+          }
+        });
     },
    
   }

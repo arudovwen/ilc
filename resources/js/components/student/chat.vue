@@ -65,14 +65,14 @@ export default {
             res.data.name + this.$route.params.id + res.data.tutor_id)
             .here(users => {
               this.users = users;
-              console.log("users", users)
+             
             })
             .joining(user => {
               this.users.push(user);
-              console.log("users", user)
+            
             })
             .listen("GroupMessageSent", e => {
-            console.log("e", e)
+          
               this.messages.push(e.message);
             })
             .leaving(user => {

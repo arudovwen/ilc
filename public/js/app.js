@@ -278,6 +278,18 @@ var TutorGroupChat = function TutorGroupChat() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/chat */ "./resources/js/components/tutor/chat.vue"));
 };
 
+var TutorSyllabus = function TutorSyllabus() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/syllabus */ "./resources/js/components/tutor/syllabus.vue"));
+};
+
+var TutorSyllabusView = function TutorSyllabusView() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/viewSyllabus */ "./resources/js/components/tutor/viewSyllabus.vue"));
+};
+
+var TutorCurriculumView = function TutorCurriculumView() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/viewCurriculum */ "./resources/js/components/tutor/viewCurriculum.vue"));
+};
+
 var TutorDashboard = function TutorDashboard() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/dashboard */ "./resources/js/components/tutor/dashboard.vue"));
 };
@@ -340,6 +352,22 @@ var SyllabusEdit = function SyllabusEdit() {
 
 var SyllabusHome = function SyllabusHome() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/syllabus/home */ "./resources/js/components/admin/syllabus/home.vue"));
+};
+
+var Curriculum = function Curriculum() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/curriculum/home */ "./resources/js/components/admin/curriculum/home.vue"));
+};
+
+var CurriculumView = function CurriculumView() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/curriculum/view */ "./resources/js/components/admin/curriculum/view.vue"));
+};
+
+var CurriculumEdit = function CurriculumEdit() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/curriculum/edit */ "./resources/js/components/admin/curriculum/edit.vue"));
+};
+
+var CurriculumCreate = function CurriculumCreate() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/curriculum/create */ "./resources/js/components/admin/curriculum/create.vue"));
 };
 
 var TimeTable = function TimeTable() {
@@ -577,6 +605,34 @@ var routes = [{
       typeAdmin: true
     }
   }, {
+    path: "curriculum/home",
+    component: Curriculum,
+    name: "Curriculum",
+    meta: {
+      typeAdmin: true
+    }
+  }, {
+    path: "curriculum/view/:id",
+    component: CurriculumView,
+    name: "CurriculumView",
+    meta: {
+      typeAdmin: true
+    }
+  }, {
+    path: "curriculum/edit/:id",
+    component: CurriculumEdit,
+    name: "CurriculumEdit",
+    meta: {
+      typeAdmin: true
+    }
+  }, {
+    path: "curriculum/create",
+    component: CurriculumCreate,
+    name: "CurriculumCreate",
+    meta: {
+      typeAdmin: true
+    }
+  }, {
     path: "syllabus",
     component: Syllabus,
     name: "Syllabus",
@@ -718,6 +774,27 @@ var routes = [{
     path: "group/:id",
     component: TutorGroupChat,
     name: "TutorGroupChat",
+    meta: {
+      typeTutor: true
+    }
+  }, {
+    path: "curriculum/view/:id",
+    component: TutorCurriculumView,
+    name: "TutorCurriculumView",
+    meta: {
+      typeTutor: true
+    }
+  }, {
+    path: "syllabus/view/:id",
+    component: TutorSyllabusView,
+    name: "TutorSyllabusView",
+    meta: {
+      typeTutor: true
+    }
+  }, {
+    path: "syllabus",
+    component: TutorSyllabus,
+    name: "TutorSyllabus",
     meta: {
       typeTutor: true
     }

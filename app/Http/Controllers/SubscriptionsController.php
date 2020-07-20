@@ -6,6 +6,7 @@ use App\Admin;
 use App\Order;
 use App\School;
 use Carbon\Carbon;
+use App\Notification;
 use App\Subscription;
 use App\TempSubscription;
 use Illuminate\Http\Request;
@@ -87,7 +88,15 @@ class SubscriptionsController extends Controller
             $sub->save();
         }
         
+        $dashboard = Notification::create([
+            'school_id'=>$tempSubscription->school_id,
+            'receiver_id'=>$tempSubscription->school_id,
+            'message'=> 'Dashboard created',
+            'status'=> false,
+            'role' => 'admin'
+        ]);
         $tempSubscription->delete();
+       
 
         return response()->json([
             'status' => 'Verified'

@@ -1,323 +1,294 @@
 <template>
-  <div class="body">
-    <nav class="mb-5">
-      <div class="nav_box shadow-sm">
-        <p class="mx-auto" @click="multiDrop">Multi-Drop</p>
-        <hr />
-      </div>
-      <div class="nav_box shadow-sm hiden">
-        <p class="mx-auto">Add Class</p>
-        <hr />
-      </div>
+  <div class="body" :class="{'overflow-hide':showPreview}">
+    <!-- form starts here  -->
+    <form @submit.prevent="togglePreview">
+      <legend class="text-center">New Syllabus</legend>
 
-      <div class="nav_box shadow-sm hiden">
-        <p class="mx-auto">Remove Class</p>
-        <hr />
-      </div>
-
-      <div class="nav_box shadow-sm hiden">
-        <p class="mx-auto">Assign Level</p>
-        <hr />
-      </div>
-    </nav>
-
-    <form @submit.prevent="createSyllabus" class>
-      <div class="mb-5 p-3 content">
-        <div class="d-flex">
-          <div class="form-group">
-            <label for>Class</label>
-            <select class="custom-select" v-model="data.myclass">
-              <option value disabled>Select class</option>
-              <option
-                v-for="(item,idx) in classes"
-                :key="idx"
-                :value="item.class_name"
-                class="toCaps"
-              >{{item.class_name}}</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for>Subject</label>
-            <select class="form-control" v-model="data.subject">
-              <option value disabled>Select Subject</option>
-              <option
-                v-for="(item,idx) in subjects"
-                :key="idx"
-                :value="item.name"
-                class="toCaps"
-              >{{item.name}}</option>
-            </select>
-          </div>
-        </div>
+      <div class="border p-3 my-4">
+        <h5>Class Information</h5>
         <div class="form-group">
-          <label for>Topic</label>
+          <label for v-if="!termType">Term</label>
+          <label for v-else>Semester</label>
           <input
-            type="text"
-            class="form-control"
-            v-model="data.topic"
+            type="text" required
+            class="form-control w-25"
+            v-model="syllabus.term"
             aria-describedby="helpId"
             placeholder
           />
         </div>
-        <div>
-          <div class="form-group">
-            <label for>Prerequisite</label>
-
-            <editor
-              apiKey="a0iyq87xxk4jqc1rf2kj55kr8pu9pol61qt32jccfldibgd7"
-              :init="{
-      height: 250,
-      menubar: true,
-      plugins: [
-        'advlist autolink lists link image charmap',
-        'searchreplace visualblocks code fullscreen',
-        'print preview anchor insertdatetime media',
-        'paste code help wordcount table'
-      ],
-      toolbar: 'undo redo | formatselect | bold italic | \
-        alignleft aligncenter alignright | \
-        bullist numlist outdent indent | help'
-    }"
-              v-model="data.syllabus.prerequisite"
-            ></editor>
-          </div>
-
-          <div class="form-group">
-            <label for>Description</label>
-
-            <editor
-              apiKey="a0iyq87xxk4jqc1rf2kj55kr8pu9pol61qt32jccfldibgd7"
-              :init="{
-      height: 250,
-      menubar: true,
-      plugins: [
-        'advlist autolink lists link image charmap',
-        'searchreplace visualblocks code fullscreen',
-        'print preview anchor insertdatetime media',
-        'paste code help wordcount table'
-      ],
-      toolbar: 'undo redo | formatselect | bold italic | \
-        alignleft aligncenter alignright | \
-        bullist numlist outdent indent | help'
-    }"
-              v-model="data.syllabus.desc"
-            ></editor>
-          </div>
-          <div class="form-group">
-            <label for>Objective</label>
-
-            <editor
-              apiKey="a0iyq87xxk4jqc1rf2kj55kr8pu9pol61qt32jccfldibgd7"
-              :init="{
-      height: 250,
-      menubar: true,
-      plugins: [
-        'advlist autolink lists link image charmap',
-        'searchreplace visualblocks code fullscreen',
-        'print preview anchor insertdatetime media',
-        'paste code help wordcount table'
-      ],
-      toolbar: 'undo redo | formatselect | bold italic | \
-        alignleft aligncenter alignright | \
-        bullist numlist outdent indent | help'
-    }"
-              v-model="data.syllabus.objective"
-            ></editor>
-          </div>
-          <div class="form-group">
-            <label for>Learning Outcome</label>
-
-            <editor
-              apiKey="a0iyq87xxk4jqc1rf2kj55kr8pu9pol61qt32jccfldibgd7"
-              :init="{
-      height: 250,
-      menubar: true,
-      plugins: [
-        'advlist autolink lists link image charmap',
-        'searchreplace visualblocks code fullscreen',
-        'print preview anchor insertdatetime media',
-        'paste code help wordcount table'
-      ],
-      toolbar: 'undo redo | formatselect | bold italic | \
-        alignleft aligncenter alignright | \
-        bullist numlist outdent indent | help'
-    }"
-              v-model="data.syllabus.outcome"
-            ></editor>
-          </div>
-          <div class="form-group">
-            <label for>Course Format</label>
-
-            <editor
-              apiKey="a0iyq87xxk4jqc1rf2kj55kr8pu9pol61qt32jccfldibgd7"
-              :init="{
-      height: 250,
-      menubar: true,
-      plugins: [
-        'advlist autolink lists link image charmap',
-        'searchreplace visualblocks code fullscreen',
-        'print preview anchor insertdatetime media',
-        'paste code help wordcount table'
-      ],
-      toolbar: 'undo redo | formatselect | bold italic | \
-        alignleft aligncenter alignright | \
-        bullist numlist outdent indent | help'
-    }"
-              v-model="data.syllabus.course_format"
-            ></editor>
-          </div>
-          <div class="form-group">
-            <label for>Student Evaluation</label>
-
-            <editor
-              apiKey="a0iyq87xxk4jqc1rf2kj55kr8pu9pol61qt32jccfldibgd7"
-              :init="{
-      height: 250,
-      menubar: true,
-      plugins: [
-        'advlist autolink lists link image charmap',
-        'searchreplace visualblocks code fullscreen',
-        'print preview anchor insertdatetime media',
-        'paste code help wordcount table'
-      ],
-      toolbar: 'undo redo | formatselect | bold italic | \
-        alignleft aligncenter alignright | \
-        bullist numlist outdent indent | help'
-    }"
-              v-model="data.syllabus.evaluation"
-            ></editor>
-          </div>
-
-          <div class="form-group">
-            <label for>Examination Format</label>
-
-            <editor
-              apiKey="a0iyq87xxk4jqc1rf2kj55kr8pu9pol61qt32jccfldibgd7"
-              :init="{
-      height: 250,
-      menubar: true,
-      plugins: [
-        'advlist autolink lists link image charmap',
-        'searchreplace visualblocks code fullscreen',
-        'print preview anchor insertdatetime media',
-        'paste code help wordcount table'
-      ],
-      toolbar: 'undo redo | formatselect | bold italic | \
-        alignleft aligncenter alignright | \
-        bullist numlist outdent indent | help'
-    }"
-              v-model="data.syllabus.exam_format"
-            ></editor>
-          </div>
-          <div class="form-group">
-            <label for>Grading Scale</label>
-
-            <editor
-              apiKey="a0iyq87xxk4jqc1rf2kj55kr8pu9pol61qt32jccfldibgd7"
-              :init="{
-      height: 250,
-      menubar: true,
-      plugins: [
-        'advlist autolink lists link image charmap',
-        'searchreplace visualblocks code fullscreen',
-        'print preview anchor insertdatetime media',
-        'paste code help wordcount table'
-      ],
-      toolbar: 'undo redo | formatselect | bold italic | \
-        alignleft aligncenter alignright | \
-        bullist numlist outdent indent | help'
-    }"
-              v-model="data.syllabus.grading_scale"
-            ></editor>
-          </div>
-          <div class="form-group">
-            <label for>Book References</label>
-
-            <editor
-              apiKey="a0iyq87xxk4jqc1rf2kj55kr8pu9pol61qt32jccfldibgd7"
-              :init="{
-      height: 250,
-      menubar: true,
-      plugins: [
-        'advlist autolink lists link image charmap',
-        'searchreplace visualblocks code fullscreen',
-        'print preview anchor insertdatetime media',
-        'paste code help wordcount table'
-      ],
-      toolbar: 'undo redo | formatselect | bold italic | \
-        alignleft aligncenter alignright | \
-        bullist numlist outdent indent | help'
-    }"
-              v-model="data.syllabus.references"
-            ></editor>
-          </div>
+        <div class="form-group">
+          <label for>Grade Level</label> <br>
+          <select required class="custom-select w-25" v-model="syllabus.grade_level">
+            <option selected disabled value>Select one</option>
+            <option
+              :value="item.class_name.toLowerCase().trim()"
+              v-for="(item,idx) in allclasses"
+              class="toCaps"
+              :key="idx"
+            >{{item.class_name.trim()}}</option>
+          </select>
         </div>
       </div>
 
+      <div class="border p-3 my-4">
+        <h5>Subject Information</h5>
+
+        <div class="form-group">
+          <label for>Subject</label>
+          <select required class="custom-select" v-model="syllabus.subject">
+            <option selected disabled value>Select one</option>
+            <option
+              :value="item.name.toLowerCase().trim()"
+              v-for="(item,idx) in subjects"
+              class="toCaps"
+              :key="idx"
+            >{{item.name}}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for>Description</label>
+          <small
+            class="form-text text-muted"
+          >Provide a brief description of the subject, for the specific student profile</small>
+          <textarea required class="form-control" rows="3" v-model="syllabus.description"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for>Frequency</label>
+          <input
+            type="text" required
+            v-model="syllabus.frequency"
+            class="form-control w-50"
+            aria-describedby="helpId"
+            placeholder="e.g Once a week "
+          />
+        </div>
+      </div>
+
+      <div class="border p-3 my-4">
+        <h5>Overarching Learner Outcome</h5>
+
+        <div class="form-group">
+          <small
+            id="helpId"
+            class="form-text text-muted"
+          >What do you intend for students to learn at the end of the session?</small>
+          <span v-for="(item,idx) in syllabus.learner_outcome" :key="idx" class="mb-2 d-flex">
+            <span class="mr-3">{{idx+1}}.</span>
+            <input
+              type="text" required
+              class="form-control mb-2"
+              aria-describedby="helpId"
+              v-model="item.name"
+              placeholder
+            />
+          </span>
+
+          <div class="d-flex justify-content-start">
+            <button type="button" class="mr-3" @click="addNew(1)">Add</button>
+            <button type="button" class @click="remove(1)" v-if="syllabus.learner_outcome.length > 1">Remove</button>
+          </div>
+        </div>
+      </div>
+      <div class="border p-3 my-4">
+        <h5>Target skills to be learned</h5>
+        <small
+          id="helpId"
+          class="form-text text-muted"
+        >What skills do you expect your students to pick up by the end of the session</small>
+
+        <span v-for="(item,idx) in syllabus.target_skills" :key="idx" class="mb-2 d-flex">
+          <span class="mr-3">{{idx+1}}.</span>
+          <input
+            type="text" required
+            class="form-control w-25 mb-2"
+            aria-describedby="helpId"
+            v-model="item.name"
+            placeholder
+          />
+        </span>
+
+        <div class="d-flex">
+          <button type="button" class="mr-3" @click="addNew(2)">Add</button>
+          <button type="button" class @click="remove(2)" v-if="syllabus.target_skills.length > 1">Remove</button>
+        </div>
+      </div>
+      <div class="border p-3 my-4">
+        <h5>Required Modules</h5>
+        <small
+          id="helpId"
+          class="form-text text-muted"
+        >What modules/subjects are your students required to cover under this subject</small>
+        <span v-for="(item,idx) in syllabus.modules" :key="idx" class="mb-2 d-flex">
+          <span class="mr-3">{{idx+1}}.</span>
+          <input
+            type="text" required
+            class="form-control w-25 mb-2"
+            aria-describedby="helpId"
+            v-model="item.name"
+            placeholder
+          />
+        </span>
+
+        <div class="d-flex">
+          <button type="button" class="mr-3" @click="addNew(3)">Add</button>
+          <button type="button" class @click="remove(3)" v-if="syllabus.modules.length > 1">Remove</button>
+        </div>
+      </div>
+      <div class="border p-3 my-4">
+        <h5>Delivery Methods</h5>
+        <small
+          id="helpId"
+          class="form-text text-muted"
+        >What delivery methods are the teachers expected to employ in teaching the students?</small>
+
+        <span v-for="(item,idx) in syllabus.delivery_methods" :key="idx" class="mb-2 d-flex">
+          <span class="mr-3">{{idx+1}}.</span>
+          <input
+            type="text" required
+            class="form-control w-25 mb-2"
+            aria-describedby="helpId"
+            v-model="item.name"
+            placeholder
+          />
+        </span>
+        <div class="d-flex">
+          <button type="button" class="mr-3" @click="addNew(4)">Add</button>
+          <button type="button" class @click="remove(4)" v-if="syllabus.delivery_methods.length > 1">Remove</button>
+        </div>
+      </div>
+      <div class="border p-3 my-4">
+        <h5>Assessment</h5>
+        <small id="helpId" class="form-text text-muted">How will the students be assessed?</small>
+
+        <span v-for="(item,idx) in syllabus.assessments" :key="idx" class="mb-2 d-flex">
+          <span class="mr-3">{{idx+1}}.</span>
+          <input
+            type="text" required
+            class="form-control w-25 mb-2"
+            aria-describedby="helpId"
+            v-model="item.name"
+            placeholder
+          />
+        </span>
+
+        <div class="d-flex">
+          <button type="button" class="mr-3" @click="addNew(5)">Add</button>
+          <button type="button" class @click="remove(5)" v-if="syllabus.assessments.length > 1">Remove</button>
+        </div>
+      </div>
       <div>
-        <button type="submit">Create</button>
+        <h5>FAQs (Optional)</h5>
+
+        <div v-for="(item,idx) in syllabus.faqs" :key="idx" class="mb-3">
+          <span class="d-flex mb-2">
+            <label for="Question" class="side-label">Question</label>
+            <input
+              v-model="item.question"
+              type="text" required
+              class="form-control w-75 mb-2"
+              aria-describedby="helpId"
+              placeholder="Question"
+            />
+          </span>
+          <span class="d-flex">
+            <label for class="side-label">Answer</label>
+            <input
+              v-model="item.answer"
+              type="text" required
+              class="form-control w-75"
+              aria-describedby="helpId"
+              placeholder="Answer"
+            />
+          </span>
+          <hr v-if="syllabus.faqs.length > 1" />
+        </div>
+        <div class="d-flex">
+          <button type="button" class="mr-3" @click="addNew(6)">Add</button>
+          <button type="button" class @click="remove(6)" v-if="syllabus.faqs.length > 1">Remove</button>
+        </div>
+      </div>
+      <div class="border p-3 my-4">
+        <h5>Course Availability</h5>
+
+        <div class="form-group">
+        
+          <select required class="custom-select w-25" v-model="syllabus.availability">
+            <option selected value disabled>Select one</option>
+            <option value="online">Online</option>
+            <option value="offline">Offline</option>
+            <option value="both">Both</option>
+          </select>
+        </div>
+      </div>
+
+    
+      <div class="my-5">
+        <button type="submit" class="btn btn-primary">Preview</button>
       </div>
     </form>
+    <!-- form ends here  -->
+
+    <div class="popup-overlay" v-if="showPreview">
+      <Preview
+        class="preview"
+        :syllabus="syllabus"
+        @submit="submit"
+        @togglePreview="togglePreview"
+        @updateComment='updateComment'
+        :afterSubmit="afterSubmit"
+      />
+    </div>
   </div>
 </template>
 
 
 <script>
-import Editor from "@tinymce/tinymce-vue";
+import Preview from "./preview";
 export default {
-  props: ["admin"],
+   props: ["admin"],
   data() {
     return {
-      data: {
-        myclass: "",
-        subject: "",
-        topic: "",
-        syllabus: {
-          prerequisite: "",
-          desc: "",
-          objective: "",
-          grading_scale: "",
-          exam_format: "",
-          course_format: "",
-          evaluation: "",
-          outcome: "",
-          references: ""
-        }
-      },
-
-      classes: [],
       subjects: [],
-      items: [],
-      item: false
+        afterSubmit: false,
+      termType: false,
+      showPreview: false,
+      allclasses: [],
+      syllabus: {
+        term: "",
+        grade_level: "",
+        subject: "",
+        frequency: "",
+        learner_outcome: [{ name: "" }],
+        target_skills: [{ name: "" }],
+        modules: [{ name: "" }],
+        delivery_methods: [{ name: "" }],
+        assessments: [{ name: "" }],
+        faqs: [
+          {
+            question: "",
+            answer: ""
+          }
+        ],
+        availability: "",
+        comment: ""
+      }
     };
   },
   components: {
-    editor: Editor
+    Preview
   },
-  watch: {
-    item: "selectAll"
-  },
+ 
   mounted() {
     this.getSubjects();
     this.getclasses();
     this.getSyllabus();
   },
   methods: {
-    createSyllabus() {
-      axios
-        .post(`/api/syllabus/${this.$route.params.id}`, this.data, {
-          headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
-        })
-        .then(res => {
-          if (res.status == 200) {
-            this.$toasted.info("Success");
-            this.$router.push("/admin/syllabus/home");
-          }
-        });
-    },
     getSyllabus() {
+      let data = { syllabus: this.syllabus };
       axios
         .get(`/api/syllabus/${this.$route.params.id}`, {
           headers: {
@@ -326,10 +297,26 @@ export default {
         })
         .then(res => {
           if (res.status == 200) {
-            this.data.myclass = res.data.myclass;
-            this.data.subject = res.data.subject;
-            this.data.topic = res.data.topic;
-            this.data.syllabus = JSON.parse(res.data.syllabus);
+            this.syllabus = JSON.parse(res.data.syllabus);
+            this.$toasted.info('Updated successfully')
+          }
+        });
+    },
+    submit() {
+      let data = {
+        syllabus: this.syllabus,
+        subject: this.syllabus.subject,
+        myclass: this.syllabus.grade_level
+      };
+      axios
+        .put(`/api/syllabus/${this.$route.params.id}`, data, {
+          headers: {
+            Authorization: `Bearer ${this.$props.admin.access_token}`
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.$router.push("/admin/syllabus/home");
           }
         });
     },
@@ -359,101 +346,119 @@ export default {
           }
         });
     },
-    addSection() {
-      this.data.push({
-        class: "",
-        subject: "",
-        topic: "",
-        syllabus: [
-          {
-            week: null,
-            title: "",
-            description: ""
+     updateComment(value) {
+      this.syllabus.comment = value;
+    },
+   
+    togglePreview() {
+      this.showPreview = !this.showPreview;
+    },
+    getclasses() {
+      axios
+        .get("/api/classes", {
+          headers: {
+            Authorization: `Bearer ${this.$props.admin.access_token}`
           }
-        ]
-      });
-    },
-    removeSection() {
-      this.data.pop();
-    },
-
-    selectAll() {
-      if (this.item) {
-        this.items = [];
-        this.subjects.forEach(it => {
-          this.items.push(it.id);
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.allclasses = res.data;
+          }
         });
-      } else {
-        this.items = [];
-      }
     },
+    addNew(value) {
+      switch (value) {
+        case 1:
+          this.syllabus.learner_outcome.push({ name: "" });
+          break;
+        case 2:
+          this.syllabus.target_skills.push({ name: "" });
+          break;
+        case 3:
+          this.syllabus.modules.push({ name: "" });
+          break;
+        case 4:
+          this.syllabus.delivery_methods.push({ name: "" });
+          break;
+        case 5:
+          this.syllabus.assessments.push({ name: "" });
+          break;
+        case 6:
+          this.syllabus.faqs.push({
+            answer: "",
+            question: ""
+          });
+          break;
 
-    drop(id) {
-      let del = confirm("Are you sure?");
-      if (del) {
-        axios
-          .delete(`/api/syllabus/${id}`, {
-            headers: {
-              Authorization: `Bearer ${this.$props.admin.access_token}`
-            }
-          })
-          .then(res => {
-            if (res.status == 200) {
-              this.getTutors();
-            }
-          });
+        default:
+          break;
       }
     },
-    multiDrop() {
-      let del = confirm("Are you sure about this?");
-      if (del) {
-        axios
-          .post("/api/multi-syllabus-drop", this.items, {
-            headers: {
-              Authorization: `Bearer ${this.$props.admin.access_token}`
-            }
-          })
-          .then(res => {
-            if (res.status == 200) {
-              this.getsubjects();
-            }
-          })
-          .catch(err => {
-            console.log("del -> err", err);
-          });
+    remove(value) {
+      switch (value) {
+        case 1:
+          this.syllabus.learner_outcome.pop();
+          break;
+        case 2:
+          this.syllabus.target_skills.pop();
+          break;
+        case 3:
+          this.syllabus.modules.pop();
+          break;
+        case 4:
+          this.syllabus.delivery_methods.pop();
+          break;
+        case 5:
+          this.syllabus.assessments.pop();
+          break;
+        case 6:
+          this.syllabus.faqs.pop();
+          break;
+
+        default:
+          break;
       }
-    }
+    },
+   
   }
 };
 </script>
 
 <style scoped>
-nav {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-column-gap: 30px;
-}
-.hiden {
-  opacity: 0;
-}
-.nav_box {
-  background-color: #f7f8fa;
-  display: flex;
-  text-align: center;
-  padding: 10px 15px;
-}
-.add,
-.content {
-  background-color: #f7f8fa;
-}
 .body {
-  padding: 20px 20px 70px;
+  padding: 40px 30px 70px;
+  position: relative;
+}
+.overflow-hide {
+  overflow: hidden;
   height: 100%;
 }
-form {
-  padding-bottom: 70px;
+.preview {
+  z-index: 2;
 }
-label{
-    font-weight:bold;
+.popup-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow: scroll;
+  padding: 20px;
+}
+form {
+  padding-bottom: 60px;
+  font-size: 15.5px;
+}
+h5 {
+  margin-bottom: 24px;
+}
+.side-label {
+  width: 150px;
+}
+.form-text {
+  margin-bottom: 18px;
+  font-size: 14px;
 }
 </style>

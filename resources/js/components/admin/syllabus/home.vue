@@ -30,7 +30,7 @@
         <tr>
           <th>Class</th>
            <th>Subject</th>
-         <th>Topic</th>
+       
           <th>Action</th>
           <th>
             <input type="checkbox" v-model="item" />
@@ -42,7 +42,6 @@
         
           <td scope="row" class="toCaps">{{item.myclass}}</td>
            <td scope="row" class="toCaps">{{item.subject}}</td>
-              <td scope="row" class="toCaps">{{item.topic}}</td>
           <td class="d-flex justify-content-around">
              <span class="mr-3" @click="view(item.id)">
               

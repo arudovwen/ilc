@@ -23,6 +23,10 @@ class SyllabusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function getTutorSyllabuses(){
+        $school_id = auth('tutor')->user()->school_id;
+        return Syllabus::where('school_id', $school_id)->get();
+    }
     public function create()
     {
         //
@@ -59,7 +63,9 @@ class SyllabusController extends Controller
     {
         return Syllabus::find($id);
     }
-
+    public function getTutorSyllabus($id){
+        return Syllabus::find($id);
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -84,7 +90,7 @@ class SyllabusController extends Controller
         $s->myclass = $request->myclass;
         $s->topic = $request->topic;
         $s->subject = $request->subject;
-        $s->syllabus = json_encode($request->syllable);
+        $s->syllabus = json_encode($request->syllabus);
         $s->save();
     }
 

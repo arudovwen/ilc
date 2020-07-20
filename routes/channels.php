@@ -15,9 +15,18 @@ use Illuminate\Support\Facades\Broadcast;
 */
 
 Broadcast::channel('{groupName}{groupId}{tutorId}', function ($user, $tutorId) {
-  
-  return $user;
     
-   
-  
+    return $user;
+});
+  Broadcast::channel('group-created{id}', function ($user,$id) {
+    return (int) $user->id === (int) $id;
   });
+  Broadcast::channel('group-subscribed{id}', function ($user,$id) {
+    return (int) $user->id === (int) $id;
+  });
+  Broadcast::channel('dashboard-created.{id}', function ($user) {
+      return $user;
+  });
+  Broadcast::channel('deleted-group{id}', function ($user) {
+    return (int) $user->id === (int) $id;
+});

@@ -1,114 +1,149 @@
 <template>
   <div class="body">
-    <form @submit.prevent="createSyllabus" class>
-        <legend class="mb-5 mx-auto text-center"> Course  Syllabus</legend>
-      <div class="mb-5 p-3 content">
-        <div class>
-          <div class="form-group">
-         
-            <h5>Class : {{data.myclass}}</h5>
-          </div>
-          <div class="form-group">
-           
-            <h5>Subject : {{data.subject}}</h5>
-          </div>
-        </div>
-        <div class="form-group">
+      <h3 class="text-center my-3">Syllabus</h3>
+    <!-- form starts here  -->
+    <div class="border p-3 my-4">
+      <h3>Class Information</h3>
+      <div class="form-group">
+        <h5 class="toCaps">
         
-          <h5>Topic : {{data.topic}}</h5>
-        </div>
-        <div>
-          <div class="form-group">
-            <label for>Prerequisite</label>
-
-            <p v-html="data.syllabus.prerequisite"></p>
-          </div>
-
-          <div class="form-group">
-            <label for>Description</label>
-
-            <p v-html="data.syllabus.desc"></p>
-          </div>
-          <div class="form-group">
-            <label for>Objective</label>
-            <p v-html="data.syllabus.objective"></p>
-          </div>
-          <div class="form-group">
-            <label for>Learning Outcome</label>
-
-            <p v-html="data.syllabus.outcome"></p>
-          </div>
-          <div class="form-group">
-            <label for>Course Format</label>
-            <p v-html="data.syllabus.course_format"></p>
-          </div>
-          <div class="form-group">
-            <label for>Student Evaluation</label>
-
-            <p v-html="data.syllabus.evaluation"></p>
-          </div>
-
-          <div class="form-group">
-            <label for>Examination Format</label>
-
-            <p v-html="data.syllabus.exam_format"></p>
-          </div>
-          <div class="form-group">
-            <label for>Grading Scale</label>
-            <p v-html="data.syllabus.grading_scale"></p>
-          </div>
-          <div class="form-group">
-            <label for>Book References</label>
-            <p v-html="data.syllabus.references"></p>
-          </div>
-        </div>
+         <span class="text-muted">Term :</span> {{syllabus.term}}
+        </h5>
       </div>
+      <div class="form-group">
+        <h5 class="toCaps">
+          <span class="text-muted">Grade Level :</span>
+          {{syllabus.grade_level}}
+        </h5>
+      </div>
+    </div>
+    <table class="table table-bordered bg-white">
+      <tr class="border p-3 my-4">
+        <td>
+          <h3>Subject Information</h3>
 
-      
-    </form>
+          <div class="form-group">
+            <h5 class="toCaps">
+              <span class="text-muted">Subject :</span>
+              {{syllabus.subject}}
+            </h5>
+          </div>
+
+          <div class="form-group">
+            <label for>Description :</label>
+            {{syllabus.description}}
+          </div>
+
+          <div class="form-group">
+            <label for>Frequency :</label>
+            {{syllabus.frequency}}
+          </div>
+        </td>
+      </tr>
+
+      <tr class="border p-3 my-4">
+        <td>
+          <h3>Overarching Learner Outcome</h3>
+
+          <div class="form-group">
+            <span v-for="(item,idx) in syllabus.learner_outcome" :key="idx" class="mb-2 d-flex">
+              <span class="mr-3">{{idx+1}}.</span>
+              {{item.name}}
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr class="border p-3 my-4">
+        <td>
+          <h3>Target skills to be learned</h3>
+
+          <span v-for="(item,idx) in syllabus.target_skills" :key="idx" class="mb-2 d-flex">
+            <span class="mr-3">{{idx+1}}.</span>
+            {{item.name}}
+          </span>
+        </td>
+      </tr>
+      <tr class="border p-3 my-4">
+        <td>
+          <h3>Required Modules</h3>
+
+          <span v-for="(item,idx) in syllabus.modules" :key="idx" class="mb-2 d-flex">
+            <span class="mr-3">{{idx+1}}.</span>
+            {{item.name}}
+          </span>
+        </td>
+      </tr>
+      <tr class="border p-3 my-4">
+        <td>
+          <h3>Delivery Methods</h3>
+
+          <span v-for="(item,idx) in syllabus.delivery_methods" :key="idx" class="mb-2 d-flex">
+            <span class="mr-3">{{idx+1}}.</span>
+            {{item.name}}
+          </span>
+        </td>
+      </tr>
+      <tr class="border p-3 my-4">
+        <td>
+          <h3>Assessment</h3>
+          <small id="helpId" class="form-text text-muted">How will the students be assessed?</small>
+
+          <span v-for="(item,idx) in syllabus.assessments" :key="idx" class="mb-2 d-flex">
+            <span class="mr-3">{{idx+1}}.</span>
+            {{item.name}}
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h3>FAQs (Optional)</h3>
+
+          <div v-for="(item,idx) in syllabus.faqs" :key="idx" class="mb-3">
+            <span class="d-flex mb-2">
+              <label for="Question" class="side-label">Question</label>
+              {{item.question}}
+            </span>
+            <span class="d-flex">
+              <label for class="side-label">Answer</label>
+              {{item.answer}}
+            </span>
+            <hr v-if="syllabus.faqs.length > 1" />
+          </div>
+        </td>
+      </tr>
+      <tr class="border p-3 my-4">
+        <td>
+          <h3>Course Availability</h3>
+
+          <div class="form-group">{{syllabus.availability}}</div>
+        </td>
+      </tr>
+
+      <tr class="border p-3 my-4">
+        <td>
+          <h3>Comments</h3>
+          <div class="form-group">{{syllabus.comments}}</div>
+        </td>
+      </tr>
+    </table>
+    <!-- form ends here  -->
   </div>
 </template>
 
-
 <script>
-import Editor from "@tinymce/tinymce-vue";
 export default {
   props: ["admin"],
   data() {
     return {
-      data: {
-        myclass: "",
-        subject: "",
-        topic: "",
-        syllabus: {
-          prerequisite: "",
-          desc: "",
-          objective: "",
-          grading_scale: "",
-          exam_format: "",
-          course_format: "",
-          evaluation: "",
-          outcome: "",
-          references: ""
-        }
-      },
-
-  
+      syllabus: []
     };
-  },
-  components: {
-    editor: Editor
-  },
-  watch: {
-    item: "selectAll"
   },
   mounted() {
     this.getSyllabus();
- 
   },
   methods: {
-   
     getSyllabus() {
+      let data = { syllabus: this.syllabus };
       axios
         .get(`/api/syllabus/${this.$route.params.id}`, {
           headers: {
@@ -117,48 +152,68 @@ export default {
         })
         .then(res => {
           if (res.status == 200) {
-            this.data = res.data;
-            this.data.syllabus = JSON.parse(res.data.syllabus)
+            this.syllabus = JSON.parse(res.data.syllabus);
           }
         });
-    },
-   
-
+    }
   }
 };
 </script>
 
 <style scoped>
-nav {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-column-gap: 30px;
-}
-.hiden {
-  opacity: 0;
-}
-.nav_box {
-
-  display: flex;
-  text-align: center;
-  padding: 10px 15px;
-}
-.add,
-.content {
-  background-color: #f7f8fa;
-}
 .body {
-  padding: 20px 20px 70px;
-  height: 100%;
-    background-color: #f7f8fa;
+  padding: 40px 30px 70px;
+  position: relative;
+
+}
+.popup-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 1;
+  top: 0;
+  left: 0;
+}
+.suggestion-box {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  border-radius: 5px;
+  height: 250px;
+  width: 50%;
+  padding: 15px;
+  position: absolute;
+  bottom: 50%;
+  transform: translate(50%, 50%);
+  right: 50%;
+}
+.suggestion-box p {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+.close {
+  position: absolute;
+  right: 5px;
+  top: 5px;
 }
 form {
-  padding-bottom: 70px;
+  padding: 20px;
+  padding-bottom: 60px;
+  background: white;
+  font-size: 14px;
 }
-p{
-    font-size: 16px;
+h3 {
+  margin-bottom: 24px;
+  font-size: 1.4em;
 }
-label{
-    font-weight:bold;
+.side-label {
+  width: 150px;
+}
+.form-text {
+  margin-bottom: 18px;
 }
 </style>

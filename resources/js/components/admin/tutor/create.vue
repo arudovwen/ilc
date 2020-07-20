@@ -35,6 +35,16 @@
           <option value="female">Female</option>
         </select>
       </div>
+        <div class="form-group">
+        <label for>Subject</label>
+        <input
+          type="text"
+          class="form-control"
+          v-model="tutor.subject"
+          aria-describedby="helpId"
+          placeholder="e.g English language"
+        />
+      </div>
 
       <button class="button-blue" type="submit">Register</button>
     </form>
@@ -50,6 +60,7 @@ export default {
         'name' :'', 
         'email' :'', 
         'gender' :'',
+        'subjects':'',
    
       },
    

@@ -36,6 +36,19 @@ const TutorGroups = () =>
 const TutorGroupChat = () =>
     import(/* webpackChunkName: "home_routes" */ "./components/tutor/chat");
 
+const TutorSyllabus = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/tutor/syllabus");
+
+const TutorSyllabusView = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/tutor/viewSyllabus"
+    );
+
+const TutorCurriculumView = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/tutor/viewCurriculum"
+    );
+
 const TutorDashboard = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/tutor/dashboard"
@@ -46,16 +59,13 @@ const TutorAuth = () =>
         /* webpackChunkName: "home_routes" */ "./components/tutor/auth/auth"
     );
 
-    const TutorProfile = () =>
-    import(
-        /* webpackChunkName: "home_routes" */ "./components/tutor/profile"
-    );
+const TutorProfile = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/tutor/profile");
 
-    const StudentProfile = () =>
+const StudentProfile = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/student/profile"
     );
-
 
 const AdminTutorCreate = () =>
     import(
@@ -93,18 +103,36 @@ const Syllabus = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/syllabus/syllabus"
     );
-    const SyllabusView = () =>
+const SyllabusView = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/syllabus/view"
     );
-    const SyllabusEdit = () =>
+const SyllabusEdit = () =>
     import(
-        /* webpackChunkName: "home_routes" */ "./components/admin/syllabus/edit" 
+        /* webpackChunkName: "home_routes" */ "./components/admin/syllabus/edit"
     );
 const SyllabusHome = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/syllabus/home"
     );
+
+const Curriculum = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/admin/curriculum/home"
+    );
+const CurriculumView = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/admin/curriculum/view"
+    );
+const CurriculumEdit = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/admin/curriculum/edit"
+    );
+const CurriculumCreate = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/admin/curriculum/create"
+    );
+
 const TimeTable = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/timeTable/timeTable"
@@ -149,11 +177,11 @@ const AdminStudentEdit = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/student/edit"
     );
-
 const AdminStudentView = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/student/view"
     );
+
 const Administrators = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/adminUsers"
@@ -163,17 +191,13 @@ const Students = () =>
         /* webpackChunkName: "home_routes" */ "./components/admin/student/home"
     );
 const StudentUpdate = () =>
-    import(
-        /* webpackChunkName: "home_routes" */ "./components/student/update"
-    );
+    import(/* webpackChunkName: "home_routes" */ "./components/student/update");
 const Tutors = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/tutor/home"
     );
 const TutorUpdate = () =>
-    import(
-        /* webpackChunkName: "home_routes" */ "./components/tutor/update"
-    );
+    import(/* webpackChunkName: "home_routes" */ "./components/tutor/update");
 const AssignTutor = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/tutor/assign"
@@ -343,6 +367,38 @@ export const routes = [
                 }
             },
             {
+                path: "curriculum/home",
+                component: Curriculum,
+                name: "Curriculum",
+                meta: {
+                    typeAdmin: true
+                }
+            },
+            {
+                path: "curriculum/view/:id",
+                component: CurriculumView,
+                name: "CurriculumView",
+                meta: {
+                    typeAdmin: true
+                }
+            },
+            {
+                path: "curriculum/edit/:id",
+                component: CurriculumEdit,
+                name: "CurriculumEdit",
+                meta: {
+                    typeAdmin: true
+                }
+            },
+            {
+                path: "curriculum/create",
+                component: CurriculumCreate,
+                name: "CurriculumCreate",
+                meta: {
+                    typeAdmin: true
+                }
+            },
+            {
                 path: "syllabus",
                 component: Syllabus,
                 name: "Syllabus",
@@ -506,7 +562,32 @@ export const routes = [
                 meta: {
                     typeTutor: true
                 }
-            }
+            },
+            {
+                path: "curriculum/view/:id",
+                component:TutorCurriculumView,
+                name: "TutorCurriculumView",
+                meta: {
+                    typeTutor: true
+                }
+            },
+            {
+                path: "syllabus/view/:id",
+                component:TutorSyllabusView,
+                name: "TutorSyllabusView",
+                meta: {
+                    typeTutor: true
+                }
+            },
+            {
+                path: "syllabus",
+                component:TutorSyllabus,
+                name: "TutorSyllabus",
+                meta: {
+                    typeTutor: true
+                }
+            },
+            
         ]
     },
 

@@ -195,11 +195,13 @@ export default {
         .then(res => {
           if (res.status == 200) {
             res.data.forEach(item => {
-              this.classes.push(item.class_name);
+             
               if (item.sub_class !== "") {
                 item.sub_class.split(",").forEach(i => {
                   this.classes.push(i);
                 });
+              }else{
+                 this.classes.push(item.class_name);
               }
             });
           

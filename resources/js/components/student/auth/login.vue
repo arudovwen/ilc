@@ -50,7 +50,7 @@ export default {
       let data = {
         grant_type: "password",
         client_id: 2,
-        client_secret: "n9ulVAPzvxunsM8fA0hr0d2ZPOzwPzUIH5JtceVW",
+        client_secret:"7yRvzmjeVaIpSUJKBW5PCfkVCVSBauhRwRgEvt36",
         username: this.student.email,
         password: this.student.password,
         
@@ -66,8 +66,11 @@ export default {
             }).then(res => {
               if (res.status === 200) {
                 this.spin = false;
-                typeStudent.email = res.data.email;
-                typeStudent.name = res.data.name;
+                 typeStudent.id = res.data.id;
+                      typeStudent.email = res.data.email;
+                      typeStudent.name = res.data.name;
+                      typeStudent.school_id = res.data.school_id;
+                      typeStudent.school = res.data.school;
                 localStorage.setItem("typeStudent", JSON.stringify(typeStudent));
                 this.$toasted.success("Sucessful");
                 this.$router.push('/student')

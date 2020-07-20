@@ -47,6 +47,9 @@
           <td>{{item.phone}}</td>
            <td>{{item.subjects}}</td>
           <td class="d-flex justify-content-around">
+             <span @click="view(item.id)" class="mr-3">
+              <i class="fas fa-eye"></i>View
+            </span>
             <span class="mr-3" @click="drop(item.id)">
               <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
             </span>
@@ -144,6 +147,9 @@ export default {
     },
     edit(id) {
         this.$router.push(`/admin/tutor/edit/${id}`)
+    },
+    view(id) {
+        this.$router.push(`/admin/tutor/view/${id}`)
     }
   }
 };

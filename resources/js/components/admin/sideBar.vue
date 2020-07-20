@@ -11,6 +11,7 @@
        <router-link to="/admin/students"> <li>Students</li></router-link>
          <router-link to="/admin/classes/years"> <li>Classes & Years</li></router-link>
             <router-link to="/admin/courses"> <li>Courses / Subjects</li></router-link>
+              <router-link to="/admin/curriculum/home"> <li>Curriculum </li></router-link>
               <router-link to="/admin/syllabus/home"> <li>Syllabus </li></router-link>
                  <router-link to="/admin/time-table/home"> <li>Time Table </li></router-link>
       

@@ -7,6 +7,7 @@
         <ul>
              <router-link to="/tutor/profile"> <li>Home</li></router-link>
               <router-link to="/tutor/profile"> <li>Profile</li></router-link>
+               <router-link to="/tutor/syllabus"> <li>Curriculum & Syllabus</li></router-link>
                <router-link to="/tutor/profile"> <li>Assessments</li></router-link>
                 <router-link to="/tutor/profile"> <li>Resources</li></router-link>
               <router-link to="/tutor/profile"> <li>Activities</li></router-link>

@@ -72,10 +72,10 @@ class RegisterController extends Controller
             return User::create([
                         'name' => $request['name'],
                         'email' => $request['email'],
-                        'password' => Hash::make($request['password']),
+                        'password' => Hash::make('password'),
                         'mat_no' => rand(0,9999),
                         'phone' => null,
-                        'gender' => null,
+                        'gender' => $request['gender'],
                         'address' =>null,
                         'school' => $school_name,
                         'student_id'=> rand(0,9999),
@@ -86,7 +86,7 @@ class RegisterController extends Controller
                         'lga' => $request['lga'],
                         'guardian' => $request['guardian'],
                         'next_of_kin' => $request['next_of_kin'],
-                        'student_level' => $request['student_level'],
+                        'student_level' =>  \trim($request['student_level']),
                         'study_course' => $request['study_course']
                     ]);
         

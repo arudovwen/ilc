@@ -17,12 +17,24 @@ class UserController extends Controller
         $school_id = auth('api')->user()->school_id;
         return User::where('school_id', $school_id)->first();
     }
+    public function adminGetStudents()
+    {
+        $school_id = auth('admin')->user()->school_id;
+        return User::where('school_id', $school_id)->get();
+    }
+    public function tutorGetStudents($name)
+    {
+        $school_id = auth('tutor')->user()->school_id;
+        return User::where('school_id', $school_id)->where('student_level',$name)->get();
+    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function create()
     {
         //

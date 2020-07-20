@@ -25,12 +25,30 @@
       </router-link>
     </nav>
 
-    <table class="table table-striped table-inverse table-bordered">
+ <div class="classes my-5">
+<h4>Class List</h4>
+
+<div class="class_list">
+  <div class="single-class shadow-sm" @click="selectClass('')">
+   All
+
+  </div>
+  <div class="single-class shadow-sm" @click="selectClass(item)" v-for="(item,idx) in allClass" :key ="idx">
+    {{item.toLowerCase()}}
+
+  </div>
+</div>
+
+ </div>
+   <div>
+     <h4 class="toCaps">Showing : {{current== ''? 'All': current.toLowerCase()}}</h4>
+      <table class="table table-striped table-inverse table-bordered">
       <thead class="thead-inverse">
         <tr>
           <th>Student Id</th>
           <th>Name</th>
           <th>Email</th>
+           <th>Level</th>
           <th>Gender</th>
           <th>Phone</th>
           <th>Action</th>
@@ -40,14 +58,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item,idx) in students" :key="idx">
+        <tr v-for="(item,idx) in sortedStudents" :key="idx">
           <td>{{item.student_id}}</td>
           <td scope="row" class="toCaps">{{item.name}}</td>
           <td>{{item.email}}</td>
-          <td>{{item.gender}}</td>
+           <td>{{item.student_level}}</td>
+          <td class="toCaps">{{item.gender}}</td>
           <td>{{item.phone}}</td>
           <td class="d-flex justify-content-around">
-             <span class="mr-3" @click="drop(item.id)">
+             <span class="mr-3" @click="view(item.id)">
               
               <i class="fa fa-eye" aria-hidden="true"></i> View
             </span>
@@ -65,6 +84,7 @@
         </tr>
       </tbody>
     </table>
+   </div>
   </div>
 </template>
 
@@ -76,7 +96,9 @@ export default {
     return {
       students: [],
       items: [],
-      item: false
+      item: false,
+        allClass: [],
+        current:''
     };
   },
   watch: {
@@ -84,8 +106,48 @@ export default {
   },
   mounted() {
     this.getStudents();
+    this.getCLasses()
+  },
+  computed: {
+    sortedStudents(){
+      return this.students.filter(item=>{
+        if (item.student_level.toLowerCase().trim() == this.current.toLowerCase().trim()) {
+          return item
+        }
+         if (this.current == '') {
+          return item
+        }
+       
+      })
+    }
   },
   methods: {
+    selectClass(value){
+      this.current = value
+    },
+      getCLasses() {
+         let admin = JSON.parse(localStorage.getItem('typeAdmin'))
+      axios
+        .get("/api/classes", {
+          headers: {
+            Authorization: `Bearer ${admin.access_token}`
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            res.data.forEach(item => {
+             
+              if (item.sub_class !== "") {
+                item.sub_class.split(",").forEach(i => {
+                  this.allClass.push(i);
+                });
+              }else{
+                 this.allClass.push(item.class_name);
+              }
+            });
+          }
+        });
+    },
     selectAll() {
       if (this.item) {
         this.items = [];
@@ -98,7 +160,7 @@ export default {
     },
     getStudents() {
       axios
-        .get("/api/student", {
+        .get("/api/admin-get-students", {
           headers: {
             Authorization: `Bearer ${this.$props.admin.access_token}`
           }
@@ -149,6 +211,9 @@ export default {
     },
     edit(id) {
         this.$router.push(`/admin/student/edit/${id}`)
+    },
+     view(id) {
+        this.$router.push(`/admin/student/view/${id}`)
     }
   }
 };
@@ -159,6 +224,7 @@ nav {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-column-gap: 30px;
+
 }
 .hiden{
     opacity: 0;
@@ -172,5 +238,17 @@ nav {
 .body {
   padding: 20px 20px 50px;
   height: 100%;
+}
+.class_list{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-row-gap: 15px;
+  grid-column-gap: 15px;
+}
+.single-class{
+  padding: 15px;
+  background: #f7f8fa;
+  text-transform: capitalize;
+  text-align: center;
 }
 </style>

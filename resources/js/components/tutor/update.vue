@@ -60,8 +60,9 @@
       </div>
 
        <div class="form-group">
-        <label for>Subjects</label>
-        <textarea name="subjects" id="subjects" class="form-control" cols="30" v-model="tutor.subjects" rows="5" placeholder="Subject 1, Subject 2"></textarea>
+        <label for>Qualification</label>
+       
+        <input type="text"  class="form-control" v-model="tutor.subjects" placeholder="Bachelor's Degree ...">
       </div>
        <div class="form-group">
         <label for>Faculty</label>

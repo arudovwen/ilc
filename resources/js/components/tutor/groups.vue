@@ -26,7 +26,7 @@
         <thead class="thead-inverse">
           <tr>
             <th>Group Name</th>
-
+            <th>Class</th>
             <th>Action</th>
             <th>
               <input type="checkbox" v-model="item" />
@@ -35,8 +35,11 @@
         </thead>
         <tbody>
           <tr v-for="(item,idx) in groups" :key="idx">
-            <td class="toCaps" @click="gotoGroup(item.id)">{{item.name}}  <i class="fas enter fa-sign-in-alt    "></i></td>
-
+            <td class="toCaps" @click="gotoGroup(item.id)">
+              {{item.name}}
+              <i class="fas enter fa-sign-in-alt"></i>
+            </td>
+            <td>{{item.class_name}}</td>
             <td class="d-flex justify-content-around">
               <span class="mr-3" @click="drop(item.id)">
                 <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
@@ -63,6 +66,35 @@
               placeholder="Pearl"
             />
           </div>
+          <div class="form-group">
+            <label for>Add Class</label>
+            <select class="custom-select" v-model="class_name">
+              <option selected value>Select Class</option>
+              <option :value="item" v-for="(item,idx) in allClass" :key="idx">{{item}}</option>
+            </select>
+          </div>
+
+          <p>or</p>
+            <div class="form-group">
+            <label for>Add Students</label>
+            <select class="custom-select" v-model="name_class">
+              <option selected value>Select Class</option>
+              <option :value="item" v-for="(item,idx) in allClass" :key="idx">{{item}}</option>
+            </select>
+            
+          </div>
+
+          <div class="names" v-if="names.length">
+            <label class="custom-control custom-checkbox" v-for="(item,idx) in names" :key="idx">
+            <input type="checkbox"  :value="item.id" class="custom-control-input"  v-model="added_names">
+            <span class="custom-control-indicator">{{item.name}}</span>
+         
+          </label>
+          </div>
+
+
+
+
 
           <button v-if="!update" type="submit" class="btn btn-primary">Create</button>
           <div v-else class="d-flex justify-content-between">
@@ -84,18 +116,32 @@ export default {
       groups: [],
       heads: [],
       name: "",
+      class_name: "",
       items: [],
       item: false,
-      update: false
+      update: false,
+      allClass: [],
+      name_class:'',
+      names:[],
+      added_names:[]
     };
   },
   watch: {
-    item: "selectAll"
+    item: "selectAll",
+    name_class:'getStudents',
+    class_name:'reset'
   },
   mounted() {
     this.getgroups();
+    this.getCLasses();
   },
   methods: {
+    reset(){
+      this.names=[]
+      this.added_names = []
+      this.name_class = ''
+    
+    },
     cancel() {
       this.update = false;
 
@@ -111,10 +157,59 @@ export default {
         this.items = [];
       }
     },
+    getCLasses() {
+  
+        axios
+        .get("/api/all-classes", {
+          headers: {
+            Authorization: `Bearer ${this.$props.tutor.access_token}`
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            res.data.forEach(item => {
+              this.allClass.push(item.class_name);
+              if (item.sub_class !== "") {
+                item.sub_class.split(",").forEach(i => {
+                  this.allClass.push(i);
+                });
+              }
+            });
+          }
+        });
+     
+    },
+     getStudents() {
+     if (this.name_class !=='') {
+        axios
+        .get(`/api/all-students/${this.name_class}`, {
+          headers: {
+            Authorization: `Bearer ${this.$props.tutor.access_token}`
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.added_names=[]
+           this.names = res.data
+          }
+        });
+     }
+    },
     addClass() {
-      let data = {
-        name: this.name
+      if (this.added_names.length) {
+        var data = {
+        name: this.name,
+        class_name: this.name_class,
+        subscribers:this.added_names
       };
+      }else{
+       var data = {
+        name: this.name,
+        class_name: this.class_name,
+        subscribers:null
+      };
+      }
+      
       axios
         .post("/api/group", data, {
           headers: {
@@ -124,6 +219,7 @@ export default {
         .then(res => {
           if (res.status == 201) {
             this.name = "";
+            this.class_name = "";
             this.getgroups();
           }
         });
@@ -143,8 +239,8 @@ export default {
           }
         });
     },
-    gotoGroup(id){
-this.$router.push(`/tutor/group/${id}`)
+    gotoGroup(id) {
+      this.$router.push(`/tutor/group/${id}`);
     },
     edit(id) {
       axios
@@ -191,9 +287,9 @@ this.$router.push(`/tutor/group/${id}`)
     },
     multiDrop() {
       let del = confirm("Are you sure about this?");
-            let data = {
-        data:this.items
-        }
+      let data = {
+        data: this.items
+      };
       if (del) {
         axios
           .post("/api/multi-group-drop", data, {
@@ -204,6 +300,7 @@ this.$router.push(`/tutor/group/${id}`)
           .then(res => {
             if (res.status == 200) {
               this.getgroups();
+              this.item = false
             }
           })
           .catch(err => {
@@ -221,12 +318,20 @@ nav {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-column-gap: 30px;
 }
-
+.names{
+ max-height: 400px;
+ overflow: hidden;
+ background: white;
+}
+.custom-control-input{
+  z-index: 1;
+  opacity: 1;
+}
 td {
   text-transform: capitalize;
-  position:relative;
+  position: relative;
 }
-.enter{
+.enter {
   position: absolute;
   right: 20px;
   top: 50%;

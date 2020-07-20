@@ -50,30 +50,47 @@ Route::middleware('auth:api')->group(function () {
     Route::post('send-student-message', 'MessagesController@sendStudentGroupMessage');
     Route::get('get-user', 'UserController@getUser');
     Route::resource('user', 'UserController');
+    Route::get('user-notifications/{id}','NotificationController@show');
+    Route::get('clear-user-notifications/{id}','NotificationController@updateStatus');
 });
 
 Route::middleware('auth:tutor')->group(function () {
     Route::resource('group', 'GroupsController');
+    Route::post('multi-group-drop', 'GroupsController@multiDrop');
     Route::get('get-messages/{groupId}', 'MessagesController@getMessages');
     Route::post('send-message', 'MessagesController@sendGroupMessage');
     Route::resource('tutors', 'TutorController');
+    Route::get('tutor-syllabus', 'SyllabusController@getTutorSyllabuses');
+    Route::get('tutor-curriculum', 'CurriculumController@getTutorCurriculums');
+    Route::get('tutor-syllabus/{id}', 'SyllabusController@getTutorSyllabus');
+    Route::get('tutor-curriculum/{id}', 'CurriculumController@getTutorCurriculum');
+    Route::get('all-classes','ClassesController@getAllTutorClasses');
+    Route::get('all-students/{name}','UserController@tutorGetStudents');
+    Route::get('tutor-notifications/{id}','NotificationController@showTutorNotifications');
+
+    Route::get('clear-tutor-notifications/{id}','NotificationController@updateTutorStatus');
 });
 Route::get('student-group/{id}', 'GroupsController@show');
 Route::post('school-register', 'SchoolController@store');
 
 Route::middleware('auth:admin')->group(function () {
     Route::resource('admin', 'AdminController');
+    Route::get('admin-notifications/{id}','NotificationController@showAdminNotifications');
+    Route::get('clear-admin-notifications/{id}','NotificationController@updateAdminStatus');
     Route::post('multi-admin-drop', 'AdminController@multiDrop');
     Route::post('multi-tutor-drop', 'TutorController@multiDrop');
     Route::post('multi-student-drop', 'UserController@multiDrop');
     Route::post('multi-subject-drop', 'SubjectsController@multiDrop');
     Route::post('multi-syllabus-drop', 'SyllabusController@multiDrop');
     Route::post('multi-classes-drop', 'ClassesController@multiDrop');
+   
     Route::resource('tutor', 'TutorController');
     Route::resource('student', 'UserController');
+    Route::get('admin-get-students', 'UserController@adminGetStudents');
     Route::resource('school', 'SchoolController');
     Route::resource('subject', 'SubjectsController');
     Route::resource('syllabus', 'SyllabusController');
+    Route::resource('curriculum', 'CurriculumController');
     Route::resource('times-table', 'TimesTableController');
     Route::resource('classes', 'ClassesController');
     Route::resource('tutor-course', 'CourseTutorController');

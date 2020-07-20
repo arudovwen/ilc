@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+
 /*-----------------------------------------------------------------------------
 [ISM] Screen Stylesheet
 
@@ -17,15 +20,224 @@ version history: [location of file]
 
 /* Remove margin, padding and border from everything
 -----------------------------------------------------------------------------*/
+*,
+*::before,
+*::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-* {
+
+:root{
+    --main-font: 'Montserrat';
+    --primary-font-color:#DFD291;
+    --secondary-font-color: #002A06  ;
+    --primary-btn: #008E3A;
+    --body-font-color: #515151;
+}
+
+
+body{
+    overflow-x: hidden;
+}
+
+.nav-link{
+    font-weight: 500;
+    font-family: var(--main-font);
+}
+
+.mx-auto .nav-item{
+    padding: 0 1rem;
+}
+
+
+.ml-auto .nav-item{
+    margin: 0 1rem;
+}
+.login-btn{
+    background: transparent;
+    padding: 0 1rem;
+    border: 1px solid #002A06;
+    border-radius: 5px;
+}
+
+.reg-btn{
+    background-color: var(--primary-btn);
+    border: none;
+    padding: 0 15px;
+    border-radius: 5px;
+}
+.reg-btn .nav-link{
+    color: #fff !important;
+}
+
+.overlay{
+    width: 100%; 
+    height: 100%; 
+    position: absolute; 
+    background-color: var(--secondary-font-color); 
+    opacity: 0.5;
+}
+.carousel-control{
+    width: 100%;
+    bottom: 0;
+    position: absolute;
+    padding: 10px 20px;
+}
+.carousel-control a{
+    width: auto;
+    height: auto;
+    z-index: 2;
+    position: relative;
+    padding: 10px;
+    
+}
+
+
+.carousel-txt{
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+  
+   
+}
+.carousel-txt h1{
+    color: var(--primary-font-color) ;
+    text-align: center;
+    padding-bottom: 1rem;
+}
+
+.carousel-txt .reg-btn{
+    color: #fff !important;
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+}
+
+.mid-section{
+    margin-top: 5rem;
+    margin-bottom: 3.5rem;
+    
+}
+.mid-section-text h2{
+    font-family: 'Montserrat';
+    font-weight: 700;
+    text-align: center;
+}
+
+
+.mid-section-text p{
+    font-family: 'Montserrat';
+    line-height: 2.5rem;
+    letter-spacing: 3px;
+    font-weight: 500;
+    margin-top: 3rem;
+    text-align: center;
+    font-size: 18px;
+}
+
+.who-can-section{
+    margin-top: 6rem;
+    margin-bottom: 5rem;
+}
+.who-can-section h2{
+    font-weight: 700;
+}
+.who-card{
+    position: relative;
+    box-shadow: 0px 4px 4px rgba(128, 128, 128, 0.25);
+    margin-top: 3.5rem;
+}
+
+.who-card img{
+    width: 60px;
+    background-color: var(--primary-btn);
+    border-radius: 50%;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateY(-50%)
+}
+
+.who-card-inner{
+    padding: 40px 30px 30px 20px;
+}
+.who-card-inner h3{
+    padding-top: 1.5rem;
+}
+
+.who-card-inner p{
+    line-height: 2rem;
+    text-align: justify;
+    padding-top: 1rem;
+}
+.who-card-inner a{
+    color: var(--primary-btn);
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+}
+.who-card-inner a:hover{
+    text-decoration: none;
+    color: var(--primary-font-color);
+}
+
+.video-section{
+    background: url(/images/youtube-img.png) no-repeat;
+    margin: 2.5rem auto;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sponsors{
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+
+.sponsors h2{
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+.footer{
+    margin-top: 2rem;
+    background: url(/images/footer-img-1.png) no-repeat;
+    width: 100%;
+    padding: 30px;
+}
+.footer-inner{
+  color: var(--primary-font-color);
+}
+.footer-end{
+    display: flex;
+    justify-content: space-between;
+}
+.footer-end-right{
+    display: flex;
+    justify-content: space-evenly;
+}
+.footer-end-right img{
+    width: 30px;
+    height: 30px;
+}
+.footer-end-right p{
+    padding-left: 15px;
+}
+/* * {
     margin: 0;
     padding: 0;
     border: 0;
 }
 
-/* Styles for layout
------------------------------------------------------------------------------*/
+
 
 .clear {
     clear: both;
@@ -43,8 +255,7 @@ version history: [location of file]
     float: left;
 }
 
-/* Set up the document
------------------------------------------------------------------------------*/
+
 html {
     scroll-behavior: smooth;
     transition: all .6s;
@@ -65,7 +276,7 @@ body {
 
 #wrapper {
     width: 980px;
-    /* Set page width here - you can also use percentage */
+   
     text-align: left;
     margin-left: auto;
     margin-right: auto;
@@ -73,39 +284,38 @@ body {
 }
 
 
-/* Typography
------------------------------------------------------------------------------*/
+
 
 h1 {
     font-size: 2.2em;
-    /* Equivalent to 22pt */
+   
 }
 
 h2 {
     font-size: 2.0em;
-    /* Equivalent to 20pt */
+   
 }
 
 h3 {
     font-size: 1.8em;
-    /* Equivalent to 18pt */
+   
 }
 
 h4 {
     font-size: 1.6em;
-    /* Equivalent to 18pt */
+ 
 }
 
 h5 {
     font-size: 1.4em;
-    /* Equivalent to 14pt */
+   
 }
 
 p,
 q,
 cite {
     font-size: 1.2em;
-    /* Equivalent to 12pt */
+   
 }
 
 ul,
@@ -113,14 +323,14 @@ ol,
 dl {
     list-style: none;
     font-size: 1.2em;
-    /* Equivalent to 12pt */
+   
 }
 
 li,
 dd,
 dt {
     font-size: 1.2em;
-    /* Equivalent to 12pt */
+ 
 }
 
 .josefin {
@@ -137,7 +347,7 @@ a {
     cursor: pointer;
 }
 
-/* define colors here */
+
 
 .mc1 {
     color: #006600;
@@ -190,32 +400,11 @@ a {
 .wave-btn{
 
 }
-/* Header
------------------------------------------------------------------------------*/
 
 
 
-/* Navigation
------------------------------------------------------------------------------*/
 
 
-
-/* Footer
------------------------------------------------------------------------------*/
-
-
-
-/* Homepage
------------------------------------------------------------------------------*/
-
-
-
-/* Your template
------------------------------------------------------------------------------*/
-
-
-/* Forms
------------------------------------------------------------------------------*/
 
 
 
@@ -225,8 +414,7 @@ input.text {
 }
 
 
-/* Tables 
------------------------------------------------------------------------------*/
+
 
 
 
@@ -308,8 +496,7 @@ td {
       left: 50%;
       margin-left: -25px;
     }
-    /* Enter and leave animations can use different */
-/* durations and timing functions.              */
+  
 .slide-fade-enter-active {
     transition: all .3s ease;
   }
@@ -317,14 +504,14 @@ td {
     transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
   }
   .slide-fade-enter, .slide-fade-leave-to
-  /* .slide-fade-leave-active below version 2.1.8 */ {
+   {
     transform: translateX(10px);
     opacity: 0;
   }
   .fade-enter-active, .fade-leave-active {
     transition: opacity .5s;
   }
-  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  .fade-enter, .fade-leave-to  {
     opacity: 0;
   }
 
@@ -349,27 +536,27 @@ td {
 
     h1 {
         font-size: 2em !important;
-        /* Equivalent to 22pt */
+        
     }
 
     h2 {
         font-size: 1.7em !important;
-        /* Equivalent to 20pt */
+        
     }
 
     h3 {
         font-size: 1.5em !important;
-        /* Equivalent to 18pt */
+        
     }
 
     h4 {
         font-size: 1.2em !important;
-        /* Equivalent to 18pt */
+        
     }
 
     h5 {
         font-size: 1em !important;
-        /* Equivalent to 14pt */
+        
     }
 
     .header {
@@ -385,7 +572,7 @@ td {
         bottom: -6px;
         left: 35%;
     }
-}
+} */
 
 /*!
  * Hamburgers

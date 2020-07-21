@@ -65,8 +65,9 @@ body{
 .reg-btn{
     background-color: var(--primary-btn);
     border: none;
-    padding: 0 20px;
+    padding: 10px 30px;
     border-radius: 5px;
+    color: #fff;
 }
 .reg-btn.nav-link{
     color: #fff !important;
@@ -231,6 +232,76 @@ body{
 .footer-end-right p{
     padding-left: 15px;
 }
+
+/* registration page */
+
+.register-section{
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+
+}
+
+.img-side{
+    background-image: linear-gradient(to bottom, rgba(0, 42, 6, 0.76), rgba(0, 42, 6, 0.76)), url(/images/register-image-1.png);
+    background-size: cover;
+    background-position: center;
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--primary-font-color);
+}
+.header-logo{
+    margin-top: 1.5rem;
+}
+.img-side h2{
+    font-family: "Montserrat";
+    letter-spacing: 2px;
+    font-size: 2.5rem !important;
+}
+
+.form-side{
+    width: 50%;
+    height: 100vh;
+    
+}
+.form-side h2{
+    font-family: 'Montserrat';
+    margin-top: 2.5rem;
+}
+form{
+    margin-top: 2.5rem;
+}
+
+label{
+    font-family: "Montserrat";
+    font-weight: 500;
+}
+.form-group{
+    margin: 15px 20px;
+}
+
+.form-control{
+    padding: 20px 15px !important;
+    border: 1px solid #c4c4c4 !important;
+}
+
+.custom-control{
+    padding-left: 2.7rem !important;
+}
+form .reg-btn{
+    margin-left: 1.2rem;
+    margin-top: 1rem;
+    font-weight: 600;
+    padding: 10px 40px;
+}
+.form-txt{
+    margin-left: 1.2rem;
+}
+
 /* * {
     margin: 0;
     padding: 0;

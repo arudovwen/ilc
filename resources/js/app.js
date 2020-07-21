@@ -10,7 +10,8 @@ window.Vue = require("vue");
 
 import VueRouter from "vue-router";
 import { routes } from "./routes";
-import { BootstrapVue } from "bootstrap-vue";
+import Vue from 'vue'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import VueAwesomeSwiper from "vue-awesome-swiper";
 import VueWaves from 'vue-waves-button';
 import Toasted from 'vue-toasted';

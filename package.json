@@ -18,7 +18,7 @@
     },
     "devDependencies": {
         "axios": "^0.19",
-        "bootstrap": "^4.4.1",
+        "bootstrap": "^4.5.0",
         "cross-env": "^7.0",
         "jquery": "^3.2",
         "laravel-mix": "^5.0.1",
@@ -32,7 +32,7 @@
     },
     "dependencies": {
         "@tinymce/tinymce-vue": "^3.2.2",
-        "bootstrap-vue": "^2.13.1",
+        "bootstrap-vue": "^2.15.0",
         "laravel-echo": "^1.8.0",
         "pusher-js": "^6.0.3",
         "swiper": "^5.3.8",

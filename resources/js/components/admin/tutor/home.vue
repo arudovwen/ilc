@@ -7,22 +7,23 @@
           <hr />
         </div>
       </router-link>
-      <div class="nav_box shadow-sm">
-        <p class="mx-auto" @click="multiDrop">Multi-Drop</p>
-        <hr />
-      </div>
+     
       <router-link to="/admin/tutor/assign">
         <div class="nav_box shadow-sm">
-          <p class="mx-auto">Assign Tutor Courses</p>
+          <p class="mx-auto">Tutor <i class="fa fa-arrows-h mx-2"  aria-hidden="true"></i> Courses</p>
           <hr />
         </div>
       </router-link>
       <router-link to="/admin/head/assign">
         <div class="nav_box shadow-sm">
-          <p class="mx-auto">Assign Head Teacher</p>
+          <p class="mx-auto">Tutor <i class="fa fa-arrows-h mx-2"  aria-hidden="true"></i> Head Tutor</p>
           <hr />
         </div>
       </router-link>
+       <div class="nav_box shadow-sm">
+        <p class="mx-auto" @click="multiDrop">Multi-Drop</p>
+        <hr />
+      </div>
     </nav>
 
     <table class="table table-striped table-inverse table-bordered">

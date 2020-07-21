@@ -3,7 +3,20 @@
     <nav class="mb-5">
       <router-link to="/admin/student/create">
         <div class="nav_box shadow-sm">
-          <p class="mx-auto">Create Student</p>
+          <p class="mx-auto">Add Student</p>
+          <hr />
+        </div>
+      </router-link>
+      
+      <router-link to="/admin/student/assign">
+        <div class="nav_box shadow-sm">
+          <p class="mx-auto">Students <i class="fa fa-arrows-h mx-2"  aria-hidden="true"></i> Subjects </p>
+          <hr />
+        </div>
+      </router-link>
+      <router-link to="/admin/student/assign/class">
+        <div class="nav_box shadow-sm">
+          <p class="mx-auto">Students <i class="fa fa-arrows-h mx-2"  aria-hidden="true"></i> Class</p>
           <hr />
         </div>
       </router-link>
@@ -11,18 +24,6 @@
         <p class="mx-auto" @click="multiDrop">Multi-Drop</p>
         <hr />
       </div>
-      <router-link to="/admin/student/assign">
-        <div class="nav_box shadow-sm">
-          <p class="mx-auto">Assign Course</p>
-          <hr />
-        </div>
-      </router-link>
-      <router-link to="/admin/student/assign/class">
-        <div class="nav_box shadow-sm">
-          <p class="mx-auto">Assign Class</p>
-          <hr />
-        </div>
-      </router-link>
     </nav>
 
  <div class="classes my-5">

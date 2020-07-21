@@ -84,6 +84,15 @@
                     class="toCaps"
                   >{{item.name}}</option>
                 </select>
+                  <select class="form-control" v-model="item.tutor">
+                  <option value disabled>Select Tutor</option>
+                  <option
+                    v-for="(item,idx) in tutors"
+                    :key="idx"
+                    :value="item.name"
+                    class="toCaps"
+                  >{{item.name}}</option>
+                </select>
               </div>
               <div class>
                 <button class="mb-2" @click="addCourse(index)">Add</button>
@@ -105,6 +114,7 @@ export default {
   props: ["admin"],
   data() {
     return {
+      tutors:[],
       days: [
         "monday",
         "tuesday",
@@ -123,7 +133,8 @@ export default {
             {
               start: "",
               end: "",
-              subject: ""
+              subject: "",
+              tutor:''
             }
           ]
         }
@@ -139,6 +150,7 @@ export default {
   mounted() {
     this.getSubjects();
     this.getclasses();
+    this.getAdmins()
   },
   methods: {
     createTimeTable() {
@@ -162,7 +174,8 @@ export default {
                   {
                     start: "",
                     end: "",
-                    subject: ""
+                    subject: "",
+                    tutor:'',
                   }
                 ]
               }
@@ -219,6 +232,19 @@ export default {
           }
         ]
       });
+    },
+      getAdmins() {
+      axios
+        .get("/api/tutor", {
+          headers: {
+            Authorization: `Bearer ${this.$props.admin.access_token}`
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.tutors = res.data;
+          }
+        });
     },
     removeDay() {
       this.table.pop();

@@ -106,8 +106,19 @@ class ClassTeachersController extends Controller
      * @param  \App\ClassTeacher  $classTeacher
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ClassTeacher $classTeacher)
+    public function destroy($id)
     {
-        //
+        ClassTeacher::find($id)->delete();
+    }
+    public function multiDrop(Request $request)
+    {
+        foreach ($request->data as $id) {
+            $find = ClassTeacher::find($id);
+            $find->delete();
+        }
+     
+        return response()->json([
+            'status'=>'Deleted'
+        ]);
     }
 }

@@ -45,6 +45,7 @@
                   {{item.start}} - {{item.end}}
                 </div>
                 <div>{{item.subject}}</div>
+                 <div>{{item.tutor}}</div>
                   </td>
                 </tr>
               </table>

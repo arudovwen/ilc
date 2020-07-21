@@ -87,6 +87,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('multi-syllabus-drop', 'SyllabusController@multiDrop');
     Route::post('multi-classes-drop', 'ClassesController@multiDrop');
    
+    Route::resource('class-student', 'ClassStudentsController');
     Route::resource('tutor', 'TutorController');
     Route::resource('student', 'UserController');
     Route::get('admin-get-students', 'UserController@adminGetStudents');

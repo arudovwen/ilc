@@ -62,8 +62,8 @@ class ResourceController extends Controller
             $resource = Resource::create([
             'school_id' => $tutor->school_id,
             'tutor_id'=> $tutor->id,
-            'subject' => $request->subject.strtolower(),
-            'level'  => $request->level.strtolower(),
+            'subject' => strtolower($request->subject),
+            'level'  => strtolower($request->level),
             'module'  => $request->module,
             'excerpt'  => $request->excerpt,
             'content'  => json_encode($request->content),

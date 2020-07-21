@@ -61,7 +61,7 @@
                 <td class="options"><i class="fa fa-ellipsis-v" aria-hidden="true"></i> 
                   <div class="option shadow">
                       <ul>
-                          <li>View</li>
+                          <li @click="view(item.id)">View</li>
                           <li>Drop</li>
                       </ul>
                   </div>
@@ -193,15 +193,16 @@ export default {
             this.library = res.data.data;
           });
       }
+    },
+    view(id){
+      this.$router.push(`/student/study/${id}`)
     }
   }
 };
 </script>
 
 <style scoped>
-.body {
-  padding: 40px 20px 60px;
-}
+
 nav{
     background:#f7f8fa;
 }

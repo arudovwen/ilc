@@ -1,13 +1,14 @@
 <template>
   <div class="body">
     <form @submit.prevent="submit" class="border rounded">
-      <legend class="mb-5">Update Resource</legend>
+      <legend class="mb-5">New Resource</legend>
       <div class="form-group mb-5">
         <label for>Choose Class</label>
-        <select class="custom-select" v-model="resource.level">
+        <br />
+        <select class="custom-select w-25" v-model="resource.level">
           <option selected value>Select Class</option>
           <option
-            :value="item.class_name.toLowerCase()"
+            :value="item.class_name"
             v-for="(item,idx) in allClass"
             class="toCaps"
             :key="idx"
@@ -24,7 +25,7 @@
         >
           <option selected disabled value>Select one</option>
           <option
-            :value="item.name.toLowerCase()"
+            :value="item.name"
             v-for="(item,idx) in subjects"
             class="toCaps"
             :key="idx"
@@ -42,15 +43,15 @@
         >
           <option selected disabled value>Select one</option>
           <option
-            :value="item.name.toLowerCase()"
+            :value="item.name"
             v-for="(item,idx) in modules"
             class="toCaps"
             :key="idx"
           >{{item.name}}</option>
         </select>
       </div>
-   <div class="form-group mb-5">
-        <label for="">Excerpt (optional)</label>
+      <div class="form-group mb-5">
+        <label for>Excerpt (optional)</label>
         <textarea class="form-control" rows="3" v-model="resource.excerpt"></textarea>
       </div>
 
@@ -101,7 +102,20 @@
                   <option value="csv">CSV</option>
                 </select>
               </div>
-
+              <div class="form-group">
+                <label for>Title</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="item.title"
+                  aria-describedby="helpId"
+                  placeholder
+                />
+              </div>
+             <div class="form-group">
+                <label for>Overview (200 characters)</label>
+                <textarea class="form-control" v-model="item.overview" maxlength="200" rows="3"></textarea>
+              </div>
               <Upload :index="idx" @getUploadDetails="getUploadDetails" />
               <p class="toCaps animated fadeIn" v-if="item.type !==''">Resource Type : {{item.type}}</p>
               <p class="toCaps animated fadeIn" v-if="item.name !==''">Resource Name : {{item.name}}</p>
@@ -133,6 +147,7 @@
   </div>
 </template>
 
+
 <script>
 import Upload from "../../uploadComponent";
 export default {
@@ -152,7 +167,9 @@ export default {
           {
             type: "",
             file: "",
-            name: ""
+            name: "",
+             title: "",
+            overview: ""
           }
         ],
         worksheet: "",
@@ -205,7 +222,9 @@ export default {
       this.resource.content.push({
         type: "",
         file: "",
-        name: ""
+        name: "",
+         title: "",
+            overview: ""
       });
     },
     getUploadDetails(id, res) {

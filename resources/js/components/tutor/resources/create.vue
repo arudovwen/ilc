@@ -3,33 +3,55 @@
     <form @submit.prevent="submit" class="border rounded">
       <legend class="mb-5">New Resource</legend>
       <div class="form-group mb-5">
-        <label for>Choose Class</label> <br>
+        <label for>Choose Class</label>
+        <br />
         <select class="custom-select w-25" v-model="resource.level">
           <option selected value>Select Class</option>
-          <option :value="item.class_name" v-for="(item,idx) in allClass" class="toCaps" :key="idx">{{item.class_name}}</option>
+          <option
+            :value="item.class_name"
+            v-for="(item,idx) in allClass"
+            class="toCaps"
+            :key="idx"
+          >{{item.class_name}}</option>
         </select>
       </div>
       <div class="form-group mb-5">
         <label for>Choose Subject</label>
         <br />
-        <select class="custom-select w-25" v-model="resource.subject" :disabled="resource.level ==''">
+        <select
+          class="custom-select w-25"
+          v-model="resource.subject"
+          :disabled="resource.level ==''"
+        >
           <option selected disabled value>Select one</option>
-          <option  :value="item.name" v-for="(item,idx) in subjects" class="toCaps" :key="idx">{{item.name}}</option>
-     
+          <option
+            :value="item.name"
+            v-for="(item,idx) in subjects"
+            class="toCaps"
+            :key="idx"
+          >{{item.name}}</option>
         </select>
       </div>
 
       <div class="form-group mb-5">
         <label for>Choose Module/Topic</label>
         <br />
-        <select class="custom-select w-50" v-model="resource.module" :disabled="resource.subject ==''">
+        <select
+          class="custom-select w-50"
+          v-model="resource.module"
+          :disabled="resource.subject ==''"
+        >
           <option selected disabled value>Select one</option>
-          <option :value="item.name" v-for="(item,idx) in modules" class="toCaps" :key="idx">{{item.name}}</option>
-          
+          <option
+            :value="item.name"
+            v-for="(item,idx) in modules"
+            class="toCaps"
+            :key="idx"
+          >{{item.name}}</option>
         </select>
       </div>
       <div class="form-group mb-5">
-        <label for="">Excerpt (optional)</label>
+        <label for>Excerpt (optional)</label>
         <textarea class="form-control" rows="3" v-model="resource.excerpt"></textarea>
       </div>
 
@@ -80,7 +102,20 @@
                   <option value="csv">CSV</option>
                 </select>
               </div>
-
+              <div class="form-group">
+                <label for>Title</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="item.title"
+                  aria-describedby="helpId"
+                  placeholder
+                />
+              </div>
+              <div class="form-group">
+                <label for>Overview (200 characters)</label>
+                <textarea class="form-control" v-model="item.overview" maxlength="200" rows="3"></textarea>
+              </div>
               <Upload :index="idx" @getUploadDetails="getUploadDetails" />
               <p class="toCaps animated fadeIn" v-if="item.type !==''">Resource Type : {{item.type}}</p>
               <p class="toCaps animated fadeIn" v-if="item.name !==''">Resource Name : {{item.name}}</p>
@@ -122,16 +157,18 @@ export default {
       modules: [],
       subjects: [],
       resource: {
-          level:'',
+        level: "",
         subject: "",
         module: "",
-        excerpt:'',
+        excerpt: "",
         count: "single",
         content: [
           {
             type: "",
             file: "",
-            name: ""
+            name: "",
+            title: "",
+            overview: ""
           }
         ],
         worksheet: "",
@@ -151,17 +188,22 @@ export default {
     "resource.subject": "getModules"
   },
   methods: {
-    submit(){
-         axios
-        .post(`/api/resource`,this.resource, {
+    submit() {
+      axios
+        .post(`/api/resource`, this.resource, {
           headers: {
             Authorization: `Bearer ${this.$props.tutor.access_token}`
           }
         })
         .then(res => {
           if (res.status == 201) {
-           this.$toasted.info('Created successfully')
-           this.$router.push('/tutor/resources')
+            this.$toasted.success("Created successfully", {
+              icon: {
+                name: "check",
+                after: false
+              }
+            });
+            this.$router.push("/tutor/resources");
           }
         });
     },
@@ -182,7 +224,7 @@ export default {
             //     });
             //   }
             // });
-            this.allClass = res.data
+            this.allClass = res.data;
           }
         });
     },
@@ -190,7 +232,9 @@ export default {
       this.resource.content.push({
         type: "",
         file: "",
-        name: ""
+        name: "",
+        title: "",
+        overview: ""
       });
     },
     getUploadDetails(id, res) {
@@ -199,11 +243,14 @@ export default {
     },
     getModules() {
       axios
-        .get(`/api/tutor-module/${this.resource.level}/${this.resource.subject}`, {
-          headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`
+        .get(
+          `/api/tutor-module/${this.resource.level}/${this.resource.subject}`,
+          {
+            headers: {
+              Authorization: `Bearer ${this.$props.tutor.access_token}`
+            }
           }
-        })
+        )
         .then(res => {
           if (res.status == 200) {
             this.modules = res.data;

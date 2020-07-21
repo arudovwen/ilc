@@ -12,9 +12,13 @@
         </div>
         <div class="py-2 px-3 border" v-if="opened.includes(idx)">
           <ul class="bg-white">
-            <li v-for="(content,index) in JSON.parse(item.content)" :key="index">
-              <span>{{content.name}}</span>
-              <span class="ml-5">{{content.type}}</span>
+            <li v-for="(content,index) in JSON.parse(item.content)" :key="index" class="border-bottom">
+              <div><span>{{content.title}}</span>
+              <span class="ml-5">{{content.type}}</span></div>
+              <div class="px-3">
+                <strong>Overview</strong>
+                <p>{{content.overview}}</p>
+              </div>
             </li>
           </ul>
           <div class="text-right">

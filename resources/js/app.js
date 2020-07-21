@@ -42,9 +42,7 @@ Vue.use(VueWaves, {
           toastObject.goAway(0);
       }
     },
-    icon:{
-       name: 'fal fa-check fa-spin fa-fw',
-    }
+   
  
 });
 Vue.use(VueRouter);

@@ -200,6 +200,10 @@ const Library = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/student/library"
     );
+    const Study = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/student/study"
+    );
 const Tutors = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/tutor/home"
@@ -707,6 +711,14 @@ export const routes = [
                 path: "library",
                 component: Library,
                 name: "Library",
+                meta: {
+                    typeStudent: true
+                }
+            },
+            {
+                path: "study/:id",
+                component: Study,
+                name: "Study",
                 meta: {
                     typeStudent: true
                 }

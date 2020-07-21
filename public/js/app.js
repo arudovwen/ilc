@@ -449,12 +449,32 @@ var AssignStudent = function AssignStudent() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/student/assign */ "./resources/js/components/admin/student/assign.vue"));
 };
 
+var AssignStudentClass = function AssignStudentClass() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/student/assignLevel */ "./resources/js/components/admin/student/assignLevel.vue"));
+};
+
 var AssignHead = function AssignHead() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/tutor/assignHead */ "./resources/js/components/admin/tutor/assignHead.vue"));
 };
 
 var SchoolRegister = function SchoolRegister() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/school/register */ "./resources/js/components/school/register.vue"));
+};
+
+var ResourcesHome = function ResourcesHome() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/resources/home */ "./resources/js/components/tutor/resources/home.vue"));
+};
+
+var ResourcesCreate = function ResourcesCreate() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/resources/create */ "./resources/js/components/tutor/resources/create.vue"));
+};
+
+var ResourcesEdit = function ResourcesEdit() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/resources/edit */ "./resources/js/components/tutor/resources/edit.vue"));
+};
+
+var ResourcesView = function ResourcesView() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/resources/view */ "./resources/js/components/tutor/resources/view.vue"));
 };
 
 var routes = [{
@@ -726,6 +746,13 @@ var routes = [{
     meta: {
       typeAdmin: true
     }
+  }, {
+    path: "student/assign/class",
+    component: AssignStudentClass,
+    name: "AssignStudentClass",
+    meta: {
+      typeAdmin: true
+    }
   }]
 }, {
   path: "/tutor/auth/:type",
@@ -753,7 +780,7 @@ var routes = [{
       typeTutor: true
     }
   }, {
-    path: "update",
+    path: "update/:id",
     component: TutorUpdate,
     name: "TutorUpdate",
     meta: {
@@ -798,6 +825,34 @@ var routes = [{
     path: "syllabus",
     component: TutorSyllabus,
     name: "TutorSyllabus",
+    meta: {
+      typeTutor: true
+    }
+  }, {
+    path: "resources",
+    component: ResourcesHome,
+    name: "ResourcesHome",
+    meta: {
+      typeTutor: true
+    }
+  }, {
+    path: "resource/create",
+    component: ResourcesCreate,
+    name: "ResourcesCreate",
+    meta: {
+      typeTutor: true
+    }
+  }, {
+    path: "resource/edit/:id",
+    component: ResourcesEdit,
+    name: "ResourcesEdit",
+    meta: {
+      typeTutor: true
+    }
+  }, {
+    path: "resource/view/:id",
+    component: ResourcesView,
+    name: "ResourcesView",
     meta: {
       typeTutor: true
     }

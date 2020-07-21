@@ -44,13 +44,13 @@
             <table class="table table-borderless table-sm">
              
               <tr v-for="(ite,index) in JSON.parse(item.content)" :key="index">
-                <td class="toCaps">{{ite.name}}</td>
+                <td class="toCaps">{{ite.title}}</td>
                 <td class="">{{ite.type}}</td>
               </tr>
             </table>
           </td>
           <td class="options">
-          <i class="fa fa-ellipsis-v" @click="openOptions(id)" aria-hidden="true"></i>
+          <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
           <div class="option-box">
             <ul>
               <li @click="edit(item.id)"><i class="fas fa-edit"></i> Edit</li>

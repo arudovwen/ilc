@@ -53,9 +53,14 @@ Vue.use(vue_waves_button__WEBPACK_IMPORTED_MODULE_4___default.a, {
   delay: 200
 });
 Vue.use(vue_toasted__WEBPACK_IMPORTED_MODULE_5___default.a, {
-  duration: 2500,
-  icon: null // after: true
-
+  duration: 3500,
+  iconPack: 'fontawesome',
+  action: {
+    text: 'Cancel',
+    onClick: function onClick(e, toastObject) {
+      toastObject.goAway(0);
+    }
+  }
 });
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 Vue.use(bootstrap_vue__WEBPACK_IMPORTED_MODULE_2__["BootstrapVue"]);
@@ -433,6 +438,18 @@ var StudentUpdate = function StudentUpdate() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/update */ "./resources/js/components/student/update.vue"));
 };
 
+var Explore = function Explore() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/explore */ "./resources/js/components/student/explore.vue"));
+};
+
+var Library = function Library() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/library */ "./resources/js/components/student/library.vue"));
+};
+
+var Study = function Study() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/study */ "./resources/js/components/student/study.vue"));
+};
+
 var Tutors = function Tutors() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/tutor/home */ "./resources/js/components/admin/tutor/home.vue"));
 };
@@ -475,6 +492,10 @@ var ResourcesEdit = function ResourcesEdit() {
 
 var ResourcesView = function ResourcesView() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/resources/view */ "./resources/js/components/tutor/resources/view.vue"));
+};
+
+var TimesTableTutor = function TimesTableTutor() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/times */ "./resources/js/components/tutor/times.vue"));
 };
 
 var routes = [{
@@ -850,6 +871,13 @@ var routes = [{
       typeTutor: true
     }
   }, {
+    path: "times-table",
+    component: TimesTableTutor,
+    name: "TimesTableTutor",
+    meta: {
+      typeTutor: true
+    }
+  }, {
     path: "resource/view/:id",
     component: ResourcesView,
     name: "ResourcesView",
@@ -879,6 +907,27 @@ var routes = [{
     path: "",
     component: StudentHome,
     name: "StudentHome",
+    meta: {
+      typeStudent: true
+    }
+  }, {
+    path: "explore",
+    component: Explore,
+    name: "Explore",
+    meta: {
+      typeStudent: true
+    }
+  }, {
+    path: "library",
+    component: Library,
+    name: "Library",
+    meta: {
+      typeStudent: true
+    }
+  }, {
+    path: "study/:id",
+    component: Study,
+    name: "Study",
     meta: {
       typeStudent: true
     }

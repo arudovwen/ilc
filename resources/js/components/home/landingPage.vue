@@ -32,7 +32,7 @@
                         </h1>
                        
                         <router-link to="/school/register"> <button v-waves.button v-waves.float v-waves.light class="sec_color">
-              <span >Enroll Today </span>
+              <span >ENROLL</span>
               <!-- <i class="fa fa-long-arrow-right sec_color" aria-hidden="true"></i> -->
             </button></router-link>
                     </div>

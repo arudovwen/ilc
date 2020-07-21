@@ -22,127 +22,118 @@ version history: [location of file]
 -----------------------------------------------------------------------------*/
 *,
 *::before,
-*::after {
+*::after{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
 
-:root {
+:root{
     --main-font: 'Montserrat';
-    --primary-font-color: #DFD291;
-    --secondary-font-color: #002A06;
+    --primary-font-color:#DFD291;
+    --secondary-font-color: #002A06  ;
     --primary-btn: #008E3A;
     --body-font-color: #515151;
 }
 
 
-body {
+body{
     overflow-x: hidden;
 }
-.body {
-    padding: 40px 20px 60px;
-    min-height:100%;
-  }
-  
-.nav-link {
+
+.nav-link{
     font-weight: 500;
     font-family: var(--main-font);
 }
 
-.mx-auto .nav-item {
+.mx-auto .nav-item{
     padding: 0 1rem;
 }
 
 
-.ml-auto .nav-item {
+.ml-auto .nav-item{
     margin: 0 1rem;
 }
-
-.login-btn {
+.login-btn{
     background: transparent;
     padding: 0 1rem;
     border: 1px solid #002A06;
     border-radius: 5px;
 }
 
-.reg-btn {
+.reg-btn{
     background-color: var(--primary-btn);
     border: none;
-    padding: 0 20px;
+    padding: 10px 30px;
     border-radius: 5px;
+    color: #fff;
 }
-
-.reg-btn.nav-link {
+.reg-btn.nav-link{
     color: #fff !important;
 }
 
-.overlay {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background-color: var(--secondary-font-color);
+.overlay{
+    width: 100%; 
+    height: 100%; 
+    position: absolute; 
+    background-color: var(--secondary-font-color); 
     opacity: 0.5;
 }
-
-.carousel-control {
+.carousel-control{
     width: 100%;
     bottom: 0;
     position: absolute;
     padding: 10px 20px;
 }
-
-.carousel-control a {
+.carousel-control a{
     width: auto;
     height: auto;
     z-index: 2;
     position: relative;
     padding: 10px;
-
+    
 }
 
 
-.carousel-txt {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-
+.carousel-txt{
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+  
+   
 }
-
-.carousel-txt h1 {
-    color: var(--primary-font-color);
+.carousel-txt h1{
+    color: var(--primary-font-color) ;
     text-align: center;
     padding-bottom: 1rem;
 }
 
-.carousel-txt .reg-btn {
+.carousel-txt .reg-btn{
     color: #fff !important;
     padding: 1rem 1.5rem;
     font-weight: 600;
 }
 
-.mid-section {
+.mid-section{
     margin-top: 5rem;
     margin-bottom: 3.5rem;
-
+    
 }
-
-.mid-section-text h2 {
+.mid-section-text h2{
     font-family: 'Montserrat';
     font-weight: 700;
     text-align: center;
 }
 
 
-.mid-section-text p {
+.mid-section-text p{
     font-family: 'Montserrat';
     line-height: 2.5rem;
     letter-spacing: 3px;
@@ -152,22 +143,20 @@ body {
     font-size: 18px;
 }
 
-.who-can-section {
+.who-can-section{
     margin-top: 6rem;
     margin-bottom: 5rem;
 }
-
-.who-can-section h2 {
+.who-can-section h2{
     font-weight: 700;
 }
-
-.who-card {
+.who-card{
     position: relative;
     box-shadow: 0px 4px 4px rgba(128, 128, 128, 0.25);
     margin-top: 3.5rem;
 }
 
-.who-card img {
+.who-card img{
     width: 70px;
     background-color: var(--primary-btn);
     border-radius: 50%;
@@ -178,33 +167,30 @@ body {
     transform: translateY(-50%)
 }
 
-.who-card-inner {
+.who-card-inner{
     padding: 40px 30px 30px 20px;
 }
-
-.who-card-inner h3 {
+.who-card-inner h3{
     padding-top: 1.5rem;
 }
 
-.who-card-inner p {
+.who-card-inner p{
     line-height: 2rem;
     text-align: justify;
     padding-top: 1rem;
 }
-
-.who-card-inner a {
+.who-card-inner a{
     color: var(--primary-btn);
     font-size: 20px;
     display: flex;
     justify-content: center;
 }
-
-.who-card-inner a:hover {
+.who-card-inner a:hover{
     text-decoration: none;
     color: var(--primary-font-color);
 }
 
-.video-section {
+.video-section{
     background: url(/images/youtube-img.png) no-repeat;
     margin: 2.5rem auto;
     height: 500px;
@@ -213,76 +199,108 @@ body {
     align-items: center;
 }
 
-.sponsors {
+.sponsors{
     margin-top: 2rem;
     margin-bottom: 4rem;
 }
 
-.sponsors h2 {
+.sponsors h2{
     font-weight: 700;
     margin-bottom: 1.5rem;
 }
-
-.footer {
+.footer{
     margin-top: 2rem;
     background: url(/images/footer-img-1.png) no-repeat;
     width: 100%;
     padding: 30px;
 }
-
-.footer-inner {
-    color: var(--primary-font-color);
+.footer-inner{
+  color: var(--primary-font-color);
 }
-
-.footer-end {
+.footer-end{
     display: flex;
     justify-content: space-between;
 }
-
-.footer-end-right {
+.footer-end-right{
     display: flex;
     justify-content: space-evenly;
 }
-
-.footer-end-right img {
+.footer-end-right img{
     width: 30px;
     height: 30px;
 }
-
-.footer-end-right p {
+.footer-end-right p{
     padding-left: 15px;
 }
 
+/* registration page */
 
-/* important default styles DO NOT TOUCH !! */
-.w-70 {
-    width: 70% !important;
+.register-section{
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+
 }
 
-.w-30 {
-    width: 30% !important;
+.img-side{
+    background-image: linear-gradient(to bottom, rgba(0, 42, 6, 0.76), rgba(0, 42, 6, 0.76)), url(/images/register-image-1.png);
+    background-size: cover;
+    background-position: center;
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--primary-font-color);
 }
-.slide-fade-enter-active {
-    transition: all .3s ease;
-  }
-  .slide-fade-leave-active {
-    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-  }
-  .slide-fade-enter, .slide-fade-leave-to
-   {
-    transform: translateX(10px);
-    opacity: 0;
-  }
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .5s;
-  }
-  .fade-enter, .fade-leave-to  {
-    opacity: 0;
-  }
+.header-logo{
+    margin-top: 1.5rem;
+}
+.img-side h2{
+    font-family: "Montserrat";
+    letter-spacing: 2px;
+    font-size: 2.5rem !important;
+}
 
-  .toCaps{
-      text-transform: capitalize;
-  }
+.form-side{
+    width: 50%;
+    height: 100vh;
+    
+}
+.form-side h2{
+    font-family: 'Montserrat';
+    margin-top: 2.5rem;
+}
+form{
+    margin-top: 2.5rem;
+}
+
+label{
+    font-family: "Montserrat";
+    font-weight: 500;
+}
+.form-group{
+    margin: 15px 20px;
+}
+
+.form-control{
+    padding: 20px 15px !important;
+    border: 1px solid #c4c4c4 !important;
+}
+
+.custom-control{
+    padding-left: 2.7rem !important;
+}
+form .reg-btn{
+    margin-left: 1.2rem;
+    margin-top: 1rem;
+    font-weight: 600;
+    padding: 10px 40px;
+}
+.form-txt{
+    margin-left: 1.2rem;
+}
 
 /* * {
     margin: 0;
@@ -550,9 +568,40 @@ td {
       margin-left: -25px;
     }
   
+.slide-fade-enter-active {
+    transition: all .3s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+   {
+    transform: translateX(10px);
+    opacity: 0;
+  }
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to  {
+    opacity: 0;
+  }
 
+  .back{
+      position: absolute;
+      top:20px;
+      left: 15px;
+  }
+  .toCaps{
+      text-transform: capitalize;
+  }
   
- 
+  .w-70{
+    width: 70% !important;
+    }
+    .w-30{
+    width: 30% !important;
+    }
+
     
 @media(max-width:425px) {
 

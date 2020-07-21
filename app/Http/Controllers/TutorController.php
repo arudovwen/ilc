@@ -20,6 +20,7 @@ class TutorController extends Controller
         return Tutor::where('school_id', $school_id)->get();
     }
 
+  
     public function tutorDetail()
     {
         return auth('tutor')->user();

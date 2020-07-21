@@ -33,6 +33,11 @@ class ResourceController extends Controller
         return Resource::where('school_id', $school_id)->get();
     }
 
+    public function getResources(){
+        $user = auth('api')->user();
+        return Resource::where('school_id', $user->school_id)->where('level',$user->student_level)->get();
+    }
+
     /**
      * Show the form for creating a new resource.
      *

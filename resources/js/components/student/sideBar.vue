@@ -5,15 +5,14 @@
     </div>
         <nav>
         <ul>
-             <router-link to="/student/profile"> <li>Home</li></router-link>
+             <router-link to="/student"> <li>Home</li></router-link>
               <router-link to="/student/profile"> <li>Profile</li></router-link>
-               <router-link to="/student/profile"> <li>Assessments</li></router-link>
-               
-              <router-link to="/student/profile"> <li>Activities</li></router-link>
-               <router-link to="/student/profile"> <li>Library</li></router-link>
+               <router-link to="/student/explore"> <li>Explore</li></router-link>
+               <router-link to="/student/library"> <li>Library</li></router-link>
                 <router-link to="/student/profile"> <li>Grade Book</li></router-link>
            <router-link to="/student/groups"> <li>Groups</li></router-link>
-
+   <router-link to="/student/profile"> <li>Activities</li></router-link>
+     <router-link to="/student/profile"> <li>Assessments</li></router-link>
                 <router-link to="/student/profile"> <li>Virtual Classroom</li></router-link>
 
             <li @click="logout"> Logout </li>

@@ -192,6 +192,14 @@ const Students = () =>
     );
 const StudentUpdate = () =>
     import(/* webpackChunkName: "home_routes" */ "./components/student/update");
+const Explore = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/student/explore"
+    );
+const Library = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/student/library"
+    );
 const Tutors = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/tutor/home"
@@ -206,7 +214,7 @@ const AssignStudent = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/student/assign"
     );
-    const AssignStudentClass = () =>
+const AssignStudentClass = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/student/assignLevel"
     );
@@ -219,22 +227,24 @@ const SchoolRegister = () =>
         /* webpackChunkName: "home_routes" */ "./components/school/register"
     );
 
-    const ResourcesHome = () =>
+const ResourcesHome = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/tutor/resources/home"
     );
-    const ResourcesCreate = () =>
+const ResourcesCreate = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/tutor/resources/create"
     );
-    const ResourcesEdit = () =>
+const ResourcesEdit = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/tutor/resources/edit"
     );
-    const ResourcesView = () =>
+const ResourcesView = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/tutor/resources/view"
     );
+const TimesTableTutor = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/tutor/times");
 
 export const routes = [
     { path: "*", redirect: "/" },
@@ -594,7 +604,7 @@ export const routes = [
             },
             {
                 path: "curriculum/view/:id",
-                component:TutorCurriculumView,
+                component: TutorCurriculumView,
                 name: "TutorCurriculumView",
                 meta: {
                     typeTutor: true
@@ -602,7 +612,7 @@ export const routes = [
             },
             {
                 path: "syllabus/view/:id",
-                component:TutorSyllabusView,
+                component: TutorSyllabusView,
                 name: "TutorSyllabusView",
                 meta: {
                     typeTutor: true
@@ -610,7 +620,7 @@ export const routes = [
             },
             {
                 path: "syllabus",
-                component:TutorSyllabus,
+                component: TutorSyllabus,
                 name: "TutorSyllabus",
                 meta: {
                     typeTutor: true
@@ -618,7 +628,7 @@ export const routes = [
             },
             {
                 path: "resources",
-                component:ResourcesHome,
+                component: ResourcesHome,
                 name: "ResourcesHome",
                 meta: {
                     typeTutor: true
@@ -626,7 +636,7 @@ export const routes = [
             },
             {
                 path: "resource/create",
-                component:ResourcesCreate,
+                component: ResourcesCreate,
                 name: "ResourcesCreate",
                 meta: {
                     typeTutor: true
@@ -634,21 +644,28 @@ export const routes = [
             },
             {
                 path: "resource/edit/:id",
-                component:ResourcesEdit,
+                component: ResourcesEdit,
                 name: "ResourcesEdit",
                 meta: {
                     typeTutor: true
                 }
             },
             {
-                path: "resource/view/:id",
-                component:ResourcesView,
-                name: "ResourcesView",
+                path: "times-table",
+                component: TimesTableTutor,
+                name: "TimesTableTutor",
                 meta: {
                     typeTutor: true
                 }
             },
-            
+            {
+                path: "resource/view/:id",
+                component: ResourcesView,
+                name: "ResourcesView",
+                meta: {
+                    typeTutor: true
+                }
+            }
         ]
     },
 
@@ -674,6 +691,22 @@ export const routes = [
                 path: "",
                 component: StudentHome,
                 name: "StudentHome",
+                meta: {
+                    typeStudent: true
+                }
+            },
+            {
+                path: "explore",
+                component: Explore,
+                name: "Explore",
+                meta: {
+                    typeStudent: true
+                }
+            },
+            {
+                path: "library",
+                component: Library,
+                name: "Library",
                 meta: {
                     typeStudent: true
                 }

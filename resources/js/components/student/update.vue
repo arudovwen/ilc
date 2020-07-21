@@ -8,7 +8,7 @@
       <div class="form-group">
         <label for="">Full Name</label>
         <input
-          required
+          
           type="text"
           class="form-control"
           placeholder="Full Name *"
@@ -19,7 +19,7 @@
       <div class="form-group">
         <label for="">Password</label>
         <input
-          required
+          
           type="password"
           class="form-control"
           placeholder="Password *"
@@ -31,11 +31,11 @@
         <label for="Gender"></label>
         <div class="maxl">
           <label class="radio inline">
-            <input required type="radio" value="male" checked v-model="student.gender" />
+            <input  type="radio" value="male" checked v-model="student.gender" />
             <span>Male</span>
           </label>
           <label class="radio inline">
-            <input required type="radio" value="female" v-model="student.gender" />
+            <input  type="radio" value="female" v-model="student.gender" />
             <span>Female</span>
           </label>
         </div>
@@ -43,7 +43,7 @@
       <div class="form-group">
         <label for="">Email</label>
         <input
-          required
+          
           type="email"
           class="form-control"
           placeholder="Your Email *"
@@ -53,7 +53,7 @@
       <div class="form-group">
         <label for="">Address</label>
         <input
-          required
+          
           type="text"
           class="form-control"
           placeholder="Your address *"
@@ -64,7 +64,7 @@
       <div class="form-group">
         <label for="">Phone No</label>
         <input
-          required
+          
           type="text"
           minlength="11"
           maxlength="11"
@@ -77,7 +77,7 @@
 
       <div class="form-group">
         <label for>Faculty</label>
-        <select class="custom-select" name id>
+        <select class="custom-select" >
           <option selected>Select one</option>
           <option value></option>
           <option value></option>
@@ -86,7 +86,7 @@
       </div>
       <div class="form-group">
         <label for>Department</label>
-        <select class="custom-select" name id>
+        <select class="custom-select" >
           <option selected>Select one</option>
           <option value></option>
           <option value></option>
@@ -187,6 +187,8 @@
           placeholder
         />
       </div>
+      <Upload :id="$route.params.id"  @getUploadDetails="getUploadDetails"/>
+
 
       <button v-waves.button v-waves.float v-waves.light type="submit" class="btnRegister">
         <span v-if="spin" class="spinner-border spinner-border-sm"></span> Register
@@ -197,6 +199,7 @@
 
 
 <script>
+import Upload from '../uploadComponent'
 export default {
   data() {
     return {
@@ -218,7 +221,8 @@ export default {
         next_of_kin: "",
         next_of_kin_phone: null,
         student_level: "",
-        study_course: ""
+        study_course: "",
+        profile:''
       },
       spin: false
     };
@@ -226,7 +230,14 @@ export default {
   mounted() {
     this.getUser()
   },
+  components:{
+    Upload
+  },
   methods: {
+     getUploadDetails(id,res){
+       console.log("getUploadDetails -> res", res)
+       this.student.profile = res.secure_url
+     },
     register() {
         let user = JSON.parse(localStorage.getItem('typeStudent'))
       axios.put(`/api/user/${user.id}`, this.student,{headers:{
@@ -241,7 +252,7 @@ export default {
     getUser(){
         let user = JSON.parse(localStorage.getItem('typeStudent'))
           axios
-        .get(`/api/get-user`, {
+        .get(`/api/user`, {
           headers: {
             Authorization: `Bearer ${user.access_token}`
           }

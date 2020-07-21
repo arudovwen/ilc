@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\TimesTable;
+use App\Library;
 use Illuminate\Http\Request;
 
-class TimesTableController extends Controller
+class LibraryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,13 +14,8 @@ class TimesTableController extends Controller
      */
     public function index()
     {
-        $school_id = auth('admin')->user()->school_id;
-        return TimesTable::where('school_id',$school_id)->get();
-    }
-    public function indexTutor()
-    {
-        $school_id = auth('tutor')->user()->school_id;
-        return TimesTable::where('school_id', $school_id)->get();
+        $user = auth('api')->user();
+        return Library::where('school_id', $user->school_id)->where('student_id', $user->id)->latest()->paginate(10);
     }
 
     /**
@@ -41,68 +36,77 @@ class TimesTableController extends Controller
      */
     public function store(Request $request)
     {
-        $times = TimesTable::where('myclass', $request->myclass)->first();
-        $school_id = auth('admin')->user()->school_id;
-       if (is_null($times)) {
-        return TimesTable::create([
-            'school_id'=>  $school_id,
-            'myclass'=> $request->myclass,
-            'table' => json_encode($request->table)
+        $user = auth('api')->user();
+     
+     $library =  Library::where('student_id',$user->id)->where('school_id',$user->school_id)->where('course_id',$request->id)->first();
+
+      if (is_null($library)) {
+        return Library::create([
+            'course_id'=> $request->id,
+            'student_id'=> $user->id,
+            'school_id'=> $user->school_id,
+            'subject'=> $request->subject,
+            'title'=> $request->title,
+            'excerpt'=> $request->excerpt,
+            'content'=> $request->content,
+            'worksheet_id'=> $request->worksheet_id,
         ]);
-       }
+      }
+      return;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\TimesTable  $timesTable
+     * @param  \App\Library  $library
      * @return \Illuminate\Http\Response
      */
     public function show( $id)
     {
-        return TimesTable::find($id);
+        return Library::find($id);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\TimesTable  $timesTable
+     * @param  \App\Library  $library
      * @return \Illuminate\Http\Response
      */
-    public function edit($id )
+    public function edit(Library $library)
     {
-        
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\TimesTable  $timesTable
+     * @param  \App\Library  $library
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Library $library)
     {
-        $s = TimesTable::find($id);
-        $s->mytime = $request->mytime;
-        $s->table = $request->table;
-        $s->save();
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\TimesTable  $timesTable
+     * @param  \App\Library  $library
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        TimesTable::find($id)->delete();
+        $school = Library::find($id);
+        $school->delete();
+        return response()->json([
+            'status' => 'Removed'
+        ]);
     }
     public function multiDrop(Request $request)
     {
-        foreach ($request as $id) {
-            $find = TimesTable::find($id);
+        foreach ($request->data as $id) {
+            $find = Library::find($id);
              $find->delete();
            
         }

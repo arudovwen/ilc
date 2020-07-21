@@ -34,9 +34,18 @@ Vue.use(VueWaves, {
 
 
   Vue.use(Toasted, {
-    duration: 2500,
-    icon: null
-    // after: true
+     duration: 3500,
+    iconPack : 'fontawesome',
+    action : {
+      text : 'Cancel',
+      onClick : (e, toastObject) => {
+          toastObject.goAway(0);
+      }
+    },
+    icon:{
+       name: 'fal fa-check fa-spin fa-fw',
+    }
+ 
 });
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);

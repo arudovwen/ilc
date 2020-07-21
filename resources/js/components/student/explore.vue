@@ -1,0 +1,115 @@
+<template>
+  <div class="body">
+    <h3 class="text-center mb-4">Available Resources</h3>
+    <div class="main-content">
+      <div v-for="(item,idx) in resources" :key="idx" class="mb-3">
+        <div class="top_box d-flex justify-content-between align-items-center p-3">
+          <p class="m-0 toCaps">{{item.module}}</p>
+          <div class="d-flex align-items-center">
+            <p class="m-0 mr-5 toCaps">{{item.subject}}</p>
+            <i class="fa fa-plus-circle" @click="view(idx)" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="py-2 px-3 border" v-if="opened.includes(idx)">
+          <ul class="bg-white">
+            <li v-for="(content,index) in JSON.parse(item.content)" :key="index">
+              <span>{{content.name}}</span>
+              <span class="ml-5">{{content.type}}</span>
+            </li>
+          </ul>
+          <div class="text-right">
+            <button type="button" class="btn btn-primary" @click="addtolibrary(idx)">Add to library</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: ["student"],
+  data() {
+    return {
+      resources: [],
+      opened: [],
+      current: ""
+    };
+  },
+  mounted() {
+    this.getResources();
+  },
+  methods: {
+    addtolibrary(id) {
+      let data = {
+        id: this.resources[id].id,
+        subject: this.resources[id].subject,
+        title: this.resources[id].module,
+        content: this.resources[id].content,
+        worksheet_id: this.resources[id].worksheet_id
+      };
+      axios
+        .post("/api/library", data, {
+          headers: {
+            Authorization: `Bearer ${this.$props.student.access_token}`
+          }
+        })
+        .then(res => {
+          if (res.status == 201) {
+            this.$toasted.success("Added to Library", {
+              icon: {
+                name: "check",
+                after: false
+              }
+            });
+          } else {
+            this.$toasted.error("Already in Library", {
+               icon : 'ban',
+                after: false
+            });
+          }
+        });
+    },
+    getResources() {
+      axios
+        .get("/api/student-resources", {
+          headers: {
+            Authorization: `Bearer ${this.$props.student.access_token}`
+          }
+        })
+        .then(res => {
+          if ((res.status = 200)) {
+            this.resources = res.data;
+          }
+        });
+    },
+    view(id) {
+      this.current = id;
+      if (this.opened.includes(id)) {
+        let ele = this.opened.indexOf(id);
+
+        this.opened.splice(ele);
+      } else {
+        this.opened.push(id);
+      }
+    }
+  }
+};
+</script>
+
+<style scoped>
+.body {
+  padding: 40px 20px 60px;
+}
+.main-content {
+  width: 80%;
+  margin: 0 auto;
+}
+.top_box {
+  background: #f7f8fa;
+}
+ul,
+ol {
+  list-style: none;
+}
+</style>

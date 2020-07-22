@@ -59,7 +59,7 @@ class MessagesController extends Controller
     }
     public function getStudentMessages($groupId)
     {
-        return Message::where('group_id', $groupId)->get();
+        return Message::with('user')->where('group_id', $groupId)->get();
     }
 
     public function sendGroupMessage(Request $request)

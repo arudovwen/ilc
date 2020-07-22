@@ -753,6 +753,10 @@ var Explore = function Explore() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/explore */ "./resources/js/components/student/explore.vue"));
 };
 
+var ViewResource = function ViewResource() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/viewResource */ "./resources/js/components/student/viewResource.vue"));
+};
+
 var Library = function Library() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/library */ "./resources/js/components/student/library.vue"));
 };
@@ -1232,6 +1236,13 @@ var routes = [{
     path: "explore",
     component: Explore,
     name: "Explore",
+    meta: {
+      typeStudent: true
+    }
+  }, {
+    path: "resource/view/:id",
+    component: ViewResource,
+    name: "ViewResource",
     meta: {
       typeStudent: true
     }

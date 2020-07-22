@@ -2,12 +2,12 @@
   <div class="body">
     <h3 class="text-center mb-4">Available Resources</h3>
     <div class="main-content">
-      <div v-for="(item,idx) in resources" :key="idx" class="mb-3">
+      <div v-for="(item,idx) in resources" :key="idx" class="mb-3" @click="gotoHer(item.id)">
         <div class="top_box d-flex justify-content-between align-items-center p-3">
           <p class="m-0 toCaps">{{item.module}}</p>
           <div class="d-flex align-items-center">
             <p class="m-0 mr-5 toCaps">{{item.subject}}</p>
-            <i class="fa fa-plus-circle" @click="view(idx)" aria-hidden="true"></i>
+            <i class="fa fa-plus-circle"  aria-hidden="true"></i>
           </div>
         </div>
         <div class="py-2 px-3 border" v-if="opened.includes(idx)">
@@ -48,6 +48,9 @@ export default {
     this.getResources();
   },
   methods: {
+    gotoHer(id){
+      this.$router.push(`/student/resource/view/${id}`)
+    },
     addtolibrary(id) {
       let data = {
         id: this.resources[id].id,

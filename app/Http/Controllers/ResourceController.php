@@ -8,7 +8,9 @@ use App\Resource;
 use App\Notification;
 use Illuminate\Http\Request;
 use App\Events\ResourceAdded;
+use App\Http\Resources\Syllabus;
 use Illuminate\Support\Facades\DB;
+use App\Http\Resources\SyllabusCurriculumResource;
 
 class ResourceController extends Controller
 {
@@ -91,14 +93,16 @@ class ResourceController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource.where('school_id',$resource->school_id)->where('myclass', $resource->level)
      *
      * @param  \App\Resource  $resource
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        return Resource::find($id);
+        $resource = Resource::find($id);
+    
+        return  new SyllabusCurriculumResource($resource);
     }
 
     /**

@@ -105,6 +105,7 @@ __webpack_require__.r(__webpack_exports__);
                 _this.spin = false;
                 typeStudent.id = res.data.id;
                 typeStudent.email = res.data.email;
+                typeStudent.level = res.data.student_level;
                 typeStudent.name = res.data.name;
                 typeStudent.school_id = res.data.school_id;
                 typeStudent.school = res.data.school;

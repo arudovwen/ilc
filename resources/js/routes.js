@@ -196,6 +196,10 @@ const Explore = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/student/explore"
     );
+    const ViewResource = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/student/viewResource"
+    );
 const Library = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/student/library"
@@ -710,6 +714,14 @@ export const routes = [
                 path: "explore",
                 component: Explore,
                 name: "Explore",
+                meta: {
+                    typeStudent: true
+                }
+            },
+            {
+                path: "resource/view/:id",
+                component: ViewResource,
+                name: "ViewResource",
                 meta: {
                     typeStudent: true
                 }

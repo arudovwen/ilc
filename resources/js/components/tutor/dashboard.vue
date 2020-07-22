@@ -32,7 +32,8 @@ export default {
 .side{
     width: 15%;
     height: 100vh;
-    background: chartreuse;
+    background: #0a4065;
+    color:white;
 }
 .main{
     width:85%;

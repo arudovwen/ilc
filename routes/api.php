@@ -55,6 +55,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('clear-user-notifications/{id}', 'NotificationController@updateStatus');
 
     Route::get('student-resources', 'ResourceController@getResources');
+    Route::get('student-resource/{id}', 'ResourceController@show');
 });
 
 Route::middleware('auth:tutor')->group(function () {

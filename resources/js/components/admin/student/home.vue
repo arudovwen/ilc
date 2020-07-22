@@ -176,7 +176,7 @@ export default {
           })
           .then(res => {
             if (res.status == 200) {
-              this.getTutors();
+             this.getStudents();
             }
           });
       }

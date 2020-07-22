@@ -47,17 +47,16 @@ export default {
       count: 0
     };
   },
-  created() {
+  mounted() {
     Echo.private("group-created" + this.$props.tutor.id).listen(
       "GroupCreated",
       e => {
          this.getNotifications();
       }
     );
+     this.getNotifications();
   },
-  mounted() {
-    this.getNotifications();
-  },
+  
   watch: {
     $route: "reset"
   },

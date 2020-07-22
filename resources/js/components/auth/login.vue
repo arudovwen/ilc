@@ -114,6 +114,7 @@ export default {
                     } else {
                       this.$toasted.info("Redirecting to dashboard..");
                       this.$router.push("/student");
+                      
                     }
                   }
                 })

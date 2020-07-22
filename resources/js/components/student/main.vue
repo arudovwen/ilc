@@ -47,7 +47,7 @@ export default {
       count: 0
     };
   },
-  created() {
+  mounted() {
     Echo.private("group-subscribed" + this.$props.student.id).listen(
       "GroupSubscribed",
       e => {

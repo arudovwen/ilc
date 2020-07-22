@@ -3263,7 +3263,7 @@ __webpack_require__.r(__webpack_exports__);
           }
         }).then(function (res) {
           if (res.status == 200) {
-            _this5.getTutors();
+            _this5.getStudents();
           }
         });
       }
@@ -7012,7 +7012,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 var login = function login() {
-  return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./login */ "./resources/js/components/auth/login.vue"));
+  return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./login */ "./resources/js/components/auth/login.vue"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -9609,6 +9609,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+var _props$data$mounted$m;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -9648,7 +9652,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({
+/* harmony default export */ __webpack_exports__["default"] = (_props$data$mounted$m = {
   props: ["student"],
   data: function data() {
     return {
@@ -9657,7 +9661,7 @@ __webpack_require__.r(__webpack_exports__);
       count: 0
     };
   },
-  created: function created() {
+  mounted: function mounted() {
     var _this = this;
 
     Echo["private"]("group-subscribed" + this.$props.student.id).listen("GroupSubscribed", function (e) {
@@ -9671,73 +9675,70 @@ __webpack_require__.r(__webpack_exports__);
 
       _this.getNotifications();
     });
-  },
-  mounted: function mounted() {
-    this.getNotifications();
-  },
-  watch: {
-    $route: "reset"
-  },
-  methods: {
-    initialLoad: function initialLoad() {
-      axios.get("/api/student-group", {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {}
-      });
-    },
-    reset: function reset() {
-      this.showNotification = false;
-    },
-    toggleNotification: function toggleNotification() {
-      this.showNotification = !this.showNotification;
-      this.count = 0;
-
-      if (!this.showNotification) {
-        this.clearNotifications();
-      }
-    },
-    clearNotifications: function clearNotifications() {
-      var _this2 = this;
-
-      axios.get("/api/clear-user-notifications/".concat(this.$props.student.id), {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this2.getNotifications();
-
-          _this2.count = 0;
-        }
-      });
-    },
-    getNotifications: function getNotifications() {
-      var _this3 = this;
-
-      axios.get("/api/user-notifications/".concat(this.$props.student.id), {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          var count = [];
-          _this3.notifications = res.data;
-
-          _this3.notifications.forEach(function (item) {
-            if (!item.status) {
-              count.push(item);
-            }
-          });
-
-          _this3.count = count.length;
-        }
-      });
-    }
   }
-});
+}, _defineProperty(_props$data$mounted$m, "mounted", function mounted() {
+  this.getNotifications();
+}), _defineProperty(_props$data$mounted$m, "watch", {
+  $route: "reset"
+}), _defineProperty(_props$data$mounted$m, "methods", {
+  initialLoad: function initialLoad() {
+    axios.get("/api/student-group", {
+      headers: {
+        Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+      }
+    }).then(function (res) {
+      if (res.status == 200) {}
+    });
+  },
+  reset: function reset() {
+    this.showNotification = false;
+  },
+  toggleNotification: function toggleNotification() {
+    this.showNotification = !this.showNotification;
+    this.count = 0;
+
+    if (!this.showNotification) {
+      this.clearNotifications();
+    }
+  },
+  clearNotifications: function clearNotifications() {
+    var _this2 = this;
+
+    axios.get("/api/clear-user-notifications/".concat(this.$props.student.id), {
+      headers: {
+        Authorization: "Bearer ".concat(this.$props.student.access_token)
+      }
+    }).then(function (res) {
+      if (res.status == 200) {
+        _this2.getNotifications();
+
+        _this2.count = 0;
+      }
+    });
+  },
+  getNotifications: function getNotifications() {
+    var _this3 = this;
+
+    axios.get("/api/user-notifications/".concat(this.$props.student.id), {
+      headers: {
+        Authorization: "Bearer ".concat(this.$props.student.access_token)
+      }
+    }).then(function (res) {
+      if (res.status == 200) {
+        var count = [];
+        _this3.notifications = res.data;
+
+        _this3.notifications.forEach(function (item) {
+          if (!item.status) {
+            count.push(item);
+          }
+        });
+
+        _this3.count = count.length;
+      }
+    });
+  }
+}), _props$data$mounted$m);
 
 /***/ }),
 
@@ -10493,7 +10494,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 var Login = function Login() {
-  return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./login */ "./resources/js/components/tutor/auth/login.vue"));
+  return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./login */ "./resources/js/components/tutor/auth/login.vue"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -11167,14 +11168,12 @@ __webpack_require__.r(__webpack_exports__);
       count: 0
     };
   },
-  created: function created() {
+  mounted: function mounted() {
     var _this = this;
 
     Echo["private"]("group-created" + this.$props.tutor.id).listen("GroupCreated", function (e) {
       _this.getNotifications();
     });
-  },
-  mounted: function mounted() {
     this.getNotifications();
   },
   watch: {

@@ -90,9 +90,11 @@ __webpack_require__.r(__webpack_exports__);
 
               if (res.data.verify == 1) {
                 typeAdmin.email = res.data.email;
+                typeAdmin.abbreviation = res.data.abbreviation;
                 typeAdmin.name = res.data.name;
                 typeAdmin.school_id = res.data.school_id;
                 typeAdmin.school = res.data.school;
+                typeAdmin.role = res.data.role;
                 localStorage.setItem("typeAdmin", JSON.stringify(typeAdmin));
 
                 _this.$toasted.success("Logged in Sucessfully", {

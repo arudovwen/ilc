@@ -2470,7 +2470,100 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["admin"],
+  data: function data() {
+    return {
+      tutors: [],
+      students: [],
+      classes: [],
+      syllabus: [],
+      curriculum: [],
+      fields: ["class", "subject"],
+      field: ["class"]
+    };
+  },
+  mounted: function mounted() {
+    this.getStudents();
+    this.getClasses();
+    this.getTutors();
+    this.getSyllabus();
+    this.getCurriculum();
+  },
+  methods: {
+    getStudents: function getStudents() {
+      var _this = this;
+
+      axios.get("/api/admin-get-students", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.admin.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this.students = res.data;
+        }
+      });
+    },
+    getCurriculum: function getCurriculum() {
+      var _this2 = this;
+
+      axios.get("/api/curriculum", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.admin.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this2.curriculum = res.data;
+        }
+      });
+    },
+    getTutors: function getTutors() {
+      var _this3 = this;
+
+      axios.get("/api/tutor", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.admin.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this3.tutors = res.data;
+        }
+      });
+    },
+    getClasses: function getClasses() {
+      var _this4 = this;
+
+      axios.get("/api/classes", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.admin.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this4.classes = res.data;
+        }
+      });
+    },
+    getSyllabus: function getSyllabus() {
+      var _this5 = this;
+
+      axios.get("/api/syllabus", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.admin.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this5.syllabus = res.data;
+        }
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -2538,9 +2631,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
 //
 //
 //
@@ -3233,9 +3323,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
 //
 //
 //
@@ -10075,7 +10162,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-!(function webpackMissingModule() { var e = new Error("Cannot find module 'vue-pdf'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var vue_pdf__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-pdf */ "./node_modules/vue-pdf/src/vuePdfNoSss.vue");
 //
 //
 //
@@ -10166,7 +10253,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   components: {
-    pdf: !(function webpackMissingModule() { var e = new Error("Cannot find module 'vue-pdf'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())
+    pdf: vue_pdf__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   created: function created() {
     this.getLibrary();
@@ -20889,7 +20976,11 @@ var render = function() {
                           "div",
                           { staticClass: "inner-top-cards-text pl-2" },
                           [
-                            _c("p", [_c("strong", [_vm._v("200+")])]),
+                            _c("p", [
+                              _c("strong", [
+                                _vm._v(_vm._s(_vm.tutors.length) + "+")
+                              ])
+                            ]),
                             _vm._v(" "),
                             _c("p", [_vm._v("Teachers")])
                           ]
@@ -20917,9 +21008,13 @@ var render = function() {
                           "div",
                           { staticClass: "inner-top-cards-text pl-2" },
                           [
-                            _c("p", [_c("strong", [_vm._v("200+")])]),
+                            _c("p", [
+                              _c("strong", [
+                                _vm._v(_vm._s(_vm.students.length) + "+")
+                              ])
+                            ]),
                             _vm._v(" "),
-                            _c("p", [_vm._v("Teachers")])
+                            _c("p", [_vm._v("Students")])
                           ]
                         )
                       ])
@@ -20945,9 +21040,13 @@ var render = function() {
                           "div",
                           { staticClass: "inner-top-cards-text pl-2" },
                           [
-                            _c("p", [_c("strong", [_vm._v("200+")])]),
+                            _c("p", [
+                              _c("strong", [
+                                _vm._v(_vm._s(_vm.classes.length) + "+")
+                              ])
+                            ]),
                             _vm._v(" "),
-                            _c("p", [_vm._v("Teachers")])
+                            _c("p", [_vm._v("Classes")])
                           ]
                         )
                       ])
@@ -21063,24 +21162,49 @@ var render = function() {
                         "div",
                         { staticClass: "note-card-top" },
                         [
-                          _c("h6", [_vm._v("Notes")]),
+                          _c("h6", [_vm._v("Syllabus")]),
                           _vm._v(" "),
                           _c(
-                            "b-button",
-                            { attrs: { variant: "outline-primary" } },
-                            [_vm._v("Add Note")]
+                            "router-link",
+                            {
+                              staticClass: "mb-2",
+                              attrs: { to: "/admin/syllabus" }
+                            },
+                            [
+                              _c(
+                                "b-button",
+                                { attrs: { variant: "outline-primary" } },
+                                [_vm._v("Add Syllabus")]
+                              )
+                            ],
+                            1
                           )
                         ],
                         1
                       ),
                       _vm._v(" "),
-                      _c("div", { staticClass: "note-card-details" }, [
-                        _c("p", [
-                          _vm._v(
-                            "You currently have no note create notes to add"
-                          )
-                        ])
-                      ])
+                      _c(
+                        "div",
+                        { staticClass: "note-card-details" },
+                        [
+                          _c("b-table", {
+                            attrs: {
+                              items: _vm.syllabus,
+                              fields: _vm.fields,
+                              hover: ""
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "cell(class)",
+                                fn: function(data) {
+                                  return [_vm._v(_vm._s(data.item.myclass))]
+                                }
+                              }
+                            ])
+                          })
+                        ],
+                        1
+                      )
                     ])
                   ],
                   1
@@ -21097,24 +21221,55 @@ var render = function() {
                         "div",
                         { staticClass: "note-card-top" },
                         [
-                          _c("h6", [_vm._v("Notes")]),
+                          _c("h6", [_vm._v("Curriculum")]),
                           _vm._v(" "),
                           _c(
-                            "b-button",
-                            { attrs: { variant: "outline-primary" } },
-                            [_vm._v("Add Task")]
+                            "router-link",
+                            {
+                              staticClass: "mb-2",
+                              attrs: { to: "/admin/curriculum/create" }
+                            },
+                            [
+                              _c(
+                                "b-button",
+                                { attrs: { variant: "outline-primary" } },
+                                [_vm._v("Add Curriculum")]
+                              )
+                            ],
+                            1
                           )
                         ],
                         1
                       ),
                       _vm._v(" "),
-                      _c("div", { staticClass: "note-card-details" }, [
-                        _c("p", [
-                          _vm._v(
-                            "You currently have no Task create notes to add"
-                          )
-                        ])
-                      ])
+                      _c(
+                        "div",
+                        { staticClass: "note-card-details" },
+                        [
+                          _c("b-table", {
+                            attrs: {
+                              items: _vm.curriculum,
+                              fields: _vm.field,
+                              hover: ""
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "cell(class)",
+                                fn: function(data) {
+                                  return [
+                                    _vm._v(
+                                      "\n       " +
+                                        _vm._s(data.item.subject) +
+                                        "\n      "
+                                    )
+                                  ]
+                                }
+                              }
+                            ])
+                          })
+                        ],
+                        1
+                      )
                     ])
                   ],
                   1
@@ -21195,7 +21350,10 @@ var render = function() {
                         { attrs: { href: "#" } },
                         [
                           _c("b-avatar", {
-                            attrs: { src: "https://placekitten.com/300/300" }
+                            attrs: {
+                              size: "2em",
+                              src: "https://placekitten.com/300/300"
+                            }
                           })
                         ],
                         1
@@ -21203,7 +21361,9 @@ var render = function() {
                       _vm._v(" "),
                       _c("b-nav-item", [
                         _c("div", { staticClass: "user-name" }, [
-                          _c("h6", [_vm._v("ADMIN")])
+                          _c("h6", { staticClass: "toCaps" }, [
+                            _vm._v(_vm._s(_vm.admin.name))
+                          ])
                         ])
                       ]),
                       _vm._v(" "),
@@ -21263,7 +21423,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "admin-dashboard-logo text-center" }, [
-      _c("p", [_vm._v(" " + _vm._s(_vm.admin.school))]),
+      _c("p", [_vm._v(" " + _vm._s(_vm.admin.abbreviation))]),
       _vm._v(" "),
       _c("p", [_vm._v("Schools")])
     ]),
@@ -21286,7 +21446,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("router-link", { attrs: { to: "/admin" } }, [
+          _c("router-link", { attrs: { to: "/administrators" } }, [
             _c("div", { staticClass: "nav-item" }, [
               _c("span", [
                 _c("img", {
@@ -21299,7 +21459,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("router-link", { attrs: { to: "/admin" } }, [
+          _c("router-link", { attrs: { to: "/admin/tutors" } }, [
             _c("div", { staticClass: "nav-item" }, [
               _c("span", [
                 _c("img", {
@@ -21312,7 +21472,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("router-link", { attrs: { to: "/admin" } }, [
+          _c("router-link", { attrs: { to: "/admin/students" } }, [
             _c("div", { staticClass: "nav-item" }, [
               _c("span", [
                 _c("img", {
@@ -21325,7 +21485,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("router-link", { attrs: { to: "/admin" } }, [
+          _c("router-link", { attrs: { to: "/admin/classes/years" } }, [
             _c("div", { staticClass: "nav-item" }, [
               _c("span", [
                 _c("img", {
@@ -21338,7 +21498,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("router-link", { attrs: { to: "/admin" } }, [
+          _c("router-link", { attrs: { to: "/admin/courses" } }, [
             _c("div", { staticClass: "nav-item" }, [
               _c("span", [
                 _c("img", {
@@ -21351,14 +21511,69 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("li", { on: { click: _vm.logout } }, [_vm._v("Logout")])
+          _c("router-link", { attrs: { to: "/admin/curriculum/home" } }, [
+            _c("div", { staticClass: "nav-item" }, [
+              _c("span", [
+                _c("img", {
+                  staticClass: "img-fluid",
+                  attrs: { src: "/images/subject-svg.png", alt: "" }
+                })
+              ]),
+              _vm._v(" "),
+              _c("li", [_vm._v("Curriculum")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("router-link", { attrs: { to: "/admin/syllabus/home" } }, [
+            _c("div", { staticClass: "nav-item" }, [
+              _c("span", [
+                _c("img", {
+                  staticClass: "img-fluid",
+                  attrs: { src: "/images/subject-svg.png", alt: "" }
+                })
+              ]),
+              _vm._v(" "),
+              _c("li", [_vm._v("Syllabus")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("router-link", { attrs: { to: "/admin/time-table/home" } }, [
+            _c("div", { staticClass: "nav-item" }, [
+              _c("span", [
+                _c("img", {
+                  staticClass: "img-fluid",
+                  attrs: { src: "/images/subject-svg.png", alt: "" }
+                })
+              ]),
+              _vm._v(" "),
+              _c("li", [_vm._v("Time Table")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "nav-item", on: { click: _vm.logout } }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("li", [_vm._v("Logout")])
+          ])
         ],
         1
       )
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", [
+      _c("img", {
+        staticClass: "img-fluid",
+        attrs: { src: "/images/subject-svg.png", alt: "" }
+      })
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -22253,12 +22468,12 @@ var render = function() {
           { attrs: { to: "/admin/student/assign" } },
           [
             _c("b-button", { staticClass: "shadow-sm", attrs: { block: "" } }, [
-              _vm._v("\n         Students\n         "),
+              _vm._v("\n        Students\n        "),
               _c("i", {
                 staticClass: "fa fa-arrows-h mx-2",
                 attrs: { "aria-hidden": "true" }
               }),
-              _vm._v("\nSubjects\n       ")
+              _vm._v("\n        Subjects\n      ")
             ])
           ],
           1
@@ -22269,12 +22484,12 @@ var render = function() {
           { attrs: { to: "/admin/student/assign/class" } },
           [
             _c("b-button", { staticClass: "shadow-sm", attrs: { block: "" } }, [
-              _vm._v("\n         Students\n         "),
+              _vm._v("\n        Students\n        "),
               _c("i", {
                 staticClass: "fa fa-arrows-h mx-2",
                 attrs: { "aria-hidden": "true" }
               }),
-              _vm._v("\nClass\n       ")
+              _vm._v("\n        Class\n      ")
             ])
           ],
           1
@@ -22287,7 +22502,7 @@ var render = function() {
             attrs: { block: "" },
             on: { click: _vm.multiDrop }
           },
-          [_vm._v("\n      Multi-Drop\n     ")]
+          [_vm._v("Multi-Drop")]
         )
       ],
       1
@@ -22303,7 +22518,7 @@ var render = function() {
           _c(
             "b-button",
             {
-              staticClass: " shadow-sm",
+              staticClass: "shadow-sm",
               on: {
                 click: function($event) {
                   return _vm.selectClass("")
@@ -22318,7 +22533,7 @@ var render = function() {
               "b-button",
               {
                 key: idx,
-                staticClass: " shadow-sm",
+                staticClass: "shadow-sm",
                 on: {
                   click: function($event) {
                     return _vm.selectClass(item.class_name)
@@ -22386,7 +22601,7 @@ var render = function() {
                     },
                     [
                       _c("i", { staticClass: "fas fa-eye" }),
-                      _vm._v("View\n       ")
+                      _vm._v("View\n        ")
                     ]
                   ),
                   _vm._v(" "),
@@ -22405,7 +22620,7 @@ var render = function() {
                         staticClass: "fa fa-minus-circle",
                         attrs: { "aria-hidden": "true" }
                       }),
-                      _vm._v(" Drop\n       ")
+                      _vm._v(" Drop\n        ")
                     ]
                   ),
                   _vm._v(" "),
@@ -22420,7 +22635,7 @@ var render = function() {
                     },
                     [
                       _c("i", { staticClass: "fas fa-edit" }),
-                      _vm._v("Update\n       ")
+                      _vm._v("Update\n        ")
                     ]
                   )
                 ]
@@ -44936,6 +45151,61 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_uploadComponent_vue_vue_type_template_id_15764681_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ 1:
+/*!**********************!*\
+  !*** zlib (ignored) ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 2:
+/*!********************!*\
+  !*** fs (ignored) ***!
+  \********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 3:
+/*!**********************!*\
+  !*** http (ignored) ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 4:
+/*!***********************!*\
+  !*** https (ignored) ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 5:
+/*!*********************!*\
+  !*** url (ignored) ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
 
 /***/ })
 

@@ -321,7 +321,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_chartkick__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-chartkick */ "./node_modules/vue-chartkick/dist/vue-chartkick.esm.js");
 /* harmony import */ var chart_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/dist/Chart.js");
 /* harmony import */ var chart_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(chart_js__WEBPACK_IMPORTED_MODULE_8__);
-!(function webpackMissingModule() { var e = new Error("Cannot find module 'vue-chat-scroll'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var vue_chat_scroll__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue-chat-scroll */ "./node_modules/vue-chat-scroll/dist/vue-chat-scroll.js");
+/* harmony import */ var vue_chat_scroll__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(vue_chat_scroll__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var swiper_css_swiper_css__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! swiper/css/swiper.css */ "./node_modules/swiper/css/swiper.css");
 /* harmony import */ var swiper_css_swiper_css__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(swiper_css_swiper_css__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var bootstrap_dist_css_bootstrap_css__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! bootstrap/dist/css/bootstrap.css */ "./node_modules/bootstrap/dist/css/bootstrap.css");
@@ -355,7 +356,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(!(function webpackMissingModule() { var e = new Error("Cannot find module 'vue-chat-scroll'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_chat_scroll__WEBPACK_IMPORTED_MODULE_9___default.a);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_waves_button__WEBPACK_IMPORTED_MODULE_5___default.a, {
   name: 'waves',
   duration: 500,

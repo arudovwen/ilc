@@ -79,9 +79,11 @@ export default {
                   this.spin = false;
                   if (res.data.verify == 1) {
                     typeAdmin.email = res.data.email;
+                     typeAdmin.abbreviation = res.data.abbreviation;
                     typeAdmin.name = res.data.name;
                     typeAdmin.school_id = res.data.school_id;
                     typeAdmin.school = res.data.school;
+                     typeAdmin.role = res.data.role;
                     localStorage.setItem(
                       "typeAdmin",
                       JSON.stringify(typeAdmin)

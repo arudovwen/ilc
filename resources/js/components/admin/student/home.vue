@@ -9,28 +9,26 @@
         <b-button block class="shadow-sm">
           Students
           <i class="fa fa-arrows-h mx-2" aria-hidden="true"></i>
- Subjects
+          Subjects
         </b-button>
       </router-link>
       <router-link to="/admin/student/assign/class">
         <b-button block class="shadow-sm">
           Students
           <i class="fa fa-arrows-h mx-2" aria-hidden="true"></i>
- Class
+          Class
         </b-button>
       </router-link>
-      <b-button block class="shadow-sm" @click="multiDrop">
-       Multi-Drop
-      </b-button>
+      <b-button block class="shadow-sm" @click="multiDrop">Multi-Drop</b-button>
     </nav>
 
     <div class="classes my-5">
       <h4 class="mb-3">Class List</h4>
 
       <div class="class_list">
-        <b-button class=" shadow-sm" @click="selectClass('')">All</b-button>
+        <b-button class="shadow-sm" @click="selectClass('')">All</b-button>
         <b-button
-          class=" shadow-sm"
+          class="shadow-sm"
           @click="selectClass(item.class_name)"
           v-for="(item,idx) in allClass"
           :key="idx"
@@ -41,28 +39,27 @@
       <h4 class="toCaps mb-4">Showing : {{current== ''? 'All': current.toLowerCase()}}</h4>
 
       <b-table :items="sortedStudents" :fields="fields" hover bordered responsive>
-       <template v-slot:table-busy>
-        <div class="text-center my-2">
-          <b-spinner class="align-middle"></b-spinner>
-          <strong>Loading...</strong>
-        </div>
-      </template>
-      <template v-slot:cell(actions)="data">
-        <span @click="view(item.id)" class="mr-3">
-          <i class="fas fa-eye"></i>View
-        </span>
-        <span class="mr-3" @click="drop(data.item.id)">
-          <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
-        </span>
-        <span @click="edit(data.item.id)">
-          <i class="fas fa-edit"></i>Update
-        </span>
-      </template>
-         <template v-slot:cell(drop)="data">
-        <b-form-checkbox :value="data.item.id" v-model="items"></b-form-checkbox>
-      </template>
+        <template v-slot:table-busy>
+          <div class="text-center my-2">
+            <b-spinner class="align-middle"></b-spinner>
+            <strong>Loading...</strong>
+          </div>
+        </template>
+        <template v-slot:cell(actions)="data">
+          <span @click="view(item.id)" class="mr-3">
+            <i class="fas fa-eye"></i>View
+          </span>
+          <span class="mr-3" @click="drop(data.item.id)">
+            <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
+          </span>
+          <span @click="edit(data.item.id)">
+            <i class="fas fa-edit"></i>Update
+          </span>
+        </template>
+        <template v-slot:cell(drop)="data">
+          <b-form-checkbox :value="data.item.id" v-model="items"></b-form-checkbox>
+        </template>
       </b-table>
-
     </div>
   </div>
 </template>
@@ -73,18 +70,18 @@ export default {
   props: ["admin"],
   data() {
     return {
-      busy:true,
+      busy: true,
       students: [],
       items: [],
       item: false,
       allClass: [],
       current: "",
-       fields: [
+      fields: [
         "student_id",
         { key: "name", sortable: true },
         "email",
         { key: "gender", sortable: true },
-         { key: "student_level", sortable: true },
+        { key: "student_level", sortable: true },
         "phone",
         "actions",
         "drop"
@@ -161,7 +158,7 @@ export default {
         .then(res => {
           if (res.status == 200) {
             this.students = res.data;
-            this.busy = false
+            this.busy = false;
           }
         });
     },
@@ -176,7 +173,7 @@ export default {
           })
           .then(res => {
             if (res.status == 200) {
-             this.getStudents();
+              this.getStudents();
             }
           });
       }

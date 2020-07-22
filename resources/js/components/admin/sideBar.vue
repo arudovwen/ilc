@@ -1,27 +1,24 @@
 <template>
   <div>
     <div class="admin-dashboard-logo text-center">
-       <p> {{admin.school}}</p>
+       <p> {{admin.abbreviation}}</p>
        <p>Schools</p>
     </div>
     <nav class="">
       <ul class="admin-dashboard-nav">
       <router-link to="/admin"> <div class="nav-item"><span><img src="/images/size-1.png" class="img-fluid" alt=""></span>  <li>Dashboard</li></div></router-link>
-       <router-link to="/admin"> <div class="nav-item"><span><img src="/images/admin-svg.png" class="img-fluid" alt=""></span>  <li>Admin</li></div></router-link>
-        <router-link to="/admin"> <div class="nav-item"><span><img src="/images/teacher-svg.png" class="img-fluid" alt=""></span>  <li>Teachers</li></div></router-link>
-         <router-link to="/admin"> <div class="nav-item"><span><img src="/images/stu-svg.png" class="img-fluid" alt=""></span>  <li>Students</li></div></router-link>
-          <router-link to="/admin"> <div class="nav-item"><span><img src="/images/class-svg.png" class="img-fluid" alt=""></span>  <li>Classes</li></div></router-link>
-           <router-link to="/admin"> <div class="nav-item"><span><img src="/images/subject-svg.png" class="img-fluid" alt=""></span>  <li>Subject</li></div></router-link>
-       <!-- <router-link to="/admin/administrators"> <li>Administrators</li></router-link>
-       <router-link to="/admin/tutors"> <li>Tutors</li></router-link>
-       <router-link to="/admin/students"> <li>Students</li></router-link>
-         <router-link to="/admin/classes/years"> <li>Classes & Years</li></router-link>
-            <router-link to="/admin/courses"> <li>Courses / Subjects</li></router-link>
-              <router-link to="/admin/curriculum/home"> <li>Curriculum </li></router-link>
-              <router-link to="/admin/syllabus/home"> <li>Syllabus </li></router-link>
-                 <router-link to="/admin/time-table/home"> <li>Time Table </li></router-link> -->
+       <router-link to="/administrators"> <div class="nav-item"><span><img src="/images/admin-svg.png" class="img-fluid" alt=""></span>  <li>Admin</li></div></router-link>
+        <router-link to="/admin/tutors"> <div class="nav-item"><span><img src="/images/teacher-svg.png" class="img-fluid" alt=""></span>  <li>Teachers</li></div></router-link>
+         <router-link to="/admin/students"> <div class="nav-item"><span><img src="/images/stu-svg.png" class="img-fluid" alt=""></span>  <li>Students</li></div></router-link>
+          <router-link to="/admin/classes/years"> <div class="nav-item"><span><img src="/images/class-svg.png" class="img-fluid" alt=""></span>  <li>Classes</li></div></router-link>
+           <router-link to="/admin/courses"> <div class="nav-item"><span><img src="/images/subject-svg.png" class="img-fluid" alt=""></span>  <li>Subject</li></div></router-link>
+              <router-link to="/admin/curriculum/home"> <div class="nav-item"><span><img src="/images/subject-svg.png" class="img-fluid" alt=""></span>  <li>Curriculum</li></div></router-link>
+                 <router-link to="/admin/syllabus/home"> <div class="nav-item"><span><img src="/images/subject-svg.png" class="img-fluid" alt=""></span>  <li>Syllabus</li></div></router-link>
+                    <router-link to="/admin/time-table/home"> <div class="nav-item"><span><img src="/images/subject-svg.png" class="img-fluid" alt=""></span>  <li>Time Table</li></div></router-link>
+                    <div class="nav-item" @click="logout"><span ><img src="/images/subject-svg.png" class="img-fluid" alt=""></span>        <li >Logout</li></div>
+     
       
-        <li @click="logout">Logout</li>
+  
       </ul>
     </nav>
   </div>

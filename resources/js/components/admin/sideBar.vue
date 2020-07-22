@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="side-bar">
     <div class="admin-dashboard-logo text-center">
        <p> {{admin.abbreviation}}</p>
        <p>Schools</p>
@@ -15,10 +15,11 @@
               <router-link to="/admin/curriculum/home"> <div class="nav-item"><span><img src="/images/subject-svg.png" class="img-fluid" alt=""></span>  <li>Curriculum</li></div></router-link>
                  <router-link to="/admin/syllabus/home"> <div class="nav-item"><span><img src="/images/subject-svg.png" class="img-fluid" alt=""></span>  <li>Syllabus</li></div></router-link>
                     <router-link to="/admin/time-table/home"> <div class="nav-item"><span><img src="/images/subject-svg.png" class="img-fluid" alt=""></span>  <li>Time Table</li></div></router-link>
-                    <div class="nav-item" @click="logout"><span ><img src="/images/subject-svg.png" class="img-fluid" alt=""></span>        <li >Logout</li></div>
+                    <div class="nav-item" @click="logout"><span><img src="/images/log-out-svg.png" alt=""></span><li >Logout</li></div>
      
       
   
+       
       </ul>
     </nav>
   </div>

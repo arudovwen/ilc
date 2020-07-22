@@ -2658,6 +2658,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -10162,7 +10163,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_pdf__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-pdf */ "./node_modules/vue-pdf/src/vuePdfNoSss.vue");
+/* harmony import */ var vue_pdf__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-pdf */ "./node_modules/vue-pdf/src/vuePdfNoSss.vue");
 //
 //
 //
@@ -10253,7 +10254,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   components: {
-    pdf: vue_pdf__WEBPACK_IMPORTED_MODULE_1__["default"]
+    pdf: vue_pdf__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   created: function created() {
     this.getLibrary();
@@ -13621,7 +13622,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.my-container[data-v-3a73534e] {\n  widows: 100%;\n}\n.side[data-v-3a73534e] {\n  width: 20%;\n  height: 100vh;\n  background: #ffffff;\n  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);\n}\n.main[data-v-3a73534e] {\n  width: 80%;\n  height: 100vh;\n}\n", ""]);
+exports.push([module.i, "\n.my-container[data-v-3a73534e] {\n  width: 100%;\n  display: flex;\n}\n.side[data-v-3a73534e] {\n width: 20%;\n    height: 100vh;\n    background: #ffffff;\n    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);\n    position: fixed;\n}\n.main[data-v-3a73534e] {\n  width: 80%;\n  height: 100vh;\n  position: absolute;\n  margin-left: 266px;\n}\n", ""]);
 
 // exports
 
@@ -21421,7 +21422,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "side-bar" }, [
     _c("div", { staticClass: "admin-dashboard-logo text-center" }, [
       _c("p", [_vm._v(" " + _vm._s(_vm.admin.abbreviation))]),
       _vm._v(" "),
@@ -21552,7 +21553,6 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "nav-item", on: { click: _vm.logout } }, [
             _vm._m(0),
-            _vm._v(" "),
             _c("li", [_vm._v("Logout")])
           ])
         ],
@@ -21567,10 +21567,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", [
-      _c("img", {
-        staticClass: "img-fluid",
-        attrs: { src: "/images/subject-svg.png", alt: "" }
-      })
+      _c("img", { attrs: { src: "/images/log-out-svg.png", alt: "" } })
     ])
   }
 ]

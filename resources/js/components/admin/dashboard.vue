@@ -19,17 +19,21 @@ export default {
 
 <style scoped>
 .my-container {
-  widows: 100%;
+  width: 100%;
+  display: flex;
 }
 .side {
-  width: 20%;
-  height: 100vh;
-  background: #ffffff;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+ width: 20%;
+    height: 100vh;
+    background: #ffffff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    position: fixed;
   
 }
 .main {
   width: 80%;
   height: 100vh;
+  position: absolute;
+  margin-left: 266px;
 }
 </style>

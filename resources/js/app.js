@@ -15,6 +15,8 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import VueAwesomeSwiper from "vue-awesome-swiper";
 import VueWaves from 'vue-waves-button';
 import Toasted from 'vue-toasted';
+import Chartkick from 'vue-chartkick'
+import Chart from 'chart.js'
  
 
 import VueChatScroll from 'vue-chat-scroll'
@@ -52,6 +54,7 @@ Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 Vue.use(VueAwesomeSwiper /* { default options with global component } */);
 Vue.use(require('vue-moment'));
+Vue.use(Chartkick.use(Chart));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -35,11 +35,20 @@ version history: [location of file]
     --secondary-font-color: #002A06  ;
     --primary-btn: #008E3A;
     --body-font-color: #515151;
+    --admin-body-color: #F0F1F1;
 }
 
 
 body{
     overflow-x: hidden;
+}
+
+a{
+    text-decoration: none !important;
+}
+
+a:hover{
+    text-decoration: none !important;
 }
 
 .nav-link{
@@ -272,11 +281,11 @@ body{
     font-family: 'Montserrat';
     margin-top: 2.5rem;
 }
-form{
+.form-side form{
     margin-top: 2.5rem;
 }
 
-label{
+.form-side label{
     font-family: "Montserrat";
     font-weight: 500;
 }
@@ -284,7 +293,7 @@ label{
     margin: 15px 20px;
 }
 
-.form-control{
+.form-side .form-control{
     padding: 20px 15px !important;
     border: 1px solid #c4c4c4 !important;
 }
@@ -302,6 +311,144 @@ form .reg-btn{
     margin-left: 1.2rem;
 }
 
+
+
+/* admin dashboard  */
+
+
+.admin-dashboard-logo{
+    background-color: var(--admin-body-color) ;
+    font-family: "Montserrat";
+}
+
+.admin-dashboard-nav img{
+    width: 20px;
+    height: 20px;
+}
+.admin-dashboard-nav{
+    padding: 1.5rem;
+}
+.admin-dashboard-nav .nav-item{
+    display: flex;
+    padding: 10px;
+}
+.admin-dashboard-nav a:hover{
+    color: var(--primary-btn);
+}
+.nav-item li{
+    list-style: none;
+    color: #808080;
+    padding-left: 10px;
+}
+.dashboard-top-nav .bg-info{
+    background-color: var(--primary-btn) !important;
+}
+.dashboard-top-nav img{
+    width: 20px;
+    height: 20px;
+    padding-top: 2px;
+
+}
+
+.dashboard-top-nav .form-control{
+  background-color: rgba(128, 128, 128, 0.44);
+    border: none !important;
+}
+.dashboard-top-nav .form-control::placeholder{
+    color: #fff ;
+    font-family: "Montserrat";
+    padding: 10px;
+}
+.dashboard-top-nav .ml-auto .nav-item{
+    margin: 0;
+}
+
+.dashboard-top-nav .ml-auto{
+    padding-right: 20px;
+}
+
+.user-name h6{
+    color: #fff;
+    padding-top: 7px;
+    padding-right: 5px;
+}
+.admin-dashboard-top-cards .card{
+    box-shadow: 0px 4px 4px rgba(240, 241, 241, 0.25);
+    border-radius: 15px;
+    border: none;
+    padding: 10px;
+    margin: 10px;
+}
+.inner-top-cards{
+    display: flex;
+}
+.inner-top-cards img{
+    width: 50px;
+    height: 50px;
+    background-color: rgba(0, 142, 58, 0.4); 
+    border-radius: 50%;
+    padding: 10px;
+}
+.inner-top-cards-text p{
+    margin-bottom: 0;
+}
+.chart{
+margin: 1rem;
+background: #FFFFFF;
+box-shadow: 0px 4px 4px rgba(240, 241, 241, 0.25);
+border-radius: 15px;
+padding: 15px;
+}
+
+.dashboard-bottom-cards .card{
+    box-shadow: 0px 4px 4px rgba(240, 241, 241, 0.25);
+    border-radius: 15px;
+    height: 300px;
+}
+
+.bottom-card-details{
+    display: flex;
+    border-bottom: 1px solid #808080;
+    padding: 10px 2px
+}
+.bottom-card-details:last-child{
+    border-bottom: none;
+}
+.bottom-cards-text{
+    padding-left: 10px;
+    font-family: "Montserrat";
+}
+.bottom-cards-text p{
+    margin-bottom: 0;
+    font-weight: 600;
+}
+.bottom-cards-text span{
+    font-size: 8px;
+    background-color: rgba(128, 128, 128, 0.44);
+    padding: 5px 10px;
+    border-radius: 20px;
+    position: absolute;
+    right: 0;
+    margin-right: 16px;
+    font-weight: normal;
+}
+.bottom-card-link{
+    cursor: pointer;
+}
+
+.note-card-top{
+    display: flex;
+    justify-content: space-between;
+}
+.note-card-top .btn-outline-primary {
+    color: var(--primary-btn);
+    border-color: var(--primary-btn);
+}
+.note-card-top .btn-outline-primary:hover{
+    background-color: var(--primary-btn) !important;
+    color: #fff;
+    border-color: var(--primary-btn);
+}
 /* * {
     margin: 0;
     padding: 0;

@@ -33,11 +33,13 @@
     "dependencies": {
         "@tinymce/tinymce-vue": "^3.2.2",
         "bootstrap-vue": "^2.15.0",
+        "chart.js": "^2.9.3",
         "laravel-echo": "^1.8.0",
         "pusher-js": "^6.0.3",
         "swiper": "^5.3.8",
         "v-emoji-picker": "^2.2.0",
         "vue-awesome-swiper": "^4.1.1",
+        "vue-chartkick": "^0.6.0",
         "vue-moment": "^4.1.0",
         "vue-paystack": "^2.0.2",
         "vue-router": "^3.1.6",

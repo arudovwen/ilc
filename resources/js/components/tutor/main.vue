@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="shadow-sm p-3">
+    <!-- <nav class="shadow-sm p-3">
       <h5>Tutor Dashboard</h5>
       <div>
         <div id="notification">
@@ -29,7 +29,8 @@
           </div>
         </div>
       </div>
-    </nav>
+    </nav> -->
+    
     <transition name="slide-fade">
       <router-view :tutor="tutor"  class="semi-white"></router-view>
     </transition>

@@ -10322,6 +10322,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tutor"],
   data: function data() {
@@ -10416,6 +10417,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -31465,68 +31470,6 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("nav", { staticClass: "shadow-sm p-3" }, [
-        _c("h5", [_vm._v("Tutor Dashboard")]),
-        _vm._v(" "),
-        _c("div", [
-          _c("div", { attrs: { id: "notification" } }, [
-            _c(
-              "div",
-              { staticClass: "icon", on: { click: _vm.toggleNotification } },
-              [
-                _c("i", { staticClass: "fas fa-bell" }),
-                _vm._v(" "),
-                _vm.count > 0
-                  ? _c("div", { staticClass: "badge animated pulse" }, [
-                      _vm._v(_vm._s(_vm.count))
-                    ])
-                  : _vm._e()
-              ]
-            ),
-            _vm._v(" "),
-            _vm.showNotification
-              ? _c(
-                  "div",
-                  {
-                    staticClass:
-                      "notification-body animated slideInDown shadow-sm bg-white"
-                  },
-                  [
-                    _c("ul", { staticClass: "list-group" }, [
-                      _vm._m(0),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "main-notify" },
-                        _vm._l(_vm.notifications, function(item, idx) {
-                          return _c(
-                            "li",
-                            { key: idx, staticClass: "list-group-item" },
-                            [
-                              _c(
-                                "span",
-                                { class: { "text-muted": item.status } },
-                                [_vm._v(_vm._s(item.message))]
-                              ),
-                              _vm._v(" "),
-                              !item.status
-                                ? _c("small", {}, [_vm._v("New")])
-                                : _vm._e()
-                            ]
-                          )
-                        }),
-                        0
-                      ),
-                      _vm._v(" "),
-                      _vm._m(1)
-                    ])
-                  ]
-                )
-              : _vm._e()
-          ])
-        ])
-      ]),
-      _vm._v(" "),
       _c(
         "transition",
         { attrs: { name: "slide-fade" } },
@@ -31542,24 +31485,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "list-group-item" }, [
-      _c("h6", [_vm._v("Notifications")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "list-group-item bg-gray text-center" }, [
-      _c("small", [_vm._v("View all")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -31581,11 +31507,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [_c("router-link", { attrs: { to: "/tutor/update" } }, [_vm._v("Update")])],
-    1
-  )
+  return _c("div")
 }
 var staticRenderFns = []
 render._withStripped = true

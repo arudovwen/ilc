@@ -11502,7 +11502,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.my-container[data-v-3a73534e] {\r\n  widows: 100%;\n}\n.side[data-v-3a73534e] {\r\n  width: 20%;\r\n  height: 100vh;\r\n  background: #ffffff;\r\n  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);\n}\n.main[data-v-3a73534e] {\r\n  width: 80%;\r\n  height: 100vh;\n}\r\n", ""]);
+exports.push([module.i, "\n.my-container[data-v-3a73534e] {\r\n  width: 100%;\r\n  display: flex;\n}\n.side[data-v-3a73534e] {\r\n width: 20%;\r\n    height: 100vh;\r\n    background: #ffffff;\r\n    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);\r\n    position: fixed;\n}\n.main[data-v-3a73534e] {\r\n  width: 80%;\r\n  height: 100vh;\r\n  position: absolute;\r\n  margin-left: 266px;\n}\r\n", ""]);
 
 // exports
 
@@ -18822,7 +18822,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "side-bar" }, [
     _c("div", { staticClass: "admin-dashboard-logo text-center" }, [
       _c("p", [_vm._v(" " + _vm._s(_vm.admin.school))]),
       _vm._v(" "),
@@ -18912,14 +18912,26 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("li", { on: { click: _vm.logout } }, [_vm._v("Logout")])
+          _c("div", { staticClass: "nav-item" }, [
+            _vm._m(0),
+            _c("li", { on: { click: _vm.logout } }, [_vm._v("Logout")])
+          ])
         ],
         1
       )
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", [
+      _c("img", { attrs: { src: "/images/log-out-svg.png", alt: "" } })
+    ])
+  }
+]
 render._withStripped = true
 
 

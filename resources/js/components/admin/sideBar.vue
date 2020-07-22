@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="side-bar">
     <div class="admin-dashboard-logo text-center">
        <p> {{admin.school}}</p>
        <p>Schools</p>
@@ -21,7 +21,7 @@
               <router-link to="/admin/syllabus/home"> <li>Syllabus </li></router-link>
                  <router-link to="/admin/time-table/home"> <li>Time Table </li></router-link> -->
       
-        <li @click="logout">Logout</li>
+        <div class="nav-item"><span><img src="/images/log-out-svg.png" alt=""></span><li @click="logout">Logout</li></div>
       </ul>
     </nav>
   </div>

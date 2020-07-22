@@ -91,13 +91,13 @@
           </span>
 
           <div class="d-flex justify-content-start">
-            <button type="button" class="mr-3" @click="addNew(1)">Add</button>
-            <button
+            <b-button type="button" class="mr-3" @click="addNew(1)">Add</b-button>
+            <b-button
               type="button"
               class
               @click="remove(1)"
               v-if="syllabus.learner_outcome.length > 1"
-            >Remove</button>
+            >Remove</b-button>
           </div>
         </div>
       </div>
@@ -121,13 +121,13 @@
         </span>
 
         <div class="d-flex">
-          <button type="button" class="mr-3" @click="addNew(2)">Add</button>
-          <button
+          <b-button type="button" class="mr-3" @click="addNew(2)">Add</b-button>
+          <b-button
             type="button"
             class
             @click="remove(2)"
             v-if="syllabus.target_skills.length > 1"
-          >Remove</button>
+          >Remove</b-button>
         </div>
       </div>
       <div class="border p-3 my-4">
@@ -149,8 +149,8 @@
         </span>
 
         <div class="d-flex">
-          <button type="button" class="mr-3" @click="addNew(3)">Add</button>
-          <button type="button" class @click="remove(3)" v-if="syllabus.modules.length > 1">Remove</button>
+          <b-button type="button" class="mr-3" @click="addNew(3)">Add</b-button>
+          <b-button type="button" class @click="remove(3)" v-if="syllabus.modules.length > 1">Remove</b-button>
         </div>
       </div>
       <div class="border p-3 my-4">
@@ -172,13 +172,13 @@
           />
         </span>
         <div class="d-flex">
-          <button type="button" class="mr-3" @click="addNew(4)">Add</button>
-          <button
+          <b-button type="button" class="mr-3" @click="addNew(4)">Add</b-button>
+          <b-button
             type="button"
             class
             @click="remove(4)"
             v-if="syllabus.delivery_methods.length > 1"
-          >Remove</button>
+          >Remove</b-button>
         </div>
       </div>
       <div class="border p-3 my-4">
@@ -198,13 +198,13 @@
         </span>
 
         <div class="d-flex">
-          <button type="button" class="mr-3" @click="addNew(5)">Add</button>
-          <button
+          <b-button type="button" class="mr-3" @click="addNew(5)">Add</b-button>
+          <b-button
             type="button"
             class
             @click="remove(5)"
             v-if="syllabus.assessments.length > 1"
-          >Remove</button>
+          >Remove</b-button>
         </div>
       </div>
       <div>
@@ -236,8 +236,8 @@
           <hr v-if="syllabus.faqs.length > 1" />
         </div>
         <div class="d-flex">
-          <button type="button" class="mr-3" @click="addNew(6)">Add</button>
-          <button type="button" class @click="remove(6)" v-if="syllabus.faqs.length > 1">Remove</button>
+          <b-button type="button" class="mr-3" @click="addNew(6)">Add</b-button>
+          <b-button type="button" class @click="remove(6)" v-if="syllabus.faqs.length > 1">Remove</b-button>
         </div>
       </div>
       <div class="border p-3 my-4">
@@ -254,7 +254,7 @@
       </div>
 
       <div class="my-5">
-        <button type="submit" class="btn btn-primary">Preview</button>
+        <b-button type="submit" class="btn btn-primary">Preview</b-button>
       </div>
     </form>
     <!-- form ends here  -->

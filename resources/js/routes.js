@@ -263,11 +263,18 @@ export const routes = [
         component: Auth,
         name: "Auth",
         beforeEnter: (to, from, next) => {
-            var user = localStorage.getItem("myUser");
+            var user = localStorage.getItem("typeStudent");
+            var tutor = localStorage.getItem("typeTutor");
             if (user == null) {
                 next();
             } else {
-                next("/");
+                next("/student");
+            }
+            
+            if (tutor == null) {
+                next();
+            } else {
+                next("/tutor");
             }
         }
     },

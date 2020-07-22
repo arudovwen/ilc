@@ -1,63 +1,49 @@
 <template>
   <div class="body">
     <nav class="mb-5">
-      <div class="nav_box shadow-sm">
-        <p class="mx-auto" @click="multiDrop">Multi-Drop</p>
-        <hr />
-      </div>
-      <div class="nav_box shadow-sm hiden">
+      <b-button class=" shadow-sm"  @click="multiDrop">
+        Multi-Drop
+       
+      </b-button>
+      <div class=" shadow-sm hiden">
         <p class="mx-auto">Create Class</p>
-        <hr />
+       
       </div>
 
-      <div class="nav_box shadow-sm hiden">
+      <div class=" shadow-sm hiden">
         <p class="mx-auto">Assign Course</p>
-        <hr />
+       
       </div>
 
-      <div class="nav_box shadow-sm hiden">
+      <div class=" shadow-sm hiden">
         <p class="mx-auto">Assign Level</p>
-        <hr />
+       
       </div>
     </nav>
 
     <div class="d-flex justify-content-between">
-      <table class="table table-striped table-inverse table-bordered mr-4 w-75">
-        <thead class="thead-inverse">
-          <tr>
-            <th>Code</th>
-            <th>Course / Subject</th>
+          <b-table :items="subjects" :fields="fields" hover bordered>
+        <template v-slot:cell(action)="data">
+          <span class="mr-3" @click="drop(data.item.id)">
+            <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
+          </span>
+          <span @click="edit(data.item.id)">
+            <i class="fas fa-edit"></i>Edit
+          </span>
+        </template>
 
-            <th>Action</th>
-            <th>
-              <input type="checkbox" v-model="item" />
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(item,idx) in subjects" :key="idx">
-            <td>{{item.code}}</td>
-            <td>{{item.name}}</td>
-
-            <td class="d-flex justify-content-around">
-              <span class="mr-3" @click="drop(item.id)">
-                <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
-              </span>
-              <span @click="edit(item.id)">
-                <i class="fas fa-edit"></i>Update
-              </span>
-            </td>
-            <td>
-              <input type="checkbox" :value="item.id" v-model="items" />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        <template v-slot:cell(drop)="data">
+          <b-form-checkbox :value="data.item.id" v-model="items"></b-form-checkbox>
+        </template>
+         <template v-slot:cell(subject)="data">
+        {{data.item.name}}
+        </template>
+      </b-table>
+    
       <div class="add border p-2">
         <form @submit.prevent="addSubjects">
-          <legend>Add Course / Subject</legend>
-          <div class="form-group">
-          
+          <h5 class="text-center">Add Subject</h5>
+      
 
             <div class="form-group">
               <label for>Name</label>
@@ -79,13 +65,15 @@
                 placeholder="MTH"
               />
             </div>
-          </div>
+         
 
-          <button v-if="!update" type="submit" class="btn btn-primary">Create</button>
+         <b-form-group>
+            <b-button v-if="!update" type="submit" class="btn btn-primary">Create</b-button>
          <div v-else class="d-flex justify-content-between">
-               <button  type="button" class="btn btn-primary" @click="updateN">Update</button>
-                 <button type="button" class="btn btn-primary" @click="cancel" >Cancel</button>
+               <b-button  type="button" class=" mr-2" @click="updateN">Update</b-button>
+                 <b-button type="button" variant="outline-secondary"  @click="cancel" >Cancel</b-button>
          </div>
+         </b-form-group>
         </form>
       </div>
     </div>
@@ -105,7 +93,8 @@ export default {
       subjects: [],
       items: [],
       item: false,
-      update: false
+      update: false,
+      fields:['code','subject','action','drop']
     };
   },
   watch: {
@@ -248,12 +237,7 @@ td{
 .hiden {
   opacity: 0;
 }
-.nav_box {
-  background-color: #f7f8fa;
-  display: flex;
-  text-align: center;
-  padding: 10px 15px;
-}
+
 .add {
   background-color: #f7f8fa;
 }

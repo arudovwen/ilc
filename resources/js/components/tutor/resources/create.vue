@@ -80,12 +80,11 @@
           </label>
         </div>
 
-        <button
+        <b-button
           type="button"
-          class="btn btn-primary mb-3 mx-auto"
           @click="addmore"
           v-if="resource.count == 'multiple'"
-        >Add more</button>
+        >Add more</b-button>
         <div class="resource">
           <div v-for="(item,idx) in resource.content" :key="idx">
             <div class="form-group border bg-white p-3 text-center">
@@ -113,7 +112,7 @@
                 />
               </div>
               <div class="form-group">
-                <label for>Overview (200 characters)</label>
+                <h6>Overview (200 characters)</h6>
                 <textarea class="form-control" v-model="item.overview" maxlength="200" rows="3"></textarea>
               </div>
               <Upload :index="idx" @getUploadDetails="getUploadDetails" />
@@ -142,7 +141,7 @@
         <textarea class="form-control" rows="3" v-model="resource.note"></textarea>
       </div>
 
-      <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+      <b-button type="submit">Submit</b-button>
     </form>
   </div>
 </template>
@@ -280,7 +279,7 @@ export default {
 }
 form {
   padding: 20px;
-  width: 80%;
+  width: 95%;
   margin: 0 auto;
 }
 .custom-control-input {

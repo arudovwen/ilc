@@ -1,26 +1,26 @@
 <template>
   <div class="body">
     <nav class="mb-5">
-      <div class="nav_box shadow-sm">
-        <p class="mx-auto" >Multi-Drop</p>
-        <hr />
-      </div>
+      <b-button block class=" shadow-sm">
+        Multi-Drop
+      
+      </b-button>
       <router-link to="/tutor/resource/create">
-        <div class="nav_box shadow-sm">
-          <p class="mx-auto">Create Resource</p>
-          <hr />
-        </div>
+        <b-button block class=" shadow-sm">
+         Create Resource
+        
+        </b-button>
       </router-link>
 
-      <div class="nav_box shadow-sm hiden">
-        <p class="mx-auto">Assign Course</p>
-        <hr />
-      </div>
+      <b-button block class=" shadow-sm hiden">
+       Assign Course
+      
+      </b-button>
 
-      <div class="nav_box shadow-sm hiden">
-        <p class="mx-auto">Assign Level</p>
-        <hr />
-      </div>
+      <b-button block class=" shadow-sm hiden">
+       Assign Level
+      
+      </b-button>
     </nav>
 
     <table class="table table-bordered table-hover">
@@ -30,7 +30,7 @@
           <th>Level</th>
           <th>Subject</th>
           <th>Module Title</th>
-          <th>Resource</th>
+          
           <th></th>
         </tr>
       </thead>
@@ -40,15 +40,7 @@
           <td class="toCaps">{{item.level}}</td>
           <td class="toCaps">{{item.subject}}</td>
           <td class="toCaps">{{item.module}}</td>
-          <td class="p-0">
-            <table class="table table-borderless table-sm">
-             
-              <tr v-for="(ite,index) in JSON.parse(item.content)" :key="index">
-                <td class="toCaps">{{ite.title}}</td>
-                <td class="">{{ite.type}}</td>
-              </tr>
-            </table>
-          </td>
+      
           <td class="options">
           <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
           <div class="option-box">
@@ -161,12 +153,7 @@ nav {
 .hiden {
   opacity: 0;
 }
-.nav_box {
-  background-color: #f7f8fa;
-  display: flex;
-  text-align: center;
-  padding: 10px 15px;
-}
+
 .options{
   position: relative;
   width:10px

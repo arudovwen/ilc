@@ -1,5 +1,5 @@
 <template>
-  <div class="views" >
+  <div class="views">
     <div class="main-view">
       <div v-if="type=='video'" class="w-100 video-player">
         <video :src="src" height="500" controls class="player"></video>
@@ -39,7 +39,9 @@
       <div v-else></div>
 
       <div class="buttons my-4">
-      <a :href="src" download>  <button type="button" class="btn btn-primary">Download</button></a>
+        <a :href="src" download>
+          <button type="button" class="btn btn-primary">Download</button>
+        </a>
       </div>
       <hr />
       <div class="info">
@@ -50,7 +52,14 @@
     <div class="side-view" v-if="show">
       <h4 class="mb-5">Resource</h4>
       <div v-for="(item,idx) in JSON.parse(library.content)" :key="idx" class="border-bottom">
-        <strong @click="play(item.file,item.type,item.title,item.overview)" class="link-title">{{item.title}}  <i class="fa fa-play-circle" v-if="item.type=='video'" aria-hidden="true"></i> <i class="fa fa-file-pdf-o"  v-if="item.type=='pdf'" aria-hidden="true"></i> <i class="fa fa-volume-up"  v-if="item.type=='audio'" aria-hidden="true"></i> <i class="fa fa-file-powerpoint-o"  v-if="item.type=='ppt'" aria-hidden="true"></i> <i class="fas fa-file-csv    "   v-if="item.type=='csv'"></i></strong>
+        <strong @click="play(item.file,item.type,item.title,item.overview)" class="link-title">
+          {{item.title}}
+          <i class="fa fa-play-circle" v-if="item.type=='video'" aria-hidden="true"></i>
+          <i class="fa fa-file-pdf-o" v-if="item.type=='pdf'" aria-hidden="true"></i>
+          <i class="fa fa-volume-up" v-if="item.type=='audio'" aria-hidden="true"></i>
+          <i class="fa fa-file-powerpoint-o" v-if="item.type=='ppt'" aria-hidden="true"></i>
+          <i class="fas fa-file-csv" v-if="item.type=='csv'"></i>
+        </strong>
         <p>{{item.overview}}</p>
       </div>
     </div>
@@ -75,8 +84,8 @@ export default {
       pageCount: 0,
       openAssessment: false,
       show: false,
-      title:'',
-      overview:''
+      title: "",
+      overview: ""
     };
   },
   components: {
@@ -86,7 +95,7 @@ export default {
   created() {
     this.getLibrary();
   },
- 
+
   watch: {
     num: "changepdf"
   },
@@ -110,9 +119,9 @@ export default {
         });
     },
     scrollUp() {
-    //   window.scrollTo(0, 0);
-    //   let body = document.getElementById("pdfBody");
-    //   body.scrollTop = 0;
+      //   window.scrollTo(0, 0);
+      //   let body = document.getElementById("pdfBody");
+      //   body.scrollTop = 0;
     },
     goFull() {
       this.fullScreen = !this.fullScreen;
@@ -163,11 +172,11 @@ export default {
         this.showNext = false;
       }
     },
-    play(file, type,title,overview) {
+    play(file, type, title, overview) {
       this.src = file;
       this.type = type;
-      this.title = title
-      this.overview = overview
+      this.title = title;
+      this.overview = overview;
       if (type == "pdf") {
         this.changepdf();
       }
@@ -267,7 +276,7 @@ export default {
 .buttons {
   padding: 0 15px;
 }
-.link-title{
-    cursor: pointer;
+.link-title {
+  cursor: pointer;
 }
 </style>

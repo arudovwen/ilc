@@ -1,6 +1,6 @@
 <template>
   <div class="body">
-    <form @submit.prevent="submit" class="border rounded">
+    <b-form @submit.prevent="submit" class="border rounded">
       <legend class="mb-5">New Resource</legend>
       <div class="form-group mb-5">
         <label for>Choose Class</label>
@@ -80,12 +80,11 @@
           </label>
         </div>
 
-        <button
+        <b-button
           type="button"
-          class="btn btn-primary mb-3 mx-auto"
           @click="addmore"
           v-if="resource.count == 'multiple'"
-        >Add more</button>
+        >Add more</b-button>
         <div class="resource">
           <div v-for="(item,idx) in resource.content" :key="idx">
             <div class="form-group border bg-white p-3 text-center">
@@ -112,8 +111,8 @@
                   placeholder
                 />
               </div>
-             <div class="form-group">
-                <label for>Overview (200 characters)</label>
+              <div class="form-group">
+                <h6>Overview (200 characters)</h6>
                 <textarea class="form-control" v-model="item.overview" maxlength="200" rows="3"></textarea>
               </div>
               <Upload :index="idx" @getUploadDetails="getUploadDetails" />
@@ -142,10 +141,11 @@
         <textarea class="form-control" rows="3" v-model="resource.note"></textarea>
       </div>
 
-      <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
-    </form>
+      <b-button type="submit">Submit</b-button>
+    </b-form>
   </div>
 </template>
+
 
 
 <script>
@@ -182,9 +182,10 @@ export default {
     Upload
   },
   mounted() {
-    this.getResource();
+   
     this.getCLasses();
     this.getSubjects();
+     this.getResource();
   },
   watch: {
     "resource.subject": "getModules"

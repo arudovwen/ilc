@@ -12,11 +12,11 @@
             @change="handleFileChange($event)"
           />
 
-          <button
+          <b-button
             type="submit"
-            class="elevated_btn elevated_btn_sm text-main my-3"
+            class="  my-3"
             :disabled="filesSelectedLength < 1"
-          >Upload</button>
+          >Upload</b-button>
           <div class="progress mt-2" v-if="start">
             <div
               class="progress-bar progress-bar-striped "

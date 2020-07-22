@@ -1,56 +1,30 @@
 <template>
   <div class="body">
     <nav class="mb-5">
-      <div class="nav_box shadow-sm">
-        <p class="mx-auto" @click="multiDrop">Multi-Drop</p>
-        <hr />
-      </div>
-      <div class="nav_box shadow-sm hiden">
-        <p class="mx-auto">Create Class</p>
-        <hr />
-      </div>
+      <b-button class="shadow-sm hiden">Create Class</b-button>
 
-      <div class="nav_box shadow-sm hiden">
-        <p class="mx-auto">Assign Course</p>
-        <hr />
-      </div>
+      <b-button class="shadow-sm hiden">Assign Course</b-button>
 
-      <div class="nav_box shadow-sm hiden">
-        <p class="mx-auto">Assign Level</p>
-        <hr />
-      </div>
+      <b-button class="shadow-sm hiden">Assign Level</b-button>
+      <b-button class="shadow-sm" @click="multiDrop">Multi-Drop</b-button>
     </nav>
 
     <div class="d-flex justify-content-between">
-      <table class="table table-striped table-inverse table-bordered mr-4 w-75">
-        <thead class="thead-inverse">
-          <tr>
-            <th>Class Name</th>
-            <th>Sub-Classes</th>
-            <th>Action</th>
-            <th>
-              <input type="checkbox" v-model="item" />
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(item,idx) in classes" :key="idx">
-            <td>{{item.class_name}}</td>
-            <td>{{item.sub_class}}</td>
-            <td class="d-flex justify-content-around">
-              <span class="mr-3" @click="drop(item.id)">
-                <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
-              </span>
-              <span @click="edit(item.id)">
-                <i class="fas fa-edit"></i>Update
-              </span>
-            </td>
-            <td>
-              <input type="checkbox" :value="item.id" v-model="items" />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <b-table :items="classes" :fields="fields" hover bordered>
+        <template v-slot:cell(action)="data">
+          <span class="mr-3" @click="drop(data.item.id)">
+            <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
+          </span>
+          <span @click="edit(data.item.id)">
+            <i class="fas fa-edit"></i>Edit
+          </span>
+        </template>
+
+        <template v-slot:cell(drop)="data">
+          <b-form-checkbox :value="data.item.id" v-model="items"></b-form-checkbox>
+        </template>
+      </b-table>
+
       <div class="add border p-2 w-25">
         <form @submit.prevent="addClass" class="mb-5">
           <div class="form-group">
@@ -74,10 +48,10 @@
             />
           </div>
 
-          <button v-if="!update" type="submit" class="btn btn-primary">Create</button>
+          <b-button v-if="!update" type="submit">Create</b-button>
           <div v-else class="d-flex justify-content-between">
-            <button type="button" class="btn btn-primary" @click="updateN">Update</button>
-            <button type="button" class="btn btn-primary" @click="cancel">Cancel</button>
+            <b-button type="button" @click="updateN">Update</b-button>
+            <b-button type="button" variant="outline-secondary" @click="cancel">Cancel</b-button>
           </div>
         </form>
 
@@ -87,14 +61,12 @@
               <tr>
                 <th>Head Teacher</th>
                 <th>Class</th>
-               
               </tr>
             </thead>
             <tbody>
               <tr v-for="(item,idx) in heads" :key="idx">
                 <td>{{item.tutor.name}}</td>
                 <td scope="row">{{item.class.class_name}}</td>
-               
               </tr>
             </tbody>
           </table>
@@ -119,7 +91,8 @@ export default {
       },
       items: [],
       item: false,
-      update: false
+      update: false,
+      fields: ["class_name", "sub_class", "action", "drop"]
     };
   },
   watch: {
@@ -241,9 +214,9 @@ export default {
     },
     multiDrop() {
       let del = confirm("Are you sure about this?");
-            let data = {
-        data:this.items
-        }
+      let data = {
+        data: this.items
+      };
       if (del) {
         axios
           .post("/api/multi-classes-drop", data, {
@@ -278,19 +251,11 @@ td {
 .hiden {
   opacity: 0;
 }
-.nav_box {
-  background-color: #f7f8fa;
-  display: flex;
-  text-align: center;
-  padding: 10px 15px;
-}
+
 .add {
   background-color: #f7f8fa;
 }
-.body {
-  padding: 20px 20px 50px;
-  height: 100%;
-}
+
 table {
   font-size: 14.5px;
 }

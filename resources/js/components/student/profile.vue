@@ -1,14 +1,15 @@
 <template>
   <div class="body">
     <div class="text-right">
-      <button type="button" @click="update">Update</button>
+      <b-button type="button" @click="update">Update</b-button>
     </div>
 
     <div class="info">
       <h4>Student Information</h4>
 
-      <div class="image my-5">
-        <img :src="detail.profile" alt />
+      <div class=" my-5">
+      
+        <b-avatar :src="detail.profile" size="8em"></b-avatar>
       </div>
       <div class="d-flex">
         <div class="personal w-50">
@@ -58,6 +59,9 @@
 .info {
   width: 80%;
   margin: 0 auto;
+}
+li{
+  padding:8px 0
 }
 .image {
   width: 140px;

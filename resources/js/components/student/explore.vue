@@ -14,7 +14,11 @@
           <ul class="bg-white">
             <li v-for="(content,index) in JSON.parse(item.content)" :key="index" class="border-bottom">
               <div><span>{{content.title}}</span>
-              <span class="ml-5">{{content.type}}</span></div>
+              <span class="ml-3"> <i class="fa fa-play-circle" v-if="content.type=='video'" aria-hidden="true"></i>
+          <i class="fa fa-file-pdf-o" v-if="content.type=='pdf'" aria-hidden="true"></i>
+          <i class="fa fa-volume-up" v-if="content.type=='audio'" aria-hidden="true"></i>
+          <i class="fa fa-file-powerpoint-o" v-if="content.type=='ppt'" aria-hidden="true"></i>
+          <i class="fas fa-file-csv" v-if="item.content=='csv'"></i></span></div>
               <div class="px-3">
                 <strong>Overview</strong>
                 <p>{{content.overview}}</p>

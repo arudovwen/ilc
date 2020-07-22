@@ -1,5 +1,5 @@
 <template>
-  <div class="p-3">
+  <div class="body">
     <div class="d-flex">
       <div class="w-25 mr-3">
         <table class="table table-bordered table-hover">
@@ -43,8 +43,15 @@
             </tr>
           </tbody>
         </table>
-        <div class="my-3" v-if="data.student.name !== ''">
-          <button type="button" @click="submit">Submit</button>
+        <div class="my-3">
+          <b-form-group>
+            <b-button
+              v-if="data.student.name !== ''"
+              v-waves.float
+              v-waves.light
+              @click="submit"
+            >Register</b-button>
+          </b-form-group>
         </div>
       </div>
     </div>
@@ -73,19 +80,23 @@ export default {
   },
   methods: {
     submit() {
-        let admin = JSON.parse(localStorage.getItem('typeAdmin'))
-      axios.post("/api/students-course", this.data,{headers:{
-          Authorization: `Bearer ${admin.access_token}`
-      }}).then(res => {
-        if (res.status == 201) {
-          this.$toasted.info("Successful");
-          this.$router.push("/admin/students");
-        }
-         if (res.status == 200) {
-          this.$toasted.info("Saved Successful");
-          this.$router.push("/admin/students");
-        }
-      });
+      let admin = JSON.parse(localStorage.getItem("typeAdmin"));
+      axios
+        .post("/api/students-course", this.data, {
+          headers: {
+            Authorization: `Bearer ${admin.access_token}`
+          }
+        })
+        .then(res => {
+          if (res.status == 201) {
+            this.$toasted.info("Successful");
+            this.$router.push("/admin/students");
+          }
+          if (res.status == 200) {
+            this.$toasted.info("Saved Successful");
+            this.$router.push("/admin/students");
+          }
+        });
     },
     selectSubject(id, name) {
       if (this.data.student.name !== "") {
@@ -112,7 +123,7 @@ export default {
       this.data.student.name = name;
       this.data.student.id = id;
     },
-     getStudents() {
+    getStudents() {
       axios
         .get("/api/admin-get-students", {
           headers: {

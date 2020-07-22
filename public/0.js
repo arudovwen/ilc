@@ -44,6 +44,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -86,12 +95,20 @@ __webpack_require__.r(__webpack_exports__);
                 typeAdmin.school = res.data.school;
                 localStorage.setItem("typeAdmin", JSON.stringify(typeAdmin));
 
-                _this.$toasted.success("Sucessful");
+                _this.$toasted.success("Logged in Sucessfully", {
+                  icon: {
+                    name: 'fingerprint'
+                  }
+                });
 
                 if (_this.$route.query.redirect) {
                   _this.$router.push(_this.$route.query.redirect);
                 } else {
-                  _this.$toasted.info("Redirecting to dashboard..");
+                  _this.$toasted.info("Redirecting to dashboard..", {
+                    icon: {
+                      name: 'hourglass'
+                    }
+                  });
 
                   _this.$router.push("/admin");
                 }
@@ -102,17 +119,21 @@ __webpack_require__.r(__webpack_exports__);
               }
             }
           })["catch"](function (error) {
-            console.log("submit -> error", error);
-
-            _this.$toasted.error("Something is not right");
+            _this.$toasted.error("Invalid credentials", {
+              icon: {
+                name: 'user-times'
+              }
+            });
 
             _this.spin = false;
           });
         }
       })["catch"](function (error) {
-        console.log("submit -> error", error);
-
-        _this.$toasted.error("Something is not right");
+        _this.$toasted.error("Invalid credentials", {
+          icon: {
+            name: 'user-times'
+          }
+        });
 
         _this.spin = false;
       });
@@ -186,94 +207,154 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c(
-      "form",
-      {
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.submit($event)
-          }
-        }
-      },
-      [
-        _c("legend", [_vm._v("Admin login")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("Email")]),
+  return _c("div", {}, [
+    _c("div", { staticClass: "register-section" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "form-side" },
+        [
+          _c("h2", { staticClass: "text-center" }),
           _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.admin.email,
-                expression: "admin.email"
-              }
+          _c(
+            "b-container",
+            { staticClass: "bv-example-row" },
+            [
+              _c(
+                "b-form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.submit($event)
+                    }
+                  }
+                },
+                [
+                  _c("legend", { staticClass: "text-center" }, [
+                    _vm._v("ADMIN LOGIN")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-row",
+                    [
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            {
+                              attrs: {
+                                id: "input-group-2",
+                                label: "Email ",
+                                "label-for": "input-2"
+                              }
+                            },
+                            [
+                              _c("b-form-input", {
+                                attrs: {
+                                  id: "input-8",
+                                  type: "email",
+                                  required: "",
+                                  placeholder: ""
+                                },
+                                model: {
+                                  value: _vm.admin.email,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.admin, "email", $$v)
+                                  },
+                                  expression: "admin.email"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-group",
+                            {
+                              attrs: {
+                                id: "input-group-3",
+                                label: "Password",
+                                "label-for": "input-3"
+                              }
+                            },
+                            [
+                              _c("b-form-input", {
+                                attrs: {
+                                  id: "input-3",
+                                  type: "password",
+                                  required: "",
+                                  placeholder: ""
+                                },
+                                model: {
+                                  value: _vm.admin.password,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.admin, "password", $$v)
+                                  },
+                                  expression: "admin.password"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    { staticClass: "reg-btn", attrs: { type: "submit" } },
+                    [
+                      _vm._v("ADMIN LOGIN "),
+                      _vm.spin
+                        ? _c("b-spinner", {
+                            staticClass: "ml-2",
+                            attrs: {
+                              variant: "",
+                              small: "",
+                              label: "small spinner",
+                              type: "grow"
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
             ],
-            staticClass: "form-control",
-            attrs: {
-              type: "email",
-              name: "email",
-              id: "email",
-              "aria-describedby": "helpId",
-              placeholder: "example@email.com"
-            },
-            domProps: { value: _vm.admin.email },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.admin, "email", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("Pasword")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.admin.password,
-                expression: "admin.password"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "password",
-              name: "pasword",
-              id: "password",
-              "aria-describedby": "helpId",
-              placeholder: "******"
-            },
-            domProps: { value: _vm.admin.password },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.admin, "password", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "button-blue", attrs: { type: "submit" } },
-          [_vm._v("Submit")]
-        )
-      ]
-    )
+            1
+          )
+        ],
+        1
+      )
+    ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "img-side" }, [
+      _c("div", { staticClass: "header-logo text-center" }, [
+        _c("img", { attrs: { src: "/images/logo-ilc-single.png", alt: "" } }),
+        _vm._v(" "),
+        _c("h6", [_vm._v("IMO STATE LEARNING CENTER")])
+      ]),
+      _vm._v(" "),
+      _c("h2", [_vm._v("Welcome!!!!!")]),
+      _vm._v(" "),
+      _c("div", [_vm._v("© Copyright 2020 Couer")])
+    ])
+  }
+]
 render._withStripped = true
 
 

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <form @submit.prevent="register">
-      <legend>Register Tutor</legend>
+      <legend class="text-center">Update Tutor</legend>
       <div class="form-group">
         <label for>Name</label>
         <input
@@ -39,7 +39,7 @@
         />
       </div>
 
-        <div class="form-group">
+      <div class="form-group">
         <label for>Phone</label>
         <input
           type="number"
@@ -49,28 +49,38 @@
           maxlength="11"
           v-model="tutor.phone"
           aria-describedby="helpId"
-          placeholder=""
+          placeholder
         />
       </div>
-       <!-- <div class="form-group">
+      <!-- <div class="form-group">
         <label for>School</label>
         <select class="form-control"  v-model="tutor.school_id">
           <option value="" disabled>Select </option>
           <option :value="item.id" v-for="(item,idx) in schools" :key="idx">{{item.name}}</option>
         
         </select>
-      </div> -->
+      </div>-->
+
+      <b-form-group>
+        <label for>Gender</label>
+
+        <b-form-select v-model="tutor.gender" :options="options"></b-form-select>
+      </b-form-group>
 
       <div class="form-group">
-        <label for>Gender</label>
-        <select class="form-control"  v-model="tutor.gender">
-          <option value="" disabled>Select</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
+        <label for>Subject</label>
+        <input
+          type="text"
+          class="form-control"
+          v-model="tutor.subject"
+          aria-describedby="helpId"
+          placeholder="e.g English language"
+        />
       </div>
 
-      <button class="button-blue" type="submit">Update</button>
+      <b-form-group>
+        <b-button type="submit">Register</b-button>
+      </b-form-group>
     </form>
   </div>
 </template>
@@ -78,38 +88,46 @@
 
 <script>
 export default {
-    props: ["admin"],
+  props: ["admin"],
   data() {
     return {
       tutor: {
-        'name' :'', 
-        'email' :'', 
-        'password' :'',
-        'phone' :null,
-        'gender' :'',
-        'school_id':''
+        name: "",
+        email: "",
+        password: "",
+        phone: null,
+        gender: "",
+        school_id: ""
       },
-   
+    options:[
+         {value:'',text:'Select an option',disabled:true},
+        {value:'male',text:'Male'},
+          {value:'female',text:'Female'},
+      ],
       spin: false
     };
   },
   mounted() {
-      this.getTutor()
+    this.getTutor();
   },
   methods: {
     register() {
-        let admin = JSON.parse(localStorage.getItem('typeAdmin'))
-      axios.post(`/api/tutor/${this.$route.params.id}`, this.tutor,{headers:{
-          Authorization: `Bearer ${admin.access_token}`
-      }}).then(res => {
-        if (res.status == 200) {
-          this.$toasted.info("Successful");
-          this.$router.push("/admin/tutor");
-        }
-      });
+      let admin = JSON.parse(localStorage.getItem("typeAdmin"));
+      axios
+        .put(`/api/tutor/${this.$route.params.id}`, this.tutor, {
+          headers: {
+            Authorization: `Bearer ${admin.access_token}`
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.$toasted.info("Successful");
+            this.$router.push("/admin/tutor");
+          }
+        });
     },
-    getTutor(){
-          axios
+    getTutor() {
+      axios
         .get(`/api/tutor/${this.$route.params.id}`, {
           headers: {
             Authorization: `Bearer ${this.$props.admin.access_token}`
@@ -121,7 +139,6 @@ export default {
           }
         });
     }
-    
   }
 };
 </script>
@@ -133,7 +150,7 @@ export default {
   align-items: center;
   height: 100vh;
 }
-form{
-    width:50%
+form {
+  width: 50%;
 }
 </style>

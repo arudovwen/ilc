@@ -17,6 +17,7 @@ import VueWaves from 'vue-waves-button';
 import Toasted from 'vue-toasted';
  
 
+import VueChatScroll from 'vue-chat-scroll'
 
 
 import "swiper/css/swiper.css";
@@ -26,6 +27,7 @@ import 'vue-waves-button/waves.css';
 import '../sass/app.scss';
 
 
+Vue.use(VueChatScroll)
 
 Vue.use(VueWaves, {
     name: 'waves' , 
@@ -88,7 +90,7 @@ router.beforeEach((to, from, next) => {
         var admin = localStorage.getItem("typeTutor");
         if (admin == null) {
           next({
-            path: '/tutor/auth/login',
+            path: '/auth',
             query: { redirect: to.fullPath }
            
           })
@@ -104,7 +106,7 @@ router.beforeEach((to, from, next) => {
         var admin = localStorage.getItem("typeStudent");
         if (admin == null) {
           next({
-            path: '/student/auth/login',
+            path: '/auth',
             query: { redirect: to.fullPath }
            
           })

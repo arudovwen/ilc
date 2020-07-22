@@ -1,24 +1,24 @@
 <template>
   <div class="body">
     <nav class="mb-5">
-      <div class="nav_box shadow-sm" @click="drop($route.params.id)">
-        <p class="mx-auto">Drop table</p>
-        <hr />
-      </div>
-      <div class="nav_box shadow-sm hiden">
-        <p class="mx-auto">Create Class</p>
-        <hr />
-      </div>
+      <b-button class=" shadow-sm" @click="drop($route.params.id)">
+       Drop table
+       
+      </b-button>
+      <b-button class=" shadow-sm hiden">
+       Create Class
+       
+      </b-button>
 
-      <div class="nav_box shadow-sm hiden">
-        <p class="mx-auto">Assign Course</p>
-        <hr />
-      </div>
+      <b-button class=" shadow-sm hiden">
+       Assign Course
+       
+      </b-button>
 
-      <div class="nav_box shadow-sm hiden">
-        <p class="mx-auto">Assign Level</p>
-        <hr />
-      </div>
+      <b-button class=" shadow-sm hiden">
+       Assign Level
+       
+      </b-button>
     </nav>
 
     <div class="table-responsive">
@@ -146,12 +146,7 @@ nav {
 .hiden {
   opacity: 0;
 }
-.nav_box {
-  background-color: #f7f8fa;
-  display: flex;
-  text-align: center;
-  padding: 10px 15px;
-}
+
 .add {
   background-color: #f7f8fa;
 }

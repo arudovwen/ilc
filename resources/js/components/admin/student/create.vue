@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-   <form @submit.prevent="register" class="mx-auto register-right">
+   <b-form @submit.prevent="register" class="mx-auto register-right">
       
       <!-- Student starts here   -->
      
-          <legend>Register Student</legend>
+          <legend class="text-center">Register Student</legend>
            
               <div class="form-group">
                 <input
@@ -47,16 +47,18 @@
             </select>
           </div>
 
+<b-form-group>
 
-              <button v-waves.button v-waves.float v-waves.light type="submit" class="btnRegister">
-                <span v-if="spin" class="spinner-border spinner-border-sm"></span> Register
-              </button>
+              <b-button  v-waves.float v-waves.light type="submit" >
+               Register
+              </b-button>
+</b-form-group>
            
        
       
 
       
-    </form>
+    </b-form>
   </div>
 </template>
 

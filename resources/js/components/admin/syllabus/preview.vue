@@ -145,8 +145,8 @@
         </span>
 
         <div class="d-flex">
-          <button class="mr-3" @click="addNew(5)">Add</button>
-          <button class @click="remove(5)" v-if="syllabus.assessments.length > 1">Remove</button>
+          <b-button class="mr-3" @click="addNew(5)">Add</b-button>
+          <b-button class @click="remove(5)" v-if="syllabus.assessments.length > 1">Remove</b-button>
         </div>
       </div>
       <div>
@@ -205,8 +205,8 @@
         </div>
       </div>
       <div class="my-5 d-flex">
-        <button type="submit" class="btn btn-primary mr-3">Submit</button>
-        <button type="button" class="btn btn-default" @click="cancel">Cancel</button>
+        <b-button type="submit" class="btn btn-primary mr-3">Submit</b-button>
+        <b-button type="button" class="btn btn-default" @click="cancel">Cancel</b-button>
       </div>
     </form>
     <!-- form ends here  -->
@@ -225,7 +225,7 @@
         ></textarea>
       </div>
 
-      <button type="submit" class="btn btn-primary my-4" @click="submit">Submit</button>
+      <b-button type="submit" class="btn btn-primary my-4" @click="submit">Submit</b-button>
     </div>
   </div>
 </template>

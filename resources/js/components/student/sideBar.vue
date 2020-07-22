@@ -37,7 +37,7 @@ export default {
     methods: {
         logout(){
             localStorage.removeItem('typeStudent')
-            this.$router.push('http://localhost:8000/auth?authType=login')
+            this.$router.push('/auth')
         }
     },
 }

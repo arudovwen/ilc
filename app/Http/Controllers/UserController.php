@@ -15,8 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $school_id = auth('api')->user()->school_id;
-        return User::where('school_id', $school_id)->first();
+      return  $user = auth('api')->user();
+       
     }
     public function adminGetStudents()
     {

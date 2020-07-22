@@ -243,7 +243,7 @@
         />
       </div>
 
-      <button class="button-blue" type="submit">Register</button>
+      <b-button  type="submit">Register</b-button>
     </form>
   </div>
 </template>

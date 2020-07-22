@@ -80,7 +80,9 @@ export default {
       tables: [],
       table: [],
       myclass: "",
-      overlay: false
+      overlay: false,
+      item:false,
+      items:[]
     };
   },
   mounted() {
@@ -131,7 +133,12 @@ export default {
 }
 .overlay-content {
   position: absolute;
-  top: 0;
+ top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    opacity: 0.85;
+    backdrop-filter: blur(2px);
   height: 100vh;
   width: 100%;
   left: 0;

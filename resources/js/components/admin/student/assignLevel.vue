@@ -1,58 +1,45 @@
 <template>
-
-  <div class="body p-3">
+  <div class="body ">
     <div class="d-flex justify-content-around mb-5">
       <div class="w-25">
-        <h5>Select Class</h5>
+        <h5 class="mb-3">Select Class</h5>
         <div class="mr-3 top_box">
-          <table class="table table-bordered table-hover">
-            <thead class="thead-light">
-              <tr>
-                <th>Class List</th>
-              </tr>
-            </thead>
-            <tbody class="t-body">
-              <tr v-for="(item,idx) in allClass" :key="idx">
-                <td
-                  :class="{selected:item == current}"
-                  scope="row"
-                  @click="selectClass(item)"
-                >{{item}}</td>
-              </tr>
-            </tbody>
-          </table>
+          <b-table hover :items="allClass" bordered :fields="field1">
+            <template v-slot:cell(class_list)="data">
+             
+                <span  @click="selectClass(data.item)">{{data.item}}</span>
+              
+            </template>
+          </b-table>
+       
         </div>
       </div>
 
       <div class="w-25">
-        <h5>Add Students</h5>
+        <h5 class="mb-3">Add Students</h5>
         <div class="top_box">
-          <table class="table table-bordered table-hover table-res">
-            <thead class="thead-light">
-              <tr>
-                <th>Student List</th>
-              </tr>
-            </thead>
-            <tbody class="t-body">
-              <tr v-for="(item,idx) in students" :key="idx">
-                <td scope="row" @click="selectStudent(item.id,item.name)">{{item.name}}</td>
-              </tr>
-            </tbody>
-          </table>
+           <b-table hover :items="students" bordered :fields="field2">
+            <template v-slot:cell(student_list)="data">
+             
+                <span  @click="selectStudent(data.item.id,data.item.name)">{{data.item.name}}</span>
+              
+            </template>
+          </b-table>
+        
         </div>
       </div>
     </div>
    
    <div  v-if="current !=''">
         <div class=" d-flex my-3 px-3">
-          <button type="button" class="mr-3" @click="save">Add</button>
-          <button type="button" @click="remove" v-if="data.length > 1">Remove</button>
+          <b-button variant="secondary" type="button" class="mr-3" @click="save">Add</b-button>
+          <b-button variant="outline-secondary" type="button" @click="remove" v-if="data.length > 1">Remove</b-button>
         </div>
         <div class="bottom_box">
         
       <div class="px-3 text-center" v-for="(item,idx) in data" :key="idx">
         <table class="table text-center table-bordered table-hover">
-          <thead class="thead-dark">
+          <thead class="thead-light">
             <tr>
               <th>{{item.my_class}}</th>
             </tr>
@@ -67,7 +54,9 @@
       </div>
     </div>
 
-      <button type="button" class="my-3" @click="submit">Save all</button>
+      <b-form-group>
+        <b-button type="button" class="my-3" @click="submit">Save all</b-button>
+      </b-form-group>
    </div>
   </div>
 </template>
@@ -85,7 +74,9 @@ export default {
           my_class: "",
           students: []
         }
-      ]
+      ],
+      field1:['class_list'],
+      field2:['student_list']
     };
   },
   mounted() {
@@ -119,7 +110,11 @@ export default {
         arr.push(item.my_class);
       });
       if (arr.includes(name)) {
-        this.$toasted.info("added already");
+        this.$toasted.info("Added already",{
+          icon:{
+            name:''
+          }
+        });
       } else {
         this.data[this.data.length - 1].my_class = name;
       }
@@ -136,7 +131,7 @@ export default {
       });
 
       if (array.includes(id)) {
-        this.$toasted.info("added already");
+        this.$toasted.info("Added already");
       } else {
         this.data[this.data.length - 1].students.push({
           id: id,

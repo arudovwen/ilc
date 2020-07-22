@@ -33,7 +33,7 @@ export default {
     methods: {
         logout(){
             localStorage.removeItem('typeTutor')
-            this.$router.push('/tutor/auth/login')
+            this.$router.push('/auth')
         }
     },
 }

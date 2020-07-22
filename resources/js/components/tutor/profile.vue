@@ -1,14 +1,15 @@
 <template>
   <div class="body">
     <div class="text-right">
-      <button type="button" @click="update">Update</button>
+      <b-button type="button" @click="update">Update</b-button>
     </div>
 
     <div class="info">
       <h4>Tutor Information</h4>
 
-      <div class="image my-5">
-        <img :src="details.profile" alt />
+        <div class=" my-5">
+      
+        <b-avatar :src="details.profile" size="8em"></b-avatar>
       </div>
       <div class="d-flex">
         <div class="personal w-50">
@@ -85,10 +86,7 @@ export default {
 </script>
 
 <style scoped>
-.body {
-  padding: 50px 20px 70px;
-  height: 100%;
-}
+
 .info {
   width: 80%;
   margin: 0 auto;
@@ -109,5 +107,6 @@ ul {
 }
 li {
   text-transform: capitalize;
+  padding: 10px 0;
 }
 </style>

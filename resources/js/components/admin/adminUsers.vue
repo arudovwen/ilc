@@ -2,50 +2,35 @@
   <div class="body">
     <nav class="mb-5">
       <router-link to="/admin/add">
-        <div class="nav_box shadow-sm">
-          <p class="mx-auto">Create Administrator</p>
-          <hr />
-        </div>
+    
+          <b-button variant="success">Create Administrator</b-button>
+     
       </router-link>
-      <div class="nav_box shadow-sm">
-        <p class="mx-auto" @click="multiDrop">Multi-Drop</p>
-        <hr />
-      </div>
+     
+          <!-- <b-button variant="success" @click="multiDrop">Multi-Drop</b-button>
+       -->
       <div class="nav_box shadow-sm hiden"></div>
       <div class="nav_box shadow-sm hiden"></div>
     </nav>
 
-    <table class="table table-striped table-inverse table-bordered">
-      <thead class="thead-inverse">
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th>Action</th>
-          <th>
-            <input type="checkbox" v-model="item" />
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item,idx) in admins" :key="idx">
-          <td scope="row" class="toCaps">{{item.name}}</td>
-          <td>{{item.email}}</td>
-          <td>{{item.role}}</td>
-          <td class="d-flex justify-content-around">
-            <span class="mr-3" @click="drop(item.id)">
-              <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
-            </span>
-            <span @click="edit(item.id)">
-              <i class="fas fa-edit"></i>Edit
-            </span>
-          </td>
-          <td>
-            <input type="checkbox" :value="item.id" v-model="items" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <b-table :items="admins" hover :fields="fields" :busy='busy'>
+      <template v-slot:cell(Sn)="data">{{ data.index + 1 }}</template>
+      <template v-slot:cell(Action)="data">
+        <span class="mr-3" @click="drop(data.item.id)">
+          <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
+        </span>
+        <span @click="edit(data.item.id)">
+          <i class="fas fa-edit"></i>Edit
+        </span>
+      </template>
+      <template v-slot:table-busy>
+        <div class="text-center my-2">
+          <b-spinner class="align-middle"></b-spinner>
+          <strong>Loading...</strong>
+        </div>
+      </template>
+    </b-table>
+
   </div>
 </template>
 
@@ -56,8 +41,16 @@ export default {
   data() {
     return {
       admins: [],
+      busy:true,
       items: [],
-      item: false
+      item: false,
+      fields: [
+        "Sn",
+        { key: "name", sortable: true },
+        "email",
+        { key: "role", sortable: true },
+        "Action"
+      ]
     };
   },
   watch: {
@@ -87,37 +80,38 @@ export default {
         .then(res => {
           if (res.status == 200) {
             this.admins = res.data;
+            this.busy = false
           }
         });
     },
     drop(id) {
       let del = confirm("Are you sure?");
       if (del) {
-       
-          axios.delete(`/api/admin/${id}`, {
-          headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
-        }).then(res => {
+        axios
+          .delete(`/api/admin/${id}`, {
+            headers: {
+              Authorization: `Bearer ${this.$props.admin.access_token}`
+            }
+          })
+          .then(res => {
             if (res.status == 200) {
               this.getAdmins();
             }
           });
-        
       }
     },
     multiDrop() {
       let del = confirm("Are you sure about this?");
       let data = {
-        data:this.items
-        }
+        data: this.items
+      };
       if (del) {
         axios
-          .post("/api/multi-admin-drop", data , {
-          headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
-        })
+          .post("/api/multi-admin-drop", data, {
+            headers: {
+              Authorization: `Bearer ${this.$props.admin.access_token}`
+            }
+          })
           .then(res => {
             if (res.status == 200) {
               this.getAdmins();
@@ -129,7 +123,8 @@ export default {
       }
     },
     edit(id) {
-        this.$router.push(`/admin/edit/${id}`)
+      
+      this.$router.push(`/admin/edit/${id}`);
     }
   }
 };
@@ -141,8 +136,8 @@ nav {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-column-gap: 30px;
 }
-.hiden{
-    opacity: 0;
+.hiden {
+  opacity: 0;
 }
 .nav_box {
   background-color: #f7f8fa;

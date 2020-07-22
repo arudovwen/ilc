@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <form @submit.prevent="register">
-      <legend>Register Admin</legend>
-      <div class="form-group">
+    <b-form @submit.prevent="register">
+      <legend class="text-center">Register Admin</legend>
+    <b-form-group>
         <label for>Name</label>
         <input
           type="text"
@@ -13,8 +13,8 @@
           aria-describedby="helpId"
           placeholder="John Doe"
         />
-      </div>
-      <div class="form-group">
+    </b-form-group>
+    <b-form-group>
         <label for>Email</label>
         <input
           type="email"
@@ -25,8 +25,8 @@
           aria-describedby="helpId"
           placeholder="example@email.com"
         />
-      </div>
-      <div class="form-group">
+      </b-form-group>
+    <b-form-group>
         <label for>Password</label>
         <input
           type="password"
@@ -37,8 +37,8 @@
           aria-describedby="helpId"
           placeholder="******"
         />
-      </div>
-      <div class="form-group">
+     </b-form-group>
+    <b-form-group>
         <label for>Address</label>
         <input
           type="address"
@@ -49,18 +49,19 @@
           aria-describedby="helpId"
           placeholder
         />
-      </div>
+     </b-form-group>
 
-      <div class="form-group">
+    <b-form-group>
         <label for>Role</label>
-        <select class="form-control" name id>
-          <option value="administrator">Administrator</option>
-          <option value="principal">Principal</option>
-        </select>
-      </div>
+      
+         <b-form-select v-model="data.role" :options="options"></b-form-select>
+     </b-form-group>
 
-      <button class="button-blue" type="submit">Register</button>
-    </form>
+      <b-form-group>
+         <b-button variant="success" type="submit">Register</b-button>
+      </b-form-group>
+     
+    </b-form>
   </div>
 </template>
 
@@ -76,7 +77,12 @@ export default {
         address: "",
         role: ""
       },
-      spin: false
+      spin: false,
+      options:[
+         {value:'',text:'Select an option',disabled:true},
+        {value:'administrator',text:'Administrator'},
+          {value:'principal',text:'Principal'},
+      ]
     };
   },
   methods: {

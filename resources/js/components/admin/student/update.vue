@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <form @submit.prevent="register" class="mx-auto register-right">
+    <b-form @submit.prevent="register" class="mx-auto register-right">
       <!-- Student starts here   -->
 
-      <legend>Update Info</legend>
+      <legend class="text-center">Update Info</legend>
 
       <div class="form-group">
         <label for="">Full Name</label>
@@ -183,10 +183,14 @@
         />
       </div>
 
-      <button v-waves.button v-waves.float v-waves.light type="submit" class="btnRegister">
-        <span v-if="spin" class="spinner-border spinner-border-sm"></span> Register
-      </button>
-    </form>
+     
+<b-form-group>
+
+              <b-button  v-waves.float v-waves.light type="submit" >
+               Update
+              </b-button>
+</b-form-group>
+    </b-form>
   </div>
 </template>
 

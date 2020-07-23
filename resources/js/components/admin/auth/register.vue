@@ -67,6 +67,7 @@
 
 <script>
 export default {
+
   data() {
     return {
       admin: {
@@ -81,7 +82,10 @@ export default {
   },
   methods: {
     register() {
-      axios.post("/api/admin", this.admin).then(res => {
+      let admin = JSON.parse(localStorage.getItem('typeAdmin'))
+      axios.post("/api/admin", this.admin, {
+                headers: { Authorization: `Bearer ${admin.access_token}` }
+              }).then(res => {
         if (res.status == 201) {
           this.$toasted.info("Successful");
              this.$router.push("/admin");

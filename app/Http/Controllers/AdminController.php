@@ -50,18 +50,19 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
+       $school= auth('admin')->user();
         $password = new PasswordGenerator();
         $admin = Admin::create([
                   
                     'name'=> $request->name,
                     'email'=> $request->email,
-                    'school_id'=> $request->school_id,
+                    'school_id'=> $school->school_id,
                     'address'=> $request->address,
                     'role'=> $request->role,
                     'password'=> Hash::make($password->random_strings(8)),
                     
                 ]);
-                $school = School::find($request->school_id);
+                $school = School::find($school->school_id);
                 $admin->pass =  $password->random_strings(8);
                 $admin->notify(new NewAdmin($school,$admin));
                 return $admin;

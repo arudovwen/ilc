@@ -105,11 +105,16 @@ __webpack_require__.r(__webpack_exports__);
     register: function register() {
       var _this = this;
 
-      axios.post("/api/admin", this.data).then(function (res) {
+      var admin = JSON.parse(localStorage.getItem("typeAdmin"));
+      axios.post("/api/admin", this.data, {
+        headers: {
+          Authorization: "Bearer ".concat(admin.access_token)
+        }
+      }).then(function (res) {
         if (res.status == 201) {
           _this.$toasted.info("Successful");
 
-          _this.$router.push("/admin/administrators");
+          _this.$router.push("/admin");
         }
       });
     }

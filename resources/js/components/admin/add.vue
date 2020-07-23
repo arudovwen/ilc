@@ -86,13 +86,19 @@ export default {
     };
   },
   methods: {
-    register() {
-      axios.post("/api/admin", this.data).then(res => {
-        if (res.status == 201) {
-          this.$toasted.info("Successful");
-              this.$router.push("/admin/administrators");
-        }
-      });
+     register() {
+      let admin = JSON.parse(localStorage.getItem("typeAdmin"));
+     
+      axios
+        .post("/api/admin",this.data, {
+          headers: { Authorization: `Bearer ${admin.access_token}` }
+        })
+        .then(res => {
+          if (res.status == 201) {
+            this.$toasted.info("Successful");
+            this.$router.push("/admin");
+          }
+        });
     }
   }
 };

@@ -52,6 +52,7 @@ Vue.use(VueWaves, {
 });
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
 Vue.use(VueAwesomeSwiper /* { default options with global component } */);
 Vue.use(require('vue-moment'));
 Vue.use(Chartkick.use(Chart));

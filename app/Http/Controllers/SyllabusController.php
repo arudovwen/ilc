@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Syllabus;
+use App\Curriculum;
 use Illuminate\Http\Request;
 
 class SyllabusController extends Controller
@@ -17,7 +18,7 @@ class SyllabusController extends Controller
         $school_id = auth('admin')->user()->school_id;
         return Syllabus::where('school_id', $school_id)->get();
     }
-
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -43,12 +44,15 @@ class SyllabusController extends Controller
 
       
         $school_id = auth('admin')->user()->school_id;
+      $curriculum_id =  Curriculum::where('school_id',  $school_id)->where('subject', $request->myclass)->value('id');
         return Syllabus::create([
             'school_id'=>  $school_id,
+            'curriculum_id'=> $curriculum_id,
             'myclass'=> $request->myclass,
             'topic'=> $request->topic,
             'syllabus'=> json_encode($request->syllabus),
-            'subject' => $request->subject
+            'subject' => $request->subject,
+            'curriculum_id' => $request->curriculum_id,
         ]);
         
     }
@@ -68,7 +72,8 @@ class SyllabusController extends Controller
     }
 
     public function getTutorModules($myclass,$subject){
-        $syllabus = Syllabus::where('subject', $subject)->where('myclass',$myclass)->first();
+        $school_id = auth('tutor')->user()->school_id;
+        $syllabus = Syllabus::where('school_id',$school_id)->where('subject', $subject)->where('myclass',$myclass)->first();
        if (!is_null($syllabus)) {
         $module = json_decode($syllabus->syllabus)->modules;
         return $module;
@@ -104,6 +109,7 @@ class SyllabusController extends Controller
         $s->topic = $request->topic;
         $s->subject = $request->subject;
         $s->syllabus = json_encode($request->syllabus);
+        $s->curriculum_id = $request->curriculum_id;
         $s->save();
     }
 

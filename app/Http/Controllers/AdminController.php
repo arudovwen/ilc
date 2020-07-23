@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Admin;
 use App\School;
+use App\PasswordGenerator;
 use Illuminate\Http\Request;
+use App\Notifications\NewAdmin;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -16,7 +18,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return Admin::all();
+        $admin = auth('admin')->user();
+        return Admin::where('school_id',$admin->school_id)->get();
     }
     public function adminDetail()
     {
@@ -47,16 +50,21 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        return Admin::create([
+        $password = new PasswordGenerator();
+        $admin = Admin::create([
                   
                     'name'=> $request->name,
                     'email'=> $request->email,
                     'school_id'=> $request->school_id,
                     'address'=> $request->address,
                     'role'=> $request->role,
-                    'password'=> Hash::make($request->password),
+                    'password'=> Hash::make($password->random_strings(8)),
                     
                 ]);
+                $school = School::find($request->school_id);
+                $admin->pass =  $password->random_strings(8);
+                $admin->notify(new NewAdmin($school,$admin));
+                return $admin;
     }
 
     /**

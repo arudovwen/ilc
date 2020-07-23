@@ -4,12 +4,25 @@ namespace App;
 
 use App\User;
 use App\Tutor;
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class School extends Model
+class School extends Authenticatable
 {
+    use HasApiTokens, Notifiable;
+
+    public function routeNotificationForMail($notification)
+    {
+        // Return email address only...
+        return $this->email;
+
+        // Return name and email address...
+        return [$this->email => $this->name];
+    }
     protected $table ='schools';
-protected $fillable = ['schools','abbreviation','email','phone','address','verify'];
+    protected $fillable = ['schools','abbreviation','email','phone','address','verify'];
 
 
     public function user()

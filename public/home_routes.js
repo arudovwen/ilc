@@ -3118,7 +3118,7 @@ __webpack_require__.r(__webpack_exports__);
       student: {
         name: "",
         email: "",
-        gender: "",
+        gender: "male",
         student_level: ''
       },
       spin: false,
@@ -4843,10 +4843,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _preview__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./preview */ "./resources/js/components/admin/syllabus/preview.vue");
-var _methods;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -5167,7 +5163,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.getSubjects();
     this.getclasses();
   },
-  methods: (_methods = {
+  methods: {
     updateComment: function updateComment(value) {
       this.syllabus.comment = value;
     },
@@ -5199,110 +5195,101 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     togglePreview: function togglePreview() {
       this.showPreview = !this.showPreview;
+    },
+    addNew: function addNew(value) {
+      switch (value) {
+        case 1:
+          this.syllabus.learner_outcome.push({
+            name: ""
+          });
+          break;
+
+        case 2:
+          this.syllabus.target_skills.push({
+            name: ""
+          });
+          break;
+
+        case 3:
+          this.syllabus.modules.push({
+            name: ""
+          });
+          break;
+
+        case 4:
+          this.syllabus.delivery_methods.push({
+            name: ""
+          });
+          break;
+
+        case 5:
+          this.syllabus.assessments.push({
+            name: ""
+          });
+          break;
+
+        case 6:
+          this.syllabus.faqs.push({
+            answer: "",
+            question: ""
+          });
+          break;
+
+        default:
+          break;
+      }
+    },
+    remove: function remove(value) {
+      switch (value) {
+        case 1:
+          this.syllabus.learner_outcome.pop();
+          break;
+
+        case 2:
+          this.syllabus.target_skills.pop();
+          break;
+
+        case 3:
+          this.syllabus.modules.pop();
+          break;
+
+        case 4:
+          this.syllabus.delivery_methods.pop();
+          break;
+
+        case 5:
+          this.syllabus.assessments.pop();
+          break;
+
+        case 6:
+          this.syllabus.faqs.pop();
+          break;
+
+        default:
+          break;
+      }
+    },
+    submit: function submit() {
+      var _this3 = this;
+
+      var data = {
+        syllabus: this.syllabus,
+        subject: this.syllabus.subject,
+        myclass: this.syllabus.grade_level
+      };
+      axios.post("/api/syllabus", data, {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.admin.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 201) {
+          _this3.$router.push("/admin/syllabus/home");
+
+          _this3.$toasted.info('Added successfully');
+        }
+      });
     }
-  }, _defineProperty(_methods, "getclasses", function getclasses() {
-    var _this3 = this;
-
-    axios.get("/api/classes", {
-      headers: {
-        Authorization: "Bearer ".concat(this.$props.admin.access_token)
-      }
-    }).then(function (res) {
-      if (res.status == 200) {
-        _this3.allclasses = res.data;
-      }
-    });
-  }), _defineProperty(_methods, "addNew", function addNew(value) {
-    switch (value) {
-      case 1:
-        this.syllabus.learner_outcome.push({
-          name: ""
-        });
-        break;
-
-      case 2:
-        this.syllabus.target_skills.push({
-          name: ""
-        });
-        break;
-
-      case 3:
-        this.syllabus.modules.push({
-          name: ""
-        });
-        break;
-
-      case 4:
-        this.syllabus.delivery_methods.push({
-          name: ""
-        });
-        break;
-
-      case 5:
-        this.syllabus.assessments.push({
-          name: ""
-        });
-        break;
-
-      case 6:
-        this.syllabus.faqs.push({
-          answer: "",
-          question: ""
-        });
-        break;
-
-      default:
-        break;
-    }
-  }), _defineProperty(_methods, "remove", function remove(value) {
-    switch (value) {
-      case 1:
-        this.syllabus.learner_outcome.pop();
-        break;
-
-      case 2:
-        this.syllabus.target_skills.pop();
-        break;
-
-      case 3:
-        this.syllabus.modules.pop();
-        break;
-
-      case 4:
-        this.syllabus.delivery_methods.pop();
-        break;
-
-      case 5:
-        this.syllabus.assessments.pop();
-        break;
-
-      case 6:
-        this.syllabus.faqs.pop();
-        break;
-
-      default:
-        break;
-    }
-  }), _defineProperty(_methods, "submit", function submit() {
-    var _this4 = this;
-
-    var data = {
-      syllabus: this.syllabus,
-      subject: this.syllabus.subject,
-      myclass: this.syllabus.grade_level
-    };
-    axios.post("/api/syllabus", data, {
-      headers: {
-        Authorization: "Bearer ".concat(this.$props.admin.access_token)
-      }
-    }).then(function (res) {
-      if (res.status == 201) {
-        _this4.$router.push("/admin/syllabus/home");
-
-        _this4.$toasted.info('Added successfully');
-      }
-    });
-  }), _methods)
+  }
 });
 
 /***/ }),
@@ -6769,7 +6756,7 @@ __webpack_require__.r(__webpack_exports__);
           }
         }).then(function (res) {
           if (res.status == 200) {
-            _this3.getTutors();
+            _this3.getAdmins();
           }
         });
       }
@@ -6789,7 +6776,7 @@ __webpack_require__.r(__webpack_exports__);
           }
         }).then(function (res) {
           if (res.status == 200) {
-            _this4.getTutors();
+            _this4.getAdmins();
           }
         })["catch"](function (err) {
           console.log("del -> err", err);
@@ -8544,7 +8531,6 @@ __webpack_require__.r(__webpack_exports__);
       this.amount = cart.amount;
       this.email = cart.email;
       cart.ref = this.reference;
-      console.log("createOrder -> cart", cart);
       axios.post("/api/order", cart).then(function (res) {
         if (res.status == 201) {
           _this.order_id = res.data.id;
@@ -8554,15 +8540,27 @@ __webpack_require__.r(__webpack_exports__);
     callback: function callback(response) {
       var _this2 = this;
 
+      this.$emit("showOverlay");
       var user = JSON.parse(localStorage.getItem("regDetails"));
-      console.log(response);
 
       if (response.status == "success") {
         axios.get("/api/verify/".concat(this.reference)).then(function (res) {
           if (res.status == 200) {
-            _this2.$toasted.info('Login to continue');
+            _this2.$toasted.info("Check your mail for your login details", {
+              icon: {
+                name: "check"
+              }
+            });
 
-            _this2.$router.push('/auth?authType=login');
+            _this2.$router.push("/admin");
+          } else {
+            _this2.$toasted.error("Something went wrong", {
+              icon: {
+                name: "fingerprint"
+              }
+            });
+
+            _this2.$router.go(-1);
           }
         });
       }
@@ -8720,10 +8718,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -8733,7 +8727,7 @@ __webpack_require__.r(__webpack_exports__);
         email: "",
         phone: null,
         address: "",
-        password: ""
+        password: "password"
       },
       check: false,
       spin: false
@@ -11140,12 +11134,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -11153,15 +11141,20 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      packages: {}
+      packages: {},
+      show: false
     };
+  },
+  methods: {
+    showOverlay: function showOverlay() {
+      this.show = !this.show;
+    }
   },
   computed: {},
   created: function created() {},
   mounted: function mounted() {
     this.packages = JSON.parse(localStorage.getItem("cart"));
-  },
-  methods: {}
+  }
 });
 
 /***/ }),
@@ -12401,11 +12394,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tutor"],
   data: function data() {
     return {
+      label: 'cover',
+      cover: 'cover',
       allClass: [],
       modules: [],
       subjects: [],
@@ -12415,6 +12419,7 @@ __webpack_require__.r(__webpack_exports__);
         module: "",
         excerpt: "",
         count: "single",
+        cover_image: '',
         content: [{
           type: "",
           file: "",
@@ -12489,8 +12494,14 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getUploadDetails: function getUploadDetails(id, res) {
-      this.resource.content[id].file = res.secure_url;
-      this.resource.content[id].name = res.original_filename;
+      console.log("getUploadDetails -> id", id);
+
+      if (id == 'cover') {
+        this.resource.cover_image = res.secure_url;
+      } else {
+        this.resource.content[id].file = res.secure_url;
+        this.resource.content[id].name = res.original_filename;
+      }
     },
     getModules: function getModules() {
       var _this3 = this;
@@ -13943,13 +13954,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CloudinaryUpload",
-  props: ["index"],
+  props: ["index", 'label'],
   data: function data() {
     return {
       filesSelectedLength: 0,
-      file: [],
+      file: null,
       filetype: "",
       uploadedFile: this.oldimage,
       uploadedFileUrl: "",
@@ -14101,7 +14113,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".back[data-v-2cf9e62b] {\n  position: absolute;\n  top: 20px;\n  left: 20px;\n}\n.button-green[data-v-2cf9e62b] {\n  padding: 8px 32px;\n  box-shadow: 0px 0px 12px -2px rgba(0, 0, 0, 0.5);\n  line-height: 1.25;\n  border-radius: 3px;\n  background: #0f7a8a;\n  text-decoration: none;\n  color: white;\n  font-size: 13px;\n  letter-spacing: 0.08em;\n  text-transform: initial;\n  position: relative;\n  transition: background-color 0.6s ease;\n  overflow: hidden;\n}\n.button-green[data-v-2cf9e62b]:after {\n  content: \"\";\n  position: absolute;\n  width: 0;\n  height: 0;\n  top: 50%;\n  left: 50%;\n  transform-style: flat;\n  transform: translate3d(-50%, -50%, 0);\n  background: rgba(255, 255, 255, 0.1);\n  border-radius: 100%;\n  transition: width 0.3s ease, height 0.3s ease;\n}\n.button-green[data-v-2cf9e62b]:focus, .button-green[data-v-2cf9e62b]:hover {\n  background: #0c5e6a;\n}\n.button-green[data-v-2cf9e62b]:active:after {\n  width: 200px;\n  height: 200px;\n}\n.container[data-v-2cf9e62b] {\n  height: 100vh;\n  position: relative;\n}\n.main_box[data-v-2cf9e62b] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background: #f7f8fa;\n  padding: 15px;\n}", ""]);
+exports.push([module.i, ".overlay-h[data-v-2cf9e62b] {\n  height: 100vh;\n}\n.back[data-v-2cf9e62b] {\n  position: absolute;\n  top: 20px;\n  left: 20px;\n}\n.button-green[data-v-2cf9e62b] {\n  padding: 8px 32px;\n  box-shadow: 0px 0px 12px -2px rgba(0, 0, 0, 0.5);\n  line-height: 1.25;\n  border-radius: 3px;\n  background: #0f7a8a;\n  text-decoration: none;\n  color: white;\n  font-size: 13px;\n  letter-spacing: 0.08em;\n  text-transform: initial;\n  position: relative;\n  transition: background-color 0.6s ease;\n  overflow: hidden;\n}\n.button-green[data-v-2cf9e62b]:after {\n  content: \"\";\n  position: absolute;\n  width: 0;\n  height: 0;\n  top: 50%;\n  left: 50%;\n  transform-style: flat;\n  transform: translate3d(-50%, -50%, 0);\n  background: rgba(255, 255, 255, 0.1);\n  border-radius: 100%;\n  transition: width 0.3s ease, height 0.3s ease;\n}\n.button-green[data-v-2cf9e62b]:focus, .button-green[data-v-2cf9e62b]:hover {\n  background: #0c5e6a;\n}\n.button-green[data-v-2cf9e62b]:active:after {\n  width: 200px;\n  height: 200px;\n}\n.container[data-v-2cf9e62b] {\n  height: 100vh;\n  position: relative;\n}\n.main_box[data-v-2cf9e62b] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background: #f7f8fa;\n  padding: 15px;\n}", ""]);
 
 // exports
 
@@ -22116,7 +22128,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("router-link", { attrs: { to: "/administrators" } }, [
+          _c("router-link", { attrs: { to: "/admin/administrators" } }, [
             _c("div", { staticClass: "nav-item" }, [
               _c("span", [
                 _c("img", {
@@ -23971,11 +23983,18 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "body" }, [
-    _c("div", { staticClass: "text-right" }, [
-      _c("button", { attrs: { type: "button" }, on: { click: _vm.update } }, [
-        _vm._v("Update")
-      ])
-    ]),
+    _c(
+      "div",
+      { staticClass: "text-right" },
+      [
+        _c(
+          "b-button",
+          { attrs: { type: "button" }, on: { click: _vm.update } },
+          [_vm._v("Update")]
+        )
+      ],
+      1
+    ),
     _vm._v(" "),
     _c("div", { staticClass: "info" }, [
       _c("h4", [_vm._v("Student Information")]),
@@ -32487,31 +32506,30 @@ var render = function() {
                     [
                       _c(
                         "b-col",
-                        { attrs: { lg: "6" } },
                         [
                           _c(
                             "b-form-group",
                             {
                               attrs: {
-                                id: "input-group-3",
-                                label: "Password",
-                                "label-for": "input-3"
+                                id: "input-group-6",
+                                label: "Address",
+                                "label-for": "input-6"
                               }
                             },
                             [
                               _c("b-form-input", {
                                 attrs: {
-                                  id: "input-3",
-                                  type: "password",
+                                  id: "input-6",
+                                  type: "text",
                                   required: "",
                                   placeholder: ""
                                 },
                                 model: {
-                                  value: _vm.admin.password,
+                                  value: _vm.admin.address,
                                   callback: function($$v) {
-                                    _vm.$set(_vm.admin, "password", $$v)
+                                    _vm.$set(_vm.admin, "address", $$v)
                                   },
-                                  expression: "admin.password"
+                                  expression: "admin.address"
                                 }
                               })
                             ],
@@ -32582,41 +32600,6 @@ var render = function() {
                                   maxlength: "11",
                                   required: "",
                                   placeholder: ""
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-col",
-                        [
-                          _c(
-                            "b-form-group",
-                            {
-                              attrs: {
-                                id: "input-group-6",
-                                label: "Address",
-                                "label-for": "input-6"
-                              }
-                            },
-                            [
-                              _c("b-form-input", {
-                                attrs: {
-                                  id: "input-6",
-                                  type: "text",
-                                  required: "",
-                                  placeholder: ""
-                                },
-                                model: {
-                                  value: _vm.admin.address,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.admin, "address", $$v)
-                                  },
-                                  expression: "admin.address"
                                 }
                               })
                             ],
@@ -35854,89 +35837,99 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c(
-      "div",
-      { staticClass: "back" },
-      [_c("router-link", { attrs: { to: "/" } }, [_vm._v("Back Home ")])],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "row h-100 justify-content-center align-items-center" },
-      [
-        _c("div", { staticClass: "main_box" }, [
-          _c("div", { staticClass: "col-md-12 order-md-2 mb-4" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("ul", { staticClass: "list-group mb-3" }, [
+  return _c(
+    "b-overlay",
+    { staticClass: "overlay-h", attrs: { show: _vm.show, rounded: "sm" } },
+    [
+      _c(
+        "div",
+        { staticClass: "back" },
+        [_c("router-link", { attrs: { to: "/" } }, [_vm._v("Back Home")])],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "row h-100 justify-content-center align-items-center" },
+        [
+          _c("div", { staticClass: "main_box" }, [
+            _c("div", { staticClass: "col-md-12 order-md-2 mb-4" }, [
               _c(
-                "li",
+                "h4",
                 {
                   staticClass:
-                    "list-group-item d-flex justify-content-between lh-condensed"
+                    "d-flex justify-content-between align-items-center mb-3"
                 },
                 [
-                  _c("div", [
-                    _c("h6", { staticClass: "my-0 toCaps" }, [
-                      _vm._v(_vm._s(_vm.packages.name))
-                    ]),
-                    _vm._v(" "),
-                    _c("small", { staticClass: "text-muted" }, [
-                      _vm._v(_vm._s(_vm.packages.desc))
-                    ])
+                  _c("span", { staticClass: "text-muted" }, [
+                    _vm._v("Summary")
                   ]),
                   _vm._v(" "),
-                  _c("span", { staticClass: "text-muted" }, [
-                    _vm._v("₦" + _vm._s(_vm.packages.price))
-                  ])
+                  _c(
+                    "span",
+                    { staticClass: "badge badge-secondary badge-pill" },
+                    [_vm._v("3")]
+                  )
                 ]
               ),
               _vm._v(" "),
+              _c("ul", { staticClass: "list-group mb-3" }, [
+                _c(
+                  "li",
+                  {
+                    staticClass:
+                      "list-group-item d-flex justify-content-between lh-condensed"
+                  },
+                  [
+                    _c("div", [
+                      _c("h6", { staticClass: "my-0 toCaps" }, [
+                        _vm._v(_vm._s(_vm.packages.name))
+                      ]),
+                      _vm._v(" "),
+                      _c("small", { staticClass: "text-muted" }, [
+                        _vm._v(_vm._s(_vm.packages.desc))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "text-muted" }, [
+                      _vm._v("₦" + _vm._s(_vm.packages.price))
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  {
+                    staticClass:
+                      "list-group-item d-flex justify-content-between"
+                  },
+                  [
+                    _c("span", [_vm._v("Total (₦)")]),
+                    _vm._v(" "),
+                    _c("strong", [_vm._v("₦" + _vm._s(_vm.packages.price))])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
               _c(
-                "li",
-                {
-                  staticClass: "list-group-item d-flex justify-content-between"
-                },
+                "div",
+                { staticClass: "card p-2" },
                 [
-                  _c("span", [_vm._v("Total (₦)")]),
-                  _vm._v(" "),
-                  _c("strong", [_vm._v("₦" + _vm._s(_vm.packages.price))])
-                ]
+                  _c("Paystack", {
+                    attrs: { package: _vm.packages },
+                    on: { showOverlay: _vm.showOverlay }
+                  })
+                ],
+                1
               )
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "card p-2" },
-              [_c("Paystack", { attrs: { package: _vm.packages } })],
-              1
-            )
+            ])
           ])
-        ])
-      ]
-    )
-  ])
+        ]
+      )
+    ]
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "h4",
-      { staticClass: "d-flex justify-content-between align-items-center mb-3" },
-      [
-        _c("span", { staticClass: "text-muted" }, [_vm._v("Summary")]),
-        _vm._v(" "),
-        _c("span", { staticClass: "badge badge-secondary badge-pill" }, [
-          _vm._v("3")
-        ])
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -37643,7 +37636,7 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
-                        _c("h6", [_vm._v("Overview (200 characters)")]),
+                        _c("h6", [_vm._v("Overview (250 characters)")]),
                         _vm._v(" "),
                         _c("textarea", {
                           directives: [
@@ -37655,7 +37648,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { maxlength: "200", rows: "3" },
+                          attrs: { maxlength: "250", rows: "3" },
                           domProps: { value: item.overview },
                           on: {
                             input: function($event) {
@@ -37668,22 +37661,32 @@ var render = function() {
                         })
                       ]),
                       _vm._v(" "),
-                      _c("Upload", {
-                        attrs: { index: idx },
-                        on: { getUploadDetails: _vm.getUploadDetails }
-                      }),
-                      _vm._v(" "),
-                      item.type !== ""
-                        ? _c("p", { staticClass: "toCaps animated fadeIn" }, [
-                            _vm._v("Resource Type : " + _vm._s(item.type))
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      item.name !== ""
-                        ? _c("p", { staticClass: "toCaps animated fadeIn" }, [
-                            _vm._v("Resource Name : " + _vm._s(item.name))
-                          ])
-                        : _vm._e()
+                      _c(
+                        "b-form-group",
+                        [
+                          _c("Upload", {
+                            attrs: { index: idx },
+                            on: { getUploadDetails: _vm.getUploadDetails }
+                          }),
+                          _vm._v(" "),
+                          item.type !== ""
+                            ? _c(
+                                "p",
+                                { staticClass: "toCaps animated fadeIn" },
+                                [_vm._v("Resource Type : " + _vm._s(item.type))]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          item.name !== ""
+                            ? _c(
+                                "p",
+                                { staticClass: "toCaps animated fadeIn" },
+                                [_vm._v("Resource Name : " + _vm._s(item.name))]
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      )
                     ],
                     1
                   )
@@ -37691,6 +37694,38 @@ var render = function() {
               }),
               0
             )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "b-form-group",
+          { staticClass: "mb-5 w-25" },
+          [
+            _c("h5", { staticClass: "mb-2" }, [_vm._v("Cover Image")]),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c(
+              "label",
+              { attrs: { for: "cover" } },
+              [
+                _c("b-avatar", {
+                  attrs: {
+                    src: _vm.resource.cover_image,
+                    rounded: "",
+                    size: "7rem",
+                    icon: "image-fill"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("Upload", {
+              attrs: { label: _vm.label, index: _vm.cover },
+              on: { getUploadDetails: _vm.getUploadDetails }
+            })
           ],
           1
         ),
@@ -40149,61 +40184,50 @@ var render = function() {
         }
       },
       [
-        _c("div", {}, [
-          _c(
-            "div",
-            { staticClass: "form-group" },
-            [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  type: "file",
-                  id: "file-input",
-                  "aria-describedby": "helpId",
-                  placeholder: ""
-                },
-                on: {
-                  change: function($event) {
-                    return _vm.handleFileChange($event)
-                  }
+        _c(
+          "div",
+          [
+            _c("b-form-file", {
+              staticClass: "mt-3",
+              attrs: { id: _vm.label, plain: "" },
+              on: {
+                change: function($event) {
+                  return _vm.handleFileChange($event)
                 }
-              }),
-              _vm._v(" "),
-              _c(
-                "b-button",
-                {
-                  staticClass: "  my-3",
-                  attrs: {
-                    type: "submit",
-                    disabled: _vm.filesSelectedLength < 1
-                  }
-                },
-                [_vm._v("Upload")]
-              ),
-              _vm._v(" "),
-              _vm.start
-                ? _c("div", { staticClass: "progress mt-2" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "progress-bar progress-bar-striped ",
-                        class: { active: _vm.progress != "Completed" },
-                        style: { width: _vm.progress },
-                        attrs: {
-                          role: "progressbar",
-                          "aria-valuenow": "0",
-                          "aria-valuemin": "0",
-                          "aria-valuemax": "100"
-                        }
-                      },
-                      [_vm._v(_vm._s(_vm.progress))]
-                    )
-                  ])
-                : _vm._e()
-            ],
-            1
-          )
-        ])
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "b-button",
+              {
+                staticClass: "  my-3",
+                attrs: { type: "submit", disabled: _vm.filesSelectedLength < 1 }
+              },
+              [_vm._v("Upload")]
+            ),
+            _vm._v(" "),
+            _vm.start
+              ? _c("div", { staticClass: "progress mt-2" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "progress-bar progress-bar-striped ",
+                      class: { active: _vm.progress != "Completed" },
+                      style: { width: _vm.progress },
+                      attrs: {
+                        role: "progressbar",
+                        "aria-valuenow": "0",
+                        "aria-valuemin": "0",
+                        "aria-valuemax": "100"
+                      }
+                    },
+                    [_vm._v(_vm._s(_vm.progress))]
+                  )
+                ])
+              : _vm._e()
+          ],
+          1
+        )
       ]
     )
   ])

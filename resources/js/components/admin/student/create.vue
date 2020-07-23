@@ -71,7 +71,7 @@ export default {
         student: {
           name: "",        
           email: "",
-          gender: "",
+          gender: "male",
           student_level:'',  
       },
       spin: false,

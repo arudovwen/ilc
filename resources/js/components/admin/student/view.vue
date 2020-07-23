@@ -1,7 +1,7 @@
 <template>
   <div class="body">
     <div class="text-right">
-      <button type="button" @click="update">Update</button>
+      <b-button type="button" @click="update">Update</b-button>
     </div>
 
     <div class="info">

@@ -44,6 +44,7 @@ class CurriculumController extends Controller
         return Curriculum::create([
             'school_id'=>  $school_id,  
             'subject'=> $request->subject,
+          
             'curriculum'=> json_encode($request->curriculum),
         
         ]);

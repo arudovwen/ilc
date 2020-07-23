@@ -8,7 +8,10 @@ use App\Faculty;
 use App\Department;
 use App\CourseLevel;
 use App\EducationLevel;
+use App\PasswordGenerator;
 use Illuminate\Http\Request;
+use App\Notifications\NewStudent;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
@@ -66,13 +69,18 @@ class RegisterController extends Controller
             
         ]);
   
+      $result = DB::transaction(function () use($request) {
         $school_id = auth('admin')->user()->school_id;
         $school_name = School::find($school_id)->schools;
-   
-            return User::create([
+        $school = School::find($school_id);
+       
+          
+            $password = new PasswordGenerator();
+          
+             $student = User::create([
                         'name' => $request['name'],
                         'email' => $request['email'],
-                        'password' => Hash::make('password'),
+                        'password' => Hash::make($password->random_strings(8)),
                         'mat_no' => rand(0,9999),
                         'phone' => null,
                         'gender' => $request['gender'],
@@ -89,7 +97,12 @@ class RegisterController extends Controller
                         'student_level' =>  \trim($request['student_level']),
                         'study_course' => $request['study_course']
                     ]);
-        
+                    $student->pass = $password->random_strings(8);
+                    $student->notify(new NewStudent($school,$student));
+                    return $student; 
+       });
+
+       return $result;
 
     
     }

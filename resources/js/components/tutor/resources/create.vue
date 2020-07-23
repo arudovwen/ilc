@@ -112,16 +112,25 @@
                 />
               </div>
               <div class="form-group">
-                <h6>Overview (200 characters)</h6>
-                <textarea class="form-control" v-model="item.overview" maxlength="200" rows="3"></textarea>
+                <h6>Overview (250 characters)</h6>
+                <textarea class="form-control" v-model="item.overview" maxlength="250" rows="3"></textarea>
               </div>
-              <Upload :index="idx" @getUploadDetails="getUploadDetails" />
+             <b-form-group>
+                 <Upload :index="idx" @getUploadDetails="getUploadDetails" />
               <p class="toCaps animated fadeIn" v-if="item.type !==''">Resource Type : {{item.type}}</p>
               <p class="toCaps animated fadeIn" v-if="item.name !==''">Resource Name : {{item.name}}</p>
+             </b-form-group>
             </div>
           </div>
         </div>
       </div>
+
+      <b-form-group class="mb-5 w-25">
+        <h5 class="mb-2" >Cover Image</h5>  <br>
+        <label for="cover">  <b-avatar :src="resource.cover_image" rounded size="7rem" icon="image-fill"></b-avatar></label>
+        <Upload :label='label' :index='cover' @getUploadDetails="getUploadDetails"/>
+       
+     </b-form-group>
 
       <div class="form-group mb-5">
         <label for>Would you like to include a Worksheet/Quiz?</label>
@@ -152,15 +161,19 @@ export default {
   props: ["tutor"],
   data() {
     return {
+      label:'cover',
+      cover:'cover',
       allClass: [],
       modules: [],
       subjects: [],
+     
       resource: {
         level: "",
         subject: "",
         module: "",
         excerpt: "",
         count: "single",
+         cover_image:'',
         content: [
           {
             type: "",
@@ -237,8 +250,15 @@ export default {
       });
     },
     getUploadDetails(id, res) {
-      this.resource.content[id].file = res.secure_url;
-      this.resource.content[id].name = res.original_filename;
+      console.log("getUploadDetails -> id", id)
+    
+      if (id =='cover') {
+        this.resource.cover_image= res.secure_url     
+      }else{
+         this.resource.content[id].file = res.secure_url;
+        this.resource.content[id].name = res.original_filename;
+      }
+     
     },
     getModules() {
       axios

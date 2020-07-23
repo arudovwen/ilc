@@ -374,6 +374,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_toasted__WEBPACK_IMPORTED_MOD
 });
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(bootstrap_vue__WEBPACK_IMPORTED_MODULE_3__["BootstrapVue"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(bootstrap_vue__WEBPACK_IMPORTED_MODULE_3__["IconsPlugin"]);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_awesome_swiper__WEBPACK_IMPORTED_MODULE_4___default.a
 /* { default options with global component } */
 );

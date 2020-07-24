@@ -24,6 +24,9 @@ Broadcast::channel('{groupName}{groupId}{tutorId}', function ($user, $tutorId) {
   Broadcast::channel('group-subscribed{id}', function ($user,$id) {
     return (int) $user->id === (int) $id;
   });
+  Broadcast::channel('resource-added{id}', function ($user,$id) {
+    return (int) $user->id === (int) $id;
+  });
   Broadcast::channel('dashboard-created.{id}', function ($user) {
       return $user;
   });

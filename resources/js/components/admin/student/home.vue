@@ -2,89 +2,65 @@
   <div class="body">
     <nav class="mb-5">
       <router-link to="/admin/student/create">
-        <div class="nav_box shadow-sm">
-          <p class="mx-auto">Create Student</p>
-          <hr />
-        </div>
+        <b-button block class="shadow-sm">Add Student</b-button>
       </router-link>
-      <div class="nav_box shadow-sm">
-        <p class="mx-auto" @click="multiDrop">Multi-Drop</p>
-        <hr />
-      </div>
+
       <router-link to="/admin/student/assign">
-        <div class="nav_box shadow-sm">
-          <p class="mx-auto">Assign Course</p>
-          <hr />
-        </div>
+        <b-button block class="shadow-sm">
+          Students
+          <i class="fa fa-arrows-h mx-2" aria-hidden="true"></i>
+          Subjects
+        </b-button>
       </router-link>
-      <router-link to="/admin/add">
-        <div class="nav_box shadow-sm">
-          <p class="mx-auto">Assign Level</p>
-          <hr />
-        </div>
+      <router-link to="/admin/student/assign/class">
+        <b-button block class="shadow-sm">
+          Students
+          <i class="fa fa-arrows-h mx-2" aria-hidden="true"></i>
+          Class
+        </b-button>
       </router-link>
+      <b-button block class="shadow-sm" @click="multiDrop">Multi-Drop</b-button>
     </nav>
 
- <div class="classes my-5">
-<h4>Class List</h4>
+    <div class="classes my-5">
+      <h4 class="mb-3">Class List</h4>
 
-<div class="class_list">
-  <div class="single-class shadow-sm" @click="selectClass('')">
-   All
+      <div class="class_list">
+        <b-button class="shadow-sm" @click="selectClass('')">All</b-button>
+        <b-button
+          class="shadow-sm"
+          @click="selectClass(item.class_name)"
+          v-for="(item,idx) in allClass"
+          :key="idx"
+        >{{item.class_name.toLowerCase()}}</b-button>
+      </div>
+    </div>
+    <div>
+      <h4 class="toCaps mb-4">Showing : {{current== ''? 'All': current.toLowerCase()}}</h4>
 
-  </div>
-  <div class="single-class shadow-sm" @click="selectClass(item)" v-for="(item,idx) in allClass" :key ="idx">
-    {{item.toLowerCase()}}
-
-  </div>
-</div>
-
- </div>
-   <div>
-     <h4 class="toCaps">Showing : {{current== ''? 'All': current.toLowerCase()}}</h4>
-      <table class="table table-striped table-inverse table-bordered">
-      <thead class="thead-inverse">
-        <tr>
-          <th>Student Id</th>
-          <th>Name</th>
-          <th>Email</th>
-           <th>Level</th>
-          <th>Gender</th>
-          <th>Phone</th>
-          <th>Action</th>
-          <th>
-            <input type="checkbox" v-model="item" />
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item,idx) in sortedStudents" :key="idx">
-          <td>{{item.student_id}}</td>
-          <td scope="row" class="toCaps">{{item.name}}</td>
-          <td>{{item.email}}</td>
-           <td>{{item.student_level}}</td>
-          <td class="toCaps">{{item.gender}}</td>
-          <td>{{item.phone}}</td>
-          <td class="d-flex justify-content-around">
-             <span class="mr-3" @click="view(item.id)">
-              
-              <i class="fa fa-eye" aria-hidden="true"></i> View
-            </span>
-            <span class="mr-3" @click="drop(item.id)">
-              
-              <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
-            </span>
-            <span @click="edit(item.id)">
-              <i class="fas fa-edit"></i>Update
-            </span>
-          </td>
-          <td>
-            <input type="checkbox" :value="item.id" v-model="items" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-   </div>
+      <b-table :items="sortedStudents" :fields="fields" hover bordered responsive>
+        <template v-slot:table-busy>
+          <div class="text-center my-2">
+            <b-spinner class="align-middle"></b-spinner>
+            <strong>Loading...</strong>
+          </div>
+        </template>
+        <template v-slot:cell(actions)="data">
+          <span @click="view(item.id)" class="mr-3">
+            <i class="fas fa-eye"></i>View
+          </span>
+          <span class="mr-3" @click="drop(data.item.id)">
+            <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
+          </span>
+          <span @click="edit(data.item.id)">
+            <i class="fas fa-edit"></i>Update
+          </span>
+        </template>
+        <template v-slot:cell(drop)="data">
+          <b-form-checkbox :value="data.item.id" v-model="items"></b-form-checkbox>
+        </template>
+      </b-table>
+    </div>
   </div>
 </template>
 
@@ -94,11 +70,22 @@ export default {
   props: ["admin"],
   data() {
     return {
+      busy: true,
       students: [],
       items: [],
       item: false,
-        allClass: [],
-        current:''
+      allClass: [],
+      current: "",
+      fields: [
+        "student_id",
+        { key: "name", sortable: true },
+        "email",
+        { key: "gender", sortable: true },
+        { key: "student_level", sortable: true },
+        "phone",
+        "actions",
+        "drop"
+      ]
     };
   },
   watch: {
@@ -106,27 +93,29 @@ export default {
   },
   mounted() {
     this.getStudents();
-    this.getCLasses()
+    this.getCLasses();
   },
   computed: {
-    sortedStudents(){
-      return this.students.filter(item=>{
-        if (item.student_level.toLowerCase().trim() == this.current.toLowerCase().trim()) {
-          return item
+    sortedStudents() {
+      return this.students.filter(item => {
+        if (
+          item.student_level.toLowerCase().trim() ==
+          this.current.toLowerCase().trim()
+        ) {
+          return item;
         }
-         if (this.current == '') {
-          return item
+        if (this.current == "") {
+          return item;
         }
-       
-      })
+      });
     }
   },
   methods: {
-    selectClass(value){
-      this.current = value
+    selectClass(value) {
+      this.current = value;
     },
-      getCLasses() {
-         let admin = JSON.parse(localStorage.getItem('typeAdmin'))
+    getCLasses() {
+      let admin = JSON.parse(localStorage.getItem("typeAdmin"));
       axios
         .get("/api/classes", {
           headers: {
@@ -135,16 +124,17 @@ export default {
         })
         .then(res => {
           if (res.status == 200) {
-            res.data.forEach(item => {
-             
-              if (item.sub_class !== "") {
-                item.sub_class.split(",").forEach(i => {
-                  this.allClass.push(i);
-                });
-              }else{
-                 this.allClass.push(item.class_name);
-              }
-            });
+            this.allClass = res.data;
+            // res.data.forEach(item => {
+
+            //   if (item.sub_class !== "") {
+            //     item.sub_class.split(",").forEach(i => {
+            //       this.allClass.push(i);
+            //     });
+            //   }else{
+            //      this.allClass.push(item.class_name);
+            //   }
+            // });
           }
         });
     },
@@ -168,37 +158,38 @@ export default {
         .then(res => {
           if (res.status == 200) {
             this.students = res.data;
+            this.busy = false;
           }
         });
     },
     drop(id) {
       let del = confirm("Are you sure?");
       if (del) {
-       
-          axios.delete(`/api/student/${id}`, {
-          headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
-        }).then(res => {
+        axios
+          .delete(`/api/student/${id}`, {
+            headers: {
+              Authorization: `Bearer ${this.$props.admin.access_token}`
+            }
+          })
+          .then(res => {
             if (res.status == 200) {
-              this.getTutors();
+              this.getStudents();
             }
           });
-        
       }
     },
     multiDrop() {
       let del = confirm("Are you sure about this?");
-            let data = {
-        data:this.items
-        }
+      let data = {
+        data: this.items
+      };
       if (del) {
         axios
-          .post("/api/multi-student-drop", data , {
-          headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
-        })
+          .post("/api/multi-student-drop", data, {
+            headers: {
+              Authorization: `Bearer ${this.$props.admin.access_token}`
+            }
+          })
           .then(res => {
             if (res.status == 200) {
               this.getStudents();
@@ -210,10 +201,10 @@ export default {
       }
     },
     edit(id) {
-        this.$router.push(`/admin/student/edit/${id}`)
+      this.$router.push(`/admin/student/update/${id}`);
     },
-     view(id) {
-        this.$router.push(`/admin/student/view/${id}`)
+    view(id) {
+      this.$router.push(`/admin/student/view/${id}`);
     }
   }
 };
@@ -224,28 +215,22 @@ nav {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-column-gap: 30px;
+}
+.hiden {
+  opacity: 0;
+}
 
-}
-.hiden{
-    opacity: 0;
-}
-.nav_box {
-  background-color: #f7f8fa;
-  display: flex;
-  text-align: center;
-  padding: 10px 15px;
-}
 .body {
   padding: 20px 20px 50px;
   height: 100%;
 }
-.class_list{
+.class_list {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-row-gap: 15px;
+  grid-row-gap: 15px;
   grid-column-gap: 15px;
 }
-.single-class{
+.single-class {
   padding: 15px;
   background: #f7f8fa;
   text-transform: capitalize;

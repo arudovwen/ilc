@@ -39,6 +39,7 @@ version history: [location of file]
 }
 
 
+
 body{
     overflow-x: hidden;
 }
@@ -248,6 +249,7 @@ a:hover{
   display: flex;
   width: 100%;
   max-width: 100%;
+  overflow: hidden;
 
 }
 
@@ -293,6 +295,7 @@ a:hover{
     margin: 15px 20px;
 }
 
+
 .form-side .form-control{
     padding: 20px 15px !important;
     border: 1px solid #c4c4c4 !important;
@@ -311,6 +314,47 @@ form .reg-btn{
     margin-left: 1.2rem;
 }
 
+/* Dont touch */
+
+.back{
+    position: absolute;
+    top:20px;
+    left: 15px;
+}
+.slide-fade-enter-active {
+    transition: all .3s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+   {
+    transform: translateX(10px);
+    opacity: 0;
+  }
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to  {
+    opacity: 0;
+  }
+
+  .toCaps{
+      text-transform: capitalize;
+  }
+  
+  .w-70{
+    width: 70% !important;
+    }
+    .w-30{
+    width: 30% !important;
+    }
+
+    .body{
+        padding:50px 20px 70px;
+        position: relative;
+        min-height: 100%;
+    }
 
 
 /* admin dashboard  */
@@ -620,25 +664,12 @@ a {
     width: 0;
 }
 
-.wave-btn{
-
-}
-
-
-
-
-
-
 
 
 input.text {
     padding: 3px;
     border: 1px solid #999999;
 }
-
-
-
-
 
 
 table {
@@ -720,39 +751,6 @@ td {
       margin-left: -25px;
     }
   
-.slide-fade-enter-active {
-    transition: all .3s ease;
-  }
-  .slide-fade-leave-active {
-    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-  }
-  .slide-fade-enter, .slide-fade-leave-to
-   {
-    transform: translateX(10px);
-    opacity: 0;
-  }
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .5s;
-  }
-  .fade-enter, .fade-leave-to  {
-    opacity: 0;
-  }
-
-  .back{
-      position: absolute;
-      top:20px;
-      left: 15px;
-  }
-  .toCaps{
-      text-transform: capitalize;
-  }
-  
-  .w-70{
-    width: 70% !important;
-    }
-    .w-30{
-    width: 30% !important;
-    }
 
     
 @media(max-width:425px) {

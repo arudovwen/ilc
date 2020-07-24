@@ -1,84 +1,28 @@
 <template>
   <div class="main">
-    <navigation></navigation>
-    <div v-if="login" class="login">
-      <login @register="switchAuth"></login>
-    </div>
-    <div v-if="registration" class="register">
-      <registration @login="switchAuth"></registration>
-    </div>
-    <div class="mini_box_1"></div>
-    <div class="mini_box_2"></div>
+  
+    <login></login>
   </div>
 </template>
 
 <script>
-const login = () => import('./login');
-const registration = () => import('./registration');
+const login = () => import("./login");
 
-const navigation = () => import('../navigation/navigation');
 
 export default {
   data() {
-    return {
-      login: false,
-      registration: true
-    };
-  },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      if (vm.$route.query.authType === "login") {
-        vm.switchAuth("login");
-        next();
-      } else {
-        vm.switchAuth("register");
-        next();
-      }
-    });
+    return {};
   },
 
   components: {
-    registration,
     login,
-    navigation
-  },
-  watch: {
-    "$route.query.authType": {
-      handler: function(newValue, oldValue) {
-        this.switchAuth(newValue);
-      }
-    }
-  },
-
-  methods: {
-    switchAuth(value) {
-      switch (value) {
-        case "login":
-          this.login = true;
-          this.registration = false;
-          break;
-        case "register":
-          this.login = false;
-          this.registration = true;
-          break;
-      }
-    }
   }
 };
 </script>
 
 
 <style scoped>
-.main {
-  background: repeating-linear-gradient(
-    to right,
-    rgb(15, 122, 138, 0.7) 0%,
-    rgb(15, 122, 138, 0.7) 100%
-  );
-  height: 100vh;
-  position: relative;
-  overflow: hidden;
-}
+
 .login {
 }
 .register {
@@ -92,7 +36,7 @@ export default {
   position: absolute;
 }
 .mini_box_1 {
-  background: #333 ;
+  background: #333;
   top: -6%;
   right: -6%;
   transform: rotate(45deg);
@@ -109,7 +53,6 @@ export default {
     justify-content: center;
     align-items: center;
     height: 100vh;
-   
   }
   .register .nav-tabs {
     width: 35%;
@@ -126,8 +69,7 @@ export default {
 @media (max-width: 768px) {
 }
 @media (max-width: 425px) {
-
-    .mini_box_2 {
+  .mini_box_2 {
     bottom: -12%;
     left: -20%;
     background: #333;

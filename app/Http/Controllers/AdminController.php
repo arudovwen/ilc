@@ -20,17 +20,13 @@ class AdminController extends Controller
     }
     public function adminDetail()
     {
+        $admin = auth('admin')->user();
       
-       
-       $admin = auth('admin')->user();
-      
-       $school = School::find($admin->school_id);
-       $admin->verify = $school->verify;
-       $admin->school = $school->schools;
-       return $admin;
-
-
-      
+        $school = School::find($admin->school_id);
+        $admin->verify = $school->verify;
+        $admin->school = $school->schools;
+        $admin->abbreviation = $school->abbreviation;
+        return $admin;
     }
 
     /**
@@ -51,7 +47,7 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-                return Admin::create([
+        return Admin::create([
                   
                     'name'=> $request->name,
                     'email'=> $request->email,
@@ -123,7 +119,6 @@ class AdminController extends Controller
     }
     public function multiDrop(Request $request)
     {
- 
         foreach ($request->data as $id) {
             $find = Admin::find($id);
             $find->delete();

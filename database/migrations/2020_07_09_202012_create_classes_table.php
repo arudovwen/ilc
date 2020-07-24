@@ -17,7 +17,7 @@ class CreateClassesTable extends Migration
             $table->id();
             $table->bigInteger('school_id')->unsigned();
             $table->string('class_name');
-            $table->longText('sub_class');
+            $table->longText('sub_class')->nullable();
             $table->timestamps();
 
             $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');

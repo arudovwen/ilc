@@ -201,8 +201,8 @@
         </div>
       </div>
       <div class="my-5">
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="button" class="btn btn-default" @click="cancel">Cancel</button>
+        <b-button type="submit">Submit</b-button>
+        <b-button type="button" variant="outline-secondary" @click="cancel">Cancel</b-button>
       </div>
     </form>
     <!-- form ends here  -->
@@ -212,8 +212,8 @@
         </div>
         <p class="josefin">Do you wish to create a syllabus now ?</p>
           <div class="my-5 d-flex">
-        <button type="submit" class="btn btn-primary mr-4" @click="goTo(1)">Yes</button>
-        <button type="button" class="btn btn-default" @click="goTo(2)">No</button>
+        <b-button type="submit" class="btn btn-primary mr-4" @click="goTo(1)">Yes</b-button>
+        <b-button type="button" class="btn btn-default" @click="goTo(2)">No</b-button>
       </div>
     </div>
   </div>

@@ -66,6 +66,19 @@ class SyllabusController extends Controller
     public function getTutorSyllabus($id){
         return Syllabus::find($id);
     }
+
+    public function getTutorModules($myclass,$subject){
+        $syllabus = Syllabus::where('subject', $subject)->where('myclass',$myclass)->first();
+       if (!is_null($syllabus)) {
+        $module = json_decode($syllabus->syllabus)->modules;
+        return $module;
+       }
+
+       return response()->json([
+        'status'=>'not found'
+    ]);
+
+    }
     /**
      * Show the form for editing the specified resource.
      *

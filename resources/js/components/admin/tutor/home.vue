@@ -2,67 +2,49 @@
   <div class="body">
     <nav class="mb-5">
       <router-link to="/admin/tutor/create">
-        <div class="nav_box shadow-sm">
-          <p class="mx-auto">Create Tutor</p>
-          <hr />
-        </div>
+        <b-button block class="shadow-sm reg-btn text-center">Create Tutor</b-button>
       </router-link>
-      <div class="nav_box shadow-sm">
-        <p class="mx-auto" @click="multiDrop">Multi-Drop</p>
-        <hr />
-      </div>
+
       <router-link to="/admin/tutor/assign">
-        <div class="nav_box shadow-sm">
-          <p class="mx-auto">Assign Tutor Courses</p>
-          <hr />
-        </div>
+        <b-button block class="shadow-sm reg-btn text-center">
+          Tutor
+          <i class="fa fa-arrows-h mx-2" aria-hidden="true"></i>
+           Courses
+        </b-button>
       </router-link>
       <router-link to="/admin/head/assign">
-        <div class="nav_box shadow-sm">
-          <p class="mx-auto">Assign Head Teacher</p>
-          <hr />
-        </div>
+        <b-button block class="shadow-sm reg-btn text-center">
+          Tutor
+          <i class="fa fa-arrows-h mx-2" aria-hidden="true"></i>
+ Head Tutor
+        </b-button>
       </router-link>
+      <b-button block class="shadow-sm reg-btn text-center" @click="multiDrop">Multi-Drop</b-button>
     </nav>
 
-    <table class="table table-striped table-inverse table-bordered">
-      <thead class="thead-inverse">
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Gender</th>
-          <th>Phone</th>
-          <th>Subjects</th>
-          <th>Action</th>
-          <th>
-            <input type="checkbox" v-model="item" />
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item,idx) in tutors" :key="idx">
-          <td scope="row" class="toCaps">{{item.name}}</td>
-          <td>{{item.email}}</td>
-          <td>{{item.gender}}</td>
-          <td>{{item.phone}}</td>
-           <td>{{item.subjects}}</td>
-          <td class="d-flex justify-content-around">
-             <span @click="view(item.id)" class="mr-3">
-              <i class="fas fa-eye"></i>View
-            </span>
-            <span class="mr-3" @click="drop(item.id)">
-              <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
-            </span>
-            <span @click="edit(item.id)">
-              <i class="fas fa-edit"></i>Update
-            </span>
-          </td>
-          <td>
-            <input type="checkbox" :value="item.id" v-model="items" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <b-table bordered hover responsive :busy="busy" :items="tutors" :fields="fields">
+      <template v-slot:cell(sn)="data">{{data.index+1}}</template>
+      <template v-slot:cell(drop)="data">
+        <b-form-checkbox :value="data.item.id" v-model="items"></b-form-checkbox>
+      </template>
+       <template v-slot:table-busy>
+        <div class="text-center my-2">
+          <b-spinner class="align-middle"></b-spinner>
+          <strong>Loading...</strong>
+        </div>
+      </template>
+      <template v-slot:cell(actions)="data">
+        <span @click="view(item.id)" class="mr-3">
+          <i class="fas fa-eye"></i>View
+        </span>
+        <span class="mr-3" @click="drop(data.item.id)">
+          <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
+        </span>
+        <span @click="edit(data.item.id)">
+          <i class="fas fa-edit"></i>Update
+        </span>
+      </template>
+    </b-table>
   </div>
 </template>
 
@@ -73,8 +55,18 @@ export default {
   data() {
     return {
       tutors: [],
+      busy:true,
       items: [],
-      item: false
+      item: false,
+      fields: [
+        "Sn",
+        { key: "name", sortable: true },
+        "email",
+        { key: "gender", sortable: true },
+        "phone",
+        "actions",
+        "drop"
+      ]
     };
   },
   watch: {
@@ -104,37 +96,38 @@ export default {
         .then(res => {
           if (res.status == 200) {
             this.tutors = res.data;
+            this.busy= false
           }
         });
     },
     drop(id) {
       let del = confirm("Are you sure?");
       if (del) {
-       
-          axios.delete(`/api/tutor/${id}`, {
-          headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
-        }).then(res => {
+        axios
+          .delete(`/api/tutor/${id}`, {
+            headers: {
+              Authorization: `Bearer ${this.$props.admin.access_token}`
+            }
+          })
+          .then(res => {
             if (res.status == 200) {
               this.getTutors();
             }
           });
-        
       }
     },
     multiDrop() {
       let del = confirm("Are you sure about this?");
-            let data = {
-        data:this.items
-        }
+      let data = {
+        data: this.items
+      };
       if (del) {
         axios
-          .post("/api/multi-tutor-drop", data , {
-          headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
-        })
+          .post("/api/multi-tutor-drop", data, {
+            headers: {
+              Authorization: `Bearer ${this.$props.admin.access_token}`
+            }
+          })
           .then(res => {
             if (res.status == 200) {
               this.getTutors();
@@ -146,10 +139,10 @@ export default {
       }
     },
     edit(id) {
-        this.$router.push(`/admin/tutor/edit/${id}`)
+      this.$router.push(`/admin/tutor/update/${id}`);
     },
     view(id) {
-        this.$router.push(`/admin/tutor/view/${id}`)
+      this.$router.push(`/admin/tutor/view/${id}`);
     }
   }
 };
@@ -161,15 +154,10 @@ nav {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-column-gap: 30px;
 }
-.hiden{
-    opacity: 0;
+.hiden {
+  opacity: 0;
 }
-.nav_box {
-  background-color: #f7f8fa;
-  display: flex;
-  text-align: center;
-  padding: 10px 15px;
-}
+
 .body {
   padding: 20px 20px 50px;
   height: 100%;

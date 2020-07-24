@@ -19,6 +19,7 @@ import Chartkick from 'vue-chartkick'
 import Chart from 'chart.js'
  
 
+import VueChatScroll from 'vue-chat-scroll'
 
 
 import "swiper/css/swiper.css";
@@ -28,6 +29,7 @@ import 'vue-waves-button/waves.css';
 import '../sass/app.scss';
 
 
+Vue.use(VueChatScroll)
 
 Vue.use(VueWaves, {
     name: 'waves' , 
@@ -37,9 +39,16 @@ Vue.use(VueWaves, {
 
 
   Vue.use(Toasted, {
-    duration: 2500,
-    icon: null
-    // after: true
+     duration: 3500,
+    iconPack : 'fontawesome',
+    action : {
+      text : 'Cancel',
+      onClick : (e, toastObject) => {
+          toastObject.goAway(0);
+      }
+    },
+   
+ 
 });
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
@@ -84,7 +93,7 @@ router.beforeEach((to, from, next) => {
         var admin = localStorage.getItem("typeTutor");
         if (admin == null) {
           next({
-            path: '/tutor/auth/login',
+            path: '/auth',
             query: { redirect: to.fullPath }
            
           })
@@ -100,7 +109,7 @@ router.beforeEach((to, from, next) => {
         var admin = localStorage.getItem("typeStudent");
         if (admin == null) {
           next({
-            path: '/student/auth/login',
+            path: '/auth',
             query: { redirect: to.fullPath }
            
           })

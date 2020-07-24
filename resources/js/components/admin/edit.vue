@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-        <div class="back">
-          <router-link to="/admin/administrators">Back</router-link>
-      </div>
+    <div class="back">
+      <router-link to="/admin/administrators">Back</router-link>
+    </div>
     <form @submit.prevent="register">
-      <legend>Update Admin</legend>
+      <legend class="text-center">Update Admin</legend>
       <div class="form-group">
         <label for>Name</label>
         <input
@@ -54,15 +54,16 @@
         />
       </div>
 
-      <div class="form-group">
+      <b-form-group>
         <label for>Role</label>
-        <select class="form-control" name id>
-          <option value="administrator">Administrator</option>
-          <option value="principal">Principal</option>
-        </select>
-      </div>
+      
+         <b-form-select v-model="data.role" :options="options"></b-form-select>
+     </b-form-group>
 
-      <button class="button-blue" type="submit">Update</button>
+
+      <b-form-group>
+         <b-button variant="success" type="submit">Register</b-button>
+      </b-form-group>
     </form>
   </div>
 </template>
@@ -70,7 +71,7 @@
 
 <script>
 export default {
-    props:['admin'],
+  props: ["admin"],
   data() {
     return {
       data: {
@@ -80,22 +81,27 @@ export default {
         address: "",
         role: ""
       },
-      spin: false
+      spin: false,
+       options:[
+         {value:'',text:'Select an option',disabled:true},
+        {value:'administrator',text:'Administrator'},
+          {value:'principal',text:'Principal'},
+      ]
     };
   },
   mounted() {
-      this.getAdmin()
+    this.getAdmin();
   },
   methods: {
     register() {
       axios.put(`/api/admin/${this.$route.params.id}`, this.admin).then(res => {
         if (res.status == 200) {
           this.$toasted.info("Successful");
-             this.$router.push("/admin/administrators");
+          this.$router.push("/admin/administrators");
         }
       });
     },
-      getAdmin() {
+    getAdmin() {
       axios
         .get(`/api/admin/${this.$route.params.id}`, {
           headers: {
@@ -107,7 +113,7 @@ export default {
             this.data = res.data;
           }
         });
-    },
+    }
   }
 };
 </script>
@@ -120,7 +126,7 @@ export default {
   height: 100vh;
   position: relative;
 }
-form{
-    width:50%
+form {
+  width: 50%;
 }
 </style>

@@ -193,13 +193,13 @@
         />
       </div>
       <div class="form-group">
-        <label for>SGL</label>
+        <label for>Cgl</label>
         <input
           type="text"
           class="form-control"
-          name="sgl"
-          id="sgl"
-          v-model="tutor.sgl"
+          name="cgl"
+          id="cgl"
+          v-model="tutor.cgl"
           aria-describedby="helpId"
           placeholder
         />
@@ -243,7 +243,7 @@
         />
       </div>
 
-      <button class="button-blue" type="submit">Register</button>
+      <b-button  type="submit">Register</b-button>
     </form>
   </div>
 </template>
@@ -273,7 +273,7 @@ export default {
         bank_name: "",
         bank_no: "",
         bvn: "",
-        sgl: "",
+        cgl: "",
         rank: "",
         file_no: "",
         area_of_specialization: ""
@@ -286,6 +286,7 @@ export default {
     this.getTutor()
   },
     methods: {
+      
     register() {
         let admin = JSON.parse(localStorage.getItem('typeAdmin'))
       axios.put(`/api/tutor/${this.$route.params.id}`, this.tutor,{headers:{

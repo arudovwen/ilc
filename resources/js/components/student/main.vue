@@ -2,8 +2,9 @@
   <div>
     <nav class="shadow-sm p-3">
       <h5>Student Dashboard</h5>
-      <div>
-        <div id="notification">
+      <b-row class="align-items-center">
+       <b-col>
+          <div id="notification">
           <div class="icon" @click="toggleNotification">
             <i class="fas fa-bell"></i>
             <div class="badge animated pulse" v-if="count>0">{{count}}</div>
@@ -16,6 +17,7 @@
               <li class="list-group-item">
                 <h6>Notifications</h6>
               </li>
+
               <div class="main-notify">
                 <li class="list-group-item" v-for="(item,idx) in notifications" :key="idx">
                   <span :class="{'text-muted':item.status}">{{item.message}}</span>
@@ -26,9 +28,16 @@
                 <small>View all</small>
               </li>
             </ul>
+            
           </div>
         </div>
-      </div>
+       </b-col>
+        
+       <b-col>
+        <div>   <b-avatar src="" ></b-avatar></div>
+       </b-col>
+      
+      </b-row>
     </nav>
     <transition name="slide-fade">
       <router-view :student="student"></router-view>
@@ -47,9 +56,15 @@ export default {
       count: 0
     };
   },
-  created() {
+  mounted() {
     Echo.private("group-subscribed" + this.$props.student.id).listen(
       "GroupSubscribed",
+      e => {
+        this.getNotifications();
+      }
+    );
+     Echo.private("resource-added" + this.$props.student.id).listen(
+      "ResourceAdded",
       e => {
         this.getNotifications();
       }

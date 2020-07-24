@@ -25,7 +25,7 @@ class Tutor extends Authenticatable
         'department',
         'course_level',
         'school_id',
-        'address', 'dob','doe', 'lga', 'state', 'bank_name','bank_no','bvn','sgl','rank','file_no','area_of_specialization',
+        'address', 'dob','doe', 'lga', 'state', 'bank_name','bank_no','bvn','cgl','profile','rank','file_no','area_of_specialization',
         
         
     ];

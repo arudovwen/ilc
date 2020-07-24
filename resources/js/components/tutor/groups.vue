@@ -1,24 +1,24 @@
 <template>
   <div class="body">
     <nav class="mb-5">
-      <div class="nav_box shadow-sm">
-        <p class="mx-auto" @click="multiDrop">Multi-Drop</p>
-        <hr />
-      </div>
-      <div class="nav_box shadow-sm hiden">
-        <p class="mx-auto">Create Group</p>
-        <hr />
-      </div>
+      <b-button class=" shadow-sm"  @click="multiDrop">
+       Multi-Drop
+       
+      </b-button>
+      <b-button class=" shadow-sm hiden">
+       Create Group
+       
+      </b-button>
 
-      <div class="nav_box shadow-sm hiden">
-        <p class="mx-auto">Assign Course</p>
-        <hr />
-      </div>
+      <b-button class=" shadow-sm hiden">
+       Assign Course
+       
+      </b-button>
 
-      <div class="nav_box shadow-sm hiden">
-        <p class="mx-auto">Assign Level</p>
-        <hr />
-      </div>
+      <b-button class=" shadow-sm hiden">
+       Assign Level
+       
+      </b-button>
     </nav>
 
     <div class="d-flex justify-content-between">
@@ -35,9 +35,9 @@
         </thead>
         <tbody>
           <tr v-for="(item,idx) in groups" :key="idx">
-            <td class="toCaps" @click="gotoGroup(item.id)">
+            <td class="toCaps chat" @click="gotoGroup(item.id)">
               {{item.name}}
-              <i class="fas enter fa-sign-in-alt"></i>
+             <i class="fa fa-comments" aria-hidden="true"></i>
             </td>
             <td>{{item.class_name}}</td>
             <td class="d-flex justify-content-around">
@@ -74,7 +74,7 @@
             </select>
           </div>
 
-          <p>or</p>
+          <p>or
             <div class="form-group">
             <label for>Add Students</label>
             <select class="custom-select" v-model="name_class">
@@ -96,10 +96,10 @@
 
 
 
-          <button v-if="!update" type="submit" class="btn btn-primary">Create</button>
+          <b-button v-if="!update" type="submit" class="btn btn-primary">Create</b-button>
           <div v-else class="d-flex justify-content-between">
-            <button type="button" class="btn btn-primary" @click="updateN">Update</button>
-            <button type="button" class="btn btn-primary" @click="cancel">Cancel</button>
+            <b-button type="button" class="btn btn-primary" @click="updateN">Update</b-button>
+            <b-button type="button" class="btn btn-primary" @click="cancel">Cancel</b-button>
           </div>
         </form>
       </div>
@@ -331,6 +331,9 @@ td {
   text-transform: capitalize;
   position: relative;
 }
+.chat{
+  cursor: pointer;
+}
 .enter {
   position: absolute;
   right: 20px;
@@ -340,12 +343,7 @@ td {
 .hiden {
   opacity: 0;
 }
-.nav_box {
-  background-color: #f7f8fa;
-  display: flex;
-  text-align: center;
-  padding: 10px 15px;
-}
+
 .add {
   background-color: #f7f8fa;
 }

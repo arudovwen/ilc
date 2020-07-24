@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-   <form @submit.prevent="register" class="mx-auto register-right">
+   <b-form @submit.prevent="register" class="mx-auto register-right">
       
       <!-- Student starts here   -->
      
-          <legend>Register Student</legend>
+          <legend class="text-center">Register Student</legend>
            
               <div class="form-group">
                 <input
@@ -43,20 +43,22 @@
             <label for>Choose Class Level</label>
             <select class="custom-select" v-model="student.student_level">
               <option selected value>Select Class</option>
-              <option :value="item" v-for="(item,idx) in allClass" :key="idx">{{item}}</option>
+              <option :value="item.class_name.toLowerCase()" v-for="(item,idx) in allClass" :key="idx">{{item.class_name}}</option>
             </select>
           </div>
 
+<b-form-group>
 
-              <button v-waves.button v-waves.float v-waves.light type="submit" class="btnRegister">
-                <span v-if="spin" class="spinner-border spinner-border-sm"></span> Register
-              </button>
+              <b-button  v-waves.float v-waves.light type="submit" >
+               Register
+              </b-button>
+</b-form-group>
            
        
       
 
       
-    </form>
+    </b-form>
   </div>
 </template>
 
@@ -102,15 +104,7 @@ export default {
         })
         .then(res => {
           if (res.status == 200) {
-            res.data.forEach(item => {
-                 if (item.sub_class !== "") {
-                item.sub_class.split(",").forEach(i => {
-                  this.allClass.push(i);
-                });
-              }else{
-                 this.allClass.push(item.class_name);
-              }
-            });
+           this.allClass = res.data
           }
         });
     },

@@ -14,7 +14,8 @@ class ClassStudentsController extends Controller
      */
     public function index()
     {
-        //
+        $school_id = auth('admin')->user()->school_id;
+        return Classes::where('school_id',$school_id)->get();
     }
 
     /**
@@ -35,7 +36,17 @@ class ClassStudentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      
+        $school_id = auth('admin')->user()->school_id;
+        foreach ($request->data as $value) {
+           
+            ClassStudent::create([
+                'school_id'=>  $school_id,
+                'my_class'=>  $value['my_class'],
+                'students' => json_encode($value['students'])
+            ]);
+        }
+      
     }
 
     /**
@@ -44,10 +55,10 @@ class ClassStudentsController extends Controller
      * @param  \App\ClassStudent  $classStudent
      * @return \Illuminate\Http\Response
      */
-    public function show(ClassStudent $classStudent)
+    public function show( $id)
     {
-        //
-    }
+        return  ClassStudent::find($id);
+        }
 
     /**
      * Show the form for editing the specified resource.
@@ -78,8 +89,19 @@ class ClassStudentsController extends Controller
      * @param  \App\ClassStudent  $classStudent
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ClassStudent $classStudent)
+    public function destroy($id)
     {
-        //
+        ClassStudent::find($id)->delete();
+    }
+    public function multiDrop(Request $request)
+    {
+        foreach ($request->data as $id) {
+            $find = ClassStudent::find($id);
+            $find->delete();
+        }
+     
+        return response()->json([
+            'status'=>'Deleted'
+        ]);
     }
 }

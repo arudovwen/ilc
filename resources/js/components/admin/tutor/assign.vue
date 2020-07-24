@@ -1,5 +1,5 @@
 <template>
-  <div class="p-3">
+  <div class="body p-3">
     <div class="d-flex">
       <div class="w-25 mr-3">
         <table class="table table-bordered table-hover">
@@ -45,7 +45,7 @@
         </table>
         <div class="form-control" v-else>No Tutor Selected</div>
         <div class="my-3" v-if="data.choosen_course.length">
-          <button type="button" @click="submit">Submit</button>
+          <b-button type="button" @click="submit">Submit</b-button>
         </div>
       </div>
     </div>

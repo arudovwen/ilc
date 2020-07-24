@@ -192,6 +192,22 @@ const Students = () =>
     );
 const StudentUpdate = () =>
     import(/* webpackChunkName: "home_routes" */ "./components/student/update");
+const Explore = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/student/explore"
+    );
+    const ViewResource = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/student/viewResource"
+    );
+const Library = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/student/library"
+    );
+    const Study = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/student/study"
+    );
 const Tutors = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/tutor/home"
@@ -206,6 +222,10 @@ const AssignStudent = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/student/assign"
     );
+const AssignStudentClass = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/admin/student/assignLevel"
+    );
 const AssignHead = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/tutor/assignHead"
@@ -214,6 +234,25 @@ const SchoolRegister = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/school/register"
     );
+
+const ResourcesHome = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/tutor/resources/home"
+    );
+const ResourcesCreate = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/tutor/resources/create"
+    );
+const ResourcesEdit = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/tutor/resources/edit"
+    );
+const ResourcesView = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/tutor/resources/view"
+    );
+const TimesTableTutor = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/tutor/times");
 
 export const routes = [
     { path: "*", redirect: "/" },
@@ -228,11 +267,18 @@ export const routes = [
         component: Auth,
         name: "Auth",
         beforeEnter: (to, from, next) => {
-            var user = localStorage.getItem("myUser");
+            var user = localStorage.getItem("typeStudent");
+            var tutor = localStorage.getItem("typeTutor");
             if (user == null) {
                 next();
             } else {
-                next("/");
+                next("/student");
+            }
+            
+            if (tutor == null) {
+                next();
+            } else {
+                next("/tutor");
             }
         }
     },
@@ -501,6 +547,14 @@ export const routes = [
                 meta: {
                     typeAdmin: true
                 }
+            },
+            {
+                path: "student/assign/class",
+                component: AssignStudentClass,
+                name: "AssignStudentClass",
+                meta: {
+                    typeAdmin: true
+                }
             }
         ]
     },
@@ -532,7 +586,7 @@ export const routes = [
                 }
             },
             {
-                path: "update",
+                path: "update/:id",
                 component: TutorUpdate,
                 name: "TutorUpdate",
                 meta: {
@@ -565,7 +619,7 @@ export const routes = [
             },
             {
                 path: "curriculum/view/:id",
-                component:TutorCurriculumView,
+                component: TutorCurriculumView,
                 name: "TutorCurriculumView",
                 meta: {
                     typeTutor: true
@@ -573,7 +627,7 @@ export const routes = [
             },
             {
                 path: "syllabus/view/:id",
-                component:TutorSyllabusView,
+                component: TutorSyllabusView,
                 name: "TutorSyllabusView",
                 meta: {
                     typeTutor: true
@@ -581,13 +635,52 @@ export const routes = [
             },
             {
                 path: "syllabus",
-                component:TutorSyllabus,
+                component: TutorSyllabus,
                 name: "TutorSyllabus",
                 meta: {
                     typeTutor: true
                 }
             },
-            
+            {
+                path: "resources",
+                component: ResourcesHome,
+                name: "ResourcesHome",
+                meta: {
+                    typeTutor: true
+                }
+            },
+            {
+                path: "resource/create",
+                component: ResourcesCreate,
+                name: "ResourcesCreate",
+                meta: {
+                    typeTutor: true
+                }
+            },
+            {
+                path: "resource/edit/:id",
+                component: ResourcesEdit,
+                name: "ResourcesEdit",
+                meta: {
+                    typeTutor: true
+                }
+            },
+            {
+                path: "times-table",
+                component: TimesTableTutor,
+                name: "TimesTableTutor",
+                meta: {
+                    typeTutor: true
+                }
+            },
+            {
+                path: "resource/view/:id",
+                component: ResourcesView,
+                name: "ResourcesView",
+                meta: {
+                    typeTutor: true
+                }
+            }
         ]
     },
 
@@ -613,6 +706,38 @@ export const routes = [
                 path: "",
                 component: StudentHome,
                 name: "StudentHome",
+                meta: {
+                    typeStudent: true
+                }
+            },
+            {
+                path: "explore",
+                component: Explore,
+                name: "Explore",
+                meta: {
+                    typeStudent: true
+                }
+            },
+            {
+                path: "resource/view/:id",
+                component: ViewResource,
+                name: "ViewResource",
+                meta: {
+                    typeStudent: true
+                }
+            },
+            {
+                path: "library",
+                component: Library,
+                name: "Library",
+                meta: {
+                    typeStudent: true
+                }
+            },
+            {
+                path: "study/:id",
+                component: Study,
+                name: "Study",
                 meta: {
                     typeStudent: true
                 }

@@ -9,7 +9,7 @@
                 <img src="/images/teacher-green.png" class="img-fluid" alt />
                 <div class="inner-top-cards-text pl-2">
                   <p>
-                    <strong>200+</strong>
+                    <strong>{{tutors.length}}+</strong>
                   </p>
                   <p>Teachers</p>
                 </div>
@@ -24,9 +24,9 @@
                 <img src="/images/teacher-green.png" class="img-fluid" alt />
                 <div class="inner-top-cards-text pl-2">
                   <p>
-                    <strong>200+</strong>
+                    <strong>{{students.length}}+</strong>
                   </p>
-                  <p>Teachers</p>
+                  <p>Students</p>
                 </div>
               </div>
             </b-card>
@@ -39,9 +39,9 @@
                 <img src="/images/teacher-green.png" class="img-fluid" alt />
                 <div class="inner-top-cards-text pl-2">
                   <p>
-                    <strong>200+</strong>
+                    <strong>{{classes.length}}+</strong>
                   </p>
-                  <p>Teachers</p>
+                  <p>Classes</p>
                 </div>
               </div>
             </b-card>
@@ -95,27 +95,33 @@
         <b-col>
           <div class="dashboard-bottom-cards">
             <b-card>
-            <div class="note-card-top">
-              <h6>Notes</h6>
-              <b-button variant="outline-primary">Add Note</b-button>
-            </div>
-            <div class="note-card-details">
-              <p>You currently have no note create notes to add</p>
-            </div>
-          </b-card>
+              <div class="note-card-top">
+                <h6>Syllabus</h6>
+               <router-link to="/admin/syllabus" class="mb-2"> <b-button variant="outline-primary">Add Syllabus</b-button></router-link>
+              </div>
+              <div class="note-card-details">
+                <b-table :items="syllabus" :fields="fields" hover>
+                  <template v-slot:cell(class)="data">{{data.item.myclass}}</template>
+                </b-table>
+              </div>
+            </b-card>
           </div>
         </b-col>
         <b-col>
-                    <div class="dashboard-bottom-cards">
+          <div class="dashboard-bottom-cards">
             <b-card>
-            <div class="note-card-top">
-              <h6>Notes</h6>
-              <b-button variant="outline-primary">Add Task</b-button>
-            </div>
-            <div class="note-card-details">
-              <p>You currently have no Task create notes to add</p>
-            </div>
-          </b-card>
+              <div class="note-card-top">
+                <h6>Curriculum</h6>
+               <router-link to="/admin/curriculum/create" class="mb-2"> <b-button variant="outline-primary">Add Curriculum</b-button></router-link>
+              </div>
+              <div class="note-card-details">
+                <b-table :items="curriculum" :fields="field" hover>
+                  <template v-slot:cell(class)="data">
+         {{data.item.subject}}
+        </template>
+                </b-table>
+              </div>
+            </b-card>
           </div>
         </b-col>
       </b-row>
@@ -125,7 +131,94 @@
 
 
 <script>
-export default {};
+export default {
+  props: ["admin"],
+  data() {
+    return {
+      tutors: [],
+      students: [],
+      classes: [],
+      syllabus: [],
+      curriculum: [],
+      fields: ["class", "subject"],
+      field: ["class"]
+    };
+  },
+  mounted() {
+    this.getStudents();
+    this.getClasses();
+    this.getTutors();
+    this.getSyllabus()
+    this.getCurriculum();
+  },
+  methods: {
+    getStudents() {
+      axios
+        .get("/api/admin-get-students", {
+          headers: {
+            Authorization: `Bearer ${this.$props.admin.access_token}`
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.students = res.data;
+          }
+        });
+    },
+    getCurriculum() {
+      axios
+        .get("/api/curriculum", {
+          headers: {
+            Authorization: `Bearer ${this.$props.admin.access_token}`
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.curriculum = res.data;
+          }
+        });
+    },
+    getTutors() {
+      axios
+        .get("/api/tutor", {
+          headers: {
+            Authorization: `Bearer ${this.$props.admin.access_token}`
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.tutors = res.data;
+          }
+        });
+    },
+    getClasses() {
+      axios
+        .get("/api/classes", {
+          headers: {
+            Authorization: `Bearer ${this.$props.admin.access_token}`
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.classes = res.data;
+          }
+        });
+    },
+    getSyllabus() {
+      axios
+        .get("/api/syllabus", {
+          headers: {
+            Authorization: `Bearer ${this.$props.admin.access_token}`
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.syllabus = res.data;
+          }
+        });
+    }
+  }
+};
 </script>
 
 <style scoped>

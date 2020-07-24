@@ -14,9 +14,9 @@
             </b-nav-form>
           </b-navbar-nav>
           <b-navbar-nav class="ml-auto">
-             <b-nav-item href="#"><b-avatar src="https://placekitten.com/300/300"></b-avatar></b-nav-item>
+             <b-nav-item href="#"><b-avatar size="2em" src="https://placekitten.com/300/300"></b-avatar></b-nav-item>
              <b-nav-item>  <div class="user-name">
-               <h6>ADMIN</h6>
+               <h6 class="toCaps">{{admin.name}}</h6>
              </div>
              </b-nav-item>
              <b-nav-item> <img src="/images/bells-svg.png" alt=""> </b-nav-item>

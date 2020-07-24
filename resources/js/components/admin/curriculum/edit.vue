@@ -75,8 +75,8 @@
           </span>
 
           <div class="d-flex justify-content-start">
-            <button class="mr-3" @click="addNew(1)">Add</button>
-            <button class @click="remove(1)" v-if="curriculum.learner_outcome.length > 1">Remove</button>
+            <b-button class="mr-3" @click="addNew(1)">Add</b-button>
+            <b-button class @click="remove(1)" v-if="curriculum.learner_outcome.length > 1">Remove</b-button>
           </div>
         </div>
       </div>
@@ -99,8 +99,8 @@
         </span>
 
         <div class="d-flex">
-          <button class="mr-3" @click="addNew(2)">Add</button>
-          <button class @click="remove(2)" v-if="curriculum.target_skills.length > 1">Remove</button>
+          <b-button class="mr-3" @click="addNew(2)">Add</b-button>
+          <b-button class @click="remove(2)" v-if="curriculum.target_skills.length > 1">Remove</b-button>
         </div>
       </div>
       <div class="border p-3 my-4">
@@ -121,8 +121,8 @@
         </span>
 
         <div class="d-flex">
-          <button class="mr-3" @click="addNew(3)">Add</button>
-          <button class @click="remove(3)" v-if="curriculum.prerequisite.length > 1">Remove</button>
+          <b-button class="mr-3" @click="addNew(3)">Add</b-button>
+          <b-button class @click="remove(3)" v-if="curriculum.prerequisite.length > 1">Remove</b-button>
         </div>
       </div>
       <div class="border p-3 my-4">
@@ -143,8 +143,8 @@
           />
         </span>
         <div class="d-flex">
-          <button class="mr-3" @click="addNew(4)">Add</button>
-          <button class @click="remove(4)" v-if="curriculum.delivery_methods.length > 1">Remove</button>
+          <b-button class="mr-3" @click="addNew(4)">Add</b-button>
+          <b-button class @click="remove(4)" v-if="curriculum.delivery_methods.length > 1">Remove</b-button>
         </div>
       </div>
       <div class="border p-3 my-4">
@@ -163,8 +163,8 @@
         </span>
 
         <div class="d-flex">
-          <button class="mr-3" @click="addNew(5)">Add</button>
-          <button class @click="remove(5)" v-if="curriculum.assessments.length > 1">Remove</button>
+          <b-button class="mr-3" @click="addNew(5)">Add</b-button>
+          <b-button class @click="remove(5)" v-if="curriculum.assessments.length > 1">Remove</b-button>
         </div>
       </div>
       <div>
@@ -194,8 +194,8 @@
           <hr v-if="curriculum.faqs.length > 1" />
         </div>
         <div class="d-flex">
-          <button class="mr-3" @click="addNew(6)">Add</button>
-          <button class @click="remove(6)" v-if="curriculum.faqs.length > 1">Remove</button>
+          <b-button class="mr-3" @click="addNew(6)">Add</b-button>
+          <b-button class @click="remove(6)" v-if="curriculum.faqs.length > 1">Remove</b-button>
         </div>
       </div>
       <div class="border p-3 my-4">
@@ -224,7 +224,7 @@
         </div>
       </div>
       <div class="my-5">
-        <button type="submit" class="btn btn-primary">Update</button>
+        <b-button type="submit" class="btn btn-primary">Update</b-button>
       </div>
     </form>
 

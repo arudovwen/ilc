@@ -1,79 +1,73 @@
 <template>
-  <div class="container">
-       <div class="back">
-      <router-link to="/">Back Home </router-link>
-    </div>
-    <div class="row h-100 justify-content-center align-items-center">
-      <div class="main_box">
-        <div class="col-md-12 order-md-2 mb-4">
-          <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-muted">Summary</span>
-            <span class="badge badge-secondary badge-pill">3</span>
-          </h4>
-          <ul class="list-group mb-3">
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <h6 class="my-0 toCaps">{{packages.name}}</h6>
-                <small class="text-muted">{{packages.desc}}</small>
-              </div>
-              <span class="text-muted">&#8358;{{packages.price}}</span>
-            </li>
-           
-            <!-- <li class="list-group-item d-flex justify-content-between bg-light">
-              <div class="text-success">
-                <h6 class="my-0">Promo code</h6>
-                <small>EXAMPLECODE</small>
-              </div>
-              <span class="text-success">-$5</span>
-            </li> -->
-            <li class="list-group-item d-flex justify-content-between">
-              <span>Total (&#8358;)</span>
-              <strong>&#8358;{{packages.price}}</strong>
-            </li>
-          </ul>
+ 
+    <b-overlay :show="show" rounded="sm" class="overlay-h">
+      <div class="back">
+        <router-link to="/">Back Home</router-link>
+      </div>
+      <div class="row h-100 justify-content-center align-items-center">
+        <div class="main_box">
+          <div class="col-md-12 order-md-2 mb-4">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-muted">Summary</span>
+              <span class="badge badge-secondary badge-pill">3</span>
+            </h4>
+            <ul class="list-group mb-3">
+              <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <div>
+                  <h6 class="my-0 toCaps">{{packages.name}}</h6>
+                  <small class="text-muted">{{packages.desc}}</small>
+                </div>
+                <span class="text-muted">&#8358;{{packages.price}}</span>
+              </li>
 
-          <div class="card p-2">
-            <Paystack  :package='packages'/>
-             
+              <li class="list-group-item d-flex justify-content-between">
+                <span>Total (&#8358;)</span>
+                <strong>&#8358;{{packages.price}}</strong>
+              </li>
+            </ul>
+
+            <div class="card p-2">
+              <Paystack :package="packages" @showOverlay="showOverlay" />
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </b-overlay>
+
 </template>
 
 <script type="text/javascript">
-import Paystack from './paystack';
+import Paystack from "./paystack";
 export default {
   components: {
     Paystack
   },
   data() {
     return {
-      
-      packages:{}
+      packages: {},
+      show: false
     };
   },
-  computed: {
-  
+  methods: {
+    showOverlay() {
+      this.show = !this.show;
+    }
   },
-  created() {
-     
-  },
+  computed: {},
+  created() {},
   mounted() {
     this.packages = JSON.parse(localStorage.getItem("cart"));
-  },
-  methods: {
-    
-   
   }
 };
 </script>
 <style scoped lang="scss">
-.back{
+.overlay-h {
+ height:100vh;
+}
+.back {
   position: absolute;
-  top:20px;
-  left:20px;
+  top: 20px;
+  left: 20px;
 }
 .button-green {
   padding: 8px 32px;

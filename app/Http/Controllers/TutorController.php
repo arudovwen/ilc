@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Tutor;
 use App\School;
+use App\PasswordGenerator;
 use Illuminate\Http\Request;
+use App\Notifications\NewTutor;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class TutorController extends Controller
@@ -24,7 +27,6 @@ class TutorController extends Controller
     public function tutorDetail()
     {
         return auth('tutor')->user();
-      
     }
 
     /**
@@ -45,15 +47,17 @@ class TutorController extends Controller
      */
     public function store(Request $request)
     {
-       
-        $school_id = auth('admin')->user()->school_id;
-        $school_name = School::find($school_id)->schools;
-   
-        return Tutor::create([
+        $value = DB::transaction(function () use ($request) {
+          
+            $school_id = auth('admin')->user()->school_id;
+            $school_name = School::find($school_id)->schools;
+            $school = School::find($school_id);
+            $password = new PasswordGenerator();
+            $tutor = Tutor::create([
             'name' => $request['name'],
             'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-            'id_no' => rand(0,99999),
+            'password' => Hash::make($password->random_strings(8)),
+            'id_no' => rand(0, 99999),
             'phone' => $request['phone'],
             'gender' => $request['gender'],
             'school' => $school_name,
@@ -61,9 +65,9 @@ class TutorController extends Controller
             'subjects' => $request['subjects'],
             'address'  => $request['address'],
              'dob'  => $request['dob'],
-             'doe'  => $request['doe'], 
-              'lga'  => $request['lga'], 
-              'state'  => $request['state'], 
+             'doe'  => $request['doe'],
+              'lga'  => $request['lga'],
+              'state'  => $request['state'],
               'bank_name'  => $request['bank_name'],
               'bank_no'  => $request['bank_no'],
               'bvn'  => $request['bvn'],
@@ -75,6 +79,11 @@ class TutorController extends Controller
             
         
         ]);
+            $tutor->pass = $password->random_strings(8);
+            $tutor->notify(new NewTutor($school, $tutor));
+            return $tutor;
+        });
+        return $value;
     }
 
     /**
@@ -108,7 +117,6 @@ class TutorController extends Controller
      */
     public function update(Request $request, $id)
     {
-      
         $tutor = Tutor::find($id);
         $tutor['name'] = $request['name'];
         $tutor['email'] = $request['email'];
@@ -124,15 +132,15 @@ class TutorController extends Controller
         $tutor['dob']  = $request['dob'];
         $tutor['profile']  = $request['profile'];
         $tutor['doe' ] = $request['doe'];
-         $tutor['lga']  = $request['lga'];
-         $tutor['state']  = $request['state'];
-         $tutor['bank_name']  = $request['bank_name'];
-         $tutor['bank_no']  = $request['bank_no'];
-         $tutor['bvn']  = $request['bvn'];
-         $tutor['cgl']  = $request['cgl'];
-         $tutor['rank']  = $request['rank'];
-         $tutor['file_no']  = $request['file_no'];
-         $tutor['area_of_specialization']  = $request['area_of_specialization'];
+        $tutor['lga']  = $request['lga'];
+        $tutor['state']  = $request['state'];
+        $tutor['bank_name']  = $request['bank_name'];
+        $tutor['bank_no']  = $request['bank_no'];
+        $tutor['bvn']  = $request['bvn'];
+        $tutor['cgl']  = $request['cgl'];
+        $tutor['rank']  = $request['rank'];
+        $tutor['file_no']  = $request['file_no'];
+        $tutor['area_of_specialization']  = $request['area_of_specialization'];
      
         $tutor->save();
         return response()->json([

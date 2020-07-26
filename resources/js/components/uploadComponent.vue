@@ -1,17 +1,18 @@
 <template>
   <div>
     <form @submit.prevent="processUpload" class="">
-      <div class="">
-        <div class="form-group">
-          <input
+     
+        <div >
+          <!-- <input
             type="file"
             class="form-control"
             id="file-input"
             aria-describedby="helpId"
             placeholder
             @change="handleFileChange($event)"
-          />
-
+          /> -->
+            <b-form-file :id="label" class="mt-3" plain   @change="handleFileChange($event)"></b-form-file>
+ 
           <b-button
             type="submit"
             class="  my-3"
@@ -30,7 +31,7 @@
           </div>
          
         </div>
-      </div>
+   
     </form>
   </div>
 </template>
@@ -62,11 +63,11 @@
 <script>
 export default {
   name: "CloudinaryUpload",
-  props: ["index"],
+  props: ["index",'label'],
   data() {
     return {
       filesSelectedLength: 0,
-      file: [],
+      file: null,
       filetype: "",
       uploadedFile: this.oldimage,
       uploadedFileUrl: "",

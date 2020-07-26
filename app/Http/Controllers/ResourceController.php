@@ -8,7 +8,7 @@ use App\Resource;
 use App\Notification;
 use Illuminate\Http\Request;
 use App\Events\ResourceAdded;
-use App\Http\Resources\Syllabus;
+use App\Syllabus;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\SyllabusCurriculumResource;
 
@@ -35,9 +35,10 @@ class ResourceController extends Controller
         return Resource::where('school_id', $school_id)->get();
     }
 
-    public function getResources(){
+    public function getResources()
+    {
         $user = auth('api')->user();
-        return Resource::where('school_id', $user->school_id)->where('level',$user->student_level)->get();
+        return Resource::where('school_id', $user->school_id)->where('level', $user->student_level)->get();
     }
 
     /**
@@ -61,9 +62,17 @@ class ResourceController extends Controller
         //
         $info =  DB::transaction(function () use ($request) {
             $tutor = auth('tutor')->user();
+            $syllabus = Syllabus::where('school_id',$tutor->school_id)->where('subject', $request->subject)->where('myclass',$request->level)->value('id');
+
+           
+            $tutor = auth('tutor')->user();
             $resource = Resource::create([
             'school_id' => $tutor->school_id,
             'tutor_id'=> $tutor->id,
+            'cover_image'=> $request->cover_image,
+            'syllabus_id'=>  $syllabus,
+            'curriculum_id' => $request->curriculum_id,
+            'syllabus_id' =>$request->syllabus_id,
             'subject' => strtolower($request->subject),
             'level'  => strtolower($request->level),
             'module'  => $request->module,
@@ -75,16 +84,16 @@ class ResourceController extends Controller
         ]);
             $exploded=[];
        
-            $users = User::where('student_level',$request->level)->get();
+            $users = User::where('student_level', $request->level)->get();
             foreach ($users as $value) {
                 Notification::create([
-        'school_id'=>$tutor->school_id,
-        'receiver_id'=>$value->id,
-        'message'=> 'New resource added, '.$request->subject.','.$request->module,
-        'status'=> false,
-        'sender_id'=> $tutor->id ,
-        'role' => 'student'
-    ]);
+                'school_id'=>$tutor->school_id,
+                'receiver_id'=>$value->id,
+                'message'=> 'New resource added, '.$request->subject.','.$request->module,
+                'status'=> false,
+                'sender_id'=> $tutor->id ,
+                'role' => 'student'
+            ]);
                 broadcast(new ResourceAdded($users, $resource));
             }
             return $resource;
@@ -134,6 +143,9 @@ class ResourceController extends Controller
         $resource->worksheet  = $request->worksheet;
         $resource->worksheet_id  = $request->worksheet_id;
         $resource->note = $request->note;
+        $resource->cover_image = $request->cover_image;
+        $resource->curriculum_id = $request->curriculum_id;
+        $resource->syllabus_id = $request->syllabus_id;
         $resource->save();
     }
 

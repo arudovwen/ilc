@@ -52,7 +52,7 @@ export default {
       this.amount = cart.amount;
       this.email = cart.email;
       cart.ref = this.reference;
-      console.log("createOrder -> cart", cart);
+     
       axios.post("/api/order", cart).then(res => {
         if (res.status == 201) {
           this.order_id = res.data.id;
@@ -60,13 +60,26 @@ export default {
       });
     },
     callback: function(response) {
+      this.$emit("showOverlay");
       let user = JSON.parse(localStorage.getItem("regDetails"));
-      console.log(response);
+     
       if (response.status == "success") {
         axios.get(`/api/verify/${this.reference}`).then(res => {
           if (res.status == 200) {
-            this.$toasted.info('Login to continue')
-            this.$router.push('/auth?authType=login')
+            this.$toasted.info("Check your mail for your login details", {
+              icon: {
+                name: "check"
+              }
+            });
+            this.$router.push("/admin");
+         
+          } else {
+            this.$toasted.error("Something went wrong", {
+              icon: {
+                name: "fingerprint"
+              }
+            });
+            this.$router.go(-1);
           }
         });
       }
@@ -74,9 +87,9 @@ export default {
     close: function() {
       console.log("Payment closed");
       axios.put(`/api/order/${this.order_id}`).then(res => {
-          if (res.status == 200) {
-          }
-        });
+        if (res.status == 200) {
+        }
+      });
     }
   }
 };

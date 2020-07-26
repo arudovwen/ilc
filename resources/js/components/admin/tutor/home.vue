@@ -111,7 +111,7 @@ export default {
           })
           .then(res => {
             if (res.status == 200) {
-              this.getTutors();
+              this.getAdmins();
             }
           });
       }
@@ -130,7 +130,7 @@ export default {
           })
           .then(res => {
             if (res.status == 200) {
-              this.getTutors();
+              this.getAdmins();
             }
           })
           .catch(err => {

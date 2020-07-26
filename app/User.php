@@ -27,7 +27,14 @@ class User extends Authenticatable
         'name', 'email', 'password','address','mat_no','phone','gender','level_of_edu', 'school','faculty', 'department','course_level','student_id','school_id','profile', 'dob','state','lga','guardian','guardian_phone','next_of_kin','next_of_kin_phone','student_level','study_course'
         
     ];
+    public function routeNotificationForMail($notification)
+    {
+        // Return email address only...
+        return $this->email;
 
+        // Return name and email address...
+        return [$this->email => $this->name];
+    }
     /**
      * The attributes that should be hidden for arrays.
      *

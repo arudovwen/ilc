@@ -17,7 +17,9 @@ class ClassTeachersController extends Controller
      */
     public function index()
     {
-        $all = ClassTeacher::get();
+
+        $school_id = auth('admin')->user()->school_id;
+        $all = ClassTeacher::where('school_id', $school_id)->get();
        
 
          return  ClassTeacherResource::collection($all);

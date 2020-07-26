@@ -134,7 +134,7 @@ class UserController extends Controller
     }
     public function multiDrop(Request $request)
     {
-        foreach ($request as $id) {
+        foreach ($request->data as $id) {
             $find = User::find($id);
              $find->delete();
            

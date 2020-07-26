@@ -28,9 +28,9 @@
             </b-form-row>
 
             <b-form-row>
-              <b-col lg="6">
-                <b-form-group id="input-group-3" label="Password" label-for="input-3">
-                  <b-form-input id="input-3" type="password" v-model="admin.password" required placeholder></b-form-input>
+              <b-col>
+                <b-form-group id="input-group-6" label="Address" label-for="input-6">
+                  <b-form-input id="input-6" type="text" required v-model="admin.address" placeholder></b-form-input>
                 </b-form-group>
               </b-col>
               <b-col>
@@ -45,11 +45,7 @@
                   <b-form-input id="input-5" type='number' maxlength="11" required placeholder></b-form-input>
                 </b-form-group>
               </b-col>
-              <b-col>
-                <b-form-group id="input-group-6" label="Address" label-for="input-6">
-                  <b-form-input id="input-6" type="text" required v-model="admin.address" placeholder></b-form-input>
-                </b-form-group>
-              </b-col>
+             
             </b-form-row>
             <b-form-checkbox
               id="checkbox-1"
@@ -79,7 +75,7 @@ export default {
         email: "",
         phone: null,
         address: "",
-        password: ""
+        password: "password"
       },
       check:false,
       spin: false

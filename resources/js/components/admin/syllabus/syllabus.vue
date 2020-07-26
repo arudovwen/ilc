@@ -344,19 +344,7 @@ export default {
     togglePreview() {
       this.showPreview = !this.showPreview;
     },
-    getclasses() {
-      axios
-        .get("/api/classes", {
-          headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
-        })
-        .then(res => {
-          if (res.status == 200) {
-            this.allclasses = res.data;
-          }
-        });
-    },
+ 
     addNew(value) {
       switch (value) {
         case 1:

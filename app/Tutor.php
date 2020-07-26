@@ -29,7 +29,14 @@ class Tutor extends Authenticatable
         
         
     ];
+    public function routeNotificationForMail($notification)
+    {
+        // Return email address only...
+        return $this->email;
 
+        // Return name and email address...
+        return [$this->email => $this->name];
+    }
     public function school()
     {
         return $this->belongsTo(School::class);

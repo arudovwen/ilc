@@ -1,7 +1,7 @@
 <template>
   <div class="side-bar">
     <div class="admin-dashboard-logo text-center">
-       <p> {{admin.abbreviation}}</p>
+       <p> {{admin.school}}</p>
        <p>Schools</p>
     </div>
     <nav class="">

@@ -11,7 +11,7 @@
             <router-link to="/tutor/syllabus"> <li><i class="fas fa-briefcase  pr-2   "></i> Curriculum & Syllabus</li></router-link>
               <router-link to="/tutor/times-table"> <li><i class="fa fa-clock-o  pr-2" aria-hidden="true"></i> TimesTable</li></router-link>
                 <router-link to="/tutor/groups"> <li><i class="fa fa-comments  pr-2" aria-hidden="true"></i> Groups</li></router-link>
-            <router-link to="/tutor/profile"> <li><i class="fa fa-list-alt  pr-2" aria-hidden="true"></i> Assessments</li></router-link>              
+            <router-link to="/tutor/assessment"> <li><i class="fa fa-list-alt  pr-2" aria-hidden="true"></i> Assessments</li></router-link>              
             <router-link to="/tutor/profile"> <li><i class="fa fa-mars-stroke  pr-2" aria-hidden="true"></i> Activities</li></router-link>
             <router-link to="/tutor/profile"> <li><i class="fas fa-file-invoice   pr-2  "></i> Attendance Sheet</li></router-link>
             <router-link to="/tutor/profile"> <li><i class="fa fa-book  pr-2" aria-hidden="true"></i> Grade Book</li></router-link>

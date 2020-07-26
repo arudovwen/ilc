@@ -45,14 +45,15 @@ class SyllabusController extends Controller
       
         $school_id = auth('admin')->user()->school_id;
       $curriculum_id =  Curriculum::where('school_id',  $school_id)->where('subject', $request->myclass)->value('id');
+     
         return Syllabus::create([
             'school_id'=>  $school_id,
-            'curriculum_id'=> $curriculum_id,
+            'curriculum_id' => $curriculum_id,
             'myclass'=> $request->myclass,
             'topic'=> $request->topic,
             'syllabus'=> json_encode($request->syllabus),
             'subject' => $request->subject,
-            'curriculum_id' => $request->curriculum_id,
+          
         ]);
         
     }

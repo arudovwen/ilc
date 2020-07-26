@@ -145,19 +145,7 @@ export default {
         .then(res => {
           if (res.status == 201) {
             this.$toasted.info(" Created");
-            this.table = [
-              {
-                day: "monday",
-                courses: [
-                  {
-                    start: "",
-                    end: "",
-                    subject: "",
-                    tutor: ""
-                  }
-                ]
-              }
-            ];
+            this.$router.push('/admin/time-table/home')
           } else {
             this.$toasted.info("Already created");
           }

@@ -42,7 +42,8 @@
                     {{name}} 
                   
               </template>
-              <b-dropdown-item-button>  <span @click="logout">Logout <i class="fas fa-sign-out" aria-hidden="true"></i></span></b-dropdown-item-button>
+              <b-dropdown-item-button @click="logout"> 
+                 <span >Logout <i class="fas fa-sign-out" aria-hidden="true"></i></span></b-dropdown-item-button>
              
             </b-dropdown>
           </b-navbar-nav>

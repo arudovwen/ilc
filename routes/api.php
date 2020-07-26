@@ -56,6 +56,10 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('student-resources', 'ResourceController@getResources');
     Route::get('student-resource/{id}', 'ResourceController@show');
+
+    Route::get('student-assessments/{id}', 'AssessmentController@getAssessments');
+    Route::get('student-assessment/{id}', 'AssessmentController@getSingleAssessment');
+    Route::get('student-assessment-type/{id}', 'AssessmentController@getAssessmentType');
 });
 
 Route::middleware('auth:tutor')->group(function () {
@@ -77,6 +81,7 @@ Route::middleware('auth:tutor')->group(function () {
     Route::get('clear-tutor-notifications/{id}', 'NotificationController@updateTutorStatus');
     Route::get('tutor-times-table/{id}', 'TimesTableController@show');
     Route::get('tutor-times-table', 'TimesTableController@indexTutor');
+    Route::resource('assessment', 'AssessmentController');
 });
 Route::get('student-group/{id}', 'GroupsController@show');
 Route::post('school-register', 'SchoolController@store');

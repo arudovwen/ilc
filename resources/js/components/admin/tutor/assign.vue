@@ -80,7 +80,7 @@ export default {
       }}).then(res => {
         if (res.status == 201) {
           this.$toasted.info("Successful");
-        //   this.$router.push("/admin/tutors");
+          this.$router.push("/admin/tutors");
         }else if(res.status == 200){
               this.$toasted.info("Updated")
         }
@@ -101,7 +101,7 @@ export default {
         if (!presence) {
           this.data.choosen_course.push(data);
         } else {
-          this.$toasted.info("Already added");
+          this.$toasted.error("Already added");
         }
       } else {
         this.$toasted.info("Select Tutor");

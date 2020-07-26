@@ -254,6 +254,45 @@ const ResourcesView = () =>
 const TimesTableTutor = () =>
     import(/* webpackChunkName: "home_routes" */ "./components/tutor/times");
 
+
+    const AssessmentHome  = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/tutor/assessment/home.vue");
+
+    const AssessmentType  = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/tutor/assessment/create.vue");
+
+    const Quiz  = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/tutor/assessment/quiz.vue");
+
+    const Examination  = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/tutor/assessment/exam.vue");
+
+    const Project  = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/tutor/assessment/project.vue");
+
+    const Assignment  = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/tutor/assessment/assignment.vue");
+
+
+    const StudentAssessmentHome  = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/student/assessment/home.vue");
+
+   
+    const StudentQuiz  = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/student/assessment/quiz.vue");
+
+    const StudentExamination  = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/student/assessment/exam.vue");
+
+    const StudentProject  = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/student/assessment/project.vue");
+
+    const StudentAssignment  = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/student/assessment/assignment.vue");
+    const StudentAssessmentView  = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/student/assessment/view.vue");
+    
+
 export const routes = [
     { path: "*", redirect: "/" },
     {
@@ -666,6 +705,56 @@ export const routes = [
                 }
             },
             {
+                path: "assessment",
+                component: AssessmentHome,
+                name: "AssessmentHome",
+                meta: {
+                    typeTutor: true
+                }
+            },
+            {
+                path: "assessment/create/:type",
+                component: AssessmentType,
+                name: "AssessmentType",
+                meta: {
+                    typeTutor: true
+                }
+            },
+            {
+                path: "quiz",
+                component: Quiz,
+                name: "Quiz",
+                meta: {
+                    typeTutor: true
+                }
+            },
+            {
+                path: "exam",
+                component: Examination,
+                name: "Examination",
+                meta: {
+                    typeTutor: true
+                }
+            },
+            {
+                path: "project",
+                component: Project,
+                name: "Project",
+                meta: {
+                    typeTutor: true
+                }
+            },
+            {
+                path: "assignment",
+                component: Assignment,
+                name: "Assignment",
+                meta: {
+                    typeTutor: true
+                }
+            },
+            
+            
+            {
                 path: "times-table",
                 component: TimesTableTutor,
                 name: "TimesTableTutor",
@@ -773,7 +862,55 @@ export const routes = [
                 meta: {
                     typeStudent: true
                 }
-            }
+            },
+            {
+                path: "assessment",
+                component: StudentAssessmentHome,
+                name: "StudentAssessmentHome",
+                meta: {
+                    typeStudent: true
+                }
+            },
+            {
+                path: "quiz",
+                component: StudentQuiz,
+                name: "StudentQuiz",
+                meta: {
+                    typeStudent: true
+                }
+            },
+            {
+                path: "exam",
+                component: StudentExamination,
+                name: "StudentExamination",
+                meta: {
+                    typeStudent: true
+                }
+            },
+            {
+                path: "project",
+                component: StudentProject,
+                name: "StudentProject",
+                meta: {
+                    typeStudent: true
+                }
+            },
+            {
+                path: "assignment",
+                component: StudentAssignment,
+                name: "StudentAssignment",
+                meta: {
+                    typeStudent: true
+                }
+            },
+            {
+                path: "assessment/view/:id",
+                component: StudentAssessmentView,
+                name: "StudentAssessmentView",
+                meta: {
+                    typeStudent: true
+                }
+            },
         ]
     }
 ];

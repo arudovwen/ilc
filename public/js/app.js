@@ -814,6 +814,54 @@ var TimesTableTutor = function TimesTableTutor() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/times */ "./resources/js/components/tutor/times.vue"));
 };
 
+var AssessmentHome = function AssessmentHome() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/assessment/home.vue */ "./resources/js/components/tutor/assessment/home.vue"));
+};
+
+var AssessmentType = function AssessmentType() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/assessment/create.vue */ "./resources/js/components/tutor/assessment/create.vue"));
+};
+
+var Quiz = function Quiz() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/assessment/quiz.vue */ "./resources/js/components/tutor/assessment/quiz.vue"));
+};
+
+var Examination = function Examination() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/assessment/exam.vue */ "./resources/js/components/tutor/assessment/exam.vue"));
+};
+
+var Project = function Project() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/assessment/project.vue */ "./resources/js/components/tutor/assessment/project.vue"));
+};
+
+var Assignment = function Assignment() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/assessment/assignment.vue */ "./resources/js/components/tutor/assessment/assignment.vue"));
+};
+
+var StudentAssessmentHome = function StudentAssessmentHome() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/assessment/home.vue */ "./resources/js/components/student/assessment/home.vue"));
+};
+
+var StudentQuiz = function StudentQuiz() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/assessment/quiz.vue */ "./resources/js/components/student/assessment/quiz.vue"));
+};
+
+var StudentExamination = function StudentExamination() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/assessment/exam.vue */ "./resources/js/components/student/assessment/exam.vue"));
+};
+
+var StudentProject = function StudentProject() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/assessment/project.vue */ "./resources/js/components/student/assessment/project.vue"));
+};
+
+var StudentAssignment = function StudentAssignment() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/assessment/assignment.vue */ "./resources/js/components/student/assessment/assignment.vue"));
+};
+
+var StudentAssessmentView = function StudentAssessmentView() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/assessment/view.vue */ "./resources/js/components/student/assessment/view.vue"));
+};
+
 var routes = [{
   path: "*",
   redirect: "/"
@@ -1194,6 +1242,48 @@ var routes = [{
       typeTutor: true
     }
   }, {
+    path: "assessment",
+    component: AssessmentHome,
+    name: "AssessmentHome",
+    meta: {
+      typeTutor: true
+    }
+  }, {
+    path: "assessment/create/:type",
+    component: AssessmentType,
+    name: "AssessmentType",
+    meta: {
+      typeTutor: true
+    }
+  }, {
+    path: "quiz",
+    component: Quiz,
+    name: "Quiz",
+    meta: {
+      typeTutor: true
+    }
+  }, {
+    path: "exam",
+    component: Examination,
+    name: "Examination",
+    meta: {
+      typeTutor: true
+    }
+  }, {
+    path: "project",
+    component: Project,
+    name: "Project",
+    meta: {
+      typeTutor: true
+    }
+  }, {
+    path: "assignment",
+    component: Assignment,
+    name: "Assignment",
+    meta: {
+      typeTutor: true
+    }
+  }, {
     path: "times-table",
     component: TimesTableTutor,
     name: "TimesTableTutor",
@@ -1286,6 +1376,48 @@ var routes = [{
     path: "group/:id",
     component: StudentGroupChat,
     name: "StudentGroupChat",
+    meta: {
+      typeStudent: true
+    }
+  }, {
+    path: "assessment",
+    component: StudentAssessmentHome,
+    name: "StudentAssessmentHome",
+    meta: {
+      typeStudent: true
+    }
+  }, {
+    path: "quiz",
+    component: StudentQuiz,
+    name: "StudentQuiz",
+    meta: {
+      typeStudent: true
+    }
+  }, {
+    path: "exam",
+    component: StudentExamination,
+    name: "StudentExamination",
+    meta: {
+      typeStudent: true
+    }
+  }, {
+    path: "project",
+    component: StudentProject,
+    name: "StudentProject",
+    meta: {
+      typeStudent: true
+    }
+  }, {
+    path: "assignment",
+    component: StudentAssignment,
+    name: "StudentAssignment",
+    meta: {
+      typeStudent: true
+    }
+  }, {
+    path: "assessment/view/:id",
+    component: StudentAssessmentView,
+    name: "StudentAssessmentView",
     meta: {
       typeStudent: true
     }

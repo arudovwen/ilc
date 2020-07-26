@@ -96,7 +96,7 @@ export default {
         .then(res => {
           if (res.status == 201) {
             this.$toasted.info("Successful");
-            this.$router.push("/admin");
+            this.$router.push("/admin/administrators");
           }
         });
     }

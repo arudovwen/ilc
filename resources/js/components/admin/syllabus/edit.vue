@@ -10,7 +10,8 @@
           <label for v-if="!termType">Term</label>
           <label for v-else>Semester</label>
           <input
-            type="text" required
+            type="text"
+            required
             class="form-control w-25"
             v-model="syllabus.term"
             aria-describedby="helpId"
@@ -18,7 +19,8 @@
           />
         </div>
         <div class="form-group">
-          <label for>Grade Level</label> <br>
+          <label for>Grade Level</label>
+          <br />
           <select required class="custom-select w-25" v-model="syllabus.grade_level">
             <option selected disabled value>Select one</option>
             <option
@@ -58,7 +60,8 @@
         <div class="form-group">
           <label for>Frequency</label>
           <input
-            type="text" required
+            type="text"
+            required
             v-model="syllabus.frequency"
             class="form-control w-50"
             aria-describedby="helpId"
@@ -78,7 +81,8 @@
           <span v-for="(item,idx) in syllabus.learner_outcome" :key="idx" class="mb-2 d-flex">
             <span class="mr-3">{{idx+1}}.</span>
             <input
-              type="text" required
+              type="text"
+              required
               class="form-control mb-2"
               aria-describedby="helpId"
               v-model="item.name"
@@ -88,7 +92,12 @@
 
           <div class="d-flex justify-content-start">
             <b-button type="button" class="mr-3" @click="addNew(1)">Add</b-button>
-            <b-button type="button" class @click="remove(1)" v-if="syllabus.learner_outcome.length > 1">Remove</b-button>
+            <b-button
+              type="button"
+              class
+              @click="remove(1)"
+              v-if="syllabus.learner_outcome.length > 1"
+            >Remove</b-button>
           </div>
         </div>
       </div>
@@ -102,7 +111,8 @@
         <span v-for="(item,idx) in syllabus.target_skills" :key="idx" class="mb-2 d-flex">
           <span class="mr-3">{{idx+1}}.</span>
           <input
-            type="text" required
+            type="text"
+            required
             class="form-control w-25 mb-2"
             aria-describedby="helpId"
             v-model="item.name"
@@ -112,7 +122,12 @@
 
         <div class="d-flex">
           <b-button type="button" class="mr-3" @click="addNew(2)">Add</b-button>
-          <b-button type="button" class @click="remove(2)" v-if="syllabus.target_skills.length > 1">Remove</b-button>
+          <b-button
+            type="button"
+            class
+            @click="remove(2)"
+            v-if="syllabus.target_skills.length > 1"
+          >Remove</b-button>
         </div>
       </div>
       <div class="border p-3 my-4">
@@ -124,7 +139,8 @@
         <span v-for="(item,idx) in syllabus.modules" :key="idx" class="mb-2 d-flex">
           <span class="mr-3">{{idx+1}}.</span>
           <input
-            type="text" required
+            type="text"
+            required
             class="form-control w-25 mb-2"
             aria-describedby="helpId"
             v-model="item.name"
@@ -147,7 +163,8 @@
         <span v-for="(item,idx) in syllabus.delivery_methods" :key="idx" class="mb-2 d-flex">
           <span class="mr-3">{{idx+1}}.</span>
           <input
-            type="text" required
+            type="text"
+            required
             class="form-control w-25 mb-2"
             aria-describedby="helpId"
             v-model="item.name"
@@ -156,7 +173,12 @@
         </span>
         <div class="d-flex">
           <b-button type="button" class="mr-3" @click="addNew(4)">Add</b-button>
-          <b-button type="button" class @click="remove(4)" v-if="syllabus.delivery_methods.length > 1">Remove</b-button>
+          <b-button
+            type="button"
+            class
+            @click="remove(4)"
+            v-if="syllabus.delivery_methods.length > 1"
+          >Remove</b-button>
         </div>
       </div>
       <div class="border p-3 my-4">
@@ -166,7 +188,8 @@
         <span v-for="(item,idx) in syllabus.assessments" :key="idx" class="mb-2 d-flex">
           <span class="mr-3">{{idx+1}}.</span>
           <input
-            type="text" required
+            type="text"
+            required
             class="form-control w-25 mb-2"
             aria-describedby="helpId"
             v-model="item.name"
@@ -176,7 +199,12 @@
 
         <div class="d-flex">
           <b-button type="button" class="mr-3" @click="addNew(5)">Add</b-button>
-          <b-button type="button" class @click="remove(5)" v-if="syllabus.assessments.length > 1">Remove</b-button>
+          <b-button
+            type="button"
+            class
+            @click="remove(5)"
+            v-if="syllabus.assessments.length > 1"
+          >Remove</b-button>
         </div>
       </div>
       <div>
@@ -187,7 +215,7 @@
             <label for="Question" class="side-label">Question</label>
             <input
               v-model="item.question"
-              type="text" 
+              type="text"
               class="form-control w-75 mb-2"
               aria-describedby="helpId"
               placeholder="Question"
@@ -197,7 +225,7 @@
             <label for class="side-label">Answer</label>
             <input
               v-model="item.answer"
-              type="text" 
+              type="text"
               class="form-control w-75"
               aria-describedby="helpId"
               placeholder="Answer"
@@ -214,7 +242,6 @@
         <h5>Course Availability</h5>
 
         <div class="form-group">
-        
           <select required class="custom-select w-25" v-model="syllabus.availability">
             <option selected value disabled>Select one</option>
             <option value="online">Online</option>
@@ -224,7 +251,6 @@
         </div>
       </div>
 
-    
       <div class="my-5">
         <b-button type="submit" class="btn btn-primary">Preview</b-button>
       </div>
@@ -237,7 +263,7 @@
         :syllabus="syllabus"
         @submit="submit"
         @togglePreview="togglePreview"
-        @updateComment='updateComment'
+        @updateComment="updateComment"
         :afterSubmit="afterSubmit"
       />
     </div>
@@ -248,11 +274,11 @@
 <script>
 import Preview from "./preview";
 export default {
-   props: ["admin"],
+  props: ["admin"],
   data() {
     return {
       subjects: [],
-        afterSubmit: false,
+      afterSubmit: false,
       termType: false,
       showPreview: false,
       allclasses: [],
@@ -269,18 +295,18 @@ export default {
         faqs: [
           {
             question: "",
-            answer: ""
-          }
+            answer: "",
+          },
         ],
         availability: "",
-        comment: ""
-      }
+        comment: "",
+      },
     };
   },
   components: {
-    Preview
+    Preview,
   },
- 
+
   mounted() {
     this.getSubjects();
     this.getclasses();
@@ -292,15 +318,14 @@ export default {
       axios
         .get(`/api/syllabus/${this.$route.params.id}`, {
           headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.admin.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
-            if ( JSON.parse(res.data.syllabus) != null) {
-                this.syllabus = JSON.parse(res.data.syllabus);
+            if (JSON.parse(res.data.syllabus) != null) {
+              this.syllabus = JSON.parse(res.data.syllabus);
             }
-          
           }
         });
     },
@@ -308,18 +333,18 @@ export default {
       let data = {
         syllabus: this.syllabus,
         subject: this.syllabus.subject,
-        myclass: this.syllabus.grade_level
+        myclass: this.syllabus.grade_level,
       };
       axios
         .put(`/api/syllabus/${this.$route.params.id}`, data, {
           headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.admin.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.$router.push("/admin/syllabus/home");
-              this.$toasted.info('Updated successfully')
+            this.$toasted.info("Updated successfully");
           }
         });
     },
@@ -327,10 +352,10 @@ export default {
       axios
         .get("/api/subject", {
           headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.admin.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.subjects = res.data;
           }
@@ -340,19 +365,19 @@ export default {
       axios
         .get("/api/classes", {
           headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.admin.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.classes = res.data;
           }
         });
     },
-     updateComment(value) {
+    updateComment(value) {
       this.syllabus.comment = value;
     },
-   
+
     togglePreview() {
       this.showPreview = !this.showPreview;
     },
@@ -360,10 +385,10 @@ export default {
       axios
         .get("/api/classes", {
           headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.admin.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.allclasses = res.data;
           }
@@ -389,7 +414,7 @@ export default {
         case 6:
           this.syllabus.faqs.push({
             answer: "",
-            question: ""
+            question: "",
           });
           break;
 
@@ -422,8 +447,7 @@ export default {
           break;
       }
     },
-   
-  }
+  },
 };
 </script>
 

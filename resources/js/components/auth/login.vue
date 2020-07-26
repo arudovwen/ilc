@@ -1,5 +1,5 @@
 <template>
-  <div class>
+  <!-- <div class>
     <div class="register-section">
       <div class="img-side">
         <div class="header-logo text-center">
@@ -50,6 +50,9 @@
         </b-container>
       </div>
     </div>
+  </div> -->
+  <div>
+    
   </div>
 </template>
 

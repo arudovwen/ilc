@@ -1,12 +1,12 @@
 <template>
   <div class="side-bar">
     <div class="admin-dashboard-logo text-center">
-       <p> {{admin.abbreviation}}</p>
+       <h3> {{admin.abbreviation}}</h3>
        <p>Schools</p>
     </div>
     <nav class="">
       <ul class="admin-dashboard-nav">
-      <router-link to="/admin"> <div class="nav-item"><span><img src="/images/size-1.png" class="img-fluid" alt=""></span>  <li>Dashboard</li></div></router-link>
+      <router-link to="/admin"> <div class="nav-item"> <span class="icon-dashboard"></span> <li>Dashboard</li></div></router-link>
        <router-link to="/administrators"> <div class="nav-item"><span><img src="/images/admin-svg.png" class="img-fluid" alt=""></span>  <li>Admin</li></div></router-link>
         <router-link to="/admin/tutors"> <div class="nav-item"><span><img src="/images/teacher-svg.png" class="img-fluid" alt=""></span>  <li>Teachers</li></div></router-link>
          <router-link to="/admin/students"> <div class="nav-item"><span><img src="/images/stu-svg.png" class="img-fluid" alt=""></span>  <li>Students</li></div></router-link>

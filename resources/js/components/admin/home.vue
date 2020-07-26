@@ -27,6 +27,7 @@
                     <strong>{{students.length}}+</strong>
                   </p>
                   <p>Students</p>
+                 
                 </div>
               </div>
             </b-card>
@@ -34,6 +35,7 @@
         </b-col>
         <b-col>
           <div class="admin-dashboard-top-cards">
+            
             <b-card>
               <div class="inner-top-cards">
                 <img src="/images/teacher-green.png" class="img-fluid" alt />
@@ -56,6 +58,7 @@
       ></column-chart>
     </div>
     <b-container>
+       
       <b-row>
         <b-col>
           <div class="dashboard-bottom-cards">

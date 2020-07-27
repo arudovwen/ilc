@@ -59,7 +59,7 @@ class MessagesController extends Controller
     }
     public function getStudentMessages($groupId)
     {
-        return Message::where('group_id', $groupId)->get();
+        return Message::with('user')->where('group_id', $groupId)->get();
     }
 
     public function sendGroupMessage(Request $request)
@@ -83,12 +83,16 @@ class MessagesController extends Controller
         $user =  auth('api')->user();
         $group =  Group::where('id', $request->input('group_id'))->first();
         $tutor = Tutor::where('id', $group->tutor_id)->first();
-        $message = Message::create([
-            'sender_id' => $user->id,
-            'message' => $request->input('message'),
-            'group_id'=> $request->input('group_id')
-        ]);
+      
+       
+            $message = Message::create([
+                'sender_id' => $user->id,
+                'message' => $request->input('message'),
+                'group_id'=> $request->input('group_id'),
+                'attachment' => $request->attachment
+            ]);
 
+      
         broadcast(new GroupMessageSent($tutor, $message, $group));
 
         return ['status' => 'Message Sent!'];

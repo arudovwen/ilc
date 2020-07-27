@@ -1,5 +1,5 @@
 <template>
-  <div class="p-3">
+  <div class="body p-3">
     <div class="d-flex">
       <div class="w-25 mr-3">
         <table class="table table-bordered table-hover">
@@ -45,7 +45,7 @@
         </table>
         <div class="form-control" v-else>No Tutor Selected</div>
         <div class="my-3" v-if="data.choosen_course.length">
-          <button type="button" @click="submit">Submit</button>
+          <b-button type="button" @click="submit">Submit</b-button>
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ export default {
       }}).then(res => {
         if (res.status == 201) {
           this.$toasted.info("Successful");
-        //   this.$router.push("/admin/tutors");
+          this.$router.push("/admin/tutors");
         }else if(res.status == 200){
               this.$toasted.info("Updated")
         }
@@ -101,7 +101,7 @@ export default {
         if (!presence) {
           this.data.choosen_course.push(data);
         } else {
-          this.$toasted.info("Already added");
+          this.$toasted.error("Already added");
         }
       } else {
         this.$toasted.info("Select Tutor");

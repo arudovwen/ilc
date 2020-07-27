@@ -2,64 +2,35 @@
   <div class="body">
     <nav class="mb-5">
       <router-link to="/admin/time-table">
-        <div class="nav_box shadow-sm">
-          <p class="mx-auto">Create TimesTable</p>
-          <hr />
-        </div>
+        <b-button block class="shadow-sm">Create TimesTable</b-button>
       </router-link>
-      <div class="nav_box shadow-sm">
-        <p class="mx-auto" @click="multiDrop">Multi-Drop</p>
-        <hr />
-      </div>
-     
-        <div class="nav_box shadow-sm hiden">
-          <p class="mx-auto">Assign Course</p>
-          <hr />
-        </div>
-      
-     
-        <div class="nav_box shadow-sm hiden">
-          <p class="mx-auto">Assign Level</p>
-          <hr />
-        </div>
-     
-    </nav>
+      <b-button block class="shadow-sm" @click="multiDrop">Multi-Drop</b-button>
 
-    <table class="table table-striped table-inverse table-bordered">
-      <thead class="thead-inverse">
-        <tr>
-          <th>Class</th>
-         
-          <th>Action</th>
-          <th>
-            <input type="checkbox" v-model="item" />
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item,idx) in table" :key="idx">
-        
-          <td scope="row" class="toCaps">{{item.myclass}}</td>
-        
-          <td class="d-flex justify-content-around">
-             <span class="mr-3" @click="view(item.id)">
-              
-              <i class="fa fa-eye" aria-hidden="true"></i> View
-            </span>
-            <span class="mr-3" @click="drop(item.id)">
-              
-              <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
-            </span>
-            <span @click="edit(item.id)">
-              <i class="fas fa-edit"></i>Update
-            </span>
-          </td>
-          <td>
-            <input type="checkbox" :value="item.id" v-model="items" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <b-button block class="shadow-sm hiden">Assign Course</b-button>
+
+      <b-button block class="shadow-sm hiden">Assign Level</b-button>
+    </nav>
+    <b-table :items="table" :fields="fields" hover bordered>
+      <template v-slot:cell(action)="data">
+        <span class="d-flex justify-content-around">
+          <span class="mr-3" @click="view(data.item.id)">
+            <i class="fa fa-eye" aria-hidden="true"></i> View
+          </span>
+
+          <span @click="edit(data.item.id)">
+            <i class="fas fa-edit"></i>Edit
+          </span>
+          <span class="mr-3" @click="drop(data.item.id)">
+            <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
+          </span>
+        </span>
+      </template>
+
+      <template v-slot:cell(drop)="data">
+        <b-form-checkbox :value="data.item.id" v-model="items"></b-form-checkbox>
+      </template>
+      <template v-slot:cell(class)="data">{{data.item.myclass}}</template>
+    </b-table>
   </div>
 </template>
 
@@ -71,7 +42,8 @@ export default {
     return {
       table: [],
       items: [],
-      item: false
+      item: false,
+      fields: ["class", "action", "drop"]
     };
   },
   watch: {
@@ -91,7 +63,7 @@ export default {
         this.items = [];
       }
     },
-    
+
     getTable() {
       axios
         .get(`/api/times-table`, {
@@ -101,42 +73,39 @@ export default {
         })
         .then(res => {
           if (res.status == 200) {
-            this.table =res.data;
-          
-          
+            this.table = res.data;
           }
         });
     },
-    
-   
+
     drop(id) {
       let del = confirm("Are you sure?");
       if (del) {
-       
-          axios.delete(`/api/times-table/${id}`, {
-          headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
-        }).then(res => {
+        axios
+          .delete(`/api/times-table/${id}`, {
+            headers: {
+              Authorization: `Bearer ${this.$props.admin.access_token}`
+            }
+          })
+          .then(res => {
             if (res.status == 200) {
               this.getTable();
             }
           });
-        
       }
     },
     multiDrop() {
       let del = confirm("Are you sure about this?");
       if (del) {
         axios
-          .post("/api/multi-times-drop", this.items , {
-          headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
-        })
+          .post("/api/multi-times-drop", this.items, {
+            headers: {
+              Authorization: `Bearer ${this.$props.admin.access_token}`
+            }
+          })
           .then(res => {
             if (res.status == 200) {
-             this.getTable();
+              this.getTable();
             }
           })
           .catch(err => {
@@ -145,7 +114,7 @@ export default {
       }
     },
     view(id) {
-        this.$router.push(`/admin/time-table/view/${id}`)
+      this.$router.push(`/admin/time-table/view/${id}`);
     }
   }
 };
@@ -157,15 +126,10 @@ nav {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-column-gap: 30px;
 }
-.hiden{
-    opacity: 0;
+.hiden {
+  opacity: 0;
 }
-.nav_box {
-  background-color: #f7f8fa;
-  display: flex;
-  text-align: center;
-  padding: 10px 15px;
-}
+
 .body {
   padding: 20px 20px 50px;
   height: 100%;

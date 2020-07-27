@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -14,8 +15,18 @@ class UserController extends Controller
      */
     public function index()
     {
-        $school_id = auth('api')->user()->school_id;
-        return User::where('school_id', $school_id)->first();
+      return  $user = auth('api')->user();
+       
+    }
+    public function adminGetStudents()
+    {
+        $school_id = auth('admin')->user()->school_id;
+        return User::where('school_id', $school_id)->get();
+    }
+    public function tutorGetStudents($name)
+    {
+        $school_id = auth('tutor')->user()->school_id;
+        return User::where('school_id', $school_id)->where('student_level',$name)->get();
     }
 
     /**
@@ -23,6 +34,8 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function create()
     {
         //
@@ -81,9 +94,9 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
+        $user = User::where('id',$id)->first();
         $user->name = $request['name'];
-        $user->email = $request['email'];
+        //$user->email = $request->email;
         $user->password = Hash::make($request['password']);
         $user->phone = $request['phone'];
         $user->gender = $request['gender'];
@@ -91,6 +104,7 @@ class UserController extends Controller
         $user->course_level= $request['course_level'];
         $user->dob = $request['dob'];
         $user->state = $request['state'];
+        $user->profile = $request['profile'];
         $user->lga = $request['lga'];
         $user->guardian= $request['guardian'];
         $user->guardian_phone= $request['guardian_phone'];
@@ -120,7 +134,7 @@ class UserController extends Controller
     }
     public function multiDrop(Request $request)
     {
-        foreach ($request as $id) {
+        foreach ($request->data as $id) {
             $find = User::find($id);
              $find->delete();
            

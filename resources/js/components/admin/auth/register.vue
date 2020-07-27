@@ -81,12 +81,18 @@ export default {
   },
   methods: {
     register() {
-      axios.post("/api/admin", this.admin).then(res => {
-        if (res.status == 201) {
-          this.$toasted.info("Successful");
-             this.$router.push("/admin");
-        }
-      });
+      let admin = JSON.parse(localStorage.getItem("typeAdmin"));
+      console.log("register -> admin", admin)
+      axios
+        .post("/api/admin",this.admin, {
+          headers: { Authorization: `Bearer ${admin.access_token}` }
+        })
+        .then(res => {
+          if (res.status == 201) {
+            this.$toasted.info("Successful");
+            this.$router.push("/admin");
+          }
+        });
     }
   }
 };
@@ -99,7 +105,7 @@ export default {
   align-items: center;
   height: 100vh;
 }
-form{
-    width:50%
+form {
+  width: 50%;
 }
 </style>

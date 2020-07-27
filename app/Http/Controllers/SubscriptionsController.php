@@ -6,10 +6,14 @@ use App\Admin;
 use App\Order;
 use App\School;
 use Carbon\Carbon;
+use App\Notification;
 use App\Subscription;
 use App\TempSubscription;
+use App\PasswordGenerator;
 use Illuminate\Http\Request;
+use App\Notifications\NewSchool;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class SubscriptionsController extends Controller
 {
@@ -66,6 +70,8 @@ class SubscriptionsController extends Controller
         $order->status = 'success';
         $order->save();
        
+
+        $password = new PasswordGenerator();
         $sub = Subscription::where('school_id',$tempSubscription->school_id)->where('name',$tempSubscription->name)->first();
         if (is_null($sub)) {
             Subscription::create([
@@ -86,8 +92,15 @@ class SubscriptionsController extends Controller
             $sub->status = true;
             $sub->save();
         }
-        
+        $admin = Admin::where('school_id',$tempSubscription ->school_id)->first();
+        $admin->password =Hash::make(  $password->random_strings(8));
+        $admin->save();
+        $admin->pass =  $password->random_strings(8);
+        $school->notify(new NewSchool($school,$admin));
+
+
         $tempSubscription->delete();
+       
 
         return response()->json([
             'status' => 'Verified'

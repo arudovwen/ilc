@@ -1,39 +1,20 @@
 <template>
   <div class="body">
-    <nav class="mb-5">
-      <div class="nav_box shadow-sm">
-        <p class="mx-auto" @click="multiDrop">Multi-Drop</p>
-        <hr />
-      </div>
-      <div class="nav_box shadow-sm hiden">
-        <p class="mx-auto">Create Class</p>
-        <hr />
-      </div>
-
-      <div class="nav_box shadow-sm hiden">
-        <p class="mx-auto">Assign Course</p>
-        <hr />
-      </div>
-
-      <div class="nav_box shadow-sm hiden">
-        <p class="mx-auto">Assign Level</p>
-        <hr />
-      </div>
-    </nav>
-
+    <h4 class="mb-4">Times Table</h4>
+    <div class="mb-3">
+      <label for>Choose Class</label>
+      <br />
+      <select class="custom-select w-25" v-model="myclass">
+        <option value disabled>Select class</option>
+        <option
+          v-for="(item,idx) in classes"
+          :key="idx"
+          :value="item"
+          class="toCaps"
+        >{{item.toLowerCase()}}</option>
+      </select>
+    </div>
     <div class="table-responsive">
-      <div class="form-group">
-        <label for>Choose Class</label>
-        <select class="custom-select" v-model="myclass">
-          <option value disabled>Select class</option>
-          <option
-            v-for="(item,idx) in classes"
-            :key="idx"
-            :value="item"
-            class="toCaps"
-          >{{item.toLowerCase()}}</option>
-        </select>
-      </div>
       <table class="table table-bordered">
         <thead class="thead-light">
           <tr>
@@ -48,30 +29,27 @@
                 <option v-for="(item,idx) in days" :key="idx" :value="item" class="toCaps">{{item}}</option>
               </select>
               <div class="d-flex justify-content-between mt-3">
-                <button @click="addDay">Add</button>
-                <button @click="removeDay">Remove</button>
+                <b-button @click="addDay">Add</b-button>
+                <b-button @click="removeDay">Remove</b-button>
               </div>
             </td>
             <td class="d-flex">
-              <div class="form-group mr-3" v-for="(item,idx) in tab.courses" :key="idx">
+              <div
+                class="form-group mr-3"
+                style="width:350px"
+                v-for="(item,idx) in tab.courses"
+                :key="idx"
+              >
                 <span class="d-flex">
                   <div class="w-50">
                     <label for>Start</label>
-                    <input
-                      type="time"
-                      v-model="item.start"
-                      class="form-control"
-                      placeholder="Choose time"
-                    />
+
+                    <b-form-timepicker size="sm" v-model="item.start" locale="en"></b-form-timepicker>
                   </div>
                   <div class="w-50">
                     <label for>End</label>
-                    <input
-                      type="time"
-                      v-model="item.end"
-                      class="form-control"
-                      placeholder="Choose time"
-                    />
+
+                    <b-form-timepicker size="sm" v-model="item.end" locale="en"></b-form-timepicker>
                   </div>
                 </span>
 
@@ -84,17 +62,26 @@
                     class="toCaps"
                   >{{item.name}}</option>
                 </select>
+                <select class="form-control" v-model="item.tutor">
+                  <option value disabled>Select Tutor</option>
+                  <option
+                    v-for="(item,idx) in tutors"
+                    :key="idx"
+                    :value="item.name"
+                    class="toCaps"
+                  >{{item.name}}</option>
+                </select>
               </div>
-              <div class>
-                <button class="mb-2" @click="addCourse(index)">Add</button>
-                <button @click="removeCourse(index)">Remove</button>
+              <div class style="width:160px">
+                <b-button class="mr-2" @click="addCourse(index)">Add</b-button>
+                <b-button @click="removeCourse(index)">Remove</b-button>
               </div>
             </td>
           </tr>
         </tbody>
       </table>
 
-      <button @click="createTimeTable">Create</button>
+      <b-button class="my-4" @click="createTimeTable">Create</b-button>
     </div>
   </div>
 </template>
@@ -105,6 +92,7 @@ export default {
   props: ["admin"],
   data() {
     return {
+      tutors: [],
       days: [
         "monday",
         "tuesday",
@@ -123,7 +111,8 @@ export default {
             {
               start: "",
               end: "",
-              subject: ""
+              subject: "",
+              tutor: ""
             }
           ]
         }
@@ -139,6 +128,7 @@ export default {
   mounted() {
     this.getSubjects();
     this.getclasses();
+    this.getAdmins();
   },
   methods: {
     createTimeTable() {
@@ -155,18 +145,7 @@ export default {
         .then(res => {
           if (res.status == 201) {
             this.$toasted.info(" Created");
-            this.table = [
-              {
-                day: "monday",
-                courses: [
-                  {
-                    start: "",
-                    end: "",
-                    subject: ""
-                  }
-                ]
-              }
-            ];
+            this.$router.push('/admin/time-table/home')
           } else {
             this.$toasted.info("Already created");
           }
@@ -195,14 +174,14 @@ export default {
         .then(res => {
           if (res.status == 200) {
             res.data.forEach(item => {
-              this.classes.push(item.class_name);
               if (item.sub_class !== "") {
                 item.sub_class.split(",").forEach(i => {
                   this.classes.push(i);
                 });
+              } else {
+                this.classes.push(item.class_name);
               }
             });
-          
           }
         });
     },
@@ -217,6 +196,19 @@ export default {
           }
         ]
       });
+    },
+    getAdmins() {
+      axios
+        .get("/api/tutor", {
+          headers: {
+            Authorization: `Bearer ${this.$props.admin.access_token}`
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.tutors = res.data;
+          }
+        });
     },
     removeDay() {
       this.table.pop();
@@ -302,10 +294,7 @@ nav {
 .add {
   background-color: #f7f8fa;
 }
-.body {
-  padding: 20px 20px 50px;
-  height: 100%;
-}
+
 table {
   font-size: 14px;
 }

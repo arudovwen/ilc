@@ -10,20 +10,27 @@ window.Vue = require("vue");
 
 import VueRouter from "vue-router";
 import { routes } from "./routes";
-import { BootstrapVue } from "bootstrap-vue";
+import Vue from 'vue'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import VueAwesomeSwiper from "vue-awesome-swiper";
 import VueWaves from 'vue-waves-button';
 import Toasted from 'vue-toasted';
+import Chartkick from 'vue-chartkick'
+import Chart from 'chart.js'
  
 
+import VueChatScroll from 'vue-chat-scroll'
 
 
 import "swiper/css/swiper.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import 'vue-waves-button/waves.css';
+import '../sass/app.scss';
 
 
+
+Vue.use(VueChatScroll)
 
 Vue.use(VueWaves, {
     name: 'waves' , 
@@ -33,14 +40,23 @@ Vue.use(VueWaves, {
 
 
   Vue.use(Toasted, {
-    duration: 2500,
-    icon: null
-    // after: true
+     duration: 3500,
+    iconPack : 'fontawesome',
+    action : {
+      text : 'Cancel',
+      onClick : (e, toastObject) => {
+          toastObject.goAway(0);
+      }
+    },
+   
+ 
 });
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
 Vue.use(VueAwesomeSwiper /* { default options with global component } */);
 Vue.use(require('vue-moment'));
+Vue.use(Chartkick.use(Chart));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -79,7 +95,7 @@ router.beforeEach((to, from, next) => {
         var admin = localStorage.getItem("typeTutor");
         if (admin == null) {
           next({
-            path: '/tutor/auth/login',
+            path: '/auth',
             query: { redirect: to.fullPath }
            
           })
@@ -95,7 +111,7 @@ router.beforeEach((to, from, next) => {
         var admin = localStorage.getItem("typeStudent");
         if (admin == null) {
           next({
-            path: '/student/auth/login',
+            path: '/auth',
             query: { redirect: to.fullPath }
            
           })

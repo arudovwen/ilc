@@ -17,7 +17,9 @@ class ClassTeachersController extends Controller
      */
     public function index()
     {
-        $all = ClassTeacher::get();
+
+        $school_id = auth('admin')->user()->school_id;
+        $all = ClassTeacher::where('school_id', $school_id)->get();
        
 
          return  ClassTeacherResource::collection($all);
@@ -106,8 +108,19 @@ class ClassTeachersController extends Controller
      * @param  \App\ClassTeacher  $classTeacher
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ClassTeacher $classTeacher)
+    public function destroy($id)
     {
-        //
+        ClassTeacher::find($id)->delete();
+    }
+    public function multiDrop(Request $request)
+    {
+        foreach ($request->data as $id) {
+            $find = ClassTeacher::find($id);
+            $find->delete();
+        }
+     
+        return response()->json([
+            'status'=>'Deleted'
+        ]);
     }
 }

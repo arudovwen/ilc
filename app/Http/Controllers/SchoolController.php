@@ -7,6 +7,7 @@ use App\School;
 use Carbon\Carbon;
 use App\TempSubscription;
 use Illuminate\Http\Request;
+use App\Notifications\NewSchool;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -61,7 +62,8 @@ class SchoolController extends Controller
                 'password'=> Hash::make($request->password),
                 
             ]);
-            
+           
+           
             return $school;
         });
          return $result;      
@@ -126,7 +128,7 @@ class SchoolController extends Controller
     }
     public function multiDrop(Request $request)
     {
-        foreach ($request as $id) {
+        foreach ($request->data as $id) {
             $find = School::find($id);
              $find->delete();
            

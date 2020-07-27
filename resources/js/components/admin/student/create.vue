@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-   <form @submit.prevent="register" class="mx-auto register-right">
+   <b-form @submit.prevent="register" class="mx-auto register-right">
       
       <!-- Student starts here   -->
      
-          <legend>Register Student</legend>
+          <legend class="text-center">Register Student</legend>
            
               <div class="form-group">
                 <input
@@ -39,17 +39,26 @@
                   v-model="student.email"
                 />
               </div>
+               <div class="form-group">
+            <label for>Choose Class Level</label>
+            <select class="custom-select" v-model="student.student_level">
+              <option selected value>Select Class</option>
+              <option :value="item.class_name.toLowerCase()" v-for="(item,idx) in allClass" :key="idx">{{item.class_name}}</option>
+            </select>
+          </div>
 
+<b-form-group>
 
-              <button v-waves.button v-waves.float v-waves.light type="submit" class="btnRegister">
-                <span v-if="spin" class="spinner-border spinner-border-sm"></span> Register
-              </button>
+              <b-button  v-waves.float v-waves.light type="submit" >
+               Register
+              </b-button>
+</b-form-group>
            
        
       
 
       
-    </form>
+    </b-form>
   </div>
 </template>
 
@@ -62,13 +71,16 @@ export default {
         student: {
           name: "",        
           email: "",
-          gender: "",
-      
-       
+          gender: "male",
+          student_level:'',  
       },
       spin: false,
+       allClass: []
       
     };
+  },
+  mounted() {
+    this.getCLasses()
   },
   methods: {
     register() {
@@ -78,9 +90,23 @@ export default {
       }}).then(res => {
         if (res.status == 201) {
           this.$toasted.info("Successful");
-          this.$router.push("/admin/home");
+          this.$router.push("/admin/students");
         }
       });
+    },
+     getCLasses() {
+         let admin = JSON.parse(localStorage.getItem('typeAdmin'))
+      axios
+        .get("/api/classes", {
+          headers: {
+            Authorization: `Bearer ${admin.access_token}`
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+           this.allClass = res.data
+          }
+        });
     },
    
   }

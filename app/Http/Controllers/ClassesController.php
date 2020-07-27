@@ -10,6 +10,7 @@ class ClassesController extends Controller
     public function index()
     {
         $school_id = auth('admin')->user()->school_id;
+      
         return Classes::where('school_id',$school_id)->get();
     }
 
@@ -18,6 +19,12 @@ class ClassesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function getAllTutorClasses(){
+        $school_id = auth('tutor')->user()->school_id;
+        
+        return Classes::where('school_id',$school_id)->get();
+     }
     public function create()
     {
         //
@@ -38,6 +45,7 @@ class ClassesController extends Controller
             'school_id'=>  $school_id,
             'class_name'=> $request->class_name,
             'sub_class' => $request->sub_class
+            
         ]);
     }
 

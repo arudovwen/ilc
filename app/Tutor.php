@@ -25,11 +25,18 @@ class Tutor extends Authenticatable
         'department',
         'course_level',
         'school_id',
-        'address', 'dob','doe', 'lga', 'state', 'bank_name','bank_no','bvn','sgl','rank','file_no','area_of_specialization',
+        'address', 'dob','doe', 'lga', 'state', 'bank_name','bank_no','bvn','cgl','profile','rank','file_no','area_of_specialization',
         
         
     ];
+    public function routeNotificationForMail($notification)
+    {
+        // Return email address only...
+        return $this->email;
 
+        // Return name and email address...
+        return [$this->email => $this->name];
+    }
     public function school()
     {
         return $this->belongsTo(School::class);

@@ -17,6 +17,11 @@ class SubjectsController extends Controller
         $school_id = auth('admin')->user()->school_id;
         return Subject::where('school_id',$school_id)->get();
     }
+    public function tutorGetAllSubjects()
+    {
+        $school_id = auth('tutor')->user()->school_id;
+        return Subject::where('school_id',$school_id)->get();
+    }
 
     /**
      * Show the form for creating a new resource.

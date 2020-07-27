@@ -1,6 +1,6 @@
 <template>
-  <div class="p-3">
-      <h3>Assign Head Teachers</h3>
+  <div class="body p-3">
+      <h4 class="mb-5">Assign Head Teachers</h4>
     <div class="d-flex mb-5">
       <div class="w-25 mr-3">
         <table class="table table-bordered table-hover">
@@ -46,7 +46,7 @@
         </table>
         <div class="form-control" v-else>No Tutor Selected</div>
         <div class="my-3" >
-          <button type="button" @click="submit">Submit</button>
+          <b-button type="button" @click="submit">Submit</b-button>
         </div>
       </div>
     </div>
@@ -111,9 +111,9 @@ export default {
       }}).then(res => {
         if (res.status == 201) {
           this.$toasted.info("Successful");
-        //   this.$router.push("/admin/tutors");
+           this.$router.push("/admin/tutors");
         }else if(res.status == 200){
-              this.$toasted.info("Already Assigned to a class")
+              this.$toasted.error("Already Assigned to a class")
         }
       });
     },
@@ -143,7 +143,7 @@ export default {
         .then(res => {
           if (res.status == 200) {
             this.heads = res.data.data;
-            console.log("getHeads -> this.heads", this.heads)
+          
           }
         });
     },

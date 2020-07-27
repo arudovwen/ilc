@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Syllabus extends Model
 {
-    protected $table = 'syllabus';
-    protected $fillable = ['school_id','myclass','syllabus','subject','topic'];
+    protected $table = 'syllabuses';
+    protected $fillable = ['school_id','myclass','syllabus','subject','topic','curriculum_id'];
 }

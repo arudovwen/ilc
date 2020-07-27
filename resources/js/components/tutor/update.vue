@@ -60,8 +60,9 @@
       </div>
 
        <div class="form-group">
-        <label for>Subjects</label>
-        <textarea name="subjects" id="subjects" class="form-control" cols="30" v-model="tutor.subjects" rows="5" placeholder="Subject 1, Subject 2"></textarea>
+        <label for>Qualification</label>
+       
+        <input type="text"  class="form-control" v-model="tutor.subjects" placeholder="Bachelor's Degree ...">
       </div>
        <div class="form-group">
         <label for>Faculty</label>
@@ -111,18 +112,7 @@
           placeholder=""
         />
       </div>
-       <div class="form-group">
-        <label for>DOE</label>
-        <input
-          type="date"
-          class="form-control"
-          name="doe"
-          id="doe"
-          v-model="tutor.doe"
-          aria-describedby="helpId"
-          placeholder=""
-        />
-      </div>
+    
        <div class="form-group">
         <label for>Lga</label>
         <input
@@ -184,44 +174,7 @@
           placeholder=""
         />
       </div>
-       <div class="form-group">
-        <label for>SGL</label>
-        <input
-          type="text"
-          class="form-control"
-          name="sgl"
-          id="sgl"
-          v-model="tutor.sgl"
-          aria-describedby="helpId"
-          placeholder=""
-        />
-      </div>
-
-       <div class="form-group">
-        <label for>Rank</label>
-        <input
-          type="text"
-          class="form-control"
-          name="rank"
-          id="rank"
-          v-model="tutor.rank"
-          aria-describedby="helpId"
-          placeholder=""
-        />
-      </div>
-       <div class="form-group">
-        <label for>File No</label>
-        <input
-          type="text"
-          class="form-control"
-          name="file_no"
-          id="file_no"
-          v-model="tutor.file_no"
-          aria-describedby="helpId"
-          placeholder=""
-        />
-      </div>
-
+    
        <div class="form-group">
         <label for>Area of Specialization</label>
         <input
@@ -234,6 +187,7 @@
           placeholder=""
         />
       </div>
+      <Upload :id="$route.params.id"  @getUploadDetails="getUploadDetails"/>
 
       <button class="button-blue" type="submit">Register</button>
     </form>
@@ -242,6 +196,7 @@
 
 
 <script>
+import Upload from '../uploadComponent'
 export default {
   data() {
     return {
@@ -258,25 +213,29 @@ export default {
         course_level: "",
         address: "",
         dob: "",
-        doe: "",
         lga: "",
         state: "",
         bank_name: "",
         bank_no: "",
         bvn: "",
-        sgl: "",
-        rank: "",
-        file_no: "",
-        area_of_specialization: ""
+        area_of_specialization: "",
+        profile:''
       },
 
       spin: false
     };
   },
+  components:{
+    Upload
+  },
   mounted() {
     this.getTutor()
   },
    methods: {
+     getUploadDetails(id,res){
+       console.log("getUploadDetails -> res", res)
+       this.tutor.profile = res.secure_url
+     },
     register() {
         let tutor = JSON.parse(localStorage.getItem('typeTutor'))
       axios.put(`/api/tutors/${tutor.id}`, this.tutor,{headers:{

@@ -1,28 +1,28 @@
 <template>
   <div class="body">
     <nav class="mb-5">
-      <div class="nav_box shadow-sm">
-        <p class="mx-auto" @click="multiDrop">Multi-Drop</p>
-        <hr />
-      </div>
-      <div class="nav_box shadow-sm hiden">
-        <p class="mx-auto">Create Group</p>
-        <hr />
-      </div>
+      <b-button class=" shadow-sm" @click="multiDrop">
+       Multi-Drop
+        
+      </b-button>
+      <b-button class=" shadow-sm hiden">
+     Create Group
+        
+      </b-button>
 
-      <div class="nav_box shadow-sm hiden">
-        <p class="mx-auto">Assign Course</p>
-        <hr />
-      </div>
+      <b-button class=" shadow-sm hiden">
+     Assign Course
+        
+      </b-button>
 
-      <div class="nav_box shadow-sm hiden">
-        <p class="mx-auto">Assign Level</p>
-        <hr />
+      <div class=" shadow-sm hiden">
+     Assign Level
+        
       </div>
     </nav>
 
     <div class="d-flex justify-content-between">
-      <table class="table table-striped table-inverse table-bordered mr-4 w-75">
+      <table class="table table-striped table-inverse table-bordered ">
         <thead class="thead-inverse">
           <tr>
             <th>Group Name</th>
@@ -35,7 +35,7 @@
         </thead>
         <tbody>
           <tr v-for="(item,idx) in groups" :key="idx">
-            <td class="toCaps" @click="gotoGroup(item.id)">{{item.name}}</td>
+            <td class="toCaps chat " @click="gotoGroup(item.id)">{{item.name}}  <i class="fa fa-comment-o" aria-hidden="true"></i></td>
 
             <td class="d-flex justify-content-around">
               <span class="mr-3" @click="drop(item.id)">
@@ -205,20 +205,15 @@ td {
 .hiden {
   opacity: 0;
 }
-.nav_box {
-  background-color: #f7f8fa;
-  display: flex;
-  text-align: center;
-  padding: 10px 15px;
-}
+
 .add {
   background-color: #f7f8fa;
 }
-.body {
-  padding: 20px 20px 50px;
-  height: 100%;
-}
+
 table {
-  font-size: 14.5px;
+  font-size: 15.5px;
+}
+.chat{
+  cursor: pointer;
 }
 </style>

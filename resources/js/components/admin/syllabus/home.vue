@@ -2,66 +2,52 @@
   <div class="body">
     <nav class="mb-5">
       <router-link to="/admin/syllabus">
-        <div class="nav_box shadow-sm">
-          <p class="mx-auto">Create Syllabus</p>
-          <hr />
-        </div>
+        <b-button class=" shadow-sm">
+         Create Syllabus     
+        </b-button>
       </router-link>
-      <div class="nav_box shadow-sm">
-        <p class="mx-auto" @click="multiDrop">Multi-Drop</p>
-        <hr />
-      </div>
+      <b-button class=" shadow-sm"  @click="multiDrop">
+       Multi-Drop
+      
+      </b-button>
      
-        <div class="nav_box shadow-sm hiden">
-          <p class="mx-auto">Assign Course</p>
-          <hr />
-        </div>
+        <b-button class=" shadow-sm hiden">
+         Assign Course
+        
+        </b-button>
       
      
-        <div class="nav_box shadow-sm hiden">
-          <p class="mx-auto">Assign Level</p>
-          <hr />
-        </div>
+        <b-button class=" shadow-sm hiden">
+         Assign Level
+        
+        </b-button>
      
     </nav>
 
-    <table class="table table-striped table-inverse table-bordered">
-      <thead class="thead-inverse">
-        <tr>
-          <th>Class</th>
-           <th>Subject</th>
-         <th>Topic</th>
-          <th>Action</th>
-          <th>
-            <input type="checkbox" v-model="item" />
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item,idx) in syllabus" :key="idx">
-        
-          <td scope="row" class="toCaps">{{item.myclass}}</td>
-           <td scope="row" class="toCaps">{{item.subject}}</td>
-              <td scope="row" class="toCaps">{{item.topic}}</td>
-          <td class="d-flex justify-content-around">
-             <span class="mr-3" @click="view(item.id)">
-              
+  
+      <b-table :items="syllabus" :fields="fields" hover bordered>
+        <template v-slot:cell(action)="data">
+       
+         <span    class="d-flex justify-content-around">  <span class="mr-3" @click="view(data.item.id)">
               <i class="fa fa-eye" aria-hidden="true"></i> View
             </span>
-            <span class="mr-3" @click="drop(item.id)">
-              
-              <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
-            </span>
-            <span @click="edit(item.id)">
-              <i class="fas fa-edit"></i>Update
-            </span>
-          </td>
-          <td>
-            <input type="checkbox" :value="item.id" v-model="items" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+         
+          <span @click="edit(data.item.id)">
+            <i class="fas fa-edit"></i>Edit
+          </span>
+           <span class="mr-3" @click="drop(data.item.id)">
+            <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
+          </span></span>
+        </template>
+
+        <template v-slot:cell(drop)="data">
+          <b-form-checkbox :value="data.item.id" v-model="items"></b-form-checkbox>
+        </template>
+          <template v-slot:cell(class)="data">
+         {{data.item.myclass}}
+        </template>
+      </b-table>
+  
   </div>
 </template>
 
@@ -73,7 +59,8 @@ export default {
     return {
       syllabus: [],
       items: [],
-      item: false
+      item: false,
+        fields:['class','subject','action','drop']
     };
   },
   watch: {
@@ -163,12 +150,7 @@ nav {
 .hiden{
     opacity: 0;
 }
-.nav_box {
-  background-color: #f7f8fa;
-  display: flex;
-  text-align: center;
-  padding: 10px 15px;
-}
+
 .body {
   padding: 20px 20px 50px;
   height: 100%;

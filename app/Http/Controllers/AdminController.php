@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Admin;
 use App\School;
+use App\PasswordGenerator;
 use Illuminate\Http\Request;
+use App\Notifications\NewAdmin;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -16,21 +18,18 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return Admin::all();
+        $admin = auth('admin')->user();
+        return Admin::where('school_id',$admin->school_id)->get();
     }
     public function adminDetail()
     {
+        $admin = auth('admin')->user();
       
-       
-       $admin = auth('admin')->user();
-      
-       $school = School::find($admin->school_id);
-       $admin->verify = $school->verify;
-       $admin->school = $school->schools;
-       return $admin;
-
-
-      
+        $school = School::find($admin->school_id);
+        $admin->verify = $school->verify;
+        $admin->school = $school->schools;
+        $admin->abbreviation = $school->abbreviation;
+        return $admin;
     }
 
     /**
@@ -51,16 +50,22 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-                return Admin::create([
+       $school= auth('admin')->user();
+        $password = new PasswordGenerator();
+        $admin = Admin::create([
                   
                     'name'=> $request->name,
                     'email'=> $request->email,
-                    'school_id'=> $request->school_id,
+                    'school_id'=> $school->school_id,
                     'address'=> $request->address,
                     'role'=> $request->role,
-                    'password'=> Hash::make($request->password),
+                    'password'=> Hash::make($password->random_strings(8)),
                     
                 ]);
+                $school = School::find($school->school_id);
+                $admin->pass =  $password->random_strings(8);
+                $admin->notify(new NewAdmin($school,$admin));
+                return $admin;
     }
 
     /**
@@ -123,7 +128,6 @@ class AdminController extends Controller
     }
     public function multiDrop(Request $request)
     {
- 
         foreach ($request->data as $id) {
             $find = Admin::find($id);
             $find->delete();

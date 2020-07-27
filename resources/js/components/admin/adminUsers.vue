@@ -1,51 +1,88 @@
 <template>
   <div class="body">
+    <!-- <b-container>
+      <b-row>
+        <b-col cols="10" class="dashboard-content-side">
+          <div class="table-side">
+            <h2>ADMINISTRATORS</h2>
+            <b-table striped hover :items="items"></b-table>
+            <h1>Testing table page</h1>
+          </div>
+        </b-col>
+        <b-col cols="2" class="notification-side">
+          <div class="notify-side">
+            <div class="notify-modal">
+              <b-button v-b-modal.modal-1 class="reg-btn">ADD ADMIN</b-button>
+              <b-modal id="modal-1" title="Create Admin">
+                <b-form>
+                  <b-container>
+                    <b-form-group id="input-group-1" label="Name" label-for="input-1">
+                      <b-form-input id="input-1" type="text" required placeholder></b-form-input>
+                    </b-form-group>
+
+                    <b-form-row>
+                      <b-col>
+                        <b-form-group id="input-group-6" label="Email" label-for="input-6">
+                          <b-form-input
+                            id="input-6"
+                            type="email"
+                            required
+                            placeholder
+                          ></b-form-input>
+                        </b-form-group>
+                      </b-col>
+                      <b-col>
+                        <b-form-group id="input-group-4" label="Phone" label-for="input-4">
+                          <b-form-input
+                            id="input-4"
+                            type="text"
+                            placeholder
+                          ></b-form-input>
+                        </b-form-group>
+                      </b-col>
+                    </b-form-row>
+                    <b-form-group id="input-group-1" label="Role" label-for="input-1">
+                      <b-form-input id="input-1" type="text" required placeholder></b-form-input>
+                    </b-form-group>
+                  </b-container>
+                </b-form>
+              </b-modal>
+            </div>
+          </div>
+        </b-col>
+      </b-row>
+    </b-container>-->
+
     <nav class="mb-5">
       <router-link to="/admin/add">
-        <div class="nav_box shadow-sm">
-          <p class="mx-auto">Create Administrator</p>
-          <hr />
-        </div>
+    
+          <b-button variant="success">Create Administrator</b-button>
+     
       </router-link>
-      <div class="nav_box shadow-sm">
-        <p class="mx-auto" @click="multiDrop">Multi-Drop</p>
-        <hr />
-      </div>
-      <div class="nav_box shadow-sm hiden"></div>
+   
+    <!-- <b-button variant="success" @click="multiDrop">Multi-Drop</b-button> -->
+   
+    <div class="nav_box shadow-sm hiden"></div>
       <div class="nav_box shadow-sm hiden"></div>
     </nav>
 
-    <table class="table table-striped table-inverse table-bordered">
-      <thead class="thead-inverse">
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th>Action</th>
-          <th>
-            <input type="checkbox" v-model="item" />
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item,idx) in admins" :key="idx">
-          <td scope="row" class="toCaps">{{item.name}}</td>
-          <td>{{item.email}}</td>
-          <td>{{item.role}}</td>
-          <td class="d-flex justify-content-around">
-            <span class="mr-3" @click="drop(item.id)">
-              <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
-            </span>
-            <span @click="edit(item.id)">
-              <i class="fas fa-edit"></i>Edit
-            </span>
-          </td>
-          <td>
-            <input type="checkbox" :value="item.id" v-model="items" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <b-table :items="admins" hover :fields="fields" :busy='busy' class="admin-table">
+      <template v-slot:cell(Sn)="data">{{ data.index + 1 }}</template>
+      <template v-slot:cell(Action)="data">
+        <span class="mr-3" @click="drop(data.item.id)">
+          <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
+        </span>
+        <span @click="edit(data.item.id)">
+          <i class="fas fa-edit"></i>Edit
+        </span>
+      </template>
+      <template v-slot:table-busy>
+        <div class="text-center my-2">
+          <b-spinner class="align-middle"></b-spinner>
+          <strong>Loading...</strong>
+        </div>
+      </template>
+    </b-table>
   </div>
 </template>
 
@@ -56,12 +93,20 @@ export default {
   data() {
     return {
       admins: [],
+      busy: true,
       items: [],
-      item: false
+      item: false,
+      fields: [
+        "Sn",
+        { key: "name", sortable: true },
+        "email",
+        { key: "role", sortable: true },
+        "Action",
+      ],
     };
   },
   watch: {
-    item: "selectAll"
+    item: "selectAll",
   },
   mounted() {
     this.getAdmins();
@@ -70,7 +115,7 @@ export default {
     selectAll() {
       if (this.item) {
         this.items = [];
-        this.admins.forEach(it => {
+        this.admins.forEach((it) => {
           this.items.push(it.id);
         });
       } else {
@@ -81,77 +126,69 @@ export default {
       axios
         .get("/api/admin", {
           headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.admin.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.admins = res.data;
+            this.busy = false;
           }
         });
     },
     drop(id) {
       let del = confirm("Are you sure?");
       if (del) {
-       
-          axios.delete(`/api/admin/${id}`, {
-          headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
-        }).then(res => {
+        axios
+          .delete(`/api/admin/${id}`, {
+            headers: {
+              Authorization: `Bearer ${this.$props.admin.access_token}`,
+            },
+          })
+          .then((res) => {
             if (res.status == 200) {
               this.getAdmins();
             }
           });
-        
       }
     },
     multiDrop() {
       let del = confirm("Are you sure about this?");
       let data = {
-        data:this.items
-        }
+        data: this.items,
+      };
       if (del) {
         axios
-          .post("/api/multi-admin-drop", data , {
-          headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
-        })
-          .then(res => {
+          .post("/api/multi-admin-drop", data, {
+            headers: {
+              Authorization: `Bearer ${this.$props.admin.access_token}`,
+            },
+          })
+          .then((res) => {
             if (res.status == 200) {
               this.getAdmins();
             }
           })
-          .catch(err => {
+          .catch((err) => {
             console.log("del -> err", err);
           });
       }
     },
     edit(id) {
-        this.$router.push(`/admin/edit/${id}`)
-    }
-  }
+      this.$router.push(`/admin/edit/${id}`);
+    },
+  },
 };
 </script>
 
 <style scoped>
-nav {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-column-gap: 30px;
-}
-.hiden{
-    opacity: 0;
+.hiden {
+  opacity: 0;
 }
 .nav_box {
   background-color: #f7f8fa;
   display: flex;
   text-align: center;
   padding: 10px 15px;
-}
-.body {
-  padding: 20px 20px 50px;
-  height: 100%;
 }
 </style>

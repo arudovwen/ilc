@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Group;
+use App\Notification;
+use App\Events\DeletedGroup;
+use App\Events\GroupCreated;
 use Illuminate\Http\Request;
+use App\Events\GroupSubscribed;
+use Illuminate\Support\Facades\DB;
 
 class GroupsController extends Controller
 {
@@ -14,10 +20,9 @@ class GroupsController extends Controller
      */
     public function index()
     {
-
         $tutor = auth('tutor')->user();
    
-        return Group::where('school_id',$tutor->school_id)->where('school_id', $tutor->id)->get();
+        return Group::where('school_id', $tutor->school_id)->where('tutor_id', $tutor->id)->get();
     }
 
     /**
@@ -36,14 +41,57 @@ class GroupsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public $students;
     public function store(Request $request)
     {
-        $tutor = auth('tutor')->user();
-        return Group::create([
+        $group = DB::transaction(function () use ($request) {
+            $tutor = auth('tutor')->user();
+            $student = [];
+            if (is_null($request->subscribers)) {
+                $students = User::where('school_id', $tutor->school_id)->where('student_level', $request->class_name)->get();
+                foreach ($students as $value) {
+                    \array_push($student, $value->id);
+                }
+            } else {
+                $student = $request->subscribers;
+            }
+
+            $maingroup = Group::create([
             'name'=>\strtolower($request->name),
             'tutor_id'=> $tutor->id,
-            'school_id'=>$tutor->school_id
+            'school_id'=>$tutor->school_id,
+            'class_name' => \trim($request->class_name),
+            'subscribers' => \json_encode($student)
         ]);
+            $createdMessage = Notification::create([
+            'school_id'=>$tutor->school_id,
+            'receiver_id'=>$tutor->id,
+            'message'=> \strtolower($request->name).' group created',
+            'status'=> false,
+            'sender_id'=> $tutor->id ,
+            'role' => 'tutor'
+        ]);
+
+            foreach ($student as $key) {
+                $user = User::find($key);
+                $subscribedMessage = Notification::create([
+                'school_id'=>$tutor->school_id,
+                'receiver_id'=>$key,
+                'message'=>'You have been subscribed to '.\strtolower($request->name).' group',
+                'status'=> false,
+                'sender_id'=>$maingroup->id,
+                'role' => 'student'
+            ]);
+
+                broadcast(new GroupSubscribed($maingroup, $subscribedMessage));
+            }
+            broadcast(new GroupCreated($maingroup, $createdMessage));
+
+           
+
+            return $maingroup;
+        });
+        return $group;
     }
 
     /**
@@ -52,12 +100,21 @@ class GroupsController extends Controller
      * @param  \App\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function getStudentGroups(){
+    public function getStudentGroups()
+    {
         $user = auth('api')->user();
-   
-        return Group::where('school_id',$user->school_id)->get();
+        $student_group = [];
+        $groups = Group::where('school_id', $user->school_id)->get();
+        foreach ($groups as $value) {
+            foreach (json_decode($value->subscribers) as $v) {
+                if ($user->id == $v) {
+                    \array_push($student_group, $value);
+                }
+            }
+        }
+        return $student_group;
     }
-    public function show( $id)
+    public function show($id)
     {
         return Group::find($id);
     }
@@ -70,7 +127,6 @@ class GroupsController extends Controller
      */
     public function edit(Group $group)
     {
-        
     }
 
     /**
@@ -80,10 +136,11 @@ class GroupsController extends Controller
      * @param  \App\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,  $id)
+    public function update(Request $request, $id)
     {
         $group = Group::find($id);
         $group->name=$request->name;
+        $s->class_name = $request->class_name;
         $group->save();
         return $group;
     }
@@ -96,19 +153,41 @@ class GroupsController extends Controller
      */
     public function destroy($id)
     {
-        Group::find($id)->delete();
+        $group = Group::find($id);
+       
+        foreach (json_decode($group->subscribers) as $key) {
+            Notification::create([
+                'school_id'=>$group->school_id,
+                'receiver_id'=>$key,
+                'message'=> \strtolower($group->name).' group removed',
+                'status'=> false,
+                'sender_id'=> $group->id ,
+                'role' => 'student'
+            ]);
+            broadcast(new DeletedGroup($group));
+        }
+           
+        $group->delete();
     }
     public function multiDrop(Request $request)
     {
-        foreach ($request as $id) {
-            $find = Group::find($id);
-             $find->delete();
-           
+        foreach ($request->data as $id) {
+            $group = Group::find($id);
+            foreach (json_decode($group->subscribers) as $key) {
+                Notification::create([
+            'school_id'=>$group->school_id,
+            'receiver_id'=>$key,
+            'message'=> \strtolower($group->name).' group removed',
+            'status'=> false,
+            'sender_id'=> $group->id ,
+            'role' => 'student'
+        ]);
+                broadcast(new DeletedGroup($group));
+            }
         }
-     
+        $group->delete();
         return response()->json([
             'status'=>'Deleted'
         ]);
     }
 }
-

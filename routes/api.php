@@ -50,30 +50,61 @@ Route::middleware('auth:api')->group(function () {
     Route::post('send-student-message', 'MessagesController@sendStudentGroupMessage');
     Route::get('get-user', 'UserController@getUser');
     Route::resource('user', 'UserController');
+    Route::resource('library', 'LibraryController');
+    Route::get('user-notifications/{id}', 'NotificationController@show');
+    Route::get('clear-user-notifications/{id}', 'NotificationController@updateStatus');
+
+    Route::get('student-resources', 'ResourceController@getResources');
+    Route::get('student-resource/{id}', 'ResourceController@show');
+
+    Route::get('student-assessments/{id}', 'AssessmentController@getAssessments');
+    Route::get('student-assessment/{id}', 'AssessmentController@getSingleAssessment');
+    Route::get('student-assessment-type/{id}', 'AssessmentController@getAssessmentType');
 });
 
 Route::middleware('auth:tutor')->group(function () {
     Route::resource('group', 'GroupsController');
+    Route::post('multi-group-drop', 'GroupsController@multiDrop');
     Route::get('get-messages/{groupId}', 'MessagesController@getMessages');
     Route::post('send-message', 'MessagesController@sendGroupMessage');
     Route::resource('tutors', 'TutorController');
+    Route::resource('resource', 'ResourceController');
+    Route::get('tutor-syllabus', 'SyllabusController@getTutorSyllabuses');
+    Route::get('tutor-module/{myclass}/{subject}', 'SyllabusController@getTutorModules');
+    Route::get('tutor-curriculum', 'CurriculumController@getTutorCurriculums');
+    Route::get('tutor-syllabus/{id}', 'SyllabusController@getTutorSyllabus');
+    Route::get('tutor-curriculum/{id}', 'CurriculumController@getTutorCurriculum');
+    Route::get('all-classes', 'ClassesController@getAllTutorClasses');
+    Route::get('all-students/{name}', 'UserController@tutorGetStudents');
+    Route::get('tutor-notifications/{id}', 'NotificationController@showTutorNotifications');
+    Route::get('tutor-all-subjects', 'SubjectsController@tutorGetAllSubjects');
+    Route::get('clear-tutor-notifications/{id}', 'NotificationController@updateTutorStatus');
+    Route::get('tutor-times-table/{id}', 'TimesTableController@show');
+    Route::get('tutor-times-table', 'TimesTableController@indexTutor');
+    Route::resource('assessment', 'AssessmentController');
 });
 Route::get('student-group/{id}', 'GroupsController@show');
 Route::post('school-register', 'SchoolController@store');
 
 Route::middleware('auth:admin')->group(function () {
     Route::resource('admin', 'AdminController');
+    Route::get('admin-notifications/{id}', 'NotificationController@showAdminNotifications');
+    Route::get('clear-admin-notifications/{id}', 'NotificationController@updateAdminStatus');
     Route::post('multi-admin-drop', 'AdminController@multiDrop');
     Route::post('multi-tutor-drop', 'TutorController@multiDrop');
     Route::post('multi-student-drop', 'UserController@multiDrop');
     Route::post('multi-subject-drop', 'SubjectsController@multiDrop');
     Route::post('multi-syllabus-drop', 'SyllabusController@multiDrop');
     Route::post('multi-classes-drop', 'ClassesController@multiDrop');
+   
+    Route::resource('class-student', 'ClassStudentsController');
     Route::resource('tutor', 'TutorController');
     Route::resource('student', 'UserController');
+    Route::get('admin-get-students', 'UserController@adminGetStudents');
     Route::resource('school', 'SchoolController');
     Route::resource('subject', 'SubjectsController');
     Route::resource('syllabus', 'SyllabusController');
+    Route::resource('curriculum', 'CurriculumController');
     Route::resource('times-table', 'TimesTableController');
     Route::resource('classes', 'ClassesController');
     Route::resource('tutor-course', 'CourseTutorController');
@@ -81,6 +112,10 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('register', 'Auth\RegisterController@register');
     Route::get('admin-get-user/{id}', 'UserController@adminGetUser');
     Route::put('update-user/{id}', 'UserController@store');
+    Route::resource('students-course', 'CourseStudentsController');
+    Route::get('admin-assessments', 'AssessmentController@getAdminAssessments');
+    Route::get('admin-verify-assessment/{id}', 'AssessmentController@verifyAssessment');
+   
 });
 Route::resource('order', 'OrdersController');
 Route::resource('temp-sub', 'TempSubscriptionsController');

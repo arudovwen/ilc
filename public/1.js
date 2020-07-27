@@ -108,11 +108,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       user: {
-        type: "student",
+        type: false,
         email: "",
         password: ""
       },
@@ -120,18 +152,12 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    register: function register(value) {
-      this.$emit("register", value);
-    },
-    changeType: function changeType(value) {
-      this.user.type = value;
-    },
     submit: function submit() {
       var _this = this;
 
       this.spin = true;
 
-      if (this.user.type == "student") {
+      if (!this.user.type) {
         var data = {
           grant_type: "password",
           client_id: 2,
@@ -153,12 +179,17 @@ __webpack_require__.r(__webpack_exports__);
                 _this.spin = false;
                 typeStudent.id = res.data.id;
                 typeStudent.email = res.data.email;
+                typeStudent.level = res.data.student_level;
                 typeStudent.name = res.data.name;
                 typeStudent.school_id = res.data.school_id;
                 typeStudent.school = res.data.school;
                 localStorage.setItem("typeStudent", JSON.stringify(typeStudent));
 
-                _this.$toasted.success("Sucessful");
+                _this.$toasted.success("Logged in Sucessfully", {
+                  icon: {
+                    name: "fingerprint"
+                  }
+                });
 
                 if (_this.$route.query.redirect) {
                   _this.$router.push(_this.$route.query.redirect);
@@ -169,17 +200,21 @@ __webpack_require__.r(__webpack_exports__);
                 }
               }
             })["catch"](function (error) {
-              console.log("submit -> error", error);
-
-              _this.$toasted.error("Something is not right");
+              _this.$toasted.error("Invalid credentials", {
+                icon: {
+                  name: "user-times"
+                }
+              });
 
               _this.spin = false;
             });
           }
         })["catch"](function (error) {
-          console.log("submit -> error", error);
-
-          _this.$toasted.error("Something is not right");
+          _this.$toasted.error("Invalid credentials", {
+            icon: {
+              name: "user-times"
+            }
+          });
 
           _this.spin = false;
         });
@@ -209,14 +244,22 @@ __webpack_require__.r(__webpack_exports__);
                 typeTutor.name = res.data.name;
                 localStorage.setItem("typeTutor", JSON.stringify(typeTutor));
 
-                _this.$toasted.success("Sucessful");
+                _this.$toasted.success("Logged in Sucessfully", {
+                  icon: {
+                    name: "fingerprint"
+                  }
+                });
 
-                _this.$router.push('/tutor');
+                _this.$router.push("/tutor");
               }
             })["catch"](function (error) {
               console.log("submit -> error", error);
 
-              _this.$toasted.error("Something is not right");
+              _this.$toasted.error("Invalid credentials", {
+                icon: {
+                  name: "user-times"
+                }
+              });
 
               _this.spin = false;
             });
@@ -224,7 +267,11 @@ __webpack_require__.r(__webpack_exports__);
         })["catch"](function (error) {
           console.log("submit -> error", error);
 
-          _this.$toasted.error("Something is not right");
+          _this.$toasted.error("Invalid credentials", {
+            icon: {
+              name: "user-times"
+            }
+          });
 
           _this.spin = false;
         });
@@ -247,7 +294,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-6aa0b866] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100vh;\n}\n.register[data-v-6aa0b866] {\r\n  background: transparent;\r\n  padding: 3%;\n}\n.register-left[data-v-6aa0b866] {\r\n  text-align: center;\r\n  color: #fff;\r\n  padding-top: 4%;\r\n  width: 30%;\n}\n.register-left input[data-v-6aa0b866] {\r\n  border: none;\r\n  border-radius: 1.5rem;\r\n  padding: 2%;\r\n  width: 60%;\r\n  background: #f7f8fa;\r\n  font-weight: bold;\r\n  color: #383d41;\r\n  margin-top: 30%;\r\n  margin-bottom: 3%;\r\n  cursor: pointer;\n}\n.register-right[data-v-6aa0b866] {\r\n  background: #f7f8fa;\r\n  border-top-left-radius: 10% 50%;\r\n  border-bottom-left-radius: 10% 50%;\r\n  width: 80%;\n}\n.register-left img[data-v-6aa0b866] {\r\n  margin-top: 15%;\r\n  margin-bottom: 5%;\r\n  width: 25%;\r\n  -webkit-animation: mover-data-v-6aa0b866 2s infinite alternate;\r\n  animation: mover-data-v-6aa0b866 1s infinite alternate;\n}\n@-webkit-keyframes mover-data-v-6aa0b866 {\n0% {\r\n    transform: translateY(0);\n}\n100% {\r\n    transform: translateY(-20px);\n}\n}\n@keyframes mover-data-v-6aa0b866 {\n0% {\r\n    transform: translateY(0);\n}\n100% {\r\n    transform: translateY(-20px);\n}\n}\n.register-left p[data-v-6aa0b866] {\r\n  font-weight: lighter;\r\n  padding: 12%;\r\n  margin-top: -9%;\n}\n.register .register-form[data-v-6aa0b866] {\r\n  padding: 10%;\r\n  margin-top: 10%;\n}\n.btnRegister[data-v-6aa0b866] {\r\n  float: right;\r\n  margin-top: 10%;\r\n  border: none;\r\n  border-radius: 1.5rem;\r\n  padding: 4%;\r\n  background: repeating-linear-gradient(\r\n    to right,\r\n    rgb(15, 122, 138, 0.7) 0%,\r\n    rgb(15, 122, 138, 0.7) 100%\r\n  );\r\n  color: #fff;\r\n  font-weight: 600;\r\n  width: 50%;\r\n  cursor: pointer;\n}\n.register .nav-tabs[data-v-6aa0b866] {\r\n  margin-top: 3%;\r\n  border: none;\r\n  background: repeating-linear-gradient(\r\n    to right,\r\n    rgb(15, 122, 138, 0.7) 0%,\r\n    rgb(15, 122, 138, 0.7) 100%\r\n  );\r\n  border-radius: 1.5rem;\r\n  width: 28%;\r\n  float: right;\r\n  font-size: 14px;\n}\n.register .nav-tabs .nav-link[data-v-6aa0b866] {\r\n  padding: 2%;\r\n  height: 34px;\r\n  font-weight: 600;\r\n  color: #fff;\r\n  border-top-right-radius: 1.5rem;\r\n  border-bottom-right-radius: 1.5rem;\r\n  font-size: 14px;\n}\n.register .nav-tabs .nav-link[data-v-6aa0b866]:hover {\r\n  border: none;\n}\n.register .nav-tabs .nav-link.active[data-v-6aa0b866] {\r\n  width: 100px;\r\n  color: #5fa1ac;\r\n  border: 2px solid #5fa1ac;\r\n  border-top-left-radius: 1.5rem;\r\n  border-bottom-left-radius: 1.5rem;\n}\n.register-heading[data-v-6aa0b866] {\r\n  text-align: center;\r\n  margin-top: 8%;\r\n  margin-bottom: -15%;\r\n  color: #495057;\n}\n@media (max-width: 1024px) {\n.register .nav-tabs[data-v-6aa0b866] {\r\n    width: 35%;\n}\nh4.register-heading[data-v-6aa0b866] {\r\n    font-size: 22px;\n}\n.register-form[data-v-6aa0b866] {\r\n    width: 100%;\n}\n}\n@media (max-width: 768px) {\n.register .nav-tabs[data-v-6aa0b866] {\r\n    width: 40%;\n}\n}\n@media (max-width: 425px) {\n.register-right[data-v-6aa0b866] {\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\n}\n.register .nav-tabs[data-v-6aa0b866] {\r\n    width: 80%;\r\n    margin: 3% auto 0;\n}\n.register-left[data-v-6aa0b866] {\r\n    padding-bottom: 20px;\n}\n}\r\n", ""]);
+exports.push([module.i, "\nlabel[data-v-6aa0b866] {\r\n  position: relative;\r\n  margin-bottom: 0;\r\n  vertical-align: top;\r\n  font-size: 1.25rem;\r\n  line-height: 1.5;\n}\n.text-muted[data-v-6aa0b866] {\r\n  color: rgba(0, 0, 0, 0.4) !important;\n}\r\n", ""]);
 
 // exports
 
@@ -299,327 +346,210 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container register" }, [
-    _c(
-      "form",
-      {
-        staticClass: "col-md-9 register-right",
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.submit($event)
-          }
-        }
-      },
-      [
-        _c(
-          "ul",
-          {
-            staticClass: "nav nav-tabs nav-justified",
-            attrs: { id: "myTab", role: "tablist" }
-          },
-          [
-            _c(
-              "li",
-              {
-                staticClass: "nav-item",
-                on: {
-                  click: function($event) {
-                    return _vm.changeType("student")
+  return _c("div", {}, [
+    _c("div", { staticClass: "register-section" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "form-side" },
+        [
+          _c("h2", { staticClass: "text-center" }, [_vm._v("LOGIN")]),
+          _vm._v(" "),
+          _c(
+            "b-container",
+            { staticClass: "bv-example-row" },
+            [
+              _c(
+                "b-form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.submit($event)
+                    }
                   }
-                }
-              },
-              [
-                _c(
-                  "a",
-                  {
-                    staticClass: "nav-link active",
-                    attrs: {
-                      id: "home-tab",
-                      "data-toggle": "tab",
-                      href: "#home"
-                    }
-                  },
-                  [_vm._v("Student")]
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "li",
-              {
-                staticClass: "nav-item",
-                on: {
-                  click: function($event) {
-                    return _vm.changeType("tutor")
-                  }
-                }
-              },
-              [
-                _c(
-                  "a",
-                  {
-                    staticClass: "nav-link",
-                    attrs: {
-                      id: "profile-tab",
-                      "data-toggle": "tab",
-                      href: "#profile",
-                      role: "tab",
-                      "aria-controls": "profile",
-                      "aria-selected": "false"
-                    }
-                  },
-                  [_vm._v("Tutor")]
-                )
-              ]
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "tab-content", attrs: { id: "myTabContent" } },
-          [
-            _vm.user.type == "student"
-              ? _c(
-                  "div",
-                  {
-                    staticClass: "tab-pane fade show active",
-                    attrs: {
-                      id: "home",
-                      role: "tabpanel",
-                      "aria-labelledby": "home-tab"
-                    }
-                  },
-                  [
-                    _c("h4", { staticClass: "register-heading" }, [
-                      _vm._v("Login as a Student")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row register-form" }, [
-                      _c("div", { staticClass: "col-md-9 mx-auto" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.user.email,
-                                expression: "user.email"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              required: "",
-                              type: "email",
-                              placeholder: "Your Email *"
+                },
+                [
+                  _c(
+                    "b-form-row",
+                    [
+                      _c(
+                        "b-col",
+                        {
+                          staticClass:
+                            "text-center d-flex align-items-center justify-content-center"
+                        },
+                        [
+                          _c(
+                            "label",
+                            {
+                              staticClass: " mr-3",
+                              class: { "text-muted": _vm.user.type }
                             },
-                            domProps: { value: _vm.user.email },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(_vm.user, "email", $event.target.value)
+                            [_vm._v(" Student")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-checkbox",
+                            {
+                              class: { "text-muted": !_vm.user.type },
+                              attrs: { switch: "", size: "lg" },
+                              model: {
+                                value: _vm.user.type,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.user, "type", $$v)
+                                },
+                                expression: "user.type"
                               }
+                            },
+                            [_vm._v("Tutor")]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-row",
+                    [
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            {
+                              attrs: {
+                                id: "input-group-2",
+                                label: "Email ",
+                                "label-for": "input-2"
+                              }
+                            },
+                            [
+                              _c("b-form-input", {
+                                attrs: {
+                                  id: "input-8",
+                                  type: "email",
+                                  required: "",
+                                  placeholder: ""
+                                },
+                                model: {
+                                  value: _vm.user.email,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.user, "email", $$v)
+                                  },
+                                  expression: "user.email"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-group",
+                            {
+                              attrs: {
+                                id: "input-group-3",
+                                label: "Password",
+                                "label-for": "input-3"
+                              }
+                            },
+                            [
+                              _c("b-form-input", {
+                                attrs: {
+                                  id: "input-3",
+                                  type: "password",
+                                  required: "",
+                                  placeholder: ""
+                                },
+                                model: {
+                                  value: _vm.user.password,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.user, "password", $$v)
+                                  },
+                                  expression: "user.password"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    { staticClass: "reg-btn", attrs: { type: "submit" } },
+                    [
+                      _vm._v(
+                        _vm._s(_vm.user.type ? "TUTOR" : "STUDENT") + " LOGIN "
+                      ),
+                      _vm.spin
+                        ? _c("b-spinner", {
+                            staticClass: "ml-2",
+                            attrs: {
+                              variant: "",
+                              small: "",
+                              label: "small spinner",
+                              type: "grow"
                             }
                           })
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.user.password,
-                                expression: "user.password"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              required: "",
-                              type: "password",
-                              placeholder: "Password *"
-                            },
-                            domProps: { value: _vm.user.password },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.user,
-                                  "password",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "form-txt my-3" }, [
+                    _vm._v(
+                      "\n           Don't have an account??\n            "
+                    ),
+                    _c(
+                      "span",
+                      [
                         _c(
-                          "button",
-                          {
-                            directives: [
-                              {
-                                name: "waves",
-                                rawName: "v-waves.button",
-                                modifiers: { button: true }
-                              },
-                              {
-                                name: "waves",
-                                rawName: "v-waves.float",
-                                modifiers: { float: true }
-                              },
-                              {
-                                name: "waves",
-                                rawName: "v-waves.light",
-                                modifiers: { light: true }
-                              }
-                            ],
-                            staticClass: "btnRegister",
-                            attrs: { type: "submit" }
-                          },
-                          [
-                            _vm.spin
-                              ? _c("span", {
-                                  staticClass:
-                                    "spinner-border spinner-border-sm"
-                                })
-                              : _vm._e(),
-                            _vm._v(" Login\n            ")
-                          ]
+                          "router-link",
+                          { attrs: { to: "/school/register" } },
+                          [_vm._v("Register")]
                         )
-                      ])
-                    ])
-                  ]
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.user.type == "tutor"
-              ? _c(
-                  "div",
-                  {
-                    staticClass: "tab-pane fade show",
-                    attrs: {
-                      id: "profile",
-                      role: "tabpanel",
-                      "aria-labelledby": "profile-tab"
-                    }
-                  },
-                  [
-                    _c("h4", { staticClass: "register-heading" }, [
-                      _vm._v("Login as a Tutor")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row register-form" }, [
-                      _c("div", { staticClass: "col-md-6 mx-auto" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.user.email,
-                                expression: "user.email"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              required: "",
-                              type: "email",
-                              placeholder: "Your Email *"
-                            },
-                            domProps: { value: _vm.user.email },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(_vm.user, "email", $event.target.value)
-                              }
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.user.password,
-                                expression: "user.password"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              required: "",
-                              type: "password",
-                              placeholder: "Password *"
-                            },
-                            domProps: { value: _vm.user.password },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.user,
-                                  "password",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            directives: [
-                              {
-                                name: "waves",
-                                rawName: "v-waves.button",
-                                modifiers: { button: true }
-                              },
-                              {
-                                name: "waves",
-                                rawName: "v-waves.float",
-                                modifiers: { float: true }
-                              },
-                              {
-                                name: "waves",
-                                rawName: "v-waves.light",
-                                modifiers: { light: true }
-                              }
-                            ],
-                            staticClass: "btnRegister",
-                            attrs: { type: "submit" }
-                          },
-                          [
-                            _vm.spin
-                              ? _c("span", {
-                                  staticClass:
-                                    "spinner-border spinner-border-sm"
-                                })
-                              : _vm._e(),
-                            _vm._v(" Login\n            ")
-                          ]
-                        )
-                      ])
-                    ])
-                  ]
-                )
-              : _vm._e()
-          ]
-        )
-      ]
-    )
+                      ],
+                      1
+                    )
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "img-side" }, [
+      _c("div", { staticClass: "header-logo text-center" }, [
+        _c("img", { attrs: { src: "/images/logo-ilc-single.png", alt: "" } }),
+        _vm._v(" "),
+        _c("h6", [_vm._v("IMO STATE LEARNING CENTER")])
+      ]),
+      _vm._v(" "),
+      _c("h2", [_vm._v("Welcome!!!!!")]),
+      _vm._v(" "),
+      _c("div", [_vm._v("© Copyright 2020 Couer")])
+    ])
+  }
+]
 render._withStripped = true
 
 

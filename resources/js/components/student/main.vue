@@ -1,12 +1,12 @@
 <template>
   <div>
-    <nav class="shadow-sm p-3">
-      <h5>Student Dashboard</h5>
-      <b-row class="align-items-center">
-       <b-col>
-          <div id="notification">
+  <nav class="shadow-sm p-3">
+      <b-form-input placeholder="Search... " class="search rounded-pill"></b-form-input>
+       <b-row class="align-items-center">
+      
+          <div id="notification" class="mx-3">
           <div class="icon" @click="toggleNotification">
-            <i class="fas fa-bell"></i>
+            <i class="fa fa-bell"></i>
             <div class="badge animated pulse" v-if="count>0">{{count}}</div>
           </div>
           <div
@@ -31,16 +31,18 @@
             
           </div>
         </div>
-       </b-col>
+  
         
-       <b-col>
-        <div>   <b-avatar src="" ></b-avatar></div>
-       </b-col>
+     
+     <div  class="mx-3">
+         <b-avatar src="" ></b-avatar> <span class="toCaps mx-2">{{student.name}}</span>   <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+     </div>
+    
       
       </b-row>
     </nav>
     <transition name="slide-fade">
-      <router-view :student="student"></router-view>
+      <router-view :student="student"  class="semi-white"></router-view>
     </transition>
   </div>
 </template>
@@ -145,6 +147,9 @@ export default {
 };
 </script>
 <style scoped>
+.semi-white{
+  background: #f7f8fa;
+}
 nav {
   display: flex;
   justify-content: space-between;
@@ -152,12 +157,16 @@ nav {
 }
 #notification {
   position: relative;
-   z-index: 999;
+  z-index: 999;
 }
 .notification-body {
   position: absolute;
   left: -240px;
   width: 250px;
+}
+.main-notify {
+  max-height: 300px;
+  overflow: scroll;
 }
 .icon {
   position: relative;
@@ -170,14 +179,16 @@ nav {
   color: white;
   font-size: 14px;
 }
-.main-notify {
-  max-height: 300px;
-  overflow: scroll;
-}
+
 .list-group-item {
-  font-size: 15px;
+  font-size: 14px;
 }
 .fa-bell {
-  font-size: 18px;
+  font-size: 24px;
+  color:#ffd708;
+}
+.search{
+  width:250px;
+  border-color:#ffd708
 }
 </style>

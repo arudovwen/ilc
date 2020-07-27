@@ -1,12 +1,12 @@
 <template>
   <div>
-  <nav class="shadow-sm p-3">
-      <h5>Tutor Dashboard</h5>
+  <nav class="shadow-sm p-3 bg-white">
+      <b-form-input placeholder="Search... " class="search rounded-pill"></b-form-input>
        <b-row class="align-items-center">
-       <b-col>
-          <div id="notification">
+      
+          <div id="notification" class="mx-3">
           <div class="icon" @click="toggleNotification">
-            <i class="fas fa-bell"></i>
+            <i class="fa fa-bell"></i>
             <div class="badge animated pulse" v-if="count>0">{{count}}</div>
           </div>
           <div
@@ -31,11 +31,13 @@
             
           </div>
         </div>
-       </b-col>
+  
         
-       <b-col>
-        <div>   <b-avatar src="" ></b-avatar></div>
-       </b-col>
+     
+     <div  class="mx-3">
+         <b-avatar src="" ></b-avatar> <span class="toCaps mx-2">{{tutor.name}}</span>   <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+     </div>
+    
       
       </b-row>
     </nav>
@@ -131,9 +133,7 @@ export default {
 </script>
 
 <style scoped>
-.semi-white{
-  background: #f7f8fa;
-}
+
 nav {
   display: flex;
   justify-content: space-between;
@@ -168,6 +168,11 @@ nav {
   font-size: 14px;
 }
 .fa-bell {
-  font-size: 18px;
+  font-size: 24px;
+  color:#41cee2;
+}
+.search{
+  width:250px;
+  border-color:#41cee2
 }
 </style>

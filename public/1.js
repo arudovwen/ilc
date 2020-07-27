@@ -183,6 +183,7 @@ __webpack_require__.r(__webpack_exports__);
                 typeStudent.name = res.data.name;
                 typeStudent.school_id = res.data.school_id;
                 typeStudent.school = res.data.school;
+                typeStudent.abbreviation = res.data.abbreviation;
                 localStorage.setItem("typeStudent", JSON.stringify(typeStudent));
 
                 _this.$toasted.success("Logged in Sucessfully", {
@@ -242,6 +243,8 @@ __webpack_require__.r(__webpack_exports__);
                 typeTutor.id = res.data.id;
                 typeTutor.email = res.data.email;
                 typeTutor.name = res.data.name;
+                typeTutor.school = res.data.school;
+                typeTutor.abbreviation = res.data.abbreviation;
                 localStorage.setItem("typeTutor", JSON.stringify(typeTutor));
 
                 _this.$toasted.success("Logged in Sucessfully", {

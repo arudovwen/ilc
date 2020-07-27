@@ -1,9 +1,11 @@
 <template>
   <div>
     <div class="logo mb-4">
-      <p>{{student.name}}</p>
-      <small>{{student.level}}</small>
-    </div>
+     
+           <p class="bg-white text-center rounded px-3 py-2"> {{student.abbreviation}}</p> 
+  
+         <small>SCHOOL</small>
+    </div> 
 
     <nav>
       <ul>
@@ -38,18 +40,18 @@
             <i class="fa fa-users pr-2" aria-hidden="true"></i> Groups
           </li>
         </router-link>
-     <router-link to="/student/profile">
+     <router-link to="/">
           <li>
             <i class="fa fa-list-alt pr-2" aria-hidden="true"></i> Grade Book
           </li>
         </router-link>
-        <router-link to="/student/profile">
+        <router-link to="/">
           <li>
             <i class="fa fa-calendar pr-2" aria-hidden="true"></i> Activities
           </li>
         </router-link>
      
-        <router-link to="/student/profile">
+        <router-link to="/">
           <li>
             <i class="fas fa-chalkboard-teacher pr-2"></i> Virtual Classroom
           </li>
@@ -82,22 +84,40 @@ export default {
 
 
 <style scoped>
-.logo {
-  padding: 10px 20px;
+.logo{
+    padding: 10px 20px;
+    margin-bottom:20px;
+    text-align:center;
 }
-.logo p {
-  font-weight: bold;
-  font-family: "Josefin Sans";
-  font-size: 24px;
+.logo p{
+    font-weight: bold;
+    font-family: 'Josefin Sans';
+    font-size: 24px;
+    text-align:center;
+    color:#ffd708;
+    margin:0;
 }
-nav ul li {
+.logo small{
+ 
+  font-size:18px;
+    color:hsl(50deg 100% 20%)
+
+}
+ul{
+    list-style:none;
+}
+nav ul li{
   padding: 10px 20px;
   font-size: 15px;
   cursor: pointer;
-  color: #575965;
+  color:hsl(50deg 100% 20%);
 }
-small {
-  font-size: 16px;
-  font-weight: bold;
+nav{
+    padding-left:20px;
+}
+.router-link-exact-active li{
+background:#f7f8fa ;
+border-top-left-radius:10px;
+border-bottom-left-radius:10px
 }
 </style>

@@ -1,24 +1,11 @@
 <template>
   <div class="side-bar">
-    <!-- <div class="admin-dashboard-logo text-center">
-      <p>{{admin.school}}</p>
-      <p>Schools</p>
-    </div> -->
+     <div class="logo">
+     
+           <p class="bg-white text-center rounded px-3 py-2"> {{admin.abbreviation}}</p> 
   
-    <!-- <nav class="">
-      <ul class="admin-dashboard-nav">
-      <router-link to="/admin"> <div class="nav-item"><span><img src="/images/size-1.png" class="img-fluid" alt=""></span>  <li>Dashboard</li></div></router-link>
-       <router-link to="/admin/administrators"> <div class="nav-item"><span><img src="/images/admin-svg.png" class="img-fluid" alt=""></span>  <li>Admin</li></div></router-link>
-        <router-link to="/admin/tutors"> <div class="nav-item"><span><img src="/images/teacher-svg.png" class="img-fluid" alt=""></span>  <li>Teachers</li></div></router-link>
-         <router-link to="/admin/students"> <div class="nav-item"><span><img src="/images/stu-svg.png" class="img-fluid" alt=""></span>  <li>Students</li></div></router-link>
-          <router-link to="/admin/classes/years"> <div class="nav-item"><span><img src="/images/class-svg.png" class="img-fluid" alt=""></span>  <li>Classes</li></div></router-link>
-           <router-link to="/admin/courses"> <div class="nav-item"><span><img src="/images/subject-svg.png" class="img-fluid" alt=""></span>  <li>Subject</li></div></router-link>
-              <router-link to="/admin/curriculum/home"> <div class="nav-item"><span><img src="/images/subject-svg.png" class="img-fluid" alt=""></span>  <li>Curriculum</li></div></router-link>
-                 <router-link to="/admin/syllabus/home"> <div class="nav-item"><span><img src="/images/subject-svg.png" class="img-fluid" alt=""></span>  <li>Syllabus</li></div></router-link>
-                    <router-link to="/admin/time-table/home">  <div class="nav-item"><span><img src="/images/subject-svg.png" class="img-fluid" alt=""></span>  <li>Time Table</li></div></router-link>
-                    <div class="nav-item" @click="logout"><span><img src="/images/log-out-svg.png" alt=""></span><li >Logout</li></div>  
-      </ul>
-    </nav> -->
+         <small>SCHOOL</small>
+    </div> 
     <nav class="side-menu">
       <ul class="admin-dashboard-nav">
         <router-link to="/admin" class="nav-item "><span class="icon-dashboard"></span><li>Dashboard</li></router-link>
@@ -32,7 +19,7 @@
                          <router-link to="/admin/assessment" class="nav-item "><span class="icon-edit"></span><li>Assessments</li></router-link>
                       
                         <router-link to="/admin/time-table/home" class="nav-item "><span class="icon-calendar"></span><li>Time Table</li></router-link>
-                         <div class="nav-item" @click="logout"><li >Logout</li></div>  
+                         <div class="nav-item" @click="logout"><li > Logout</li></div>  
       </ul>
     </nav>
   </div>
@@ -57,6 +44,50 @@ export default {
   },
 };
 </script>
-
 <style scoped>
+.logo{
+    padding: 10px 20px;
+    margin-bottom:20px;
+    text-align:center;
+}
+.logo p{
+    font-weight: bold;
+    font-family: 'Josefin Sans';
+    font-size: 24px;
+    text-align:center;
+    color:#008E3A;
+    margin:0;
+}
+.logo small{
+ 
+  font-size:18px;
+    color:white
+
+}
+ul{
+    list-style:none;
+}
+nav ul li{
+  padding: 10px 20px;
+  font-size: 15px;
+  cursor: pointer;
+  color:hsl(187deg 74% 95%)
+}
+nav{
+    padding-left:20px;
+}
+.router-link-exact-active {
+background:#f7f8fa ;
+border-top-left-radius:10px;
+border-bottom-left-radius:10px;
+ color:#008E3A;
+}
+.router-link-exact-active li{
+
+ color:#008E3A;
+}
+.router-link-exact-active span{
+
+ color:#008E3A;
+}
 </style>

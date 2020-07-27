@@ -25,10 +25,9 @@ export default {
 .side {
  width: 15%;
     height: 100vh;
-    background: #ffffff;
+    background: #008E3A;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     position: fixed;
-    top:6rem;
   
 }
 .main {

@@ -26,7 +26,9 @@ class TutorController extends Controller
   
     public function tutorDetail()
     {
-        return auth('tutor')->user();
+         $tutor = auth('tutor')->user();
+         $tutor->abbreviation = School::where('id', $tutor->school_id)->value('abbreviation');
+                return $tutor;
     }
 
     /**

@@ -1,46 +1,29 @@
 <template>
   <div>
-    <!-- <nav class="shadow-sm p-3"> <h5>Admin Dashboard</h5></nav>
-    <transition name="slide-fade">  </transition>-->
-    <div class="dashboard-top-nav">
-      <b-navbar toggleable="lg" type="dark" variant="info" class="fixed-top">
-        <b-navbar-brand href="#" >
-          <div class="dashboard-brand text-center">
-            <h3 >{{admin.abbreviation}}</h3>
-              <p>Schools</p>
+  <nav class="shadow-sm p-3">
+      <b-form-input placeholder="Search... " class="search rounded-pill"></b-form-input>
+       <b-row class="align-items-center">
+      
+          <div id="notification" class="mx-3">
+          <div class="icon" >
+            <i class="fa fa-bell"></i>
+           
           </div>
-        </b-navbar-brand>
-        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-        <b-collapse id="nav-collapse" is-nav>
-         
-          <!-- Right aligned nav items -->
-          <b-navbar-nav class="mx-auto">
-            <b-nav-form>
-              <b-form-input size="sm" class placeholder="Search"></b-form-input>
-            </b-nav-form>
-          </b-navbar-nav>
-          <b-navbar-nav class="ml-auto">
-            <b-nav-item href="#">
-              <b-avatar size="2em" src="https://placekitten.com/300/300"></b-avatar>
-            </b-nav-item>
-            <b-nav-item>
-              <div class="user-name">
-                <h6 class="toCaps">{{admin.name}}</h6>
-              </div>
-            </b-nav-item>
-            <b-nav-item>
-              <img src="/images/bells-svg.png" alt />
-            </b-nav-item>
-            <b-nav-item>
-              <img src="/images/menu-svg.png" alt />
-            </b-nav-item>
-          </b-navbar-nav>
-        </b-collapse>
-      </b-navbar>
-    </div>
-
-    <router-view :admin="admin" class="semi-white"></router-view>
+        
+        </div>
+  
+        
+     
+     <div  class="mx-3">
+         <b-avatar src="" ></b-avatar> <span class="toCaps mx-2">{{admin.name}}</span>   <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+     </div>
+    
+      
+      </b-row>
+    </nav>
+    <transition name="slide-fade">
+      <router-view :admin="admin"  class="semi-white"></router-view>
+    </transition>
   </div>
 </template>
 
@@ -57,10 +40,49 @@ export default {
   },
 };
 </script>
-
 <style scoped>
-.semi-white {
-  background: #f0f1f1;
- margin-top:80px;
+.semi-white{
+  background: #f7f8fa;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#notification {
+  position: relative;
+  z-index: 999;
+}
+.notification-body {
+  position: absolute;
+  left: -240px;
+  width: 250px;
+}
+.main-notify {
+  max-height: 300px;
+  overflow: scroll;
+}
+.icon {
+  position: relative;
+}
+.badge {
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  background: red;
+  color: white;
+  font-size: 14px;
+}
+
+.list-group-item {
+  font-size: 14px;
+}
+.fa-bell {
+  font-size: 24px;
+  color:#008E3A;
+}
+.search{
+  width:250px;
+  border-color:#008E3A
 }
 </style>

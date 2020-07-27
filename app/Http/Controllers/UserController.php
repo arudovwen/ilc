@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\School;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,8 +16,9 @@ class UserController extends Controller
      */
     public function index()
     {
-      return  $user = auth('api')->user();
-       
+     $user = auth('api')->user();
+      $user->abbreviation = School::where('id', $user->school_id)->value('abbreviation');
+      return $user;
     }
     public function adminGetStudents()
     {

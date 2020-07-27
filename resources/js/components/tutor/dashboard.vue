@@ -32,12 +32,15 @@ export default {
 .side{
     width: 15%;
     height: 100vh;
-    background: #0a4065;
+    background:#41cee2 ;
     color:white;
 }
 .main{
     width:85%;
  height: 100vh;
     overflow: scroll;
+    background:#fff7ed ;
 }
+
+ 
 </style>

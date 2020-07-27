@@ -174,6 +174,7 @@ export default {
                     typeStudent.name = res.data.name;
                     typeStudent.school_id = res.data.school_id;
                     typeStudent.school = res.data.school;
+                       typeStudent.abbreviation = res.data.abbreviation;
                     localStorage.setItem(
                       "typeStudent",
                       JSON.stringify(typeStudent)
@@ -235,6 +236,8 @@ export default {
                     typeTutor.id = res.data.id;
                     typeTutor.email = res.data.email;
                     typeTutor.name = res.data.name;
+                     typeTutor.school = res.data.school;
+                      typeTutor.abbreviation = res.data.abbreviation;
                     localStorage.setItem(
                       "typeTutor",
                       JSON.stringify(typeTutor)

@@ -48,15 +48,12 @@
           </div>
         </b-col>
       </b-row>
-    </b-container>
-
-    <div class="chart">
+      <div class="chart">
       <column-chart
         :data="[['Basic 1', 32], ['Basic 2', 46], ['Basic 3', 28], ['Basic 4', 10], ['Basic 5', 18], ['Basic 6', 20], ['Basic 7', 28], ['Basic 8', 38]]"
       ></column-chart>
     </div>
-    <b-container>
-      <b-row>
+    <b-row>
         <b-col>
           <div class="dashboard-bottom-cards">
             <b-card>
@@ -120,6 +117,8 @@
         </b-col>
       </b-row>
     </b-container>
+
+    
   </div>
 </template>
 

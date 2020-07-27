@@ -9709,6 +9709,7 @@ __webpack_require__.r(__webpack_exports__);
           _this.subject = res.data.subject;
           _this.session = res.data.session;
           _this.title = res.data.title;
+          _this.tutor_id = res.data.tutor_id;
           _this.myclass = res.data.level;
           _this.duration = JSON.parse(res.data.duration);
         }
@@ -9717,6 +9718,7 @@ __webpack_require__.r(__webpack_exports__);
     calcAnswer: function calcAnswer() {
       var _this2 = this;
 
+      this.total_score = 0;
       this.assessment.forEach(function (element) {
         if (element.answer_type == "single") {
           if (element.answer.toLowerCase() == element.student_answer.toLowerCase()) {
@@ -9732,7 +9734,33 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
       });
-      this.$router.push('/student/assessment');
+      this.storeRecord();
+    },
+    storeRecord: function storeRecord() {
+      var _this3 = this;
+
+      var student = JSON.parse(localStorage.getItem("typeStudent"));
+      var data = {
+        subject: this.subject,
+        type: this.type,
+        title: this.title,
+        tutor_id: this.tutor_id,
+        total_score: this.total_score,
+        record: this.assessment
+      };
+      axios.post("/api/assessment-result", data, {
+        headers: {
+          Authorization: "Bearer ".concat(student.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 201) {
+          _this3.$router.push("/student/assessment");
+        }
+
+        if (res.status == 200) {
+          _this3.$router.push("/student/assessment");
+        }
+      });
     }
   }
 });
@@ -13531,7 +13559,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      items: []
+    };
+  },
+  mounted: function mounted() {
+    this.getData();
+  },
+  methods: {
+    getData: function getData() {
+      var _this = this;
+
+      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios.get("/api/assessment-result", {
+        headers: {
+          Authorization: "Bearer ".concat(tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this.items = res.data.data;
+        }
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -13562,38 +13615,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       fields: [{
-        key: 'student_name',
+        key: "student_name",
         sortable: true
       }, {
-        key: 'overall_grade',
+        key: "total_score",
         sortable: true
       }, {
-        key: 'test_1',
+        key: "test",
         sortable: true
       }, {
-        key: 'test_2',
+        key: "quiz",
         sortable: true
       }, {
-        key: 'quiz_1',
+        key: "assignment",
         sortable: true
       }, {
-        key: 'quiz_2',
+        key: "Examination",
         sortable: true
-      }, {
-        key: 'assignment_1',
-        sortable: true
-      }, {
-        key: 'assignment_2',
-        sortable: true
-      }, {
-        key: 'Examination',
-        sortable: true
-      }]
+      }],
+      items: []
     };
+  },
+  mounted: function mounted() {
+    this.getData();
+  },
+  methods: {
+    getData: function getData() {
+      var _this = this;
+
+      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios.get("/api/tutor-grade-book/".concat(this.$route.params.id), {
+        headers: {
+          Authorization: "Bearer ".concat(tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this.items = res.data.data;
+        }
+      });
+    }
   }
 });
 
@@ -42154,9 +42219,7 @@ var render = function() {
       _c(
         "b-container",
         [
-          _c("b-row", { staticClass: "mb-4" }, [
-            _vm._v("\n            Subject > Grades\n        ")
-          ]),
+          _c("b-row", { staticClass: "mb-4" }, [_vm._v("Subject > Grades")]),
           _vm._v(" "),
           _c(
             "b-row",
@@ -42165,7 +42228,25 @@ var render = function() {
                 "b-col",
                 [
                   _c("b-table", {
-                    attrs: { fields: _vm.fields, responsive: "" }
+                    attrs: {
+                      fields: _vm.fields,
+                      items: _vm.items,
+                      responsive: ""
+                    },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "cell(student_name)",
+                        fn: function(data) {
+                          return [
+                            _vm._v(
+                              "\n              " +
+                                _vm._s(data.item.user.name) +
+                                "\n                    \n                \n            "
+                            )
+                          ]
+                        }
+                      }
+                    ])
                   })
                 ],
                 1

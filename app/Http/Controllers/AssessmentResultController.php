@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Classes;
-use App\GradeBook;
+use App\AssessmentResult;
 use Illuminate\Http\Request;
-use App\Http\Resources\GradeBookResource;
+use App\Http\Resources\AssessmentResultResource;
 
-class GradeBookController extends Controller
+class AssessmentResultController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,8 @@ class GradeBookController extends Controller
      */
     public function index()
     {
-        $tutor = auth('tutor')->user();
-       return GradeBook::with('users')->where('school_id', $tutor->school_id)->get();
+        $user = auth('tutor')->user();
+        return AssessmentResult::where('school_id', $user->school_id)->where('tutor_id',$user->id)->get();
     }
 
     /**
@@ -27,7 +26,7 @@ class GradeBookController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -38,39 +37,37 @@ class GradeBookController extends Controller
      */
     public function store(Request $request)
     {
+      
         $user = auth('api')->user();
-        $grade = GradeBook::where('school_id', $user->school_id)->where('level', $user->student_level)->where('title', $request->title)->where('subject', $request->subject)->first();
+        $grade = AssessmentResult::where('school_id', $user->school_id)->where('level', $user->student_level)->where('title', $request->title)->where('subject', $request->subject)->first();
         if (is_null($grade)) {
-            return GradeBook::create([
+            return AssessmentResult::create([
                 'user_id'=>$user->id,
                 'school_id'=> $user->school_id,
+                'tutor_id'=> $request->tutor_id,
                 'level'=>$user->student_level,
                 'subject'=>$request->subject,
-                'quiz'=>$request->quiz,
-                'test'=>$request->test,
-                'examination'=>$request->examination,
-                'assignment'=>$request->assignment,
+                'type'=>$request->type,
                 'title'=>$request->title,
                 'total_score'=>$request->total_score,
                 'record'=>\json_encode($request->record),
             ]);
         }
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\GradeBook  $gradeBook
-     * @return \Illuminate\Http\Response
-     */
     public function getBooks($level)
     {
         $tutor = auth('tutor')->user();
         $level = Classes::where('id',$level)->value('class_name');
-       return  GradeBookResource::collection(GradeBook::where('school_id', $tutor->school_id)->where('level', $level)->get());
+       return  AssessmentResultResource::collection(AssessmentResult::where('school_id', $tutor->school_id)->where('level', $level)->get());
          
     }
-    public function show(GradeBook $gradeBook)
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\AssessmentResult  $assessmentResult
+     * @return \Illuminate\Http\Response
+     */
+    public function show(AssessmentResult $assessmentResult)
     {
         //
     }
@@ -78,10 +75,10 @@ class GradeBookController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\GradeBook  $gradeBook
+     * @param  \App\AssessmentResult  $assessmentResult
      * @return \Illuminate\Http\Response
      */
-    public function edit(GradeBook $gradeBook)
+    public function edit(AssessmentResult $assessmentResult)
     {
         //
     }
@@ -90,10 +87,10 @@ class GradeBookController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\GradeBook  $gradeBook
+     * @param  \App\AssessmentResult  $assessmentResult
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, GradeBook $gradeBook)
+    public function update(Request $request, AssessmentResult $assessmentResult)
     {
         //
     }
@@ -101,10 +98,10 @@ class GradeBookController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\GradeBook  $gradeBook
+     * @param  \App\AssessmentResult  $assessmentResult
      * @return \Illuminate\Http\Response
      */
-    public function destroy(GradeBook $gradeBook)
+    public function destroy(AssessmentResult $assessmentResult)
     {
         //
     }

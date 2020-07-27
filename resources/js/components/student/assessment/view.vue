@@ -178,6 +178,7 @@ export default {
             this.subject = res.data.subject;
             this.session = res.data.session;
             this.title = res.data.title;
+             this.tutor_id = res.data.tutor_id;
             this.myclass = res.data.level;
 
             this.duration = JSON.parse(res.data.duration);
@@ -186,35 +187,52 @@ export default {
         .catch();
     },
     calcAnswer() {
+       this.total_score = 0
       this.assessment.forEach((element) => {
         if (element.answer_type == "single") {
           if (
             element.answer.toLowerCase() == element.student_answer.toLowerCase()
           ) {
             this.total_score = this.total_score + element.score;
+          
           } else {
             element.answers.forEach((ele) => {
               element.student_answers.forEach((ele1) => {
                 if (ele.toLowerCase() == ele1.toLowerCase()) {
-                  this.total_score = this.total_score + element.answers / element.score;
+                  this.total_score =
+                    this.total_score + element.answers / element.score;
                 }
               });
             });
           }
         }
       });
-        this.$router.push('/student/assessment')
+      
+     this.storeRecord()
     },
-     storeRecord(){
+    storeRecord() {
+      let student = JSON.parse(localStorage.getItem("typeStudent"));
       let data = {
-
-            subject:this.subject,
-            type:this.type,
-            title:this.title,
-            record:'r'
-      }
-    }
-  
+        subject: this.subject,
+        type: this.type,
+        title: this.title,
+         tutor_id: this.tutor_id,
+        total_score: this.total_score,
+        record: this.assessment,
+      };
+      axios
+        .post("/api/assessment-result", data, {
+          headers: { Authorization: `Bearer ${student.access_token}` },
+        })
+        .then((res) => {
+          if (res.status == 201) {
+             this.$router.push("/student/assessment");
+          }
+          if (res.status == 200) {
+             this.$router.push("/student/assessment");
+          }
+        });
+    },
   },
 };
 </script>

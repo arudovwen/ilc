@@ -5,6 +5,7 @@ namespace App;
 use App\School;
 use App\Faculty;
 use App\Message;
+use App\GradeBook;
 use App\Department;
 use App\CourseLevel;
 use App\EducationLevel;
@@ -75,5 +76,8 @@ class User extends Authenticatable
     }
     public function messages(){
         return $this->hasMany(Message::class);
+    }
+    public function gradebooks(){
+        return $this->belongsTo(GradeBook::class);
     }
 }

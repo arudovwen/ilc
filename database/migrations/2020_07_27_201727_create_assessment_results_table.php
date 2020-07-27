@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGradeBooksTable extends Migration
+class CreateAssessmentResultsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,14 @@ class CreateGradeBooksTable extends Migration
      */
     public function up()
     {
-        Schema::create('grade_books', function (Blueprint $table) {
+        Schema::create('assessment_results', function (Blueprint $table) {
             $table->id();
               $table->bigInteger('user_id')->unsigned();
               $table->bigInteger('school_id')->unsigned();
+              $table->bigInteger('tutor_id')->unsigned();
               $table->string('level');
               $table->string('subject');
-              $table->string('test')->nullable();
-              $table->string('quiz')->nullable();
-              $table->string('examination')->nullable();
-              $table->string('assignment')->nullable();
+              $table->string('type')->nullable();
               $table->string('title');
               $table->string('total_score');
               $table->longText('record');
@@ -31,6 +29,7 @@ class CreateGradeBooksTable extends Migration
 
 
               $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
+              $table->foreign('tutor_id')->references('id')->on('tutors')->onDelete('cascade');
               $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
@@ -42,6 +41,6 @@ class CreateGradeBooksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('grade_books');
+        Schema::dropIfExists('assessment_results');
     }
 }

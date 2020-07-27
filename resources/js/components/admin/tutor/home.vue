@@ -1,5 +1,60 @@
 <template>
-  <div class="body">
+
+<div>
+   <b-container>
+      <b-row>
+        <b-col cols="10" class="dashboard-content-side">
+          <div class="table-side">
+            <h2>ADMINISTRATORS</h2>
+            <b-table striped hover :items="items"></b-table>
+            <h1>Testing table page</h1>
+          </div>
+        </b-col>
+        <b-col cols="2" class="notification-side">
+          <div class="notify-side">
+            <div class="notify-modal">
+              <b-button v-b-modal.modal-1 class="reg-btn">ADD TEACHER</b-button>
+              <b-modal id="modal-1" title="Create Admin">
+                <b-form>
+                  <b-container>
+                    <b-form-group id="input-group-1" label="Name" label-for="input-1">
+                      <b-form-input id="input-1" type="text" required placeholder></b-form-input>
+                    </b-form-group>
+
+                    <b-form-row>
+                      <b-col>
+                        <b-form-group id="input-group-6" label="Email" label-for="input-6">
+                          <b-form-input
+                            id="input-6"
+                            type="email"
+                            required
+                            placeholder
+                          ></b-form-input>
+                        </b-form-group>
+                      </b-col>
+                      <b-col>
+                        <b-form-group id="input-group-4" label="Phone" label-for="input-4">
+                          <b-form-input
+                            id="input-4"
+                            type="text"
+                            placeholder
+                          ></b-form-input>
+                        </b-form-group>
+                      </b-col>
+                    </b-form-row>
+                    <b-form-group id="input-group-1" label="Role" label-for="input-1">
+                      <b-form-input id="input-1" type="text" required placeholder></b-form-input>
+                    </b-form-group>
+                  </b-container>
+                </b-form>
+              </b-modal>
+            </div>
+          </div>
+        </b-col>
+      </b-row>
+    </b-container>
+</div>
+  <!-- <div class="">
     <nav class="mb-5">
       <router-link to="/admin/tutor/create">
         <b-button block class="shadow-sm reg-btn text-center">Create Tutor</b-button>
@@ -45,7 +100,7 @@
         </span>
       </template>
     </b-table>
-  </div>
+  </div> -->
 </template>
 
 
@@ -158,8 +213,5 @@ nav {
   opacity: 0;
 }
 
-.body {
-  padding: 20px 20px 50px;
-  height: 100%;
-}
+
 </style>

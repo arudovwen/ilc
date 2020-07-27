@@ -1,10 +1,7 @@
 <template>
   <div class="side-bar">
-    <div class="admin-dashboard-logo text-center">
-       <h3> {{admin.abbreviation}}</h3>
-       <p>Schools</p>
-    </div>
-    <nav class="">
+   
+    <!-- <nav class="">
       <ul class="admin-dashboard-nav">
       <router-link to="/admin"> <div class="nav-item"><span><img src="/images/size-1.png" class="img-fluid" alt=""></span>  <li>Dashboard</li></div></router-link>
        <router-link to="/admin/administrators"> <div class="nav-item"><span><img src="/images/admin-svg.png" class="img-fluid" alt=""></span>  <li>Admin</li></div></router-link>
@@ -15,11 +12,20 @@
               <router-link to="/admin/curriculum/home"> <div class="nav-item"><span><img src="/images/subject-svg.png" class="img-fluid" alt=""></span>  <li>Curriculum</li></div></router-link>
                  <router-link to="/admin/syllabus/home"> <div class="nav-item"><span><img src="/images/subject-svg.png" class="img-fluid" alt=""></span>  <li>Syllabus</li></div></router-link>
                     <router-link to="/admin/time-table/home">  <div class="nav-item"><span><img src="/images/subject-svg.png" class="img-fluid" alt=""></span>  <li>Time Table</li></div></router-link>
-                    <div class="nav-item" @click="logout"><span><img src="/images/log-out-svg.png" alt=""></span><li >Logout</li></div>
-     
-      
-  
-       
+                    <div class="nav-item" @click="logout"><span><img src="/images/log-out-svg.png" alt=""></span><li >Logout</li></div>  
+      </ul>
+    </nav> -->
+    <nav class="side-menu">
+      <ul class="admin-dashboard-nav">
+        <router-link to="/admin" class="nav-item "><span class="icon-dashboard"></span><li>Dashboard</li></router-link>
+          <router-link to="/admin/administrators" class="nav-item "><span class="icon-admin"></span><li>Admin</li></router-link>
+            <router-link to="/admin/tutors" class="nav-item "><span class="icon-teacher"></span><li>Teacher</li></router-link>
+              <router-link to="/admin/students" class="nav-item "><span class="icon-students"></span><li>Student</li></router-link>
+                <router-link to="/admin/classes/years" class="nav-item "><span class="icon-edit"></span><li>Subject</li></router-link>
+                  <router-link to="/admin/courses" class="nav-item "><span class="icon-education"></span><li>Classes</li></router-link>
+                    <router-link to="/admin/curriculum/home" class="nav-item "><span class="icon-edit"></span><li>Curriculum</li></router-link>
+                      <router-link to="/admin/syllabus/home" class="nav-item "><span class="icon-education"></span><li>Syllabus</li></router-link>
+                        <router-link to="/admin/time-table/home" class="nav-item "><span class="icon-calendar"></span><li>Time Table</li></router-link>
       </ul>
     </nav>
   </div>

@@ -79,11 +79,11 @@ a:hover{
 }
 
 .reg-btn{
-    background-color: var(--primary-btn);
-    border: none;
-    padding: 10px 30px;
-    border-radius: 5px;
-    color: #fff;
+    background-color: var(--primary-btn) !important;
+    border: none !important;
+    padding: 10px 30px !important;
+    border-radius: 5px !important;
+    color: #fff !important;
 }
 .reg-btn.nav-link{
     color: #fff !important;
@@ -445,29 +445,44 @@ form .reg-btn{
 
 
 .admin-dashboard-logo{
-    background-color: var(--admin-body-color) ;
+    background-color: var(--primary-btn) ;
     font-family: "Montserrat";
+    color: #fff;
 }
 
-.admin-dashboard-nav img{
-    width: 20px;
-    height: 20px;
+.dashboard-brand h3{
+    margin-bottom: 0;
+}
+.dashboard-brand p{
+    margin-bottom: 0;
 }
 .admin-dashboard-nav{
-    padding: 1.5rem;
+    margin-top: 3rem;
 }
-.admin-dashboard-nav .nav-item{
+.admin-dashboard-nav a{
     display: flex;
-    padding: 10px;
+    color: #808080 !important;
+    font-family: "Montserrat";
+    padding: .2rem;
+    padding-left: 1rem;
+   
+    
 }
-.admin-dashboard-nav a:hover{
-    color: var(--primary-btn);
+.admin-dashboard-nav .router-link-active{
+  color: var(--primary-btn) !important;
+  border-right: 1px solid var(--primary-btn);
+   
+    
 }
-.nav-item li{
+.admin-dashboard-nav span{
+    font-size: 22px;
+}
+.admin-dashboard-nav li{
     list-style: none;
-    color: #808080;
-    padding-left: 10px;
+    padding-top: .5rem;
+    padding-left: 1rem;
 }
+
 .dashboard-top-nav .bg-info{
     background-color: var(--primary-btn) !important;
 }
@@ -577,7 +592,42 @@ padding: 15px;
     color: #fff;
     border-color: var(--primary-btn);
 }
+.notification-side{
+    background-color: #fff;
+    height: 100vh;
+    position: fixed !important;
+    right: 0;
+}
+.dashboard-content-side{
+    padding-right: 1.5rem !important;
+    padding-left: 0 !important;
+    padding-top: 15px;
+}
+.table-side{
+    padding-top: 50px;
+}
 
+.notify-side{
+    padding-top: 20px;
+}
+.modal-footer{
+    justify-content: center !important;
+}
+.modal-footer .btn-secondary{
+    background: none !important;
+    border: 1px solid var(--secondary-font-color) !important;
+    padding: 5px 20px !important;
+    color: var(--secondary-font-color) !important;
+    font-family: "Montserrat";
+}
+
+.modal-footer .btn-primary{
+    background-color: var(--primary-btn);
+    padding: 5px 20px !important;
+    font-family: "Montserrat";
+    border: none;
+    
+}
 
 /* teacher dashboard  */
 
@@ -900,7 +950,7 @@ td {
     font-weight: normal;
     font-variant: normal;
     text-transform: none;
-    line-height: 1;
+    
   
     /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;

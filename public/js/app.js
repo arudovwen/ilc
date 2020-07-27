@@ -830,8 +830,8 @@ var Examination = function Examination() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/assessment/exam.vue */ "./resources/js/components/tutor/assessment/exam.vue"));
 };
 
-var Project = function Project() {
-  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/assessment/project.vue */ "./resources/js/components/tutor/assessment/project.vue"));
+var Test = function Test() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/assessment/test.vue */ "./resources/js/components/tutor/assessment/test.vue"));
 };
 
 var Assignment = function Assignment() {
@@ -850,8 +850,8 @@ var StudentExamination = function StudentExamination() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/assessment/exam.vue */ "./resources/js/components/student/assessment/exam.vue"));
 };
 
-var StudentProject = function StudentProject() {
-  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/assessment/project.vue */ "./resources/js/components/student/assessment/project.vue"));
+var StudentTest = function StudentTest() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/assessment/test.vue */ "./resources/js/components/student/assessment/test.vue"));
 };
 
 var StudentAssignment = function StudentAssignment() {
@@ -860,6 +860,38 @@ var StudentAssignment = function StudentAssignment() {
 
 var StudentAssessmentView = function StudentAssessmentView() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/assessment/view.vue */ "./resources/js/components/student/assessment/view.vue"));
+};
+
+var AdminAssessmentHome = function AdminAssessmentHome() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/assessment/home.vue */ "./resources/js/components/admin/assessment/home.vue"));
+};
+
+var AdminQuiz = function AdminQuiz() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/assessment/quiz.vue */ "./resources/js/components/admin/assessment/quiz.vue"));
+};
+
+var AdminExamination = function AdminExamination() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/assessment/exam.vue */ "./resources/js/components/admin/assessment/exam.vue"));
+};
+
+var AdminTest = function AdminTest() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/assessment/test.vue */ "./resources/js/components/admin/assessment/test.vue"));
+};
+
+var AdminAssignment = function AdminAssignment() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/assessment/assignment.vue */ "./resources/js/components/admin/assessment/assignment.vue"));
+};
+
+var AdminAssessmentView = function AdminAssessmentView() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/assessment/view.vue */ "./resources/js/components/admin/assessment/view.vue"));
+};
+
+var GradeBook = function GradeBook() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/gradebook/home.vue */ "./resources/js/components/tutor/gradebook/home.vue"));
+};
+
+var ViewGradeBook = function ViewGradeBook() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/gradebook/view.vue */ "./resources/js/components/tutor/gradebook/view.vue"));
 };
 
 var routes = [{
@@ -1145,6 +1177,48 @@ var routes = [{
     meta: {
       typeAdmin: true
     }
+  }, {
+    path: "assessment",
+    component: AdminAssessmentHome,
+    name: "AdminAssessmentHome",
+    meta: {
+      typeAdmin: true
+    }
+  }, {
+    path: "quiz",
+    component: AdminQuiz,
+    name: "AdminQuiz",
+    meta: {
+      typeAdmin: true
+    }
+  }, {
+    path: "exam",
+    component: AdminExamination,
+    name: "AdminExamination",
+    meta: {
+      typeAdmin: true
+    }
+  }, {
+    path: "test",
+    component: AdminTest,
+    name: "AdminTest",
+    meta: {
+      typeAdmin: true
+    }
+  }, {
+    path: "assignment",
+    component: AdminAssignment,
+    name: "AdminAssignment",
+    meta: {
+      typeAdmin: true
+    }
+  }, {
+    path: "assessment/view/:id",
+    component: AdminAssessmentView,
+    name: "AdminAssessmentView",
+    meta: {
+      typeAdmin: true
+    }
   }]
 }, {
   path: "/tutor/auth/:type",
@@ -1270,9 +1344,9 @@ var routes = [{
       typeTutor: true
     }
   }, {
-    path: "project",
-    component: Project,
-    name: "Project",
+    path: "test",
+    component: Test,
+    name: "Test",
     meta: {
       typeTutor: true
     }
@@ -1294,6 +1368,20 @@ var routes = [{
     path: "resource/view/:id",
     component: ResourcesView,
     name: "ResourcesView",
+    meta: {
+      typeTutor: true
+    }
+  }, {
+    path: "gradebook",
+    component: GradeBook,
+    name: "GradeBook",
+    meta: {
+      typeTutor: true
+    }
+  }, {
+    path: "gradebook/view/:id",
+    component: ViewGradeBook,
+    name: "ViewGradeBook",
     meta: {
       typeTutor: true
     }
@@ -1401,9 +1489,9 @@ var routes = [{
       typeStudent: true
     }
   }, {
-    path: "project",
-    component: StudentProject,
-    name: "StudentProject",
+    path: "test",
+    component: StudentTest,
+    name: "StudentTest",
     meta: {
       typeStudent: true
     }

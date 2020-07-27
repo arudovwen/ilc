@@ -1,8 +1,8 @@
 <template>
   <div class="body">
-    <router-link to="/tutor/assessment/create/project">
-      <b-button class="mb-4">Create New Project</b-button>
-    </router-link>
+    <!-- <router-link to="/admin/assessment/create/quiz">
+      <b-button class="mb-4">Create New Quiz</b-button>
+    </router-link> -->
     <b-container>
       <b-row>
         <b-col>
@@ -12,7 +12,8 @@
                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                 <div class="option shadow">
                   <ul>
-                    <li @click="drop(data.item.id)">Drop</li>
+                    <li @click="verify(data.item.id)">{{data.item.status=='pending'?'Verify':'Unverify'}}</li>
+                     <li @click="drop(data.item.id)">Drop</li>
                   </ul>
                 </div>
               </div>
@@ -35,8 +36,10 @@ export default {
         "session",
         { key: "subject", sortable: true },
         { key: "title", sortable: true },
+        { key: "type", sortable: true },
+         { key: "created_at", sortable: true },
         "level",
-        "created_at",
+         { key: "status", sortable: true },
         "action",
       ],
       items: [],
@@ -46,14 +49,29 @@ export default {
     this.getData();
   },
   methods: {
+    getData() {
+      let admin = JSON.parse(localStorage.getItem("typeAdmin"));
+      axios
+        .get(`/api/admin-assessments`, {
+          headers: {
+            Authorization: `Bearer ${admin.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.items = res.data;
+          }
+        })
+        .catch();
+    },
     drop(id) {
-      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      let admin = JSON.parse(localStorage.getItem("typeAdmin"));
       let del = confirm("Are you sure?");
       if (del) {
         axios
           .delete(`/api/assessment/${id}`, {
             headers: {
-              Authorization: `Bearer ${tutor.access_token}`,
+              Authorization: `Bearer ${admin.access_token}`,
             },
           })
           .then((res) => {
@@ -63,20 +81,22 @@ export default {
           });
       }
     },
-    getData() {
-      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
-      axios
-        .get(`/api/assessment/project`, {
-          headers: {
-            Authorization: `Bearer ${tutor.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            this.items = res.data;
-          }
-        })
-        .catch();
+     verify(id) {
+      let admin = JSON.parse(localStorage.getItem("typeAdmin"));
+      let del = confirm("Are you sure?");
+      if (del) {
+        axios
+          .get(`/api/admin-verify-assessment/${id}`, {
+            headers: {
+              Authorization: `Bearer ${admin.access_token}`,
+            },
+          })
+          .then((res) => {
+            if (res.status == 200) {
+              this.getData();
+            }
+          });
+      }
     },
   },
 };

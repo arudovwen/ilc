@@ -14,7 +14,7 @@
             <router-link to="/tutor/assessment"> <li><i class="fa fa-list-alt  pr-2" aria-hidden="true"></i> Assessments</li></router-link>              
             <router-link to="/tutor/profile"> <li><i class="fa fa-mars-stroke  pr-2" aria-hidden="true"></i> Activities</li></router-link>
             <router-link to="/tutor/profile"> <li><i class="fas fa-file-invoice   pr-2  "></i> Attendance Sheet</li></router-link>
-            <router-link to="/tutor/profile"> <li><i class="fa fa-book  pr-2" aria-hidden="true"></i> Grade Book</li></router-link>
+            <router-link to="/tutor/gradebook"> <li><i class="fa fa-book  pr-2" aria-hidden="true"></i> Grade Book</li></router-link>
          
 
                 <router-link to="/tutor/profile"> <li><i class="fas fa-chalkboard-teacher  pr-2  "></i> Virtual Classroom</li></router-link>

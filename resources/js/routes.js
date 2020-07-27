@@ -267,8 +267,8 @@ const TimesTableTutor = () =>
     const Examination  = () =>
     import(/* webpackChunkName: "home_routes" */ "./components/tutor/assessment/exam.vue");
 
-    const Project  = () =>
-    import(/* webpackChunkName: "home_routes" */ "./components/tutor/assessment/project.vue");
+    const Test  = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/tutor/assessment/test.vue");
 
     const Assignment  = () =>
     import(/* webpackChunkName: "home_routes" */ "./components/tutor/assessment/assignment.vue");
@@ -284,13 +284,40 @@ const TimesTableTutor = () =>
     const StudentExamination  = () =>
     import(/* webpackChunkName: "home_routes" */ "./components/student/assessment/exam.vue");
 
-    const StudentProject  = () =>
-    import(/* webpackChunkName: "home_routes" */ "./components/student/assessment/project.vue");
+    const StudentTest  = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/student/assessment/test.vue");
 
     const StudentAssignment  = () =>
     import(/* webpackChunkName: "home_routes" */ "./components/student/assessment/assignment.vue");
     const StudentAssessmentView  = () =>
     import(/* webpackChunkName: "home_routes" */ "./components/student/assessment/view.vue");
+    
+
+    const AdminAssessmentHome  = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/admin/assessment/home.vue");
+
+   
+    const AdminQuiz  = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/admin/assessment/quiz.vue");
+
+    const AdminExamination  = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/admin/assessment/exam.vue");
+
+    const AdminTest  = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/admin/assessment/test.vue");
+
+    const AdminAssignment  = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/admin/assessment/assignment.vue");
+   
+    const AdminAssessmentView  = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/admin/assessment/view.vue");
+    
+
+    const GradeBook  = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/tutor/gradebook/home.vue");
+    
+    const ViewGradeBook  = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/tutor/gradebook/view.vue");
     
 
 export const routes = [
@@ -594,7 +621,55 @@ export const routes = [
                 meta: {
                     typeAdmin: true
                 }
-            }
+            },
+            {
+                path: "assessment",
+                component: AdminAssessmentHome,
+                name: "AdminAssessmentHome",
+                meta: {
+                    typeAdmin: true
+                }
+            },
+            {
+                path: "quiz",
+                component: AdminQuiz,
+                name: "AdminQuiz",
+                meta: {
+                    typeAdmin: true
+                }
+            },
+            {
+                path: "exam",
+                component: AdminExamination,
+                name: "AdminExamination",
+                meta: {
+                    typeAdmin: true
+                }
+            },
+            {
+                path: "test",
+                component: AdminTest,
+                name: "AdminTest",
+                meta: {
+                    typeAdmin: true
+                }
+            },
+            {
+                path: "assignment",
+                component: AdminAssignment,
+                name: "AdminAssignment",
+                meta: {
+                    typeAdmin: true
+                }
+            },
+            {
+                path: "assessment/view/:id",
+                component: AdminAssessmentView,
+                name: "AdminAssessmentView",
+                meta: {
+                    typeAdmin: true
+                }
+            },
         ]
     },
 
@@ -737,9 +812,9 @@ export const routes = [
                 }
             },
             {
-                path: "project",
-                component: Project,
-                name: "Project",
+                path: "test",
+                component: Test,
+                name: "Test",
                 meta: {
                     typeTutor: true
                 }
@@ -769,7 +844,24 @@ export const routes = [
                 meta: {
                     typeTutor: true
                 }
+            },
+            {
+                path: "gradebook",
+                component: GradeBook,
+                name: "GradeBook",
+                meta: {
+                    typeTutor: true
+                }
+            },
+            {
+                path: "gradebook/view/:id",
+                component: ViewGradeBook,
+                name: "ViewGradeBook",
+                meta: {
+                    typeTutor: true
+                }
             }
+
         ]
     },
 
@@ -888,9 +980,9 @@ export const routes = [
                 }
             },
             {
-                path: "project",
-                component: StudentProject,
-                name: "StudentProject",
+                path: "test",
+                component: StudentTest,
+                name: "StudentTest",
                 meta: {
                     typeStudent: true
                 }

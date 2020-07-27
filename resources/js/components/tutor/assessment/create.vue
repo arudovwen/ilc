@@ -218,8 +218,8 @@
                         </b-button>
                       </label>
                       <div>
-                        <b-form-radio value="True" v-model="item.student_answer">True</b-form-radio>
-                        <b-form-radio value="False" v-model="item.student_answer">False</b-form-radio>
+                        <b-form-radio value="true" v-model="item.student_answer">True</b-form-radio>
+                        <b-form-radio value="false" v-model="item.student_answer">False</b-form-radio>
                       </div>
                     </b-form-group>
                    
@@ -265,6 +265,7 @@ export default {
         time: "",
         type: null,
       },
+      total_score:0,
       subject: null,
       assessment: [
         {
@@ -436,6 +437,7 @@ export default {
           level: this.myclass,
           duration: JSON.stringify(this.duration),
           assessment: this.assessment,
+          total_score:this.total_score
         };
         axios
           .post("/api/assessment", data, {

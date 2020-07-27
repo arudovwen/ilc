@@ -11,8 +11,8 @@
       <router-link to="/tutor/assignment">
         <b-button block class="shadow-sm reg-btn text-center">Assignment</b-button>
       </router-link>
-      <router-link to="/tutor/project">
-        <b-button block class="shadow-sm reg-btn text-center">Projects</b-button>
+      <router-link to="/tutor/test">
+        <b-button block class="shadow-sm reg-btn text-center">Test</b-button>
       </router-link>
     </nav>
 
@@ -46,8 +46,8 @@
           </b-table>
         </b-col>
         <b-col class="text-center">
-          <h5>Projects</h5>
-          <b-table :fields="fields" :items="project" bordered>
+          <h5>Tests</h5>
+          <b-table :fields="fields" :items="test" bordered>
             <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
              <template v-slot:cell(title)="data">
               <span @click="view(data.item.id)">{{data.item.title}}</span>
@@ -70,7 +70,7 @@ export default {
       items: [],
       item: false,
       quiz: [],
-      project: [],
+      test: [],
       assignment: [],
       examination: [],
       fields: [
@@ -104,8 +104,8 @@ export default {
               if (item.type == "quiz") {
                 this.quiz.push(item);
               }
-              if (item.type == "project") {
-                this.project.push(item);
+              if (item.type == "test") {
+                this.test.push(item);
               }
               if (item.type == "assignment") {
                 this.assignment.push(item);

@@ -113,6 +113,9 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('admin-get-user/{id}', 'UserController@adminGetUser');
     Route::put('update-user/{id}', 'UserController@store');
     Route::resource('students-course', 'CourseStudentsController');
+    Route::get('admin-assessments', 'AssessmentController@getAdminAssessments');
+    Route::get('admin-verify-assessment/{id}', 'AssessmentController@verifyAssessment');
+   
 });
 Route::resource('order', 'OrdersController');
 Route::resource('temp-sub', 'TempSubscriptionsController');

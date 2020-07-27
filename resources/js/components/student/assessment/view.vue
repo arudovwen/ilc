@@ -205,6 +205,15 @@ export default {
       });
         this.$router.push('/student/assessment')
     },
+     storeRecord(){
+      let data = {
+
+            subject:this.subject,
+            type:this.type,
+            title:this.title,
+            record:'r'
+      }
+    }
   
   },
 };

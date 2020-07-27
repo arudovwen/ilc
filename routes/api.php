@@ -60,6 +60,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('student-assessments/{id}', 'AssessmentController@getAssessments');
     Route::get('student-assessment/{id}', 'AssessmentController@getSingleAssessment');
     Route::get('student-assessment-type/{id}', 'AssessmentController@getAssessmentType');
+    Route::resource('student-grade-book', 'GradeBookController');
 });
 
 Route::middleware('auth:tutor')->group(function () {

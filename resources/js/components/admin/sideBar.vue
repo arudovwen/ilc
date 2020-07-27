@@ -4,9 +4,7 @@
       <p>{{admin.school}}</p>
       <p>Schools</p>
     </div>
-    <nav class>
-      <ul class="admin-dashboard-nav">
-       
+  
     <!-- <nav class="">
       <ul class="admin-dashboard-nav">
       <router-link to="/admin"> <div class="nav-item"><span><img src="/images/size-1.png" class="img-fluid" alt=""></span>  <li>Dashboard</li></div></router-link>

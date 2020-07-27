@@ -2844,13 +2844,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["admin"],
   data: function data() {
@@ -3726,6 +3719,66 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -24831,469 +24884,338 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "b-container",
-        [
-          _c(
-            "b-row",
-            [
-              _c(
-                "b-col",
-                {
-                  staticClass: "dashboard-content-side",
-                  attrs: { cols: "10" }
-                },
-                [
+  return _c("div", [
+    _c(
+      "div",
+      [
+        _c(
+          "b-container",
+          { staticClass: "bv-example-row" },
+          [
+            _c(
+              "b-row",
+              [
+                _c("b-col", [
                   _c(
                     "div",
+                    { staticClass: "admin-dashboard-top-cards" },
                     [
-                      _c(
-                        "b-container",
-                        { staticClass: "bv-example-row" },
-                        [
+                      _c("b-card", [
+                        _c("div", { staticClass: "inner-top-cards" }, [
+                          _c("img", {
+                            staticClass: "img-fluid",
+                            attrs: { src: "/images/teacher-green.png", alt: "" }
+                          }),
+                          _vm._v(" "),
                           _c(
-                            "b-row",
+                            "div",
+                            { staticClass: "inner-top-cards-text pl-2" },
                             [
-                              _c("b-col", [
-                                _c(
-                                  "div",
-                                  { staticClass: "admin-dashboard-top-cards" },
-                                  [
-                                    _c("b-card", [
-                                      _c(
-                                        "div",
-                                        { staticClass: "inner-top-cards" },
-                                        [
-                                          _c("img", {
-                                            staticClass: "img-fluid",
-                                            attrs: {
-                                              src: "/images/teacher-green.png",
-                                              alt: ""
-                                            }
-                                          }),
-                                          _vm._v(" "),
-                                          _c(
-                                            "div",
-                                            {
-                                              staticClass:
-                                                "inner-top-cards-text pl-2"
-                                            },
-                                            [
-                                              _c("p", [
-                                                _c("strong", [
-                                                  _vm._v(
-                                                    _vm._s(_vm.tutors.length) +
-                                                      "+"
-                                                  )
-                                                ])
-                                              ]),
-                                              _vm._v(" "),
-                                              _c("p", [_vm._v("Teachers")])
-                                            ]
-                                          )
-                                        ]
-                                      )
-                                    ])
-                                  ],
-                                  1
-                                )
+                              _c("p", [
+                                _c("strong", [
+                                  _vm._v(_vm._s(_vm.tutors.length) + "+")
+                                ])
                               ]),
                               _vm._v(" "),
-                              _c("b-col", [
-                                _c(
-                                  "div",
-                                  { staticClass: "admin-dashboard-top-cards" },
-                                  [
-                                    _c("b-card", [
-                                      _c(
-                                        "div",
-                                        { staticClass: "inner-top-cards" },
-                                        [
-                                          _c("img", {
-                                            staticClass: "img-fluid",
-                                            attrs: {
-                                              src: "/images/teacher-green.png",
-                                              alt: ""
-                                            }
-                                          }),
-                                          _vm._v(" "),
-                                          _c(
-                                            "div",
-                                            {
-                                              staticClass:
-                                                "inner-top-cards-text pl-2"
-                                            },
-                                            [
-                                              _c("p", [
-                                                _c("strong", [
-                                                  _vm._v(
-                                                    _vm._s(
-                                                      _vm.students.length
-                                                    ) + "+"
-                                                  )
-                                                ])
-                                              ]),
-                                              _vm._v(" "),
-                                              _c("p", [_vm._v("Students")])
-                                            ]
-                                          )
-                                        ]
-                                      )
-                                    ])
-                                  ],
-                                  1
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", [
-                                _c(
-                                  "div",
-                                  { staticClass: "admin-dashboard-top-cards" },
-                                  [
-                                    _c("b-card", [
-                                      _c(
-                                        "div",
-                                        { staticClass: "inner-top-cards" },
-                                        [
-                                          _c("img", {
-                                            staticClass: "img-fluid",
-                                            attrs: {
-                                              src: "/images/teacher-green.png",
-                                              alt: ""
-                                            }
-                                          }),
-                                          _vm._v(" "),
-                                          _c(
-                                            "div",
-                                            {
-                                              staticClass:
-                                                "inner-top-cards-text pl-2"
-                                            },
-                                            [
-                                              _c("p", [
-                                                _c("strong", [
-                                                  _vm._v(
-                                                    _vm._s(_vm.classes.length) +
-                                                      "+"
-                                                  )
-                                                ])
-                                              ]),
-                                              _vm._v(" "),
-                                              _c("p", [_vm._v("Classes")])
-                                            ]
-                                          )
-                                        ]
-                                      )
-                                    ])
-                                  ],
-                                  1
-                                )
-                              ])
-                            ],
-                            1
+                              _c("p", [_vm._v("Teachers")])
+                            ]
                           )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "chart" },
-                        [
-                          _c("column-chart", {
-                            attrs: {
-                              data: [
-                                ["Basic 1", 32],
-                                ["Basic 2", 46],
-                                ["Basic 3", 28],
-                                ["Basic 4", 10],
-                                ["Basic 5", 18],
-                                ["Basic 6", 20],
-                                ["Basic 7", 28],
-                                ["Basic 8", 38]
-                              ]
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-container",
-                        [
-                          _c(
-                            "b-row",
-                            [
-                              _c("b-col", [
-                                _c(
-                                  "div",
-                                  { staticClass: "dashboard-bottom-cards" },
-                                  [
-                                    _c("b-card", [
-                                      _c("h6", {}, [
-                                        _vm._v("Up Coming Lessons")
-                                      ]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "div",
-                                        { staticClass: "bottom-card-details" },
-                                        [
-                                          _c("b-avatar", {
-                                            attrs: { text: "e" }
-                                          }),
-                                          _vm._v(" "),
-                                          _c(
-                                            "div",
-                                            {
-                                              staticClass: "bottom-cards-text"
-                                            },
-                                            [
-                                              _c("p", [
-                                                _vm._v("English Language")
-                                              ]),
-                                              _vm._v(" "),
-                                              _c("p", [
-                                                _c("span", [
-                                                  _vm._v("10AM Bascic 2")
-                                                ])
-                                              ])
-                                            ]
-                                          )
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "div",
-                                        { staticClass: "bottom-card-details" },
-                                        [
-                                          _c("b-avatar", {
-                                            attrs: { text: "e" }
-                                          }),
-                                          _vm._v(" "),
-                                          _c(
-                                            "div",
-                                            {
-                                              staticClass: "bottom-cards-text"
-                                            },
-                                            [
-                                              _c("p", [_vm._v("Economics")]),
-                                              _vm._v(" "),
-                                              _c("p", [
-                                                _c("span", [
-                                                  _vm._v("1PM Bascic 8")
-                                                ])
-                                              ])
-                                            ]
-                                          )
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "div",
-                                        { staticClass: "bottom-card-details" },
-                                        [
-                                          _c("b-avatar", {
-                                            attrs: { text: "m" }
-                                          }),
-                                          _vm._v(" "),
-                                          _c(
-                                            "div",
-                                            {
-                                              staticClass: "bottom-cards-text"
-                                            },
-                                            [
-                                              _c("p", [_vm._v("Music")]),
-                                              _vm._v(" "),
-                                              _c("p", [
-                                                _c("span", [
-                                                  _vm._v("10AM Bascic 5")
-                                                ])
-                                              ])
-                                            ]
-                                          )
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "p",
-                                        {
-                                          staticClass:
-                                            "bottom-card-link pull-right"
-                                        },
-                                        [_vm._v("View all Lessons")]
-                                      )
-                                    ])
-                                  ],
-                                  1
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", [
-                                _c(
-                                  "div",
-                                  { staticClass: "dashboard-bottom-cards" },
-                                  [
-                                    _c("b-card", [
-                                      _c(
-                                        "div",
-                                        { staticClass: "note-card-top" },
-                                        [
-                                          _c("h6", [_vm._v("Syllabus")]),
-                                          _vm._v(" "),
-                                          _c(
-                                            "router-link",
-                                            {
-                                              staticClass: "mb-2",
-                                              attrs: { to: "/admin/syllabus" }
-                                            },
-                                            [
-                                              _c(
-                                                "b-button",
-                                                {
-                                                  attrs: {
-                                                    variant: "outline-primary"
-                                                  }
-                                                },
-                                                [_vm._v("Add Syllabus")]
-                                              )
-                                            ],
-                                            1
-                                          )
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "div",
-                                        { staticClass: "note-card-details" },
-                                        [
-                                          _c("b-table", {
-                                            attrs: {
-                                              items: _vm.syllabus,
-                                              fields: _vm.fields,
-                                              hover: ""
-                                            },
-                                            scopedSlots: _vm._u([
-                                              {
-                                                key: "cell(class)",
-                                                fn: function(data) {
-                                                  return [
-                                                    _vm._v(
-                                                      _vm._s(data.item.myclass)
-                                                    )
-                                                  ]
-                                                }
-                                              }
-                                            ])
-                                          })
-                                        ],
-                                        1
-                                      )
-                                    ])
-                                  ],
-                                  1
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("b-col", [
-                                _c(
-                                  "div",
-                                  { staticClass: "dashboard-bottom-cards" },
-                                  [
-                                    _c("b-card", [
-                                      _c(
-                                        "div",
-                                        { staticClass: "note-card-top" },
-                                        [
-                                          _c("h6", [_vm._v("Curriculum")]),
-                                          _vm._v(" "),
-                                          _c(
-                                            "router-link",
-                                            {
-                                              staticClass: "mb-2",
-                                              attrs: {
-                                                to: "/admin/curriculum/create"
-                                              }
-                                            },
-                                            [
-                                              _c(
-                                                "b-button",
-                                                {
-                                                  attrs: {
-                                                    variant: "outline-primary"
-                                                  }
-                                                },
-                                                [_vm._v("Add Curriculum")]
-                                              )
-                                            ],
-                                            1
-                                          )
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "div",
-                                        { staticClass: "note-card-details" },
-                                        [
-                                          _c("b-table", {
-                                            attrs: {
-                                              items: _vm.curriculum,
-                                              fields: _vm.field,
-                                              hover: ""
-                                            },
-                                            scopedSlots: _vm._u([
-                                              {
-                                                key: "cell(class)",
-                                                fn: function(data) {
-                                                  return [
-                                                    _vm._v(
-                                                      _vm._s(data.item.subject)
-                                                    )
-                                                  ]
-                                                }
-                                              }
-                                            ])
-                                          })
-                                        ],
-                                        1
-                                      )
-                                    ])
-                                  ],
-                                  1
-                                )
-                              ])
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
+                        ])
+                      ])
                     ],
                     1
                   )
+                ]),
+                _vm._v(" "),
+                _c("b-col", [
+                  _c(
+                    "div",
+                    { staticClass: "admin-dashboard-top-cards" },
+                    [
+                      _c("b-card", [
+                        _c("div", { staticClass: "inner-top-cards" }, [
+                          _c("img", {
+                            staticClass: "img-fluid",
+                            attrs: { src: "/images/teacher-green.png", alt: "" }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "inner-top-cards-text pl-2" },
+                            [
+                              _c("p", [
+                                _c("strong", [
+                                  _vm._v(_vm._s(_vm.students.length) + "+")
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [_vm._v("Students")])
+                            ]
+                          )
+                        ])
+                      ])
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c("b-col", [
+                  _c(
+                    "div",
+                    { staticClass: "admin-dashboard-top-cards" },
+                    [
+                      _c("b-card", [
+                        _c("div", { staticClass: "inner-top-cards" }, [
+                          _c("img", {
+                            staticClass: "img-fluid",
+                            attrs: { src: "/images/teacher-green.png", alt: "" }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "inner-top-cards-text pl-2" },
+                            [
+                              _c("p", [
+                                _c("strong", [
+                                  _vm._v(_vm._s(_vm.classes.length) + "+")
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [_vm._v("Classes")])
+                            ]
+                          )
+                        ])
+                      ])
+                    ],
+                    1
+                  )
+                ])
+              ],
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "chart" },
+          [
+            _c("column-chart", {
+              attrs: {
+                data: [
+                  ["Basic 1", 32],
+                  ["Basic 2", 46],
+                  ["Basic 3", 28],
+                  ["Basic 4", 10],
+                  ["Basic 5", 18],
+                  ["Basic 6", 20],
+                  ["Basic 7", 28],
+                  ["Basic 8", 38]
                 ]
-              ),
-              _vm._v(" "),
-              _c("b-col", {
-                staticClass: "notification-side",
-                attrs: { cols: "2" }
-              })
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "b-container",
+          [
+            _c(
+              "b-row",
+              [
+                _c("b-col", [
+                  _c(
+                    "div",
+                    { staticClass: "dashboard-bottom-cards" },
+                    [
+                      _c("b-card", [
+                        _c("h6", {}, [_vm._v("Up Coming Lessons")]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "bottom-card-details" },
+                          [
+                            _c("b-avatar", { attrs: { text: "e" } }),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "bottom-cards-text" }, [
+                              _c("p", [_vm._v("English Language")]),
+                              _vm._v(" "),
+                              _c("p", [_c("span", [_vm._v("10AM Bascic 2")])])
+                            ])
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "bottom-card-details" },
+                          [
+                            _c("b-avatar", { attrs: { text: "e" } }),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "bottom-cards-text" }, [
+                              _c("p", [_vm._v("Economics")]),
+                              _vm._v(" "),
+                              _c("p", [_c("span", [_vm._v("1PM Bascic 8")])])
+                            ])
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "bottom-card-details" },
+                          [
+                            _c("b-avatar", { attrs: { text: "m" } }),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "bottom-cards-text" }, [
+                              _c("p", [_vm._v("Music")]),
+                              _vm._v(" "),
+                              _c("p", [_c("span", [_vm._v("10AM Bascic 5")])])
+                            ])
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "p",
+                          { staticClass: "bottom-card-link pull-right" },
+                          [_vm._v("View all Lessons")]
+                        )
+                      ])
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c("b-col", [
+                  _c(
+                    "div",
+                    { staticClass: "dashboard-bottom-cards" },
+                    [
+                      _c("b-card", [
+                        _c(
+                          "div",
+                          { staticClass: "note-card-top" },
+                          [
+                            _c("h6", [_vm._v("Syllabus")]),
+                            _vm._v(" "),
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "mb-2",
+                                attrs: { to: "/admin/syllabus" }
+                              },
+                              [
+                                _c(
+                                  "b-button",
+                                  { attrs: { variant: "outline-primary" } },
+                                  [_vm._v("Add Syllabus")]
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "note-card-details" },
+                          [
+                            _c("b-table", {
+                              attrs: {
+                                items: _vm.syllabus,
+                                fields: _vm.fields,
+                                hover: ""
+                              },
+                              scopedSlots: _vm._u([
+                                {
+                                  key: "cell(class)",
+                                  fn: function(data) {
+                                    return [_vm._v(_vm._s(data.item.myclass))]
+                                  }
+                                }
+                              ])
+                            })
+                          ],
+                          1
+                        )
+                      ])
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c("b-col", [
+                  _c(
+                    "div",
+                    { staticClass: "dashboard-bottom-cards" },
+                    [
+                      _c("b-card", [
+                        _c(
+                          "div",
+                          { staticClass: "note-card-top" },
+                          [
+                            _c("h6", [_vm._v("Curriculum")]),
+                            _vm._v(" "),
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "mb-2",
+                                attrs: { to: "/admin/curriculum/create" }
+                              },
+                              [
+                                _c(
+                                  "b-button",
+                                  { attrs: { variant: "outline-primary" } },
+                                  [_vm._v("Add Curriculum")]
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "note-card-details" },
+                          [
+                            _c("b-table", {
+                              attrs: {
+                                items: _vm.curriculum,
+                                fields: _vm.field,
+                                hover: ""
+                              },
+                              scopedSlots: _vm._u([
+                                {
+                                  key: "cell(class)",
+                                  fn: function(data) {
+                                    return [_vm._v(_vm._s(data.item.subject))]
+                                  }
+                                }
+                              ])
+                            })
+                          ],
+                          1
+                        )
+                      ])
+                    ],
+                    1
+                  )
+                ])
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -26428,223 +26350,226 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "body" }, [
-    _c(
-      "nav",
-      { staticClass: "mb-5" },
-      [
-        _c(
-          "router-link",
-          { attrs: { to: "/admin/student/create" } },
-          [
-            _c("b-button", { staticClass: "shadow-sm", attrs: { block: "" } }, [
-              _vm._v("Add Student")
-            ])
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "router-link",
-          { attrs: { to: "/admin/student/assign" } },
-          [
-            _c("b-button", { staticClass: "shadow-sm", attrs: { block: "" } }, [
-              _vm._v("\n        Students\n        "),
-              _c("i", {
-                staticClass: "fa fa-arrows-h mx-2",
-                attrs: { "aria-hidden": "true" }
-              }),
-              _vm._v("\n        Subjects\n      ")
-            ])
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "router-link",
-          { attrs: { to: "/admin/student/assign/class" } },
-          [
-            _c("b-button", { staticClass: "shadow-sm", attrs: { block: "" } }, [
-              _vm._v("\n        Students\n        "),
-              _c("i", {
-                staticClass: "fa fa-arrows-h mx-2",
-                attrs: { "aria-hidden": "true" }
-              }),
-              _vm._v("\n        Class\n      ")
-            ])
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "b-button",
-          {
-            staticClass: "shadow-sm",
-            attrs: { block: "" },
-            on: { click: _vm.multiDrop }
-          },
-          [_vm._v("Multi-Drop")]
-        )
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "classes my-5" }, [
-      _c("h4", { staticClass: "mb-3" }, [_vm._v("Class List")]),
-      _vm._v(" "),
+  return _c(
+    "div",
+    [
       _c(
-        "div",
-        { staticClass: "class_list" },
+        "b-container",
         [
           _c(
-            "b-button",
-            {
-              staticClass: "shadow-sm",
-              on: {
-                click: function($event) {
-                  return _vm.selectClass("")
-                }
-              }
-            },
-            [_vm._v("All")]
-          ),
-          _vm._v(" "),
-          _vm._l(_vm.allClass, function(item, idx) {
-            return _c(
-              "b-button",
-              {
-                key: idx,
-                staticClass: "shadow-sm",
-                on: {
-                  click: function($event) {
-                    return _vm.selectClass(item.class_name)
-                  }
-                }
-              },
-              [_vm._v(_vm._s(item.class_name.toLowerCase()))]
-            )
-          })
-        ],
-        2
-      )
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      [
-        _c("h4", { staticClass: "toCaps mb-4" }, [
-          _vm._v(
-            "Showing : " +
-              _vm._s(_vm.current == "" ? "All" : _vm.current.toLowerCase())
-          )
-        ]),
-        _vm._v(" "),
-        _c("b-table", {
-          attrs: {
-            items: _vm.sortedStudents,
-            fields: _vm.fields,
-            hover: "",
-            bordered: "",
-            responsive: ""
-          },
-          scopedSlots: _vm._u([
-            {
-              key: "table-busy",
-              fn: function() {
-                return [
+            "b-row",
+            [
+              _c(
+                "b-col",
+                {
+                  staticClass: "dashboard-content-side",
+                  attrs: { cols: "10" }
+                },
+                [
                   _c(
                     "div",
-                    { staticClass: "text-center my-2" },
+                    { staticClass: "table-side" },
                     [
-                      _c("b-spinner", { staticClass: "align-middle" }),
+                      _c("div", { staticClass: "sort-section" }, [
+                        _c("i", { staticClass: "icon-sort" }),
+                        _c("span", [_vm._v("Sort by")])
+                      ]),
                       _vm._v(" "),
-                      _c("strong", [_vm._v("Loading...")])
+                      _c("b-table", {
+                        attrs: { striped: "", hover: "", items: _vm.items }
+                      }),
+                      _vm._v(" "),
+                      _c("h1", [_vm._v("Testing table page")])
                     ],
                     1
                   )
                 ]
-              },
-              proxy: true
-            },
-            {
-              key: "cell(actions)",
-              fn: function(data) {
-                return [
-                  _c(
-                    "span",
-                    {
-                      staticClass: "mr-3",
-                      on: {
-                        click: function($event) {
-                          return _vm.view(_vm.item.id)
-                        }
-                      }
-                    },
-                    [
-                      _c("i", { staticClass: "fas fa-eye" }),
-                      _vm._v("View\n        ")
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      staticClass: "mr-3",
-                      on: {
-                        click: function($event) {
-                          return _vm.drop(data.item.id)
-                        }
-                      }
-                    },
-                    [
-                      _c("i", {
-                        staticClass: "fa fa-minus-circle",
-                        attrs: { "aria-hidden": "true" }
-                      }),
-                      _vm._v(" Drop\n        ")
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      on: {
-                        click: function($event) {
-                          return _vm.edit(data.item.id)
-                        }
-                      }
-                    },
-                    [
-                      _c("i", { staticClass: "fas fa-edit" }),
-                      _vm._v("Update\n        ")
-                    ]
-                  )
+              ),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                { staticClass: "notification-side", attrs: { cols: "2" } },
+                [
+                  _c("div", { staticClass: "notify-side" }, [
+                    _c(
+                      "div",
+                      { staticClass: "notify-modal" },
+                      [
+                        _c(
+                          "b-button",
+                          {
+                            directives: [
+                              {
+                                name: "b-modal",
+                                rawName: "v-b-modal.modal-1",
+                                modifiers: { "modal-1": true }
+                              }
+                            ],
+                            staticClass: "reg-btn"
+                          },
+                          [_vm._v("ADD STUDENT")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "b-modal",
+                          { attrs: { id: "modal-1", title: "Create Admin" } },
+                          [
+                            _c(
+                              "b-form",
+                              [
+                                _c(
+                                  "b-container",
+                                  [
+                                    _c(
+                                      "b-form-group",
+                                      {
+                                        attrs: {
+                                          id: "input-group-1",
+                                          label: "Name",
+                                          "label-for": "input-1"
+                                        }
+                                      },
+                                      [
+                                        _c("b-form-input", {
+                                          attrs: {
+                                            id: "input-1",
+                                            type: "text",
+                                            required: "",
+                                            placeholder: ""
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "b-form-group",
+                                      {
+                                        attrs: {
+                                          id: "input-group-1",
+                                          label: "Email",
+                                          "label-for": "input-1"
+                                        }
+                                      },
+                                      [
+                                        _c("b-form-input", {
+                                          attrs: {
+                                            id: "input-1",
+                                            type: "email",
+                                            required: "",
+                                            placeholder: ""
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "b-form-row",
+                                      [
+                                        _c(
+                                          "b-col",
+                                          [
+                                            _c(
+                                              "b-form-group",
+                                              {
+                                                attrs: {
+                                                  id: "input-group-6",
+                                                  label: "Email",
+                                                  "label-for": "input-6"
+                                                }
+                                              },
+                                              [
+                                                _c("b-form-input", {
+                                                  attrs: {
+                                                    id: "input-6",
+                                                    type: "email",
+                                                    required: "",
+                                                    placeholder: ""
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            )
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-col",
+                                          [
+                                            _c(
+                                              "b-form-group",
+                                              {
+                                                attrs: {
+                                                  id: "input-group-4",
+                                                  label: "Phone",
+                                                  "label-for": "input-4"
+                                                }
+                                              },
+                                              [
+                                                _c("b-form-input", {
+                                                  attrs: {
+                                                    id: "input-4",
+                                                    type: "text",
+                                                    placeholder: ""
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "b-form-group",
+                                      {
+                                        attrs: {
+                                          id: "input-group-1",
+                                          label: "Role",
+                                          "label-for": "input-1"
+                                        }
+                                      },
+                                      [
+                                        _c("b-form-input", {
+                                          attrs: {
+                                            id: "input-1",
+                                            type: "text",
+                                            required: "",
+                                            placeholder: ""
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ])
                 ]
-              }
-            },
-            {
-              key: "cell(drop)",
-              fn: function(data) {
-                return [
-                  _c("b-form-checkbox", {
-                    attrs: { value: data.item.id },
-                    model: {
-                      value: _vm.items,
-                      callback: function($$v) {
-                        _vm.items = $$v
-                      },
-                      expression: "items"
-                    }
-                  })
-                ]
-              }
-            }
-          ])
-        })
-      ],
-      1
-    )
-  ])
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

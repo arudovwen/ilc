@@ -1,8 +1,6 @@
 <template>
   <div>
-    <b-container>
-      <b-row>
-        <b-col cols="10" class="dashboard-content-side">
+        
           <div>
             <b-container class="bv-example-row">
               <b-row>
@@ -133,12 +131,7 @@
               </b-row>
             </b-container>
           </div>
-        </b-col>
-        <b-col cols="2" class="notification-side">
-
-        </b-col>
-      </b-row>
-    </b-container>
+        
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
         
           <div>
             <b-container class="bv-example-row">
@@ -52,11 +52,13 @@
               </b-row>
             </b-container>
 
-            <div class="chart">
+            <b-container>
+              <div class="chart">
               <column-chart
                 :data="[['Basic 1', 32], ['Basic 2', 46], ['Basic 3', 28], ['Basic 4', 10], ['Basic 5', 18], ['Basic 6', 20], ['Basic 7', 28], ['Basic 8', 38]]"
               ></column-chart>
             </div>
+            </b-container>
             <b-container>
               <b-row>
                 <b-col>

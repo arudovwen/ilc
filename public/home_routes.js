@@ -2850,6 +2850,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["admin"],
   data: function data() {
@@ -12756,6 +12758,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     saveAssessment: function saveAssessment() {
+      var _this3 = this;
+
       var ask = confirm("Are you done?");
 
       if (ask) {
@@ -12775,7 +12779,11 @@ __webpack_require__.r(__webpack_exports__);
             Authorization: "Bearer ".concat(tutor.access_token)
           }
         }).then(function (res) {
-          if (res.status == 201) {}
+          if (res.status == 201) {
+            _this3.$toasted.success('Created successfully');
+
+            _this3.$router.go(-1);
+          }
         })["catch"]();
       }
     }
@@ -16547,7 +16555,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.semi-white[data-v-0fa20884] {\n  background: #f0f1f1;\n margin-top:66px;\n}\n", ""]);
+exports.push([module.i, "\n.semi-white[data-v-0fa20884] {\n  background: #f0f1f1;\n margin-top:80px;\n}\n", ""]);
 
 // exports
 
@@ -24902,7 +24910,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "body" }, [
     _c(
       "div",
       [
@@ -25015,27 +25023,29 @@ var render = function() {
           1
         ),
         _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "chart" },
-          [
-            _c("column-chart", {
-              attrs: {
-                data: [
-                  ["Basic 1", 32],
-                  ["Basic 2", 46],
-                  ["Basic 3", 28],
-                  ["Basic 4", 10],
-                  ["Basic 5", 18],
-                  ["Basic 6", 20],
-                  ["Basic 7", 28],
-                  ["Basic 8", 38]
-                ]
-              }
-            })
-          ],
-          1
-        ),
+        _c("b-container", [
+          _c(
+            "div",
+            { staticClass: "chart" },
+            [
+              _c("column-chart", {
+                attrs: {
+                  data: [
+                    ["Basic 1", 32],
+                    ["Basic 2", 46],
+                    ["Basic 3", 28],
+                    ["Basic 4", 10],
+                    ["Basic 5", 18],
+                    ["Basic 6", 20],
+                    ["Basic 7", 28],
+                    ["Basic 8", 38]
+                  ]
+                }
+              })
+            ],
+            1
+          )
+        ]),
         _vm._v(" "),
         _c(
           "b-container",
@@ -25286,7 +25296,9 @@ var render = function() {
             [
               _c("b-navbar-brand", { attrs: { href: "#" } }, [
                 _c("div", { staticClass: "dashboard-brand text-center" }, [
-                  _c("h3", [_vm._v(_vm._s(_vm.admin.school))])
+                  _c("h3", [_vm._v(_vm._s(_vm.admin.abbreviation))]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v("Schools")])
                 ])
               ]),
               _vm._v(" "),

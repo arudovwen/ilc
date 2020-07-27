@@ -447,6 +447,8 @@ export default {
           })
           .then((res) => {
             if (res.status == 201) {
+              this.$toasted.success('Created successfully')
+              this.$router.go(-1)
             }
           })
           .catch();

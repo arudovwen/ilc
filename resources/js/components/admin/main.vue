@@ -4,10 +4,10 @@
     <transition name="slide-fade">  </transition>-->
     <div class="dashboard-top-nav">
       <b-navbar toggleable="lg" type="dark" variant="info" class="fixed-top">
-        <b-navbar-brand href="#">
+        <b-navbar-brand href="#" >
           <div class="dashboard-brand text-center">
-            <h3>{{admin.school}}</h3>
-              <!-- <p>Schools</p> -->
+            <h3 >{{admin.abbreviation}}</h3>
+              <p>Schools</p>
           </div>
         </b-navbar-brand>
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -61,6 +61,6 @@ export default {
 <style scoped>
 .semi-white {
   background: #f0f1f1;
- margin-top:66px;
+ margin-top:80px;
 }
 </style>

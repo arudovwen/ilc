@@ -1,6 +1,6 @@
 <template>
-  <div class="admin-body">
-    <b-container>
+  <div class="body">
+    <!-- <b-container>
       <b-row>
         <b-col cols="10" class="dashboard-content-side">
           <div class="table-side">
@@ -51,22 +51,22 @@
           </div>
         </b-col>
       </b-row>
-    </b-container>
+    </b-container>-->
 
-    <!-- <nav class="mb-5">
+    <nav class="mb-5">
       <router-link to="/admin/add">
     
           <b-button variant="success">Create Administrator</b-button>
      
       </router-link>
-    -->
-    <!-- <b-button variant="success" @click="multiDrop">Multi-Drop</b-button>
-    -->
-    <!-- <div class="nav_box shadow-sm hiden"></div>
+   
+    <!-- <b-button variant="success" @click="multiDrop">Multi-Drop</b-button> -->
+   
+    <div class="nav_box shadow-sm hiden"></div>
       <div class="nav_box shadow-sm hiden"></div>
-    </nav>-->
+    </nav>
 
-    <!-- <b-table :items="admins" hover :fields="fields" :busy='busy' class="admin-table">
+    <b-table :items="admins" hover :fields="fields" :busy='busy' class="admin-table">
       <template v-slot:cell(Sn)="data">{{ data.index + 1 }}</template>
       <template v-slot:cell(Action)="data">
         <span class="mr-3" @click="drop(data.item.id)">
@@ -82,7 +82,7 @@
           <strong>Loading...</strong>
         </div>
       </template>
-    </b-table>-->
+    </b-table>
   </div>
 </template>
 

@@ -629,6 +629,10 @@ padding: 15px;
     border: none;
     
 }
+table{
+    font-size:15px;
+    background:white;
+}
 
 /* teacher dashboard  */
 

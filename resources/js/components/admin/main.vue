@@ -6,8 +6,8 @@
       <b-navbar toggleable="lg" type="dark" variant="info" class="fixed-top">
         <b-navbar-brand href="#">
           <div class="dashboard-brand text-center">
-            <h3>{{admin.abbreviation}}</h3>
-              <p>Schools</p>
+            <h3>{{admin.school}}</h3>
+              <!-- <p>Schools</p> -->
           </div>
         </b-navbar-brand>
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>

@@ -20245,197 +20245,105 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "admin-body" },
+    { staticClass: "body" },
     [
       _c(
-        "b-container",
+        "nav",
+        { staticClass: "mb-5" },
         [
           _c(
-            "b-row",
+            "router-link",
+            { attrs: { to: "/admin/add" } },
             [
-              _c(
-                "b-col",
-                {
-                  staticClass: "dashboard-content-side",
-                  attrs: { cols: "10" }
-                },
-                [
-                  _c(
-                    "div",
-                    { staticClass: "table-side" },
-                    [
-                      _c("h2", [_vm._v("ADMINISTRATORS")]),
-                      _vm._v(" "),
-                      _c("b-table", {
-                        attrs: { striped: "", hover: "", items: _vm.items }
-                      }),
-                      _vm._v(" "),
-                      _c("h1", [_vm._v("Testing table page")])
-                    ],
-                    1
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "b-col",
-                { staticClass: "notification-side", attrs: { cols: "2" } },
-                [
-                  _c("div", { staticClass: "notify-side" }, [
-                    _c(
-                      "div",
-                      { staticClass: "notify-modal" },
-                      [
-                        _c(
-                          "b-button",
-                          {
-                            directives: [
-                              {
-                                name: "b-modal",
-                                rawName: "v-b-modal.modal-1",
-                                modifiers: { "modal-1": true }
-                              }
-                            ],
-                            staticClass: "reg-btn"
-                          },
-                          [_vm._v("ADD ADMIN")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "b-modal",
-                          { attrs: { id: "modal-1", title: "Create Admin" } },
-                          [
-                            _c(
-                              "b-form",
-                              [
-                                _c(
-                                  "b-container",
-                                  [
-                                    _c(
-                                      "b-form-group",
-                                      {
-                                        attrs: {
-                                          id: "input-group-1",
-                                          label: "Name",
-                                          "label-for": "input-1"
-                                        }
-                                      },
-                                      [
-                                        _c("b-form-input", {
-                                          attrs: {
-                                            id: "input-1",
-                                            type: "text",
-                                            required: "",
-                                            placeholder: ""
-                                          }
-                                        })
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "b-form-row",
-                                      [
-                                        _c(
-                                          "b-col",
-                                          [
-                                            _c(
-                                              "b-form-group",
-                                              {
-                                                attrs: {
-                                                  id: "input-group-6",
-                                                  label: "Email",
-                                                  "label-for": "input-6"
-                                                }
-                                              },
-                                              [
-                                                _c("b-form-input", {
-                                                  attrs: {
-                                                    id: "input-6",
-                                                    type: "email",
-                                                    required: "",
-                                                    placeholder: ""
-                                                  }
-                                                })
-                                              ],
-                                              1
-                                            )
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "b-col",
-                                          [
-                                            _c(
-                                              "b-form-group",
-                                              {
-                                                attrs: {
-                                                  id: "input-group-4",
-                                                  label: "Phone",
-                                                  "label-for": "input-4"
-                                                }
-                                              },
-                                              [
-                                                _c("b-form-input", {
-                                                  attrs: {
-                                                    id: "input-4",
-                                                    type: "text",
-                                                    placeholder: ""
-                                                  }
-                                                })
-                                              ],
-                                              1
-                                            )
-                                          ],
-                                          1
-                                        )
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "b-form-group",
-                                      {
-                                        attrs: {
-                                          id: "input-group-1",
-                                          label: "Role",
-                                          "label-for": "input-1"
-                                        }
-                                      },
-                                      [
-                                        _c("b-form-input", {
-                                          attrs: {
-                                            id: "input-1",
-                                            type: "text",
-                                            required: "",
-                                            placeholder: ""
-                                          }
-                                        })
-                                      ],
-                                      1
-                                    )
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ])
-                ]
-              )
+              _c("b-button", { attrs: { variant: "success" } }, [
+                _vm._v("Create Administrator")
+              ])
             ],
             1
-          )
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "nav_box shadow-sm hiden" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "nav_box shadow-sm hiden" })
         ],
         1
-      )
+      ),
+      _vm._v(" "),
+      _c("b-table", {
+        staticClass: "admin-table",
+        attrs: {
+          items: _vm.admins,
+          hover: "",
+          fields: _vm.fields,
+          busy: _vm.busy
+        },
+        scopedSlots: _vm._u([
+          {
+            key: "cell(Sn)",
+            fn: function(data) {
+              return [_vm._v(_vm._s(data.index + 1))]
+            }
+          },
+          {
+            key: "cell(Action)",
+            fn: function(data) {
+              return [
+                _c(
+                  "span",
+                  {
+                    staticClass: "mr-3",
+                    on: {
+                      click: function($event) {
+                        return _vm.drop(data.item.id)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fa fa-minus-circle",
+                      attrs: { "aria-hidden": "true" }
+                    }),
+                    _vm._v(" Drop\n      ")
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    on: {
+                      click: function($event) {
+                        return _vm.edit(data.item.id)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-edit" }),
+                    _vm._v("Edit\n      ")
+                  ]
+                )
+              ]
+            }
+          },
+          {
+            key: "table-busy",
+            fn: function() {
+              return [
+                _c(
+                  "div",
+                  { staticClass: "text-center my-2" },
+                  [
+                    _c("b-spinner", { staticClass: "align-middle" }),
+                    _vm._v(" "),
+                    _c("strong", [_vm._v("Loading...")])
+                  ],
+                  1
+                )
+              ]
+            },
+            proxy: true
+          }
+        ])
+      })
     ],
     1
   )
@@ -25425,9 +25333,7 @@ var render = function() {
             [
               _c("b-navbar-brand", { attrs: { href: "#" } }, [
                 _c("div", { staticClass: "dashboard-brand text-center" }, [
-                  _c("h3", [_vm._v(_vm._s(_vm.admin.abbreviation))]),
-                  _vm._v(" "),
-                  _c("p", [_vm._v("Schools")])
+                  _c("h3", [_vm._v(_vm._s(_vm.admin.school))])
                 ])
               ]),
               _vm._v(" "),
@@ -25535,12 +25441,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "side-bar" }, [
-    _c("div", { staticClass: "admin-dashboard-logo text-center" }, [
-      _c("p", [_vm._v(_vm._s(_vm.admin.school))]),
-      _vm._v(" "),
-      _c("p", [_vm._v("Schools")])
-    ]),
-    _vm._v(" "),
     _c("nav", { staticClass: "side-menu" }, [
       _c(
         "ul",
@@ -31893,196 +31793,196 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "body" },
     [
       _c(
-        "b-container",
+        "nav",
+        { staticClass: "mb-5" },
         [
           _c(
-            "b-row",
+            "router-link",
+            { attrs: { to: "/admin/tutor/create" } },
             [
               _c(
-                "b-col",
+                "b-button",
                 {
-                  staticClass: "dashboard-content-side",
-                  attrs: { cols: "10" }
+                  staticClass: "shadow-sm reg-btn text-center",
+                  attrs: { block: "" }
+                },
+                [_vm._v("Create Tutor")]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "router-link",
+            { attrs: { to: "/admin/tutor/assign" } },
+            [
+              _c(
+                "b-button",
+                {
+                  staticClass: "shadow-sm reg-btn text-center",
+                  attrs: { block: "" }
                 },
                 [
-                  _c(
-                    "div",
-                    { staticClass: "table-side" },
-                    [
-                      _c("h2", [_vm._v("ADMINISTRATORS")]),
-                      _vm._v(" "),
-                      _c("b-table", {
-                        attrs: { striped: "", hover: "", items: _vm.items }
-                      }),
-                      _vm._v(" "),
-                      _c("h1", [_vm._v("Testing table page")])
-                    ],
-                    1
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "b-col",
-                { staticClass: "notification-side", attrs: { cols: "2" } },
-                [
-                  _c("div", { staticClass: "notify-side" }, [
-                    _c(
-                      "div",
-                      { staticClass: "notify-modal" },
-                      [
-                        _c(
-                          "b-button",
-                          {
-                            directives: [
-                              {
-                                name: "b-modal",
-                                rawName: "v-b-modal.modal-1",
-                                modifiers: { "modal-1": true }
-                              }
-                            ],
-                            staticClass: "reg-btn"
-                          },
-                          [_vm._v("ADD TEACHER")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "b-modal",
-                          { attrs: { id: "modal-1", title: "Create Admin" } },
-                          [
-                            _c(
-                              "b-form",
-                              [
-                                _c(
-                                  "b-container",
-                                  [
-                                    _c(
-                                      "b-form-group",
-                                      {
-                                        attrs: {
-                                          id: "input-group-1",
-                                          label: "Name",
-                                          "label-for": "input-1"
-                                        }
-                                      },
-                                      [
-                                        _c("b-form-input", {
-                                          attrs: {
-                                            id: "input-1",
-                                            type: "text",
-                                            required: "",
-                                            placeholder: ""
-                                          }
-                                        })
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "b-form-row",
-                                      [
-                                        _c(
-                                          "b-col",
-                                          [
-                                            _c(
-                                              "b-form-group",
-                                              {
-                                                attrs: {
-                                                  id: "input-group-6",
-                                                  label: "Email",
-                                                  "label-for": "input-6"
-                                                }
-                                              },
-                                              [
-                                                _c("b-form-input", {
-                                                  attrs: {
-                                                    id: "input-6",
-                                                    type: "email",
-                                                    required: "",
-                                                    placeholder: ""
-                                                  }
-                                                })
-                                              ],
-                                              1
-                                            )
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "b-col",
-                                          [
-                                            _c(
-                                              "b-form-group",
-                                              {
-                                                attrs: {
-                                                  id: "input-group-4",
-                                                  label: "Phone",
-                                                  "label-for": "input-4"
-                                                }
-                                              },
-                                              [
-                                                _c("b-form-input", {
-                                                  attrs: {
-                                                    id: "input-4",
-                                                    type: "text",
-                                                    placeholder: ""
-                                                  }
-                                                })
-                                              ],
-                                              1
-                                            )
-                                          ],
-                                          1
-                                        )
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "b-form-group",
-                                      {
-                                        attrs: {
-                                          id: "input-group-1",
-                                          label: "Role",
-                                          "label-for": "input-1"
-                                        }
-                                      },
-                                      [
-                                        _c("b-form-input", {
-                                          attrs: {
-                                            id: "input-1",
-                                            type: "text",
-                                            required: "",
-                                            placeholder: ""
-                                          }
-                                        })
-                                      ],
-                                      1
-                                    )
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ])
+                  _vm._v("\n          Tutor\n          "),
+                  _c("i", {
+                    staticClass: "fa fa-arrows-h mx-2",
+                    attrs: { "aria-hidden": "true" }
+                  }),
+                  _vm._v("\n           Courses\n        ")
                 ]
               )
             ],
             1
+          ),
+          _vm._v(" "),
+          _c(
+            "router-link",
+            { attrs: { to: "/admin/head/assign" } },
+            [
+              _c(
+                "b-button",
+                {
+                  staticClass: "shadow-sm reg-btn text-center",
+                  attrs: { block: "" }
+                },
+                [
+                  _vm._v("\n          Tutor\n          "),
+                  _c("i", {
+                    staticClass: "fa fa-arrows-h mx-2",
+                    attrs: { "aria-hidden": "true" }
+                  }),
+                  _vm._v("\n Head Tutor\n        ")
+                ]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-button",
+            {
+              staticClass: "shadow-sm reg-btn text-center",
+              attrs: { block: "" },
+              on: { click: _vm.multiDrop }
+            },
+            [_vm._v("Multi-Drop")]
           )
         ],
         1
-      )
+      ),
+      _vm._v(" "),
+      _c("b-table", {
+        attrs: {
+          bordered: "",
+          hover: "",
+          responsive: "",
+          busy: _vm.busy,
+          items: _vm.tutors,
+          fields: _vm.fields
+        },
+        scopedSlots: _vm._u([
+          {
+            key: "cell(sn)",
+            fn: function(data) {
+              return [_vm._v(_vm._s(data.index + 1))]
+            }
+          },
+          {
+            key: "cell(drop)",
+            fn: function(data) {
+              return [
+                _c("b-form-checkbox", {
+                  attrs: { value: data.item.id },
+                  model: {
+                    value: _vm.items,
+                    callback: function($$v) {
+                      _vm.items = $$v
+                    },
+                    expression: "items"
+                  }
+                })
+              ]
+            }
+          },
+          {
+            key: "table-busy",
+            fn: function() {
+              return [
+                _c(
+                  "div",
+                  { staticClass: "text-center my-2" },
+                  [
+                    _c("b-spinner", { staticClass: "align-middle" }),
+                    _vm._v(" "),
+                    _c("strong", [_vm._v("Loading...")])
+                  ],
+                  1
+                )
+              ]
+            },
+            proxy: true
+          },
+          {
+            key: "cell(actions)",
+            fn: function(data) {
+              return [
+                _c(
+                  "span",
+                  {
+                    staticClass: "mr-3",
+                    on: {
+                      click: function($event) {
+                        return _vm.view(_vm.item.id)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-eye" }),
+                    _vm._v("View\n        ")
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "mr-3",
+                    on: {
+                      click: function($event) {
+                        return _vm.drop(data.item.id)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fa fa-minus-circle",
+                      attrs: { "aria-hidden": "true" }
+                    }),
+                    _vm._v(" Drop\n        ")
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    on: {
+                      click: function($event) {
+                        return _vm.edit(data.item.id)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-edit" }),
+                    _vm._v("Update\n        ")
+                  ]
+                )
+              ]
+            }
+          }
+        ])
+      })
     ],
     1
   )

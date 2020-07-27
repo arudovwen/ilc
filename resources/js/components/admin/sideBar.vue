@@ -1,9 +1,9 @@
 <template>
   <div class="side-bar">
-    <div class="admin-dashboard-logo text-center">
+    <!-- <div class="admin-dashboard-logo text-center">
       <p>{{admin.school}}</p>
       <p>Schools</p>
-    </div>
+    </div> -->
   
     <!-- <nav class="">
       <ul class="admin-dashboard-nav">

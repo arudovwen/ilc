@@ -1,6 +1,6 @@
 <template>
 
-<div>
+<!-- <div>
    <b-container>
       <b-row>
         <b-col cols="10" class="dashboard-content-side">
@@ -53,8 +53,8 @@
         </b-col>
       </b-row>
     </b-container>
-</div>
-  <!-- <div class="">
+</div> -->
+  <div class="body">
     <nav class="mb-5">
       <router-link to="/admin/tutor/create">
         <b-button block class="shadow-sm reg-btn text-center">Create Tutor</b-button>
@@ -100,7 +100,7 @@
         </span>
       </template>
     </b-table>
-  </div> -->
+  </div>
 </template>
 
 

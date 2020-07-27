@@ -17195,7 +17195,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.my-container[data-v-bc98fdf6]{\r\n    widows: 100vw;\n}\n.side[data-v-bc98fdf6]{\r\n    width: 15%;\r\n    height: 100vh;\r\n    background: #fbc233;\n}\n.main[data-v-bc98fdf6]{\r\n    width:85%;\r\n    height: 100vh;\r\n    overflow: scroll;\n}\r\n", ""]);
+exports.push([module.i, "\n.my-container[data-v-bc98fdf6]{\r\n    widows: 100vw;\n}\n.side[data-v-bc98fdf6]{\r\n    width: 15%;\r\n    height: 100vh;\r\n    background: #fbc233;\r\n    position: fixed;\n}\n.main[data-v-bc98fdf6]{\r\n    width:85%;\r\n    height: 100vh;\r\n    position: absolute;\r\n    right: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -17214,7 +17214,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-7c861bc4] {\r\n  padding: 40px 20px 60px;\n}\n.main-content[data-v-7c861bc4] {\r\n  width: 80%;\r\n  margin: 0 auto;\n}\n.top_box[data-v-7c861bc4] {\r\n  background: #f7f8fa;\n}\nul[data-v-7c861bc4],\r\nol[data-v-7c861bc4] {\r\n  list-style: none;\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before {\r\n  padding: 8px;\r\n  color: black;\r\n  content: \"/\\A0\";\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-7c861bc4] {\r\n  padding: 40px 20px 60px;\n}\n.main-content[data-v-7c861bc4] {\r\n  width: 80%;\r\n  margin: 0 auto;\n}\n.top_box[data-v-7c861bc4] {\r\n  background: #f7f8fa;\n}\nul[data-v-7c861bc4],\r\nol[data-v-7c861bc4] {\r\n  list-style: none;\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before {\r\n  padding: 8px;\r\n  color: black;\r\n  content: \"/\\A0\";\n}\nimg[data-v-7c861bc4]{\r\n  margin: auto;\r\n  display: flex;\n}\n.what-you-will-learn ul[data-v-7c861bc4]{\r\n  list-style: circle;\n}\ndiv[data-v-7c861bc4]{\r\n  font-family: \"Montserrat\";\n}\r\n", ""]);
 
 // exports
 
@@ -37532,7 +37532,7 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("b-container", [
-        _c("div", { staticClass: "what-you will learn" }, [
+        _c("div", { staticClass: "what-you-will-learn" }, [
           _c("h4", [_vm._v("Within this lesson you will learn:")]),
           _vm._v(" "),
           _c("ul", [

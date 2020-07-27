@@ -33,11 +33,13 @@ export default {
     width: 15%;
     height: 100vh;
     background: #fbc233;
+    position: fixed;
     
 }
 .main{
     width:85%;
     height: 100vh;
-    overflow: scroll;
+    position: absolute;
+    right: 0;
 }
 </style>

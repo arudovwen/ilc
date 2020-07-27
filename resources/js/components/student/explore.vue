@@ -47,7 +47,7 @@
     <img src="/images/english-lit.jpg" class="text-center img-fluid" alt="english" />
 
     <b-container>
-      <div class="what-you will learn">
+      <div class="what-you-will-learn">
         <h4>Within this lesson you will learn:</h4>
         <ul>
           <li>User-Centered Design</li>
@@ -175,5 +175,16 @@ ul.breadcrumb li + li:before {
   padding: 8px;
   color: black;
   content: "/\00a0";
+}
+
+img{
+  margin: auto;
+  display: flex;
+}
+.what-you-will-learn ul{
+  list-style: circle;
+}
+div{
+  font-family: "Montserrat";
 }
 </style>

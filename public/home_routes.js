@@ -278,7 +278,7 @@ var Login = function Login() {
 };
 
 var Register = function Register() {
-  return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./register */ "./resources/js/components/admin/auth/register.vue"));
+  return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./register */ "./resources/js/components/admin/auth/register.vue"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4750,11 +4750,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 var login = function login() {
-  return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./login */ "./resources/js/components/auth/login.vue"));
+  return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./login */ "./resources/js/components/auth/login.vue"));
 };
 
 var registration = function registration() {
-  return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./registration */ "./resources/js/components/auth/registration.vue"));
+  return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./registration */ "./resources/js/components/auth/registration.vue"));
 };
 
 var navigation = function navigation() {
@@ -7289,7 +7289,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 var Login = function Login() {
-  return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./login */ "./resources/js/components/tutor/auth/login.vue"));
+  return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./login */ "./resources/js/components/tutor/auth/login.vue"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -8184,7 +8184,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-79ee3ba6] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n   position: relative;\n}\nform[data-v-79ee3ba6]{\n    width:50%\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-79ee3ba6] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100vh;\r\n   position: relative;\n}\nform[data-v-79ee3ba6]{\r\n    width:50%\n}\r\n", ""]);
 
 // exports
 
@@ -8203,7 +8203,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nnav[data-v-20e0a484] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-20e0a484]{\n    opacity: 0;\n}\n.nav_box[data-v-20e0a484] {\n  background-color: #f7f8fa;\n  display: flex;\n  text-align: center;\n  padding: 10px 15px;\n}\n.body[data-v-20e0a484] {\n  padding: 20px 20px 50px;\n  height: 100%;\n}\n", ""]);
+exports.push([module.i, "\nnav[data-v-20e0a484] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-20e0a484]{\r\n    opacity: 0;\n}\n.nav_box[data-v-20e0a484] {\r\n  background-color: #f7f8fa;\r\n  display: flex;\r\n  text-align: center;\r\n  padding: 10px 15px;\n}\n.body[data-v-20e0a484] {\r\n  padding: 20px 20px 50px;\r\n  height: 100%;\n}\r\n", ""]);
 
 // exports
 
@@ -8222,7 +8222,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-6e628573] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\ntd[data-v-6e628573] {\n  text-transform: capitalize;\n}\n.hiden[data-v-6e628573] {\n  opacity: 0;\n}\n.nav_box[data-v-6e628573] {\n  background-color: #f7f8fa;\n  display: flex;\n  text-align: center;\n  padding: 10px 15px;\n}\n.add[data-v-6e628573] {\n  background-color: #f7f8fa;\n}\n.body[data-v-6e628573] {\n  padding: 20px 20px 50px;\n  height: 100%;\n}\ntable[data-v-6e628573] {\n  font-size: 14.5px;\n}\n", ""]);
+exports.push([module.i, "\nnav[data-v-6e628573] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\ntd[data-v-6e628573] {\r\n  text-transform: capitalize;\n}\n.hiden[data-v-6e628573] {\r\n  opacity: 0;\n}\n.nav_box[data-v-6e628573] {\r\n  background-color: #f7f8fa;\r\n  display: flex;\r\n  text-align: center;\r\n  padding: 10px 15px;\n}\n.add[data-v-6e628573] {\r\n  background-color: #f7f8fa;\n}\n.body[data-v-6e628573] {\r\n  padding: 20px 20px 50px;\r\n  height: 100%;\n}\ntable[data-v-6e628573] {\r\n  font-size: 14.5px;\n}\r\n", ""]);
 
 // exports
 
@@ -8241,7 +8241,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nnav[data-v-7ba444bd] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\ntd[data-v-7ba444bd]{\n  text-transform: uppercase;\n}\n.hiden[data-v-7ba444bd] {\n  opacity: 0;\n}\n.nav_box[data-v-7ba444bd] {\n  background-color: #f7f8fa;\n  display: flex;\n  text-align: center;\n  padding: 10px 15px;\n}\n.add[data-v-7ba444bd] {\n  background-color: #f7f8fa;\n}\n.body[data-v-7ba444bd] {\n  padding: 20px 20px 50px;\n  height: 100%;\n}\n", ""]);
+exports.push([module.i, "\nnav[data-v-7ba444bd] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\ntd[data-v-7ba444bd]{\r\n  text-transform: uppercase;\n}\n.hiden[data-v-7ba444bd] {\r\n  opacity: 0;\n}\n.nav_box[data-v-7ba444bd] {\r\n  background-color: #f7f8fa;\r\n  display: flex;\r\n  text-align: center;\r\n  padding: 10px 15px;\n}\n.add[data-v-7ba444bd] {\r\n  background-color: #f7f8fa;\n}\n.body[data-v-7ba444bd] {\r\n  padding: 20px 20px 50px;\r\n  height: 100%;\n}\r\n", ""]);
 
 // exports
 
@@ -8260,7 +8260,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.my-container[data-v-3a73534e]{\n    widows: 100vw;\n}\n.side[data-v-3a73534e]{\n    width: 20%;\n    height: 100vh;\n    background: chartreuse;\n}\n.main[data-v-3a73534e]{\n    width:80%;\n    height: 100vh;\n    overflow: scroll;\n}\n", ""]);
+exports.push([module.i, "\n.my-container[data-v-3a73534e]{\r\n    widows: 100vw;\n}\n.side[data-v-3a73534e]{\r\n    width: 20%;\r\n    height: 100vh;\r\n    background: chartreuse;\n}\n.main[data-v-3a73534e]{\r\n    width:80%;\r\n    height: 100vh;\r\n    overflow: scroll;\n}\r\n", ""]);
 
 // exports
 
@@ -8279,7 +8279,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-6f9fe055] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n  position: relative;\n}\nform[data-v-6f9fe055]{\n    width:50%\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-6f9fe055] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100vh;\r\n  position: relative;\n}\nform[data-v-6f9fe055]{\r\n    width:50%\n}\r\n", ""]);
 
 // exports
 
@@ -8298,7 +8298,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.logo[data-v-6b6d5b7e]{\n    padding: 10px 20px;\n}\n.logo p[data-v-6b6d5b7e]{\n    font-weight: bold;\n    font-family: 'Josefin Sans';\n    font-size: 24px;\n}\nnav ul li[data-v-6b6d5b7e]{\n  padding: 10px 20px;\n  font-size: 15px;\n  cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\n.logo[data-v-6b6d5b7e]{\r\n    padding: 10px 20px;\n}\n.logo p[data-v-6b6d5b7e]{\r\n    font-weight: bold;\r\n    font-family: 'Josefin Sans';\r\n    font-size: 24px;\n}\nnav ul li[data-v-6b6d5b7e]{\r\n  padding: 10px 20px;\r\n  font-size: 15px;\r\n  cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
@@ -8317,7 +8317,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-15cd1a4a] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n}\nform[data-v-15cd1a4a]{\n    width:50%\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-15cd1a4a] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100vh;\n}\nform[data-v-15cd1a4a]{\r\n    width:50%\n}\r\n", ""]);
 
 // exports
 
@@ -8336,7 +8336,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-4316aea9] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n}\nform[data-v-4316aea9]{\n    width:50%\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-4316aea9] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100vh;\n}\nform[data-v-4316aea9]{\r\n    width:50%\n}\r\n", ""]);
 
 // exports
 
@@ -8355,7 +8355,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-72c27a04] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-72c27a04]{\n    opacity: 0;\n}\n.nav_box[data-v-72c27a04] {\n  background-color: #f7f8fa;\n  display: flex;\n  text-align: center;\n  padding: 10px 15px;\n}\n.body[data-v-72c27a04] {\n  padding: 20px 20px 50px;\n  height: 100%;\n}\n", ""]);
+exports.push([module.i, "\nnav[data-v-72c27a04] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-72c27a04]{\r\n    opacity: 0;\n}\n.nav_box[data-v-72c27a04] {\r\n  background-color: #f7f8fa;\r\n  display: flex;\r\n  text-align: center;\r\n  padding: 10px 15px;\n}\n.body[data-v-72c27a04] {\r\n  padding: 20px 20px 50px;\r\n  height: 100%;\n}\r\n", ""]);
 
 // exports
 
@@ -8374,7 +8374,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-dc4d47b0] {\n\n  padding:70px 0;\n}\nform[data-v-dc4d47b0] {\n  width: 70%;\n  margin:0 auto\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-dc4d47b0] {\r\n\r\n  padding:70px 0;\n}\nform[data-v-dc4d47b0] {\r\n  width: 70%;\r\n  margin:0 auto\n}\r\n", ""]);
 
 // exports
 
@@ -8393,7 +8393,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-4c84158e] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-4c84158e] {\n  opacity: 0;\n}\n.nav_box[data-v-4c84158e] {\n  background-color: #f7f8fa;\n  display: flex;\n  text-align: center;\n  padding: 10px 15px;\n}\n.add[data-v-4c84158e],\n.content[data-v-4c84158e] {\n  background-color: #f7f8fa;\n}\n.body[data-v-4c84158e] {\n  padding: 20px 20px 70px;\n  height: 100%;\n}\nform[data-v-4c84158e] {\n  padding-bottom: 70px;\n}\nlabel[data-v-4c84158e]{\n    font-weight:bold;\n}\n", ""]);
+exports.push([module.i, "\nnav[data-v-4c84158e] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-4c84158e] {\r\n  opacity: 0;\n}\n.nav_box[data-v-4c84158e] {\r\n  background-color: #f7f8fa;\r\n  display: flex;\r\n  text-align: center;\r\n  padding: 10px 15px;\n}\n.add[data-v-4c84158e],\r\n.content[data-v-4c84158e] {\r\n  background-color: #f7f8fa;\n}\n.body[data-v-4c84158e] {\r\n  padding: 20px 20px 70px;\r\n  height: 100%;\n}\nform[data-v-4c84158e] {\r\n  padding-bottom: 70px;\n}\nlabel[data-v-4c84158e]{\r\n    font-weight:bold;\n}\r\n", ""]);
 
 // exports
 
@@ -8412,7 +8412,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-5d46098e] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-5d46098e]{\n    opacity: 0;\n}\n.nav_box[data-v-5d46098e] {\n  background-color: #f7f8fa;\n  display: flex;\n  text-align: center;\n  padding: 10px 15px;\n}\n.body[data-v-5d46098e] {\n  padding: 20px 20px 50px;\n  height: 100%;\n}\n", ""]);
+exports.push([module.i, "\nnav[data-v-5d46098e] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-5d46098e]{\r\n    opacity: 0;\n}\n.nav_box[data-v-5d46098e] {\r\n  background-color: #f7f8fa;\r\n  display: flex;\r\n  text-align: center;\r\n  padding: 10px 15px;\n}\n.body[data-v-5d46098e] {\r\n  padding: 20px 20px 50px;\r\n  height: 100%;\n}\r\n", ""]);
 
 // exports
 
@@ -8431,7 +8431,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-be66e7d8] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-be66e7d8] {\n  opacity: 0;\n}\n.nav_box[data-v-be66e7d8] {\n  background-color: #f7f8fa;\n  display: flex;\n  text-align: center;\n  padding: 10px 15px;\n}\n.add[data-v-be66e7d8],\n.content[data-v-be66e7d8] {\n  background-color: #f7f8fa;\n}\n.body[data-v-be66e7d8] {\n  padding: 20px 20px 70px;\n  height: 100%;\n}\nlabel[data-v-be66e7d8]{\n    font-weight:bold;\n}\nform[data-v-be66e7d8] {\n  padding-bottom: 70px;\n}\n", ""]);
+exports.push([module.i, "\nnav[data-v-be66e7d8] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-be66e7d8] {\r\n  opacity: 0;\n}\n.nav_box[data-v-be66e7d8] {\r\n  background-color: #f7f8fa;\r\n  display: flex;\r\n  text-align: center;\r\n  padding: 10px 15px;\n}\n.add[data-v-be66e7d8],\r\n.content[data-v-be66e7d8] {\r\n  background-color: #f7f8fa;\n}\n.body[data-v-be66e7d8] {\r\n  padding: 20px 20px 70px;\r\n  height: 100%;\n}\nlabel[data-v-be66e7d8]{\r\n    font-weight:bold;\n}\nform[data-v-be66e7d8] {\r\n  padding-bottom: 70px;\n}\r\n", ""]);
 
 // exports
 
@@ -8450,7 +8450,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-7cf00758] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-7cf00758] {\n  opacity: 0;\n}\n.nav_box[data-v-7cf00758] {\n\n  display: flex;\n  text-align: center;\n  padding: 10px 15px;\n}\n.add[data-v-7cf00758],\n.content[data-v-7cf00758] {\n  background-color: #f7f8fa;\n}\n.body[data-v-7cf00758] {\n  padding: 20px 20px 70px;\n  height: 100%;\n    background-color: #f7f8fa;\n}\nform[data-v-7cf00758] {\n  padding-bottom: 70px;\n}\np[data-v-7cf00758]{\n    font-size: 16px;\n}\nlabel[data-v-7cf00758]{\n    font-weight:bold;\n}\n", ""]);
+exports.push([module.i, "\nnav[data-v-7cf00758] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-7cf00758] {\r\n  opacity: 0;\n}\n.nav_box[data-v-7cf00758] {\r\n\r\n  display: flex;\r\n  text-align: center;\r\n  padding: 10px 15px;\n}\n.add[data-v-7cf00758],\r\n.content[data-v-7cf00758] {\r\n  background-color: #f7f8fa;\n}\n.body[data-v-7cf00758] {\r\n  padding: 20px 20px 70px;\r\n  height: 100%;\r\n    background-color: #f7f8fa;\n}\nform[data-v-7cf00758] {\r\n  padding-bottom: 70px;\n}\np[data-v-7cf00758]{\r\n    font-size: 16px;\n}\nlabel[data-v-7cf00758]{\r\n    font-weight:bold;\n}\r\n", ""]);
 
 // exports
 
@@ -8469,7 +8469,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-e3859b90] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-e3859b90]{\n    opacity: 0;\n}\n.nav_box[data-v-e3859b90] {\n  background-color: #f7f8fa;\n  display: flex;\n  text-align: center;\n  padding: 10px 15px;\n}\n.body[data-v-e3859b90] {\n  padding: 20px 20px 50px;\n  height: 100%;\n}\n", ""]);
+exports.push([module.i, "\nnav[data-v-e3859b90] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-e3859b90]{\r\n    opacity: 0;\n}\n.nav_box[data-v-e3859b90] {\r\n  background-color: #f7f8fa;\r\n  display: flex;\r\n  text-align: center;\r\n  padding: 10px 15px;\n}\n.body[data-v-e3859b90] {\r\n  padding: 20px 20px 50px;\r\n  height: 100%;\n}\r\n", ""]);
 
 // exports
 
@@ -8488,7 +8488,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-22ed2978] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-22ed2978] {\n  opacity: 0;\n}\n.nav_box[data-v-22ed2978] {\n  background-color: #f7f8fa;\n  display: flex;\n  text-align: center;\n  padding: 10px 15px;\n}\n.add[data-v-22ed2978] {\n  background-color: #f7f8fa;\n}\n.body[data-v-22ed2978] {\n  padding: 20px 20px 50px;\n  height: 100%;\n}\ntable[data-v-22ed2978] {\n  font-size: 14px;\n}\n.day .form-control[data-v-22ed2978] {\n  width: 150px;\n}\n", ""]);
+exports.push([module.i, "\nnav[data-v-22ed2978] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-22ed2978] {\r\n  opacity: 0;\n}\n.nav_box[data-v-22ed2978] {\r\n  background-color: #f7f8fa;\r\n  display: flex;\r\n  text-align: center;\r\n  padding: 10px 15px;\n}\n.add[data-v-22ed2978] {\r\n  background-color: #f7f8fa;\n}\n.body[data-v-22ed2978] {\r\n  padding: 20px 20px 50px;\r\n  height: 100%;\n}\ntable[data-v-22ed2978] {\r\n  font-size: 14px;\n}\n.day .form-control[data-v-22ed2978] {\r\n  width: 150px;\n}\r\n", ""]);
 
 // exports
 
@@ -8507,7 +8507,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-1b01b604] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-1b01b604] {\n  opacity: 0;\n}\n.nav_box[data-v-1b01b604] {\n  background-color: #f7f8fa;\n  display: flex;\n  text-align: center;\n  padding: 10px 15px;\n}\n.add[data-v-1b01b604] {\n  background-color: #f7f8fa;\n}\n.body[data-v-1b01b604] {\n  padding: 20px 20px 50px;\n  height: 100%;\n}\ntable[data-v-1b01b604] {\n  font-size: 14px;\n}\n\n", ""]);
+exports.push([module.i, "\nnav[data-v-1b01b604] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-1b01b604] {\r\n  opacity: 0;\n}\n.nav_box[data-v-1b01b604] {\r\n  background-color: #f7f8fa;\r\n  display: flex;\r\n  text-align: center;\r\n  padding: 10px 15px;\n}\n.add[data-v-1b01b604] {\r\n  background-color: #f7f8fa;\n}\n.body[data-v-1b01b604] {\r\n  padding: 20px 20px 50px;\r\n  height: 100%;\n}\ntable[data-v-1b01b604] {\r\n  font-size: 14px;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -8526,7 +8526,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-b766b880] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n}\nform[data-v-b766b880]{\n    width:50%\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-b766b880] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100vh;\n}\nform[data-v-b766b880]{\r\n    width:50%\n}\r\n", ""]);
 
 // exports
 
@@ -8545,7 +8545,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-4abad4ce] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n}\nform[data-v-4abad4ce]{\n    width:50%\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-4abad4ce] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100vh;\n}\nform[data-v-4abad4ce]{\r\n    width:50%\n}\r\n", ""]);
 
 // exports
 
@@ -8564,7 +8564,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-637a2dba] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-637a2dba]{\n    opacity: 0;\n}\n.nav_box[data-v-637a2dba] {\n  background-color: #f7f8fa;\n  display: flex;\n  text-align: center;\n  padding: 10px 15px;\n}\n.body[data-v-637a2dba] {\n  padding: 20px 20px 50px;\n  height: 100%;\n}\n", ""]);
+exports.push([module.i, "\nnav[data-v-637a2dba] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-637a2dba]{\r\n    opacity: 0;\n}\n.nav_box[data-v-637a2dba] {\r\n  background-color: #f7f8fa;\r\n  display: flex;\r\n  text-align: center;\r\n  padding: 10px 15px;\n}\n.body[data-v-637a2dba] {\r\n  padding: 20px 20px 50px;\r\n  height: 100%;\n}\r\n", ""]);
 
 // exports
 
@@ -8583,7 +8583,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-410c8d0d] {\n\n  padding:70px 0;\n}\nform[data-v-410c8d0d] {\n  width: 70%;\n  margin:0 auto\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-410c8d0d] {\r\n\r\n  padding:70px 0;\n}\nform[data-v-410c8d0d] {\r\n  width: 70%;\r\n  margin:0 auto\n}\r\n", ""]);
 
 // exports
 
@@ -8602,7 +8602,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.main[data-v-2557a474] {\n  background: repeating-linear-gradient(\n    to right,\n    rgb(15, 122, 138, 0.7) 0%,\n    rgb(15, 122, 138, 0.7) 100%\n  );\n  height: 100vh;\n  position: relative;\n  overflow: hidden;\n}\n.login[data-v-2557a474] {\n}\n.register[data-v-2557a474] {\n  padding-top: 3%;\n}\n.mini_box_1[data-v-2557a474],\n.mini_box_2[data-v-2557a474] {\n  width: 200px;\n  height: 100px;\n  position: absolute;\n}\n.mini_box_1[data-v-2557a474] {\n  background: #333 ;\n  top: -6%;\n  right: -6%;\n  transform: rotate(45deg);\n}\n.mini_box_2[data-v-2557a474] {\n  background: yellow;\n  bottom: -6%;\n  left: -6%;\n  transform: rotate(45deg);\n}\n@media (max-width: 1024px) {\n.container[data-v-2557a474] {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    height: 100vh;\n}\n.register .nav-tabs[data-v-2557a474] {\n    width: 35%;\n}\n.mini_box_2[data-v-2557a474] {\n    bottom: -12%;\n    left: -12%;\n}\n.mini_box_1[data-v-2557a474] {\n    top: -12%;\n    right: -12%;\n}\n}\n@media (max-width: 768px) {\n}\n@media (max-width: 425px) {\n.mini_box_2[data-v-2557a474] {\n    bottom: -12%;\n    left: -20%;\n    background: #333;\n}\n.mini_box_1[data-v-2557a474] {\n    top: -12%;\n    right: -20%;\n    background: yellow;\n}\n}\n", ""]);
+exports.push([module.i, "\n.main[data-v-2557a474] {\r\n  background: repeating-linear-gradient(\r\n    to right,\r\n    rgb(15, 122, 138, 0.7) 0%,\r\n    rgb(15, 122, 138, 0.7) 100%\r\n  );\r\n  height: 100vh;\r\n  position: relative;\r\n  overflow: hidden;\n}\n.login[data-v-2557a474] {\n}\n.register[data-v-2557a474] {\r\n  padding-top: 3%;\n}\n.mini_box_1[data-v-2557a474],\r\n.mini_box_2[data-v-2557a474] {\r\n  width: 200px;\r\n  height: 100px;\r\n  position: absolute;\n}\n.mini_box_1[data-v-2557a474] {\r\n  background: #333 ;\r\n  top: -6%;\r\n  right: -6%;\r\n  transform: rotate(45deg);\n}\n.mini_box_2[data-v-2557a474] {\r\n  background: yellow;\r\n  bottom: -6%;\r\n  left: -6%;\r\n  transform: rotate(45deg);\n}\n@media (max-width: 1024px) {\n.container[data-v-2557a474] {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    height: 100vh;\n}\n.register .nav-tabs[data-v-2557a474] {\r\n    width: 35%;\n}\n.mini_box_2[data-v-2557a474] {\r\n    bottom: -12%;\r\n    left: -12%;\n}\n.mini_box_1[data-v-2557a474] {\r\n    top: -12%;\r\n    right: -12%;\n}\n}\n@media (max-width: 768px) {\n}\n@media (max-width: 425px) {\n.mini_box_2[data-v-2557a474] {\r\n    bottom: -12%;\r\n    left: -20%;\r\n    background: #333;\n}\n.mini_box_1[data-v-2557a474] {\r\n    top: -12%;\r\n    right: -20%;\r\n    background: yellow;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -8621,7 +8621,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.main[data-v-6792fb91] {\n  background: #f7f8fa;\n  font-size: 14px;\n  position: relative;\n}\n.back[data-v-6792fb91] {\n  position: absolute;\n  top: 20px;\n  left: 20px;\n}\n", ""]);
+exports.push([module.i, "\n.main[data-v-6792fb91] {\r\n  background: #f7f8fa;\r\n  font-size: 14px;\r\n  position: relative;\n}\n.back[data-v-6792fb91] {\r\n  position: absolute;\r\n  top: 20px;\r\n  left: 20px;\n}\r\n", ""]);
 
 // exports
 
@@ -8640,7 +8640,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.container-fluid[data-v-0a681d75] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  min-height: 100vh;\n}\n.register[data-v-0a681d75] {\n  background: transparent;\n  padding: 3%;\n}\n.register-left[data-v-0a681d75] {\n  text-align: center;\n  color: #fff;\n  padding-top: 4%;\n}\n.register-left input[data-v-0a681d75] {\n  border: none;\n  border-radius: 1.5rem;\n  padding: 2%;\n  width: 60%;\n  background: #f7f8fa;\n  font-weight: bold;\n  color: #383d41;\n  margin-top: 28%;\n  margin-bottom: 3%;\n  cursor: pointer;\n}\n.register-right[data-v-0a681d75] {\n  background: #f7f8fa;\n  border-top-left-radius: 10% 50%;\n  border-bottom-left-radius: 10% 50%;\n  width: 80%;\n  padding: 0 15px;\n}\n.register-left img[data-v-0a681d75] {\n  margin-top: 15%;\n  margin-bottom: 5%;\n  width: 25%;\n  -webkit-animation: mover-data-v-0a681d75 2s infinite alternate;\n  animation: mover-data-v-0a681d75 1s infinite alternate;\n}\n@-webkit-keyframes mover-data-v-0a681d75 {\n0% {\n    transform: translateY(0);\n}\n100% {\n    transform: translateY(-20px);\n}\n}\n@keyframes mover-data-v-0a681d75 {\n0% {\n    transform: translateY(0);\n}\n100% {\n    transform: translateY(-20px);\n}\n}\n.register-left p[data-v-0a681d75] {\n  font-weight: lighter;\n  padding: 12%;\n  margin-top: -9%;\n}\n.register .register-form[data-v-0a681d75] {\n  padding: 10%;\n  margin-top: 2%;\n}\n.btnRegister[data-v-0a681d75] {\n\n  margin-top: 4%;\n  border: none;\n  border-radius: 1.5rem;\n  padding: 10px 40px;\n  background: repeating-linear-gradient(\n    to right,\n    rgb(15, 122, 138, 0.7) 0%,\n    rgb(15, 122, 138, 0.7) 100%\n  );\n  color: #fff;\n  font-weight: 600;\n  max-width: 50%;\n  cursor: pointer;\n}\n.register .nav-tabs[data-v-0a681d75] {\n  margin-top: 3%;\n  border: none;\n  background: repeating-linear-gradient(\n    to right,\n    rgb(15, 122, 138, 0.7) 0%,\n    rgb(15, 122, 138, 0.7) 100%\n  );\n  border-radius: 1.5rem;\n  width: 20%;\n  float: right;\n  font-size: 14px;\n}\n.register .nav-tabs .nav-link[data-v-0a681d75] {\n  padding: 2%;\n  height: 34px;\n  font-weight: 600;\n  color: #fff;\n  border-top-right-radius: 1.5rem;\n  border-bottom-right-radius: 1.5rem;\n  font-size: 14px;\n}\n.register .nav-tabs .nav-link[data-v-0a681d75]:hover {\n  border: none;\n}\n.register .nav-tabs .nav-link.active[data-v-0a681d75] {\n  width: 100px;\n  color: #5fa1ac;\n  border: 2px solid #5fa1ac;\n  border-top-left-radius: 1.5rem;\n  border-bottom-left-radius: 1.5rem;\n}\n.register-heading[data-v-0a681d75] {\n  text-align: center;\n  margin-top: 8%;\n  margin-bottom: -15%;\n  color: #495057;\n}\n.form-group[data-v-0a681d75]{\n  border:1px solid #ccc;\n  margin-bottom: 24px;\n  padding: 10px;\n}\n@media (max-width: 1024px) {\n.register .nav-tabs[data-v-0a681d75] {\n    width: 35%;\n}\nh4.register-heading[data-v-0a681d75] {\n    font-size: 22px;\n}\n.register-form[data-v-0a681d75] {\n    width: 100%;\n}\n}\n@media (max-width: 768px) {\n.register .nav-tabs[data-v-0a681d75] {\n    width: 35%;\n}\n.register-right[data-v-0a681d75] {\n    width: 90%;\n}\n}\n@media (max-width: 425px) {\n.register-right[data-v-0a681d75] {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n}\n.register-right[data-v-0a681d75] {\n    width: 100%;\n    height: 75vh;\n    overflow: scroll;\n    padding-top: 80%;\n}\n.register .nav-tabs[data-v-0a681d75] {\n    width: 60%;\n    margin: 3% auto 0;\n}\n.register-left[data-v-0a681d75] {\n    padding-bottom: 20px;\n}\n}\n", ""]);
+exports.push([module.i, "\n.container-fluid[data-v-0a681d75] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  min-height: 100vh;\n}\n.register[data-v-0a681d75] {\r\n  background: transparent;\r\n  padding: 3%;\n}\n.register-left[data-v-0a681d75] {\r\n  text-align: center;\r\n  color: #fff;\r\n  padding-top: 4%;\n}\n.register-left input[data-v-0a681d75] {\r\n  border: none;\r\n  border-radius: 1.5rem;\r\n  padding: 2%;\r\n  width: 60%;\r\n  background: #f7f8fa;\r\n  font-weight: bold;\r\n  color: #383d41;\r\n  margin-top: 28%;\r\n  margin-bottom: 3%;\r\n  cursor: pointer;\n}\n.register-right[data-v-0a681d75] {\r\n  background: #f7f8fa;\r\n  border-top-left-radius: 10% 50%;\r\n  border-bottom-left-radius: 10% 50%;\r\n  width: 80%;\r\n  padding: 0 15px;\n}\n.register-left img[data-v-0a681d75] {\r\n  margin-top: 15%;\r\n  margin-bottom: 5%;\r\n  width: 25%;\r\n  -webkit-animation: mover-data-v-0a681d75 2s infinite alternate;\r\n  animation: mover-data-v-0a681d75 1s infinite alternate;\n}\n@-webkit-keyframes mover-data-v-0a681d75 {\n0% {\r\n    transform: translateY(0);\n}\n100% {\r\n    transform: translateY(-20px);\n}\n}\n@keyframes mover-data-v-0a681d75 {\n0% {\r\n    transform: translateY(0);\n}\n100% {\r\n    transform: translateY(-20px);\n}\n}\n.register-left p[data-v-0a681d75] {\r\n  font-weight: lighter;\r\n  padding: 12%;\r\n  margin-top: -9%;\n}\n.register .register-form[data-v-0a681d75] {\r\n  padding: 10%;\r\n  margin-top: 2%;\n}\n.btnRegister[data-v-0a681d75] {\r\n\r\n  margin-top: 4%;\r\n  border: none;\r\n  border-radius: 1.5rem;\r\n  padding: 10px 40px;\r\n  background: repeating-linear-gradient(\r\n    to right,\r\n    rgb(15, 122, 138, 0.7) 0%,\r\n    rgb(15, 122, 138, 0.7) 100%\r\n  );\r\n  color: #fff;\r\n  font-weight: 600;\r\n  max-width: 50%;\r\n  cursor: pointer;\n}\n.register .nav-tabs[data-v-0a681d75] {\r\n  margin-top: 3%;\r\n  border: none;\r\n  background: repeating-linear-gradient(\r\n    to right,\r\n    rgb(15, 122, 138, 0.7) 0%,\r\n    rgb(15, 122, 138, 0.7) 100%\r\n  );\r\n  border-radius: 1.5rem;\r\n  width: 20%;\r\n  float: right;\r\n  font-size: 14px;\n}\n.register .nav-tabs .nav-link[data-v-0a681d75] {\r\n  padding: 2%;\r\n  height: 34px;\r\n  font-weight: 600;\r\n  color: #fff;\r\n  border-top-right-radius: 1.5rem;\r\n  border-bottom-right-radius: 1.5rem;\r\n  font-size: 14px;\n}\n.register .nav-tabs .nav-link[data-v-0a681d75]:hover {\r\n  border: none;\n}\n.register .nav-tabs .nav-link.active[data-v-0a681d75] {\r\n  width: 100px;\r\n  color: #5fa1ac;\r\n  border: 2px solid #5fa1ac;\r\n  border-top-left-radius: 1.5rem;\r\n  border-bottom-left-radius: 1.5rem;\n}\n.register-heading[data-v-0a681d75] {\r\n  text-align: center;\r\n  margin-top: 8%;\r\n  margin-bottom: -15%;\r\n  color: #495057;\n}\n.form-group[data-v-0a681d75]{\r\n  border:1px solid #ccc;\r\n  margin-bottom: 24px;\r\n  padding: 10px;\n}\n@media (max-width: 1024px) {\n.register .nav-tabs[data-v-0a681d75] {\r\n    width: 35%;\n}\nh4.register-heading[data-v-0a681d75] {\r\n    font-size: 22px;\n}\n.register-form[data-v-0a681d75] {\r\n    width: 100%;\n}\n}\n@media (max-width: 768px) {\n.register .nav-tabs[data-v-0a681d75] {\r\n    width: 35%;\n}\n.register-right[data-v-0a681d75] {\r\n    width: 90%;\n}\n}\n@media (max-width: 425px) {\n.register-right[data-v-0a681d75] {\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\n}\n.register-right[data-v-0a681d75] {\r\n    width: 100%;\r\n    height: 75vh;\r\n    overflow: scroll;\r\n    padding-top: 80%;\n}\n.register .nav-tabs[data-v-0a681d75] {\r\n    width: 60%;\r\n    margin: 3% auto 0;\n}\n.register-left[data-v-0a681d75] {\r\n    padding-bottom: 20px;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -8659,7 +8659,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.main_container[data-v-45b4b761] {\n  width: 100%;\n  height: 100vh;\n  position: relative;\n  background: repeating-linear-gradient(\n    to right,\n    rgb(15, 122, 138, 0.7) 0%,\n    rgb(15, 122, 138, 0.7) 100%\n  );\n  overflow: hidden;\n}\n.square[data-v-45b4b761] {\n  width: 60%;\n  height: 100%;\n  position: relative;\n  z-index: 4;\n  overflow: hidden;\n  display: flex;\n  justify-content: flex-start;\n  align-items: center;\n}\n.square_text[data-v-45b4b761] {\n  color: white;\n  width: 100%;\n  min-height: 45%;\n  display: grid;\n  justify-content: flex-start;\n  align-items: center;\n  padding-left: 50px;\n}\n.main_text[data-v-45b4b761] {\n  font-weight: 700;\n  font-size: 60px;\n  color: #333333;\n}\n.sub_text[data-v-45b4b761] {\n  color: white;\n  font-size: 24px;\n  font-weight: 700;\n  display: flex;\n  align-items: center;\n}\n.mini_square_1[data-v-45b4b761],\n.mini_square_2[data-v-45b4b761] {\n  width: 150px;\n  height: 250px;\n  background: yellow;\n  position: absolute;\n  transform: rotate(-45deg);\n}\n.mini_square_1[data-v-45b4b761] {\n  top: 0;\n  right: 0;\n  top: -95px;\n  right: -50px;\n}\n.mini_square_2[data-v-45b4b761] {\n  bottom: -95px;\n  left: -50px;\n}\n.circle_1[data-v-45b4b761],\n.circle_2[data-v-45b4b761] {\n  width: 500px;\n  height: 500px;\n  position: absolute;\n  right: 20%;\n  border: 6px solid white;\n  overflow: hidden;\n}\n.circle_3[data-v-45b4b761] {\n  width: 600px;\n  height: 600px;\n  background: white;\n  position: absolute;\n  right: -10%;\n  top: 50%;\n  margin-top: -300px;\n  z-index: 2;\n  border: 6px solid white;\n  overflow: hidden;\n}\n.rounded_circle img[data-v-45b4b761] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.circle_1[data-v-45b4b761] {\n  background: orange;\n  top: -5%;\n  z-index: 1;\n}\n.circle_2[data-v-45b4b761] {\n  background: green;\n  bottom: -5%;\n  z-index: 3;\n}\nimg[data-v-45b4b761] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n@media (max-width: 1024px) {\n.circle_3[data-v-45b4b761] {\n    width: 450px;\n    height: 450px;\n    top: 70%;\n}\n.circle_1[data-v-45b4b761],\n  .circle_2[data-v-45b4b761] {\n    width: 350px;\n    height: 350px;\n}\n.circle_1[data-v-45b4b761] {\n    top: 14%;\n}\n.circle_2[data-v-45b4b761] {\n    bottom: 0%;\n}\n.main_text[data-v-45b4b761] {\n    font-size: 40px;\n}\n.mini_square_2[data-v-45b4b761],\n  .mini_square_1[data-v-45b4b761] {\n    width: 100px;\n}\n}\n@media (max-width: 768px) {\n.circle_3[data-v-45b4b761] {\n    width: 350px;\n    height: 350px;\n    top: 70%;\n}\n.circle_1[data-v-45b4b761],\n  .circle_2[data-v-45b4b761] {\n    width: 250px;\n    height: 250px;\n}\n.circle_1[data-v-45b4b761] {\n    top: 14%;\n}\n.circle_2[data-v-45b4b761] {\n    bottom: 0%;\n}\n.main_text[data-v-45b4b761] {\n    font-size: 38px;\n}\n.square_text[data-v-45b4b761]{\n    min-width: 35%;\n}\n}\n@media (max-width: 425px) {\n.square[data-v-45b4b761] {\n    width: 100%;\n}\n.square_text[data-v-45b4b761] {\n    padding-left: 25px;\n}\n.mini_square_2[data-v-45b4b761],\n  .mini_square_1[data-v-45b4b761] {\n    width: 80px;\n}\n.circle_3[data-v-45b4b761] {\n    width: 350px;\n    height: 350px;\n    top: 70%;\n    right: -45%;\n}\n.circle_1[data-v-45b4b761],\n  .circle_2[data-v-45b4b761] {\n    width: 200px;\n    height: 200px;\n    right: 5%;\n}\n.circle_1[data-v-45b4b761] {\n    top: 10%;\n}\n.circle_2[data-v-45b4b761] {\n    bottom: -2%;\n    width: 250px;\n    height: 250px;\n}\n.main_text[data-v-45b4b761] {\n    font-size: 24px;\n}\n.sec_color[data-v-45b4b761] {\n    font-size: 16px;\n}\n}\n@media (max-width: 375px) {\n.square[data-v-45b4b761] {\n    width: 100%;\n}\n.square_text[data-v-45b4b761] {\n    padding-left: 25px;\n}\n.mini_square_2[data-v-45b4b761],\n  .mini_square_1[data-v-45b4b761] {\n    width: 80px;\n}\n.circle_3[data-v-45b4b761] {\n    width: 300px;\n    height: 300px;\n    top: 70%;\n    right: -45%;\n}\n.circle_1[data-v-45b4b761],\n  .circle_2[data-v-45b4b761] {\n    width: 200px;\n    height: 200px;\n    right: 1%;\n}\n.circle_1[data-v-45b4b761] {\n    top: 10%;\n}\n.circle_2[data-v-45b4b761] {\n    bottom: -2%;\n    width: 250px;\n    height: 250px;\n}\n.main_text[data-v-45b4b761] {\n    font-size: 22px;\n}\n.sec_color[data-v-45b4b761] {\n    font-size: 16px;\n}\n}\n", ""]);
+exports.push([module.i, "\n.main_container[data-v-45b4b761] {\r\n  width: 100%;\r\n  height: 100vh;\r\n  position: relative;\r\n  background: repeating-linear-gradient(\r\n    to right,\r\n    rgb(15, 122, 138, 0.7) 0%,\r\n    rgb(15, 122, 138, 0.7) 100%\r\n  );\r\n  overflow: hidden;\n}\n.square[data-v-45b4b761] {\r\n  width: 60%;\r\n  height: 100%;\r\n  position: relative;\r\n  z-index: 4;\r\n  overflow: hidden;\r\n  display: flex;\r\n  justify-content: flex-start;\r\n  align-items: center;\n}\n.square_text[data-v-45b4b761] {\r\n  color: white;\r\n  width: 100%;\r\n  min-height: 45%;\r\n  display: grid;\r\n  justify-content: flex-start;\r\n  align-items: center;\r\n  padding-left: 50px;\n}\n.main_text[data-v-45b4b761] {\r\n  font-weight: 700;\r\n  font-size: 60px;\r\n  color: #333333;\n}\n.sub_text[data-v-45b4b761] {\r\n  color: white;\r\n  font-size: 24px;\r\n  font-weight: 700;\r\n  display: flex;\r\n  align-items: center;\n}\n.mini_square_1[data-v-45b4b761],\r\n.mini_square_2[data-v-45b4b761] {\r\n  width: 150px;\r\n  height: 250px;\r\n  background: yellow;\r\n  position: absolute;\r\n  transform: rotate(-45deg);\n}\n.mini_square_1[data-v-45b4b761] {\r\n  top: 0;\r\n  right: 0;\r\n  top: -95px;\r\n  right: -50px;\n}\n.mini_square_2[data-v-45b4b761] {\r\n  bottom: -95px;\r\n  left: -50px;\n}\n.circle_1[data-v-45b4b761],\r\n.circle_2[data-v-45b4b761] {\r\n  width: 500px;\r\n  height: 500px;\r\n  position: absolute;\r\n  right: 20%;\r\n  border: 6px solid white;\r\n  overflow: hidden;\n}\n.circle_3[data-v-45b4b761] {\r\n  width: 600px;\r\n  height: 600px;\r\n  background: white;\r\n  position: absolute;\r\n  right: -10%;\r\n  top: 50%;\r\n  margin-top: -300px;\r\n  z-index: 2;\r\n  border: 6px solid white;\r\n  overflow: hidden;\n}\n.rounded_circle img[data-v-45b4b761] {\r\n  width: 100%;\r\n  height: 100%;\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\n}\n.circle_1[data-v-45b4b761] {\r\n  background: orange;\r\n  top: -5%;\r\n  z-index: 1;\n}\n.circle_2[data-v-45b4b761] {\r\n  background: green;\r\n  bottom: -5%;\r\n  z-index: 3;\n}\nimg[data-v-45b4b761] {\r\n  width: 100%;\r\n  height: 100%;\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\n}\n@media (max-width: 1024px) {\n.circle_3[data-v-45b4b761] {\r\n    width: 450px;\r\n    height: 450px;\r\n    top: 70%;\n}\n.circle_1[data-v-45b4b761],\r\n  .circle_2[data-v-45b4b761] {\r\n    width: 350px;\r\n    height: 350px;\n}\n.circle_1[data-v-45b4b761] {\r\n    top: 14%;\n}\n.circle_2[data-v-45b4b761] {\r\n    bottom: 0%;\n}\n.main_text[data-v-45b4b761] {\r\n    font-size: 40px;\n}\n.mini_square_2[data-v-45b4b761],\r\n  .mini_square_1[data-v-45b4b761] {\r\n    width: 100px;\n}\n}\n@media (max-width: 768px) {\n.circle_3[data-v-45b4b761] {\r\n    width: 350px;\r\n    height: 350px;\r\n    top: 70%;\n}\n.circle_1[data-v-45b4b761],\r\n  .circle_2[data-v-45b4b761] {\r\n    width: 250px;\r\n    height: 250px;\n}\n.circle_1[data-v-45b4b761] {\r\n    top: 14%;\n}\n.circle_2[data-v-45b4b761] {\r\n    bottom: 0%;\n}\n.main_text[data-v-45b4b761] {\r\n    font-size: 38px;\n}\n.square_text[data-v-45b4b761]{\r\n    min-width: 35%;\n}\n}\n@media (max-width: 425px) {\n.square[data-v-45b4b761] {\r\n    width: 100%;\n}\n.square_text[data-v-45b4b761] {\r\n    padding-left: 25px;\n}\n.mini_square_2[data-v-45b4b761],\r\n  .mini_square_1[data-v-45b4b761] {\r\n    width: 80px;\n}\n.circle_3[data-v-45b4b761] {\r\n    width: 350px;\r\n    height: 350px;\r\n    top: 70%;\r\n    right: -45%;\n}\n.circle_1[data-v-45b4b761],\r\n  .circle_2[data-v-45b4b761] {\r\n    width: 200px;\r\n    height: 200px;\r\n    right: 5%;\n}\n.circle_1[data-v-45b4b761] {\r\n    top: 10%;\n}\n.circle_2[data-v-45b4b761] {\r\n    bottom: -2%;\r\n    width: 250px;\r\n    height: 250px;\n}\n.main_text[data-v-45b4b761] {\r\n    font-size: 24px;\n}\n.sec_color[data-v-45b4b761] {\r\n    font-size: 16px;\n}\n}\n@media (max-width: 375px) {\n.square[data-v-45b4b761] {\r\n    width: 100%;\n}\n.square_text[data-v-45b4b761] {\r\n    padding-left: 25px;\n}\n.mini_square_2[data-v-45b4b761],\r\n  .mini_square_1[data-v-45b4b761] {\r\n    width: 80px;\n}\n.circle_3[data-v-45b4b761] {\r\n    width: 300px;\r\n    height: 300px;\r\n    top: 70%;\r\n    right: -45%;\n}\n.circle_1[data-v-45b4b761],\r\n  .circle_2[data-v-45b4b761] {\r\n    width: 200px;\r\n    height: 200px;\r\n    right: 1%;\n}\n.circle_1[data-v-45b4b761] {\r\n    top: 10%;\n}\n.circle_2[data-v-45b4b761] {\r\n    bottom: -2%;\r\n    width: 250px;\r\n    height: 250px;\n}\n.main_text[data-v-45b4b761] {\r\n    font-size: 22px;\n}\n.sec_color[data-v-45b4b761] {\r\n    font-size: 16px;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -8678,7 +8678,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.main[data-v-2ac2c897]{\n    position: relative;\n}\n", ""]);
+exports.push([module.i, "\n.main[data-v-2ac2c897]{\r\n    position: relative;\n}\r\n", ""]);
 
 // exports
 
@@ -8697,7 +8697,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-6c8c6944]{\n    padding-top: 60px;\n    padding-bottom: 45px;\n}\nform[data-v-6c8c6944]{\n    margin-bottom: 34px;\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-6c8c6944]{\r\n    padding-top: 60px;\r\n    padding-bottom: 45px;\n}\nform[data-v-6c8c6944]{\r\n    margin-bottom: 34px;\n}\r\n", ""]);
 
 // exports
 
@@ -8716,7 +8716,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n#navigation[data-v-370c6798] {\n  position: absolute;\n  width: 100%;\n  top: 0;\n  z-index: 5;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.logo[data-v-370c6798] {\n  display: flex;\n  justify-content: flex-start;\n  align-items: center;\n  position: relative;\n  padding: 10px;\n}\n.mobile_nav a[data-v-370c6798] {\n  text-decoration: none;\n}\n.mobile[data-v-370c6798] {\n  display: none !important;\n}\n.logo_image[data-v-370c6798] {\n  width: 80px;\n  height: 80px;\n  border-radius: 50%;\n  overflow: hidden;\n  margin-right: 10px;\n}\n.logo_image img[data-v-370c6798] {\n  width: 100%;\n  height: 100%;\n}\n.logo_text[data-v-370c6798] {\n  font-weight: 700;\n  color: #333;\n  font-size: 22px;\n}\nul[data-v-370c6798] {\n  position: relative;\n}\n.nav[data-v-370c6798] {\n  padding: 10px;\n}\n.nav ul li[data-v-370c6798] {\n  display: inline-block;\n}\n.nav ul li a[data-v-370c6798] {\n  color: white;\n  padding: 5px 15px;\n  font-size: 15px;\n  cursor: pointer;\n  text-decoration: none;\n}\n.nav nav ul li:hover a[data-v-370c6798] {\n  color: #333333;\n  border-bottom: 2px solid white;\n}\n.logged_in[data-v-370c6798] {\n  margin-left: auto;\n}\nul li span[data-v-370c6798] {\n  color: white;\n  padding: 10px 15px;\n  font-size: 15px;\n  cursor: pointer;\n}\n.nav nav ul li:hover span[data-v-370c6798] {\n  color: #333333;\n}\n@media (max-width: 1024px) {\n}\n@media (max-width: 768px) {\n}\n@media (max-width: 425px) {\n#navigation[data-v-370c6798] {\n    display: block;\n}\nnav[data-v-370c6798] {\n    width: 100%;\n}\n.mobile_nav[data-v-370c6798] {\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n.logg[data-v-370c6798] {\n}\n.nav ul li a[data-v-370c6798] {\n    color: #333333;\n}\nul li span[data-v-370c6798] {\n    color: #333;\n}\n.mobile[data-v-370c6798] {\n    display: block !important;\n    padding: 0 15px;\n}\n.nav ul li[data-v-370c6798] {\n    display: block;\n}\n.logo_image[data-v-370c6798] {\n    width: 60px;\n    height: 60px;\n}\n.logo_text[data-v-370c6798] {\n    font-weight: 700;\n    color: #333;\n    font-size: 18px;\n}\n}\n", ""]);
+exports.push([module.i, "\n#navigation[data-v-370c6798] {\r\n  position: absolute;\r\n  width: 100%;\r\n  top: 0;\r\n  z-index: 5;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\n}\n.logo[data-v-370c6798] {\r\n  display: flex;\r\n  justify-content: flex-start;\r\n  align-items: center;\r\n  position: relative;\r\n  padding: 10px;\n}\n.mobile_nav a[data-v-370c6798] {\r\n  text-decoration: none;\n}\n.mobile[data-v-370c6798] {\r\n  display: none !important;\n}\n.logo_image[data-v-370c6798] {\r\n  width: 80px;\r\n  height: 80px;\r\n  border-radius: 50%;\r\n  overflow: hidden;\r\n  margin-right: 10px;\n}\n.logo_image img[data-v-370c6798] {\r\n  width: 100%;\r\n  height: 100%;\n}\n.logo_text[data-v-370c6798] {\r\n  font-weight: 700;\r\n  color: #333;\r\n  font-size: 22px;\n}\nul[data-v-370c6798] {\r\n  position: relative;\n}\n.nav[data-v-370c6798] {\r\n  padding: 10px;\n}\n.nav ul li[data-v-370c6798] {\r\n  display: inline-block;\n}\n.nav ul li a[data-v-370c6798] {\r\n  color: white;\r\n  padding: 5px 15px;\r\n  font-size: 15px;\r\n  cursor: pointer;\r\n  text-decoration: none;\n}\n.nav nav ul li:hover a[data-v-370c6798] {\r\n  color: #333333;\r\n  border-bottom: 2px solid white;\n}\n.logged_in[data-v-370c6798] {\r\n  margin-left: auto;\n}\nul li span[data-v-370c6798] {\r\n  color: white;\r\n  padding: 10px 15px;\r\n  font-size: 15px;\r\n  cursor: pointer;\n}\n.nav nav ul li:hover span[data-v-370c6798] {\r\n  color: #333333;\n}\n@media (max-width: 1024px) {\n}\n@media (max-width: 768px) {\n}\n@media (max-width: 425px) {\n#navigation[data-v-370c6798] {\r\n    display: block;\n}\nnav[data-v-370c6798] {\r\n    width: 100%;\n}\n.mobile_nav[data-v-370c6798] {\r\n    display: flex;\r\n    justify-content: space-between;\r\n    align-items: center;\n}\n.logg[data-v-370c6798] {\n}\n.nav ul li a[data-v-370c6798] {\r\n    color: #333333;\n}\nul li span[data-v-370c6798] {\r\n    color: #333;\n}\n.mobile[data-v-370c6798] {\r\n    display: block !important;\r\n    padding: 0 15px;\n}\n.nav ul li[data-v-370c6798] {\r\n    display: block;\n}\n.logo_image[data-v-370c6798] {\r\n    width: 60px;\r\n    height: 60px;\n}\n.logo_text[data-v-370c6798] {\r\n    font-weight: 700;\r\n    color: #333;\r\n    font-size: 18px;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -8735,7 +8735,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.overlay[data-v-362a9371] {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  background: rgba(255, 255, 255, 0.7);\n  z-index: 99;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.overlay_box[data-v-362a9371] {\n  position: relative;\n  width: 60%;\n  height: 60%;\n  background: #fff;\n  border-radius: 5px;\n}\n.overlay_text[data-v-362a9371]{\n  display:grid;\n  justify-content:center;\n  align-items: center;\n  padding:15px;\n  height: 100%;\n}\n.quote[data-v-362a9371]{\n  color:#006600;\n  font-size: 20px;\n}\n.get_started[data-v-362a9371]{\n    background: #333;\n    color: white !important;\n    margin: 0 auto;\n}\n.sub_text[data-v-362a9371]{\n    text-align: center;\n}\n.close[data-v-362a9371]{\n    position:absolute;\n    top:-15px;\n    right:-15px;\n}\n@media(max-width:425px){\n.overlay_box[data-v-362a9371] {\n  position: relative;\n  width: 90%;\n  height: 60%;\n  background: #fff;\n}\n}\n", ""]);
+exports.push([module.i, "\n.overlay[data-v-362a9371] {\r\n  position: absolute;\r\n  top: 0;\r\n  bottom: 0;\r\n  right: 0;\r\n  left: 0;\r\n  background: rgba(255, 255, 255, 0.7);\r\n  z-index: 99;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\n}\n.overlay_box[data-v-362a9371] {\r\n  position: relative;\r\n  width: 60%;\r\n  height: 60%;\r\n  background: #fff;\r\n  border-radius: 5px;\n}\n.overlay_text[data-v-362a9371]{\r\n  display:grid;\r\n  justify-content:center;\r\n  align-items: center;\r\n  padding:15px;\r\n  height: 100%;\n}\n.quote[data-v-362a9371]{\r\n  color:#006600;\r\n  font-size: 20px;\n}\n.get_started[data-v-362a9371]{\r\n    background: #333;\r\n    color: white !important;\r\n    margin: 0 auto;\n}\n.sub_text[data-v-362a9371]{\r\n    text-align: center;\n}\n.close[data-v-362a9371]{\r\n    position:absolute;\r\n    top:-15px;\r\n    right:-15px;\n}\n@media(max-width:425px){\n.overlay_box[data-v-362a9371] {\r\n  position: relative;\r\n  width: 90%;\r\n  height: 60%;\r\n  background: #fff;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -8754,7 +8754,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-03ee7c63] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n}\nform[data-v-03ee7c63] {\n  width: 50%;\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-03ee7c63] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100vh;\n}\nform[data-v-03ee7c63] {\r\n  width: 50%;\n}\r\n", ""]);
 
 // exports
 
@@ -8773,7 +8773,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-b40839be] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n}\nform[data-v-b40839be] {\n  width: 50%;\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-b40839be] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100vh;\n}\nform[data-v-b40839be] {\r\n  width: 50%;\n}\r\n", ""]);
 
 // exports
 
@@ -8792,7 +8792,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-79b5561b] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n}\nform[data-v-79b5561b]{\n    width:50%\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-79b5561b] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100vh;\n}\nform[data-v-79b5561b]{\r\n    width:50%\n}\r\n", ""]);
 
 // exports
 
@@ -8811,7 +8811,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-51658877] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 100vh;\n}\n.chat-body[data-v-51658877] {\n  width: 80%;\n  height: 100%;\n  background: #f7f8fa;\n  padding:20px 0;\n  position: relative;\n}\n.online[data-v-51658877] {\n  height: 100%;\n  width: 20%;\n  border: 2px solid;\n}\n.send-tab[data-v-51658877] {\n  position: fixed;\n  bottom: 0;\n  width: 80%;\n  margin: 0 auto;\n  padding: 10px;\n  background: white;\n  display: flex;\n}\n.message[data-v-51658877]{\n    font-size:15px;\n    padding:0 15px;\n}\n.emoji[data-v-51658877] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-51658877] {\n  font-size: 15px;\n  padding: 10px 15px;\n}\n.form-group[data-v-51658877] {\n  position: relative;\n}\n.fa-paperclip[data-v-51658877] {\n  position: absolute;\n  font-size: 16px;\n  right: 10px;\n  top: 50%;\n  margin-top: -8px;\n}\n", ""]);
+exports.push([module.i, "\n.body[data-v-51658877] {\r\n  background: white;\r\n  position: relative;\r\n  display: flex;\r\n  height: 100vh;\n}\n.chat-body[data-v-51658877] {\r\n  width: 80%;\r\n  height: 100%;\r\n  background: #f7f8fa;\r\n  padding:20px 0;\r\n  position: relative;\n}\n.online[data-v-51658877] {\r\n  height: 100%;\r\n  width: 20%;\r\n  border: 2px solid;\n}\n.send-tab[data-v-51658877] {\r\n  position: fixed;\r\n  bottom: 0;\r\n  width: 80%;\r\n  margin: 0 auto;\r\n  padding: 10px;\r\n  background: white;\r\n  display: flex;\n}\n.message[data-v-51658877]{\r\n    font-size:15px;\r\n    padding:0 15px;\n}\n.emoji[data-v-51658877] {\r\n  position: absolute;\r\n  bottom: 100%;\r\n  overflow: hidden !important;\n}\n.online ul li[data-v-51658877] {\r\n  font-size: 15px;\r\n  padding: 10px 15px;\n}\n.form-group[data-v-51658877] {\r\n  position: relative;\n}\n.fa-paperclip[data-v-51658877] {\r\n  position: absolute;\r\n  font-size: 16px;\r\n  right: 10px;\r\n  top: 50%;\r\n  margin-top: -8px;\n}\r\n", ""]);
 
 // exports
 
@@ -8830,7 +8830,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.my-container[data-v-bc98fdf6]{\n    widows: 100vw;\n}\n.side[data-v-bc98fdf6]{\n    width: 15%;\n    height: 100vh;\n    background: chartreuse;\n}\n.main[data-v-bc98fdf6]{\n    width:85%;\n    height: 100vh;\n    overflow: scroll;\n}\n", ""]);
+exports.push([module.i, "\n.my-container[data-v-bc98fdf6]{\r\n    widows: 100vw;\n}\n.side[data-v-bc98fdf6]{\r\n    width: 15%;\r\n    height: 100vh;\r\n    background: chartreuse;\n}\n.main[data-v-bc98fdf6]{\r\n    width:85%;\r\n    height: 100vh;\r\n    overflow: scroll;\n}\r\n", ""]);
 
 // exports
 
@@ -8849,7 +8849,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nnav[data-v-7d83ab33] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\ntd[data-v-7d83ab33] {\n  text-transform: capitalize;\n}\n.hiden[data-v-7d83ab33] {\n  opacity: 0;\n}\n.nav_box[data-v-7d83ab33] {\n  background-color: #f7f8fa;\n  display: flex;\n  text-align: center;\n  padding: 10px 15px;\n}\n.add[data-v-7d83ab33] {\n  background-color: #f7f8fa;\n}\n.body[data-v-7d83ab33] {\n  padding: 20px 20px 50px;\n  height: 100%;\n}\ntable[data-v-7d83ab33] {\n  font-size: 14.5px;\n}\n", ""]);
+exports.push([module.i, "\nnav[data-v-7d83ab33] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\ntd[data-v-7d83ab33] {\r\n  text-transform: capitalize;\n}\n.hiden[data-v-7d83ab33] {\r\n  opacity: 0;\n}\n.nav_box[data-v-7d83ab33] {\r\n  background-color: #f7f8fa;\r\n  display: flex;\r\n  text-align: center;\r\n  padding: 10px 15px;\n}\n.add[data-v-7d83ab33] {\r\n  background-color: #f7f8fa;\n}\n.body[data-v-7d83ab33] {\r\n  padding: 20px 20px 50px;\r\n  height: 100%;\n}\ntable[data-v-7d83ab33] {\r\n  font-size: 14.5px;\n}\r\n", ""]);
 
 // exports
 
@@ -8868,7 +8868,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.logo[data-v-1d9937ed]{\n    padding: 10px 20px;\n}\n.logo p[data-v-1d9937ed]{\n    font-weight: bold;\n    font-family: 'Josefin Sans';\n    font-size: 24px;\n}\nnav ul li[data-v-1d9937ed]{\n  padding: 10px 20px;\n  font-size: 15px;\n  cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\n.logo[data-v-1d9937ed]{\r\n    padding: 10px 20px;\n}\n.logo p[data-v-1d9937ed]{\r\n    font-weight: bold;\r\n    font-family: 'Josefin Sans';\r\n    font-size: 24px;\n}\nnav ul li[data-v-1d9937ed]{\r\n  padding: 10px 20px;\r\n  font-size: 15px;\r\n  cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
@@ -8887,7 +8887,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-1e6387a8] {\n  position: relative;\n}\nform[data-v-1e6387a8] {\n  width: 70%;\n  margin:0 auto;\n  padding:70px 0\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-1e6387a8] {\r\n  position: relative;\n}\nform[data-v-1e6387a8] {\r\n  width: 70%;\r\n  margin:0 auto;\r\n  padding:70px 0\n}\r\n", ""]);
 
 // exports
 
@@ -8906,7 +8906,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-f752e2c8] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 100vh;\n}\nlabel[data-v-f752e2c8]{\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-f752e2c8]{\n  font-size: 15px;\n  padding:0 15px;\n}\n.chat-body[data-v-f752e2c8] {\n  width: 80%;\n  height: 100%;\n  background: #f7f8fa;\n  padding:20px 0;\n  position: relative;\n}\n.online[data-v-f752e2c8] {\n  height: 100%;\n  width: 20%;\n  border: 2px solid;\n}\n.send-tab[data-v-f752e2c8] {\n  position: fixed;\n  bottom: 0;\n  width: 80%;\n  margin: 0 auto;\n  padding: 10px;\n  background: white;\n  display: flex;\n}\n.emoji[data-v-f752e2c8] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-f752e2c8] {\n  font-size: 15px;\n  padding: 10px 15px;\n}\n.form-group[data-v-f752e2c8] {\n  position: relative;\n}\n.fa-paperclip[data-v-f752e2c8] {\n  position: absolute;\n  font-size: 16px;\n  right: 10px;\n  top: 50%;\n  margin-top: -8px;\n}\n", ""]);
+exports.push([module.i, "\n.body[data-v-f752e2c8] {\r\n  background: white;\r\n  position: relative;\r\n  display: flex;\r\n  height: 100vh;\n}\nlabel[data-v-f752e2c8]{\r\n  margin: 0 !important;\r\n  display: block;\n}\n.message[data-v-f752e2c8]{\r\n  font-size: 15px;\r\n  padding:0 15px;\n}\n.chat-body[data-v-f752e2c8] {\r\n  width: 80%;\r\n  height: 100%;\r\n  background: #f7f8fa;\r\n  padding:20px 0;\r\n  position: relative;\n}\n.online[data-v-f752e2c8] {\r\n  height: 100%;\r\n  width: 20%;\r\n  border: 2px solid;\n}\n.send-tab[data-v-f752e2c8] {\r\n  position: fixed;\r\n  bottom: 0;\r\n  width: 80%;\r\n  margin: 0 auto;\r\n  padding: 10px;\r\n  background: white;\r\n  display: flex;\n}\n.emoji[data-v-f752e2c8] {\r\n  position: absolute;\r\n  bottom: 100%;\r\n  overflow: hidden !important;\n}\n.online ul li[data-v-f752e2c8] {\r\n  font-size: 15px;\r\n  padding: 10px 15px;\n}\n.form-group[data-v-f752e2c8] {\r\n  position: relative;\n}\n.fa-paperclip[data-v-f752e2c8] {\r\n  position: absolute;\r\n  font-size: 16px;\r\n  right: 10px;\r\n  top: 50%;\r\n  margin-top: -8px;\n}\r\n", ""]);
 
 // exports
 
@@ -8925,7 +8925,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.my-container[data-v-19998a00]{\n    widows: 100vw;\n}\n.side[data-v-19998a00]{\n    width: 15%;\n    height: 100vh;\n    background: chartreuse;\n}\n.main[data-v-19998a00]{\n    width:85%;\n height: 100vh;\n    overflow: scroll;\n}\n", ""]);
+exports.push([module.i, "\n.my-container[data-v-19998a00]{\r\n    widows: 100vw;\n}\n.side[data-v-19998a00]{\r\n    width: 15%;\r\n    height: 100vh;\r\n    background: chartreuse;\n}\n.main[data-v-19998a00]{\r\n    width:85%;\r\n height: 100vh;\r\n    overflow: scroll;\n}\r\n", ""]);
 
 // exports
 
@@ -8944,7 +8944,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nnav[data-v-8f6887d0] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\ntd[data-v-8f6887d0] {\n  text-transform: capitalize;\n  position:relative;\n}\n.enter[data-v-8f6887d0]{\n  position: absolute;\n  right: 20px;\n  top: 50%;\n  margin-top: -10px;\n}\n.hiden[data-v-8f6887d0] {\n  opacity: 0;\n}\n.nav_box[data-v-8f6887d0] {\n  background-color: #f7f8fa;\n  display: flex;\n  text-align: center;\n  padding: 10px 15px;\n}\n.add[data-v-8f6887d0] {\n  background-color: #f7f8fa;\n}\n.body[data-v-8f6887d0] {\n  padding: 20px 20px 50px;\n  height: 100%;\n}\ntable[data-v-8f6887d0] {\n  font-size: 14.5px;\n}\n", ""]);
+exports.push([module.i, "\nnav[data-v-8f6887d0] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\ntd[data-v-8f6887d0] {\r\n  text-transform: capitalize;\r\n  position:relative;\n}\n.enter[data-v-8f6887d0]{\r\n  position: absolute;\r\n  right: 20px;\r\n  top: 50%;\r\n  margin-top: -10px;\n}\n.hiden[data-v-8f6887d0] {\r\n  opacity: 0;\n}\n.nav_box[data-v-8f6887d0] {\r\n  background-color: #f7f8fa;\r\n  display: flex;\r\n  text-align: center;\r\n  padding: 10px 15px;\n}\n.add[data-v-8f6887d0] {\r\n  background-color: #f7f8fa;\n}\n.body[data-v-8f6887d0] {\r\n  padding: 20px 20px 50px;\r\n  height: 100%;\n}\ntable[data-v-8f6887d0] {\r\n  font-size: 14.5px;\n}\r\n", ""]);
 
 // exports
 
@@ -8963,7 +8963,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.logo[data-v-3bd343a8]{\n    padding: 10px 20px;\n}\n.logo p[data-v-3bd343a8]{\n    font-weight: bold;\n    font-family: 'Josefin Sans';\n    font-size: 24px;\n}\nnav ul li[data-v-3bd343a8]{\n  padding: 10px 20px;\n  font-size: 15px;\n  cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\n.logo[data-v-3bd343a8]{\r\n    padding: 10px 20px;\n}\n.logo p[data-v-3bd343a8]{\r\n    font-weight: bold;\r\n    font-family: 'Josefin Sans';\r\n    font-size: 24px;\n}\nnav ul li[data-v-3bd343a8]{\r\n  padding: 10px 20px;\r\n  font-size: 15px;\r\n  cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
@@ -8982,7 +8982,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-592b988d] {\n}\nform[data-v-592b988d] {\n  width: 70%;\n  margin:0 auto;\n  padding:70px 0;\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-592b988d] {\n}\nform[data-v-592b988d] {\r\n  width: 70%;\r\n  margin:0 auto;\r\n  padding:70px 0;\n}\r\n", ""]);
 
 // exports
 

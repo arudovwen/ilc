@@ -10320,6 +10320,54 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -10360,7 +10408,7 @@ __webpack_require__.r(__webpack_exports__);
           });
         } else {
           _this.$toasted.error("Already in Library", {
-            icon: 'ban',
+            icon: "ban",
             after: false
           });
         }
@@ -17166,7 +17214,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-7c861bc4] {\r\n  padding: 40px 20px 60px;\n}\n.main-content[data-v-7c861bc4] {\r\n  width: 80%;\r\n  margin: 0 auto;\n}\n.top_box[data-v-7c861bc4] {\r\n  background: #f7f8fa;\n}\nul[data-v-7c861bc4],\r\nol[data-v-7c861bc4] {\r\n  list-style: none;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-7c861bc4] {\r\n  padding: 40px 20px 60px;\n}\n.main-content[data-v-7c861bc4] {\r\n  width: 80%;\r\n  margin: 0 auto;\n}\n.top_box[data-v-7c861bc4] {\r\n  background: #f7f8fa;\n}\nul[data-v-7c861bc4],\r\nol[data-v-7c861bc4] {\r\n  list-style: none;\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before {\r\n  padding: 8px;\r\n  color: black;\r\n  content: \"/\\A0\";\n}\r\n", ""]);
 
 // exports
 
@@ -26350,226 +26398,223 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
+  return _c("div", { staticClass: "body" }, [
+    _c(
+      "nav",
+      { staticClass: "mb-5 mt-5" },
+      [
+        _c(
+          "router-link",
+          { attrs: { to: "/admin/student/create" } },
+          [
+            _c("b-button", { staticClass: "shadow-sm", attrs: { block: "" } }, [
+              _vm._v("Add Student")
+            ])
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "router-link",
+          { attrs: { to: "/admin/student/assign" } },
+          [
+            _c("b-button", { staticClass: "shadow-sm", attrs: { block: "" } }, [
+              _vm._v("\r\n          Students\r\n          "),
+              _c("i", {
+                staticClass: "fa fa-arrows-h mx-2",
+                attrs: { "aria-hidden": "true" }
+              }),
+              _vm._v("\r\n          Subjects\r\n        ")
+            ])
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "router-link",
+          { attrs: { to: "/admin/student/assign/class" } },
+          [
+            _c("b-button", { staticClass: "shadow-sm", attrs: { block: "" } }, [
+              _vm._v("\r\n          Students\r\n          "),
+              _c("i", {
+                staticClass: "fa fa-arrows-h mx-2",
+                attrs: { "aria-hidden": "true" }
+              }),
+              _vm._v("\r\n          Class\r\n        ")
+            ])
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "b-button",
+          {
+            staticClass: "shadow-sm",
+            attrs: { block: "" },
+            on: { click: _vm.multiDrop }
+          },
+          [_vm._v("Multi-Drop")]
+        )
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "classes my-5" }, [
+      _c("h4", { staticClass: "mb-3" }, [_vm._v("Class List")]),
+      _vm._v(" "),
       _c(
-        "b-container",
+        "div",
+        { staticClass: "class_list" },
         [
           _c(
-            "b-row",
-            [
-              _c(
-                "b-col",
-                {
-                  staticClass: "dashboard-content-side",
-                  attrs: { cols: "10" }
-                },
-                [
+            "b-button",
+            {
+              staticClass: "shadow-sm",
+              on: {
+                click: function($event) {
+                  return _vm.selectClass("")
+                }
+              }
+            },
+            [_vm._v("All")]
+          ),
+          _vm._v(" "),
+          _vm._l(_vm.allClass, function(item, idx) {
+            return _c(
+              "b-button",
+              {
+                key: idx,
+                staticClass: "shadow-sm",
+                on: {
+                  click: function($event) {
+                    return _vm.selectClass(item.class_name)
+                  }
+                }
+              },
+              [_vm._v(_vm._s(item.class_name.toLowerCase()))]
+            )
+          })
+        ],
+        2
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      [
+        _c("h4", { staticClass: "toCaps mb-4" }, [
+          _vm._v(
+            "Showing : " +
+              _vm._s(_vm.current == "" ? "All" : _vm.current.toLowerCase())
+          )
+        ]),
+        _vm._v(" "),
+        _c("b-table", {
+          attrs: {
+            items: _vm.sortedStudents,
+            fields: _vm.fields,
+            hover: "",
+            bordered: "",
+            responsive: ""
+          },
+          scopedSlots: _vm._u([
+            {
+              key: "table-busy",
+              fn: function() {
+                return [
                   _c(
                     "div",
-                    { staticClass: "table-side" },
+                    { staticClass: "text-center my-2" },
                     [
-                      _c("div", { staticClass: "sort-section" }, [
-                        _c("i", { staticClass: "icon-sort" }),
-                        _c("span", [_vm._v("Sort by")])
-                      ]),
+                      _c("b-spinner", { staticClass: "align-middle" }),
                       _vm._v(" "),
-                      _c("b-table", {
-                        attrs: { striped: "", hover: "", items: _vm.items }
-                      }),
-                      _vm._v(" "),
-                      _c("h1", [_vm._v("Testing table page")])
+                      _c("strong", [_vm._v("Loading...")])
                     ],
                     1
                   )
                 ]
-              ),
-              _vm._v(" "),
-              _c(
-                "b-col",
-                { staticClass: "notification-side", attrs: { cols: "2" } },
-                [
-                  _c("div", { staticClass: "notify-side" }, [
-                    _c(
-                      "div",
-                      { staticClass: "notify-modal" },
-                      [
-                        _c(
-                          "b-button",
-                          {
-                            directives: [
-                              {
-                                name: "b-modal",
-                                rawName: "v-b-modal.modal-1",
-                                modifiers: { "modal-1": true }
-                              }
-                            ],
-                            staticClass: "reg-btn"
-                          },
-                          [_vm._v("ADD STUDENT")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "b-modal",
-                          { attrs: { id: "modal-1", title: "Create Admin" } },
-                          [
-                            _c(
-                              "b-form",
-                              [
-                                _c(
-                                  "b-container",
-                                  [
-                                    _c(
-                                      "b-form-group",
-                                      {
-                                        attrs: {
-                                          id: "input-group-1",
-                                          label: "Name",
-                                          "label-for": "input-1"
-                                        }
-                                      },
-                                      [
-                                        _c("b-form-input", {
-                                          attrs: {
-                                            id: "input-1",
-                                            type: "text",
-                                            required: "",
-                                            placeholder: ""
-                                          }
-                                        })
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "b-form-group",
-                                      {
-                                        attrs: {
-                                          id: "input-group-1",
-                                          label: "Email",
-                                          "label-for": "input-1"
-                                        }
-                                      },
-                                      [
-                                        _c("b-form-input", {
-                                          attrs: {
-                                            id: "input-1",
-                                            type: "email",
-                                            required: "",
-                                            placeholder: ""
-                                          }
-                                        })
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "b-form-row",
-                                      [
-                                        _c(
-                                          "b-col",
-                                          [
-                                            _c(
-                                              "b-form-group",
-                                              {
-                                                attrs: {
-                                                  id: "input-group-6",
-                                                  label: "Email",
-                                                  "label-for": "input-6"
-                                                }
-                                              },
-                                              [
-                                                _c("b-form-input", {
-                                                  attrs: {
-                                                    id: "input-6",
-                                                    type: "email",
-                                                    required: "",
-                                                    placeholder: ""
-                                                  }
-                                                })
-                                              ],
-                                              1
-                                            )
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "b-col",
-                                          [
-                                            _c(
-                                              "b-form-group",
-                                              {
-                                                attrs: {
-                                                  id: "input-group-4",
-                                                  label: "Phone",
-                                                  "label-for": "input-4"
-                                                }
-                                              },
-                                              [
-                                                _c("b-form-input", {
-                                                  attrs: {
-                                                    id: "input-4",
-                                                    type: "text",
-                                                    placeholder: ""
-                                                  }
-                                                })
-                                              ],
-                                              1
-                                            )
-                                          ],
-                                          1
-                                        )
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "b-form-group",
-                                      {
-                                        attrs: {
-                                          id: "input-group-1",
-                                          label: "Role",
-                                          "label-for": "input-1"
-                                        }
-                                      },
-                                      [
-                                        _c("b-form-input", {
-                                          attrs: {
-                                            id: "input-1",
-                                            type: "text",
-                                            required: "",
-                                            placeholder: ""
-                                          }
-                                        })
-                                      ],
-                                      1
-                                    )
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ])
+              },
+              proxy: true
+            },
+            {
+              key: "cell(actions)",
+              fn: function(data) {
+                return [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "mr-3",
+                      on: {
+                        click: function($event) {
+                          return _vm.view(_vm.item.id)
+                        }
+                      }
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-eye" }),
+                      _vm._v("View\r\n          ")
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      staticClass: "mr-3",
+                      on: {
+                        click: function($event) {
+                          return _vm.drop(data.item.id)
+                        }
+                      }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fa fa-minus-circle",
+                        attrs: { "aria-hidden": "true" }
+                      }),
+                      _vm._v(" Drop\r\n          ")
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.edit(data.item.id)
+                        }
+                      }
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-edit" }),
+                      _vm._v("Update\r\n          ")
+                    ]
+                  )
                 ]
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
+              }
+            },
+            {
+              key: "cell(drop)",
+              fn: function(data) {
+                return [
+                  _c("b-form-checkbox", {
+                    attrs: { value: data.item.id },
+                    model: {
+                      value: _vm.items,
+                      callback: function($$v) {
+                        _vm.items = $$v
+                      },
+                      expression: "items"
+                    }
+                  })
+                ]
+              }
+            }
+          ])
+        })
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -37471,135 +37516,124 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "body" }, [
-    _c("h3", { staticClass: "text-center mb-4" }, [
-      _vm._v("Available Resources")
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "main-content" },
-      _vm._l(_vm.resources, function(item, idx) {
-        return _c(
-          "div",
-          {
-            key: idx,
-            staticClass: "mb-3",
-            on: {
-              click: function($event) {
-                return _vm.gotoHer(item.id)
-              }
-            }
-          },
-          [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "top_box d-flex justify-content-between align-items-center p-3"
-              },
-              [
-                _c("p", { staticClass: "m-0 toCaps" }, [
-                  _vm._v(_vm._s(item.module))
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "d-flex align-items-center" }, [
-                  _c("p", { staticClass: "m-0 mr-5 toCaps" }, [
-                    _vm._v(_vm._s(item.subject))
-                  ]),
-                  _vm._v(" "),
-                  _c("i", {
-                    staticClass: "fa fa-plus-circle",
-                    attrs: { "aria-hidden": "true" }
-                  })
-                ])
-              ]
-            ),
+  return _c(
+    "div",
+    { staticClass: "student-resource" },
+    [
+      _c("h3", [_vm._v("English Language Resource")]),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
+      _c("img", {
+        staticClass: "text-center img-fluid",
+        attrs: { src: "/images/english-lit.jpg", alt: "english" }
+      }),
+      _vm._v(" "),
+      _c("b-container", [
+        _c("div", { staticClass: "what-you will learn" }, [
+          _c("h4", [_vm._v("Within this lesson you will learn:")]),
+          _vm._v(" "),
+          _c("ul", [
+            _c("li", [_vm._v("User-Centered Design")]),
             _vm._v(" "),
-            _vm.opened.includes(idx)
-              ? _c("div", { staticClass: "py-2 px-3 border" }, [
+            _c("li", [_vm._v("User-Centered Design")]),
+            _vm._v(" "),
+            _c("li", [_vm._v("User-Centered Design")]),
+            _vm._v(" "),
+            _c("li", [_vm._v("User-Centered Design")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "module-overview" }, [
+          _c("p", [
+            _vm._v(
+              "\n        Hi and welcome to Lesson 1 of User Experience: The Beginners Guide!\n        In this lesson, we will provide you with an introduction to 'User Experience' and its key concepts.\n        Here, we will give you an overview of what user experience is, and why you should care about it. We will explain what is covered by the term ‘user experience’ as well as introduce you to what it means to work in a user-centered process.\n        This sounds very straightforward – but, unfortunately, there are as many opinions about the definition of 'User Experience' as there are definitions of the meaning of life...\n        We think it’s counterproductive to try to find the authoritative definition of 'User Experience'. It would be much more productive to find a definition that works well for yourself and the specific product you are designing.\n        In order to help you on your way with developing your own understanding of UX, we’ll provide you with a proper overview of some of the best definitions and key terms. During this first lesson, we introduce some of the key terms and concepts as well as a bit about the history of UX.\n      "
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "resource-question" }, [
+          _c("h4", [_vm._v("Answer These Question")]),
+          _vm._v(" "),
+          _c("h6", { staticClass: "question" }, [
+            _vm._v("in this lesson we will provide you with?")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            [
+              _c(
+                "b-form-group",
+                { attrs: { label: "" } },
+                [
                   _c(
-                    "ul",
-                    { staticClass: "bg-white" },
-                    _vm._l(JSON.parse(item.content), function(content, index) {
-                      return _c(
-                        "li",
-                        { key: index, staticClass: "border-bottom" },
-                        [
-                          _c("div", [
-                            _c("span", [_vm._v(_vm._s(content.title))]),
-                            _vm._v(" "),
-                            _c("span", { staticClass: "ml-3" }, [
-                              content.type == "video"
-                                ? _c("i", {
-                                    staticClass: "fa fa-play-circle",
-                                    attrs: { "aria-hidden": "true" }
-                                  })
-                                : _vm._e(),
-                              _vm._v(" "),
-                              content.type == "pdf"
-                                ? _c("i", {
-                                    staticClass: "fa fa-file-pdf-o",
-                                    attrs: { "aria-hidden": "true" }
-                                  })
-                                : _vm._e(),
-                              _vm._v(" "),
-                              content.type == "audio"
-                                ? _c("i", {
-                                    staticClass: "fa fa-volume-up",
-                                    attrs: { "aria-hidden": "true" }
-                                  })
-                                : _vm._e(),
-                              _vm._v(" "),
-                              content.type == "ppt"
-                                ? _c("i", {
-                                    staticClass: "fa fa-file-powerpoint-o",
-                                    attrs: { "aria-hidden": "true" }
-                                  })
-                                : _vm._e(),
-                              _vm._v(" "),
-                              item.content == "csv"
-                                ? _c("i", { staticClass: "fas fa-file-csv" })
-                                : _vm._e()
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "px-3" }, [
-                            _c("strong", [_vm._v("Overview")]),
-                            _vm._v(" "),
-                            _c("p", [_vm._v(_vm._s(content.overview))])
-                          ])
-                        ]
-                      )
-                    }),
-                    0
+                    "b-form-radio",
+                    {
+                      attrs: { name: "some-radios", value: "A" },
+                      model: {
+                        value: _vm.selected,
+                        callback: function($$v) {
+                          _vm.selected = $$v
+                        },
+                        expression: "selected"
+                      }
+                    },
+                    [_vm._v("Option A")]
                   ),
                   _vm._v(" "),
-                  _c("div", { staticClass: "text-right" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            return _vm.addtolibrary(idx)
-                          }
-                        }
-                      },
-                      [_vm._v("Add to library")]
-                    )
-                  ])
-                ])
-              : _vm._e()
-          ]
-        )
-      }),
-      0
-    )
-  ])
+                  _c(
+                    "b-form-radio",
+                    {
+                      attrs: { name: "some-radios", value: "B" },
+                      model: {
+                        value: _vm.selected,
+                        callback: function($$v) {
+                          _vm.selected = $$v
+                        },
+                        expression: "selected"
+                      }
+                    },
+                    [_vm._v("Option B")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("b-button", [_vm._v("SUBMIT")])
+            ],
+            1
+          )
+        ])
+      ])
+    ],
+    1
+  )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", { staticClass: "breadcrumb" }, [
+      _c("li", [
+        _c("a", { attrs: { href: "#" } }, [_vm._v("English Language")])
+      ]),
+      _vm._v(" "),
+      _c("li", [_vm._v("Module 1.1")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h2", [
+      _vm._v("\n    1.1\n    "),
+      _c("span", [_vm._v("COMPREHENSION/UNDERSTANDING")])
+    ])
+  }
+]
 render._withStripped = true
 
 

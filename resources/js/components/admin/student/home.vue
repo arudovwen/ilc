@@ -1,5 +1,5 @@
 <template>
-<div>
+<!-- <div>
     <b-container>
       <b-row>
         <b-col cols="10" class="dashboard-content-side">
@@ -57,10 +57,10 @@
         </b-col>
       </b-row>
     </b-container>
-</div>
+</div> -->
 
-  <!-- <div class="body">
-    <nav class="mb-5">
+  <div class="body">
+    <nav class="mb-5 mt-5">
       <router-link to="/admin/student/create">
         <b-button block class="shadow-sm">Add Student</b-button>
       </router-link>
@@ -121,7 +121,7 @@
         </template>
       </b-table>
     </div>
-  </div> -->
+  </div>
 </template>
 
 

@@ -61,6 +61,6 @@ export default {
 <style scoped>
 .semi-white {
   background: #f0f1f1;
-  padding-top: 5rem;
+ margin-top:66px;
 }
 </style>

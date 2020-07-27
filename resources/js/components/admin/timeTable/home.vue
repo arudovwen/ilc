@@ -2,9 +2,9 @@
   <div class="body">
     <nav class="mb-5">
       <router-link to="/admin/time-table">
-        <b-button block class="shadow-sm">Create TimesTable</b-button>
+        <b-button block class="shadow-sm reg-btn">Create TimesTable</b-button>
       </router-link>
-      <b-button block class="shadow-sm" @click="multiDrop">Multi-Drop</b-button>
+      <!-- <b-button block class="shadow-sm" @click="multiDrop">Multi-Drop</b-button> -->
 
       <b-button block class="shadow-sm hiden">Assign Course</b-button>
 

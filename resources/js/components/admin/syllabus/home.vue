@@ -2,11 +2,11 @@
   <div class="body">
     <nav class="mb-5">
       <router-link to="/admin/syllabus">
-        <b-button class=" shadow-sm">
+        <b-button class=" shadow-sm reg-btn">
          Create Syllabus     
         </b-button>
       </router-link>
-      <b-button class=" shadow-sm"  @click="multiDrop">
+      <b-button class=" shadow-sm reg-btn"  @click="multiDrop">
        Multi-Drop
       
       </b-button>
@@ -25,6 +25,8 @@
     </nav>
 
   
+
+   <h3 class="mb-4">All Syllabus</h3>
       <b-table :items="syllabus" :fields="fields" hover bordered>
         <template v-slot:cell(action)="data">
        

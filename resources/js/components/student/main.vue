@@ -152,6 +152,7 @@ nav {
 }
 #notification {
   position: relative;
+   z-index: 999;
 }
 .notification-body {
   position: absolute;

@@ -2,7 +2,7 @@
   <div class="body">
     <nav class="mb-5">
       <router-link to="/admin/curriculum/create">
-        <b-button class="shadow-sm">
+        <b-button class="shadow-sm reg-btn">
           Create Curriculum
         
         </b-button>
@@ -21,6 +21,8 @@
       </div>
     </nav>
   
+
+   <h3 class="mb-4">All Curriculum</h3>
       <b-table :items="curriculum" :fields="fields" hover bordered>
         <template v-slot:cell(action)="data">
        

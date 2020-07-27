@@ -21,6 +21,7 @@
       </div>
     </nav>
 
+ <h3 class="mb-4">All Subjects</h3>
     <div class="d-flex justify-content-between">
           <b-table :items="subjects" :fields="fields" hover bordered>
         <template v-slot:cell(action)="data">

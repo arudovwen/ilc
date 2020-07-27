@@ -1,5 +1,5 @@
 <template>
-<div>
+<!-- <div>
     <b-container>
       <b-row>
         <b-col cols="10" class="dashboard-content-side">
@@ -57,29 +57,29 @@
         </b-col>
       </b-row>
     </b-container>
-</div>
+</div> -->
 
-  <!-- <div class="body">
+ <div class="body">
     <nav class="mb-5">
       <router-link to="/admin/student/create">
-        <b-button block class="shadow-sm">Add Student</b-button>
+        <b-button block class="shadow-sm reg-btn">Add Student</b-button>
       </router-link>
 
       <router-link to="/admin/student/assign">
-        <b-button block class="shadow-sm">
+        <b-button block class="shadow-sm reg-btn">
           Students
           <i class="fa fa-arrows-h mx-2" aria-hidden="true"></i>
           Subjects
         </b-button>
       </router-link>
       <router-link to="/admin/student/assign/class">
-        <b-button block class="shadow-sm">
+        <b-button block class="shadow-sm reg-btn">
           Students
           <i class="fa fa-arrows-h mx-2" aria-hidden="true"></i>
           Class
         </b-button>
       </router-link>
-      <b-button block class="shadow-sm" @click="multiDrop">Multi-Drop</b-button>
+      <b-button block class="shadow-sm reg-btn" @click="multiDrop">Multi-Drop</b-button>
     </nav>
 
     <div class="classes my-5">
@@ -121,7 +121,7 @@
         </template>
       </b-table>
     </div>
-  </div> -->
+  </div>
 </template>
 
 

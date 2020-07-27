@@ -9,6 +9,7 @@
       <b-button class="shadow-sm" @click="multiDrop">Multi-Drop</b-button>
     </nav>
 
+   <h3 class="mb-4">All Classes</h3>
     <div class="d-flex justify-content-between">
       <b-table :items="classes" :fields="fields" hover bordered>
         <template v-slot:cell(action)="data">

@@ -25,8 +25,8 @@
           <router-link to="/admin/administrators" class="nav-item "><span class="icon-admin"></span><li>Admin</li></router-link>
             <router-link to="/admin/tutors" class="nav-item "><span class="icon-teacher"></span><li>Teacher</li></router-link>
               <router-link to="/admin/students" class="nav-item "><span class="icon-students"></span><li>Student</li></router-link>
-                <router-link to="/admin/classes/years" class="nav-item "><span class="icon-edit"></span><li>Subject</li></router-link>
-                  <router-link to="/admin/courses" class="nav-item "><span class="icon-education"></span><li>Classes</li></router-link>
+                <router-link to="/admin/courses" class="nav-item "><span class="icon-edit"></span><li>Subject</li></router-link>
+                  <router-link to="/admin/classes/years" class="nav-item "><span class="icon-education"></span><li>Classes</li></router-link>
                     <router-link to="/admin/curriculum/home" class="nav-item "><span class="icon-edit"></span><li>Curriculum</li></router-link>
                       <router-link to="/admin/syllabus/home" class="nav-item "><span class="icon-education"></span><li>Syllabus</li></router-link>
                          <router-link to="/admin/assessment" class="nav-item "><span class="icon-edit"></span><li>Assessments</li></router-link>

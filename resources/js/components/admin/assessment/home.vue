@@ -4,6 +4,7 @@
       <b-button class="mb-4">Create New Quiz</b-button>
     </router-link> -->
     <b-container>
+         <h3 class="mb-4">All Assessments</h3>
       <b-row>
         <b-col>
           <b-table :fields="fields" :items="items">

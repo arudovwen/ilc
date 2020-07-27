@@ -90,7 +90,7 @@
                           </p>
                         </div>
                       </div>
-                      <p class="bottom-card-link pull-right">View all Lessons</p>
+                    <router-link to="/admin/time-table/home">  <p class="bottom-card-link pull-right text-black-50">View all Lessons</p></router-link>
                     </b-card>
                   </div>
                 </b-col>

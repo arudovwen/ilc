@@ -23,17 +23,18 @@ export default {
   display: flex;
 }
 .side {
- width: 20%;
+ width: 15%;
     height: 100vh;
     background: #ffffff;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     position: fixed;
+    top:6rem;
   
 }
 .main {
-  width: 80%;
+  width: 85%;
   height: 100vh;
   position: absolute;
-  margin-left: 266px;
+  right: 0;
 }
 </style>

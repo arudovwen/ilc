@@ -66,6 +66,80 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -113,7 +187,7 @@ __webpack_require__.r(__webpack_exports__);
 
                 _this.$toasted.success("Logged in Sucessfully", {
                   icon: {
-                    name: 'fingerprint'
+                    name: "fingerprint"
                   }
                 });
 
@@ -128,7 +202,7 @@ __webpack_require__.r(__webpack_exports__);
             })["catch"](function (error) {
               _this.$toasted.error("Invalid credentials", {
                 icon: {
-                  name: 'user-times'
+                  name: "user-times"
                 }
               });
 
@@ -138,7 +212,7 @@ __webpack_require__.r(__webpack_exports__);
         })["catch"](function (error) {
           _this.$toasted.error("Invalid credentials", {
             icon: {
-              name: 'user-times'
+              name: "user-times"
             }
           });
 
@@ -172,7 +246,7 @@ __webpack_require__.r(__webpack_exports__);
 
                 _this.$toasted.success("Logged in Sucessfully", {
                   icon: {
-                    name: 'fingerprint'
+                    name: "fingerprint"
                   }
                 });
 
@@ -183,7 +257,7 @@ __webpack_require__.r(__webpack_exports__);
 
               _this.$toasted.error("Invalid credentials", {
                 icon: {
-                  name: 'user-times'
+                  name: "user-times"
                 }
               });
 
@@ -195,7 +269,7 @@ __webpack_require__.r(__webpack_exports__);
 
           _this.$toasted.error("Invalid credentials", {
             icon: {
-              name: 'user-times'
+              name: "user-times"
             }
           });
 
@@ -220,7 +294,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nlabel[data-v-6aa0b866]{\n      position: relative;\n    margin-bottom: 0;\n    vertical-align: top;\n    font-size: 1.25rem;\n    line-height: 1.5;\n}\n.text-muted[data-v-6aa0b866]{\n  color: rgba(0, 0, 0, 0.4) !important;\n}\n", ""]);
+exports.push([module.i, "\nlabel[data-v-6aa0b866] {\r\n  position: relative;\r\n  margin-bottom: 0;\r\n  vertical-align: top;\r\n  font-size: 1.25rem;\r\n  line-height: 1.5;\n}\n.text-muted[data-v-6aa0b866] {\r\n  color: rgba(0, 0, 0, 0.4) !important;\n}\r\n", ""]);
 
 // exports
 
@@ -272,175 +346,177 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", {}, [
-    _c("div", { staticClass: "register-section" }, [
-      _vm._m(0),
-      _vm._v(" "),
+  return _c(
+    "div",
+    { staticClass: "main-login" },
+    [
       _c(
-        "div",
-        { staticClass: "form-side" },
+        "b-container",
         [
-          _c("h2", { staticClass: "text-center" }, [_vm._v("LOGIN")]),
-          _vm._v(" "),
           _c(
-            "b-container",
-            { staticClass: "bv-example-row" },
+            "b-row",
             [
+              _c("b-col", [
+                _c("img", {
+                  attrs: { src: "/images/footer-logo.png", alt: "" }
+                })
+              ]),
+              _vm._v(" "),
               _c(
-                "b-form",
-                {
-                  on: {
-                    submit: function($event) {
-                      $event.preventDefault()
-                      return _vm.submit($event)
-                    }
-                  }
-                },
+                "b-col",
                 [
-                  _c(
-                    "b-form-row",
-                    [
-                      _c(
-                        "b-col",
-                        {
-                          staticClass:
-                            "text-center d-flex align-items-center justify-content-center"
-                        },
-                        [
-                          _c(
-                            "label",
-                            {
-                              staticClass: " mr-3",
-                              class: { "text-muted": _vm.user.type }
-                            },
-                            [_vm._v(" Student")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-checkbox",
-                            {
-                              class: { "text-muted": !_vm.user.type },
-                              attrs: { switch: "", size: "lg" },
-                              model: {
-                                value: _vm.user.type,
-                                callback: function($$v) {
-                                  _vm.$set(_vm.user, "type", $$v)
-                                },
-                                expression: "user.type"
-                              }
-                            },
-                            [_vm._v("Tutor")]
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-form-row",
-                    [
-                      _c(
-                        "b-col",
-                        [
-                          _c(
-                            "b-form-group",
-                            {
-                              attrs: {
-                                id: "input-group-2",
-                                label: "Email ",
-                                "label-for": "input-2"
-                              }
-                            },
-                            [
-                              _c("b-form-input", {
-                                attrs: {
-                                  id: "input-8",
-                                  type: "email",
-                                  required: "",
-                                  placeholder: ""
-                                },
-                                model: {
-                                  value: _vm.user.email,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.user, "email", $$v)
-                                  },
-                                  expression: "user.email"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-group",
-                            {
-                              attrs: {
-                                id: "input-group-3",
-                                label: "Password",
-                                "label-for": "input-3"
-                              }
-                            },
-                            [
-                              _c("b-form-input", {
-                                attrs: {
-                                  id: "input-3",
-                                  type: "password",
-                                  required: "",
-                                  placeholder: ""
-                                },
-                                model: {
-                                  value: _vm.user.password,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.user, "password", $$v)
-                                  },
-                                  expression: "user.password"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    { staticClass: "reg-btn", attrs: { type: "submit" } },
-                    [
-                      _vm._v(
-                        _vm._s(_vm.user.type ? "TUTOR" : "STUDENT") + " LOGIN "
-                      ),
-                      _vm.spin
-                        ? _c("b-spinner", {
-                            staticClass: "ml-2",
-                            attrs: {
-                              variant: "",
-                              small: "",
-                              label: "small spinner",
-                              type: "grow"
-                            }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "form-txt my-3" }, [
-                    _vm._v(
-                      "\n           Don't have an account??\n            "
-                    ),
+                  _c("b-card", { staticClass: "login-card" }, [
+                    _c("h4", { staticClass: "text-center" }, [
+                      _vm._v("LOG IN")
+                    ]),
+                    _vm._v(" "),
                     _c(
-                      "span",
+                      "div",
                       [
                         _c(
-                          "router-link",
-                          { attrs: { to: "/school/register" } },
-                          [_vm._v("Register")]
+                          "b-tabs",
+                          { attrs: { "content-class": "mt-3" } },
+                          [
+                            _c(
+                              "b-tab",
+                              { attrs: { title: "Student", active: "" } },
+                              [
+                                _c(
+                                  "b-form",
+                                  { staticClass: "login-form" },
+                                  [
+                                    _c(
+                                      "b-form-group",
+                                      {
+                                        attrs: {
+                                          id: "input-group-1",
+                                          label: "Email"
+                                        }
+                                      },
+                                      [
+                                        _c("b-form-input", {
+                                          attrs: {
+                                            id: "input-1",
+                                            type: "email",
+                                            required: ""
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "b-form-group",
+                                      {
+                                        attrs: {
+                                          id: "input-group-2",
+                                          label: "Password"
+                                        }
+                                      },
+                                      [
+                                        _c("b-form-input", {
+                                          attrs: {
+                                            id: "input-2",
+                                            type: "password",
+                                            required: ""
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "button",
+                                          {
+                                            staticClass: "reg-btn",
+                                            attrs: { type: "submit" }
+                                          },
+                                          [_vm._v("STUDENT")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "a",
+                                          {
+                                            staticClass: "s",
+                                            attrs: { href: "" }
+                                          },
+                                          [_vm._v("forgot Password?")]
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-tab",
+                              { attrs: { title: "Tutor" } },
+                              [
+                                _c(
+                                  "b-form",
+                                  { staticClass: "login-form" },
+                                  [
+                                    _c(
+                                      "b-form-group",
+                                      {
+                                        attrs: {
+                                          id: "input-group-1",
+                                          label: "Email"
+                                        }
+                                      },
+                                      [
+                                        _c("b-form-input", {
+                                          attrs: {
+                                            id: "input-1",
+                                            type: "email",
+                                            required: ""
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "b-form-group",
+                                      {
+                                        attrs: {
+                                          id: "input-group-2",
+                                          label: "Password"
+                                        }
+                                      },
+                                      [
+                                        _c("b-form-input", {
+                                          attrs: {
+                                            id: "input-2",
+                                            type: "password",
+                                            required: ""
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "button",
+                                          {
+                                            staticClass: "reg-btn",
+                                            attrs: { type: "submit" }
+                                          },
+                                          [_vm._v("TUTOR")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("a", { attrs: { href: "" } }, [
+                                          _vm._v("forgot password?")
+                                        ])
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
                         )
                       ],
                       1
@@ -455,27 +531,11 @@ var render = function() {
         ],
         1
       )
-    ])
-  ])
+    ],
+    1
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "img-side" }, [
-      _c("div", { staticClass: "header-logo text-center" }, [
-        _c("img", { attrs: { src: "/images/logo-ilc-single.png", alt: "" } }),
-        _vm._v(" "),
-        _c("h6", [_vm._v("IMO STATE LEARNING CENTER")])
-      ]),
-      _vm._v(" "),
-      _c("h2", [_vm._v("Welcome!!!!!")]),
-      _vm._v(" "),
-      _c("div", [_vm._v("© Copyright 2020 Couer")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

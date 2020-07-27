@@ -29,6 +29,7 @@ import 'vue-waves-button/waves.css';
 import '../sass/app.scss';
 
 
+
 Vue.use(VueChatScroll)
 
 Vue.use(VueWaves, {

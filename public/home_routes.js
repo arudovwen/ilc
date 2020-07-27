@@ -8084,6 +8084,75 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -30811,7 +30880,184 @@ var render = function() {
       _vm._v(" "),
       _vm._m(6),
       _vm._v(" "),
-      _vm._m(7)
+      _c(
+        "div",
+        { staticClass: "pricing" },
+        [
+          _vm._m(7),
+          _vm._v(" "),
+          _c(
+            "b-container",
+            [
+              _c(
+                "b-row",
+                [
+                  _c(
+                    "b-col",
+                    [
+                      _c(
+                        "b-card",
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "pricing-header text-center" },
+                            [
+                              _c("h5", [_vm._v("Private")]),
+                              _vm._v(" "),
+                              _c("p", { staticClass: "pricing-amount" }, [
+                                _vm._v("N5000")
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [_vm._v("per month")])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-list-group",
+                            [
+                              _c("b-list-group-item", [
+                                _vm._v("Admin Dashboard")
+                              ]),
+                              _vm._v(" "),
+                              _c("b-list-group-item", [
+                                _vm._v("Student Dashboard")
+                              ]),
+                              _vm._v(" "),
+                              _c("b-list-group-item", [
+                                _vm._v("Teachers Dashboard")
+                              ]),
+                              _vm._v(" "),
+                              _c("b-list-group-item", [
+                                _vm._v("Discussion Forum")
+                              ]),
+                              _vm._v(" "),
+                              _c("b-list-group-item", [
+                                _vm._v("Schedule Planning")
+                              ])
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    [
+                      _c(
+                        "b-card",
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "pricing-header text-center" },
+                            [
+                              _c("h5", [_vm._v("Faith Based")]),
+                              _vm._v(" "),
+                              _c("p", { staticClass: "pricing-amount" }, [
+                                _vm._v("N5000")
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [_vm._v("per month")])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-list-group",
+                            [
+                              _c("b-list-group-item", [
+                                _vm._v("Admin Dashboard")
+                              ]),
+                              _vm._v(" "),
+                              _c("b-list-group-item", [
+                                _vm._v("Student Dashboard")
+                              ]),
+                              _vm._v(" "),
+                              _c("b-list-group-item", [
+                                _vm._v("Teachers Dashboard")
+                              ]),
+                              _vm._v(" "),
+                              _c("b-list-group-item", [
+                                _vm._v("Discussion Forum")
+                              ]),
+                              _vm._v(" "),
+                              _c("b-list-group-item", [
+                                _vm._v("Schedule Planning")
+                              ])
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    [
+                      _c(
+                        "b-card",
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "pricing-header text-center" },
+                            [
+                              _c("h5", [_vm._v("Public")]),
+                              _vm._v(" "),
+                              _c("p", { staticClass: "pricing-amount" }, [
+                                _vm._v("N5000")
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [_vm._v("per month")])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-list-group",
+                            [
+                              _c("b-list-group-item", [
+                                _vm._v("Admin Dashboard")
+                              ]),
+                              _vm._v(" "),
+                              _c("b-list-group-item", [
+                                _vm._v("Student Dashboard")
+                              ]),
+                              _vm._v(" "),
+                              _c("b-list-group-item", [
+                                _vm._v("Teachers Dashboard")
+                              ]),
+                              _vm._v(" "),
+                              _c("b-list-group-item", [
+                                _vm._v("Discussion Forum")
+                              ]),
+                              _vm._v(" "),
+                              _c("b-list-group-item", [
+                                _vm._v("Schedule Planning")
+                              ])
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm._m(8)
     ],
     1
   )
@@ -30923,9 +31169,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h1", [
-      _vm._v("EDUCATION IN IMO STATE "),
+      _vm._v("\n        EDUCATION IN IMO STATE\n        "),
       _c("br"),
-      _vm._v("\n                    HAS A NEW FACE\n                    ")
+      _vm._v("HAS A NEW FACE\n      ")
     ])
   },
   function() {
@@ -30946,7 +31192,7 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("p", [
             _vm._v(
-              "Education in imo state has brought a new face with the help of the goverment we hop in achiveing great thing with student ,\n                    tutors and parents alike. we hope that this new face achieves great things and put the students of imo state at the forefront of education in nigeria.\n                     God bless the people of imo state"
+              "\n          Education in imo state has brought a new face with the help of the goverment we hop in achiveing great thing with student ,\n          tutors and parents alike. we hope that this new face achieves great things and put the students of imo state at the forefront of education in nigeria.\n          God bless the people of imo state\n        "
             )
           ])
         ]),
@@ -30985,7 +31231,7 @@ var staticRenderFns = [
                 _vm._v(" "),
                 _c("p", [
                   _vm._v(
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. \n                            Lorem Ipsum has been the industry's \n                            standard dummy text ever since the 1500s,\n                            "
+                    "\n                Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n                Lorem Ipsum has been the industry's\n                standard dummy text ever since the 1500s,\n              "
                   )
                 ]),
                 _vm._v(" "),
@@ -31010,7 +31256,7 @@ var staticRenderFns = [
                 _vm._v(" "),
                 _c("p", [
                   _vm._v(
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. \n                           Lorem Ipsum has been the industry's \n                           standard dummy text ever since the 1500s,\n                        "
+                    "\n                Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n                Lorem Ipsum has been the industry's\n                standard dummy text ever since the 1500s,\n              "
                   )
                 ]),
                 _vm._v(" "),
@@ -31035,7 +31281,7 @@ var staticRenderFns = [
                 _vm._v(" "),
                 _c("p", [
                   _vm._v(
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. \n                           Lorem Ipsum has been the industry's \n                           standard dummy text ever since the 1500s,\n                        "
+                    "\n                Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n                Lorem Ipsum has been the industry's\n                standard dummy text ever since the 1500s,\n              "
                   )
                 ]),
                 _vm._v(" "),
@@ -31061,7 +31307,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "sponsors " }, [
+    return _c("div", { staticClass: "sponsors" }, [
       _c("div", { staticClass: "text-center heading mb-5" }, [
         _c("h2", { staticClass: "mb-0" }, [_vm._v("Our Sponsors")]),
         _vm._v(" "),
@@ -31090,6 +31336,19 @@ var staticRenderFns = [
           ])
         ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-center heading mb-5" }, [
+      _c("h2", { staticClass: "mb-0" }, [_vm._v("Pricing Plan")]),
+      _vm._v(" "),
+      _c("img", {
+        staticClass: "img-fluid",
+        attrs: { src: "/images/after-img.png", alt: "" }
+      })
     ])
   },
   function() {

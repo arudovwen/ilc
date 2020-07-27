@@ -224,6 +224,15 @@ a:hover{
     font-weight: 700;
     margin-bottom: 1.5rem;
 }
+.pricing h2{
+    font-weight: 700;
+    margin-top: 5rem;
+}
+.pricing-header .pricing-amount{
+    font-weight: 600;
+    font-size: 36px;
+    color: var(--primary-btn);
+}
 .footer{
     margin-top: 2rem;
     background: url(/images/footer-img-1.png) no-repeat;

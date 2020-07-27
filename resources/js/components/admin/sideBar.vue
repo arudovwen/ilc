@@ -29,15 +29,10 @@
                   <router-link to="/admin/courses" class="nav-item "><span class="icon-education"></span><li>Classes</li></router-link>
                     <router-link to="/admin/curriculum/home" class="nav-item "><span class="icon-edit"></span><li>Curriculum</li></router-link>
                       <router-link to="/admin/syllabus/home" class="nav-item "><span class="icon-education"></span><li>Syllabus</li></router-link>
-                       <router-link to="/admin/assessment">
-          <div class="nav-item">
-            <span>
-              <img src="/images/subject-svg.png" class="img-fluid" alt />
-            </span>
-            <li>Assessments</li>
-          </div>
-        </router-link>
+                         <router-link to="/admin/assessment" class="nav-item "><span class="icon-edit"></span><li>Assessments</li></router-link>
+                      
                         <router-link to="/admin/time-table/home" class="nav-item "><span class="icon-calendar"></span><li>Time Table</li></router-link>
+                         <div class="nav-item" @click="logout"><li >Logout</li></div>  
       </ul>
     </nav>
   </div>

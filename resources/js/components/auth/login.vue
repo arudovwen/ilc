@@ -1,5 +1,5 @@
 <template>
-  <div class="main-login">
+  <!-- <div class="main-login">
     <b-container>
       <b-row>
         <b-col>
@@ -71,9 +71,9 @@
     </b-container>
 
    
-  </div>
+  </div> -->
 
-  <!-- <div class>
+  <div class>
     <div class="register-section">
       <div class="img-side">
         <div class="header-logo text-center">
@@ -124,7 +124,7 @@
         </b-container>
       </div>
     </div>
-  </div>-->
+  </div>
 </template>
 
 

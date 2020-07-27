@@ -43,6 +43,12 @@ version history: [location of file]
 body{
     overflow-x: hidden;
 }
+h1, h2, h3, h4, h5, h6{
+    font-family: "Montserrat" !important;
+}
+p{
+    font-family: "Montserrat" !important;
+}
 
 a{
     text-decoration: none !important;
@@ -314,6 +320,75 @@ form .reg-btn{
     margin-left: 1.2rem;
 }
 
+/* main-login */
+
+.main-login{
+    background-image: linear-gradient(to bottom, rgba(0, 42, 6, 0.76), rgba(0, 42, 6, 0.76)), url(/images/login-bg.png);
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100vh;
+    padding-top: 1.5rem;
+}
+.main-login h2{
+    color: var(--primary-font-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-card{
+    height: 90vh;
+}
+
+.nav-tabs{
+    justify-content: space-evenly !important;
+    border-bottom: 1px solid #c4c4c4 !important;
+
+}
+.nav-tabs .nav-link.active {
+    /* color: #495057; */
+    color: #008E3A !important;
+    background-color: #fff !important;
+    border-bottom: 2px solid !important;
+    
+}
+
+.nav-tabs .nav-link {
+    border: none !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    color:  rgba(0, 0, 0, 0.7) ;
+}
+.nav-tabs .nav-link:focus {
+    outline: none;
+}
+
+.login-form .form-group >legend{
+    font-family: "Montserrat";
+    font-weight: 500;
+}
+
+.login-form .form-control{
+    padding: 25px 15px !important;
+    border: 1px solid #c4c4c4 !important;
+}
+
+.login-form .reg-btn{
+    margin-left: 0;
+    margin-top: 3rem;
+    width: 100%;
+}
+
+.login-form .reg-btn:focus{
+    outline: none;
+}
+.login-form a{
+    display: flex;
+    justify-content: center;
+}
+.login-form .form-group{
+    margin-top: 2rem;
+}
 /* Dont touch */
 
 .back{

@@ -1,4 +1,78 @@
 <template>
+  <div class="main-login">
+    <b-container>
+      <b-row>
+        <b-col>
+          <img src="/images/footer-logo.png" alt />
+         
+        </b-col>
+        <b-col>
+          <b-card class="login-card">
+            <h4 class="text-center">LOG IN</h4>
+            <div>
+              <b-tabs content-class="mt-3">
+                <b-tab title="Student" active>
+                  <b-form class="login-form">
+                    <b-form-group 
+                    id="input-group-1"
+                    label="Email"
+                    >
+                      <b-form-input
+                       id="input-1"
+                       type="email"
+                       required
+                      ></b-form-input>
+                    </b-form-group>
+                          <b-form-group 
+                    id="input-group-2"
+                    label="Password"
+                    >
+                      <b-form-input
+                       id="input-2"
+                       type="password"
+                       required
+                      ></b-form-input>
+                      <button class="reg-btn" type="submit">STUDENT</button>
+                      <a href="" class="s">forgot Password?</a>
+                    </b-form-group>
+                  </b-form>
+                </b-tab>
+                <b-tab title="Tutor">
+                  <b-form class="login-form">
+                    <b-form-group 
+                    id="input-group-1"
+                    label="Email"
+                    >
+                      <b-form-input
+                       id="input-1"
+                       type="email"
+                       required
+                      ></b-form-input>
+                    </b-form-group>
+                          <b-form-group 
+                    id="input-group-2"
+                    label="Password"
+                    >
+                      <b-form-input
+                       id="input-2"
+                       type="password"
+                       required
+                      ></b-form-input>
+                      <button class="reg-btn" type="submit">TUTOR</button>
+                      <a href="">forgot password?</a>
+                    </b-form-group>
+                  </b-form>
+                </b-tab>
+              </b-tabs>
+            </div>
+          </b-card>
+        </b-col>
+      </b-row>
+    </b-container>
+
+   
+  </div>
+
   <!-- <div class>
     <div class="register-section">
       <div class="img-side">
@@ -50,10 +124,7 @@
         </b-container>
       </div>
     </div>
-  </div> -->
-  <div>
-    
-  </div>
+  </div>-->
 </template>
 
 
@@ -63,15 +134,14 @@ export default {
   data() {
     return {
       user: {
-        type:false,
+        type: false,
         email: "",
-        password: ""
+        password: "",
       },
-      spin: false
+      spin: false,
     };
   },
   methods: {
-  
     submit() {
       this.spin = true;
       if (!this.user.type) {
@@ -80,27 +150,27 @@ export default {
           client_id: 2,
           client_secret: "7yRvzmjeVaIpSUJKBW5PCfkVCVSBauhRwRgEvt36",
           username: this.user.email,
-          password: this.user.password
+          password: this.user.password,
         };
 
         const typeStudent = {};
         axios
           .post("/oauth/token", data)
-          .then(res => {
+          .then((res) => {
             if (res.status == 200) {
               typeStudent.access_token = res.data.access_token;
               typeStudent.refresh_token = res.data.refresh_token;
               axios
                 .get(`/api/user`, {
-                  headers: { Authorization: `Bearer ${res.data.access_token}` }
+                  headers: { Authorization: `Bearer ${res.data.access_token}` },
                 })
-                .then(res => {
+                .then((res) => {
                   if (res.status === 200) {
                     this.spin = false;
 
                     typeStudent.id = res.data.id;
                     typeStudent.email = res.data.email;
-                     typeStudent.level = res.data.student_level;
+                    typeStudent.level = res.data.student_level;
                     typeStudent.name = res.data.name;
                     typeStudent.school_id = res.data.school_id;
                     typeStudent.school = res.data.school;
@@ -108,38 +178,35 @@ export default {
                       "typeStudent",
                       JSON.stringify(typeStudent)
                     );
-                    this.$toasted.success("Logged in Sucessfully",{
-                      icon:{
-                        name:'fingerprint'
-                      }
+                    this.$toasted.success("Logged in Sucessfully", {
+                      icon: {
+                        name: "fingerprint",
+                      },
                     });
                     if (this.$route.query.redirect) {
                       this.$router.push(this.$route.query.redirect);
                     } else {
                       this.$toasted.info("Redirecting to dashboard..");
                       this.$router.push("/student");
-                      
                     }
                   }
                 })
-                .catch(error => {
-                 
-                  this.$toasted.error("Invalid credentials",{
-                      icon:{
-                        name:'user-times'
-                      }
-                    });
+                .catch((error) => {
+                  this.$toasted.error("Invalid credentials", {
+                    icon: {
+                      name: "user-times",
+                    },
+                  });
                   this.spin = false;
                 });
             }
           })
-          .catch(error => {
-           
-            this.$toasted.error("Invalid credentials",{
-                      icon:{
-                        name:'user-times'
-                      }
-                    });
+          .catch((error) => {
+            this.$toasted.error("Invalid credentials", {
+              icon: {
+                name: "user-times",
+              },
+            });
             this.spin = false;
           });
       } else {
@@ -149,20 +216,20 @@ export default {
           client_id: 3,
           client_secret: "MK7qWmbsqhwtUXfr3f3OgEm0uHLw3hm3EsGycQDs",
           username: this.user.email,
-          password: this.user.password
+          password: this.user.password,
         };
         const typeTutor = {};
         axios
           .post("/oauth/token", data)
-          .then(res => {
+          .then((res) => {
             if (res.status == 200) {
               typeTutor.access_token = res.data.access_token;
               typeTutor.refresh_token = res.data.refresh_token;
               axios
                 .get(`/api/tutorDetails`, {
-                  headers: { Authorization: `Bearer ${res.data.access_token}` }
+                  headers: { Authorization: `Bearer ${res.data.access_token}` },
                 })
-                .then(res => {
+                .then((res) => {
                   if (res.status === 200) {
                     this.spin = false;
                     typeTutor.id = res.data.id;
@@ -172,49 +239,49 @@ export default {
                       "typeTutor",
                       JSON.stringify(typeTutor)
                     );
-                    this.$toasted.success("Logged in Sucessfully",{
-                      icon:{
-                        name:'fingerprint'
-                      }
+                    this.$toasted.success("Logged in Sucessfully", {
+                      icon: {
+                        name: "fingerprint",
+                      },
                     });
                     this.$router.push("/tutor");
                   }
                 })
-                .catch(error => {
+                .catch((error) => {
                   console.log("submit -> error", error);
-                  this.$toasted.error("Invalid credentials",{
-                      icon:{
-                        name:'user-times'
-                      }
-                    });
+                  this.$toasted.error("Invalid credentials", {
+                    icon: {
+                      name: "user-times",
+                    },
+                  });
                   this.spin = false;
                 });
             }
           })
-          .catch(error => {
+          .catch((error) => {
             console.log("submit -> error", error);
-            this.$toasted.error("Invalid credentials",{
-                      icon:{
-                        name:'user-times'
-                      }
-                    });
+            this.$toasted.error("Invalid credentials", {
+              icon: {
+                name: "user-times",
+              },
+            });
             this.spin = false;
           });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
-label{
-      position: relative;
-    margin-bottom: 0;
-    vertical-align: top;
-    font-size: 1.25rem;
-    line-height: 1.5;
+label {
+  position: relative;
+  margin-bottom: 0;
+  vertical-align: top;
+  font-size: 1.25rem;
+  line-height: 1.5;
 }
-.text-muted{
+.text-muted {
   color: rgba(0, 0, 0, 0.4) !important;
 }
 </style>

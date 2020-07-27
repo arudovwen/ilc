@@ -14,7 +14,7 @@
            <router-link to="/admin/courses"> <div class="nav-item"><span><img src="/images/subject-svg.png" class="img-fluid" alt=""></span>  <li>Subject</li></div></router-link>
               <router-link to="/admin/curriculum/home"> <div class="nav-item"><span><img src="/images/subject-svg.png" class="img-fluid" alt=""></span>  <li>Curriculum</li></div></router-link>
                  <router-link to="/admin/syllabus/home"> <div class="nav-item"><span><img src="/images/subject-svg.png" class="img-fluid" alt=""></span>  <li>Syllabus</li></div></router-link>
-                    <router-link to="/admin/time-table/home"> <div class="nav-item"><span><img src="/images/subject-svg.png" class="img-fluid" alt=""></span>  <li>Time Table</li></div></router-link>
+                    <router-link to="/admin/time-table/home">  <div class="nav-item"><span><img src="/images/subject-svg.png" class="img-fluid" alt=""></span>  <li>Time Table</li></div></router-link>
                     <div class="nav-item" @click="logout"><span><img src="/images/log-out-svg.png" alt=""></span><li >Logout</li></div>
      
       

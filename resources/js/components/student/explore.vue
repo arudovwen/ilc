@@ -6,6 +6,8 @@
           <a href="#" class="toCaps">{{item.subject}}</a>
         </li>
         <li>Module 1.1</li>
+
+       <div class="ml-auto"><b-button @click="gotoHer(item.id)">View</b-button></div>
       </ul>
       <h4>
         1.1
@@ -41,7 +43,7 @@
             </div>
           </b-col>
           <b-col cols="4">
-            <img src="/images/english-lit.jpg" class="text-center img-fluid" alt="english" />
+            <img @click="gotoHer(item.id)" :src="item.cover_image" class="text-center img-fluid" alt="english" />
           </b-col>
         </b-row>
     
@@ -144,6 +146,9 @@ ul.breadcrumb li + li:before {
   content: "/\00a0";
 }
 
+ul.breadcrumb li + li:before:last-child{
+  content: "";
+}
 img {
   margin: auto;
   display: flex;

@@ -10291,6 +10291,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var filterizr__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! filterizr */ "./node_modules/filterizr/dist/filterizr.min.js");
+/* harmony import */ var filterizr__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(filterizr__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -10400,9 +10402,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -17488,7 +17488,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-7c861bc4] {\r\n  padding: 40px 20px 60px;\n}\n.main-content[data-v-7c861bc4] {\r\n  width: 80%;\r\n  margin: 0 auto;\n}\n.top_box[data-v-7c861bc4] {\r\n  background: #f7f8fa;\n}\nul[data-v-7c861bc4],\r\nol[data-v-7c861bc4] {\r\n  list-style: none;\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before {\r\n  padding: 8px;\r\n  color: black;\r\n  content: \"/\\A0\";\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before:last-child {\r\n  content: \"\";\n}\r\n/* .card img {\r\n  width: 300px;\r\n  height: 200px;\r\n} */\n.what-you-will-learn ul[data-v-7c861bc4] {\r\n  list-style: circle;\n}\ndiv[data-v-7c861bc4] {\r\n  font-family: \"Montserrat\";\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-7c861bc4] {\r\n  padding: 40px 20px 60px;\n}\n.main-content[data-v-7c861bc4] {\r\n  width: 80%;\r\n  margin: 0 auto;\n}\n.top_box[data-v-7c861bc4] {\r\n  background: #f7f8fa;\n}\na[data-v-7c861bc4]{\r\n  text-decoration: none;\r\n  color: black;\n}\nul[data-v-7c861bc4],\r\nol[data-v-7c861bc4] {\r\n  list-style: none;\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before {\r\n  padding: 8px;\r\n  color: black;\r\n  content: \"/\\A0\";\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before:last-child {\r\n  content: \"\";\n}\n.filter-list[data-v-7c861bc4]{\r\n  display: flex;\r\n  justify-content: space-around;\n}\n.single-content[data-v-7c861bc4]{\r\n  position: relative;\r\n  transition: .3s;\r\n  box-shadow: 10px 20px 20px rgba(247, 248, 250, 0.8);\n}\n.single-content .text-content[data-v-7c861bc4],\r\n.single-content[data-v-7c861bc4]::after{\r\n  position: absolute;\r\n  left: 20px;\r\n  right: 20px;\n}\n.single-content[data-v-7c861bc4]::after{\r\n  content: \"\";\r\n  display: block;\r\n  background: #13a699;\r\n  top: 20px;\r\n  bottom: 20px;\r\n  opacity: 0;\r\n  transform: rotate3d(-1,1,0,100deg);\r\n  transition: .4s;\n}\n.single-content[data-v-7c861bc4]:hover::after{\r\n  opacity: .9;\r\n  transform: rotate3d(0,0,0,0deg);\n}\n.single-content img[data-v-7c861bc4]{\r\n  width: 350px;\r\n  height: 250px;\n}\n.text-content[data-v-7c861bc4]{\r\n  top: 45%;\r\n  opacity: 0;\r\n  z-index: 1;\r\n  transform: translate(10%, -30%);\r\n  transition: .3s;\r\n  text-align: center;\r\n  color: #fff;\r\n  margin-top: 5px;\n}\n.text-content .btn[data-v-7c861bc4]{\r\n  color: #fff !important;\r\n  border: 1px solid #fff;\r\n  border-radius: 5px;\r\n  padding: 10px 20px;\n}\n.single-content:hover .text-content[data-v-7c861bc4]{\r\n  opacity: 1;\r\n  transform: translate(0, -50%);\r\n  transition-delay: .3s;\n}\n.explore-content[data-v-7c861bc4]{\r\n  margin-top: 15px;\n}\r\n/* .router-link-active{\r\n  border-bottom: 2px solid #ffd708;\r\n} */\ndiv[data-v-7c861bc4] {\r\n  font-family: \"Montserrat\";\n}\r\n", ""]);
 
 // exports
 
@@ -37850,147 +37850,93 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("h2", { staticClass: "mb-3 px-3" }, [_vm._v("Explore Resources")]),
-      _vm._v(" "),
-      _c(
-        "b-container",
-        [
-          _c(
-            "b-row",
-            [
-              _c(
-                "b-col",
-                [
-                  _c(
-                    "router-link",
-                    { attrs: { to: "/" } },
-                    [
-                      _c(
-                        "b-card",
-                        {
-                          staticClass: "mb-2",
-                          staticStyle: { "max-width": "20rem" },
-                          attrs: {
-                            title: "Analysis of Statiscis Regression",
-                            "img-src": "/images/statistcs.jpg",
-                            "img-alt": "Image",
-                            "img-top": "",
-                            tag: "article"
-                          }
-                        },
-                        [
-                          _c("b-card-text", [
-                            _vm._v("Some quick example text to build on.")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            { attrs: { href: "#", variant: "primary" } },
-                            [_vm._v("Go somewhere")]
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-col",
-                [
-                  _c(
-                    "router-link",
-                    { attrs: { to: "/" } },
-                    [
-                      _c(
-                        "b-card",
-                        {
-                          staticClass: "mb-2",
-                          staticStyle: { "max-width": "20rem" },
-                          attrs: {
-                            title: "Analysis of Statiscis Regression",
-                            "img-src": "/images/statistcs.jpg",
-                            "img-alt": "Image",
-                            "img-top": "",
-                            tag: "article"
-                          }
-                        },
-                        [
-                          _c("b-card-text", [
-                            _vm._v("Some quick example text to build on.")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            { attrs: { href: "#", variant: "primary" } },
-                            [_vm._v("Go somewhere")]
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-col",
-                [
-                  _c(
-                    "router-link",
-                    { attrs: { to: "/" } },
-                    [
-                      _c(
-                        "b-card",
-                        {
-                          staticClass: "mb-2",
-                          staticStyle: { "max-width": "20rem" },
-                          attrs: {
-                            title: "Analysis of Statiscis Regression",
-                            "img-src": "/images/statistcs.jpg",
-                            "img-alt": "Image",
-                            "img-top": "",
-                            tag: "article"
-                          }
-                        },
-                        [
-                          _c("b-card-text", [
-                            _vm._v("Some quick example text to build on.")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            { attrs: { href: "#", variant: "primary" } },
-                            [_vm._v("Go somewhere")]
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
+  return _c("div", [
+    _c("h2", { staticClass: "mb-3 px-3" }, [_vm._v("Explore Resources")]),
+    _vm._v(" "),
+    _c(
+      "ul",
+      { staticClass: "filter-list mb-5" },
+      [
+        _c("router-link", { attrs: { to: "" } }, [
+          _c("li", [_vm._v(" All Subject")])
+        ]),
+        _vm._v(" "),
+        _c("router-link", { attrs: { to: "" } }, [
+          _c("li", [_vm._v(" Mathematics")])
+        ]),
+        _vm._v(" "),
+        _c("router-link", { attrs: { to: "" } }, [
+          _c("li", [_vm._v(" English Language")])
+        ]),
+        _vm._v(" "),
+        _c("router-link", { attrs: { to: "" } }, [
+          _c("li", [_vm._v(" Geography")])
+        ])
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _vm._m(0)
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container explore-content" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-4 col-sm-6" }, [
+          _c("div", { staticClass: "single-content" }, [
+            _c("img", { attrs: { src: "/images/maths.jpg", alt: "" } }),
+            _vm._v(" "),
+            _c("div", { staticClass: "text-content" }, [
+              _c("h5", [_vm._v("Differentiation")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v("Lorem ipsum dolor sit amet consectetur adipisicing")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "btn" }, [_vm._v("Add to Library")])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-4 col-sm-6" }, [
+          _c("div", { staticClass: "single-content" }, [
+            _c("img", { attrs: { src: "/images/econs.jpg", alt: "" } }),
+            _vm._v(" "),
+            _c("div", { staticClass: "text-content" }, [
+              _c("h5", [_vm._v("Market value")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v("Lorem ipsum dolor sit amet consectetur adipisicing")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "btn" }, [_vm._v("Add to Library")])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-4 col-sm-6" }, [
+          _c("div", { staticClass: "single-content" }, [
+            _c("img", { attrs: { src: "/images/geography.jpeg", alt: "" } }),
+            _vm._v(" "),
+            _c("div", { staticClass: "text-content" }, [
+              _c("h5", [_vm._v("How Round is the earth")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v("Lorem ipsum dolor sit amet consectetur adipisicing")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "btn" }, [_vm._v("Add to Library")])
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

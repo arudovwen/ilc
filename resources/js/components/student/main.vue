@@ -148,8 +148,9 @@ export default {
 </script>
 <style scoped>
 .semi-white{
-  background: #f7f8fa;
+
   padding:50px 20px;
+
 }
 nav {
   display: flex;

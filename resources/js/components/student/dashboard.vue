@@ -38,7 +38,8 @@ export default {
 .main{
     width:85%;
     height: 100vh;
-    position: absolute;
-    right: 0;
+     overflow: auto;
+     height: 100vh;
+    background: #f7f8fa;
 }
 </style>

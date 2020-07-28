@@ -1,85 +1,52 @@
 <template>
-  <!-- <div class="body">
-    <h3 class="text-center mb-4">Available Resources</h3>
-    <div class="main-content">
-      <div v-for="(item,idx) in resources" :key="idx" class="mb-3" @click="gotoHer(item.id)">
-        <div class="top_box d-flex justify-content-between align-items-center p-3">
-          <p class="m-0 toCaps">{{item.module}}</p>
-          <div class="d-flex align-items-center">
-            <p class="m-0 mr-5 toCaps">{{item.subject}}</p>
-            <i class="fa fa-plus-circle"  aria-hidden="true"></i>
-          </div>
-        </div>
-        <div class="py-2 px-3 border" v-if="opened.includes(idx)">
-          <ul class="bg-white">
-            <li v-for="(content,index) in JSON.parse(item.content)" :key="index" class="border-bottom">
-              <div><span>{{content.title}}</span>
-              <span class="ml-3"> <i class="fa fa-play-circle" v-if="content.type=='video'" aria-hidden="true"></i>
-          <i class="fa fa-file-pdf-o" v-if="content.type=='pdf'" aria-hidden="true"></i>
-          <i class="fa fa-volume-up" v-if="content.type=='audio'" aria-hidden="true"></i>
-          <i class="fa fa-file-powerpoint-o" v-if="content.type=='ppt'" aria-hidden="true"></i>
-          <i class="fas fa-file-csv" v-if="item.content=='csv'"></i></span></div>
-              <div class="px-3">
-                <strong>Overview</strong>
-                <p>{{content.overview}}</p>
-              </div>
-            </li>
-          </ul>
-          <div class="text-right">
-            <button type="button" class="btn btn-primary" @click="addtolibrary(idx)">Add to library</button>
-          </div>
-        </div>
-      </div>
+  <b-container>
+    <div class="student-resource" v-for="(item,idx) in resources" :key="idx">
+      <ul class="breadcrumb">
+        <li>
+          <a href="#" class="toCaps">{{item.subject}}</a>
+        </li>
+        <li>Module 1.1</li>
+      </ul>
+      <h4>
+        1.1
+        <span class="toCaps">{{item.module}}</span>
+      </h4>
+
+     
+        <b-row class="align-items-center">
+          <b-col cols="8">
+            <div class="what-you-will-learn">
+              <p>Within this lesson you will learn:</p>
+              <strong>Content</strong>
+              <ul class="px-3">
+                <li v-for="(content,index) in JSON.parse(item.content)" :key="index">
+                  <span>{{content.title}}</span>
+                  <span class="ml-3">
+                    <i class="fa fa-play-circle" v-if="content.type=='video'" aria-hidden="true"></i>
+                    <i class="fa fa-file-pdf-o" v-if="content.type=='pdf'" aria-hidden="true"></i>
+                    <i class="fa fa-volume-up" v-if="content.type=='audio'" aria-hidden="true"></i>
+                    <i
+                      class="fa fa-file-powerpoint-o"
+                      v-if="content.type=='ppt'"
+                      aria-hidden="true"
+                    ></i>
+                    <i class="fas fa-file-csv" v-if="item.content=='csv'"></i>
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <div class="module-overview">
+              <h5>Overview</h5>
+              <p>{{item.excerpt}}</p>
+            </div>
+          </b-col>
+          <b-col cols="4">
+            <img src="/images/english-lit.jpg" class="text-center img-fluid" alt="english" />
+          </b-col>
+        </b-row>
+    
     </div>
-  </div>-->
-  <div class="student-resource">
-    <h3>English Language Resource</h3>
-    <ul class="breadcrumb">
-      <li>
-        <a href="#">English Language</a>
-      </li>
-      <li>Module 1.1</li>
-    </ul>
-    <h2>
-      1.1
-      <span>COMPREHENSION/UNDERSTANDING</span>
-    </h2>
-    <img src="/images/english-lit.jpg" class="text-center img-fluid" alt="english" />
-
-    <b-container>
-      <div class="what-you-will-learn">
-        <h4>Within this lesson you will learn:</h4>
-        <ul>
-          <li>User-Centered Design</li>
-          <li>User-Centered Design</li>
-          <li>User-Centered Design</li>
-          <li>User-Centered Design</li>
-        </ul>
-      </div>
-      <div class="module-overview">
-        <p>
-          Hi and welcome to Lesson 1 of User Experience: The Beginners Guide!
-          In this lesson, we will provide you with an introduction to 'User Experience' and its key concepts.
-          Here, we will give you an overview of what user experience is, and why you should care about it. We will explain what is covered by the term ‘user experience’ as well as introduce you to what it means to work in a user-centered process.
-          This sounds very straightforward – but, unfortunately, there are as many opinions about the definition of 'User Experience' as there are definitions of the meaning of life...
-          We think it’s counterproductive to try to find the authoritative definition of 'User Experience'. It would be much more productive to find a definition that works well for yourself and the specific product you are designing.
-          In order to help you on your way with developing your own understanding of UX, we’ll provide you with a proper overview of some of the best definitions and key terms. During this first lesson, we introduce some of the key terms and concepts as well as a bit about the history of UX.
-        </p>
-      </div>
-
-      <div class="resource-question">
-        <h4>Answer These Question</h4>
-        <h6 class="question">in this lesson we will provide you with?</h6>
-        <div>
-          <b-form-group label>
-            <b-form-radio v-model="selected" name="some-radios" value="A">Option A</b-form-radio>
-            <b-form-radio v-model="selected" name="some-radios" value="B">Option B</b-form-radio>
-          </b-form-group>
-          <b-button>SUBMIT</b-button>
-        </div>
-      </div>
-    </b-container>
-  </div>
+  </b-container>
 </template>
 
 <script>
@@ -177,14 +144,14 @@ ul.breadcrumb li + li:before {
   content: "/\00a0";
 }
 
-img{
+img {
   margin: auto;
   display: flex;
 }
-.what-you-will-learn ul{
+.what-you-will-learn ul {
   list-style: circle;
 }
-div{
+div {
   font-family: "Montserrat";
 }
 </style>

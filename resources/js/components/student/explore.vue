@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <!-- <b-container>
     <div class="student-resource" v-for="(item,idx) in resources" :key="idx">
       <ul class="breadcrumb">
         <li>
@@ -48,7 +48,66 @@
         </b-row>
     
     </div>
-  </b-container>
+  </b-container>-->
+
+  <div>
+    <h2 class="mb-3 px-3">Explore Resources</h2>
+    <b-container>
+      <b-row>
+        <b-col>
+          <router-link to="/">
+            <b-card
+              title="Analysis of Statiscis Regression"
+              img-src="/images/statistcs.jpg"
+              img-alt="Image"
+              img-top
+              tag="article"
+              style="max-width: 20rem;"
+              class="mb-2"
+            >
+              <b-card-text>Some quick example text to build on.</b-card-text>
+
+              <b-button href="#" variant="primary">Go somewhere</b-button>
+            </b-card>
+          </router-link>
+        </b-col>
+         <b-col>
+          <router-link to="/">
+            <b-card
+              title="Analysis of Statiscis Regression"
+              img-src="/images/statistcs.jpg"
+              img-alt="Image"
+              img-top
+              tag="article"
+              style="max-width: 20rem;"
+              class="mb-2"
+            >
+              <b-card-text>Some quick example text to build on.</b-card-text>
+
+              <b-button href="#" variant="primary">Go somewhere</b-button>
+            </b-card>
+          </router-link>
+        </b-col>
+         <b-col>
+          <router-link to="/">
+            <b-card
+              title="Analysis of Statiscis Regression"
+              img-src="/images/statistcs.jpg"
+              img-alt="Image"
+              img-top
+              tag="article"
+              style="max-width: 20rem;"
+              class="mb-2"
+            >
+              <b-card-text>Some quick example text to build on.</b-card-text>
+
+              <b-button href="#" variant="primary">Go somewhere</b-button>
+            </b-card>
+          </router-link>
+        </b-col>
+      </b-row>
+    </b-container>
+  </div>
 </template>
 
 <script>
@@ -146,13 +205,13 @@ ul.breadcrumb li + li:before {
   content: "/\00a0";
 }
 
-ul.breadcrumb li + li:before:last-child{
+ul.breadcrumb li + li:before:last-child {
   content: "";
 }
-img {
-  margin: auto;
-  display: flex;
-}
+/* .card img {
+  width: 300px;
+  height: 200px;
+} */
 .what-you-will-learn ul {
   list-style: circle;
 }

@@ -21,7 +21,7 @@ class CreateResourcesTable extends Migration
             $table->string('level');
             $table->string('subject');
             $table->string('module');
-            $table->text('excerpt')->nullable();
+            $table->longText('excerpt')->nullable();
             $table->longText('content');
             $table->string('worksheet');
             $table->string('worksheet_id')->nullable();

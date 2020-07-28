@@ -54,57 +54,26 @@
     <h2 class="mb-3 px-3">Explore Resources</h2>
     <b-container>
       <b-row>
-        <b-col>
-          <router-link to="/">
+        <b-col cols="3" v-for="(item,idx) in resources" :key="idx">
+         
             <b-card
-              title="Analysis of Statiscis Regression"
-              img-src="/images/statistcs.jpg"
+             
+              :title="item.module"
+              :img-src="item.cover_image"
               img-alt="Image"
               img-top
               tag="article"
               style="max-width: 20rem;"
-              class="mb-2"
+              class="mb-2 toCaps"
             >
-              <b-card-text>Some quick example text to build on.</b-card-text>
+             <b-card-text class="toCaps">{{item.subject}}</b-card-text>
+              <b-card-text class="excerpt">{{item.excerpt}}</b-card-text>
 
-              <b-button href="#" variant="primary">Go somewhere</b-button>
+              <b-button  variant="primary" @click="gotoHer(item.id)">View</b-button>
             </b-card>
-          </router-link>
+        
         </b-col>
-         <b-col>
-          <router-link to="/">
-            <b-card
-              title="Analysis of Statiscis Regression"
-              img-src="/images/statistcs.jpg"
-              img-alt="Image"
-              img-top
-              tag="article"
-              style="max-width: 20rem;"
-              class="mb-2"
-            >
-              <b-card-text>Some quick example text to build on.</b-card-text>
-
-              <b-button href="#" variant="primary">Go somewhere</b-button>
-            </b-card>
-          </router-link>
-        </b-col>
-         <b-col>
-          <router-link to="/">
-            <b-card
-              title="Analysis of Statiscis Regression"
-              img-src="/images/statistcs.jpg"
-              img-alt="Image"
-              img-top
-              tag="article"
-              style="max-width: 20rem;"
-              class="mb-2"
-            >
-              <b-card-text>Some quick example text to build on.</b-card-text>
-
-              <b-button href="#" variant="primary">Go somewhere</b-button>
-            </b-card>
-          </router-link>
-        </b-col>
+      
       </b-row>
     </b-container>
   </div>
@@ -194,6 +163,20 @@ export default {
 }
 .top_box {
   background: #f7f8fa;
+}
+.excerpt{
+  height:45px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+   -moz-line-clamp: 2;
+    -o-line-clamp: 2;
+     -ms-line-clamp: 2;
+     font-size: 15px;
+      white-space: nowrap; 
+      position: relative;
+  display: block;
 }
 ul,
 ol {

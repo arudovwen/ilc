@@ -6,9 +6,9 @@
       <div class="top_n" :style="{'background-image':`url(${cover_image})`}">
         <div class="overlay-n"></div>
         <b-jumbotron :header="title" :lead="subject" class="jumb toCaps">
-          <p>{{excerpt}}</p>
+          <p class="excerpt">{{excerpt}}</p>
           <p class="toCaps">created by {{tutor.name}}</p>
-          <small>Last update {{time | moment('dddd mm ')}}</small>
+          <small>Last update {{time | moment('MMM D  ')}}</small>
           <hr />
        
           <b-button variant="secondary">Share</b-button>
@@ -206,7 +206,7 @@
           <b-col cols="5">
             <b-card
               :title="title"
-              img-src="https://picsum.photos/600/300/?image=25"
+              :img-src="cover_image"
               img-alt="Image"
               img-top
               tag="article"
@@ -327,6 +327,9 @@ export default {
   position: relative;
 
   object-fit: cover;
+}
+.excerpt{
+  width: 60%;
 }
 .overlay-n {
   top: 0px;

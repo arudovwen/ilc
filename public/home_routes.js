@@ -10327,6 +10327,54 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -10367,7 +10415,7 @@ __webpack_require__.r(__webpack_exports__);
           });
         } else {
           _this.$toasted.error("Already in Library", {
-            icon: 'ban',
+            icon: "ban",
             after: false
           });
         }
@@ -17301,7 +17349,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.my-container[data-v-bc98fdf6]{\n    widows: 100vw;\n}\n.side[data-v-bc98fdf6]{\n    width: 15%;\n    height: 100vh;\n    background: #ffd708;\n}\n.main[data-v-bc98fdf6]{\n    width:85%;\n    height: 100vh;\n    overflow: scroll;\n}\n", ""]);
+exports.push([module.i, "\n.my-container[data-v-bc98fdf6]{\n    widows: 100vw;\n}\n.side[data-v-bc98fdf6]{\n    width: 15%;\n    height: 100vh;\n    background: #ffd708;\n}\n.main[data-v-bc98fdf6]{\n    width:85%;\n    height: 100vh;\n    position: absolute;\n    right: 0;\n}\n", ""]);
 
 // exports
 
@@ -17320,7 +17368,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-7c861bc4] {\n  padding: 40px 20px 60px;\n}\n.main-content[data-v-7c861bc4] {\n  width: 80%;\n  margin: 0 auto;\n}\n.top_box[data-v-7c861bc4] {\n  background: #f7f8fa;\n}\nul[data-v-7c861bc4],\nol[data-v-7c861bc4] {\n  list-style: none;\n}\n", ""]);
+exports.push([module.i, "\n.body[data-v-7c861bc4] {\n  padding: 40px 20px 60px;\n}\n.main-content[data-v-7c861bc4] {\n  width: 80%;\n  margin: 0 auto;\n}\n.top_box[data-v-7c861bc4] {\n  background: #f7f8fa;\n}\nul[data-v-7c861bc4],\nol[data-v-7c861bc4] {\n  list-style: none;\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before {\n  padding: 8px;\n  color: black;\n  content: \"/\\A0\";\n}\nimg[data-v-7c861bc4]{\n  margin: auto;\n  display: flex;\n}\n.what-you-will-learn ul[data-v-7c861bc4]{\n  list-style: circle;\n}\ndiv[data-v-7c861bc4]{\n  font-family: \"Montserrat\";\n}\n", ""]);
 
 // exports
 
@@ -37633,135 +37681,124 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "body" }, [
-    _c("h3", { staticClass: "text-center mb-4" }, [
-      _vm._v("Available Resources")
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "main-content" },
-      _vm._l(_vm.resources, function(item, idx) {
-        return _c(
-          "div",
-          {
-            key: idx,
-            staticClass: "mb-3",
-            on: {
-              click: function($event) {
-                return _vm.gotoHer(item.id)
-              }
-            }
-          },
-          [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "top_box d-flex justify-content-between align-items-center p-3"
-              },
-              [
-                _c("p", { staticClass: "m-0 toCaps" }, [
-                  _vm._v(_vm._s(item.module))
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "d-flex align-items-center" }, [
-                  _c("p", { staticClass: "m-0 mr-5 toCaps" }, [
-                    _vm._v(_vm._s(item.subject))
-                  ]),
-                  _vm._v(" "),
-                  _c("i", {
-                    staticClass: "fa fa-plus-circle",
-                    attrs: { "aria-hidden": "true" }
-                  })
-                ])
-              ]
-            ),
+  return _c(
+    "div",
+    { staticClass: "student-resource" },
+    [
+      _c("h3", [_vm._v("English Language Resource")]),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
+      _c("img", {
+        staticClass: "text-center img-fluid",
+        attrs: { src: "/images/english-lit.jpg", alt: "english" }
+      }),
+      _vm._v(" "),
+      _c("b-container", [
+        _c("div", { staticClass: "what-you-will-learn" }, [
+          _c("h4", [_vm._v("Within this lesson you will learn:")]),
+          _vm._v(" "),
+          _c("ul", [
+            _c("li", [_vm._v("User-Centered Design")]),
             _vm._v(" "),
-            _vm.opened.includes(idx)
-              ? _c("div", { staticClass: "py-2 px-3 border" }, [
+            _c("li", [_vm._v("User-Centered Design")]),
+            _vm._v(" "),
+            _c("li", [_vm._v("User-Centered Design")]),
+            _vm._v(" "),
+            _c("li", [_vm._v("User-Centered Design")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "module-overview" }, [
+          _c("p", [
+            _vm._v(
+              "\n        Hi and welcome to Lesson 1 of User Experience: The Beginners Guide!\n        In this lesson, we will provide you with an introduction to 'User Experience' and its key concepts.\n        Here, we will give you an overview of what user experience is, and why you should care about it. We will explain what is covered by the term ‘user experience’ as well as introduce you to what it means to work in a user-centered process.\n        This sounds very straightforward – but, unfortunately, there are as many opinions about the definition of 'User Experience' as there are definitions of the meaning of life...\n        We think it’s counterproductive to try to find the authoritative definition of 'User Experience'. It would be much more productive to find a definition that works well for yourself and the specific product you are designing.\n        In order to help you on your way with developing your own understanding of UX, we’ll provide you with a proper overview of some of the best definitions and key terms. During this first lesson, we introduce some of the key terms and concepts as well as a bit about the history of UX.\n      "
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "resource-question" }, [
+          _c("h4", [_vm._v("Answer These Question")]),
+          _vm._v(" "),
+          _c("h6", { staticClass: "question" }, [
+            _vm._v("in this lesson we will provide you with?")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            [
+              _c(
+                "b-form-group",
+                { attrs: { label: "" } },
+                [
                   _c(
-                    "ul",
-                    { staticClass: "bg-white" },
-                    _vm._l(JSON.parse(item.content), function(content, index) {
-                      return _c(
-                        "li",
-                        { key: index, staticClass: "border-bottom" },
-                        [
-                          _c("div", [
-                            _c("span", [_vm._v(_vm._s(content.title))]),
-                            _vm._v(" "),
-                            _c("span", { staticClass: "ml-3" }, [
-                              content.type == "video"
-                                ? _c("i", {
-                                    staticClass: "fa fa-play-circle",
-                                    attrs: { "aria-hidden": "true" }
-                                  })
-                                : _vm._e(),
-                              _vm._v(" "),
-                              content.type == "pdf"
-                                ? _c("i", {
-                                    staticClass: "fa fa-file-pdf-o",
-                                    attrs: { "aria-hidden": "true" }
-                                  })
-                                : _vm._e(),
-                              _vm._v(" "),
-                              content.type == "audio"
-                                ? _c("i", {
-                                    staticClass: "fa fa-volume-up",
-                                    attrs: { "aria-hidden": "true" }
-                                  })
-                                : _vm._e(),
-                              _vm._v(" "),
-                              content.type == "ppt"
-                                ? _c("i", {
-                                    staticClass: "fa fa-file-powerpoint-o",
-                                    attrs: { "aria-hidden": "true" }
-                                  })
-                                : _vm._e(),
-                              _vm._v(" "),
-                              item.content == "csv"
-                                ? _c("i", { staticClass: "fas fa-file-csv" })
-                                : _vm._e()
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "px-3" }, [
-                            _c("strong", [_vm._v("Overview")]),
-                            _vm._v(" "),
-                            _c("p", [_vm._v(_vm._s(content.overview))])
-                          ])
-                        ]
-                      )
-                    }),
-                    0
+                    "b-form-radio",
+                    {
+                      attrs: { name: "some-radios", value: "A" },
+                      model: {
+                        value: _vm.selected,
+                        callback: function($$v) {
+                          _vm.selected = $$v
+                        },
+                        expression: "selected"
+                      }
+                    },
+                    [_vm._v("Option A")]
                   ),
                   _vm._v(" "),
-                  _c("div", { staticClass: "text-right" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            return _vm.addtolibrary(idx)
-                          }
-                        }
-                      },
-                      [_vm._v("Add to library")]
-                    )
-                  ])
-                ])
-              : _vm._e()
-          ]
-        )
-      }),
-      0
-    )
-  ])
+                  _c(
+                    "b-form-radio",
+                    {
+                      attrs: { name: "some-radios", value: "B" },
+                      model: {
+                        value: _vm.selected,
+                        callback: function($$v) {
+                          _vm.selected = $$v
+                        },
+                        expression: "selected"
+                      }
+                    },
+                    [_vm._v("Option B")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("b-button", [_vm._v("SUBMIT")])
+            ],
+            1
+          )
+        ])
+      ])
+    ],
+    1
+  )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", { staticClass: "breadcrumb" }, [
+      _c("li", [
+        _c("a", { attrs: { href: "#" } }, [_vm._v("English Language")])
+      ]),
+      _vm._v(" "),
+      _c("li", [_vm._v("Module 1.1")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h2", [
+      _vm._v("\n    1.1\n    "),
+      _c("span", [_vm._v("COMPREHENSION/UNDERSTANDING")])
+    ])
+  }
+]
 render._withStripped = true
 
 

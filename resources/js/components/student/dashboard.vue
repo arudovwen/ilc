@@ -38,6 +38,7 @@ export default {
 .main{
     width:85%;
     height: 100vh;
-    overflow: scroll;
+    position: absolute;
+    right: 0;
 }
 </style>

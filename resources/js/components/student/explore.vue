@@ -64,12 +64,12 @@
               img-top
               tag="article"
               style="max-width: 20rem;"
-              class="mb-2 toCaps"
+              class="mb-2 toCaps shadow"
             >
              <b-card-text class="toCaps">{{item.subject}}</b-card-text>
               <b-card-text class="excerpt">{{item.excerpt}}</b-card-text>
 
-              <b-button  variant="primary" @click="gotoHer(item.id)">View</b-button>
+              <b-button  variant="primary" block @click="gotoHer(item.id)">View</b-button>
             </b-card>
         
         </b-col>

@@ -404,7 +404,7 @@ __webpack_require__.r(__webpack_exports__);
       var del = confirm("Are you sure?");
 
       if (del) {
-        axios["delete"]("/api/assessment/".concat(id), {
+        axios["delete"]("/api/admin-drop-assessment/".concat(id), {
           headers: {
             Authorization: "Bearer ".concat(admin.access_token)
           }
@@ -9748,7 +9748,7 @@ __webpack_require__.r(__webpack_exports__);
         total_score: this.total_score,
         record: this.assessment
       };
-      axios.post("/api/assessment-result", data, {
+      axios.post("/api/student-assessment-result", data, {
         headers: {
           Authorization: "Bearer ".concat(student.access_token)
         }
@@ -13559,29 +13559,106 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      items: []
+      items: [],
+      classes: [],
+      subjects: [],
+      subject: '',
+      name: '',
+      field1: ['class_name'],
+      field2: ['name']
     };
   },
   mounted: function mounted() {
     this.getData();
+    this.getClasses();
+    this.getSubjects();
   },
   methods: {
-    getData: function getData() {
+    getClasses: function getClasses() {
       var _this = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
-      axios.get("/api/assessment-result", {
+      axios.get("/api/all-classes", {
         headers: {
           Authorization: "Bearer ".concat(tutor.access_token)
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this.items = res.data.data;
+          _this.classes = res.data; // res.data.forEach((item) => {
+          //   this.allClass.push(item.class_name);
+          //   if (item.sub_class !== "") {
+          //     item.sub_class.split(",").forEach((i) => {
+          //       this.allClass.push(i);
+          //     });
+          //   }
+          // });
         }
       });
+    },
+    getSubjects: function getSubjects() {
+      var _this2 = this;
+
+      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios.get("/api/tutor-all-subjects", {
+        headers: {
+          Authorization: "Bearer ".concat(tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this2.subjects = res.data;
+        }
+      })["catch"]();
+    },
+    getData: function getData() {
+      var _this3 = this;
+
+      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios.get("/api/tutor-assessment-result", {
+        headers: {
+          Authorization: "Bearer ".concat(tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this3.items = res.data.data;
+        }
+      });
+    },
+    selectClass: function selectClass(name) {
+      this.name = name;
+    },
+    selectSubject: function selectSubject(name) {
+      this.subject = name;
+    },
+    viewBook: function viewBook() {
+      this.$router.push("/tutor/gradebook/view/".concat(this.subject.replace(/ /g, '-'), "/").concat(this.name.replace(/ /g, '-')));
     }
   }
 });
@@ -13597,9 +13674,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
 //
 //
 //
@@ -13635,7 +13709,7 @@ __webpack_require__.r(__webpack_exports__);
         key: "assignment",
         sortable: true
       }, {
-        key: "Examination",
+        key: "examination",
         sortable: true
       }],
       items: []
@@ -13649,7 +13723,11 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
-      axios.get("/api/tutor-grade-book/".concat(this.$route.params.id), {
+      var data = {
+        level: this.$route.params.id.replace(/-/g, " "),
+        subject: this.$route.params.subject.replace(/-/g, " ")
+      };
+      axios.post("/api/tutor-grade-book/", data, {
         headers: {
           Authorization: "Bearer ".concat(tutor.access_token)
         }
@@ -17299,7 +17377,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.semi-white[data-v-09903b50]{\n  background: #f7f8fa;\n}\nnav[data-v-09903b50] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n#notification[data-v-09903b50] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-09903b50] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-09903b50] {\n  max-height: 300px;\n  overflow: scroll;\n}\n.icon[data-v-09903b50] {\n  position: relative;\n}\n.badge[data-v-09903b50] {\n  position: absolute;\n  top: -40%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 14px;\n}\n.list-group-item[data-v-09903b50] {\n  font-size: 14px;\n}\n.fa-bell[data-v-09903b50] {\n  font-size: 24px;\n  color:#ffd708;\n}\n.search[data-v-09903b50]{\n  width:250px;\n  border-color:#ffd708\n}\n", ""]);
+exports.push([module.i, "\n.semi-white[data-v-09903b50]{\n  background: #f7f8fa;\n  padding:50px 20px;\n}\nnav[data-v-09903b50] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n#notification[data-v-09903b50] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-09903b50] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-09903b50] {\n  max-height: 300px;\n  overflow: scroll;\n}\n.icon[data-v-09903b50] {\n  position: relative;\n}\n.badge[data-v-09903b50] {\n  position: absolute;\n  top: -40%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 14px;\n}\n.list-group-item[data-v-09903b50] {\n  font-size: 14px;\n}\n.fa-bell[data-v-09903b50] {\n  font-size: 24px;\n  color:#ffd708;\n}\n.search[data-v-09903b50]{\n  width:250px;\n  border-color:#ffd708\n}\n", ""]);
 
 // exports
 
@@ -17565,7 +17643,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nnav[data-v-2e28e87d] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n#notification[data-v-2e28e87d] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-2e28e87d] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-2e28e87d] {\n  max-height: 300px;\n  overflow: scroll;\n}\n.icon[data-v-2e28e87d] {\n  position: relative;\n}\n.badge[data-v-2e28e87d] {\n  position: absolute;\n  top: -40%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 14px;\n}\n.list-group-item[data-v-2e28e87d] {\n  font-size: 14px;\n}\n.fa-bell[data-v-2e28e87d] {\n  font-size: 24px;\n  color:#41cee2;\n}\n.search[data-v-2e28e87d]{\n  width:250px;\n  border-color:#41cee2\n}\n", ""]);
+exports.push([module.i, "\n.semi-white[data-v-2e28e87d]{\n  padding:50px 20px;\n}\nnav[data-v-2e28e87d] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n#notification[data-v-2e28e87d] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-2e28e87d] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-2e28e87d] {\n  max-height: 300px;\n  overflow: scroll;\n}\n.icon[data-v-2e28e87d] {\n  position: relative;\n}\n.badge[data-v-2e28e87d] {\n  position: absolute;\n  top: -40%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 14px;\n}\n.list-group-item[data-v-2e28e87d] {\n  font-size: 14px;\n}\n.fa-bell[data-v-2e28e87d] {\n  font-size: 24px;\n  color:#41cee2;\n}\n.search[data-v-2e28e87d]{\n  width:250px;\n  border-color:#41cee2\n}\n", ""]);
 
 // exports
 
@@ -38562,7 +38640,7 @@ var render = function() {
         { attrs: { name: "slide-fade" } },
         [
           _c("router-view", {
-            staticClass: "semi-white",
+            staticClass: "semi-white ",
             attrs: { student: _vm.student }
           })
         ],
@@ -42187,7 +42265,113 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    [_c("b-container", [_c("b-row", [_c("b-col", [_c("b-table")], 1)], 1)], 1)],
+    [
+      _c(
+        "b-container",
+        [
+          _c(
+            "b-row",
+            [
+              _c(
+                "b-col",
+                { staticClass: "p-2" },
+                [
+                  _c("b-table", {
+                    attrs: {
+                      items: _vm.classes,
+                      fields: _vm.field1,
+                      hover: ""
+                    },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "cell(class_name)",
+                        fn: function(data) {
+                          return [
+                            _c(
+                              "span",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    return _vm.selectClass(data.item.class_name)
+                                  }
+                                }
+                              },
+                              [_vm._v(_vm._s(data.item.class_name))]
+                            )
+                          ]
+                        }
+                      }
+                    ])
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-col",
+                { staticClass: "p-2" },
+                [
+                  _c("b-table", {
+                    attrs: {
+                      items: _vm.subjects,
+                      fields: _vm.field2,
+                      hover: ""
+                    },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "cell(name)",
+                        fn: function(data) {
+                          return [
+                            _c(
+                              "span",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    return _vm.selectSubject(data.item.name)
+                                  }
+                                }
+                              },
+                              [_vm._v(_vm._s(data.item.name))]
+                            )
+                          ]
+                        }
+                      }
+                    ])
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            {
+              staticClass:
+                "justify-content-center flex-column align-items-center"
+            },
+            [
+              _c("table", { staticClass: "table table-bordered w-25" }, [
+                _c("tbody", [
+                  _c("tr", [
+                    _c("td", { attrs: { scope: "row" } }, [
+                      _vm._v(_vm._s(_vm.name))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.subject))])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("b-button", { on: { click: _vm.viewBook } }, [_vm._v("View")])
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
     1
   )
 }
@@ -42219,7 +42403,15 @@ var render = function() {
       _c(
         "b-container",
         [
-          _c("b-row", { staticClass: "mb-4" }, [_vm._v("Subject > Grades")]),
+          _c("b-row", { staticClass: "mb-4" }, [
+            _c("strong", [
+              _vm._v(
+                _vm._s(_vm.$route.params.subject) +
+                  " > " +
+                  _vm._s(_vm.$route.params.id)
+              )
+            ])
+          ]),
           _vm._v(" "),
           _c(
             "b-row",
@@ -42237,13 +42429,13 @@ var render = function() {
                       {
                         key: "cell(student_name)",
                         fn: function(data) {
-                          return [
-                            _vm._v(
-                              "\n              " +
-                                _vm._s(data.item.user.name) +
-                                "\n                    \n                \n            "
-                            )
-                          ]
+                          return [_vm._v(_vm._s(data.item.user.name))]
+                        }
+                      },
+                      {
+                        key: "cell(total_score)",
+                        fn: function(data) {
+                          return [_vm._v(_vm._s(data.item.total_score) + "%")]
                         }
                       }
                     ])

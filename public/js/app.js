@@ -1379,7 +1379,7 @@ var routes = [{
       typeTutor: true
     }
   }, {
-    path: "gradebook/view/:id",
+    path: "gradebook/view/:subject/:id",
     component: ViewGradeBook,
     name: "ViewGradeBook",
     meta: {

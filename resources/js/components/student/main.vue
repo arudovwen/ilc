@@ -42,7 +42,7 @@
       </b-row>
     </nav>
     <transition name="slide-fade">
-      <router-view :student="student"  class="semi-white"></router-view>
+      <router-view :student="student"  class="semi-white "></router-view>
     </transition>
   </div>
 </template>
@@ -149,6 +149,7 @@ export default {
 <style scoped>
 .semi-white{
   background: #f7f8fa;
+  padding:50px 20px;
 }
 nav {
   display: flex;

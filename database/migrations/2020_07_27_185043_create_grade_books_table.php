@@ -19,13 +19,13 @@ class CreateGradeBooksTable extends Migration
               $table->bigInteger('school_id')->unsigned();
               $table->string('level');
               $table->string('subject');
-              $table->string('test')->nullable();
-              $table->string('quiz')->nullable();
-              $table->string('examination')->nullable();
-              $table->string('assignment')->nullable();
+              $table->string('test')->default(0);
+              $table->string('quiz')->default(0);
+              $table->string('examination')->default(0);
+              $table->string('assignment')->default(0);
               $table->string('title');
-              $table->string('total_score');
-              $table->longText('record');
+              $table->string('total_score')->nullable();
+              $table->longText('record')->nullable();
               $table->timestamps();
 
 

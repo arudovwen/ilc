@@ -70,7 +70,7 @@ export default {
       let del = confirm("Are you sure?");
       if (del) {
         axios
-          .delete(`/api/assessment/${id}`, {
+          .delete(`/api/admin-drop-assessment/${id}`, {
             headers: {
               Authorization: `Bearer ${admin.access_token}`,
             },

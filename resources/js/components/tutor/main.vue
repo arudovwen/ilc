@@ -133,7 +133,9 @@ export default {
 </script>
 
 <style scoped>
-
+.semi-white{
+  padding:50px 20px;
+}
 nav {
   display: flex;
   justify-content: space-between;

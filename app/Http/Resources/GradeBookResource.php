@@ -22,6 +22,10 @@ class GradeBookResource extends JsonResource
         'school_id'=> $this->school_id,
         'subject'=> $this->subject,
         'title'=> $this->title,
+        'quiz'=> $this->quiz,
+        'test'=> $this->test,
+        'examination'=> $this->examination,
+        'assignment'=> $this->assignment,
         'total_score'=> $this->total_score,
         'type'=>$this->type,
         'user'=> User::find($this->user_id)

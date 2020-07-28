@@ -63,11 +63,11 @@ class GradeBookController extends Controller
      * @param  \App\GradeBook  $gradeBook
      * @return \Illuminate\Http\Response
      */
-    public function getBooks($level)
+    public function getBooks(Request $request)
     {
         $tutor = auth('tutor')->user();
-        $level = Classes::where('id',$level)->value('class_name');
-       return  GradeBookResource::collection(GradeBook::where('school_id', $tutor->school_id)->where('level', $level)->get());
+     
+       return  GradeBookResource::collection(GradeBook::where('school_id', $tutor->school_id)->where('level', $request->level)->where('subject', $request->subject)->get());
          
     }
     public function show(GradeBook $gradeBook)

@@ -221,7 +221,7 @@ export default {
         record: this.assessment,
       };
       axios
-        .post("/api/assessment-result", data, {
+        .post("/api/student-assessment-result", data, {
           headers: { Authorization: `Bearer ${student.access_token}` },
         })
         .then((res) => {

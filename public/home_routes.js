@@ -10291,6 +10291,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+!(function webpackMissingModule() { var e = new Error("Cannot find module 'filterizr'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 //
 //
 //
@@ -10372,6 +10373,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -17755,7 +17785,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-7c861bc4] {\n  padding: 40px 20px 60px;\n}\n.main-content[data-v-7c861bc4] {\n  width: 80%;\n  margin: 0 auto;\n}\n.top_box[data-v-7c861bc4] {\n  background: #f7f8fa;\n}\n.excerpt[data-v-7c861bc4]{\n  height:45px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  line-clamp: 2;\n  -webkit-line-clamp: 2;\n   -moz-line-clamp: 2;\n    -o-line-clamp: 2;\n     -ms-line-clamp: 2;\n     font-size: 15px;\n      white-space: nowrap; \n      position: relative;\n  display: block;\n}\nul[data-v-7c861bc4],\nol[data-v-7c861bc4] {\n  list-style: none;\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before {\n  padding: 8px;\n  color: black;\n  content: \"/\\A0\";\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before:last-child {\n  content: \"\";\n}\n/* .card img {\n  width: 300px;\n  height: 200px;\n} */\n.what-you-will-learn ul[data-v-7c861bc4] {\n  list-style: circle;\n}\ndiv[data-v-7c861bc4] {\n  font-family: \"Montserrat\";\n}\n", ""]);
+exports.push([module.i, "\n.body[data-v-7c861bc4] {\n  padding: 40px 20px 60px;\n}\n.main-content[data-v-7c861bc4] {\n  width: 80%;\n  margin: 0 auto;\n}\n.top_box[data-v-7c861bc4] {\n  background: #f7f8fa;\n}\na[data-v-7c861bc4]{\n  text-decoration: none;\n  color: black;\n}\nul[data-v-7c861bc4],\nol[data-v-7c861bc4] {\n  list-style: none;\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before {\n  padding: 8px;\n  color: black;\n  content: \"/\\A0\";\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before:last-child {\n  content: \"\";\n}\n.filter-list[data-v-7c861bc4]{\n  display: flex;\n  justify-content: space-around;\n}\n.single-content[data-v-7c861bc4]{\n  position: relative;\n  transition: .3s;\n  box-shadow: 10px 20px 20px rgba(247, 248, 250, 0.8);\n}\n.single-content .text-content[data-v-7c861bc4],\n.single-content[data-v-7c861bc4]::after{\n  position: absolute;\n  left: 20px;\n  right: 20px;\n}\n.single-content[data-v-7c861bc4]::after{\n  content: \"\";\n  display: block;\n  background: #13a699;\n  top: 20px;\n  bottom: 20px;\n  opacity: 0;\n  transform: rotate3d(-1,1,0,100deg);\n  transition: .4s;\n}\n.single-content[data-v-7c861bc4]:hover::after{\n  opacity: .9;\n  transform: rotate3d(0,0,0,0deg);\n}\n.single-content img[data-v-7c861bc4]{\n  width: 350px;\n  height: 250px;\n}\n.text-content[data-v-7c861bc4]{\n  top: 45%;\n  opacity: 0;\n  z-index: 1;\n  transform: translate(10%, -30%);\n  transition: .3s;\n  text-align: center;\n  color: #fff;\n  margin-top: 5px;\n}\n.text-content .btn[data-v-7c861bc4]{\n  color: #fff !important;\n  border: 1px solid #fff;\n  border-radius: 5px;\n  padding: 10px 20px;\n}\n.single-content:hover .text-content[data-v-7c861bc4]{\n  opacity: 1;\n  transform: translate(0, -50%);\n  transition-delay: .3s;\n}\n.explore-content[data-v-7c861bc4]{\n  margin-top: 15px;\n}\n/* .router-link-active{\n  border-bottom: 2px solid #ffd708;\n} */\ndiv[data-v-7c861bc4] {\n  font-family: \"Montserrat\";\n}\n", ""]);
 
 // exports
 
@@ -38166,72 +38196,93 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("h2", { staticClass: "mb-3 px-3" }, [_vm._v("Explore Resources")]),
-      _vm._v(" "),
-      _c(
-        "b-container",
-        [
-          _c(
-            "b-row",
-            _vm._l(_vm.resources, function(item, idx) {
-              return _c(
-                "b-col",
-                { key: idx, attrs: { cols: "3" } },
-                [
-                  _c(
-                    "b-card",
-                    {
-                      staticClass: "mb-2 toCaps",
-                      staticStyle: { "max-width": "20rem" },
-                      attrs: {
-                        title: item.module,
-                        "img-src": item.cover_image,
-                        "img-alt": "Image",
-                        "img-top": "",
-                        tag: "article"
-                      }
-                    },
-                    [
-                      _c("b-card-text", { staticClass: "toCaps" }, [
-                        _vm._v(_vm._s(item.subject))
-                      ]),
-                      _vm._v(" "),
-                      _c("b-card-text", { staticClass: "excerpt" }, [
-                        _vm._v(_vm._s(item.excerpt))
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-button",
-                        {
-                          attrs: { variant: "primary" },
-                          on: {
-                            click: function($event) {
-                              return _vm.gotoHer(item.id)
-                            }
-                          }
-                        },
-                        [_vm._v("View")]
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            }),
-            1
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
+  return _c("div", [
+    _c("h2", { staticClass: "mb-3 px-3" }, [_vm._v("Explore Resources")]),
+    _vm._v(" "),
+    _c(
+      "ul",
+      { staticClass: "filter-list mb-5" },
+      [
+        _c("router-link", { attrs: { to: "" } }, [
+          _c("li", [_vm._v(" All Subject")])
+        ]),
+        _vm._v(" "),
+        _c("router-link", { attrs: { to: "" } }, [
+          _c("li", [_vm._v(" Mathematics")])
+        ]),
+        _vm._v(" "),
+        _c("router-link", { attrs: { to: "" } }, [
+          _c("li", [_vm._v(" English Language")])
+        ]),
+        _vm._v(" "),
+        _c("router-link", { attrs: { to: "" } }, [
+          _c("li", [_vm._v(" Geography")])
+        ])
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _vm._m(0)
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container explore-content" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-4 col-sm-6" }, [
+          _c("div", { staticClass: "single-content" }, [
+            _c("img", { attrs: { src: "/images/maths.jpg", alt: "" } }),
+            _vm._v(" "),
+            _c("div", { staticClass: "text-content" }, [
+              _c("h5", [_vm._v("Differentiation")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v("Lorem ipsum dolor sit amet consectetur adipisicing")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "btn" }, [_vm._v("Add to Library")])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-4 col-sm-6" }, [
+          _c("div", { staticClass: "single-content" }, [
+            _c("img", { attrs: { src: "/images/econs.jpg", alt: "" } }),
+            _vm._v(" "),
+            _c("div", { staticClass: "text-content" }, [
+              _c("h5", [_vm._v("Market value")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v("Lorem ipsum dolor sit amet consectetur adipisicing")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "btn" }, [_vm._v("Add to Library")])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-4 col-sm-6" }, [
+          _c("div", { staticClass: "single-content" }, [
+            _c("img", { attrs: { src: "/images/geography.jpeg", alt: "" } }),
+            _vm._v(" "),
+            _c("div", { staticClass: "text-content" }, [
+              _c("h5", [_vm._v("How Round is the earth")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v("Lorem ipsum dolor sit amet consectetur adipisicing")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "btn" }, [_vm._v("Add to Library")])
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

@@ -52,34 +52,64 @@
 
   <div>
     <h2 class="mb-3 px-3">Explore Resources</h2>
-    <b-container>
-      <b-row>
-        <b-col cols="3" v-for="(item,idx) in resources" :key="idx">
-         
-            <b-card
-             
-              :title="item.module"
-              :img-src="item.cover_image"
-              img-alt="Image"
-              img-top
-              tag="article"
-              style="max-width: 20rem;"
-              class="mb-2 toCaps shadow"
-            >
-             <b-card-text class="toCaps">{{item.subject}}</b-card-text>
-              <b-card-text class="excerpt">{{item.excerpt}}</b-card-text>
 
-              <b-button  variant="primary" block @click="gotoHer(item.id)">View</b-button>
-            </b-card>
-        
-        </b-col>
-      
-      </b-row>
-    </b-container>
+       <ul class="filter-list mb-5">
+        <router-link to="">
+          <li> All Subject</li>
+        </router-link>
+         <router-link to="">
+          <li> Mathematics</li>
+        </router-link>
+         <router-link to="">
+          <li> English Language</li>
+        </router-link>
+         <router-link to="">
+          <li> Geography</li>
+        </router-link>
+       </ul>
+
+   <div class="container explore-content">
+     <div class="row">
+        <div class="col-md-4 col-sm-6">
+          <div class="single-content">
+            <img src="/images/maths.jpg" alt />
+            <div class="text-content">
+              <h5>Differentiation</h5>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing</p>
+              <div class="btn">Add to Library</div>
+            </div>
+          </div>
+        </div>
+         <div class="col-md-4 col-sm-6">
+          <div class="single-content">
+            <img src="/images/econs.jpg" alt />
+            <div class="text-content">
+              <h5>Market value</h5>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing</p>
+              <div class="btn">Add to Library</div>
+            </div>
+          </div>
+        </div>
+         <div class="col-md-4 col-sm-6">
+          <div class="single-content">
+            <img src="/images/geography.jpeg" alt />
+            <div class="text-content">
+              <h5>How Round is the earth</h5>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing</p>
+              <div class="btn">Add to Library</div>
+            </div>
+          </div>
+        </div>
+     </div>
+   </div>
+
+   
   </div>
 </template>
 
 <script>
+import Filterizr from "filterizr";
+
 export default {
   props: ["student"],
   data() {
@@ -164,19 +194,9 @@ export default {
 .top_box {
   background: #f7f8fa;
 }
-.excerpt{
-  height:45px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-clamp: 2;
-  -webkit-line-clamp: 2;
-   -moz-line-clamp: 2;
-    -o-line-clamp: 2;
-     -ms-line-clamp: 2;
-     font-size: 15px;
-      white-space: nowrap; 
-      position: relative;
-  display: block;
+a{
+  text-decoration: none;
+  color: black;
 }
 ul,
 ol {
@@ -191,13 +211,69 @@ ul.breadcrumb li + li:before {
 ul.breadcrumb li + li:before:last-child {
   content: "";
 }
-/* .card img {
-  width: 300px;
-  height: 200px;
-} */
-.what-you-will-learn ul {
-  list-style: circle;
+.filter-list{
+  display: flex;
+  justify-content: space-around;
 }
+.single-content{
+  position: relative;
+  transition: .3s;
+  box-shadow: 10px 20px 20px rgba(247, 248, 250, 0.8);
+}
+.single-content .text-content,
+.single-content::after{
+  position: absolute;
+  left: 20px;
+  right: 20px;
+}
+
+.single-content::after{
+  content: "";
+  display: block;
+  background: #13a699;
+  top: 20px;
+  bottom: 20px;
+  opacity: 0;
+  transform: rotate3d(-1,1,0,100deg);
+  transition: .4s;
+}
+
+.single-content:hover::after{
+  opacity: .9;
+  transform: rotate3d(0,0,0,0deg);
+}
+.single-content img{
+  width: 350px;
+  height: 250px;
+}
+
+.text-content{
+  top: 45%;
+  opacity: 0;
+  z-index: 1;
+  transform: translate(10%, -30%);
+  transition: .3s;
+  text-align: center;
+  color: #fff;
+  margin-top: 5px;
+}
+.text-content .btn{
+  color: #fff !important;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+.single-content:hover .text-content{
+  opacity: 1;
+  transform: translate(0, -50%);
+  transition-delay: .3s;
+}
+.explore-content{
+  margin-top: 15px;
+}
+/* .router-link-active{
+  border-bottom: 2px solid #ffd708;
+} */
 div {
   font-family: "Montserrat";
 }

@@ -10291,7 +10291,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-!(function webpackMissingModule() { var e = new Error("Cannot find module 'filterizr'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 //
 //
 //
@@ -10378,48 +10377,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
+// import Filterizr from "filterizr";
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
     return {
       resources: [],
       opened: [],
-      current: ""
+      current: "",
+      subjects: [],
+      filter: 'all'
     };
   },
   mounted: function mounted() {
     this.getResources();
+    this.getSubjects();
+  },
+  computed: {
+    filteredSubjects: function filteredSubjects() {
+      var _this = this;
+
+      return this.resources.filter(function (item) {
+        if (item.subject.toLowerCase() == _this.filter.toLowerCase()) {
+          return item;
+        }
+
+        if (_this.filter.toLowerCase() == 'all') {
+          return item;
+        }
+      });
+    }
   },
   methods: {
+    selectFilter: function selectFilter(name) {
+      this.filter = name;
+      console.log("selectFilter -> name", name);
+    },
     gotoHer: function gotoHer(id) {
       this.$router.push("/student/resource/view/".concat(id));
     },
     addtolibrary: function addtolibrary(id) {
-      var _this = this;
+      var _this2 = this;
 
       var data = {
         id: this.resources[id].id,
@@ -10434,14 +10432,14 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 201) {
-          _this.$toasted.success("Added to Library", {
+          _this2.$toasted.success("Added to Library", {
             icon: {
               name: "check",
               after: false
             }
           });
         } else {
-          _this.$toasted.error("Already in Library", {
+          _this2.$toasted.error("Already in Library", {
             icon: "ban",
             after: false
           });
@@ -10449,7 +10447,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getResources: function getResources() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.get("/api/student-resources", {
         headers: {
@@ -10457,7 +10455,20 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status = 200) {
-          _this2.resources = res.data;
+          _this3.resources = res.data;
+        }
+      });
+    },
+    getSubjects: function getSubjects() {
+      var _this4 = this;
+
+      axios.get("/api/student-all-subjects", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.student.access_token)
+        }
+      }).then(function (res) {
+        if (res.status = 200) {
+          _this4.subjects = res.data;
         }
       });
     },
@@ -17785,7 +17796,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-7c861bc4] {\n  padding: 40px 20px 60px;\n}\n.main-content[data-v-7c861bc4] {\n  width: 80%;\n  margin: 0 auto;\n}\n.top_box[data-v-7c861bc4] {\n  background: #f7f8fa;\n}\na[data-v-7c861bc4]{\n  text-decoration: none;\n  color: black;\n}\nul[data-v-7c861bc4],\nol[data-v-7c861bc4] {\n  list-style: none;\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before {\n  padding: 8px;\n  color: black;\n  content: \"/\\A0\";\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before:last-child {\n  content: \"\";\n}\n.filter-list[data-v-7c861bc4]{\n  display: flex;\n  justify-content: space-around;\n}\n.single-content[data-v-7c861bc4]{\n  position: relative;\n  transition: .3s;\n  box-shadow: 10px 20px 20px rgba(247, 248, 250, 0.8);\n}\n.single-content .text-content[data-v-7c861bc4],\n.single-content[data-v-7c861bc4]::after{\n  position: absolute;\n  left: 20px;\n  right: 20px;\n}\n.single-content[data-v-7c861bc4]::after{\n  content: \"\";\n  display: block;\n  background: #13a699;\n  top: 20px;\n  bottom: 20px;\n  opacity: 0;\n  transform: rotate3d(-1,1,0,100deg);\n  transition: .4s;\n}\n.single-content[data-v-7c861bc4]:hover::after{\n  opacity: .9;\n  transform: rotate3d(0,0,0,0deg);\n}\n.single-content img[data-v-7c861bc4]{\n  width: 350px;\n  height: 250px;\n}\n.text-content[data-v-7c861bc4]{\n  top: 45%;\n  opacity: 0;\n  z-index: 1;\n  transform: translate(10%, -30%);\n  transition: .3s;\n  text-align: center;\n  color: #fff;\n  margin-top: 5px;\n}\n.text-content .btn[data-v-7c861bc4]{\n  color: #fff !important;\n  border: 1px solid #fff;\n  border-radius: 5px;\n  padding: 10px 20px;\n}\n.single-content:hover .text-content[data-v-7c861bc4]{\n  opacity: 1;\n  transform: translate(0, -50%);\n  transition-delay: .3s;\n}\n.explore-content[data-v-7c861bc4]{\n  margin-top: 15px;\n}\n/* .router-link-active{\n  border-bottom: 2px solid #ffd708;\n} */\ndiv[data-v-7c861bc4] {\n  font-family: \"Montserrat\";\n}\n", ""]);
+exports.push([module.i, "\n.body[data-v-7c861bc4] {\n  padding: 40px 20px 60px;\n}\n.main-content[data-v-7c861bc4] {\n  width: 80%;\n  margin: 0 auto;\n}\n.top_box[data-v-7c861bc4] {\n  background: #f7f8fa;\n}\na[data-v-7c861bc4]{\n  text-decoration: none;\n  color: black;\n}\nul[data-v-7c861bc4],\nol[data-v-7c861bc4] {\n  list-style: none;\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before {\n  padding: 8px;\n  color: black;\n  content: \"/\\A0\";\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before:last-child {\n  content: \"\";\n}\n.filter-list[data-v-7c861bc4]{\n  display: flex;\n  justify-content: flex-start;\nfont-size: 14px;\n  border-bottom: 1px solid #ccc;\n  font-weight: bold;\n}\n.filter-list li[data-v-7c861bc4]{\n color: rgba(0, 0, 0, .54);\n   border-bottom: 2px solid transparent;\n    padding: 8px 0;\n}\n.filter-list li[data-v-7c861bc4]:hover{\n   color: rgba(0, 0, 0, .84);\n   border-color: rgba(0, 0, 0, .84);\n}\n.single-content[data-v-7c861bc4]{\n  position: relative;\n  transition: .3s;\n  box-shadow: 10px 20px 20px rgba(247, 248, 250, 0.8);\n}\n.single-content .text-content[data-v-7c861bc4],\n.single-content[data-v-7c861bc4]::after{\n  position: absolute;\n  left: 20px;\n  right: 20px;\n}\n.single-content[data-v-7c861bc4]::after{\n  content: \"\";\n  display: block;\n  background: #13a699;\n  top: 20px;\n  bottom: 20px;\n  opacity: 0;\n  transform: rotate3d(-1,1,0,100deg);\n  transition: .4s;\n}\n.single-content[data-v-7c861bc4]:hover::after{\n  opacity: .9;\n  transform: rotate3d(0,0,0,0deg);\n}\n.single-content img[data-v-7c861bc4]{\n  width: 100%;\n  height: 100%;\n}\n.text-content[data-v-7c861bc4]{\n  top: 45%;\n  opacity: 0;\n  z-index: 1;\n  transform: translate(10%, -30%);\n  transition: .3s;\n  text-align: center;\n  color: #fff;\n  margin-top: 5px;\n}\n.text-content .btn[data-v-7c861bc4]{\n  color: #fff !important;\n  border: 1px solid #fff;\n  border-radius: 5px;\n  padding: 10px 20px;\n}\n.single-content:hover .text-content[data-v-7c861bc4]{\n  opacity: 1;\n  transform: translate(0, -50%);\n  transition-delay: .3s;\n}\n.explore-content[data-v-7c861bc4]{\n  margin-top: 15px;\n}\n/* .router-link-active{\n  border-bottom: 2px solid #ffd708;\n} */\ndiv[data-v-7c861bc4] {\n  font-family: \"Montserrat\";\n}\n.excerpt[data-v-7c861bc4]{\n  height: 70px;\n  font-size:15px;\n  overflow:hidden;\n   display: -webkit-box !important;\n  -webkit-line-clamp: 3;\n  -moz-line-clamp: 3;\n  -ms-line-clamp: 3;\n  -o-line-clamp: 3;\n  line-clamp: 3;\n  -webkit-box-orient: vertical;\n  -ms-box-orient: vertical;\n  -o-box-orient: vertical;\n  box-orient: vertical;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: normal;\n}\n", ""]);
 
 // exports
 
@@ -17842,7 +17853,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.semi-white[data-v-09903b50]{\n\n  padding:50px 20px;\n}\nnav[data-v-09903b50] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n#notification[data-v-09903b50] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-09903b50] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-09903b50] {\n  max-height: 300px;\n  overflow: scroll;\n}\n.icon[data-v-09903b50] {\n  position: relative;\n}\n.badge[data-v-09903b50] {\n  position: absolute;\n  top: -40%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 14px;\n}\n.list-group-item[data-v-09903b50] {\n  font-size: 14px;\n}\n.fa-bell[data-v-09903b50] {\n  font-size: 24px;\n  color:#ffd708;\n}\n.search[data-v-09903b50]{\n  width:250px;\n  border-color:#ffd708\n}\n", ""]);
+exports.push([module.i, "\n.semi-white[data-v-09903b50]{\n\n  padding:50px 20px;\n}\nnav[data-v-09903b50] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background:white;\n}\n#notification[data-v-09903b50] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-09903b50] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-09903b50] {\n  max-height: 300px;\n  overflow: scroll;\n}\n.icon[data-v-09903b50] {\n  position: relative;\n}\n.badge[data-v-09903b50] {\n  position: absolute;\n  top: -40%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 14px;\n}\n.list-group-item[data-v-09903b50] {\n  font-size: 14px;\n}\n.fa-bell[data-v-09903b50] {\n  font-size: 24px;\n  color:#ffd708;\n}\n.search[data-v-09903b50]{\n  width:250px;\n  border-color:#ffd708\n}\n", ""]);
 
 // exports
 
@@ -38197,92 +38208,106 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h2", { staticClass: "mb-3 px-3" }, [_vm._v("Explore Resources")]),
-    _vm._v(" "),
     _c(
       "ul",
       { staticClass: "filter-list mb-5" },
       [
-        _c("router-link", { attrs: { to: "" } }, [
-          _c("li", [_vm._v(" All Subject")])
-        ]),
+        _c(
+          "li",
+          {
+            staticClass: "cpointer mr-4",
+            on: {
+              click: function($event) {
+                return _vm.selectFilter("all")
+              }
+            }
+          },
+          [_vm._v(" All Subject")]
+        ),
         _vm._v(" "),
-        _c("router-link", { attrs: { to: "" } }, [
-          _c("li", [_vm._v(" Mathematics")])
-        ]),
-        _vm._v(" "),
-        _c("router-link", { attrs: { to: "" } }, [
-          _c("li", [_vm._v(" English Language")])
-        ]),
-        _vm._v(" "),
-        _c("router-link", { attrs: { to: "" } }, [
-          _c("li", [_vm._v(" Geography")])
-        ])
+        _vm._l(_vm.subjects, function(item, idx) {
+          return _c(
+            "li",
+            {
+              key: idx,
+              staticClass: "toCaps cpointer mr-4",
+              on: {
+                click: function($event) {
+                  return _vm.selectFilter(item.name)
+                }
+              }
+            },
+            [_vm._v(" " + _vm._s(item.name.toLowerCase()))]
+          )
+        })
       ],
-      1
+      2
     ),
     _vm._v(" "),
-    _vm._m(0)
+    _c("div", { staticClass: "container-fluid explore-content" }, [
+      _vm.filteredSubjects.length
+        ? _c(
+            "div",
+            { staticClass: "row" },
+            _vm._l(_vm.filteredSubjects, function(item, idx) {
+              return _c(
+                "div",
+                { key: idx, staticClass: "col-md-3 col-sm-6 " },
+                [
+                  _c("div", { staticClass: "single-content" }, [
+                    _c("img", { attrs: { src: item.cover_image, alt: "" } }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "text-content" }, [
+                      _c("p", { staticClass: "excerpt" }, [
+                        _vm._v(_vm._s(item.excerpt))
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "btn",
+                          on: {
+                            click: function($event) {
+                              return _vm.gotoHer(item.id)
+                            }
+                          }
+                        },
+                        [_vm._v("Visit resource")]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "p",
+                    {
+                      staticClass: "bg-white text-center p-2 toCaps cpointer "
+                    },
+                    [
+                      _c(
+                        "strong",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.gotoHer(item.id)
+                            }
+                          }
+                        },
+                        [_vm._v(_vm._s(item.module.toLowerCase()))]
+                      )
+                    ]
+                  )
+                ]
+              )
+            }),
+            0
+          )
+        : _c("p", { staticClass: "mx-auto text-center" }, [
+            _vm._v("No available resource yet !")
+          ])
+    ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container explore-content" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-4 col-sm-6" }, [
-          _c("div", { staticClass: "single-content" }, [
-            _c("img", { attrs: { src: "/images/maths.jpg", alt: "" } }),
-            _vm._v(" "),
-            _c("div", { staticClass: "text-content" }, [
-              _c("h5", [_vm._v("Differentiation")]),
-              _vm._v(" "),
-              _c("p", [
-                _vm._v("Lorem ipsum dolor sit amet consectetur adipisicing")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "btn" }, [_vm._v("Add to Library")])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-4 col-sm-6" }, [
-          _c("div", { staticClass: "single-content" }, [
-            _c("img", { attrs: { src: "/images/econs.jpg", alt: "" } }),
-            _vm._v(" "),
-            _c("div", { staticClass: "text-content" }, [
-              _c("h5", [_vm._v("Market value")]),
-              _vm._v(" "),
-              _c("p", [
-                _vm._v("Lorem ipsum dolor sit amet consectetur adipisicing")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "btn" }, [_vm._v("Add to Library")])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-4 col-sm-6" }, [
-          _c("div", { staticClass: "single-content" }, [
-            _c("img", { attrs: { src: "/images/geography.jpeg", alt: "" } }),
-            _vm._v(" "),
-            _c("div", { staticClass: "text-content" }, [
-              _c("h5", [_vm._v("How Round is the earth")]),
-              _vm._v(" "),
-              _c("p", [
-                _vm._v("Lorem ipsum dolor sit amet consectetur adipisicing")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "btn" }, [_vm._v("Add to Library")])
-            ])
-          ])
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

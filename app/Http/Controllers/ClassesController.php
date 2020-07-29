@@ -19,9 +19,15 @@ class ClassesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
+    
      public function getAllTutorClasses(){
         $school_id = auth('tutor')->user()->school_id;
+        
+        return Classes::where('school_id',$school_id)->get();
+     }
+
+     public function getAllClassesForStudent(){
+        $school_id = auth('api')->user()->school_id;
         
         return Classes::where('school_id',$school_id)->get();
      }

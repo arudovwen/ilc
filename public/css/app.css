@@ -647,6 +647,9 @@ table{
 }
 /* teacher dashboard  */
 
+.cpointer{
+    cursor: pointer;
+}
 
 /* * {
     margin: 0;

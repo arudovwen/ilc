@@ -570,6 +570,10 @@ var Institute = function Institute() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/institute/createInstitute */ "./resources/js/components/institute/createInstitute.vue"));
 };
 
+var SubscribeInstitute = function SubscribeInstitute() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/school/subscribe */ "./resources/js/components/school/subscribe.vue"));
+};
+
 var Data = function Data() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/data */ "./resources/js/components/data.vue"));
 };
@@ -926,6 +930,10 @@ var routes = [{
   path: "/create/institute",
   component: Institute,
   name: "Institute"
+}, {
+  path: "/subscribe/institute",
+  component: SubscribeInstitute,
+  name: "SubscribeInstitute"
 }, {
   path: "/summary",
   component: Summary,

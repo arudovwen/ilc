@@ -8,10 +8,10 @@
     :close="close"
     :embed="false"
   >
-    <button class="button-green">
+    <b-button class="reg-btn ml-0" block>
       <i class="fas fa-money-bill-alt"></i>
-      Make Payment
-    </button>
+       PAY 
+    </b-button>
   </paystack>
 </template>
  

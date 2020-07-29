@@ -99,6 +99,7 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
+      
         $admin = Admin::find($id);
         $admin->name = $request->name;
         $admin->school_id = $request->school_id;
@@ -107,9 +108,7 @@ class AdminController extends Controller
         $admin->address = $request->address;
         $admin->password =  Hash::make($request->password);
         $admin->save();
-        return response()->json([
-            'status' => 'Updated'
-        ]);
+        return $admin;
     }
 
     /**

@@ -1,56 +1,7 @@
 <template>
-  <!-- <b-container>
-    <div class="student-resource" v-for="(item,idx) in resources" :key="idx">
-      <ul class="breadcrumb">
-        <li>
-          <a href="#" class="toCaps">{{item.subject}}</a>
-        </li>
-        <li>Module 1.1</li>
 
-       <div class="ml-auto"><b-button @click="gotoHer(item.id)">View</b-button></div>
-      </ul>
-      <h4>
-        1.1
-        <span class="toCaps">{{item.module}}</span>
-      </h4>
 
-     
-        <b-row class="align-items-center">
-          <b-col cols="8">
-            <div class="what-you-will-learn">
-              <p>Within this lesson you will learn:</p>
-              <strong>Content</strong>
-              <ul class="px-3">
-                <li v-for="(content,index) in JSON.parse(item.content)" :key="index">
-                  <span>{{content.title}}</span>
-                  <span class="ml-3">
-                    <i class="fa fa-play-circle" v-if="content.type=='video'" aria-hidden="true"></i>
-                    <i class="fa fa-file-pdf-o" v-if="content.type=='pdf'" aria-hidden="true"></i>
-                    <i class="fa fa-volume-up" v-if="content.type=='audio'" aria-hidden="true"></i>
-                    <i
-                      class="fa fa-file-powerpoint-o"
-                      v-if="content.type=='ppt'"
-                      aria-hidden="true"
-                    ></i>
-                    <i class="fas fa-file-csv" v-if="item.content=='csv'"></i>
-                  </span>
-                </li>
-              </ul>
-            </div>
-            <div class="module-overview">
-              <h5>Overview</h5>
-              <p>{{item.excerpt}}</p>
-            </div>
-          </b-col>
-          <b-col cols="4">
-            <img @click="gotoHer(item.id)" :src="item.cover_image" class="text-center img-fluid" alt="english" />
-          </b-col>
-        </b-row>
-    
-    </div>
-  </b-container>-->
-
-  <div>
+  <div class="view">
     <!-- <h2 class="mb-3 ">Explore Resources</h2> -->
 
        <ul class="filter-list mb-5">
@@ -201,7 +152,7 @@ export default {
 </script>
 
 <style scoped>
-.body {
+.view {
   padding: 40px 20px 60px;
 }
 .main-content {

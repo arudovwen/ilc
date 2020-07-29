@@ -44,14 +44,49 @@
     <transition name="slide-fade">
       <router-view :student="student"  class="semi-white "></router-view>
     </transition>
-  </div> -->
+  </div>-->
   <div>
-      <b-nav align="right">
-       <b-nav-item> <b-avatar to="/student/profile" src="/images/profile-img.jpg"></b-avatar></b-nav-item>
-        <b-nav-item><b-form-input placeholder="Search... " class="search rounded-pill"></b-form-input></b-nav-item>
-        <b-nav-item><i class="icon-bell-1"></i></b-nav-item>
-      </b-nav>
-       <router-view :student="student"  class="semi-white "></router-view>
+    <b-nav align="right">
+      <b-nav-item>
+        <b-avatar to="/student/profile" src="/images/profile-img.jpg"></b-avatar>
+      </b-nav-item>
+      <b-nav-item>
+        <b-form-input placeholder="Search... " class="search rounded-pill"></b-form-input>
+      </b-nav-item>
+      <b-nav-item>
+      
+          <div id="notification" class="mx-3">
+          <div class="icon" @click="toggleNotification">
+             <i class="icon-bell-1"></i>
+            <div class="badge animated pulse" v-if="count>0">{{count}}</div>
+          </div>
+          <div
+            class="notification-body animated fadeIn shadow-sm bg-white"
+            v-if="showNotification"
+          >
+            <ul class="list-group">
+              <li class="list-group-item">
+                <h6>Notifications</h6>
+              </li>
+
+              <div class="main-notify">
+                <li class="list-group-item" v-for="(item,idx) in notifications" :key="idx">
+                  <span :class="{'text-muted':item.status}">{{item.message}}</span>
+                  <small class v-if="!item.status">New</small>
+                </li>
+              </div>
+              <li class="list-group-item bg-gray text-center">
+                <small>View all</small>
+              </li>
+            </ul>
+            
+          </div>
+        </div>
+      </b-nav-item>
+    </b-nav>
+    <transition name="slide-fade">
+      <router-view :student="student" class="semi-white"></router-view>
+    </transition>
   </div>
 </template>
 
@@ -63,27 +98,27 @@ export default {
     return {
       showNotification: false,
       notifications: [],
-      count: 0
+      count: 0,
     };
   },
   mounted() {
     Echo.private("group-subscribed" + this.$props.student.id).listen(
       "GroupSubscribed",
-      e => {
+      (e) => {
         this.getNotifications();
       }
     );
-     Echo.private("resource-added" + this.$props.student.id).listen(
+    Echo.private("resource-added" + this.$props.student.id).listen(
       "ResourceAdded",
-      e => {
+      (e) => {
         this.getNotifications();
       }
     );
     Echo.private("deleted-group" + this.$props.student.id).listen(
       "DeletedGroup",
-      e => {
-      console.log("created -> e", e)
-         this.getNotifications();
+      (e) => {
+        console.log("created -> e", e);
+        this.getNotifications();
       }
     );
   },
@@ -91,19 +126,18 @@ export default {
     this.getNotifications();
   },
   watch: {
-    $route: "reset"
+    $route: "reset",
   },
   methods: {
     initialLoad() {
       axios
         .get("/api/student-group", {
           headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
-           
           }
         });
     },
@@ -121,10 +155,10 @@ export default {
       axios
         .get(`/api/clear-user-notifications/${this.$props.student.id}`, {
           headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.getNotifications();
             this.count = 0;
@@ -135,14 +169,14 @@ export default {
       axios
         .get(`/api/user-notifications/${this.$props.student.id}`, {
           headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             let count = [];
             this.notifications = res.data;
-            this.notifications.forEach(item => {
+            this.notifications.forEach((item) => {
               if (!item.status) {
                 count.push(item);
               }
@@ -150,26 +184,15 @@ export default {
             this.count = count.length;
           }
         });
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
 
-.nav-item i{
+.nav-item i {
   color: #808080;
   font-size: 24px;
-}
-/* .semi-white{
-
-  padding:50px 20px;
-
-}
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background:white;
 }
 #notification {
   position: relative;
@@ -199,13 +222,25 @@ nav {
 .list-group-item {
   font-size: 14px;
 }
+/* .semi-white{
+
+  padding:50px 20px;
+
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background:white;
+}
+
 .fa-bell {
   font-size: 24px;
   color:#ffd708;
 } */
-.search{
-  width:250px;
+.search {
+  width: 250px;
   background: transparent !important;
-  border-color:#808080
+  border-color: #808080;
 }
 </style>

@@ -1,5 +1,9 @@
 <template>
-  <div class="body" :class="{'overflow-hide':showPreview}">
+  <div class="body" >
+
+  <b-modal id="preview" size="lg "  hide-footer>
+     <Preview class="preview" :curriculum="curriculum" @submit="submit"  @togglePreview='togglePreview' :afterSubmit='afterSubmit'/>
+  </b-modal>
     <!-- form starts here  -->
     <form @submit.prevent="togglePreview">
       <legend class="text-center">New Curriculum</legend>
@@ -174,7 +178,7 @@
         <div v-for="(item,idx) in curriculum.faqs" :key="idx" class="mb-3">
           <span class="d-flex mb-2">
             <label for="Question" class="side-label">Question</label>
-            <input required
+            <input 
               v-model="item.question"
               type="text"
               class="form-control w-75 mb-2"
@@ -184,7 +188,7 @@
           </span>
           <span class="d-flex">
             <label for class="side-label">Answer</label>
-            <input required
+            <input 
               v-model="item.answer"
               type="text"
               class="form-control w-75"
@@ -231,7 +235,7 @@
     <!-- form ends here  -->
 
     <div class="popup-overlay" v-if="showPreview">
-      <Preview class="preview" :curriculum="curriculum" @submit="submit"  @togglePreview='togglePreview' :afterSubmit='afterSubmit'/>
+     
     </div>
   </div>
 </template>
@@ -276,8 +280,17 @@ export default {
     this.getclasses();
   },
   methods: {
+    cancelToggle(){
+        this.$bvModal.hide("preview");
+    },
     togglePreview() {
+       if (this.showPreview) {
+            this.$bvModal.hide("preview");
+        }
+        
       this.showPreview = !this.showPreview;
+        this.$bvModal.show("preview");
+       
     },
     getclasses() {
       axios

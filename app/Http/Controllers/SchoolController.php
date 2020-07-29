@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Lga;
 use App\Admin;
 use App\School;
 use Carbon\Carbon;
@@ -41,14 +42,18 @@ class SchoolController extends Controller
      */
     public function store(Request $request)
     {
-     
-      $result =  DB::transaction(function () use($request) {
+        $present = School::where('email',$request->email)->where('verify',0)->first();
+       if (is_null($present)) {
+        $result =  DB::transaction(function () use ($request) {
             $school = School::create([
                 'schools'=> $request->name,
                 'abbreviation'=> $request->abbreviation,
                 'email'=> $request->email,
                 'phone'=> $request->phone,
                 'address'=> $request->address,
+                'lga'=> $request->lga,
+                'level'=> $request->level,
+                'ownership'=> $request->ownership,
                 'verify'=> 0,
                 
             ]);
@@ -66,7 +71,13 @@ class SchoolController extends Controller
            
             return $school;
         });
-         return $result;      
+        return $result;
+       }else{
+        return response()->json([
+            'status' => 'unsubscribed',
+            'data'=>$present
+        ]);
+       }
     }
 
     /**
@@ -78,6 +89,11 @@ class SchoolController extends Controller
     public function show($id)
     {
         return School::find($id);
+    }
+
+    public function getLga()
+    {
+        return Lga::all();
     }
 
     /**
@@ -106,6 +122,9 @@ class SchoolController extends Controller
         $school->email = $request->email;
         $school->phone = $request->phone;
         $school->address = $request->address;
+        $school->lga= $request->lga;
+        $school->level = $request->level;
+        $school->ownership = $request->ownership;
         $school->save();
         return response()->json([
             'status' => 'Updated'
@@ -130,8 +149,7 @@ class SchoolController extends Controller
     {
         foreach ($request->data as $id) {
             $find = School::find($id);
-             $find->delete();
-           
+            $find->delete();
         }
      
         return response()->json([

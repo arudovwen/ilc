@@ -1,32 +1,7 @@
 <template>
   <div class="body">
-    <nav class="mb-5">
-      <b-button class="shadow-sm hiden">Create Class</b-button>
-
-      <b-button class="shadow-sm hiden">Assign Course</b-button>
-
-      <b-button class="shadow-sm hiden">Assign Level</b-button>
-      <b-button class="shadow-sm" @click="multiDrop">Multi-Drop</b-button>
-    </nav>
-
-   <h3 class="mb-4">All Classes</h3>
-    <div class="d-flex justify-content-between">
-      <b-table :items="classes" :fields="fields" hover bordered>
-        <template v-slot:cell(action)="data">
-          <span class="mr-3" @click="drop(data.item.id)">
-            <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
-          </span>
-          <span @click="edit(data.item.id)">
-            <i class="fas fa-edit"></i>Edit
-          </span>
-        </template>
-
-        <template v-slot:cell(drop)="data">
-          <b-form-checkbox :value="data.item.id" v-model="items"></b-form-checkbox>
-        </template>
-      </b-table>
-
-      <div class="add border p-2 w-25">
+    <b-modal id="classes" scrollable hide-footer>
+      <div class="add border p-2 ">
         <form @submit.prevent="addClass" class="mb-5">
           <div class="form-group">
             <label for>Class name</label>
@@ -49,13 +24,69 @@
             />
           </div>
 
-          <b-button v-if="!update" type="submit">Create</b-button>
-          <div v-else class="d-flex justify-content-between">
-            <b-button type="button" @click="updateN">Update</b-button>
-            <b-button type="button" variant="outline-secondary" @click="cancel">Cancel</b-button>
-          </div>
+           <b-form-group>
+            <b-button v-if="!update" type="submit" class="btn btn-primary btn-block">Create</b-button>
+            <div v-else class=" w-100">
+            <b-form-row>
+              <b-col>
+                  <b-button type="button" block @click="updateN">Update</b-button>
+            
+              </b-col>
+              <b-col>
+                  <b-button type="button" block variant="outline-secondary" @click="cancel">Cancel</b-button>
+              </b-col>
+            </b-form-row>
+            </div>
+          </b-form-group>
         </form>
+      </div>
+    </b-modal>
+    <div class="d-flex">
+      <div class="left-side">
+        <b-row class="mb-1">
+          <b-col>
+            <h3 class="mb-4">All Classes</h3>
+          </b-col>
+          <b-col>
+            <b-row>
+              <b-col>
+                <b-button class="shadow-sm " v-b-modal.classes>Create Class</b-button>
+              </b-col>
 
+              <b-col>
+                <b-button class="shadow-sm " @click="multiDrop">Multi-Drop</b-button>
+              </b-col>
+            </b-row>
+          </b-col>
+        </b-row>
+        <b-table :items="classes" :fields="fields" hover bordered>
+             <template v-slot:cell(action)="data">
+          <div class="options">
+            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+            <div class="option shadow">
+              <ul>
+              
+                <li>
+                  <span @click="edit(data.item.id)">
+                    <i class="fas fa-edit"></i>Edit
+                  </span>
+                </li>
+                <li>
+                  <span class="mr-3" @click="drop(data.item.id)">
+                    <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </template>
+
+          <template v-slot:cell(drop)="data">
+            <b-form-checkbox :value="data.item.id" v-model="items"></b-form-checkbox>
+          </template>
+        </b-table>
+      </div>
+      <nav class="mb-5">
         <div class="mx-auto">
           <table class="table table-bordered table-hover" v-if="heads.length">
             <thead class="thead-dark">
@@ -73,7 +104,7 @@
           </table>
           <div class="form-control" v-else>No Class Head</div>
         </div>
-      </div>
+      </nav>
     </div>
   </div>
 </template>
@@ -88,16 +119,16 @@ export default {
       heads: [],
       data: {
         class_name: "",
-        sub_class: ""
+        sub_class: "",
       },
       items: [],
       item: false,
       update: false,
-      fields: ["class_name", "sub_class", "action", "drop"]
+      fields: ["class_name", "sub_class", "action", "drop"],
     };
   },
   watch: {
-    item: "selectAll"
+    item: "selectAll",
   },
   mounted() {
     this.getclasses();
@@ -108,27 +139,28 @@ export default {
       axios
         .get("/api/tutor-class", {
           headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.admin.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.heads = res.data.data;
-            console.log("getHeads -> this.heads", this.heads);
           }
         });
     },
     cancel() {
       this.update = false;
+
       this.data = {
         name: "",
-        code: ""
+        code: "",
       };
+        this.$bvModal.show("classes");
     },
     selectAll() {
       if (this.item) {
         this.items = [];
-        this.classes.forEach(it => {
+        this.classes.forEach((it) => {
           this.items.push(it.id);
         });
       } else {
@@ -139,16 +171,18 @@ export default {
       axios
         .post("/api/classes", this.data, {
           headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.admin.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 201) {
             this.data = {
               name: "",
-              code: ""
+              code: "",
             };
             this.getclasses();
+            this.$bvModal.show("classes");
+            this.$toasted.info('Created successfully')
           }
         });
     },
@@ -156,17 +190,20 @@ export default {
       axios
         .put(`/api/classes/${this.data.id}`, this.data, {
           headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.admin.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.getclasses();
+           
             this.update = false;
             this.data = {
               name: "",
-              code: ""
+              code: "",
             };
+             this.$toasted.info('Updated successfully')
+             this.$bvModal.show("classes");
           }
         });
     },
@@ -174,13 +211,14 @@ export default {
       axios
         .get(`/api/classes/${id}`, {
           headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.admin.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.data = res.data;
             this.update = true;
+            this.$bvModal.show("classes");
           }
         });
     },
@@ -188,10 +226,10 @@ export default {
       axios
         .get("/api/classes", {
           headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.admin.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.classes = res.data;
           }
@@ -203,10 +241,10 @@ export default {
         axios
           .delete(`/api/classes/${id}`, {
             headers: {
-              Authorization: `Bearer ${this.$props.admin.access_token}`
-            }
+              Authorization: `Bearer ${this.$props.admin.access_token}`,
+            },
           })
-          .then(res => {
+          .then((res) => {
             if (res.status == 200) {
               this.getclasses();
             }
@@ -216,36 +254,40 @@ export default {
     multiDrop() {
       let del = confirm("Are you sure about this?");
       let data = {
-        data: this.items
+        data: this.items,
       };
       if (del) {
         axios
           .post("/api/multi-classes-drop", data, {
             headers: {
-              Authorization: `Bearer ${this.$props.admin.access_token}`
-            }
+              Authorization: `Bearer ${this.$props.admin.access_token}`,
+            },
           })
-          .then(res => {
+          .then((res) => {
             if (res.status == 200) {
               this.getclasses();
             }
           })
-          .catch(err => {
+          .catch((err) => {
             console.log("del -> err", err);
           });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
 nav {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-column-gap: 30px;
+  width: 20%;
+  padding: 30px 15px;
 }
-
+.left-side {
+  width: 80%;
+}
+.form-group{
+  margin-bottom:24px;
+}
 td {
   text-transform: capitalize;
 }

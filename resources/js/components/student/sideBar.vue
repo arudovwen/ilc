@@ -110,6 +110,10 @@
             <i class="icon-business-class" aria-hidden="true"></i> Virtual Class
           </li>
         </router-link>
+
+         <li @click="logout">
+          <i class="fa fa-sign-out pr-2" aria-hidden="true"></i> Logout
+        </li>
       </ul>
     </nav>
   </div>
@@ -153,12 +157,28 @@ ul a {
 ul i {
   font-size: 20px;
 }
+ .logo{
+    padding: 10px 20px;
+    margin-bottom:20px;
+    text-align:center;
+    font-weight: bold;
+    font-family: 'Josefin Sans';
+    font-size: 32px;
+}
+.logo h6{
+    font-weight: bold;
+    font-family: 'Josefin Sans';
+    font-size: 24px;
+    text-align:center;
+    color:#ffd708;
+    margin:0;
+}
 /* .logo{
     padding: 10px 20px;
     margin-bottom:20px;
     text-align:center;
 }
-.logo p{
+.logo h6{
     font-weight: bold;
     font-family: 'Josefin Sans';
     font-size: 24px;

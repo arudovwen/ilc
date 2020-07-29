@@ -79,6 +79,9 @@ export default {
     this.getSubjects();
   },
   methods: {
+     toggleModal(){
+   this.$emit('toggleModal','student-create')
+    },
     submit() {
       let admin = JSON.parse(localStorage.getItem("typeAdmin"));
       axios
@@ -90,7 +93,7 @@ export default {
         .then(res => {
           if (res.status == 201) {
             this.$toasted.info("Successful");
-            this.$router.push("/admin/students");
+            this.toggleModal()
           }
           if (res.status == 200) {
             this.$toasted.info("Saved Successful");

@@ -43,6 +43,7 @@ export default {
 <style scoped>
 .semi-white{
   background: #f7f8fa;
+  min-height: 90%;
 }
 nav {
   display: flex;

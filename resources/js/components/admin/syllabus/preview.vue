@@ -206,7 +206,7 @@
       </div>
       <div class="my-5 d-flex">
         <b-button type="submit" class="btn btn-primary mr-3">Submit</b-button>
-        <b-button type="button" class="btn btn-default" @click="cancel">Cancel</b-button>
+        <b-button type="button" variant="outline-secondary" @click="cancel">Cancel</b-button>
       </div>
     </form>
     <!-- form ends here  -->
@@ -257,7 +257,8 @@ export default {
       this.afterSubmit = false
     },
     cancel() {
-      this.$emit("togglePreview");
+      this.$emit("cancelToggle");
+      
     },
     goTo(value) {
       if (value == 1) {
@@ -272,7 +273,7 @@ export default {
 
 <style scoped>
 .body {
-  padding: 40px 30px 70px;
+ 
   position: relative;
   height: 100%;
 }

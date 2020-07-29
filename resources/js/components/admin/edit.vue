@@ -1,10 +1,8 @@
 <template>
   <div class="container">
-    <div class="back">
-      <router-link to="/admin/administrators">Back</router-link>
-    </div>
+
     <form @submit.prevent="register">
-      <legend class="text-center">Update Admin</legend>
+     
       <div class="form-group">
         <label for>Name</label>
         <input
@@ -61,8 +59,15 @@
      </b-form-group>
 
 
-      <b-form-group>
-         <b-button variant="success" type="submit">Register</b-button>
+     <b-form-group class="mb-3">
+        <b-row>
+           <b-col>
+              <b-button variant="outline-secondary"  @click="toggleModal" block type="button">Cancel</b-button>
+           </b-col>
+             <b-col>
+                <b-button variant="success" block type="submit">Register</b-button>
+             </b-col>
+        </b-row>
       </b-form-group>
     </form>
   </div>
@@ -71,7 +76,7 @@
 
 <script>
 export default {
-  props: ["admin"],
+  props: ["admin",'id'],
   data() {
     return {
       data: {
@@ -93,17 +98,24 @@ export default {
     this.getAdmin();
   },
   methods: {
+     toggleModal(){
+   this.$emit('toggleModal','admin-edit')
+    },
     register() {
-      axios.put(`/api/admin/${this.$route.params.id}`, this.admin).then(res => {
+      axios.put(`/api/admin/${this.$props.id}`, this.data, {
+          headers: {
+            Authorization: `Bearer ${this.$props.admin.access_token}`
+          }
+        }).then(res => {
         if (res.status == 200) {
           this.$toasted.info("Successful");
-          this.$router.push("/admin/administrators");
+           this.toggleModal()
         }
       });
     },
     getAdmin() {
       axios
-        .get(`/api/admin/${this.$route.params.id}`, {
+        .get(`/api/admin/${this.$props.id}`, {
           headers: {
             Authorization: `Bearer ${this.$props.admin.access_token}`
           }
@@ -128,5 +140,8 @@ export default {
 }
 form {
   width: 50%;
+}
+.form-group{
+  margin-bottom:24px;
 }
 </style>

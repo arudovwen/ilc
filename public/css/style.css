@@ -438,7 +438,7 @@ form .reg-btn{
         padding:50px 20px 70px;
         position: relative;
         min-height: 100%;
-        background:#f7f8fa;
+      
     }
 
 
@@ -650,6 +650,31 @@ table{
 .cpointer{
     cursor: pointer;
 }
+
+.options {
+    position: relative;
+     list-style: none;
+  }
+  .option {
+    display: none;
+    position: absolute;
+
+    bottom: 80%;
+    width: 100px;
+    right: 60px;
+    background: white;
+  }
+  .options:hover .option {
+    display: block;
+  }
+  .option li {
+    padding: 4px 15px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .option ul{
+      list-style: none;
+  }
 
 /* * {
     margin: 0;

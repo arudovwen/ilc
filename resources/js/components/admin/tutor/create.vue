@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <form @submit.prevent="register">
-      <legend class="text-center">Register Tutor</legend>
       <div class="form-group">
         <label for>Name</label>
         <input
@@ -27,11 +26,11 @@
         />
       </div>
 
-     <b-form-group>
+      <b-form-group>
         <label for>Gender</label>
-      
-         <b-form-select v-model="tutor.gender" :options="options"></b-form-select>
-     </b-form-group>
+
+        <b-form-select v-model="tutor.gender" :options="options"></b-form-select>
+      </b-form-group>
 
       <div class="form-group">
         <label for>Subject</label>
@@ -44,8 +43,15 @@
         />
       </div>
 
-      <b-form-group>
-        <b-button type="submit">Register</b-button>
+      <b-form-group class="mb-3">
+        <b-row>
+          <b-col>
+            <b-button variant="outline-secondary" @click="toggleModal" block type="button">Cancel</b-button>
+          </b-col>
+          <b-col>
+            <b-button variant="success" block type="submit">Register</b-button>
+          </b-col>
+        </b-row>
       </b-form-group>
     </form>
   </div>
@@ -60,45 +66,47 @@ export default {
         name: "",
         email: "",
         gender: "",
-        subjects: ""
+        subjects: "",
       },
-        options:[
-         {value:'',text:'Select an option',disabled:true},
-        {value:'male',text:'Male'},
-          {value:'female',text:'Female'},
+      options: [
+        { value: "", text: "Select an option", disabled: true },
+        { value: "male", text: "Male" },
+        { value: "female", text: "Female" },
       ],
 
-      spin: false
+      spin: false,
     };
   },
   methods: {
+    toggleModal() {
+      this.$emit("toggleModal", "tutor-create");
+    },
     register() {
       let admin = JSON.parse(localStorage.getItem("typeAdmin"));
       axios
         .post("/api/tutor", this.tutor, {
           headers: {
-            Authorization: `Bearer ${admin.access_token}`
-          }
+            Authorization: `Bearer ${admin.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 201) {
             this.$toasted.info("Successful");
-            this.$router.push("/admin/tutors");
+            this.toggleModal();
           }
         });
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
 .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
 }
 form {
-  width: 50%;
+  width: 100%;
+}
+.form-group {
+  margin-bottom: 24px;
 }
 </style>

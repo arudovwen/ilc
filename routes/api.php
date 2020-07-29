@@ -21,8 +21,8 @@ Route::middleware('auth:tutor')->get('/tutorDetails', 'TutorController@tutorDeta
 
 Route::middleware('auth:admin')->get('/adminDetails', 'AdminController@adminDetail');
 
-
-
+Route::resource('school', 'SchoolController');
+Route::get('lga', 'SchoolController@getLga');
 Route::post('add-school', 'Auth\RegisterController@addSchool');
 
 Route::post('add-faculty', 'Auth\RegisterController@addFaculty');
@@ -107,7 +107,6 @@ Route::middleware('auth:admin')->group(function () {
     Route::resource('tutor', 'TutorController');
     Route::resource('student', 'UserController');
     Route::get('admin-get-students', 'UserController@adminGetStudents');
-    Route::resource('school', 'SchoolController');
     Route::resource('subject', 'SubjectsController');
     Route::resource('syllabus', 'SyllabusController');
     Route::resource('curriculum', 'CurriculumController');

@@ -104,26 +104,6 @@ export default {
 </script>
 
 <style scoped>
-.options {
-  position: relative;
-}
-.option {
-  display: none;
-  position: absolute;
-  padding: 15px;
-  bottom: 80%;
-  width: 100px;
-  right: 12px;
-  background: white;
-}
-.options:hover .option {
-  display: block;
-}
-.option li {
-  padding: 4px 15px;
-  cursor: pointer;
-}
-ul {
-  list-style: none;
-}
+
+
 </style>

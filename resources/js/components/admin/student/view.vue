@@ -81,7 +81,7 @@ li {
 
 <script>
 export default {
-     props:['admin'],
+     props:['admin','id'],
     data() {
         return {
             student:{}
@@ -92,7 +92,7 @@ export default {
     },
     methods: {
         getInfo(){
-            axios.get(`/api/admin-get-user/${this.$route.params.id}`, {
+            axios.get(`/api/admin-get-user/${this.$props.id}`, {
           headers: {
             Authorization: `Bearer ${this.$props.admin.access_token}`
           }

@@ -16,7 +16,7 @@
           <legend class="text-center">ADMIN LOGIN</legend>
             <b-form-row>
               
-              <b-col>
+              <b-col cols="12">
                 <b-form-group id="input-group-2" label="Email " label-for="input-2">
                   <b-form-input id="input-8" type="email" v-model="admin.email" required placeholder></b-form-input>
                 </b-form-group>
@@ -33,7 +33,13 @@
             </b-form-row>
 
            
-            <button class="reg-btn" type="submit">ADMIN LOGIN <b-spinner variant="" small label="small spinner" type="grow" class="ml-2" v-if="spin"></b-spinner></button>
+            <b-form-row>
+              <b-col>
+                <b-form-group>
+                  <button class="reg-btn btn-block ml-0" type="submit">ADMIN LOGIN <b-spinner variant="" small label="small spinner" type="grow" class="ml-2" v-if="spin"></b-spinner></button>
+                </b-form-group>
+              </b-col>
+            </b-form-row>
             
            
           </b-form>

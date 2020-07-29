@@ -10377,6 +10377,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 // import Filterizr from "filterizr";
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
@@ -17796,7 +17804,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-7c861bc4] {\n  padding: 40px 20px 60px;\n}\n.main-content[data-v-7c861bc4] {\n  width: 80%;\n  margin: 0 auto;\n}\n.top_box[data-v-7c861bc4] {\n  background: #f7f8fa;\n}\na[data-v-7c861bc4]{\n  text-decoration: none;\n  color: black;\n}\nul[data-v-7c861bc4],\nol[data-v-7c861bc4] {\n  list-style: none;\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before {\n  padding: 8px;\n  color: black;\n  content: \"/\\A0\";\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before:last-child {\n  content: \"\";\n}\n.filter-list[data-v-7c861bc4]{\n  display: flex;\n  justify-content: flex-start;\nfont-size: 14px;\n  border-bottom: 1px solid #ccc;\n  font-weight: bold;\n}\n.filter-list li[data-v-7c861bc4]{\n color: rgba(0, 0, 0, .54);\n   border-bottom: 2px solid transparent;\n    padding: 8px 0;\n}\n.filter-list li[data-v-7c861bc4]:hover{\n   color: rgba(0, 0, 0, .84);\n   border-color: rgba(0, 0, 0, .84);\n}\n.single-content[data-v-7c861bc4]{\n  position: relative;\n  transition: .3s;\n  box-shadow: 10px 20px 20px rgba(247, 248, 250, 0.8);\n}\n.single-content .text-content[data-v-7c861bc4],\n.single-content[data-v-7c861bc4]::after{\n  position: absolute;\n  left: 20px;\n  right: 20px;\n}\n.single-content[data-v-7c861bc4]::after{\n  content: \"\";\n  display: block;\n  background: #13a699;\n  top: 20px;\n  bottom: 20px;\n  opacity: 0;\n  transform: rotate3d(-1,1,0,100deg);\n  transition: .4s;\n}\n.single-content[data-v-7c861bc4]:hover::after{\n  opacity: .9;\n  transform: rotate3d(0,0,0,0deg);\n}\n.single-content img[data-v-7c861bc4]{\n  width: 100%;\n  height: 100%;\n}\n.text-content[data-v-7c861bc4]{\n  top: 45%;\n  opacity: 0;\n  z-index: 1;\n  transform: translate(10%, -30%);\n  transition: .3s;\n  text-align: center;\n  color: #fff;\n  margin-top: 5px;\n}\n.text-content .btn[data-v-7c861bc4]{\n  color: #fff !important;\n  border: 1px solid #fff;\n  border-radius: 5px;\n  padding: 10px 20px;\n}\n.single-content:hover .text-content[data-v-7c861bc4]{\n  opacity: 1;\n  transform: translate(0, -50%);\n  transition-delay: .3s;\n}\n.explore-content[data-v-7c861bc4]{\n  margin-top: 15px;\n}\n/* .router-link-active{\n  border-bottom: 2px solid #ffd708;\n} */\ndiv[data-v-7c861bc4] {\n  font-family: \"Montserrat\";\n}\n.excerpt[data-v-7c861bc4]{\n  height: 70px;\n  font-size:15px;\n  overflow:hidden;\n   display: -webkit-box !important;\n  -webkit-line-clamp: 3;\n  -moz-line-clamp: 3;\n  -ms-line-clamp: 3;\n  -o-line-clamp: 3;\n  line-clamp: 3;\n  -webkit-box-orient: vertical;\n  -ms-box-orient: vertical;\n  -o-box-orient: vertical;\n  box-orient: vertical;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: normal;\n}\n", ""]);
+exports.push([module.i, "\n.body[data-v-7c861bc4] {\n  padding: 40px 20px 60px;\n}\n.main-content[data-v-7c861bc4] {\n  width: 80%;\n  margin: 0 auto;\n}\n.top_box[data-v-7c861bc4] {\n  background: #f7f8fa;\n}\na[data-v-7c861bc4]{\n  text-decoration: none;\n  color: black;\n}\nul[data-v-7c861bc4],\nol[data-v-7c861bc4] {\n  list-style: none;\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before {\n  padding: 8px;\n  color: black;\n  content: \"/\\A0\";\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before:last-child {\n  content: \"\";\n}\n.filter-list[data-v-7c861bc4]{\n  display: flex;\n  justify-content: flex-start;\nfont-size: 14px;\n  border-bottom: 1px solid #ccc;\n  font-weight: bold;\n}\n.filter-list li[data-v-7c861bc4]{\n color: rgba(0, 0, 0, .54);\n   border-bottom: 2px solid transparent;\n    padding: 8px 0;\n}\n.filter-list li[data-v-7c861bc4]:hover{\n   color: rgba(0, 0, 0, .84);\n   border-color: rgba(0, 0, 0, .84);\n}\n.single-content[data-v-7c861bc4]{\n  position: relative;\n  transition: .3s;\n  box-shadow: 10px 20px 20px rgba(247, 248, 250, 0.8);\n}\n.single-content .text-content[data-v-7c861bc4],\n.single-content[data-v-7c861bc4]::after{\n  position: absolute;\n  left: 20px;\n  right: 20px;\n}\n.single-content[data-v-7c861bc4]::after{\n  content: \"\";\n  display: block;\n  background: #13a699;\n  top: 20px;\n  bottom: 20px;\n  opacity: 0;\n  transform: rotate3d(-1,1,0,100deg);\n  transition: .4s;\n}\n.single-content[data-v-7c861bc4]:hover::after{\n  opacity: .9;\n  transform: rotate3d(0,0,0,0deg);\n}\n.single-content img[data-v-7c861bc4]{\n  width: 100%;\n  height: 100%;\n}\n.text-content[data-v-7c861bc4]{\n  top: 45%;\n  opacity: 0;\n  z-index: 1;\n  transform: translate(10%, -30%);\n  transition: .3s;\n  text-align: center;\n  color: #fff;\n  margin-top: 5px;\n}\n.text-content .btn[data-v-7c861bc4]{\n  color: #fff !important;\n  border: 1px solid #fff;\n  border-radius: 5px;\n  padding: 10px 20px;\n}\n.single-content:hover .text-content[data-v-7c861bc4]{\n  opacity: 1;\n  transform: translate(0, -50%);\n  transition-delay: .3s;\n}\n.explore-content[data-v-7c861bc4]{\n  margin-top: 15px;\n}\n/* .router-link-active{\n  border-bottom: 2px solid #ffd708;\n} */\ndiv[data-v-7c861bc4] {\n  font-family: \"Montserrat\";\n}\n.excerpt[data-v-7c861bc4]{\n  height: 70px;\n  font-size:15px;\n  overflow:hidden;\n   display: -webkit-box !important;\n  -webkit-line-clamp: 3;\n  -moz-line-clamp: 3;\n  -ms-line-clamp: 3;\n  -o-line-clamp: 3;\n  line-clamp: 3;\n  -webkit-box-orient: vertical;\n  -ms-box-orient: vertical;\n  -o-box-orient: vertical;\n  box-orient: vertical;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: normal;\n}\n.update[data-v-7c861bc4]{\n  background: #ffd708;\n  padding: 2px;\n  border-radius: 4px;\n}\n", ""]);
 
 // exports
 
@@ -38254,48 +38262,70 @@ var render = function() {
                 "div",
                 { key: idx, staticClass: "col-md-3 col-sm-6 " },
                 [
-                  _c("div", { staticClass: "single-content" }, [
-                    _c("img", { attrs: { src: item.cover_image, alt: "" } }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "text-content" }, [
-                      _c("p", { staticClass: "excerpt" }, [
-                        _vm._v(_vm._s(item.excerpt))
-                      ]),
+                  _c("div", { staticClass: "shadow" }, [
+                    _c("div", { staticClass: "single-content " }, [
+                      _c("img", { attrs: { src: item.cover_image, alt: "" } }),
                       _vm._v(" "),
                       _c(
                         "div",
-                        {
-                          staticClass: "btn",
-                          on: {
-                            click: function($event) {
-                              return _vm.gotoHer(item.id)
-                            }
-                          }
-                        },
-                        [_vm._v("Visit resource")]
+                        { staticClass: "text-content" },
+                        [
+                          _c("p", { staticClass: "excerpt" }, [
+                            _vm._v(_vm._s(item.excerpt))
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "b-button",
+                            {
+                              attrs: { variant: "outline-success" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.gotoHer(item.id)
+                                }
+                              }
+                            },
+                            [_vm._v("Visit resource")]
+                          )
+                        ],
+                        1
                       )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "bg-white p-2" }, [
+                      _c("p", { staticClass: "  toCaps cpointer " }, [
+                        _c(
+                          "strong",
+                          {
+                            on: {
+                              click: function($event) {
+                                return _vm.gotoHer(item.id)
+                              }
+                            }
+                          },
+                          [_vm._v(_vm._s(item.module.toLowerCase()))]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: " toCaps cpointer " }, [
+                        _vm._v(_vm._s(item.subject.toLowerCase()))
+                      ]),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "toCaps cpointer " }, [
+                        _vm._v(_vm._s(item.level.toLowerCase()))
+                      ]),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("small", { staticClass: "update" }, [
+                        _vm._v(
+                          "Last update " +
+                            _vm._s(_vm._f("moment")(item.created_at, "MMMM D"))
+                        )
+                      ])
                     ])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "p",
-                    {
-                      staticClass: "bg-white text-center p-2 toCaps cpointer "
-                    },
-                    [
-                      _c(
-                        "strong",
-                        {
-                          on: {
-                            click: function($event) {
-                              return _vm.gotoHer(item.id)
-                            }
-                          }
-                        },
-                        [_vm._v(_vm._s(item.module.toLowerCase()))]
-                      )
-                    ]
-                  )
+                  ])
                 ]
               )
             }),

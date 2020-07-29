@@ -65,15 +65,23 @@
    <div class="container-fluid explore-content">
      <div class="row" v-if="filteredSubjects.length">
         <div class="col-md-3 col-sm-6 "  v-for="(item,idx) in filteredSubjects" :key="idx">
-          <div class="single-content">
+          <div class="shadow">
+            <div class="single-content ">
             <img :src="item.cover_image" alt />
             <div class="text-content">
              
               <p class="excerpt">{{item.excerpt}}</p>
-              <div class="btn" @click="gotoHer(item.id)">Visit resource</div>
+              <b-button variant="outline-success" @click="gotoHer(item.id)">Visit resource</b-button>
             </div>
           </div>
-          <p class="bg-white text-center p-2 toCaps cpointer "><strong  @click="gotoHer(item.id)">{{item.module.toLowerCase()}}</strong></p>
+         <div class="bg-white p-2">
+            <p class="  toCaps cpointer "><strong  @click="gotoHer(item.id)">{{item.module.toLowerCase()}}</strong></p>
+           <span class=" toCaps cpointer ">{{item.subject.toLowerCase()}}</span> <br>
+            <span class="toCaps cpointer ">{{item.level.toLowerCase()}}</span> <br>
+             <small class="update">Last update {{item.created_at | moment('MMMM D')}}</small>
+
+         </div>
+          </div>
         </div>
        
      </div>
@@ -317,5 +325,10 @@ div {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
+}
+.update{
+  background: #ffd708;
+  padding: 2px;
+  border-radius: 4px;
 }
 </style>

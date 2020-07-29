@@ -308,15 +308,15 @@ div {
   font-family: "Montserrat";
 }
 .excerpt{
-  height: 70px;
+  height: 75px;
   font-size:15px;
   overflow:hidden;
    display: -webkit-box !important;
-  -webkit-line-clamp: 3;
-  -moz-line-clamp: 3;
-  -ms-line-clamp: 3;
-  -o-line-clamp: 3;
-  line-clamp: 3;
+  -webkit-line-clamp: 4;
+  -moz-line-clamp: 4;
+  -ms-line-clamp: 4;
+  -o-line-clamp: 4;
+  line-clamp: 4;
   -webkit-box-orient: vertical;
   -moz-box-orient: vertical;
   -ms-box-orient: vertical;

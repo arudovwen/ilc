@@ -120,7 +120,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-2ad6f986] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100vh;\n}\nform[data-v-2ad6f986] {\r\n  width: 50%;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-2ad6f986] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n}\nform[data-v-2ad6f986] {\n  width: 50%;\n}\n", ""]);
 
 // exports
 

@@ -28,18 +28,23 @@ export default {
 <style scoped>
 .my-container{
     widows: 100vw;
+    width: 100%;
+    background: rgba(255, 247, 237, 0.68);
 }
 .side{
-    width: 15%;
+    width: 10%;
     height: 100vh;
-    background: #ffd708;
+   background: #FFFFFF;
+box-shadow: 0px 4px 9px rgba(128, 128, 128, 0.25);
+border-radius: 0px 15px 15px 0px;
+position: fixed;
     
 }
 .main{
-    width:85%;
-    height: 100vh;
-     overflow: auto;
-     height: 100vh;
-    background: #f7f8fa;
+    width:90%;
+    position: absolute;
+    right: 0;
+    background: rgba(255, 247, 237, 0.68);
+   
 }
 </style>

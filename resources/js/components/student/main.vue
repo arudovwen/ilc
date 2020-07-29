@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <!-- <div>
   <nav class="shadow-sm p-3">
       <b-form-input placeholder="Search... " class="search rounded-pill"></b-form-input>
        <b-row class="align-items-center">
@@ -44,6 +44,14 @@
     <transition name="slide-fade">
       <router-view :student="student"  class="semi-white "></router-view>
     </transition>
+  </div> -->
+  <div>
+      <b-nav align="right">
+       <b-nav-item> <b-avatar to="/student/profile" src="/images/profile-img.jpg"></b-avatar></b-nav-item>
+        <b-nav-item><b-form-input placeholder="Search... " class="search rounded-pill"></b-form-input></b-nav-item>
+        <b-nav-item><i class="icon-bell-1"></i></b-nav-item>
+      </b-nav>
+       <router-view :student="student"  class="semi-white "></router-view>
   </div>
 </template>
 
@@ -147,7 +155,12 @@ export default {
 };
 </script>
 <style scoped>
-.semi-white{
+
+.nav-item i{
+  color: #808080;
+  font-size: 24px;
+}
+/* .semi-white{
 
   padding:50px 20px;
 
@@ -188,9 +201,10 @@ nav {
 .fa-bell {
   font-size: 24px;
   color:#ffd708;
-}
+} */
 .search{
   width:250px;
-  border-color:#ffd708
+  background: transparent !important;
+  border-color:#808080
 }
 </style>

@@ -1,126 +1,87 @@
 <template>
-  <div class="py-5 "  style="background-color:#f7f8fa">
-    <b-container class="bv-example-row" style="max-width:100%">
-      <b-row>
-        <b-col>
-          <div class="student-dashboard-top-cards">
-            <b-card>
-              <div class="inner-top-cards">
-                <img src="/images/teacher-green.png" class="img-fluid" alt />
-                <div class="inner-top-cards-text pl-2">
-                  <p>
-                    <strong>8+</strong>
-                  </p>
-                  <p>Courses</p>
-                </div>
-              </div>
-            </b-card>
-          </div>
-        </b-col>
-        <b-col>
-          <div class="student-dashboard-top-cards">
-            <b-card>
-              <div class="inner-top-cards">
-                <img src="/images/teacher-green.png" class="img-fluid" alt />
-                <div class="inner-top-cards-text pl-2">
-                  <p>
-                    <strong>2</strong>
-                  </p>
-                  <p>Assessments</p>
-                </div>
-              </div>
-            </b-card>
-          </div>
-        </b-col>
-        <b-col>
-          <div class="student-dashboard-top-cards">
-            <b-card>
-              <div class="inner-top-cards">
-                <img src="/images/teacher-green.png" class="img-fluid" alt />
-                <div class="inner-top-cards-text pl-2">
-                  <p>
-                    <strong>6</strong>
-                  </p>
-                  <p>Classes Today</p>
-                </div>
-              </div>
-            </b-card>
-          </div>
-        </b-col>
-      </b-row>
-      
-      <div class="chart">
-      <column-chart
-        :data="[['Basic 1', 32], ['Basic 2', 46], ['Basic 3', 28], ['Basic 4', 10], ['Basic 5', 18], ['Basic 6', 20], ['Basic 7', 28], ['Basic 8', 38]]"
-      ></column-chart>
+  <div class="container">
+    <div class="welcome-board">
+      <img src="/images/clip-99.png" alt />
+      <div class="welcome-board-content ml-auto">
+        <h3>
+          Welcome OnBoard
+          <span>SUCESS AHOAN</span>
+        </h3>
+        <p>
+          Get quick access to your assesment and grade book on the dash board
+          <br />Gain fast knowlege add resources to your library and more
+        </p>
+      </div>
     </div>
 
-      <b-row>
-        <b-col>
-          <div class="dashboard-bottom-cards">
-            <b-card>
-              <h6 class>Up Coming Lessons</h6>
-              <div class="bottom-card-details">
-                <b-avatar text="e"></b-avatar>
-                <div class="bottom-cards-text">
-                  <p>English Language</p>
-                  <p>
-                    <span>10AM Bascic 2</span>
-                  </p>
-                </div>
-              </div>
-              <div class="bottom-card-details">
-                <b-avatar text="e"></b-avatar>
-                <div class="bottom-cards-text">
-                  <p>Economics</p>
-                  <p>
-                    <span>1PM Bascic 8</span>
-                  </p>
-                </div>
-              </div>
-              <div class="bottom-card-details">
-                <b-avatar text="m"></b-avatar>
-                <div class="bottom-cards-text">
-                  <p>Music</p>
-                  <p>
-                    <span>10AM Bascic 5</span>
-                  </p>
-                </div>
-              </div>
-              <p class="bottom-card-link pull-right">View all Lessons</p>
-            </b-card>
+    <div class="row">
+      <div class="col-md-4 result-board">
+        <div class="latest-result-board">
+          <div class="row latest-result-top">
+            <div class="col-md-6">
+              <h6>Latest Result</h6>
+            </div>
+            <div class="col-md-6">
+              <b-form-datepicker id="example-datepicker" v-model="value" class></b-form-datepicker>
+            </div>
           </div>
-        </b-col>
-        <b-col>
-          <div class="dashboard-bottom-cards">
-            <b-card>
-              <div class="note-card-top">
-                <h6>Syllabus</h6>
-               <router-link to="/student/syllabus" class="mb-2"> <b-button variant="outline-primary">Add Note</b-button></router-link>
-              </div>
-              <div class="note-card-details">
-                <p>You have no note yet</p>
-              </div>
-            </b-card>
+          <div class="result-progress">
+            <div class="progress-top">
+              <h6>Mathematics</h6>
+              <p>67%</p>
+            </div>
+            <b-progress :value="value" :max="max" class="mb-3"></b-progress>
           </div>
-        </b-col>
-        <b-col>
-          <div class="dashboard-bottom-cards">
-            <b-card>
-              <div class="note-card-top">
-                <h6>Curriculum</h6>
-               <router-link to="/student/curriculum/create" class="mb-2"> <b-button variant="outline-primary"> Resources</b-button></router-link>
-              </div>
-              <div class="note-card-details">
-                 
-              </div>
-            </b-card>
+          <div class="result-progress">
+            <div class="progress-top">
+              <h6>Mathematics</h6>
+              <p>67%</p>
+            </div>
+            <b-progress :value="value" :max="max" class="mb-3"></b-progress>
           </div>
-        </b-col>
-      </b-row>
-    </b-container>
+          <div class="result-progress">
+            <div class="progress-top">
+              <h6>Mathematics</h6>
+              <p>67%</p>
+            </div>
+            <b-progress :value="value" :max="max" class="mb-3"></b-progress>
+          </div>
+        </div>
+      </div>
 
-  
+      <div class="col-md-8 discussion">
+        <div class="discussion-board">
+          <div class="discussion-board-top">
+            <h6>Discussion Board</h6>
+            <router-link to="/student/discussion">View More</router-link>
+          </div>
+          <div class="discussion-board-content">
+            <div class="inner-content">
+              <b-avatar src="/images/profile-img.jpg"></b-avatar>
+              <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde, numquam quidem ipsam quisquam accusantium expedita </p>
+            </div>
+            <div class="inner-content">
+              <b-avatar src="/images/profile-img.jpg"></b-avatar>
+              <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde, numquam quidem ipsam quisquam accusantium expedita </p>
+            </div>
+          </div>
+        </div>
+        <div class="row reminder">
+          <div class="col-md-6 ">
+            <div class="reminder-card reminder-card-left">
+              <h5>ENGLISH LANGUAGE TEST</h5>
+              <i class="icon-hour"> 30, July 2020 03PM</i>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="reminder-card reminder-card-right">
+              <h5>ENGLISH LANGUAGE TEST</h5>
+              <i class="icon-hour"> 30, July 2020 03PM</i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -136,7 +97,7 @@ export default {
       syllabus: [],
       curriculum: [],
       fields: ["class", "subject"],
-      field: ["class"]
+      field: ["class"],
     };
   },
   mounted() {
@@ -151,10 +112,10 @@ export default {
       axios
         .get("/api/student-get-students", {
           headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.students = res.data;
           }
@@ -164,10 +125,10 @@ export default {
       axios
         .get("/api/curriculum", {
           headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.curriculum = res.data;
           }
@@ -177,10 +138,10 @@ export default {
       axios
         .get("/api/tutor", {
           headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.tutors = res.data;
           }
@@ -190,10 +151,10 @@ export default {
       axios
         .get("/api/classes", {
           headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.classes = res.data;
           }
@@ -203,18 +164,104 @@ export default {
       axios
         .get("/api/syllabus", {
           headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.syllabus = res.data;
           }
         });
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
+.container {
+  font-family: "Montserrat";
+}
+
+.welcome-board {
+  background: rgba(19, 166, 153, 0.43);
+  width: 100%;
+  height: 200px;
+  border-radius: 10px;
+  display: flex;
+  position: relative;
+  margin-top: 2rem;
+}
+.welcome-board img {
+  width: 320px;
+  height: 280px;
+  position: absolute;
+  transform: translateY(-28%);
+}
+.welcome-board-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2.5rem;
+}
+.welcome-board-content p {
+  text-align: center;
+  padding: 10px;
+}
+
+.welcome-board-content h3 {
+  color: #13a699;
+}
+
+.latest-result-board {
+  margin-top: 2rem;
+  background: #fff;
+  padding: 1.5rem;
+}
+
+.result-progress {
+  margin-top: 10px;
+}
+.progress-top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.progress-bar{
+  width: 67% !important;
+  background-color: #DE1515 !important;
+}
+.discussion-board{
+  background: #fff;
+  padding: 1rem;
+}
+.discussion-board-top{
+  display: flex;
+  justify-content: space-between;
+}
+.discussion{
+  margin-top: 2rem;
+}
+.inner-content{
+  display: flex;
+}
+.reminder-card{
+ border-radius: 5px;
+  color: #fff;
+  padding: 2.5rem;
+}
+.inner-content p{
+ font-size: 12px;
+ padding-left: 5px;
+}
+.reminder{
+  margin-top: 2rem;
+}
+.reminder-card-left{
+  background: #AAF0D1;
+ 
+}
+
+.reminder-card-right{
+  background: rgba(19, 166, 153, 0.86);
+}
 </style>

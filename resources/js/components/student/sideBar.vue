@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <!-- <div>
     <div class="logo mb-4">
      
            <p class="bg-white text-center rounded px-3 py-2"> {{student.abbreviation}}</p> 
@@ -62,6 +62,56 @@
         </li>
       </ul>
     </nav>
+  </div>-->
+  <div>
+    <div class="logo">
+          
+      <h6> {{student.abbreviation}}</h6>
+    </div>
+    <nav>
+      <ul>
+        <router-link to="/student">
+          <li>
+            <i class="icon-home-1" aria-hidden="true"></i> Home
+          </li>
+        </router-link>
+        <router-link to="/student/explore">
+          <li>
+            <i class="icon-refresh" aria-hidden="true"></i> Explore
+          </li>
+        </router-link>
+        <router-link to="/student/library">
+          <li>
+            <i class="icon-open-book" aria-hidden="true"></i> Library
+          </li>
+        </router-link>
+        <router-link to="/student/assessment">
+          <li>
+            <i class="icon-hour" aria-hidden="true"></i> Assessment
+          </li>
+        </router-link>
+        <router-link to="/student/groups">
+          <li>
+            <i class="icon-group-1" aria-hidden="true"></i> Groups
+          </li>
+        </router-link>
+        <router-link to="/student/groups">
+          <li>
+            <i class="icon-score" aria-hidden="true"></i> Grade Books
+          </li>
+        </router-link>
+        <router-link to="/student/activities">
+          <li>
+            <i class="icon-market" aria-hidden="true"></i> Activities
+          </li>
+        </router-link>
+        <router-link to="/student/virtual">
+          <li>
+            <i class="icon-business-class" aria-hidden="true"></i> Virtual Class
+          </li>
+        </router-link>
+      </ul>
+    </nav>
   </div>
 </template>
 
@@ -84,7 +134,26 @@ export default {
 
 
 <style scoped>
-.logo{
+ul {
+  margin: auto;
+}
+
+li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
+}
+ul a {
+  color: #565454;
+  font-size: 12px;
+  font-family: "Montserrat";
+}
+ul i {
+  font-size: 20px;
+}
+/* .logo{
     padding: 10px 20px;
     margin-bottom:20px;
     text-align:center;
@@ -114,10 +183,10 @@ nav ul li{
 }
 nav{
     padding-left:20px;
-}
-.router-link-exact-active li{
+} */
+/* .router-link-exact-active li{
 background:#f7f8fa ;
 border-top-left-radius:10px;
 border-bottom-left-radius:10px
-}
+} */
 </style>

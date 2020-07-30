@@ -51,56 +51,41 @@
   </b-container>-->
 
   <div>
-    <h2 class="mb-3 px-3">Explore Resources</h2>
+    <!-- <h2 class="mb-3 ">Explore Resources</h2> -->
 
        <ul class="filter-list mb-5">
-        <router-link to="">
-          <li> All Subject</li>
-        </router-link>
-         <router-link to="">
-          <li> Mathematics</li>
-        </router-link>
-         <router-link to="">
-          <li> English Language</li>
-        </router-link>
-         <router-link to="">
-          <li> Geography</li>
-        </router-link>
+       
+          <li @click="selectFilter('all')" class="cpointer mr-4"> All Subject</li>
+       
+          <li v-for="(item,idx) in subjects" :key="idx" @click="selectFilter(item.name)" class="toCaps cpointer mr-4"> {{item.name.toLowerCase()}}</li>
+
+      
        </ul>
 
-   <div class="container explore-content">
-     <div class="row">
-        <div class="col-md-4 col-sm-6">
-          <div class="single-content">
-            <img src="/images/maths.jpg" alt />
+   <div class="container-fluid explore-content">
+     <div class="row" v-if="filteredSubjects.length">
+        <div class="col-md-3 col-sm-6 "  v-for="(item,idx) in filteredSubjects" :key="idx">
+          <div class="shadow">
+            <div class="single-content ">
+            <img :src="item.cover_image" alt />
             <div class="text-content">
-              <h5>Differentiation</h5>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing</p>
-              <div class="btn">Add to Library</div>
+             
+              <p class="excerpt">{{item.excerpt}}</p>
+              <b-button variant="outline-success" @click="gotoHer(item.id)">Visit resource</b-button>
             </div>
           </div>
-        </div>
-         <div class="col-md-4 col-sm-6">
-          <div class="single-content">
-            <img src="/images/econs.jpg" alt />
-            <div class="text-content">
-              <h5>Market value</h5>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing</p>
-              <div class="btn">Add to Library</div>
-            </div>
+         <div class="bg-white p-2">
+            <p class="  toCaps cpointer "><strong  @click="gotoHer(item.id)">{{item.module.toLowerCase()}}</strong></p>
+           <span class=" toCaps cpointer ">{{item.subject.toLowerCase()}}</span> <br>
+            <span class="toCaps cpointer ">{{item.level.toLowerCase()}}</span> <br>
+             <small class="update">Last update {{item.created_at | moment('MMMM D')}}</small>
+
+         </div>
           </div>
         </div>
-         <div class="col-md-4 col-sm-6">
-          <div class="single-content">
-            <img src="/images/geography.jpeg" alt />
-            <div class="text-content">
-              <h5>How Round is the earth</h5>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing</p>
-              <div class="btn">Add to Library</div>
-            </div>
-          </div>
-        </div>
+       
      </div>
+     <p v-else class="mx-auto text-center">No available resource yet !</p>
    </div>
 
    
@@ -108,7 +93,7 @@
 </template>
 
 <script>
-import Filterizr from "filterizr";
+// import Filterizr from "filterizr";
 
 export default {
   props: ["student"],
@@ -117,12 +102,31 @@ export default {
       resources: [],
       opened: [],
       current: "",
+      subjects:[],
+      filter:'all'
     };
   },
   mounted() {
     this.getResources();
+    this.getSubjects()
+  },
+  computed:{
+  filteredSubjects(){
+    return this.resources.filter(item=>{
+       if (item.subject.toLowerCase() == this.filter.toLowerCase()) {
+         return item;
+       }
+       if (this.filter.toLowerCase() == 'all') {
+         return item;
+       }
+    })
+  }
   },
   methods: {
+    selectFilter(name){
+        this.filter = name
+        console.log("selectFilter -> name", name)
+    },
     gotoHer(id) {
       this.$router.push(`/student/resource/view/${id}`);
     },
@@ -166,6 +170,19 @@ export default {
         .then((res) => {
           if ((res.status = 200)) {
             this.resources = res.data;
+          }
+        });
+    },
+    getSubjects() {
+      axios
+        .get("/api/student-all-subjects", {
+          headers: {
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
+        })
+        .then((res) => {
+          if ((res.status = 200)) {
+            this.subjects = res.data;
           }
         });
     },
@@ -213,7 +230,20 @@ ul.breadcrumb li + li:before:last-child {
 }
 .filter-list{
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
+font-size: 14px;
+  border-bottom: 1px solid #ccc;
+  font-weight: bold;
+ 
+}
+.filter-list li{
+ color: rgba(0, 0, 0, .54);
+   border-bottom: 2px solid transparent;
+    padding: 8px 0;
+}
+.filter-list li:hover{
+   color: rgba(0, 0, 0, .84);
+   border-color: rgba(0, 0, 0, .84);
 }
 .single-content{
   position: relative;
@@ -243,8 +273,8 @@ ul.breadcrumb li + li:before:last-child {
   transform: rotate3d(0,0,0,0deg);
 }
 .single-content img{
-  width: 350px;
-  height: 250px;
+  width: 100%;
+  height: 100%;
 }
 
 .text-content{
@@ -276,5 +306,29 @@ ul.breadcrumb li + li:before:last-child {
 } */
 div {
   font-family: "Montserrat";
+}
+.excerpt{
+  height: 75px;
+  font-size:15px;
+  overflow:hidden;
+   display: -webkit-box !important;
+  -webkit-line-clamp: 4;
+  -moz-line-clamp: 4;
+  -ms-line-clamp: 4;
+  -o-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -ms-box-orient: vertical;
+  -o-box-orient: vertical;
+  box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+.update{
+  background: #ffd708;
+  padding: 2px;
+  border-radius: 4px;
 }
 </style>

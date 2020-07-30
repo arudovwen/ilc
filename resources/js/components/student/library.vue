@@ -70,6 +70,8 @@
         </tbody>
     </table>
   </div>
+
+  
 </template>
 
 <script>
@@ -88,30 +90,30 @@ export default {
       next_page: "",
       prev_page: "",
       current_page: 1,
-      all: false
+      all: false,
     };
   },
   mounted() {
     this.getLibrary();
   },
   watch: {
-    all: "getAll"
+    all: "getAll",
   },
   methods: {
     getLibrary() {
       axios
         .get("/api/library", {
           headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
-               this.next_page = res.data.next_page_url;
-          this.prev_page = res.data.prev_page_url;
-          this.current_page = res.data.current_page;
-          this.row_number = res.data.per_page
-          this.total_library =res.data.total
+            this.next_page = res.data.next_page_url;
+            this.prev_page = res.data.prev_page_url;
+            this.current_page = res.data.current_page;
+            this.row_number = res.data.per_page;
+            this.total_library = res.data.total;
             this.library = res.data.data;
           }
         });
@@ -124,10 +126,10 @@ export default {
         axios
           .get(`/api/all-library`, {
             headers: {
-              Authorization: `Bearer ${this.$props.student.access_token}`
-            }
+              Authorization: `Bearer ${this.$props.student.access_token}`,
+            },
           })
-          .then(res => {
+          .then((res) => {
             if (res.status == 200) {
               this.library = res.data;
             }
@@ -138,10 +140,10 @@ export default {
       axios
         .get(this.first_page, {
           headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           this.next_page = res.data.next_page_url;
           this.prev_page = res.data.prev_page_url;
           this.current_page = res.data.current_page;
@@ -152,10 +154,10 @@ export default {
       axios
         .get(this.last_page, {
           headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           this.next_page = res.data.next_page_url;
           this.prev_page = res.data.prev_page_url;
           this.current_page = res.data.current_page;
@@ -167,10 +169,10 @@ export default {
         axios
           .get(this.next_page, {
             headers: {
-              Authorization: `Bearer ${this.$props.student.access_token}`
-            }
+              Authorization: `Bearer ${this.$props.student.access_token}`,
+            },
           })
-          .then(res => {
+          .then((res) => {
             this.next_page = res.data.next_page_url;
             this.prev_page = res.data.prev_page_url;
             this.current_page = res.data.current_page;
@@ -183,10 +185,10 @@ export default {
         axios
           .get(this.prev_page, {
             headers: {
-              Authorization: `Bearer ${this.$props.student.access_token}`
-            }
+              Authorization: `Bearer ${this.$props.student.access_token}`,
+            },
           })
-          .then(res => {
+          .then((res) => {
             this.next_page = res.data.next_page_url;
             this.prev_page = res.data.prev_page_url;
             this.current_page = res.data.current_page;
@@ -194,17 +196,16 @@ export default {
           });
       }
     },
-    view(id){
-      this.$router.push(`/student/study/${id}`)
-    }
-  }
+    view(id) {
+      this.$router.push(`/student/study/${id}`);
+    },
+  },
 };
 </script>
 
 <style scoped>
-
-nav{
-    background:#f7f8fa;
+nav {
+  background: #f7f8fa;
 }
 .bar {
   position: relative;
@@ -235,32 +236,33 @@ nav{
   margin-top: -6px;
   color: rgba(0, 0, 0, 0.44);
 }
-.options{
-    width: 15px;
+.options {
+  width: 15px;
 }
-td{
-    text-transform:capitalize;
+td {
+  text-transform: capitalize;
 }
-ul{
-    list-style:none;
+ul {
+  list-style: none;
 }
-.options{
-    position: relative;
+.options {
+  position: relative;
 }
-.option{
-    display: none;
-    position:absolute;
-    padding: 15px;
-    bottom:80%;
-    width:100px;
-    right:12px;
-    background:white;
+.option {
+  display: none;
+  position: absolute;
+  padding: 15px;
+  bottom: 80%;
+  width: 100px;
+  right: 12px;
+  background: white;
 }
-.options:hover .option{
-    display: block;
+.options:hover .option {
+  display: block;
 }
-.option li{
-    padding:4px 15px;
-    cursor:pointer;
+.option li {
+  padding: 4px 15px;
+  cursor: pointer;
 }
+
 </style>

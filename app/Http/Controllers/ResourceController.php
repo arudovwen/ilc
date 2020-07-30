@@ -62,17 +62,16 @@ class ResourceController extends Controller
         //
         $info =  DB::transaction(function () use ($request) {
             $tutor = auth('tutor')->user();
-            $syllabus = Syllabus::where('school_id',$tutor->school_id)->where('subject', $request->subject)->where('myclass',$request->level)->value('id');
-
-           
+            $syllabus = Syllabus::where('school_id',$tutor->school_id)->where('subject', $request->subject)->where('myclass',$request->level)->first();
+              
+        
             $tutor = auth('tutor')->user();
             $resource = Resource::create([
             'school_id' => $tutor->school_id,
             'tutor_id'=> $tutor->id,
             'cover_image'=> $request->cover_image,
-            'syllabus_id'=>  $syllabus,
-            'curriculum_id' => $request->curriculum_id,
-            'syllabus_id' =>$request->syllabus_id,
+            'syllabus_id'=>  $syllabus->id,
+            'curriculum_id' => $syllabus->curriculum_id,
             'subject' => strtolower($request->subject),
             'level'  => strtolower($request->level),
             'module'  => $request->module,

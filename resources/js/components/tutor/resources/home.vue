@@ -94,7 +94,7 @@ export default {
     edit(id){
     this.$router.push(`/tutor/resource/edit/${id}`)
     },
-    view(){
+    view(id){
    this.$router.push(`/tutor/resource/view/${id}`)
     },
      drop(id) {

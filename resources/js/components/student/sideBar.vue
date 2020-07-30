@@ -110,6 +110,11 @@
             <i class="icon-business-class" aria-hidden="true"></i> Virtual Class
           </li>
         </router-link>
+         <router-link to="" >
+          <li @click="logout">
+            <i class="icon-logout" aria-hidden="true"></i> Log Out
+          </li>
+        </router-link>
       </ul>
     </nav>
   </div>

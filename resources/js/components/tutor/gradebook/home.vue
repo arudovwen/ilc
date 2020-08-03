@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <!-- <div>
     <b-container>
       <b-row>
         <b-col class="p-2">
@@ -35,7 +35,8 @@
        
       </b-row>
     </b-container>
-  </div>
+  </div> -->
+  <div></div>
 </template>
 
 <script>

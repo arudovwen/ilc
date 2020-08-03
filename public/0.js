@@ -53,6 +53,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -243,6 +249,7 @@ var render = function() {
                     [
                       _c(
                         "b-col",
+                        { attrs: { cols: "12" } },
                         [
                           _c(
                             "b-form-group",
@@ -309,21 +316,38 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c(
-                    "button",
-                    { staticClass: "reg-btn", attrs: { type: "submit" } },
+                    "b-form-row",
                     [
-                      _vm._v("ADMIN LOGIN "),
-                      _vm.spin
-                        ? _c("b-spinner", {
-                            staticClass: "ml-2",
-                            attrs: {
-                              variant: "",
-                              small: "",
-                              label: "small spinner",
-                              type: "grow"
-                            }
-                          })
-                        : _vm._e()
+                      _c(
+                        "b-col",
+                        [
+                          _c("b-form-group", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "reg-btn btn-block ml-0",
+                                attrs: { type: "submit" }
+                              },
+                              [
+                                _vm._v("ADMIN LOGIN "),
+                                _vm.spin
+                                  ? _c("b-spinner", {
+                                      staticClass: "ml-2",
+                                      attrs: {
+                                        variant: "",
+                                        small: "",
+                                        label: "small spinner",
+                                        type: "grow"
+                                      }
+                                    })
+                                  : _vm._e()
+                              ],
+                              1
+                            )
+                          ])
+                        ],
+                        1
+                      )
                     ],
                     1
                   )

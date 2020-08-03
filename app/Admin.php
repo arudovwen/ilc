@@ -12,7 +12,7 @@ class Admin  extends Authenticatable
     use HasApiTokens, Notifiable;
 
     protected $table = 'admins';
-    protected $fillable = ['name','email','address','school_id','role','password'];
+    protected $fillable = ['name','email','address','school_id','role','phone','password'];
 
     public function school(){
         return $this->belongsTo(School::class);

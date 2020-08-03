@@ -84,6 +84,9 @@ export default {
     this.getCLasses();
   },
   methods: {
+     toggleModal(){
+   this.$emit('toggleModal','student-create')
+    },
     submit() {
       let admin = JSON.parse(localStorage.getItem("typeAdmin"));
       let data = {
@@ -98,7 +101,7 @@ export default {
         .then(res => {
           if (res.status == 201) {
             this.$toasted.info("Successful");
-            this.$router.push("/admin/students");
+            this.toggleModal()
           }
         });
     },

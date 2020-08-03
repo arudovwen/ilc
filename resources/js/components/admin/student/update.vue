@@ -3,7 +3,7 @@
     <b-form @submit.prevent="register" class="mx-auto register-right">
       <!-- Student starts here   -->
 
-      <legend class="text-center">Update Info</legend>
+     
 
       <div class="form-group">
         <label for="">Full Name</label>
@@ -184,12 +184,16 @@
       </div>
 
      
-<b-form-group>
-
-              <b-button  v-waves.float v-waves.light type="submit" >
-               Update
-              </b-button>
-</b-form-group>
+  <b-form-group class="mb-3">
+        <b-row>
+           <b-col>
+              <b-button variant="outline-secondary"  @click="toggleModal" block type="button">Cancel</b-button>
+           </b-col>
+             <b-col>
+                <b-button variant="success" block type="submit">Update</b-button>
+             </b-col>
+        </b-row>
+      </b-form-group>
     </b-form>
   </div>
 </template>
@@ -197,7 +201,7 @@
 
 <script>
 export default {
-  props:['admin'],
+  props:['admin','id'],
   data() {
     return {
       student: {
@@ -227,20 +231,23 @@ export default {
     this.getStudent()
   },
    methods: {
+        toggleModal(){
+   this.$emit('toggleModal','student-create')
+    },
     register() {
         let admin = JSON.parse(localStorage.getItem('typeAdmin'))
-      axios.put(`/api/update-user/${this.$route.params.id}`, this.student,{headers:{
+      axios.put(`/api/update-user/${this.$props.id}`, this.student,{headers:{
           Authorization: `Bearer ${admin.access_token}`
       }}).then(res => {
         if (res.status == 200) {
           this.$toasted.info("Successful");
-          this.$router.push("/admin/students");
+          this.toggleModal()
         }
       });
     },
     getStudent(){
           axios
-        .get(`/api/admin-get-user/${this.$route.params.id}`, {
+        .get(`/api/admin-get-user/${this.$props.id}`, {
           headers: {
             Authorization: `Bearer ${this.$props.admin.access_token}`
           }
@@ -257,12 +264,12 @@ export default {
 </script>
 
 <style scoped>
-.container {
 
-  padding:70px 0;
-}
 form {
   width: 70%;
   margin:0 auto
+}
+.form-group{
+  margin-bottom: 24px;
 }
 </style>

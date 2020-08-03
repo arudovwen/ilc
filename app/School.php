@@ -22,7 +22,7 @@ class School extends Authenticatable
         return [$this->email => $this->name];
     }
     protected $table ='schools';
-    protected $fillable = ['schools','abbreviation','email','phone','address','verify'];
+    protected $fillable = ['schools','abbreviation','email','phone','address','verify','lga','ownership','level'];
 
 
     public function user()

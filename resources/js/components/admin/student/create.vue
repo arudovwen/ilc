@@ -47,12 +47,16 @@
             </select>
           </div>
 
-<b-form-group>
-
-              <b-button  v-waves.float v-waves.light type="submit" >
-               Register
-              </b-button>
-</b-form-group>
+   <b-form-group class="mb-3">
+        <b-row>
+           <b-col>
+              <b-button variant="outline-secondary"  @click="toggleModal" block type="button">Cancel</b-button>
+           </b-col>
+             <b-col>
+                <b-button variant="success" block type="submit">Register</b-button>
+             </b-col>
+        </b-row>
+      </b-form-group>
            
        
       
@@ -83,6 +87,9 @@ export default {
     this.getCLasses()
   },
   methods: {
+      toggleModal(){
+   this.$emit('toggleModal','student-create')
+    },
     register() {
         let admin = JSON.parse(localStorage.getItem('typeAdmin'))
       axios.post("/api/register", this.student,{headers:{
@@ -90,7 +97,7 @@ export default {
       }}).then(res => {
         if (res.status == 201) {
           this.$toasted.info("Successful");
-          this.$router.push("/admin/students");
+          this.toggleModal()
         }
       });
     },
@@ -118,9 +125,12 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+
 }
 form{
-    width:50%
+    width:100%
+}
+.form-group{
+  margin-bottom: 24px;
 }
 </style>

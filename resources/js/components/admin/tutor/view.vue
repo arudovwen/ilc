@@ -1,7 +1,7 @@
 <template>
   <div class="body">
     <div class="text-right">
-      <button type="button" @click="update">Update</button>
+      <b-button type="button" @click="update">Update</b-button>
     </div>
 
     <div class="info">
@@ -54,7 +54,7 @@
 
 <script>
 export default {
-  props: ["admin"],
+  props: ["admin",'id'],
   data() {
     return {
       details: {}
@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     getDetails() {
-        axios.get(`/api/tutor/${this.$route.params.id}`, {
+        axios.get(`/api/tutor/${this.$props.id}`, {
           headers: {
             Authorization: `Bearer ${this.$props.admin.access_token}`
           }
@@ -88,7 +88,7 @@ export default {
   height: 100%;
 }
 .info {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
 }
 .image {

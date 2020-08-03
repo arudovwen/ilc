@@ -1,5 +1,6 @@
 <template>
   <div class="body">
+    
     <nav class="mb-5">
       <router-link to="/admin/curriculum/create">
         <b-button class="shadow-sm reg-btn">
@@ -24,18 +25,29 @@
 
    <h3 class="mb-4">All Curriculum</h3>
       <b-table :items="curriculum" :fields="fields" hover bordered>
-        <template v-slot:cell(action)="data">
-       
-         <span    class="d-flex justify-content-around">  <span class="mr-3" @click="view(data.item.id)">
-              <i class="fa fa-eye" aria-hidden="true"></i> View
-            </span>
-         
-          <span @click="edit(data.item.id)">
-            <i class="fas fa-edit"></i>Edit
-          </span>
-           <span class="mr-3" @click="drop(data.item.id)">
-            <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
-          </span></span>
+            <template v-slot:cell(action)="data">
+          <div class="options">
+            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+            <div class="option shadow">
+              <ul>
+                <li>
+                  <span @click="view(data.item.id)" class="mr-3">
+                    <i class="fas fa-eye"></i>View
+                  </span>
+                </li>
+                <li>
+                  <span @click="edit(data.item.id)">
+                    <i class="fas fa-edit"></i>Edit
+                  </span>
+                </li>
+                <li>
+                  <span class="mr-3" @click="drop(data.item.id)">
+                    <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
         </template>
 
         <template v-slot:cell(drop)="data">

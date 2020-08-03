@@ -1,5 +1,16 @@
 <template>
-  <div class="body" :class="{'overflow-hide':showPreview}">
+  <div class="body">
+    <b-modal id="preview" size="lg"  hide-footer>
+     <Preview
+        
+        :syllabus="syllabus"
+        @submit="submit"
+        @togglePreview="togglePreview"
+        @updateComment="updateComment"
+        :afterSubmit="afterSubmit"
+        @cancelToggle="cancelToggle"
+      />
+  </b-modal>
     <!-- form starts here  -->
     <form @submit.prevent="togglePreview">
       <legend class="text-center">New Syllabus</legend>
@@ -259,16 +270,7 @@
     </form>
     <!-- form ends here  -->
 
-    <div class="popup-overlay" v-if="showPreview">
-      <Preview
-        class="preview"
-        :syllabus="syllabus"
-        @submit="submit"
-        @togglePreview="togglePreview"
-        @updateComment="updateComment"
-        :afterSubmit="afterSubmit"
-      />
-    </div>
+  
   </div>
 </template>
 
@@ -312,6 +314,15 @@ export default {
     this.getclasses();
   },
   methods: {
+    cancelToggle(){
+        this.$bvModal.hide("preview");
+    },
+      togglePreview() {
+        
+      this.showPreview = !this.showPreview;
+        this.$bvModal.show("preview");
+       
+    },
     updateComment(value) {
       this.syllabus.comment = value;
     },
@@ -341,10 +352,7 @@ export default {
           }
         });
     },
-    togglePreview() {
-      this.showPreview = !this.showPreview;
-    },
- 
+    
     addNew(value) {
       switch (value) {
         case 1:
@@ -426,24 +434,7 @@ export default {
   padding: 40px 30px 70px;
   position: relative;
 }
-.overflow-hide {
-  overflow: hidden;
-  height: 100%;
-}
-.preview {
-  z-index: 2;
-}
-.popup-overlay {
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 1;
-  top: 0;
-  left: 0;
-  overflow: scroll;
-  padding: 20px;
-}
+
 form {
   padding-bottom: 60px;
   font-size: 15.5px;

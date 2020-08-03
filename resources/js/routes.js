@@ -11,6 +11,11 @@ const Institute = () =>
         /* webpackChunkName: "home_routes" */ "./components/institute/createInstitute"
     );
 
+    const SubscribeInstitute = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/school/subscribe"
+    );
+
 const Data = () =>
     import(/* webpackChunkName: "home_routes" */ "./components/data");
 
@@ -349,6 +354,7 @@ export const routes = [
         }
     },
     { path: "/create/institute", component: Institute, name: "Institute" },
+    { path: "/subscribe/institute", component: SubscribeInstitute, name: "SubscribeInstitute" },
     { path: "/summary", component: Summary, name: "Summary" },
     { path: "/checkout", component: Checkout, name: "Checkout" },
     { path: "/data", component: Data, name: "Data" },

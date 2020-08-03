@@ -32,7 +32,7 @@ export default {
     background: rgba(255, 247, 237, 0.68);
 }
 .side{
-    width: 10%;
+    width: 15%;
     height: 100vh;
    background: #FFFFFF;
 box-shadow: 0px 4px 9px rgba(128, 128, 128, 0.25);
@@ -41,10 +41,12 @@ position: fixed;
     
 }
 .main{
-    width:90%;
+    width:85%;
     position: absolute;
     right: 0;
     background: rgba(255, 247, 237, 0.68);
+    height: 100vh;
+    overflow: auto;
    
 }
 </style>

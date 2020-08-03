@@ -1,116 +1,103 @@
 <template>
-
-<!-- <div>
-   <b-container>
-      <b-row>
-        <b-col cols="10" class="dashboard-content-side">
-          <div class="table-side">
-            <h2>ADMINISTRATORS</h2>
-            <b-table striped hover :items="items"></b-table>
-            <h1>Testing table page</h1>
+  <div class="view">
+    <b-modal id="tutor-create" scrollable title="Create Tutor" hide-footer>
+      <div>
+        <Add @toggleModal="toggleModal" />
+      </div>
+    </b-modal>
+    <b-modal id="tutor-edit" scrollable title="Update Tutor" size="lg" hide-footer>
+      <div>
+        <Edit @toggleModal="toggleModal" :id="id" :admin="admin" />
+      </div>
+    </b-modal>
+    <b-modal id="tutor-assign" scrollable title="Assign Class" size="lg" hide-footer>
+      <div>
+        <Assign @toggleModal="toggleModal" :admin="admin" />
+      </div>
+    </b-modal>
+    <b-modal id="assign-head" scrollable title="Assign Head " size="lg" hide-footer>
+      <div>
+        <AssignHead @toggleModal="toggleModal" :admin="admin" />
+      </div>
+    </b-modal>
+    <b-modal id="tutor-view" scrollable size="lg" hide-footer>
+      <div>
+        <ViewTutor @toggleModal="toggleModal" :admin="admin" :id="id" />
+      </div>
+    </b-modal>
+    <div class="left-side">
+      <h4 class="mb-3">Tutors</h4>
+      <b-table bordered hover  :busy="busy" :items="tutors" :fields="fields">
+        <template v-slot:cell(sn)="data">{{data.index+1}}</template>
+        <template v-slot:cell(drop)="data">
+          <b-form-checkbox :value="data.item.id" v-model="items"></b-form-checkbox>
+        </template>
+        <template v-slot:table-busy>
+          <div class="text-center my-2">
+            <b-spinner class="align-middle"></b-spinner>
+            <strong>Loading...</strong>
           </div>
-        </b-col>
-        <b-col cols="2" class="notification-side">
-          <div class="notify-side">
-            <div class="notify-modal">
-              <b-button v-b-modal.modal-1 class="reg-btn">ADD TEACHER</b-button>
-              <b-modal id="modal-1" title="Create Admin">
-                <b-form>
-                  <b-container>
-                    <b-form-group id="input-group-1" label="Name" label-for="input-1">
-                      <b-form-input id="input-1" type="text" required placeholder></b-form-input>
-                    </b-form-group>
-
-                    <b-form-row>
-                      <b-col>
-                        <b-form-group id="input-group-6" label="Email" label-for="input-6">
-                          <b-form-input
-                            id="input-6"
-                            type="email"
-                            required
-                            placeholder
-                          ></b-form-input>
-                        </b-form-group>
-                      </b-col>
-                      <b-col>
-                        <b-form-group id="input-group-4" label="Phone" label-for="input-4">
-                          <b-form-input
-                            id="input-4"
-                            type="text"
-                            placeholder
-                          ></b-form-input>
-                        </b-form-group>
-                      </b-col>
-                    </b-form-row>
-                    <b-form-group id="input-group-1" label="Role" label-for="input-1">
-                      <b-form-input id="input-1" type="text" required placeholder></b-form-input>
-                    </b-form-group>
-                  </b-container>
-                </b-form>
-              </b-modal>
+        </template>
+        <template v-slot:cell(action)="data">
+          <div class="options">
+            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+            <div class="option shadow">
+              <ul>
+                <li>
+                  <span @click="view(data.item.id)" class="mr-3">
+                    <i class="fas fa-eye"></i>View
+                  </span>
+                </li>
+                <li>
+                  <span @click="edit(data.item.id)">
+                    <i class="fas fa-edit"></i>Edit
+                  </span>
+                </li>
+                <li>
+                  <span class="mr-3" @click="drop(data.item.id)">
+                    <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
+                  </span>
+                </li>
+              </ul>
             </div>
           </div>
-        </b-col>
-      </b-row>
-    </b-container>
-</div> -->
-  <div class="body">
+        </template>
+      </b-table>
+    </div>
     <nav class="mb-5">
-      <router-link to="/admin/tutor/create">
-        <b-button block class="shadow-sm reg-btn text-center">Create Tutor</b-button>
-      </router-link>
+      <b-button block class="shadow-sm reg-btn text-center mb-3" v-b-modal.tutor-create>Create Tutor</b-button>
 
-      <router-link to="/admin/tutor/assign">
-        <b-button block class="shadow-sm reg-btn text-center">
-          Tutor
-          <i class="fa fa-arrows-h mx-2" aria-hidden="true"></i>
-           Courses
-        </b-button>
-      </router-link>
-      <router-link to="/admin/head/assign">
-        <b-button block class="shadow-sm reg-btn text-center">
-          Tutor
-          <i class="fa fa-arrows-h mx-2" aria-hidden="true"></i>
- Head Tutor
-        </b-button>
-      </router-link>
+      <b-button block class="shadow-sm reg-btn text-center mb-3" v-b-modal.tutor-assign>
+        Tutor
+        <i class="fa fa-arrows-h mx-2" aria-hidden="true"></i>
+        Courses
+      </b-button>
+
+      <b-button block class="shadow-sm reg-btn text-center mb-3" v-b-modal.assign-head>
+        Tutor
+        <i class="fa fa-arrows-h mx-2" aria-hidden="true"></i>
+        Head Tutor
+      </b-button>
+
       <b-button block class="shadow-sm reg-btn text-center" @click="multiDrop">Multi-Drop</b-button>
     </nav>
-
-    <b-table bordered hover responsive :busy="busy" :items="tutors" :fields="fields">
-      <template v-slot:cell(sn)="data">{{data.index+1}}</template>
-      <template v-slot:cell(drop)="data">
-        <b-form-checkbox :value="data.item.id" v-model="items"></b-form-checkbox>
-      </template>
-       <template v-slot:table-busy>
-        <div class="text-center my-2">
-          <b-spinner class="align-middle"></b-spinner>
-          <strong>Loading...</strong>
-        </div>
-      </template>
-      <template v-slot:cell(actions)="data">
-        <span @click="view(item.id)" class="mr-3">
-          <i class="fas fa-eye"></i>View
-        </span>
-        <span class="mr-3" @click="drop(data.item.id)">
-          <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
-        </span>
-        <span @click="edit(data.item.id)">
-          <i class="fas fa-edit"></i>Update
-        </span>
-      </template>
-    </b-table>
   </div>
 </template>
 
 
 <script>
+import Add from "./create";
+import Edit from "./update";
+import Assign from "./assign";
+import AssignHead from "./assignHead";
+import ViewTutor from "./view";
 export default {
   props: ["admin"],
   data() {
     return {
+      id: null,
       tutors: [],
-      busy:true,
+      busy: true,
       items: [],
       item: false,
       fields: [
@@ -119,22 +106,33 @@ export default {
         "email",
         { key: "gender", sortable: true },
         "phone",
-        "actions",
-        "drop"
-      ]
+        "action",
+        "drop",
+      ],
     };
   },
   watch: {
-    item: "selectAll"
+    item: "selectAll",
+  },
+  components: {
+    Add,
+    Edit,
+    Assign,
+    AssignHead,
+    ViewTutor,
   },
   mounted() {
     this.getAdmins();
   },
   methods: {
+    toggleModal(id) {
+      this.$bvModal.hide(id);
+      this.getAdmins();
+    },
     selectAll() {
       if (this.item) {
         this.items = [];
-        this.tutors.forEach(it => {
+        this.tutors.forEach((it) => {
           this.items.push(it.id);
         });
       } else {
@@ -145,13 +143,13 @@ export default {
       axios
         .get("/api/tutor", {
           headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.admin.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.tutors = res.data;
-            this.busy= false
+            this.busy = false;
           }
         });
     },
@@ -161,10 +159,10 @@ export default {
         axios
           .delete(`/api/tutor/${id}`, {
             headers: {
-              Authorization: `Bearer ${this.$props.admin.access_token}`
-            }
+              Authorization: `Bearer ${this.$props.admin.access_token}`,
+            },
           })
-          .then(res => {
+          .then((res) => {
             if (res.status == 200) {
               this.getAdmins();
             }
@@ -174,44 +172,51 @@ export default {
     multiDrop() {
       let del = confirm("Are you sure about this?");
       let data = {
-        data: this.items
+        data: this.items,
       };
       if (del) {
         axios
           .post("/api/multi-tutor-drop", data, {
             headers: {
-              Authorization: `Bearer ${this.$props.admin.access_token}`
-            }
+              Authorization: `Bearer ${this.$props.admin.access_token}`,
+            },
           })
-          .then(res => {
+          .then((res) => {
             if (res.status == 200) {
               this.getAdmins();
             }
           })
-          .catch(err => {
+          .catch((err) => {
             console.log("del -> err", err);
           });
       }
     },
     edit(id) {
-      this.$router.push(`/admin/tutor/update/${id}`);
+      this.id = id;
+      this.$bvModal.show("tutor-edit");
     },
     view(id) {
-      this.$router.push(`/admin/tutor/view/${id}`);
-    }
-  }
+      this.id = id;
+      this.$bvModal.show("tutor-view");
+    },
+  },
 };
 </script>
 
 <style scoped>
+.view {
+  display: flex;
+}
 nav {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-column-gap: 30px;
+  width: 20%;
+  background: white;
+  padding: 30px 20px;
 }
 .hiden {
   opacity: 0;
 }
-
-
+.left-side {
+  width: 80%;
+  padding: 30px 20px;
+}
 </style>

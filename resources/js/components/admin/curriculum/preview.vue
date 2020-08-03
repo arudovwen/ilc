@@ -238,7 +238,7 @@ export default {
 
     },
     cancel() {
-      this.$emit("togglePreview");
+      this.$emit("cancelToggle");
     },
     goTo(value){
         if (value == 1) {

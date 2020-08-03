@@ -82,7 +82,7 @@ class TutorController extends Controller
         
         ]);
             $tutor->pass = $password->random_strings(8);
-            $tutor->notify(new NewTutor($school, $tutor));
+            // $tutor->notify(new NewTutor($school, $tutor));
             return $tutor;
         });
         return $value;

@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <!-- <div >
     <b-container>
       <b-row class="mb-4"><strong>{{$route.params.subject}} > {{$route.params.id}}</strong></b-row>
       <b-row>
@@ -11,7 +11,8 @@
         </b-col>
       </b-row>
     </b-container>
-  </div>
+  </div> -->
+  <div></div>
 </template>
 
 <script>

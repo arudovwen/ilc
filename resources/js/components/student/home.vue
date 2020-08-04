@@ -102,7 +102,7 @@
                   <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                 </div>
                 <div class="class-content-main">
-                 <p>Bascic 4, <span>by: <strong>Henry Annayo</strong></span></p>
+                 <p> <span>by: <strong>Henry Annayo</strong></span></p>
                  <p>Ongoing</p>
                 </div>
               </div>
@@ -112,7 +112,7 @@
                   <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                 </div>
                 <div class="class-content-main">
-                 <p>Bascic 4, <span>by: <strong>Henry Annayo</strong></span></p>
+                 <p> <span>by: <strong>Henry Annayo</strong></span></p>
                  <p>Upcoming</p>
                 </div>
               </div>
@@ -122,7 +122,7 @@
                   <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                 </div>
                 <div class="class-content-main">
-                 <p>Bascic 4, <span>by: <strong>Henry Annayo</strong></span></p>
+                 <p> <span>by: <strong>Henry Annayo</strong></span></p>
                  <p>Upcoming</p>
                 </div>
               </div>
@@ -132,7 +132,7 @@
                   <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                 </div>
                 <div class="class-content-main">
-                 <p>Bascic 4, <span>by: <strong>Henry Annayo</strong></span></p>
+                 <p> <span>by: <strong>Henry Annayo</strong></span></p>
                  <p>Upcoming</p>
                 </div>
               </div>

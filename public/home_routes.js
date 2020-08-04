@@ -40829,7 +40829,6 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "class-content-main" }, [
                         _c("p", [
-                          _vm._v("Bascic 4, "),
                           _c("span", [
                             _vm._v("by: "),
                             _c("strong", [_vm._v("Henry Annayo")])
@@ -40870,7 +40869,6 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "class-content-main" }, [
                         _c("p", [
-                          _vm._v("Bascic 4, "),
                           _c("span", [
                             _vm._v("by: "),
                             _c("strong", [_vm._v("Henry Annayo")])
@@ -40911,7 +40909,6 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "class-content-main" }, [
                         _c("p", [
-                          _vm._v("Bascic 4, "),
                           _c("span", [
                             _vm._v("by: "),
                             _c("strong", [_vm._v("Henry Annayo")])
@@ -40952,7 +40949,6 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "class-content-main" }, [
                         _c("p", [
-                          _vm._v("Bascic 4, "),
                           _c("span", [
                             _vm._v("by: "),
                             _c("strong", [_vm._v("Henry Annayo")])

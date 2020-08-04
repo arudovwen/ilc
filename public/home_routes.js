@@ -10286,6 +10286,8 @@ __webpack_require__.r(__webpack_exports__);
               typeStudent.name = res.data.name;
               typeStudent.school_id = res.data.school_id;
               typeStudent.school = res.data.school;
+              typeStudent.profile = res.data.profile;
+              typeStudent.student_level = res.data.student_level;
               localStorage.setItem("typeStudent", JSON.stringify(typeStudent));
 
               _this.$toasted.success("Sucessful");
@@ -11165,82 +11167,13 @@ __webpack_require__.r(__webpack_exports__);
       syllabus: [],
       curriculum: [],
       fields: ["class", "subject"],
-      field: ["class"]
+      field: ["class"],
+      value: null,
+      max: null
     };
   },
-  mounted: function mounted() {// this.getStudents();
-    // this.getClasses();
-    // this.getTutors();
-    // this.getSyllabus()
-    // this.getCurriculum();
-  },
-  methods: {
-    getStudents: function getStudents() {
-      var _this = this;
-
-      axios.get("/api/student-get-students", {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this.students = res.data;
-        }
-      });
-    },
-    getCurriculum: function getCurriculum() {
-      var _this2 = this;
-
-      axios.get("/api/curriculum", {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this2.curriculum = res.data;
-        }
-      });
-    },
-    getTutors: function getTutors() {
-      var _this3 = this;
-
-      axios.get("/api/tutor", {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this3.tutors = res.data;
-        }
-      });
-    },
-    getClasses: function getClasses() {
-      var _this4 = this;
-
-      axios.get("/api/classes", {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this4.classes = res.data;
-        }
-      });
-    },
-    getSyllabus: function getSyllabus() {
-      var _this5 = this;
-
-      axios.get("/api/syllabus", {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this5.syllabus = res.data;
-        }
-      });
-    }
-  }
+  mounted: function mounted() {},
+  methods: {}
 });
 
 /***/ }),
@@ -40115,7 +40048,18 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _vm._m(0),
+    _c("div", { staticClass: "welcome-board" }, [
+      _c("img", { attrs: { src: "/images/clip-99.png", alt: "" } }),
+      _vm._v(" "),
+      _c("div", { staticClass: "welcome-board-content ml-auto" }, [
+        _c("h3", [
+          _vm._v("\n        Welcome OnBoard\n        "),
+          _c("span", [_vm._v(_vm._s(_vm.student.name))])
+        ]),
+        _vm._v(" "),
+        _vm._m(0)
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-4 result-board" }, [
@@ -40244,25 +40188,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "welcome-board" }, [
-      _c("img", { attrs: { src: "/images/clip-99.png", alt: "" } }),
-      _vm._v(" "),
-      _c("div", { staticClass: "welcome-board-content ml-auto" }, [
-        _c("h3", [
-          _vm._v("\n        Welcome OnBoard\n        "),
-          _c("span", [_vm._v("SUCESS AHOAN")])
-        ]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "\n        Get quick access to your assesment and grade book on the dash board\n        "
-          ),
-          _c("br"),
-          _vm._v(
-            "Gain fast knowlege add resources to your library and more\n      "
-          )
-        ])
-      ])
+    return _c("p", [
+      _vm._v(
+        "\n        Get quick access to your assesment and grade book on the dash board\n        "
+      ),
+      _c("br"),
+      _vm._v(
+        "Gain fast knowlege add resources to your library and more\n      "
+      )
     ])
   },
   function() {
@@ -40608,10 +40541,7 @@ var render = function() {
             "b-nav-item",
             [
               _c("b-avatar", {
-                attrs: {
-                  to: "/student/profile",
-                  src: "/images/profile-img.jpg"
-                }
+                attrs: { to: "/student/profile", src: _vm.student.profile }
               })
             ],
             1

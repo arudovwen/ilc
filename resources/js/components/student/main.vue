@@ -48,7 +48,7 @@
   <div>
     <b-nav align="right">
       <b-nav-item>
-        <b-avatar to="/student/profile" src="/images/profile-img.jpg"></b-avatar>
+        <b-avatar to="/student/profile" :src="student.profile"></b-avatar>
       </b-nav-item>
       <b-nav-item>
         <b-form-input placeholder="Search... " class="search rounded-pill"></b-form-input>

@@ -63,6 +63,7 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('student-grade-book', 'GradeBookController');
     Route::post('student-assessment-result', 'AssessmentResultController@store');
     Route::get('student-all-subjects', 'SubjectsController@getAllSubjectsForStudent');
+    Route::get('student-times-table/{id}', 'TimesTableController@getTimesTablePerClass');
 });
 
 Route::middleware('auth:tutor')->group(function () {

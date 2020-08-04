@@ -14860,6 +14860,100 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -17572,7 +17666,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.my-container[data-v-3a73534e] {\n  width: 100%;\n  display: flex;\n}\n.side[data-v-3a73534e] {\n width: 15%;\n    height: 100vh;\n    background: #008E3A;\n    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);\n    position: fixed;\n}\n.main[data-v-3a73534e] {\n  width: 85%;\n  height: 100vh;\n  position: absolute;\n  right: 0;\n}\n", ""]);
+exports.push([module.i, "\n.my-container[data-v-3a73534e] {\n  width: 100%;\n  display: flex;\n}\n.side[data-v-3a73534e] {\n width: 15%;\n    height: 100vh;\n    background: #008E3A;\n    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);\n    position: fixed;\n}\n.main[data-v-3a73534e] {\n  width: 85%;\n  height: 100%;\n  position: absolute;\n  right: 0;\n   background: #f7f8fa;\n}\n", ""]);
 
 // exports
 
@@ -17629,7 +17723,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.semi-white[data-v-0fa20884]{\n  background: #f7f8fa;\n  height: 100%;\n}\nnav[data-v-0fa20884] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n#notification[data-v-0fa20884] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-0fa20884] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-0fa20884] {\n  max-height: 300px;\n  overflow: scroll;\n}\n.icon[data-v-0fa20884] {\n  position: relative;\n}\n.badge[data-v-0fa20884] {\n  position: absolute;\n  top: -40%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 14px;\n}\n.list-group-item[data-v-0fa20884] {\n  font-size: 14px;\n}\n.fa-bell[data-v-0fa20884] {\n  font-size: 24px;\n  color:#008E3A;\n}\n.search[data-v-0fa20884]{\n  width:250px;\n  border-color:#008E3A\n}\n", ""]);
+exports.push([module.i, "\n.semi-white[data-v-0fa20884]{\n \n  height: 100%;\n}\nnav[data-v-0fa20884] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n#notification[data-v-0fa20884] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-0fa20884] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-0fa20884] {\n  max-height: 300px;\n  overflow: scroll;\n}\n.icon[data-v-0fa20884] {\n  position: relative;\n}\n.badge[data-v-0fa20884] {\n  position: absolute;\n  top: -40%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 14px;\n}\n.list-group-item[data-v-0fa20884] {\n  font-size: 14px;\n}\n.fa-bell[data-v-0fa20884] {\n  font-size: 24px;\n  color:#008E3A;\n}\n.search[data-v-0fa20884]{\n  width:250px;\n  border-color:#008E3A\n}\n", ""]);
 
 // exports
 
@@ -18332,7 +18426,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-42846304] {\n  font-family: \"Montserrat\";\n}\n.welcome-board[data-v-42846304] {\n  background: rgba(19, 166, 153, 0.43);\n  width: 100%;\n  height: 200px;\n  border-radius: 10px;\n  display: flex;\n  position: relative;\n  margin-top: 2rem;\n}\n.welcome-board img[data-v-42846304] {\n  width: 320px;\n  height: 280px;\n  position: absolute;\n  transform: translateY(-28%);\n}\n.welcome-board-content[data-v-42846304] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  padding: 2.5rem;\n}\n.welcome-board-content p[data-v-42846304] {\n  text-align: center;\n  padding: 10px;\n}\n.welcome-board-content h3[data-v-42846304] {\n  color: #13a699;\n}\n.cards[data-v-42846304] {\n  margin-top: 2rem;\n  background: #fff;\n  padding: 1.5rem;\n  border-radius: 10px;\n  height: 400px;\n}\n.result-progress[data-v-42846304] {\n  margin-top: 10px;\n}\n.progress-top[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.progress-bar[data-v-42846304] {\n  width: 67% !important;\n  background-color: #de1515 !important;\n}\n.update-content[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.update-content p[data-v-42846304] {\n  font-size: 12px;\n  padding-left: 10px;\n  margin-bottom: 0;\n}\n.log-link[data-v-42846304] {\n  display: flex;\n  justify-content: flex-end;\n}\n.log-link a[data-v-42846304] {\n  color: #808080;\n}\n.log-link a[data-v-42846304]:hover {\n  color: #13a699;\n  text-decoration: underline !important;\n}\n.resources-inner[data-v-42846304] {\n  border-bottom: 1px solid #e4e4e4;\n  padding-top: 5px;\n}\n.resources-inner[data-v-42846304]:last-child {\n  border-bottom: none;\n}\n.class-content[data-v-42846304]{\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-top i[data-v-42846304]{\n  color: #008e3a;\n}\n.content-2 i[data-v-42846304]{\n  color: #ff0000;\n}\n.class-content-main[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-42846304]{\n  font-size: 12px;\n}\n.notes-top[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.btn[data-v-42846304]{\n  background: transparent;\n  border: 1px solid #13A699;\n  border-radius: 5px;\n  color: #13A699;\n}\n.btn[data-v-42846304]:hover{\n  background: #13A699;\n  border-radius: 5px;\n  color: #fff;\n}\n\n", ""]);
+exports.push([module.i, "\n.container[data-v-42846304] {\n  font-family: \"Montserrat\";\n}\n.welcome-board[data-v-42846304] {\n  background: rgba(19, 166, 153, 0.43);\n  width: 100%;\n  height: 200px;\n  border-radius: 10px;\n  display: flex;\n  position: relative;\n  margin-top: 2rem;\n}\n.welcome-board img[data-v-42846304] {\n  width: 320px;\n  height: 280px;\n  position: absolute;\n  transform: translateY(-28%);\n}\n.welcome-board-content[data-v-42846304] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  padding: 2.5rem;\n}\n.welcome-board-content p[data-v-42846304] {\n  text-align: center;\n  padding: 10px;\n}\n.welcome-board-content h3[data-v-42846304] {\n  color: #13a699;\n}\n.cards[data-v-42846304] {\n  margin-top: 2rem;\n  background: #fff;\n  padding: 1.5rem;\n  border-radius: 10px;\n  height: 400px;\n}\n.result-progress[data-v-42846304] {\n  margin-top: 10px;\n}\n.progress-top[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.progress-bar[data-v-42846304] {\n  width: 67% !important;\n  background-color: #de1515 !important;\n}\n.update-content[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.update-content p[data-v-42846304] {\n  font-size: 12px;\n  padding-left: 10px;\n  margin-bottom: 0;\n}\n.log-link[data-v-42846304] {\n  display: flex;\n  justify-content: flex-end;\n}\n.log-link a[data-v-42846304] {\n  color: #808080;\n}\n.log-link a[data-v-42846304]:hover {\n  color: #13a699;\n  text-decoration: underline !important;\n}\n.resources-inner[data-v-42846304] {\n  border-bottom: 1px solid #e4e4e4;\n  padding-top: 5px;\n}\n.resources-inner[data-v-42846304]:last-child {\n  border-bottom: none;\n}\n.class-content[data-v-42846304]{\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-top i[data-v-42846304]{\n  color: #008e3a;\n}\n.content-2 i[data-v-42846304]{\n  color: #ff0000;\n}\n.class-content-main[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-42846304]{\n  font-size: 12px;\n}\n.notes-top[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.btn[data-v-42846304]{\n  background: transparent;\n  border: 1px solid #13A699;\n  border-radius: 5px;\n  color: #13A699;\n}\n.btn[data-v-42846304]:hover{\n  background: #13A699;\n  border-radius: 5px;\n  color: #fff;\n}\n.update-avatar img[data-v-42846304]{\n  height: 40px;\n  width: 40px;\n}\n", ""]);
 
 // exports
 
@@ -18655,7 +18749,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.assignment-overview-board[data-v-11aed4a3] {\n  background: #fff;\n  font-family: \"Montserrat\";\n  padding: 15px;\n  border-radius: 10px;\n}\n.assignment-overview-board p[data-v-11aed4a3] {\n  font-weight: 600;\n  color: #808080;\n}\n.text-center p[data-v-11aed4a3] {\n  font-weight: 500;\n  margin-bottom: 10px;\n}\n.text-center h6[data-v-11aed4a3] {\n  font-weight: 700;\n}\n.overview-log-1[data-v-11aed4a3] {\n  border-right: 1px solid #c4c4c4;\n}\n.overview-log-4[data-v-11aed4a3] {\n  border-right: 1px solid #c4c4c4;\n}\n.overview-log-1 i[data-v-11aed4a3] {\n  color: #22cade;\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.overview-log-2 i[data-v-11aed4a3] {\n  color: #dfd291;\n  background: rgba(223, 210, 145, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.overview-log-3 i[data-v-11aed4a3] {\n  color: #ff0000;\n  background: rgba(255, 0, 0, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.overview-log-4 i[data-v-11aed4a3] {\n  color: #008e3a;\n  background: rgba(0, 142, 58, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.log-link[data-v-11aed4a3] {\n  display: flex;\n  justify-content: flex-end;\n  padding-top: 1rem;\n}\n.content-cards[data-v-11aed4a3] {\n  padding-top: 2rem;\n}\n.cards[data-v-11aed4a3]{\n  background: #fff;\n  border-radius: 10px;\n  padding: 10px;\n  height: 450px;\n}\n.class-content[data-v-11aed4a3]{\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-11aed4a3]{\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-top i[data-v-11aed4a3]{\n  color: #008e3a;\n}\n.content-2 i[data-v-11aed4a3]{\n  color: #ff0000;\n}\n.class-content-main[data-v-11aed4a3]{\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-11aed4a3]{\n  font-size: 12px;\n}\n.notes-content[data-v-11aed4a3]{\n  border-bottom: 1px solid #e4e4e4;\n}\n.notes-content[data-v-11aed4a3]:last-child{\n  border-bottom: none;\n}\n.notes-top[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 1rem;\n}\n.notes-content-top[data-v-11aed4a3]{\n  display: flex;\n  justify-content: space-between;\n}\n.notes-content-top h6[data-v-11aed4a3]{\n  margin-bottom: 0;\n  padding-top: 5px;\n}\n.notes-content[data-v-11aed4a3]{\n  padding-top: 5px;\n}\n.notes-content-main[data-v-11aed4a3]{\n  padding-bottom: 5px ;\n}\n.notes-content-main p[data-v-11aed4a3]{\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notes-date[data-v-11aed4a3] {\n  color: #808080;\n  padding-top: 5px;\n  padding-left: 10px;\n}\n.fa-file-o[data-v-11aed4a3]{\n   color: #22cade;\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 50%;\n   padding: 9px;\n}\n.btn[data-v-11aed4a3] {\n  border: 1px solid #0a4065;\n  color: #0a4065;\n}\n", ""]);
+exports.push([module.i, "\n.assignment-overview-board[data-v-11aed4a3] {\n  background: #fff;\n  font-family: \"Montserrat\";\n  padding: 15px;\n  border-radius: 10px;\n}\n.assignment-overview-board p[data-v-11aed4a3] {\n  font-weight: 600;\n  color: #808080;\n}\n.text-center p[data-v-11aed4a3] {\n  font-weight: 500;\n  margin-bottom: 10px;\n}\n.text-center h6[data-v-11aed4a3] {\n  font-weight: 700;\n}\n.overview-log-1[data-v-11aed4a3] {\n  border-right: 1px solid #c4c4c4;\n}\n.overview-log-4[data-v-11aed4a3] {\n  border-right: 1px solid #c4c4c4;\n}\n.overview-log-1 i[data-v-11aed4a3] {\n  color: #22cade;\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.overview-log-2 i[data-v-11aed4a3] {\n  color: #dfd291;\n  background: rgba(223, 210, 145, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.overview-log-3 i[data-v-11aed4a3] {\n  color: #ff0000;\n  background: rgba(255, 0, 0, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.overview-log-4 i[data-v-11aed4a3] {\n  color: #008e3a;\n  background: rgba(0, 142, 58, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.log-link[data-v-11aed4a3] {\n  display: flex;\n  justify-content: flex-end;\n  padding-top: 1rem;\n}\n.content-cards[data-v-11aed4a3] {\n  padding-top: 2rem;\n}\n.cards[data-v-11aed4a3] {\n  background: #fff;\n  border-radius: 10px;\n  padding: 10px;\n  height: 450px;\n}\n.class-content[data-v-11aed4a3] {\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-top i[data-v-11aed4a3] {\n  color: #008e3a;\n}\n.content-2 i[data-v-11aed4a3] {\n  color: #ff0000;\n}\n.class-content-main[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-11aed4a3] {\n  font-size: 12px;\n}\n.notes-content[data-v-11aed4a3] {\n  border-bottom: 1px solid #e4e4e4;\n}\n.notes-content[data-v-11aed4a3]:last-child {\n  border-bottom: none;\n}\n.notes-top[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 1rem;\n}\n.notes-content-top[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.notes-content-top h6[data-v-11aed4a3] {\n  margin-bottom: 0;\n  padding-top: 5px;\n}\n.notes-content[data-v-11aed4a3] {\n  padding-top: 5px;\n}\n.notes-content-main[data-v-11aed4a3] {\n  padding-bottom: 5px;\n}\n.notes-content-main p[data-v-11aed4a3] {\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notes-date[data-v-11aed4a3] {\n  color: #808080;\n  padding-top: 5px;\n  padding-left: 10px;\n}\n.fa-file-o[data-v-11aed4a3] {\n  color: #22cade;\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 50%;\n  padding: 9px;\n}\n.btn[data-v-11aed4a3] {\n  border: 1px solid #0a4065;\n  color: #0a4065;\n}\n.discussion-content[data-v-11aed4a3]{\n  border-bottom:1px solid #e4e4e4;\n  padding-bottom: 10px;\n  padding-top: 5px;\n}\n.discussion-content[data-v-11aed4a3]:last-child{\n  border-bottom: none;\n}\n.discussion-content p[data-v-11aed4a3]{\n  font-size: 10px;\n}\n.discussion-content-top[data-v-11aed4a3]{\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-top p[data-v-11aed4a3]{\n font-size: 14px;\n}\n.discussion-content-bottom[data-v-11aed4a3]{\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-bottom p[data-v-11aed4a3]{\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notify-discussion p[data-v-11aed4a3]{\n background: #e4e4e4;\n color: #808080;\n border-radius: 5px;\n font-weight: 500;\n padding: 5px 10px;\n}\n", ""]);
 
 // exports
 
@@ -40361,6 +40455,7 @@ var render = function() {
                       { staticClass: "update-content" },
                       [
                         _c("b-avatar", {
+                          staticClass: "update-avatar",
                           attrs: { src: "/images/english-lit.jpg" }
                         }),
                         _vm._v(" "),
@@ -45317,9 +45412,13 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "class-content-main" }, [
                           _c("p", [
-                            _vm._v("Bascic 4, "),
+                            _vm._v(
+                              "\n                  Primary 1,\n                  "
+                            ),
                             _c("span", [
-                              _vm._v("by: "),
+                              _vm._v(
+                                "\n                    by:\n                    "
+                              ),
                               _c("strong", [_vm._v("Henry Annayo")])
                             ])
                           ]),
@@ -45358,9 +45457,13 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "class-content-main" }, [
                           _c("p", [
-                            _vm._v("Bascic 4, "),
+                            _vm._v(
+                              "\n                  SS 3,\n                  "
+                            ),
                             _c("span", [
-                              _vm._v("by: "),
+                              _vm._v(
+                                "\n                    by:\n                    "
+                              ),
                               _c("strong", [_vm._v("Henry Annayo")])
                             ])
                           ]),
@@ -45399,9 +45502,13 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "class-content-main" }, [
                           _c("p", [
-                            _vm._v("Bascic 4, "),
+                            _vm._v(
+                              "\n                  JS 2,\n                  "
+                            ),
                             _c("span", [
-                              _vm._v("by: "),
+                              _vm._v(
+                                "\n                    by:\n                    "
+                              ),
                               _c("strong", [_vm._v("Henry Annayo")])
                             ])
                           ]),
@@ -45440,9 +45547,13 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "class-content-main" }, [
                           _c("p", [
-                            _vm._v("Bascic 4, "),
+                            _vm._v(
+                              "\n                  Primary 3,\n                  "
+                            ),
                             _c("span", [
-                              _vm._v("by: "),
+                              _vm._v(
+                                "\n                    by:\n                    "
+                              ),
                               _c("strong", [_vm._v("Henry Annayo")])
                             ])
                           ]),
@@ -45467,7 +45578,142 @@ var render = function() {
                 _vm._v(" "),
                 _c("b-col", { attrs: { md: "4" } }, [
                   _c("div", { staticClass: "discussion cards" }, [
-                    _c("h5", [_vm._v("Discussion")])
+                    _c("h5", [_vm._v("Discussion")]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "discussion-content" }, [
+                      _c(
+                        "div",
+                        { staticClass: "discussion-content-top" },
+                        [
+                          _c("p", [_c("strong", [_vm._v("Up coming Exams")])]),
+                          _vm._v(" "),
+                          _c(
+                            "b-avatar-group",
+                            { attrs: { size: "2.5rem" } },
+                            [
+                              _c("b-avatar"),
+                              _vm._v(" "),
+                              _c("b-avatar", {
+                                attrs: { text: "BV", variant: "primary" }
+                              }),
+                              _vm._v(" "),
+                              _c("b-avatar", {
+                                attrs: {
+                                  src: "https://placekitten.com/300/300",
+                                  variant: "info"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "the upcoming exam is coming up ................."
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "discussion-content-bottom" }, [
+                        _c("p", [_vm._v("Updated 2mins ago")]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "notify-discussion" }, [
+                          _c("p", [_vm._v("3 New Messages")])
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "discussion-content" }, [
+                      _c(
+                        "div",
+                        { staticClass: "discussion-content-top" },
+                        [
+                          _c("p", [_c("strong", [_vm._v("Up coming Exams")])]),
+                          _vm._v(" "),
+                          _c(
+                            "b-avatar-group",
+                            { attrs: { size: "2.5rem" } },
+                            [
+                              _c("b-avatar"),
+                              _vm._v(" "),
+                              _c("b-avatar", {
+                                attrs: { text: "BV", variant: "primary" }
+                              }),
+                              _vm._v(" "),
+                              _c("b-avatar", {
+                                attrs: {
+                                  src: "https://placekitten.com/300/300",
+                                  variant: "info"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "the upcoming exam is coming up ................."
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "discussion-content-bottom" }, [
+                        _c("p", [_vm._v("Updated 2mins ago")]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "notify-discussion" }, [
+                          _c("p", [_vm._v("3 New Messages")])
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "discussion-content" }, [
+                      _c(
+                        "div",
+                        { staticClass: "discussion-content-top" },
+                        [
+                          _c("p", [_c("strong", [_vm._v("Up coming Exams")])]),
+                          _vm._v(" "),
+                          _c(
+                            "b-avatar-group",
+                            { attrs: { size: "2.5rem" } },
+                            [
+                              _c("b-avatar"),
+                              _vm._v(" "),
+                              _c("b-avatar", {
+                                attrs: { text: "BV", variant: "primary" }
+                              }),
+                              _vm._v(" "),
+                              _c("b-avatar", {
+                                attrs: {
+                                  src: "https://placekitten.com/300/300",
+                                  variant: "info"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "the upcoming exam is coming up ................."
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "discussion-content-bottom" }, [
+                        _c("p", [_vm._v("Updated 2mins ago")]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "notify-discussion" }, [
+                          _c("p", [_vm._v("3 New Messages")])
+                        ])
+                      ])
+                    ])
                   ])
                 ]),
                 _vm._v(" "),
@@ -45494,7 +45740,7 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("h6", { staticClass: "title" }, [
-                          _vm._v(" Prepare Test for Basic 2")
+                          _vm._v("Prepare Test for Primary 1")
                         ]),
                         _vm._v(" "),
                         _c("i", {
@@ -45506,13 +45752,15 @@ var render = function() {
                       _c("div", { staticClass: "notes-content-main" }, [
                         _c("p", {}, [
                           _vm._v(
-                            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure "
+                            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure"
                           )
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "notes-date" }, [
                           _c("p", [
-                            _vm._v("Posted: "),
+                            _vm._v(
+                              "\n                    Posted:\n                    "
+                            ),
                             _c("strong", [_vm._v("07/07/2020")])
                           ])
                         ])
@@ -45527,7 +45775,7 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("h6", { staticClass: "title" }, [
-                          _vm._v(" Prepare Test for Basic 2")
+                          _vm._v("Prepare Test for JS 2")
                         ]),
                         _vm._v(" "),
                         _c("i", {
@@ -45539,13 +45787,15 @@ var render = function() {
                       _c("div", { staticClass: "notes-content-main" }, [
                         _c("p", {}, [
                           _vm._v(
-                            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure "
+                            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure"
                           )
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "notes-date" }, [
                           _c("p", [
-                            _vm._v("Posted: "),
+                            _vm._v(
+                              "\n                    Posted:\n                    "
+                            ),
                             _c("strong", [_vm._v("07/07/2020")])
                           ])
                         ])
@@ -45560,7 +45810,7 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("h6", { staticClass: "title" }, [
-                          _vm._v(" Prepare Test for Basic 2")
+                          _vm._v("Prepare Test for SS 2")
                         ]),
                         _vm._v(" "),
                         _c("i", {
@@ -45572,13 +45822,15 @@ var render = function() {
                       _c("div", { staticClass: "notes-content-main" }, [
                         _c("p", {}, [
                           _vm._v(
-                            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure "
+                            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure"
                           )
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "notes-date" }, [
                           _c("p", [
-                            _vm._v("Posted: "),
+                            _vm._v(
+                              "\n                    Posted:\n                    "
+                            ),
                             _c("strong", [_vm._v("07/07/2020")])
                           ])
                         ])
@@ -45589,7 +45841,7 @@ var render = function() {
                         { staticClass: "log-link" },
                         [
                           _c("router-link", { attrs: { to: "" } }, [
-                            _vm._v("View All ")
+                            _vm._v("View All")
                           ])
                         ],
                         1

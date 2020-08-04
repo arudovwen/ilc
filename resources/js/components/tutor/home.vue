@@ -17,7 +17,6 @@
                   <p>Yet to Recieve</p>
                   <i class="fa fa-ban" aria-hidden="true"></i>
                 </b-col>
-                
               </b-row>
               <div class="log-link">
                 <router-link to>View assignment log</router-link>
@@ -26,7 +25,7 @@
           </div>
         </b-col>
         <b-col md="6">
-            <div class="assignment-overview-board">
+          <div class="assignment-overview-board">
             <p>Resource Overview</p>
             <b-container class="overview-main">
               <b-row>
@@ -35,12 +34,16 @@
                   <p>Submitted</p>
                   <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                 </b-col>
-                <b-col v-b-tooltip.hover title="You have over 20 resource to be submitted" md="6" class="overview-log-2 text-center">
+                <b-col
+                  v-b-tooltip.hover
+                  title="You have over 20 resource to be submitted"
+                  md="6"
+                  class="overview-log-2 text-center"
+                >
                   <h6>20+</h6>
                   <p>Pending</p>
                   <i class="fa fa-clock-o" aria-hidden="true"></i>
                 </b-col>
-                
               </b-row>
               <div class="log-link">
                 <router-link to>View Resources</router-link>
@@ -62,18 +65,14 @@
                   <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                 </div>
                 <div class="class-content-main">
-                 <p>Bascic 4, <span>by: <strong>Henry Annayo</strong></span></p>
-                 <p>Ongoing</p>
-                </div>
-              </div>
-               <div v-b-tooltip.hover title="This class starts 12pm" class="class-content">
-                <div class="class-content-top content-2">
-                  <h6>Geography</h6>
-                  <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
-                </div>
-                <div class="class-content-main">
-                 <p>Bascic 4, <span>by: <strong>Henry Annayo</strong></span></p>
-                 <p>Upcoming</p>
+                  <p>
+                    Primary 1,
+                    <span>
+                      by:
+                      <strong>Henry Annayo</strong>
+                    </span>
+                  </p>
+                  <p>Ongoing</p>
                 </div>
               </div>
               <div v-b-tooltip.hover title="This class starts 12pm" class="class-content">
@@ -82,8 +81,14 @@
                   <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                 </div>
                 <div class="class-content-main">
-                 <p>Bascic 4, <span>by: <strong>Henry Annayo</strong></span></p>
-                 <p>Upcoming</p>
+                  <p>
+                    SS 3,
+                    <span>
+                      by:
+                      <strong>Henry Annayo</strong>
+                    </span>
+                  </p>
+                  <p>Upcoming</p>
                 </div>
               </div>
               <div v-b-tooltip.hover title="This class starts 12pm" class="class-content">
@@ -92,11 +97,33 @@
                   <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                 </div>
                 <div class="class-content-main">
-                 <p>Bascic 4, <span>by: <strong>Henry Annayo</strong></span></p>
-                 <p>Upcoming</p>
+                  <p>
+                    JS 2,
+                    <span>
+                      by:
+                      <strong>Henry Annayo</strong>
+                    </span>
+                  </p>
+                  <p>Upcoming</p>
                 </div>
               </div>
-               <div class="log-link">
+              <div v-b-tooltip.hover title="This class starts 12pm" class="class-content">
+                <div class="class-content-top content-2">
+                  <h6>Geography</h6>
+                  <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                </div>
+                <div class="class-content-main">
+                  <p>
+                    Primary 3,
+                    <span>
+                      by:
+                      <strong>Henry Annayo</strong>
+                    </span>
+                  </p>
+                  <p>Upcoming</p>
+                </div>
+              </div>
+              <div class="log-link">
                 <router-link to>View Today's Class</router-link>
               </div>
             </div>
@@ -104,6 +131,63 @@
           <b-col md="4">
             <div class="discussion cards">
               <h5>Discussion</h5>
+              <div class="discussion-content">
+                <div class="discussion-content-top">
+                  <p>
+                    <strong>Up coming Exams</strong>
+                  </p>
+                  <b-avatar-group size="2.5rem">
+                    <b-avatar></b-avatar>
+                    <b-avatar text="BV" variant="primary"></b-avatar>
+                    <b-avatar src="https://placekitten.com/300/300" variant="info"></b-avatar>
+                  </b-avatar-group>
+                </div>
+                <p>the upcoming exam is coming up .................</p>
+                <div class="discussion-content-bottom">
+                  <p>Updated 2mins ago</p>
+                  <div class="notify-discussion">
+                    <p>3 New Messages</p>
+                  </div>
+                </div>
+              </div>
+              <div class="discussion-content">
+                <div class="discussion-content-top">
+                  <p>
+                    <strong>Up coming Exams</strong>
+                  </p>
+                  <b-avatar-group size="2.5rem">
+                    <b-avatar></b-avatar>
+                    <b-avatar text="BV" variant="primary"></b-avatar>
+                    <b-avatar src="https://placekitten.com/300/300" variant="info"></b-avatar>
+                  </b-avatar-group>
+                </div>
+                <p>the upcoming exam is coming up .................</p>
+                <div class="discussion-content-bottom">
+                  <p>Updated 2mins ago</p>
+                  <div class="notify-discussion">
+                    <p>3 New Messages</p>
+                  </div>
+                </div>
+              </div>
+              <div class="discussion-content">
+                <div class="discussion-content-top">
+                  <p>
+                    <strong>Up coming Exams</strong>
+                  </p>
+                  <b-avatar-group size="2.5rem">
+                    <b-avatar></b-avatar>
+                    <b-avatar text="BV" variant="primary"></b-avatar>
+                    <b-avatar src="https://placekitten.com/300/300" variant="info"></b-avatar>
+                  </b-avatar-group>
+                </div>
+                <p>the upcoming exam is coming up .................</p>
+                <div class="discussion-content-bottom">
+                  <p>Updated 2mins ago</p>
+                  <div class="notify-discussion">
+                    <p>3 New Messages</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </b-col>
           <b-col md="4">
@@ -118,52 +202,62 @@
               <div class="notes-content">
                 <div class="notes-content-top">
                   <i class="fa fa-file-o" aria-hidden="true"></i>
-               
-                  <h6 class="title"> Prepare Test for Basic 2</h6>
-                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-               
+
+                  <h6 class="title">Prepare Test for Primary 1</h6>
+                  <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                 </div>
                 <div class="notes-content-main">
-                  <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure </p>
+                  <p
+                    class
+                  >Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure</p>
                   <div class="notes-date">
-                    <p>Posted: <strong>07/07/2020</strong></p>
+                    <p>
+                      Posted:
+                      <strong>07/07/2020</strong>
+                    </p>
                   </div>
                 </div>
-
               </div>
-               <div class="notes-content">
+              <div class="notes-content">
                 <div class="notes-content-top">
                   <i class="fa fa-file-o" aria-hidden="true"></i>
-               
-                  <h6 class="title"> Prepare Test for Basic 2</h6>
-                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-               
+
+                  <h6 class="title">Prepare Test for JS 2</h6>
+                  <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                 </div>
                 <div class="notes-content-main">
-                  <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure </p>
+                  <p
+                    class
+                  >Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure</p>
                   <div class="notes-date">
-                    <p>Posted: <strong>07/07/2020</strong></p>
+                    <p>
+                      Posted:
+                      <strong>07/07/2020</strong>
+                    </p>
                   </div>
                 </div>
-
               </div>
-               <div class="notes-content">
+              <div class="notes-content">
                 <div class="notes-content-top">
                   <i class="fa fa-file-o" aria-hidden="true"></i>
-               
-                  <h6 class="title"> Prepare Test for Basic 2</h6>
-                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-               
+
+                  <h6 class="title">Prepare Test for SS 2</h6>
+                  <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                 </div>
                 <div class="notes-content-main">
-                  <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure </p>
+                  <p
+                    class
+                  >Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure</p>
                   <div class="notes-date">
-                    <p>Posted: <strong>07/07/2020</strong></p>
+                    <p>
+                      Posted:
+                      <strong>07/07/2020</strong>
+                    </p>
                   </div>
                 </div>
-                  <div class="log-link">
-                    <router-link to>View All </router-link>
-                  </div>
+                <div class="log-link">
+                  <router-link to>View All</router-link>
+                </div>
               </div>
             </div>
           </b-col>
@@ -323,36 +417,36 @@ export default {
   padding-top: 2rem;
 }
 
-.cards{
+.cards {
   background: #fff;
   border-radius: 10px;
   padding: 10px;
   height: 450px;
 }
-.class-content{
+.class-content {
   padding-bottom: 10px;
 }
-.class-content-top{
+.class-content-top {
   display: flex;
   justify-content: space-between;
 }
-.class-content-top i{
+.class-content-top i {
   color: #008e3a;
 }
-.content-2 i{
+.content-2 i {
   color: #ff0000;
 }
-.class-content-main{
+.class-content-main {
   display: flex;
   justify-content: space-between;
 }
-.class-content-main p{
+.class-content-main p {
   font-size: 12px;
 }
-.notes-content{
+.notes-content {
   border-bottom: 1px solid #e4e4e4;
 }
-.notes-content:last-child{
+.notes-content:last-child {
   border-bottom: none;
 }
 .notes-top {
@@ -360,38 +454,70 @@ export default {
   justify-content: space-between;
   padding-bottom: 1rem;
 }
-.notes-content-top{
+.notes-content-top {
   display: flex;
   justify-content: space-between;
 }
-.notes-content-top h6{
+.notes-content-top h6 {
   margin-bottom: 0;
   padding-top: 5px;
 }
-.notes-content{
+.notes-content {
   padding-top: 5px;
 }
-.notes-content-main{
-  padding-bottom: 5px ;
+.notes-content-main {
+  padding-bottom: 5px;
 }
-.notes-content-main p{
+.notes-content-main p {
   font-size: 12px;
   margin-bottom: 0;
- 
 }
 .notes-date {
   color: #808080;
   padding-top: 5px;
   padding-left: 10px;
 }
-.fa-file-o{
-   color: #22cade;
+.fa-file-o {
+  color: #22cade;
   background: rgba(34, 202, 222, 0.25);
   border-radius: 50%;
-   padding: 9px;
+  padding: 9px;
 }
 .btn {
   border: 1px solid #0a4065;
   color: #0a4065;
+}
+.discussion-content{
+  border-bottom:1px solid #e4e4e4;
+  padding-bottom: 10px;
+  padding-top: 5px;
+}
+.discussion-content:last-child{
+  border-bottom: none;
+}
+.discussion-content p{
+  font-size: 10px;
+}
+.discussion-content-top{
+  display: flex;
+  justify-content: space-between;
+}
+.discussion-content-top p{
+ font-size: 14px;
+}
+.discussion-content-bottom{
+  display: flex;
+  justify-content: space-between;
+}
+.discussion-content-bottom p{
+  font-size: 12px;
+  margin-bottom: 0;
+}
+.notify-discussion p{
+ background: #e4e4e4;
+ color: #808080;
+ border-radius: 5px;
+ font-weight: 500;
+ padding: 5px 10px;
 }
 </style>

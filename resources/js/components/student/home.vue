@@ -83,7 +83,7 @@
             </div>
              <div class="resources-inner">
               <div class="update-content">
-                <b-avatar src="/images/english-lit.jpg"></b-avatar>
+                <b-avatar class="update-avatar" src="/images/english-lit.jpg"></b-avatar>
                 <p>Module 1.1 has been added to your english resources</p>
               </div>
               <div class="log-link">
@@ -372,5 +372,8 @@ export default {
   border-radius: 5px;
   color: #fff;
 }
-
+.update-avatar img{
+  height: 40px;
+  width: 40px;
+}
 </style>

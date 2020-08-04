@@ -42,7 +42,7 @@ export default {
 </script>
 <style scoped>
 .semi-white{
-  background: #f7f8fa;
+ 
   height: 100%;
  
 }

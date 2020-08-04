@@ -15088,6 +15088,100 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -17800,7 +17894,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.my-container[data-v-3a73534e] {\r\n  width: 100%;\r\n  display: flex;\n}\n.side[data-v-3a73534e] {\r\n width: 15%;\r\n    height: 100vh;\r\n    background: #008E3A;\r\n    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);\r\n    position: fixed;\n}\n.main[data-v-3a73534e] {\r\n  width: 85%;\r\n  height: 100vh;\r\n  position: absolute;\r\n  right: 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.my-container[data-v-3a73534e] {\r\n  width: 100%;\r\n  display: flex;\n}\n.side[data-v-3a73534e] {\r\n width: 15%;\r\n    height: 100vh;\r\n    background: #008E3A;\r\n    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);\r\n    position: fixed;\n}\n.main[data-v-3a73534e] {\r\n  width: 85%;\r\n  height: 100%;\r\n  position: absolute;\r\n  right: 0;\r\n   background: #f7f8fa;\n}\r\n", ""]);
 
 // exports
 
@@ -17857,7 +17951,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.semi-white[data-v-0fa20884]{\r\n  background: #f7f8fa;\r\n  height: 100%;\n}\nnav[data-v-0fa20884] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\n}\n#notification[data-v-0fa20884] {\r\n  position: relative;\r\n  z-index: 999;\n}\n.notification-body[data-v-0fa20884] {\r\n  position: absolute;\r\n  left: -240px;\r\n  width: 250px;\n}\n.main-notify[data-v-0fa20884] {\r\n  max-height: 300px;\r\n  overflow: scroll;\n}\n.icon[data-v-0fa20884] {\r\n  position: relative;\n}\n.badge[data-v-0fa20884] {\r\n  position: absolute;\r\n  top: -40%;\r\n  left: 50%;\r\n  background: red;\r\n  color: white;\r\n  font-size: 14px;\n}\n.list-group-item[data-v-0fa20884] {\r\n  font-size: 14px;\n}\n.fa-bell[data-v-0fa20884] {\r\n  font-size: 24px;\r\n  color:#008E3A;\n}\n.search[data-v-0fa20884]{\r\n  width:250px;\r\n  border-color:#008E3A\n}\r\n", ""]);
+exports.push([module.i, "\n.semi-white[data-v-0fa20884]{\r\n \r\n  height: 100%;\n}\nnav[data-v-0fa20884] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\n}\n#notification[data-v-0fa20884] {\r\n  position: relative;\r\n  z-index: 999;\n}\n.notification-body[data-v-0fa20884] {\r\n  position: absolute;\r\n  left: -240px;\r\n  width: 250px;\n}\n.main-notify[data-v-0fa20884] {\r\n  max-height: 300px;\r\n  overflow: scroll;\n}\n.icon[data-v-0fa20884] {\r\n  position: relative;\n}\n.badge[data-v-0fa20884] {\r\n  position: absolute;\r\n  top: -40%;\r\n  left: 50%;\r\n  background: red;\r\n  color: white;\r\n  font-size: 14px;\n}\n.list-group-item[data-v-0fa20884] {\r\n  font-size: 14px;\n}\n.fa-bell[data-v-0fa20884] {\r\n  font-size: 24px;\r\n  color:#008E3A;\n}\n.search[data-v-0fa20884]{\r\n  width:250px;\r\n  border-color:#008E3A\n}\r\n", ""]);
 
 // exports
 
@@ -18560,7 +18654,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-42846304] {\r\n  font-family: \"Montserrat\";\n}\n.welcome-board[data-v-42846304] {\r\n  background: rgba(19, 166, 153, 0.43);\r\n  width: 100%;\r\n  height: 200px;\r\n  border-radius: 10px;\r\n  display: flex;\r\n  position: relative;\r\n  margin-top: 2rem;\n}\n.welcome-board img[data-v-42846304] {\r\n  width: 320px;\r\n  height: 280px;\r\n  position: absolute;\r\n  transform: translateY(-28%);\n}\n.welcome-board-content[data-v-42846304] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  padding: 2.5rem;\n}\n.welcome-board-content p[data-v-42846304] {\r\n  text-align: center;\r\n  padding: 10px;\n}\n.welcome-board-content h3[data-v-42846304] {\r\n  color: #13a699;\n}\n.cards[data-v-42846304] {\r\n  margin-top: 2rem;\r\n  background: #fff;\r\n  padding: 1.5rem;\r\n  border-radius: 10px;\r\n  height: 400px;\n}\n.result-progress[data-v-42846304] {\r\n  margin-top: 10px;\n}\n.progress-top[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.progress-bar[data-v-42846304] {\r\n  width: 67% !important;\r\n  background-color: #de1515 !important;\n}\n.update-content[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.update-content p[data-v-42846304] {\r\n  font-size: 12px;\r\n  padding-left: 10px;\r\n  margin-bottom: 0;\n}\n.log-link[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.log-link a[data-v-42846304] {\r\n  color: #808080;\n}\n.log-link a[data-v-42846304]:hover {\r\n  color: #13a699;\r\n  text-decoration: underline !important;\n}\n.resources-inner[data-v-42846304] {\r\n  border-bottom: 1px solid #e4e4e4;\r\n  padding-top: 5px;\n}\n.resources-inner[data-v-42846304]:last-child {\r\n  border-bottom: none;\n}\n.class-content[data-v-42846304]{\r\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-42846304]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.class-content-top i[data-v-42846304]{\r\n  color: #008e3a;\n}\n.content-2 i[data-v-42846304]{\r\n  color: #ff0000;\n}\n.class-content-main[data-v-42846304]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.class-content-main p[data-v-42846304]{\r\n  font-size: 12px;\n}\n.notes-top[data-v-42846304]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.btn[data-v-42846304]{\r\n  background: transparent;\r\n  border: 1px solid #13A699;\r\n  border-radius: 5px;\r\n  color: #13A699;\n}\n.btn[data-v-42846304]:hover{\r\n  background: #13A699;\r\n  border-radius: 5px;\r\n  color: #fff;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-42846304] {\r\n  font-family: \"Montserrat\";\n}\n.welcome-board[data-v-42846304] {\r\n  background: rgba(19, 166, 153, 0.43);\r\n  width: 100%;\r\n  height: 200px;\r\n  border-radius: 10px;\r\n  display: flex;\r\n  position: relative;\r\n  margin-top: 2rem;\n}\n.welcome-board img[data-v-42846304] {\r\n  width: 320px;\r\n  height: 280px;\r\n  position: absolute;\r\n  transform: translateY(-28%);\n}\n.welcome-board-content[data-v-42846304] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  padding: 2.5rem;\n}\n.welcome-board-content p[data-v-42846304] {\r\n  text-align: center;\r\n  padding: 10px;\n}\n.welcome-board-content h3[data-v-42846304] {\r\n  color: #13a699;\n}\n.cards[data-v-42846304] {\r\n  margin-top: 2rem;\r\n  background: #fff;\r\n  padding: 1.5rem;\r\n  border-radius: 10px;\r\n  height: 400px;\n}\n.result-progress[data-v-42846304] {\r\n  margin-top: 10px;\n}\n.progress-top[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.progress-bar[data-v-42846304] {\r\n  width: 67% !important;\r\n  background-color: #de1515 !important;\n}\n.update-content[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.update-content p[data-v-42846304] {\r\n  font-size: 12px;\r\n  padding-left: 10px;\r\n  margin-bottom: 0;\n}\n.log-link[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.log-link a[data-v-42846304] {\r\n  color: #808080;\n}\n.log-link a[data-v-42846304]:hover {\r\n  color: #13a699;\r\n  text-decoration: underline !important;\n}\n.resources-inner[data-v-42846304] {\r\n  border-bottom: 1px solid #e4e4e4;\r\n  padding-top: 5px;\n}\n.resources-inner[data-v-42846304]:last-child {\r\n  border-bottom: none;\n}\n.class-content[data-v-42846304]{\r\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-42846304]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.class-content-top i[data-v-42846304]{\r\n  color: #008e3a;\n}\n.content-2 i[data-v-42846304]{\r\n  color: #ff0000;\n}\n.class-content-main[data-v-42846304]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.class-content-main p[data-v-42846304]{\r\n  font-size: 12px;\n}\n.notes-top[data-v-42846304]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.btn[data-v-42846304]{\r\n  background: transparent;\r\n  border: 1px solid #13A699;\r\n  border-radius: 5px;\r\n  color: #13A699;\n}\n.btn[data-v-42846304]:hover{\r\n  background: #13A699;\r\n  border-radius: 5px;\r\n  color: #fff;\n}\n.update-avatar img[data-v-42846304]{\r\n  height: 40px;\r\n  width: 40px;\n}\r\n", ""]);
 
 // exports
 
@@ -18883,7 +18977,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.assignment-overview-board[data-v-11aed4a3] {\r\n  background: #fff;\r\n  font-family: \"Montserrat\";\r\n  padding: 15px;\r\n  border-radius: 10px;\n}\n.assignment-overview-board p[data-v-11aed4a3] {\r\n  font-weight: 600;\r\n  color: #808080;\n}\n.text-center p[data-v-11aed4a3] {\r\n  font-weight: 500;\r\n  margin-bottom: 10px;\n}\n.text-center h6[data-v-11aed4a3] {\r\n  font-weight: 700;\n}\n.overview-log-1[data-v-11aed4a3] {\r\n  border-right: 1px solid #c4c4c4;\n}\n.overview-log-4[data-v-11aed4a3] {\r\n  border-right: 1px solid #c4c4c4;\n}\n.overview-log-1 i[data-v-11aed4a3] {\r\n  color: #22cade;\r\n  background: rgba(34, 202, 222, 0.25);\r\n  border-radius: 50%;\r\n  padding: 10px;\n}\n.overview-log-2 i[data-v-11aed4a3] {\r\n  color: #dfd291;\r\n  background: rgba(223, 210, 145, 0.25);\r\n  border-radius: 50%;\r\n  padding: 10px;\n}\n.overview-log-3 i[data-v-11aed4a3] {\r\n  color: #ff0000;\r\n  background: rgba(255, 0, 0, 0.25);\r\n  border-radius: 50%;\r\n  padding: 10px;\n}\n.overview-log-4 i[data-v-11aed4a3] {\r\n  color: #008e3a;\r\n  background: rgba(0, 142, 58, 0.25);\r\n  border-radius: 50%;\r\n  padding: 10px;\n}\n.log-link[data-v-11aed4a3] {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  padding-top: 1rem;\n}\n.content-cards[data-v-11aed4a3] {\r\n  padding-top: 2rem;\n}\n.cards[data-v-11aed4a3]{\r\n  background: #fff;\r\n  border-radius: 10px;\r\n  padding: 10px;\r\n  height: 450px;\n}\n.class-content[data-v-11aed4a3]{\r\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-11aed4a3]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.class-content-top i[data-v-11aed4a3]{\r\n  color: #008e3a;\n}\n.content-2 i[data-v-11aed4a3]{\r\n  color: #ff0000;\n}\n.class-content-main[data-v-11aed4a3]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.class-content-main p[data-v-11aed4a3]{\r\n  font-size: 12px;\n}\n.notes-content[data-v-11aed4a3]{\r\n  border-bottom: 1px solid #e4e4e4;\n}\n.notes-content[data-v-11aed4a3]:last-child{\r\n  border-bottom: none;\n}\n.notes-top[data-v-11aed4a3] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  padding-bottom: 1rem;\n}\n.notes-content-top[data-v-11aed4a3]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.notes-content-top h6[data-v-11aed4a3]{\r\n  margin-bottom: 0;\r\n  padding-top: 5px;\n}\n.notes-content[data-v-11aed4a3]{\r\n  padding-top: 5px;\n}\n.notes-content-main[data-v-11aed4a3]{\r\n  padding-bottom: 5px ;\n}\n.notes-content-main p[data-v-11aed4a3]{\r\n  font-size: 12px;\r\n  margin-bottom: 0;\n}\n.notes-date[data-v-11aed4a3] {\r\n  color: #808080;\r\n  padding-top: 5px;\r\n  padding-left: 10px;\n}\n.fa-file-o[data-v-11aed4a3]{\r\n   color: #22cade;\r\n  background: rgba(34, 202, 222, 0.25);\r\n  border-radius: 50%;\r\n   padding: 9px;\n}\n.btn[data-v-11aed4a3] {\r\n  border: 1px solid #0a4065;\r\n  color: #0a4065;\n}\r\n", ""]);
+exports.push([module.i, "\n.assignment-overview-board[data-v-11aed4a3] {\r\n  background: #fff;\r\n  font-family: \"Montserrat\";\r\n  padding: 15px;\r\n  border-radius: 10px;\n}\n.assignment-overview-board p[data-v-11aed4a3] {\r\n  font-weight: 600;\r\n  color: #808080;\n}\n.text-center p[data-v-11aed4a3] {\r\n  font-weight: 500;\r\n  margin-bottom: 10px;\n}\n.text-center h6[data-v-11aed4a3] {\r\n  font-weight: 700;\n}\n.overview-log-1[data-v-11aed4a3] {\r\n  border-right: 1px solid #c4c4c4;\n}\n.overview-log-4[data-v-11aed4a3] {\r\n  border-right: 1px solid #c4c4c4;\n}\n.overview-log-1 i[data-v-11aed4a3] {\r\n  color: #22cade;\r\n  background: rgba(34, 202, 222, 0.25);\r\n  border-radius: 50%;\r\n  padding: 10px;\n}\n.overview-log-2 i[data-v-11aed4a3] {\r\n  color: #dfd291;\r\n  background: rgba(223, 210, 145, 0.25);\r\n  border-radius: 50%;\r\n  padding: 10px;\n}\n.overview-log-3 i[data-v-11aed4a3] {\r\n  color: #ff0000;\r\n  background: rgba(255, 0, 0, 0.25);\r\n  border-radius: 50%;\r\n  padding: 10px;\n}\n.overview-log-4 i[data-v-11aed4a3] {\r\n  color: #008e3a;\r\n  background: rgba(0, 142, 58, 0.25);\r\n  border-radius: 50%;\r\n  padding: 10px;\n}\n.log-link[data-v-11aed4a3] {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  padding-top: 1rem;\n}\n.content-cards[data-v-11aed4a3] {\r\n  padding-top: 2rem;\n}\n.cards[data-v-11aed4a3] {\r\n  background: #fff;\r\n  border-radius: 10px;\r\n  padding: 10px;\r\n  height: 450px;\n}\n.class-content[data-v-11aed4a3] {\r\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-11aed4a3] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.class-content-top i[data-v-11aed4a3] {\r\n  color: #008e3a;\n}\n.content-2 i[data-v-11aed4a3] {\r\n  color: #ff0000;\n}\n.class-content-main[data-v-11aed4a3] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.class-content-main p[data-v-11aed4a3] {\r\n  font-size: 12px;\n}\n.notes-content[data-v-11aed4a3] {\r\n  border-bottom: 1px solid #e4e4e4;\n}\n.notes-content[data-v-11aed4a3]:last-child {\r\n  border-bottom: none;\n}\n.notes-top[data-v-11aed4a3] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  padding-bottom: 1rem;\n}\n.notes-content-top[data-v-11aed4a3] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.notes-content-top h6[data-v-11aed4a3] {\r\n  margin-bottom: 0;\r\n  padding-top: 5px;\n}\n.notes-content[data-v-11aed4a3] {\r\n  padding-top: 5px;\n}\n.notes-content-main[data-v-11aed4a3] {\r\n  padding-bottom: 5px;\n}\n.notes-content-main p[data-v-11aed4a3] {\r\n  font-size: 12px;\r\n  margin-bottom: 0;\n}\n.notes-date[data-v-11aed4a3] {\r\n  color: #808080;\r\n  padding-top: 5px;\r\n  padding-left: 10px;\n}\n.fa-file-o[data-v-11aed4a3] {\r\n  color: #22cade;\r\n  background: rgba(34, 202, 222, 0.25);\r\n  border-radius: 50%;\r\n  padding: 9px;\n}\n.btn[data-v-11aed4a3] {\r\n  border: 1px solid #0a4065;\r\n  color: #0a4065;\n}\n.discussion-content[data-v-11aed4a3]{\r\n  border-bottom:1px solid #e4e4e4;\r\n  padding-bottom: 10px;\r\n  padding-top: 5px;\n}\n.discussion-content[data-v-11aed4a3]:last-child{\r\n  border-bottom: none;\n}\n.discussion-content p[data-v-11aed4a3]{\r\n  font-size: 10px;\n}\n.discussion-content-top[data-v-11aed4a3]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.discussion-content-top p[data-v-11aed4a3]{\r\n font-size: 14px;\n}\n.discussion-content-bottom[data-v-11aed4a3]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.discussion-content-bottom p[data-v-11aed4a3]{\r\n  font-size: 12px;\r\n  margin-bottom: 0;\n}\n.notify-discussion p[data-v-11aed4a3]{\r\n background: #e4e4e4;\r\n color: #808080;\r\n border-radius: 5px;\r\n font-weight: 500;\r\n padding: 5px 10px;\n}\r\n", ""]);
 
 // exports
 
@@ -40578,6 +40672,7 @@ var render = function() {
                       { staticClass: "update-content" },
                       [
                         _c("b-avatar", {
+                          staticClass: "update-avatar",
                           attrs: { src: "/images/english-lit.jpg" }
                         }),
                         _vm._v(" "),
@@ -45963,9 +46058,13 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "class-content-main" }, [
                           _c("p", [
-                            _vm._v("Bascic 4, "),
+                            _vm._v(
+                              "\n                  Primary 1,\n                  "
+                            ),
                             _c("span", [
-                              _vm._v("by: "),
+                              _vm._v(
+                                "\n                    by:\n                    "
+                              ),
                               _c("strong", [_vm._v("Henry Annayo")])
                             ])
                           ]),
@@ -46004,9 +46103,13 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "class-content-main" }, [
                           _c("p", [
-                            _vm._v("Bascic 4, "),
+                            _vm._v(
+                              "\n                  SS 3,\n                  "
+                            ),
                             _c("span", [
-                              _vm._v("by: "),
+                              _vm._v(
+                                "\n                    by:\n                    "
+                              ),
                               _c("strong", [_vm._v("Henry Annayo")])
                             ])
                           ]),
@@ -46045,9 +46148,13 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "class-content-main" }, [
                           _c("p", [
-                            _vm._v("Bascic 4, "),
+                            _vm._v(
+                              "\n                  JS 2,\n                  "
+                            ),
                             _c("span", [
-                              _vm._v("by: "),
+                              _vm._v(
+                                "\n                    by:\n                    "
+                              ),
                               _c("strong", [_vm._v("Henry Annayo")])
                             ])
                           ]),
@@ -46086,9 +46193,13 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "class-content-main" }, [
                           _c("p", [
-                            _vm._v("Bascic 4, "),
+                            _vm._v(
+                              "\n                  Primary 3,\n                  "
+                            ),
                             _c("span", [
-                              _vm._v("by: "),
+                              _vm._v(
+                                "\n                    by:\n                    "
+                              ),
                               _c("strong", [_vm._v("Henry Annayo")])
                             ])
                           ]),
@@ -46113,7 +46224,142 @@ var render = function() {
                 _vm._v(" "),
                 _c("b-col", { attrs: { md: "4" } }, [
                   _c("div", { staticClass: "discussion cards" }, [
-                    _c("h5", [_vm._v("Discussion")])
+                    _c("h5", [_vm._v("Discussion")]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "discussion-content" }, [
+                      _c(
+                        "div",
+                        { staticClass: "discussion-content-top" },
+                        [
+                          _c("p", [_c("strong", [_vm._v("Up coming Exams")])]),
+                          _vm._v(" "),
+                          _c(
+                            "b-avatar-group",
+                            { attrs: { size: "2.5rem" } },
+                            [
+                              _c("b-avatar"),
+                              _vm._v(" "),
+                              _c("b-avatar", {
+                                attrs: { text: "BV", variant: "primary" }
+                              }),
+                              _vm._v(" "),
+                              _c("b-avatar", {
+                                attrs: {
+                                  src: "https://placekitten.com/300/300",
+                                  variant: "info"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "the upcoming exam is coming up ................."
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "discussion-content-bottom" }, [
+                        _c("p", [_vm._v("Updated 2mins ago")]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "notify-discussion" }, [
+                          _c("p", [_vm._v("3 New Messages")])
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "discussion-content" }, [
+                      _c(
+                        "div",
+                        { staticClass: "discussion-content-top" },
+                        [
+                          _c("p", [_c("strong", [_vm._v("Up coming Exams")])]),
+                          _vm._v(" "),
+                          _c(
+                            "b-avatar-group",
+                            { attrs: { size: "2.5rem" } },
+                            [
+                              _c("b-avatar"),
+                              _vm._v(" "),
+                              _c("b-avatar", {
+                                attrs: { text: "BV", variant: "primary" }
+                              }),
+                              _vm._v(" "),
+                              _c("b-avatar", {
+                                attrs: {
+                                  src: "https://placekitten.com/300/300",
+                                  variant: "info"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "the upcoming exam is coming up ................."
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "discussion-content-bottom" }, [
+                        _c("p", [_vm._v("Updated 2mins ago")]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "notify-discussion" }, [
+                          _c("p", [_vm._v("3 New Messages")])
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "discussion-content" }, [
+                      _c(
+                        "div",
+                        { staticClass: "discussion-content-top" },
+                        [
+                          _c("p", [_c("strong", [_vm._v("Up coming Exams")])]),
+                          _vm._v(" "),
+                          _c(
+                            "b-avatar-group",
+                            { attrs: { size: "2.5rem" } },
+                            [
+                              _c("b-avatar"),
+                              _vm._v(" "),
+                              _c("b-avatar", {
+                                attrs: { text: "BV", variant: "primary" }
+                              }),
+                              _vm._v(" "),
+                              _c("b-avatar", {
+                                attrs: {
+                                  src: "https://placekitten.com/300/300",
+                                  variant: "info"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "the upcoming exam is coming up ................."
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "discussion-content-bottom" }, [
+                        _c("p", [_vm._v("Updated 2mins ago")]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "notify-discussion" }, [
+                          _c("p", [_vm._v("3 New Messages")])
+                        ])
+                      ])
+                    ])
                   ])
                 ]),
                 _vm._v(" "),
@@ -46140,7 +46386,7 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("h6", { staticClass: "title" }, [
-                          _vm._v(" Prepare Test for Basic 2")
+                          _vm._v("Prepare Test for Primary 1")
                         ]),
                         _vm._v(" "),
                         _c("i", {
@@ -46152,13 +46398,15 @@ var render = function() {
                       _c("div", { staticClass: "notes-content-main" }, [
                         _c("p", {}, [
                           _vm._v(
-                            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure "
+                            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure"
                           )
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "notes-date" }, [
                           _c("p", [
-                            _vm._v("Posted: "),
+                            _vm._v(
+                              "\n                    Posted:\n                    "
+                            ),
                             _c("strong", [_vm._v("07/07/2020")])
                           ])
                         ])
@@ -46173,7 +46421,7 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("h6", { staticClass: "title" }, [
-                          _vm._v(" Prepare Test for Basic 2")
+                          _vm._v("Prepare Test for JS 2")
                         ]),
                         _vm._v(" "),
                         _c("i", {
@@ -46185,13 +46433,15 @@ var render = function() {
                       _c("div", { staticClass: "notes-content-main" }, [
                         _c("p", {}, [
                           _vm._v(
-                            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure "
+                            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure"
                           )
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "notes-date" }, [
                           _c("p", [
-                            _vm._v("Posted: "),
+                            _vm._v(
+                              "\n                    Posted:\n                    "
+                            ),
                             _c("strong", [_vm._v("07/07/2020")])
                           ])
                         ])
@@ -46206,7 +46456,7 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("h6", { staticClass: "title" }, [
-                          _vm._v(" Prepare Test for Basic 2")
+                          _vm._v("Prepare Test for SS 2")
                         ]),
                         _vm._v(" "),
                         _c("i", {
@@ -46218,13 +46468,15 @@ var render = function() {
                       _c("div", { staticClass: "notes-content-main" }, [
                         _c("p", {}, [
                           _vm._v(
-                            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure "
+                            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure"
                           )
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "notes-date" }, [
                           _c("p", [
-                            _vm._v("Posted: "),
+                            _vm._v(
+                              "\n                    Posted:\n                    "
+                            ),
                             _c("strong", [_vm._v("07/07/2020")])
                           ])
                         ])
@@ -46235,7 +46487,7 @@ var render = function() {
                         { staticClass: "log-link" },
                         [
                           _c("router-link", { attrs: { to: "" } }, [
-                            _vm._v("View All ")
+                            _vm._v("View All")
                           ])
                         ],
                         1

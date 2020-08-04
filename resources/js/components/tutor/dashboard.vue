@@ -34,12 +34,14 @@ export default {
     height: 100vh;
     background:#41cee2 ;
     color:white;
+    position: fixed;
 }
 .main{
     width:85%;
- height: 100vh;
-    overflow: scroll;
-    background:#fff7ed ;
+ height: 100%;
+position: absolute;
+right: 0;
+background:#fff7ed ;
 }
 
  

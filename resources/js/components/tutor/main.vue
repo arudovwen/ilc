@@ -35,7 +35,7 @@
         
      
      <div  class="mx-3">
-         <b-avatar src="" ></b-avatar> <span class="toCaps mx-2">{{tutor.name}}</span>   <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+         <b-avatar to="/tutor/profile" src="" ></b-avatar> <span class="toCaps mx-2">{{tutor.name}}</span>   <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
      </div>
     
       

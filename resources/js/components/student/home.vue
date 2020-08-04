@@ -14,74 +14,152 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-md-4 result-board">
-        <div class="latest-result-board">
-          <div class="row latest-result-top">
-            <div class="col-md-6">
-              <h6>Latest Result</h6>
-            </div>
-            <div class="col-md-6">
-              <b-form-datepicker id="example-datepicker" v-model="value" class></b-form-datepicker>
-            </div>
-          </div>
-          <div class="result-progress">
-            <div class="progress-top">
-              <h6>Mathematics</h6>
-              <p>67%</p>
-            </div>
-            <b-progress :value="value" :max="max" class="mb-3"></b-progress>
-          </div>
-          <div class="result-progress">
-            <div class="progress-top">
-              <h6>Mathematics</h6>
-              <p>67%</p>
-            </div>
-            <b-progress :value="value" :max="max" class="mb-3"></b-progress>
-          </div>
-          <div class="result-progress">
-            <div class="progress-top">
-              <h6>Mathematics</h6>
-              <p>67%</p>
-            </div>
-            <b-progress :value="value" :max="max" class="mb-3"></b-progress>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-8 discussion">
-        <div class="discussion-board">
-          <div class="discussion-board-top">
-            <h6>Discussion Board</h6>
-            <router-link to="/student/discussion">View More</router-link>
-          </div>
-          <div class="discussion-board-content">
-            <div class="inner-content">
-              <b-avatar src="/images/profile-img.jpg"></b-avatar>
-              <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde, numquam quidem ipsam quisquam accusantium expedita </p>
-            </div>
-            <div class="inner-content">
-              <b-avatar src="/images/profile-img.jpg"></b-avatar>
-              <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde, numquam quidem ipsam quisquam accusantium expedita </p>
+    <b-container-fluid>
+      <b-row>
+        <b-col md="4">
+          <div class="result-board">
+            <div class="latest-result-board cards">
+              <div class="row latest-result-top">
+                <div class="col-md-6">
+                  <h6>Latest Result</h6>
+                </div>
+                <div class="col-md-6">
+                  <b-form-datepicker id="example-datepicker" v-model="value" class></b-form-datepicker>
+                </div>
+              </div>
+              <div class="result-progress">
+                <div class="progress-top">
+                  <h6>Mathematics</h6>
+                  <p>67%</p>
+                </div>
+                <b-progress :value="value" :max="max" class="mb-3"></b-progress>
+              </div>
+              <div class="result-progress">
+                <div class="progress-top">
+                  <h6>Mathematics</h6>
+                  <p>67%</p>
+                </div>
+                <b-progress :value="value" :max="max" class="mb-3"></b-progress>
+              </div>
+              <div class="result-progress">
+                <div class="progress-top">
+                  <h6>Mathematics</h6>
+                  <p>67%</p>
+                </div>
+                <b-progress :value="value" :max="max" class="mb-3"></b-progress>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row reminder">
-          <div class="col-md-6 ">
-            <div class="reminder-card reminder-card-left">
-              <h5>ENGLISH LANGUAGE TEST</h5>
-              <i class="icon-hour"> 30, July 2020 03PM</i>
+        </b-col>
+        <b-col md="4">
+          <div class="resources-update cards">
+            <h5>Resources Update</h5>
+            <div class="resources-inner">
+              <div class="update-content">
+                <b-avatar src="/images/english-lit.jpg"></b-avatar>
+                <p>Module 1.1 has been added to your english resources</p>
+              </div>
+              <div class="log-link">
+                <router-link to>View</router-link>
+              </div>
+            </div>
+            <div class="resources-inner">
+              <div class="update-content">
+                <b-avatar src="/images/english-lit.jpg"></b-avatar>
+                <p>Module 1.1 has been added to your english resources</p>
+              </div>
+              <div class="log-link">
+                <router-link to>View</router-link>
+              </div>
+            </div>
+            <div class="resources-inner">
+              <div class="update-content">
+                <b-avatar src="/images/english-lit.jpg"></b-avatar>
+                <p>Module 1.1 has been added to your english resources</p>
+              </div>
+              <div class="log-link">
+                <router-link to>View</router-link>
+              </div>
+            </div>
+             <div class="resources-inner">
+              <div class="update-content">
+                <b-avatar src="/images/english-lit.jpg"></b-avatar>
+                <p>Module 1.1 has been added to your english resources</p>
+              </div>
+              <div class="log-link">
+                <router-link to>View</router-link>
+              </div>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="reminder-card reminder-card-right">
-              <h5>ENGLISH LANGUAGE TEST</h5>
-              <i class="icon-hour"> 30, July 2020 03PM</i>
+        </b-col>
+        
+         <b-col md="4">
+            <div class="cards">
+              <h5>Today's Class</h5>
+              <div v-b-tooltip.hover title="This class is currently ongoing" class="class-content">
+                <div class="class-content-top">
+                  <h6>Geography</h6>
+                  <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                </div>
+                <div class="class-content-main">
+                 <p>Bascic 4, <span>by: <strong>Henry Annayo</strong></span></p>
+                 <p>Ongoing</p>
+                </div>
+              </div>
+               <div v-b-tooltip.hover title="This class starts 12pm" class="class-content">
+                <div class="class-content-top content-2">
+                  <h6>Geography</h6>
+                  <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                </div>
+                <div class="class-content-main">
+                 <p>Bascic 4, <span>by: <strong>Henry Annayo</strong></span></p>
+                 <p>Upcoming</p>
+                </div>
+              </div>
+              <div v-b-tooltip.hover title="This class starts 12pm" class="class-content">
+                <div class="class-content-top content-2">
+                  <h6>Geography</h6>
+                  <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                </div>
+                <div class="class-content-main">
+                 <p>Bascic 4, <span>by: <strong>Henry Annayo</strong></span></p>
+                 <p>Upcoming</p>
+                </div>
+              </div>
+              <div v-b-tooltip.hover title="This class starts 12pm" class="class-content">
+                <div class="class-content-top content-2">
+                  <h6>Geography</h6>
+                  <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                </div>
+                <div class="class-content-main">
+                 <p>Bascic 4, <span>by: <strong>Henry Annayo</strong></span></p>
+                 <p>Upcoming</p>
+                </div>
+              </div>
+               <div class="log-link">
+                <router-link to>View Today's Class</router-link>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
+          </b-col>
+      </b-row>
+      <b-row>
+        <b-col md="6">
+         <div class="discussion cards">
+           <h5>Discussion Board</h5>
+         </div>
+        </b-col>
+        <b-col md="6">
+         <div class="notes cards">
+           <div class="notes-top">
+             <h5>Notes</h5>
+             <div class="btn"><i class="fa fa-plus"></i><span>ADD</span></div>
+             
+           </div>
+           <p class="text-center">You currently have no notes</p>
+         </div>
+        </b-col>
+      </b-row>
+    </b-container-fluid>
   </div>
 </template>
 
@@ -212,10 +290,12 @@ export default {
   color: #13a699;
 }
 
-.latest-result-board {
+.cards {
   margin-top: 2rem;
   background: #fff;
   padding: 1.5rem;
+  border-radius: 10px;
+  height: 400px;
 }
 
 .result-progress {
@@ -226,42 +306,71 @@ export default {
   justify-content: space-between;
 }
 
-.progress-bar{
+.progress-bar {
   width: 67% !important;
-  background-color: #DE1515 !important;
+  background-color: #de1515 !important;
 }
-.discussion-board{
-  background: #fff;
-  padding: 1rem;
-}
-.discussion-board-top{
+.update-content {
   display: flex;
   justify-content: space-between;
 }
-.discussion{
-  margin-top: 2rem;
+.update-content p {
+  font-size: 12px;
+  padding-left: 10px;
+  margin-bottom: 0;
 }
-.inner-content{
+.log-link {
   display: flex;
+  justify-content: flex-end;
 }
-.reminder-card{
- border-radius: 5px;
+.log-link a {
+  color: #808080;
+}
+.log-link a:hover {
+  color: #13a699;
+  text-decoration: underline !important;
+}
+.resources-inner {
+  border-bottom: 1px solid #e4e4e4;
+  padding-top: 5px;
+}
+.resources-inner:last-child {
+  border-bottom: none;
+}
+.class-content{
+  padding-bottom: 10px;
+}
+.class-content-top{
+  display: flex;
+  justify-content: space-between;
+}
+.class-content-top i{
+  color: #008e3a;
+}
+.content-2 i{
+  color: #ff0000;
+}
+.class-content-main{
+  display: flex;
+  justify-content: space-between;
+}
+.class-content-main p{
+  font-size: 12px;
+}
+.notes-top{
+  display: flex;
+  justify-content: space-between;
+}
+.btn{
+  background: transparent;
+  border: 1px solid #13A699;
+  border-radius: 5px;
+  color: #13A699;
+}
+.btn:hover{
+  background: #13A699;
+  border-radius: 5px;
   color: #fff;
-  padding: 2.5rem;
-}
-.inner-content p{
- font-size: 12px;
- padding-left: 5px;
-}
-.reminder{
-  margin-top: 2rem;
-}
-.reminder-card-left{
-  background: #AAF0D1;
- 
 }
 
-.reminder-card-right{
-  background: rgba(19, 166, 153, 0.86);
-}
 </style>

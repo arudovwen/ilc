@@ -8,18 +8,19 @@
     </div> 
     <nav class="side-menu">
       <ul class="admin-dashboard-nav">
-        <router-link to="/admin" class="nav-item "><span class="icon-dashboard"></span><li>Dashboard</li></router-link>
-          <router-link to="/admin/administrators" class="nav-item "><span class="icon-admin"></span><li>Admin</li></router-link>
-            <router-link to="/admin/tutors" class="nav-item "><span class="icon-teacher"></span><li>Teacher</li></router-link>
-              <router-link to="/admin/students" class="nav-item "><span class="icon-students"></span><li>Student</li></router-link>
-                <router-link to="/admin/courses" class="nav-item "><span class="icon-edit"></span><li>Subject</li></router-link>
-                  <router-link to="/admin/classes/years" class="nav-item "><span class="icon-education"></span><li>Classes</li></router-link>
-                    <router-link to="/admin/curriculum/home" class="nav-item "><span class="icon-edit"></span><li>Curriculum</li></router-link>
-                      <router-link to="/admin/syllabus/home" class="nav-item "><span class="icon-education"></span><li>Syllabus</li></router-link>
-                         <router-link to="/admin/assessment" class="nav-item "><span class="icon-edit"></span><li>Assessments</li></router-link>
+        <router-link to="/admin" class="nav-item "><i class="icon-dashboard"></i><li>Dashboard</li></router-link>
+          <router-link to="/admin/administrators" class="nav-item "><i class="icon-admin"></i><li>Admin</li></router-link>
+            <router-link to="/admin/tutors" class="nav-item "><i class="icon-teacher"></i><li>Teacher</li></router-link>
+              <router-link to="/admin/students" class="nav-item "><i class="icon-students"></i><li>Student</li></router-link>
+                <router-link to="/admin/courses" class="nav-item "><i class="icon-edit"></i><li>Subject</li></router-link>
+                  <router-link to="/admin/classes/years" class="nav-item "><i class="icon-education"></i><li>Classes</li></router-link>
+                    <router-link to="/admin/curriculum/home" class="nav-item "><i class="icon-edit"></i><li>Curriculum</li></router-link>
+                      <router-link to="/admin/syllabus/home" class="nav-item "><i class="icon-education"></i><li>Syllabus</li></router-link>
+                         <router-link to="/admin/assessment" class="nav-item "><i class="icon-edit"></i><li>Assessments</li></router-link>
                       
-                        <router-link to="/admin/time-table/home" class="nav-item "><span class="icon-calendar"></span><li>Time Table</li></router-link>
-                         <div class="nav-item" @click="logout"><li > Logout</li></div>  
+                        <router-link to="/admin/time-table/home" class="nav-item "><i class="icon-calendar"></i><li>Time Table</li></router-link>
+                         <router-link to="/h"><i class="icon-logout"></i><li @click="logout" > Logout</li>  </router-link>
+                         
       </ul>
     </nav>
   </div>
@@ -67,14 +68,16 @@ export default {
 ul{
     list-style:none;
 }
-nav ul li{
-  padding: 10px 20px;
-  font-size: 15px;
-  cursor: pointer;
-  color:hsl(187deg 74% 95%)
-}
+
 nav{
     padding-left:20px;
+}
+a i{
+  font-size: 24px;
+}
+a li{
+  padding-top: 2px;
+  color: #fff;
 }
 .router-link-exact-active {
 background:#f7f8fa ;
@@ -82,12 +85,15 @@ border-top-left-radius:10px;
 border-bottom-left-radius:10px;
  color:#008E3A;
 }
+a:hover{
+  color: #fff !important;
+}
 .router-link-exact-active li{
 
  color:#008E3A;
 }
-.router-link-exact-active span{
-
+.router-link-exact-active i{
+  font-size: 24px;
  color:#008E3A;
 }
 </style>

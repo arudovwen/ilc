@@ -1,6 +1,6 @@
 <template>
-<div>
-  <div class>
+
+  <!-- <div class>
     <div class="view-resource-header mx-auto">
       <h2>Mathematics</h2>
       <h6>First Term</h6>
@@ -84,9 +84,10 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
-  <!-- <b-overlay :show="show" rounded="sm" class="h-100">
+  </div> -->
+
+<div>
+   <b-overlay :show="show" rounded="sm" class="h-100">
     <div v-if="!show">
       <!-- banner  -->
       <!-- title, overview, created at, buttons share,add,bookmark -->
@@ -321,8 +322,8 @@
         >Loading</b-button>
       </div>
     </template>
-  <!-- </b-overlay> -->
-
+   </b-overlay> 
+</div>
   
 </template>
 

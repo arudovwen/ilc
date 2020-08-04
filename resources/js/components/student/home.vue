@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <b-container-fluid>
+    <b-container fluid>
       <b-row>
         <b-col md="4">
           <div class="result-board">
@@ -159,7 +159,7 @@
          </div>
         </b-col>
       </b-row>
-    </b-container-fluid>
+    </b-container>
   </div>
 </template>
 

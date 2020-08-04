@@ -35,6 +35,7 @@ export default {
     background:#41cee2 ;
     color:white;
     position: fixed;
+    
 }
 .main{
     width:85%;
@@ -42,6 +43,7 @@ export default {
 position: absolute;
 right: 0;
 background:#fff7ed ;
+overflow: scroll;
 }
 
  

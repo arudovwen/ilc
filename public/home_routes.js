@@ -18711,7 +18711,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.my-container[data-v-19998a00]{\n    widows: 100vw;\n}\n.side[data-v-19998a00]{\n    width: 15%;\n    height: 100vh;\n    background:#41cee2 ;\n    color:white;\n    position: fixed;\n}\n.main[data-v-19998a00]{\n    width:85%;\n height: 100%;\nposition: absolute;\nright: 0;\nbackground:#fff7ed ;\n}\n\n \n", ""]);
+exports.push([module.i, "\n.my-container[data-v-19998a00]{\n    widows: 100vw;\n}\n.side[data-v-19998a00]{\n    width: 15%;\n    height: 100vh;\n    background:#41cee2 ;\n    color:white;\n    position: fixed;\n}\n.main[data-v-19998a00]{\n    width:85%;\n height: 100%;\nposition: absolute;\nright: 0;\nbackground:#fff7ed ;\noverflow: scroll;\n}\n\n \n", ""]);
 
 // exports
 
@@ -26605,8 +26605,8 @@ var render = function() {
     { staticClass: "body" },
     [
       _c(
-        "b-container-fluid",
-        { staticClass: "bv-example-row" },
+        "b-container",
+        { staticClass: "bv-example-row", attrs: { fluid: "" } },
         [
           _c(
             "b-row",
@@ -40266,7 +40266,8 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c(
-        "b-container-fluid",
+        "b-container",
+        { attrs: { fluid: "" } },
         [
           _c(
             "b-row",

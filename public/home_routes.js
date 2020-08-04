@@ -11401,6 +11401,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -12657,170 +12659,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -12851,6 +12689,7 @@ __webpack_require__.r(__webpack_exports__);
         subject: this.subject,
         title: this.title,
         content: this.content,
+        excerpt: this.excerpt,
         worksheet_id: 0
       };
       axios.post("/api/library", data, {
@@ -18512,7 +18351,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nnav[data-v-a2f61c28] {\n  background: #f7f8fa;\n}\n.bar[data-v-a2f61c28] {\n  position: relative;\n  width: 20%;\n  text-align: center;\n  font-size: 14px;\n}\n.red[data-v-a2f61c28] {\n  color: var(--red, red);\n}\n.search_bar[data-v-a2f61c28] {\n  position: relative;\n  margin-bottom: 0;\n}\n.search_input[data-v-a2f61c28] {\n  border-color: #f7f8fa;\n  height: 30px;\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-webkit-input-placeholder {\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-moz-placeholder {\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]:-ms-input-placeholder {\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-ms-input-placeholder {\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::placeholder {\n  font-size: 13px;\n}\n.fa-search[data-v-a2f61c28] {\n  position: absolute;\n  font-size: 12px;\n  right: 14px;\n  top: 50%;\n  margin-top: -6px;\n  color: rgba(0, 0, 0, 0.44);\n}\n.options[data-v-a2f61c28] {\n  width: 15px;\n}\ntd[data-v-a2f61c28] {\n  text-transform: capitalize;\n}\nul[data-v-a2f61c28] {\n  list-style: none;\n}\n.options[data-v-a2f61c28] {\n  position: relative;\n}\n.option[data-v-a2f61c28] {\n  display: none;\n  position: absolute;\n  padding: 15px;\n  bottom: 80%;\n  width: 100px;\n  right: 12px;\n  background: white;\n}\n.options:hover .option[data-v-a2f61c28] {\n  display: block;\n}\n.option li[data-v-a2f61c28] {\n  padding: 4px 15px;\n  cursor: pointer;\n}\n.view-resource-header[data-v-a2f61c28] {\n  background-image: linear-gradient(\n      to bottom,\n      rgba(19, 166, 153, 0.65),\n      rgba(19, 166, 153, 0.65)\n    ),\n    url(/images/resource-bg.png);\n  color: #fff;\n  padding: 1.5rem;\n  margin-top: 2rem;\n}\n.view-resource-header p[data-v-a2f61c28] {\n  margin-bottom: 0.5rem !important;\n}\n.btn[data-v-a2f61c28] {\n  background: transparent;\n  border: 1px solid #fff;\n  color: white !important;\n  margin-right: 10px;\n  margin-bottom: 15px;\n}\n.btn[data-v-a2f61c28]:hover {\n  background: #fff;\n  color: #13a699 !important;\n  transition: 0.3s;\n  border: none;\n}\n.what-you-will-learn[data-v-a2f61c28] {\n  margin-top: 2rem;\n}\n.what-you-will-learn ul[data-v-a2f61c28] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 15px;\n}\n.what-you-will-learn ul li[data-v-a2f61c28] {\n  padding-top: 10px;\n}\n.sutdent-assessed ul[data-v-a2f61c28] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 10px 15px;\n}\n.sutdent-assessed ul li[data-v-a2f61c28] {\n  padding-bottom: 10px;\n}\n.sutdent-assessed[data-v-a2f61c28] {\n  margin-top: 2rem;\n}\n.course-content[data-v-a2f61c28] {\n  color: #13a699;\n}\n.featured-review-inner-top[data-v-a2f61c28] {\n  display: flex;\n  padding: 15px;\n}\n.featured-review-top[data-v-a2f61c28] {\n  display: flex;\n  justify-content: space-between;\n}\n.featured-review-inner-top p[data-v-a2f61c28] {\n  padding-left: 10px;\n}\n.featured-review-top img[data-v-a2f61c28] {\n  height: 20px;\n  width: 100px;\n}\n.review[data-v-a2f61c28] {\n  background-color: #fff;\n  border: 1px solid #808080;\n  border-radius: 5px;\n  padding: 10px;\n  margin-bottom: 10px;\n}\n.btn-review[data-v-a2f61c28]{\n  background-color:#13a699 ;\n  color: #fff !important;\n  border: none;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n\n", ""]);
+exports.push([module.i, "\nnav[data-v-a2f61c28] {\n  background: #f7f8fa;\n}\n.bar[data-v-a2f61c28] {\n  position: relative;\n  width: 20%;\n  text-align: center;\n  font-size: 14px;\n}\n.red[data-v-a2f61c28] {\n  color: var(--red, red);\n}\n.search_bar[data-v-a2f61c28] {\n  position: relative;\n  margin-bottom: 0;\n}\n.search_input[data-v-a2f61c28] {\n  border-color: #f7f8fa;\n  height: 30px;\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-webkit-input-placeholder {\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-moz-placeholder {\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]:-ms-input-placeholder {\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-ms-input-placeholder {\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::placeholder {\n  font-size: 13px;\n}\n.fa-search[data-v-a2f61c28] {\n  position: absolute;\n  font-size: 12px;\n  right: 14px;\n  top: 50%;\n  margin-top: -6px;\n  color: rgba(0, 0, 0, 0.44);\n}\n.options[data-v-a2f61c28] {\n  width: 15px;\n}\ntd[data-v-a2f61c28] {\n  text-transform: capitalize;\n}\nul[data-v-a2f61c28] {\n  list-style: none;\n}\n.options[data-v-a2f61c28] {\n  position: relative;\n}\n.option[data-v-a2f61c28] {\n  display: none;\n  position: absolute;\n  padding: 15px;\n  bottom: 80%;\n  width: 100px;\n  right: 12px;\n  background: white;\n}\n.options:hover .option[data-v-a2f61c28] {\n  display: block;\n}\n.option li[data-v-a2f61c28] {\n  padding: 4px 15px;\n  cursor: pointer;\n}\n.view-resource-header[data-v-a2f61c28] {\n  background-image: linear-gradient(\n      to bottom,\n      rgba(19, 166, 153, 0.65),\n      rgba(19, 166, 153, 0.65)\n    ),\n    url(/images/resource-bg.png);\n  color: #fff;\n  padding: 1.5rem;\n  margin-top: 2rem;\n}\n.view-resource-header p[data-v-a2f61c28] {\n  margin-bottom: 0.5rem !important;\n}\n.btn[data-v-a2f61c28] {\n  background: transparent;\n  border: 1px solid #fff;\n  color: white !important;\n  margin-right: 10px;\n  margin-bottom: 15px;\n}\n.btn[data-v-a2f61c28]:hover {\n  background: #fff;\n  color: #13a699 !important;\n  transition: 0.3s;\n  border: none;\n}\n.what-you-will-learn[data-v-a2f61c28] {\n  margin-top: 2rem;\n}\n.what-you-will-learn ul[data-v-a2f61c28] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 15px;\n}\n.what-you-will-learn ul li[data-v-a2f61c28] {\n  padding-top: 10px;\n}\n.sutdent-assessed ul[data-v-a2f61c28] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 10px 15px;\n}\n.sutdent-assessed ul li[data-v-a2f61c28] {\n  padding-bottom: 10px;\n}\n.sutdent-assessed[data-v-a2f61c28] {\n  margin-top: 2rem;\n}\n.course-content[data-v-a2f61c28] {\n  color: #13a699;\n}\n.featured-review-inner-top[data-v-a2f61c28] {\n  display: flex;\n  padding: 15px;\n}\n.featured-review-top[data-v-a2f61c28] {\n  display: flex;\n  justify-content: space-between;\n}\n.featured-review-inner-top p[data-v-a2f61c28] {\n  padding-left: 10px;\n}\n.featured-review-top img[data-v-a2f61c28] {\n  height: 20px;\n  width: 100px;\n}\n.review[data-v-a2f61c28] {\n  background-color: #fff;\n  border: 1px solid #808080;\n  border-radius: 5px;\n  padding: 10px;\n  margin-bottom: 10px;\n}\n.btn-review[data-v-a2f61c28] {\n  background-color: #13a699;\n  color: #fff !important;\n  border: none;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n", ""]);
 
 // exports
 
@@ -18626,7 +18465,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.jumb[data-v-ce72931c] {\n  width: 100%;\n  position: relative;\n  background: transparent;\n}\n.top_n[data-v-ce72931c] {\n  position: relative;\n\n  -o-object-fit: cover;\n\n     object-fit: cover;\n}\n.excerpt[data-v-ce72931c]{\n  width: 60%;\n}\n.overlay-n[data-v-ce72931c] {\n  top: 0px;\n  left: 0px;\n  bottom: 0px;\n  right: 0px;\n  opacity: 0.85;\n  background: #f7f8fa;\n  -webkit-backdrop-filter: blur(2px);\n          backdrop-filter: blur(2px);\n  position: absolute;\n}\n.main-bar[data-v-ce72931c] {\n  width: 70%;\n  margin-right: auto;\n}\n.floating-bar[data-v-ce72931c]{\n  position: fixed;\n  right: 5%;\n  top:30%;\n}\n.view-resource-header[data-v-ce72931c] {\n  background-image: linear-gradient(\n      to bottom,\n      rgba(19, 166, 153, 0.65),\n      rgba(19, 166, 153, 0.65)\n    ),\n    url(/images/resource-bg.png);\n  color: #fff;\n  padding: 1.5rem;\n  margin-top: 2rem;\n}\n.view-resource-header p[data-v-ce72931c] {\n  margin-bottom: 0.5rem !important;\n}\n.btn[data-v-ce72931c] {\n  background: transparent;\n  border: 1px solid #fff;\n  color: white !important;\n  margin-right: 10px;\n  margin-bottom: 15px;\n}\n.btn[data-v-ce72931c]:hover {\n  background: #fff;\n  color: #13a699 !important;\n  transition: 0.3s;\n  border: none;\n}\n.what-you-will-learn[data-v-ce72931c] {\n  margin-top: 2rem;\n}\n.what-you-will-learn ul[data-v-ce72931c] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 15px;\n}\n.what-you-will-learn ul li[data-v-ce72931c] {\n  padding-top: 10px;\n}\n.sutdent-assessed ul[data-v-ce72931c] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 10px 15px;\n}\n.sutdent-assessed ul li[data-v-ce72931c] {\n  padding-bottom: 10px;\n}\n.sutdent-assessed[data-v-ce72931c] {\n  margin-top: 2rem;\n}\n.course-content[data-v-ce72931c] {\n  color: #13a699;\n}\n.featured-review-inner-top[data-v-ce72931c] {\n  display: flex;\n  padding: 15px;\n}\n.featured-review-top[data-v-ce72931c] {\n  display: flex;\n  justify-content: space-between;\n}\n.featured-review-inner-top p[data-v-ce72931c] {\n  padding-left: 10px;\n}\n.featured-review-top img[data-v-ce72931c] {\n  height: 20px;\n  width: 100px;\n}\n.review[data-v-ce72931c] {\n  background-color: #fff;\n  border: 1px solid #808080;\n  border-radius: 5px;\n  padding: 10px;\n  margin-bottom: 10px;\n}\n.btn-review[data-v-ce72931c]{\n  background-color:#13a699 ;\n  color: #fff !important;\n  border: none;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.jumb[data-v-ce72931c] {\n  width: 100%;\n  position: relative;\n  background: transparent;\n}\n.top_n[data-v-ce72931c] {\n  position: relative;\n\n  -o-object-fit: cover;\n\n     object-fit: cover;\n}\n.excerpt[data-v-ce72931c]{\n  width: 60%;\n}\n.overlay-n[data-v-ce72931c] {\n  top: 0px;\n  left: 0px;\n  bottom: 0px;\n  right: 0px;\n  opacity: 0.85;\n  background: #f7f8fa;\n  -webkit-backdrop-filter: blur(2px);\n          backdrop-filter: blur(2px);\n  position: absolute;\n}\n.main-bar[data-v-ce72931c] {\n  width: 70%;\n  margin-right: auto;\n}\n.floating-bar[data-v-ce72931c]{\n  position: fixed;\n  right: 5%;\n  top:30%;\n}\n.view-resource-header[data-v-ce72931c] {\n  background-image: linear-gradient(\n      to bottom,\n      rgba(19, 166, 153, 0.65),\n      rgba(19, 166, 153, 0.65)\n    ),\n    url(/images/resource-bg.png);\n  color: #fff;\n  padding: 1.5rem;\n  margin-top: 2rem;\n}\n.view-resource-header p[data-v-ce72931c] {\n  margin-bottom: 0.5rem !important;\n}\n.btn[data-v-ce72931c] {\n  background: transparent;\n  border: 1px solid #fff;\n  color: white !important;\n  margin-right: 10px;\n  margin-bottom: 15px;\n}\n.btn[data-v-ce72931c]:hover {\n  background: #fff;\n  color: #13a699 !important;\n  transition: 0.3s;\n  border: none;\n}\n.what-you-will-learn[data-v-ce72931c] {\n  margin-top: 2rem;\n}\n.what-you-will-learn ul[data-v-ce72931c] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 15px;\n}\n.what-you-will-learn ul li[data-v-ce72931c] {\n  padding-top: 10px;\n}\n.sutdent-assessed ul[data-v-ce72931c] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 10px 15px;\n}\n.sutdent-assessed ul li[data-v-ce72931c] {\n  padding-bottom: 10px;\n}\n.sutdent-assessed[data-v-ce72931c] {\n  margin-top: 2rem;\n}\n.course-content[data-v-ce72931c] {\n  color: #13a699;\n}\n.featured-review-inner-top[data-v-ce72931c] {\n  display: flex;\n  padding: 15px;\n}\n.featured-review-top[data-v-ce72931c] {\n  display: flex;\n  justify-content: space-between;\n}\n.featured-review-inner-top p[data-v-ce72931c] {\n  padding-left: 10px;\n}\n.featured-review-top img[data-v-ce72931c] {\n  height: 20px;\n  width: 100px;\n}\n.review[data-v-ce72931c] {\n  background-color: #fff;\n  border: 1px solid #808080;\n  border-radius: 5px;\n  padding: 10px;\n  margin-bottom: 10px;\n}\n.btn-review[data-v-ce72931c]{\n  background-color:#13a699 ;\n  color: #fff !important;\n  border: none;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n.btn-secondary[data-v-ce72931c] {\n    color: #fff !important;\n    background-color: #13a699 !important;\n    border-color: #13a699;\n}\n.btn-secondary[data-v-ce72931c]:hover{\ncolor: #13a699 !important;\n    background-color: #fff !important;\n}\n.container[data-v-ce72931c]{\n  width:60%;\n  margin-right: 40%;\n}\n", ""]);
 
 // exports
 
@@ -40800,79 +40639,212 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", {}, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "container" }, [
-      _vm._m(1),
-      _vm._v(" "),
-      _vm._m(2),
-      _vm._v(" "),
-      _vm._m(3),
-      _vm._v(" "),
-      _vm._m(4),
-      _vm._v(" "),
-      _vm._m(5),
-      _vm._v(" "),
-      _c("div", { staticClass: "review" }, [
-        _c("h3", [_vm._v("Review")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "featured-review" }, [
-          _c("div", { staticClass: "active-review" }, [
-            _c("div", { staticClass: "featured-review-top" }, [
-              _c(
-                "div",
-                { staticClass: "featured-review-inner-top" },
-                [
-                  _c("b-avatar", { attrs: { src: "/images/profile-img.jpg" } }),
-                  _vm._v(" "),
-                  _vm._m(6)
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("img", {
-                staticClass: "img-fluid",
-                attrs: { src: "/images/five-star.png", alt: "" }
+  return _c("div", { staticClass: "body" }, [
+    _c(
+      "nav",
+      {
+        staticClass:
+          "form-control d-flex justify-content-between align-items-center mb-5"
+      },
+      [
+        _c("div", { staticClass: "bar border-right" }, [
+          _vm.first_page
+            ? _c("i", {
+                staticClass: "fa fa-angle-double-left pr-2",
+                attrs: { "aria-hidden": "true" },
+                on: { click: _vm.firstPage }
               })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.prev_page
+            ? _c("i", {
+                staticClass: "fas fa-angle-left pr-2",
+                on: { click: _vm.prev }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.current_page,
+                expression: "current_page"
+              }
+            ],
+            staticClass: "row_numb pl-2",
+            attrs: { type: "number", readonly: "" },
+            domProps: { value: _vm.current_page },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.current_page = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.next_page
+            ? _c("i", {
+                staticClass: "fas fa-angle-right pl-2",
+                attrs: { "aria-hidden": "true" },
+                on: { click: _vm.next }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.last_page
+            ? _c("i", {
+                staticClass: "fa fa-angle-double-right pl-2",
+                attrs: { "aria-hidden": "true" },
+                on: { click: _vm.lastPage }
+              })
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "bar border-right", on: { click: _vm.getAll } },
+          [
+            _c("span", { staticClass: "mr-3" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.all,
+                    expression: "all"
+                  }
+                ],
+                attrs: { type: "checkbox" },
+                domProps: {
+                  checked: Array.isArray(_vm.all)
+                    ? _vm._i(_vm.all, null) > -1
+                    : _vm.all
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.all,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && (_vm.all = $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          (_vm.all = $$a
+                            .slice(0, $$i)
+                            .concat($$a.slice($$i + 1)))
+                      }
+                    } else {
+                      _vm.all = $$c
+                    }
+                  }
+                }
+              }),
+              _vm._v(" Show all\n      ")
             ]),
             _vm._v(" "),
-            _vm._m(7)
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "input-review container" },
-            [
-              _c(
-                "b-form-row",
-                [
+            _vm.item
+              ? _c(
+                  "button",
+                  { staticClass: "button-red", on: { click: _vm.multiDrop } },
+                  [_vm._v("Multi drop")]
+                )
+              : _vm._e()
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "bar border-right" }, [
+          _vm._v("Number of rows " + _vm._s(_vm.row_number))
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "bar border-right" }, [
+          _vm._v("Total library " + _vm._s(_vm.total_library))
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "bar" }, [
+          _c("div", { staticClass: "form-group search_bar" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.search,
+                  expression: "search"
+                }
+              ],
+              staticClass: "form-control search_input rounded-pill",
+              attrs: {
+                type: "text",
+                "aria-describedby": "helpId",
+                placeholder: "Search row"
+              },
+              domProps: { value: _vm.search },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.search = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("i", {
+              staticClass: "fa fa-search",
+              attrs: { "aria-hidden": "true" }
+            })
+          ])
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c("table", { staticClass: "table table-bordered" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.library, function(item, idx) {
+          return _c("tr", { key: idx }, [
+            _c("td", { attrs: { scope: "row" } }, [_vm._v(_vm._s(idx + 1))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(item.subject))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(item.title))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(item.excerpt ? item.excerpt : "-"))]),
+            _vm._v(" "),
+            _c("td", { staticClass: "options" }, [
+              _c("i", {
+                staticClass: "fa fa-ellipsis-v",
+                attrs: { "aria-hidden": "true" }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "option shadow" }, [
+                _c("ul", [
                   _c(
-                    "b-col",
-                    { attrs: { lg: "10" } },
-                    [
-                      _c("b-form-textarea", {
-                        attrs: {
-                          id: "textarea-small",
-                          size: "sm",
-                          placeholder: "Write a Review"
+                    "li",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.view(item.id)
                         }
-                      })
-                    ],
-                    1
+                      }
+                    },
+                    [_vm._v("View")]
                   ),
                   _vm._v(" "),
-                  _c("b-col", { attrs: { lg: "2" } }, [
-                    _c("button", { staticClass: "btn-review" }, [_vm._v("Add")])
-                  ])
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ])
-      ])
+                  _c("li", [_vm._v("Drop")])
+                ])
+              ])
+            ])
+          ])
+        }),
+        0
+      )
     ])
   ])
 }
@@ -40881,163 +40853,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "view-resource-header mx-auto" }, [
-      _c("h2", [_vm._v("Mathematics")]),
-      _vm._v(" "),
-      _c("h6", [_vm._v("First Term")]),
-      _vm._v(" "),
-      _c("p", { staticClass: "subject-description" }, [
-        _vm._v("\n      Lorem ipsum dolor sit amet\n      "),
-        _c("br"),
-        _vm._v("Veniam rem eligendi at provident dolor iste molestiae\n      "),
-        _c("br"),
-        _vm._v(
-          "cupiditate, adipisci vero distinctio sed quam? Natus in doloribus ullam.\n    "
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "resource-btn" }, [
-        _c("button", { staticClass: "btn" }, [_vm._v("Add to Library")]),
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", [_vm._v("S/n")]),
         _vm._v(" "),
-        _c("button", { staticClass: "btn" }, [_vm._v("Share")])
-      ]),
-      _vm._v(" "),
-      _c("p", [
-        _vm._v("\n      Created by\n      "),
-        _c("strong", [_vm._v("John Doe")])
-      ]),
-      _vm._v(" "),
-      _c("p", [_vm._v("Last Updated 20/07/2020")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "what-you-will-learn container" }, [
-      _c("h3", [_vm._v("What You Will Learn:")]),
-      _vm._v(" "),
-      _c("ul", [
-        _c("li", [
-          _vm._v(
-            "You will understand the basis of all topic attached to the subject"
-          )
-        ]),
+        _c("th", [_vm._v("Subject")]),
         _vm._v(" "),
-        _c("li", [
-          _vm._v(
-            "You will understand the basis of all topic attached to the subject"
-          )
-        ]),
+        _c("th", [_vm._v("Title")]),
         _vm._v(" "),
-        _c("li", [
-          _vm._v(
-            "You will understand the basis of all topic attached to the subject"
-          )
-        ]),
+        _c("th", [_vm._v("Excerpts")]),
         _vm._v(" "),
-        _c("li", [
-          _vm._v(
-            "You will understand the basis of all topic attached to the subject"
-          )
-        ])
+        _c("th")
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "what-you-will-learn container" }, [
-      _c("h3", [_vm._v("Requirements:")]),
-      _vm._v(" "),
-      _c("ul", [
-        _c("li", [
-          _vm._v("You need to have completed last term topic on mathematics")
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _vm._v(
-            "You will understand the basis of all topic attached to the subject"
-          )
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "description container" }, [
-      _c("h3", [_vm._v("Description")]),
-      _vm._v(" "),
-      _c("p", [
-        _vm._v(
-          "\n        Lorem ipsum dolor sit, amet consectetur adipisicing elit.\n        "
-        ),
-        _c("br"),
-        _vm._v(
-          "Rerum totam fugit perferendis debitis praesentium officiis voluptate in est nulla,\n        "
-        ),
-        _c("br"),
-        _vm._v(
-          "provident labore dignissimos aspernatur iusto optio cumque. Possimus sunt aperiam totam.\n      "
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "sutdent-assessed container" }, [
-      _c("h3", [_vm._v("How will student be Assessed")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("Students Performance will be assessed based on:")]),
-      _vm._v(" "),
-      _c("ul", [
-        _c("li", [
-          _vm._v(
-            "You will understand the basis of all topic attached to the subject"
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _vm._v(
-            "You will understand the basis of all topic attached to the subject"
-          )
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "course-content" }, [
-      _c("h3", [_vm._v("Course Content")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [_c("strong", [_vm._v("Nkechi Onuha")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v(
-        "\n            Lorem ipsum dolor sit amet, consectetur adipisicing elit.\n            "
-      ),
-      _c("br"),
-      _vm._v("Exercitationem molestias explicabo sit.\n            "),
-      _c("br"),
-      _vm._v(
-        "Tenetur veniam aperiam qui quis ducimus ipsum ipsa? Ad nesciunt quas quia cum,.\n          "
-      )
     ])
   }
 ]
@@ -42225,880 +42052,477 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "main-b" },
     [
+      _c("div", { staticClass: "view-resource-header mx-auto" }, [
+        _c("h2", [_vm._v(_vm._s(_vm.title))]),
+        _vm._v(" "),
+        _c("h6", { staticClass: "toCaps" }, [_vm._v(_vm._s(_vm.subject))]),
+        _vm._v(" "),
+        _c("p", { staticClass: "subject-description" }, [
+          _vm._v("\n     " + _vm._s(_vm.excerpt) + "\n    ")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "resource-btn" }, [
+          _c(
+            "button",
+            { staticClass: "btn", on: { click: _vm.addtolibrary } },
+            [_vm._v("Add to Library")]
+          ),
+          _vm._v(" "),
+          _c("button", { staticClass: "btn" }, [_vm._v("Share")])
+        ]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v("\n      Created by\n      "),
+          _c("strong", [_vm._v(_vm._s(_vm.tutor.name))])
+        ]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "Last Updated " + _vm._s(_vm._f("moment")(_vm.time, "MMM D  "))
+          )
+        ])
+      ]),
+      _vm._v(" "),
       _c(
-        "b-overlay",
-        {
-          staticClass: "h-100",
-          attrs: { show: _vm.show, rounded: "sm" },
-          scopedSlots: _vm._u([
-            {
-              key: "overlay",
-              fn: function() {
-                return [
-                  _c(
-                    "div",
-                    { staticClass: "text-center" },
-                    [
-                      _c("b-icon", {
-                        attrs: {
-                          icon: "stopwatch",
-                          "font-scale": "3",
-                          animation: "cylon"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("p", { attrs: { id: "cancel-label" } }, [
-                        _vm._v("Please wait...")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-button",
-                        {
-                          ref: "cancel",
-                          attrs: {
-                            variant: "outline-info",
-                            size: "sm",
-                            "aria-describedby": "cancel-label"
-                          }
-                        },
-                        [_vm._v("Loading")]
-                      )
-                    ],
-                    1
-                  )
-                ]
-              },
-              proxy: true
-            }
-          ])
-        },
+        "div",
+        { staticClass: "container" },
         [
-          !_vm.show
-            ? _c(
-                "div",
+          _c("div", { staticClass: "what-you-will-learn container" }, [
+            _c("h3", [_vm._v("What You Will Learn:")]),
+            _vm._v(" "),
+            _c(
+              "ul",
+              _vm._l(_vm.curriculum.learner_outcome, function(item, idx) {
+                return _c("li", { key: idx }, [_vm._v(_vm._s(item.name))])
+              }),
+              0
+            )
+          ]),
+          _vm._v(" "),
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "description container" }, [
+            _c("h3", [_vm._v("Description")]),
+            _vm._v(" "),
+            _c("p", [
+              _vm._v(
+                "\n       " + _vm._s(_vm.syllabus.description) + "\n      "
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "sutdent-assessed container" }, [
+            _c("h3", [_vm._v("How will student be Assessed")]),
+            _vm._v(" "),
+            _c("p", [
+              _vm._v("Students Performance will be assessed based on:")
+            ]),
+            _vm._v(" "),
+            _c(
+              "ul",
+              _vm._l(_vm.syllabus.assessment, function(item, idx) {
+                return _c("li", { key: idx }, [_vm._v(_vm._s(item.name) + "t")])
+              }),
+              0
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "course-content" },
+            [
+              _c(
+                "b-row",
+                { staticClass: "mb-5" },
                 [
                   _c(
-                    "div",
-                    {
-                      staticClass: "top_n",
-                      style: {
-                        "background-image": "url(" + _vm.cover_image + ")"
-                      }
-                    },
+                    "b-col",
                     [
-                      _c("div", { staticClass: "overlay-n" }),
+                      _c("h4", [_vm._v("Course Content")]),
                       _vm._v(" "),
-                      _c(
-                        "b-jumbotron",
-                        {
-                          staticClass: "jumb toCaps",
-                          attrs: { header: _vm.title, lead: _vm.subject }
-                        },
-                        [
-                          _c("p", { staticClass: "excerpt" }, [
-                            _vm._v(_vm._s(_vm.excerpt))
-                          ]),
-                          _vm._v(" "),
-                          _c("p", { staticClass: "toCaps" }, [
-                            _vm._v("created by " + _vm._s(_vm.tutor.name))
-                          ]),
-                          _vm._v(" "),
-                          _c("small", [
-                            _vm._v(
-                              "Last update " +
-                                _vm._s(_vm._f("moment")(_vm.time, "MMM D  "))
+                      _vm._l(_vm.content, function(item, idx) {
+                        return _c(
+                          "div",
+                          { key: idx, attrs: { role: "tablist" } },
+                          [
+                            _c(
+                              "b-card",
+                              { staticClass: "mb-1", attrs: { "no-body": "" } },
+                              [
+                                _c(
+                                  "b-card-header",
+                                  {
+                                    staticClass: "p-1 text-left",
+                                    attrs: {
+                                      "header-tag": "header",
+                                      role: "tab"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "b-button",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "b-toggle",
+                                            rawName: "v-b-toggle",
+                                            value: item.title,
+                                            expression: "item.title"
+                                          }
+                                        ],
+                                        staticClass: "text-left",
+                                        attrs: {
+                                          block: "",
+                                          variant: "secondary"
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                      " +
+                                            _vm._s(item.title) +
+                                            "\n                      "
+                                        ),
+                                        _c("span", { staticClass: "ml-3" }, [
+                                          item.type == "video"
+                                            ? _c("i", {
+                                                staticClass:
+                                                  "fa fa-play-circle",
+                                                attrs: { "aria-hidden": "true" }
+                                              })
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          item.type == "pdf"
+                                            ? _c("i", {
+                                                staticClass: "fa fa-file-pdf-o",
+                                                attrs: { "aria-hidden": "true" }
+                                              })
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          item.type == "audio"
+                                            ? _c("i", {
+                                                staticClass: "fa fa-volume-up",
+                                                attrs: { "aria-hidden": "true" }
+                                              })
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          item.type == "ppt"
+                                            ? _c("i", {
+                                                staticClass:
+                                                  "fa fa-file-powerpoint-o",
+                                                attrs: { "aria-hidden": "true" }
+                                              })
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          item.item == "csv"
+                                            ? _c("i", {
+                                                staticClass: "fas fa-file-csv"
+                                              })
+                                            : _vm._e()
+                                        ])
+                                      ]
+                                    )
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "b-collapse",
+                                  {
+                                    attrs: {
+                                      id: item.title,
+                                      accordion: "my-accordion",
+                                      role: "tabpanel"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "b-card-body",
+                                      [
+                                        _c("b-card-text", [
+                                          _vm._v(_vm._s(item.overview))
+                                        ])
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
                             )
-                          ]),
-                          _vm._v(" "),
-                          _c("hr"),
-                          _vm._v(" "),
-                          _c("b-button", { attrs: { variant: "secondary" } }, [
-                            _vm._v("Share")
-                          ]),
-                          _vm._v(" "),
-                          _c("b-button", [_vm._v("Bookmark")])
-                        ],
-                        1
-                      )
+                          ],
+                          1
+                        )
+                      })
                     ],
-                    1
-                  ),
+                    2
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            { staticClass: "mb-5" },
+            [
+              _c(
+                "b-col",
+                [
+                  _c("h4", [_vm._v("Frequently Asked Questions")]),
+                  _vm._v(" "),
+                  _vm._l(_vm.syllabus.faqs, function(item, idx) {
+                    return _c(
+                      "div",
+                      { key: idx, attrs: { role: "tablist" } },
+                      [
+                        _c(
+                          "b-card",
+                          { staticClass: "mb-1", attrs: { "no-body": "" } },
+                          [
+                            _c(
+                              "b-card-header",
+                              {
+                                staticClass: "p-1",
+                                attrs: { "header-tag": "header", role: "tab" }
+                              },
+                              [
+                                _c(
+                                  "b-button",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "b-toggle",
+                                        rawName: "v-b-toggle",
+                                        value: item.question,
+                                        expression: "item.question"
+                                      }
+                                    ],
+                                    staticClass: "text-left",
+                                    attrs: { block: "", variant: "secondary" }
+                                  },
+                                  [_vm._v(_vm._s(item.question))]
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-collapse",
+                              {
+                                attrs: {
+                                  id: item.question,
+                                  accordion: "my-accordion",
+                                  role: "tabpanel"
+                                }
+                              },
+                              [
+                                _c(
+                                  "b-card-body",
+                                  [
+                                    _c("b-card-text", [
+                                      _vm._v(_vm._s(item.answer))
+                                    ])
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  })
+                ],
+                2
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            { staticClass: "mb-5" },
+            [
+              _c(
+                "b-col",
+                [
+                  _c("h4", [_vm._v("Course Availability")]),
                   _vm._v(" "),
                   _c(
-                    "b-container",
+                    "b-list-group",
                     [
-                      _c(
-                        "b-row",
-                        [
-                          _c(
-                            "b-col",
-                            { staticClass: "main-bar", attrs: { cols: "7" } },
-                            [
-                              _c(
-                                "b-row",
-                                { staticClass: "mb-5" },
-                                [
-                                  _c(
-                                    "b-col",
-                                    [
-                                      _c("h4", [_vm._v("What you will learn")]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-list-group",
-                                        _vm._l(
-                                          _vm.curriculum.learner_outcome,
-                                          function(item, idx) {
-                                            return _c(
-                                              "b-list-group-item",
-                                              { key: idx },
-                                              [_vm._v(_vm._s(item.name))]
-                                            )
-                                          }
-                                        ),
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-row",
-                                { staticClass: "mb-5" },
-                                [
-                                  _c(
-                                    "b-col",
-                                    [
-                                      _c("h4", [_vm._v("Requirements")]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-list-group",
-                                        [
-                                          _c("b-list-group-item", [
-                                            _vm._v("item")
-                                          ])
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-row",
-                                { staticClass: "mb-5" },
-                                [
-                                  _c("b-col", [
-                                    _c("h4", [_vm._v("Description")]),
-                                    _vm._v(" "),
-                                    _c("p", [
-                                      _vm._v(_vm._s(_vm.syllabus.description))
-                                    ])
-                                  ])
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-row",
-                                { staticClass: "mb-5" },
-                                [
-                                  _c(
-                                    "b-col",
-                                    [
-                                      _c("h4", [
-                                        _vm._v("Who is this course for?")
-                                      ]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-list-group",
-                                        [
-                                          _vm.curriculum.profile.age
-                                            ? _c("b-list-group-item", [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    _vm.curriculum.profile.age
-                                                  )
-                                                )
-                                              ])
-                                            : _vm._e(),
-                                          _vm._v(" "),
-                                          _vm.curriculum.profile.interest
-                                            ? _c("b-list-group-item", [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    _vm.curriculum.profile
-                                                      .interest
-                                                  )
-                                                )
-                                              ])
-                                            : _vm._e(),
-                                          _vm._v(" "),
-                                          _vm.curriculum.profile.abilities
-                                            ? _c("b-list-group-item", [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    _vm.curriculum.profile
-                                                      .abilities
-                                                  )
-                                                )
-                                              ])
-                                            : _vm._e(),
-                                          _vm._v(" "),
-                                          _vm.curriculum.profile.others
-                                            ? _c("b-list-group-item", [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    _vm.curriculum.profile
-                                                      .others
-                                                  )
-                                                )
-                                              ])
-                                            : _vm._e()
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-row",
-                                { staticClass: "mb-5" },
-                                [
-                                  _c(
-                                    "b-col",
-                                    [
-                                      _c("h4", [
-                                        _vm._v(
-                                          "How will the students be assessed"
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-list-group",
-                                        _vm._l(
-                                          _vm.syllabus.assessment,
-                                          function(item, idx) {
-                                            return _c(
-                                              "b-list-group-item",
-                                              { key: idx },
-                                              [_vm._v(_vm._s(item.name))]
-                                            )
-                                          }
-                                        ),
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-row",
-                                { staticClass: "mb-5" },
-                                [
-                                  _c(
-                                    "b-col",
-                                    [
-                                      _c("h4", [_vm._v("Featured Review")]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-list-group",
-                                        [
-                                          _c(
-                                            "b-list-group-item",
-                                            [
-                                              _c(
-                                                "b-row",
-                                                [
-                                                  _c(
-                                                    "b-col",
-                                                    [
-                                                      _c(
-                                                        "div",
-                                                        { staticClass: "mb-3" },
-                                                        [
-                                                          _c("b-avatar"),
-                                                          _vm._v(" "),
-                                                          _c("strong", [
-                                                            _vm._v("Ada Nkechi")
-                                                          ])
-                                                        ],
-                                                        1
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "b-row",
-                                                        {
-                                                          staticClass:
-                                                            "mb-3 ml-1"
-                                                        },
-                                                        _vm._l(
-                                                          _vm.review,
-                                                          function(item, idx) {
-                                                            return _c("i", {
-                                                              key: idx,
-                                                              staticClass:
-                                                                "fa fa-star-o",
-                                                              attrs: {
-                                                                "aria-hidden":
-                                                                  "true",
-                                                                id: item
-                                                              }
-                                                            })
-                                                          }
-                                                        ),
-                                                        0
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c("p", [
-                                                        _vm._v(
-                                                          " Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti odio modi dolorum ex praesentium eius facilis. Illo aut quos sequi? Est modi eius consequatur veritatis atque! Optio illo accusamus maiores?"
-                                                        )
-                                                      ])
-                                                    ],
-                                                    1
-                                                  )
-                                                ],
-                                                1
-                                              )
-                                            ],
-                                            1
-                                          )
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-row",
-                                { staticClass: "mb-5" },
-                                [
-                                  _c(
-                                    "b-col",
-                                    [
-                                      _c("h4", [_vm._v("Course Content")]),
-                                      _vm._v(" "),
-                                      _vm._l(_vm.content, function(item, idx) {
-                                        return _c(
-                                          "div",
-                                          {
-                                            key: idx,
-                                            attrs: { role: "tablist" }
-                                          },
-                                          [
-                                            _c(
-                                              "b-card",
-                                              {
-                                                staticClass: "mb-1",
-                                                attrs: { "no-body": "" }
-                                              },
-                                              [
-                                                _c(
-                                                  "b-card-header",
-                                                  {
-                                                    staticClass:
-                                                      "p-1 text-left",
-                                                    attrs: {
-                                                      "header-tag": "header",
-                                                      role: "tab"
-                                                    }
-                                                  },
-                                                  [
-                                                    _c(
-                                                      "b-button",
-                                                      {
-                                                        directives: [
-                                                          {
-                                                            name: "b-toggle",
-                                                            rawName:
-                                                              "v-b-toggle",
-                                                            value: item.title,
-                                                            expression:
-                                                              "item.title"
-                                                          }
-                                                        ],
-                                                        staticClass:
-                                                          "text-left",
-                                                        attrs: {
-                                                          block: "",
-                                                          variant: "secondary"
-                                                        }
-                                                      },
-                                                      [
-                                                        _vm._v(
-                                                          "\n                        " +
-                                                            _vm._s(item.title) +
-                                                            "\n                        "
-                                                        ),
-                                                        _c(
-                                                          "span",
-                                                          {
-                                                            staticClass: "ml-3"
-                                                          },
-                                                          [
-                                                            item.type == "video"
-                                                              ? _c("i", {
-                                                                  staticClass:
-                                                                    "fa fa-play-circle",
-                                                                  attrs: {
-                                                                    "aria-hidden":
-                                                                      "true"
-                                                                  }
-                                                                })
-                                                              : _vm._e(),
-                                                            _vm._v(" "),
-                                                            item.type == "pdf"
-                                                              ? _c("i", {
-                                                                  staticClass:
-                                                                    "fa fa-file-pdf-o",
-                                                                  attrs: {
-                                                                    "aria-hidden":
-                                                                      "true"
-                                                                  }
-                                                                })
-                                                              : _vm._e(),
-                                                            _vm._v(" "),
-                                                            item.type == "audio"
-                                                              ? _c("i", {
-                                                                  staticClass:
-                                                                    "fa fa-volume-up",
-                                                                  attrs: {
-                                                                    "aria-hidden":
-                                                                      "true"
-                                                                  }
-                                                                })
-                                                              : _vm._e(),
-                                                            _vm._v(" "),
-                                                            item.type == "ppt"
-                                                              ? _c("i", {
-                                                                  staticClass:
-                                                                    "fa fa-file-powerpoint-o",
-                                                                  attrs: {
-                                                                    "aria-hidden":
-                                                                      "true"
-                                                                  }
-                                                                })
-                                                              : _vm._e(),
-                                                            _vm._v(" "),
-                                                            item.item == "csv"
-                                                              ? _c("i", {
-                                                                  staticClass:
-                                                                    "fas fa-file-csv"
-                                                                })
-                                                              : _vm._e()
-                                                          ]
-                                                        )
-                                                      ]
-                                                    )
-                                                  ],
-                                                  1
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "b-collapse",
-                                                  {
-                                                    attrs: {
-                                                      id: item.title,
-                                                      accordion: "my-accordion",
-                                                      role: "tabpanel"
-                                                    }
-                                                  },
-                                                  [
-                                                    _c(
-                                                      "b-card-body",
-                                                      [
-                                                        _c("b-card-text", [
-                                                          _vm._v(
-                                                            _vm._s(
-                                                              item.overview
-                                                            )
-                                                          )
-                                                        ])
-                                                      ],
-                                                      1
-                                                    )
-                                                  ],
-                                                  1
-                                                )
-                                              ],
-                                              1
-                                            )
-                                          ],
-                                          1
-                                        )
-                                      })
-                                    ],
-                                    2
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-row",
-                                { staticClass: "mb-5" },
-                                [
-                                  _c(
-                                    "b-col",
-                                    [
-                                      _c("h4", [
-                                        _vm._v("Frequently Asked Questions")
-                                      ]),
-                                      _vm._v(" "),
-                                      _vm._l(_vm.syllabus.faqs, function(
-                                        item,
-                                        idx
-                                      ) {
-                                        return _c(
-                                          "div",
-                                          {
-                                            key: idx,
-                                            attrs: { role: "tablist" }
-                                          },
-                                          [
-                                            _c(
-                                              "b-card",
-                                              {
-                                                staticClass: "mb-1",
-                                                attrs: { "no-body": "" }
-                                              },
-                                              [
-                                                _c(
-                                                  "b-card-header",
-                                                  {
-                                                    staticClass: "p-1",
-                                                    attrs: {
-                                                      "header-tag": "header",
-                                                      role: "tab"
-                                                    }
-                                                  },
-                                                  [
-                                                    _c(
-                                                      "b-button",
-                                                      {
-                                                        directives: [
-                                                          {
-                                                            name: "b-toggle",
-                                                            rawName:
-                                                              "v-b-toggle",
-                                                            value:
-                                                              item.question,
-                                                            expression:
-                                                              "item.question"
-                                                          }
-                                                        ],
-                                                        staticClass:
-                                                          "text-left",
-                                                        attrs: {
-                                                          block: "",
-                                                          variant: "secondary"
-                                                        }
-                                                      },
-                                                      [
-                                                        _vm._v(
-                                                          _vm._s(item.question)
-                                                        )
-                                                      ]
-                                                    )
-                                                  ],
-                                                  1
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "b-collapse",
-                                                  {
-                                                    attrs: {
-                                                      id: item.question,
-                                                      accordion: "my-accordion",
-                                                      role: "tabpanel"
-                                                    }
-                                                  },
-                                                  [
-                                                    _c(
-                                                      "b-card-body",
-                                                      [
-                                                        _c("b-card-text", [
-                                                          _vm._v(
-                                                            _vm._s(item.answer)
-                                                          )
-                                                        ])
-                                                      ],
-                                                      1
-                                                    )
-                                                  ],
-                                                  1
-                                                )
-                                              ],
-                                              1
-                                            )
-                                          ],
-                                          1
-                                        )
-                                      })
-                                    ],
-                                    2
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-row",
-                                { staticClass: "mb-5" },
-                                [
-                                  _c(
-                                    "b-col",
-                                    [
-                                      _c("h4", [_vm._v("Course Availability")]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-list-group",
-                                        [
-                                          _c("b-list-group-item", [
-                                            _vm._v(
-                                              _vm._s(_vm.syllabus.availability)
-                                            )
-                                          ])
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-row",
-                                { staticClass: "mb-5" },
-                                [
-                                  _c(
-                                    "b-col",
-                                    [
-                                      _c("h4", [_vm._v("Student Feedback")]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-list-group",
-                                        [
-                                          _c(
-                                            "b-list-group-item",
-                                            [
-                                              _c(
-                                                "b-row",
-                                                [
-                                                  _c(
-                                                    "b-col",
-                                                    {
-                                                      staticClass: "text-right",
-                                                      attrs: { cols: "2" }
-                                                    },
-                                                    [_c("b-avatar")],
-                                                    1
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "b-col",
-                                                    { attrs: { cols: "10" } },
-                                                    [
-                                                      _c("strong", [
-                                                        _vm._v("John Enugu")
-                                                      ]),
-                                                      _vm._v(" "),
-                                                      _c("p", [
-                                                        _vm._v(
-                                                          " Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti odio modi dolorum ex praesentium eius facilis. Illo aut quos sequi? Est modi eius consequatur veritatis atque! Optio illo accusamus maiores?"
-                                                        )
-                                                      ])
-                                                    ]
-                                                  )
-                                                ],
-                                                1
-                                              )
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "b-list-group-item",
-                                            [
-                                              _c(
-                                                "b-row",
-                                                [
-                                                  _c(
-                                                    "b-col",
-                                                    {
-                                                      staticClass: "text-right",
-                                                      attrs: { cols: "2" }
-                                                    },
-                                                    [_c("b-avatar")],
-                                                    1
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "b-col",
-                                                    { attrs: { cols: "10" } },
-                                                    [
-                                                      _c("strong", [
-                                                        _vm._v("Ada Nkechi")
-                                                      ]),
-                                                      _vm._v(" "),
-                                                      _c("p", [
-                                                        _vm._v(
-                                                          " Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti odio modi dolorum ex praesentium eius facilis. Illo aut quos sequi? Est modi eius consequatur veritatis atque! Optio illo accusamus maiores?"
-                                                        )
-                                                      ])
-                                                    ]
-                                                  )
-                                                ],
-                                                1
-                                              )
-                                            ],
-                                            1
-                                          )
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-row",
-                                { staticClass: "mb-5" },
-                                [
-                                  _c(
-                                    "b-col",
-                                    [
-                                      _c("h4", [_vm._v("Review")]),
-                                      _vm._v(" "),
-                                      _c("b-textarea", {
-                                        staticClass: "mb-3",
-                                        attrs: { placeholder: "Write a review" }
-                                      }),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-row",
-                                        { staticClass: "mb-3 ml-1" },
-                                        _vm._l(_vm.review, function(item, idx) {
-                                          return _c("i", {
-                                            key: idx,
-                                            staticClass: "fa fa-star-o",
-                                            attrs: {
-                                              "aria-hidden": "true",
-                                              id: item
-                                            }
-                                          })
-                                        }),
-                                        0
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-button",
-                                        {
-                                          attrs: {
-                                            type: "button",
-                                            variant: "secondary"
-                                          }
-                                        },
-                                        [_vm._v("Submit")]
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-col",
-                            { attrs: { cols: "5" } },
-                            [
-                              _c(
-                                "b-card",
-                                {
-                                  staticClass: "mb-2 floating-bar shadow-lg",
-                                  staticStyle: { "max-width": "25rem" },
-                                  attrs: {
-                                    title: _vm.title,
-                                    "img-src": _vm.cover_image,
-                                    "img-alt": "Image",
-                                    "img-top": "",
-                                    tag: "article"
-                                  }
-                                },
-                                [
-                                  _c("b-card-text", [
-                                    _c("strong", [_vm._v("This includes:")])
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("b-card-text", [
-                                    _vm._v(
-                                      " " +
-                                        _vm._s(_vm.content.length) +
-                                        " downloadable resources"
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-button",
-                                    {
-                                      attrs: {
-                                        href: "#",
-                                        block: "",
-                                        variant: "primary"
-                                      },
-                                      on: { click: _vm.addtolibrary }
-                                    },
-                                    [_vm._v("Add to library")]
-                                  )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
+                      _c("b-list-group-item", [
+                        _vm._v(_vm._s(_vm.syllabus.availability))
+                      ])
                     ],
                     1
                   )
                 ],
                 1
               )
-            : _vm._e()
-        ]
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "review" }, [
+            _c("h3", [_vm._v("Review")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "featured-review" }, [
+              _c("div", { staticClass: "active-review" }, [
+                _c("div", { staticClass: "featured-review-top" }, [
+                  _c(
+                    "div",
+                    { staticClass: "featured-review-inner-top" },
+                    [
+                      _c("b-avatar", {
+                        attrs: { src: "/images/profile-img.jpg" }
+                      }),
+                      _vm._v(" "),
+                      _vm._m(1)
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("img", {
+                    staticClass: "img-fluid",
+                    attrs: { src: "/images/five-star.png", alt: "" }
+                  })
+                ]),
+                _vm._v(" "),
+                _vm._m(2)
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "input-review container" },
+                [
+                  _c(
+                    "b-form-row",
+                    [
+                      _c(
+                        "b-col",
+                        { attrs: { lg: "10" } },
+                        [
+                          _c("b-form-textarea", {
+                            attrs: {
+                              id: "textarea-small",
+                              size: "sm",
+                              placeholder: "Write a Review"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("b-col", { attrs: { lg: "2" } }, [
+                        _c("button", { staticClass: "btn-review" }, [
+                          _vm._v("Add")
+                        ])
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ])
+          ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-col",
+        { attrs: { cols: "5" } },
+        [
+          _c(
+            "b-card",
+            {
+              staticClass: "mb-2 floating-bar shadow-lg",
+              staticStyle: { "max-width": "25rem" },
+              attrs: {
+                title: _vm.title,
+                "img-src": _vm.cover_image,
+                "img-alt": "Image",
+                "img-top": "",
+                tag: "article"
+              }
+            },
+            [
+              _c("b-card-text", [_c("strong", [_vm._v("This includes:")])]),
+              _vm._v(" "),
+              _c("b-card-text", [
+                _vm._v(
+                  " " + _vm._s(_vm.content.length) + " downloadable resources"
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "b-button",
+                {
+                  attrs: { href: "#", block: "", variant: "primary" },
+                  on: { click: _vm.addtolibrary }
+                },
+                [_vm._v("Add to library")]
+              )
+            ],
+            1
+          )
+        ],
+        1
       )
     ],
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "what-you-will-learn container" }, [
+      _c("h3", [_vm._v("Requirements:")]),
+      _vm._v(" "),
+      _c("ul", [
+        _c("li", [
+          _vm._v("You need to have completed last term topic on mathematics")
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _vm._v(
+            "You will understand the basis of all topic attached to the subject"
+          )
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [_c("strong", [_vm._v("Nkechi Onuha")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _vm._v(
+        "\n           I had an easy time learning this course with the materials giving.\n            "
+      ),
+      _c("br"),
+      _vm._v("Easy to understand and grasp.\n           \n          ")
+    ])
+  }
+]
 render._withStripped = true
 
 

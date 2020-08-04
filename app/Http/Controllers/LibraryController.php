@@ -37,9 +37,9 @@ class LibraryController extends Controller
     public function store(Request $request)
     {
         $user = auth('api')->user();
-     
+     dd($request->all());
      $library =  Library::where('student_id',$user->id)->where('school_id',$user->school_id)->where('course_id',$request->id)->first();
-
+ 
       if (is_null($library)) {
         return Library::create([
             'course_id'=> $request->id,
@@ -48,7 +48,7 @@ class LibraryController extends Controller
             'subject'=> $request->subject,
             'title'=> $request->title,
             'excerpt'=> $request->excerpt,
-            'content'=> $request->content,
+            'content'=> \json_encode($request->content),
             'worksheet_id'=> $request->worksheet_id,
         ]);
       }

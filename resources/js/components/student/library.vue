@@ -1,5 +1,5 @@
 <template>
-  <!-- <div class="body">
+  <div class="body">
     <nav class="form-control d-flex justify-content-between align-items-center mb-5">
       <div class="bar border-right">
         <i
@@ -69,8 +69,8 @@
             </tr>
         </tbody>
     </table>
-  </div> -->
-    <div class>
+  </div>
+  <!-- <div class>
     <div class="view-resource-header mx-auto">
       <h2>Mathematics</h2>
       <h6>First Term</h6>
@@ -147,16 +147,18 @@
           </div>
           <div class="input-review container">
             <b-form-row>
-              <b-col lg="10"><b-form-textarea id="textarea-small" size="sm" placeholder="Write a Review"></b-form-textarea></b-col>
-              <b-col lg="2"><button class="btn-review">Add</button></b-col>
+              <b-col lg="10">
+                <b-form-textarea id="textarea-small" size="sm" placeholder="Write a Review"></b-form-textarea>
+              </b-col>
+              <b-col lg="2">
+                <button class="btn-review">Add</button>
+              </b-col>
             </b-form-row>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
-  
+  </div> -->
 </template>
 
 <script>
@@ -423,12 +425,11 @@ ul {
   padding: 10px;
   margin-bottom: 10px;
 }
-.btn-review{
-  background-color:#13a699 ;
+.btn-review {
+  background-color: #13a699;
   color: #fff !important;
   border: none;
   padding: 10px 20px;
   border-radius: 10px;
 }
-
 </style>

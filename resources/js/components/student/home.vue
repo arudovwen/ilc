@@ -102,7 +102,7 @@
                   <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                 </div>
                 <div class="class-content-main">
-                 <p>Bascic 4, <span>by: <strong>Henry Annayo</strong></span></p>
+                 <p> <span>by: <strong>Henry Annayo</strong></span></p>
                  <p>Ongoing</p>
                 </div>
               </div>
@@ -112,7 +112,7 @@
                   <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                 </div>
                 <div class="class-content-main">
-                 <p>Bascic 4, <span>by: <strong>Henry Annayo</strong></span></p>
+                 <p> <span>by: <strong>Henry Annayo</strong></span></p>
                  <p>Upcoming</p>
                 </div>
               </div>
@@ -122,7 +122,7 @@
                   <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                 </div>
                 <div class="class-content-main">
-                 <p>Bascic 4, <span>by: <strong>Henry Annayo</strong></span></p>
+                 <p> <span>by: <strong>Henry Annayo</strong></span></p>
                  <p>Upcoming</p>
                 </div>
               </div>
@@ -132,7 +132,7 @@
                   <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                 </div>
                 <div class="class-content-main">
-                 <p>Bascic 4, <span>by: <strong>Henry Annayo</strong></span></p>
+                 <p> <span>by: <strong>Henry Annayo</strong></span></p>
                  <p>Upcoming</p>
                 </div>
               </div>
@@ -144,19 +144,120 @@
       </b-row>
       <b-row>
         <b-col md="6">
-         <div class="discussion cards">
-           <h5>Discussion Board</h5>
-         </div>
+          <div class="discussion cards">
+              <h5>Discussion Board</h5>
+              <div class="discussion-content">
+                <div class="discussion-content-top">
+                  <p>
+                    <strong>Up coming Exams</strong>
+                  </p>
+                  <b-avatar-group size="2.5rem">
+                    <b-avatar></b-avatar>
+                    <b-avatar text="BV" variant="primary"></b-avatar>
+                    <b-avatar src="https://placekitten.com/300/300" variant="info"></b-avatar>
+                  </b-avatar-group>
+                </div>
+                <p>the upcoming exam is coming up .................</p>
+                <div class="discussion-content-bottom">
+                  <p>Updated 2mins ago</p>
+                  <div class="notify-discussion">
+                    <p>3 New Messages</p>
+                  </div>
+                </div>
+              </div>
+              <div class="discussion-content">
+                <div class="discussion-content-top">
+                  <p>
+                    <strong>Up coming Exams</strong>
+                  </p>
+                  <b-avatar-group size="2.5rem">
+                    <b-avatar></b-avatar>
+                    <b-avatar text="BV" variant="primary"></b-avatar>
+                    <b-avatar src="https://placekitten.com/300/300" variant="info"></b-avatar>
+                  </b-avatar-group>
+                </div>
+                <p>the upcoming exam is coming up .................</p>
+                <div class="discussion-content-bottom">
+                  <p>Updated 2mins ago</p>
+                  <div class="notify-discussion">
+                    <p>3 New Messages</p>
+                  </div>
+                </div>
+              </div>
+              <div class="discussion-content">
+                <div class="discussion-content-top">
+                  <p>
+                    <strong>Up coming Exams</strong>
+                  </p>
+                  <b-avatar-group size="2.5rem">
+                    <b-avatar></b-avatar>
+                    <b-avatar text="BV" variant="primary"></b-avatar>
+                    <b-avatar src="https://placekitten.com/300/300" variant="info"></b-avatar>
+                  </b-avatar-group>
+                </div>
+                <p>the upcoming exam is coming up .................</p>
+                <div class="discussion-content-bottom">
+                  <p>Updated 2mins ago</p>
+                  <div class="notify-discussion">
+                    <p>3 New Messages</p>
+                  </div>
+                </div>
+              </div>
+            </div>
         </b-col>
         <b-col md="6">
          <div class="notes cards">
-           <div class="notes-top">
-             <h5>Notes</h5>
-             <div class="btn"><i class="fa fa-plus"></i><span>ADD</span></div>
-             
-           </div>
-           <p class="text-center">You currently have no notes</p>
-         </div>
+              <div class="notes-top">
+                <h5>Notes</h5>
+                <div class="btn">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+                  <span>ADD</span>
+                </div>
+              </div>
+              <div class="notes-content">
+                <div class="notes-content-top">
+                  <i class="fa fa-file-o" aria-hidden="true"></i>
+
+                  <h6 class="title">Prepare for Geography test</h6>
+                  <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                </div>
+                <div class="notes-content-main">
+                  <p
+                    class
+                  >Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure</p>
+                  <div class="notes-date">
+                    <p>
+                      Posted:
+                      <strong>07/07/2020</strong>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="notes-content">
+                <div class="notes-content-top">
+                  <i class="fa fa-file-o" aria-hidden="true"></i>
+
+                  <h6 class="title">Submit English Assignment</h6>
+                  <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                </div>
+                <div class="notes-content-main">
+                  <p
+                    class
+                  >Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure</p>
+                  <div class="notes-date">
+                    <p>
+                      Posted:
+                      <strong>07/07/2020</strong>
+                    </p>
+                  </div>
+                </div>
+               
+               
+              </div>
+               <div class="log-link"> 
+                   <router-link to>View All</router-link>
+                </div>
+            </div>
         </b-col>
       </b-row>
     </b-container>
@@ -311,5 +412,78 @@ export default {
 .update-avatar img{
   height: 40px;
   width: 40px;
+}
+.notes-content {
+  border-bottom: 1px solid #e4e4e4;
+}
+.notes-content:last-child {
+  border-bottom: none;
+}
+.notes-top {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+}
+.notes-content-top {
+  display: flex;
+  justify-content: space-between;
+}
+.notes-content-top h6 {
+  margin-bottom: 0;
+  padding-top: 5px;
+}
+.notes-content {
+  padding-top: 5px;
+}
+.notes-content-main {
+  padding-bottom: 5px;
+}
+.notes-content-main p {
+  font-size: 12px;
+  margin-bottom: 0;
+}
+.notes-date {
+  color: #808080;
+  padding-top: 5px;
+  padding-left: 10px;
+}
+.fa-file-o {
+  color: #13A699;
+  background: rgba(19, 166, 153, 0.43);
+  border-radius: 50%;
+  padding: 9px;
+}
+.discussion-content{
+  border-bottom:1px solid #e4e4e4;
+  padding-bottom: 10px;
+  padding-top: 5px;
+}
+.discussion-content:last-child{
+  border-bottom: none;
+}
+.discussion-content p{
+  font-size: 10px;
+}
+.discussion-content-top{
+  display: flex;
+  justify-content: space-between;
+}
+.discussion-content-top p{
+ font-size: 14px;
+}
+.discussion-content-bottom{
+  display: flex;
+  justify-content: space-between;
+}
+.discussion-content-bottom p{
+  font-size: 12px;
+  margin-bottom: 0;
+}
+.notify-discussion p{
+ background: #e4e4e4;
+ color: #808080;
+ border-radius: 5px;
+ font-weight: 500;
+ padding: 5px 10px;
 }
 </style>

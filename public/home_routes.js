@@ -42493,7 +42493,7 @@ var render = function() {
         { staticClass: "container" },
         [
           _c("div", { staticClass: "what-you-will-learn container" }, [
-            _c("h3", [_vm._v("What You Will Learn:")]),
+            _c("h4", [_vm._v("What You Will Learn:")]),
             _vm._v(" "),
             _c(
               "ul",
@@ -42507,7 +42507,7 @@ var render = function() {
           _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "description container" }, [
-            _c("h3", [_vm._v("Description")]),
+            _c("h4", [_vm._v("Description")]),
             _vm._v(" "),
             _c("p", [
               _vm._v(
@@ -42517,7 +42517,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "sutdent-assessed container" }, [
-            _c("h3", [_vm._v("How will student be Assessed")]),
+            _c("h4", [_vm._v("How will student be Assessed")]),
             _vm._v(" "),
             _c("p", [
               _vm._v("Students Performance will be assessed based on:")
@@ -42525,8 +42525,8 @@ var render = function() {
             _vm._v(" "),
             _c(
               "ul",
-              _vm._l(_vm.syllabus.assessment, function(item, idx) {
-                return _c("li", { key: idx }, [_vm._v(_vm._s(item.name) + "t")])
+              _vm._l(_vm.syllabus.assessments, function(item, idx) {
+                return _c("li", { key: idx }, [_vm._v(_vm._s(item.name))])
               }),
               0
             )
@@ -42776,7 +42776,7 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("div", { staticClass: "review" }, [
-            _c("h3", [_vm._v("Review")]),
+            _c("h4", [_vm._v("Review")]),
             _vm._v(" "),
             _c("div", { staticClass: "featured-review" }, [
               _c("div", { staticClass: "active-review" }, [
@@ -42892,7 +42892,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "what-you-will-learn container" }, [
-      _c("h3", [_vm._v("Requirements:")]),
+      _c("h4", [_vm._v("Requirements:")]),
       _vm._v(" "),
       _c("ul", [
         _c("li", [

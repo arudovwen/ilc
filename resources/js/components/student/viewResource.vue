@@ -19,7 +19,7 @@
     </div>
     <div class="container">
       <div class="what-you-will-learn container">
-        <h3>What You Will Learn:</h3>
+        <h4>What You Will Learn:</h4>
         <ul>
           <li    v-for="(item,idx) in curriculum.learner_outcome"
                     :key="idx">{{item.name}}</li>
@@ -27,24 +27,24 @@
         </ul>
       </div>
       <div class="what-you-will-learn container">
-        <h3>Requirements:</h3>
+        <h4>Requirements:</h4>
         <ul>
           <li>You need to have completed last term topic on mathematics</li>
           <li>You will understand the basis of all topic attached to the subject</li>
         </ul>
       </div>
       <div class="description container">
-        <h3>Description</h3>
+        <h4>Description</h4>
         <p>
          {{syllabus.description}}
         </p>
       </div>
       <div class="sutdent-assessed container">
-        <h3>How will student be Assessed</h3>
+        <h4>How will student be Assessed</h4>
         <p>Students Performance will be assessed based on:</p>
         <ul >
-          <li  v-for="(item,idx) in syllabus.assessment"
-                    :key="idx">{{item.name}}t</li>
+          <li  v-for="(item,idx) in syllabus.assessments"
+                    :key="idx">{{item.name}}</li>
         
         </ul>
       </div>
@@ -112,7 +112,7 @@
               </b-col>
             </b-row>
       <div class="review">
-        <h3>Review</h3>
+        <h4>Review</h4>
         <div class="featured-review">
           <div class="active-review">
             <div class="featured-review-top">

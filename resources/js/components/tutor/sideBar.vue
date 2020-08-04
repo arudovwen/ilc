@@ -8,8 +8,7 @@
     </div> 
         <nav>
         <ul>
-            <router-link to="/tutor"> <li><i class="fa fa-home pr-2" aria-hidden="true"></i> Home</li></router-link>
-            <router-link to="/tutor/profile"> <li><i class="fa fa-user  pr-2" aria-hidden="true"></i> Profile</li></router-link>
+            <router-link to="/tutor"> <li><i class="icon-dashboard" aria-hidden="true"></i> Dashboard</li></router-link>
             <router-link to="/tutor/resources"> <li><i class="fas fa-box   pr-2  "></i> Resources</li></router-link>
             <router-link to="/tutor/syllabus"> <li><i class="fas fa-briefcase  pr-2   "></i> Curriculum & Syllabus</li></router-link>
               <router-link to="/tutor/times-table"> <li><i class="fa fa-clock-o  pr-2" aria-hidden="true"></i> TimesTable</li></router-link>

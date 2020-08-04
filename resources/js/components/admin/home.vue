@@ -60,73 +60,47 @@
             </div>
          
               <b-row>
-                <b-col>
-                  <div class="dashboard-bottom-cards">
-                    <b-card>
-                      <h6 class>Up Coming Lessons</h6>
-                      <div class="bottom-card-details">
-                        <b-avatar text="e"></b-avatar>
-                        <div class="bottom-cards-text">
-                          <p>English Language</p>
-                          <p>
-                            <span>10AM Bascic 2</span>
-                          </p>
-                        </div>
+                <b-col md="4">
+                  <div class="ongoing-lesson cards">
+                    <h5>Ongoing Lessons</h5>
+                    <div class="ongoing-lesson-content">
+                      <h6>English Language</h6>
+                      <p>by: Henry Annayo</p>
+                      <div class="ongoing-lesson-time">
+                        <p>10:00AM <span>Basic 2</span> </p>
                       </div>
-                      <div class="bottom-card-details">
-                        <b-avatar text="e"></b-avatar>
-                        <div class="bottom-cards-text">
-                          <p>Economics</p>
-                          <p>
-                            <span>1PM Bascic 8</span>
-                          </p>
-                        </div>
+                    </div>
+                       <div class="ongoing-lesson-content">
+                      <h6>English Language</h6>
+                      <p>by: Henry Annayo</p>
+                      <div class="ongoing-lesson-time">
+                        <p>10:00AM <span>Basic 2</span> </p>
                       </div>
-                      <div class="bottom-card-details">
-                        <b-avatar text="m"></b-avatar>
-                        <div class="bottom-cards-text">
-                          <p>Music</p>
-                          <p>
-                            <span>10AM Bascic 5</span>
-                          </p>
-                        </div>
+                    </div>
+                     <div class="ongoing-lesson-content">
+                      <h6>English Language</h6>
+                      <p>by: Henry Annayo</p>
+                      <div class="ongoing-lesson-time">
+                        <p>10:00AM <span>Basic 2</span> </p>
                       </div>
-                    <router-link to="/admin/time-table/home">  <p class="bottom-card-link pull-right text-black-50">View all Lessons</p></router-link>
-                    </b-card>
+                    </div>
+                    <div class="lesson-link">
+                      <router-link to="admin/timetable">View Today's Lesson</router-link>
+                    </div>
                   </div>
                 </b-col>
-                <b-col>
-                  <div class="dashboard-bottom-cards">
-                    <b-card>
-                      <div class="note-card-top">
-                        <h6>Syllabus</h6>
-                        <router-link to="/admin/syllabus" class="mb-2">
-                          <b-button variant="outline-primary">Add Syllabus</b-button>
-                        </router-link>
-                      </div>
-                      <div class="note-card-details">
-                        <b-table :items="syllabus" :fields="fields" hover>
-                          <template v-slot:cell(class)="data">{{data.item.myclass}}</template>
-                        </b-table>
-                      </div>
-                    </b-card>
+                <b-col md="4">
+                  <div class="discussion-board cards">
+                    <h5>Discussion</h5>
                   </div>
                 </b-col>
-                <b-col>
-                  <div class="dashboard-bottom-cards">
-                    <b-card>
-                      <div class="note-card-top">
-                        <h6>Curriculum</h6>
-                        <router-link to="/admin/curriculum/create" class="mb-2">
-                          <b-button variant="outline-primary">Add Curriculum</b-button>
-                        </router-link>
-                      </div>
-                      <div class="note-card-details">
-                        <b-table :items="curriculum" :fields="field" hover>
-                          <template v-slot:cell(class)="data">{{data.item.subject}}</template>
-                        </b-table>
-                      </div>
-                    </b-card>
+                 <b-col md="4">
+                  <div class="notes cards">
+                    <div class="notes-top">
+                      <h5>Notes</h5>
+                      <div class="btn"><i class="fa fa-plus"></i>ADD</div>
+                    </div>
+                    <p class="text-center">You currently have no notes</p>
                   </div>
                 </b-col>
               </b-row>
@@ -229,4 +203,67 @@ export default {
 </script>
 
 <style scoped>
+.cards{
+  background: #fff;
+  height: 500px;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 5px 4px 11px rgba(249, 247, 240, 0.25);
+}
+.ongoing-lesson-content{
+  padding-top: 1.5rem;
+  border-bottom: 1px solid #e5e5e5;
+}
+.ongoing-lesson-content:last-child{
+  border-bottom: none;
+}
+ h6{
+  font-weight: 600;
+}
+.ongoing-lesson-content p{
+  margin-bottom: 0;
+}
+.ongoing-lesson-time{
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 10px;
+ 
+}
+.ongoing-lesson-time p{
+   background: #e5e5e5;
+  border-radius: 5px;
+  padding: 5px;
+  font-weight: 500;
+ 
+}
+.lesson-link{
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
+}
+.lesson-link a{
+  color:#008E3A ;
+  
+}
+.lesson-link a:hover{
+  background: #008E3A;
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+}
+.notes-top{
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1.5rem;
+}
+.btn{
+  background: transparent;
+  border: 1px solid;
+  color: #008E3A;
+  padding: 5px 10px;
+}
+.btn:hover{
+  background: #008E3A;
+  color: #fff ;
+}
 </style>

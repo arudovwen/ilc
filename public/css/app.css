@@ -349,16 +349,28 @@ form .reg-btn{
     height: 90vh;
 }
 
-.nav-tabs{
+.login-tabs .nav-tabs{
     justify-content: space-evenly !important;
     border-bottom: 1px solid #c4c4c4 !important;
 
 }
-.nav-tabs .nav-link.active {
+.login-tabs .nav-tabs .nav-link.active {
     /* color: #495057; */
     color: #008E3A !important;
     background-color: #fff !important;
     border-bottom: 2px solid !important;
+    
+}
+.assessment .nav-tabs {
+    border-bottom: 1px solid #dee2e6 !important;
+    justify-content: space-around !important;
+    padding-top: 15px !important;
+}
+.assessment .nav-tabs .nav-link.active {
+    color: #0A4065 !important;
+    background-color: rgba(34, 202, 222, 0.20) !important;
+    border-radius: 20px !important;
+    /* padding: 10px 20px !important; */
     
 }
 

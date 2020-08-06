@@ -13878,6 +13878,133 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["admin"],
   data: function data() {
@@ -18964,7 +19091,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-1684a710] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-1684a710] {\r\n  opacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.container-fluid[data-v-1684a710] {\r\n  width: 100% !important;\n}\n.row[data-v-1684a710] {\r\n  margin-left: 0px !important;\n}\n.right[data-v-1684a710] {\r\n  background: #fff;\r\n  height: 100vh;\n}\n.right-btn[data-v-1684a710] {\r\n  display: flex;\r\n  justify-content: center;\r\n  padding-top: 2rem;\n}\n.btn[data-v-1684a710] {\r\n  background: transparent;\r\n  border: 1px solid #0a4065;\r\n  color: #0a4065;\r\n  font-weight: 500;\n}\n.btn[data-v-1684a710]:hover {\r\n  background: #0a4065;\r\n  color: white;\n}\nh6[data-v-1684a710] {\r\n  padding-top: 1.5rem;\r\n  font-size: 14px;\r\n  text-align: center;\n}\n.assignment-notification[data-v-1684a710] {\r\n  background: rgba(34, 202, 222, 0.2);\r\n  border-left: 5px solid #22cade;\r\n  padding: 5px 10px;\r\n  margin-bottom: 1rem;\n}\n.notification-content p[data-v-1684a710] {\r\n  font-size: 12px;\r\n  margin-bottom: 0;\n}\n.notify-class[data-v-1684a710] {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  color: #0a4065;\r\n  font-weight: 500;\n}\n.assessment-table[data-v-1684a710] {\r\n  padding-left: 15px;\r\n  padding-top: 30px;\n}\n.hiden[data-v-1684a710] {\r\n  opacity: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -19040,7 +19167,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.my-container[data-v-19998a00]{\r\n    widows: 100vw;\n}\n.side[data-v-19998a00]{\r\n    width: 15%;\r\n    height: 100vh;\r\n    background:#41cee2 ;\r\n    color:white;\r\n    position: fixed;\n}\n.main[data-v-19998a00]{\r\n    width:85%;\r\n height: 100%;\r\nposition: absolute;\r\nright: 0;\r\nbackground:#fff7ed ;\n}\r\n\r\n \r\n", ""]);
+exports.push([module.i, "\n.my-container[data-v-19998a00]{\r\n    widows: 100vw;\n}\n.side[data-v-19998a00]{\r\n    width: 15%;\r\n    height: 100vh;\r\n    background:#41cee2 ;\r\n    color:white;\r\n    position: fixed;\n}\n.main[data-v-19998a00]{\r\n    width:85%;\r\n height: 100%;\r\nposition: absolute;\r\nright: 0;\r\n/* background:#fff7ed ; */\n}\r\n\r\n \r\n", ""]);
 
 // exports
 
@@ -19097,7 +19224,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.semi-white[data-v-2e28e87d]{\r\n  padding:50px 20px;\n}\nnav[data-v-2e28e87d] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\n}\n#notification[data-v-2e28e87d] {\r\n  position: relative;\r\n  z-index: 999;\n}\n.notification-body[data-v-2e28e87d] {\r\n  position: absolute;\r\n  left: -240px;\r\n  width: 250px;\n}\n.main-notify[data-v-2e28e87d] {\r\n  max-height: 300px;\r\n  overflow: scroll;\n}\n.icon[data-v-2e28e87d] {\r\n  position: relative;\n}\n.badge[data-v-2e28e87d] {\r\n  position: absolute;\r\n  top: -40%;\r\n  left: 50%;\r\n  background: red;\r\n  color: white;\r\n  font-size: 14px;\n}\n.list-group-item[data-v-2e28e87d] {\r\n  font-size: 14px;\n}\n.fa-bell[data-v-2e28e87d] {\r\n  font-size: 24px;\r\n  color:#41cee2;\n}\n.search[data-v-2e28e87d]{\r\n  width:250px;\r\n  border-color:#41cee2\n}\r\n", ""]);
+exports.push([module.i, "\n.semi-white[data-v-2e28e87d]{\r\n background: #F9F7F0;\n}\nnav[data-v-2e28e87d] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\n}\n#notification[data-v-2e28e87d] {\r\n  position: relative;\r\n  z-index: 999;\n}\n.notification-body[data-v-2e28e87d] {\r\n  position: absolute;\r\n  left: -240px;\r\n  width: 250px;\n}\n.main-notify[data-v-2e28e87d] {\r\n  max-height: 300px;\r\n  overflow: scroll;\n}\n.icon[data-v-2e28e87d] {\r\n  position: relative;\n}\n.badge[data-v-2e28e87d] {\r\n  position: absolute;\r\n  top: -40%;\r\n  left: 50%;\r\n  background: red;\r\n  color: white;\r\n  font-size: 14px;\n}\n.list-group-item[data-v-2e28e87d] {\r\n  font-size: 14px;\n}\n.fa-bell[data-v-2e28e87d] {\r\n  font-size: 24px;\r\n  color:#41cee2;\n}\n.search[data-v-2e28e87d]{\r\n  width:250px;\r\n  border-color:#41cee2\n}\r\n", ""]);
 
 // exports
 
@@ -40829,6 +40956,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "class-content-main" }, [
                         _c("p", [
+                          _vm._v("c  "),
                           _c("span", [
                             _vm._v("by: "),
                             _c("strong", [_vm._v("Henry Annayo")])
@@ -44961,183 +45089,373 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "body" }, [
-    _c(
-      "nav",
-      { staticClass: "mb-5" },
-      [
-        _c(
-          "router-link",
-          { attrs: { to: "/tutor/quiz" } },
-          [
-            _c(
-              "b-button",
-              {
-                staticClass: "shadow-sm reg-btn text-center",
-                attrs: { block: "" }
-              },
-              [_vm._v("Quiz")]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "router-link",
-          { attrs: { to: "/tutor/exam" } },
-          [
-            _c(
-              "b-button",
-              {
-                staticClass: "shadow-sm reg-btn text-center",
-                attrs: { block: "" }
-              },
-              [_vm._v("Examination")]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "router-link",
-          { attrs: { to: "/tutor/assignment" } },
-          [
-            _c(
-              "b-button",
-              {
-                staticClass: "shadow-sm reg-btn text-center",
-                attrs: { block: "" }
-              },
-              [_vm._v("Assignment")]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "router-link",
-          { attrs: { to: "/tutor/test" } },
-          [
-            _c(
-              "b-button",
-              {
-                staticClass: "shadow-sm reg-btn text-center",
-                attrs: { block: "" }
-              },
-              [_vm._v("Tests")]
-            )
-          ],
-          1
-        )
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "content" },
-      [
-        _c(
-          "b-row",
-          [
-            _c(
-              "b-col",
-              { staticClass: "text-center" },
-              [
-                _c("h5", [_vm._v("Quiz")]),
-                _vm._v(" "),
-                _c("b-table", {
-                  attrs: { fields: _vm.fields, items: _vm.quiz, bordered: "" },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "cell(Sn)",
-                      fn: function(data) {
-                        return [_vm._v(_vm._s(data.index + 1))]
-                      }
-                    }
-                  ])
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "b-col",
-              { staticClass: "text-center" },
-              [
-                _c("h5", [_vm._v("Assignment")]),
-                _vm._v(" "),
-                _c("b-table", {
-                  attrs: {
-                    fields: _vm.fields,
-                    items: _vm.assignment,
-                    bordered: ""
-                  },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "cell(Sn)",
-                      fn: function(data) {
-                        return [_vm._v(_vm._s(data.index + 1))]
-                      }
-                    }
-                  ])
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "b-col",
-              { staticClass: "text-center" },
-              [
-                _c("h5", [_vm._v("Examinations")]),
-                _vm._v(" "),
-                _c("b-table", {
-                  attrs: {
-                    fields: _vm.fields,
-                    items: _vm.examination,
-                    bordered: ""
-                  },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "cell(Sn)",
-                      fn: function(data) {
-                        return [_vm._v(_vm._s(data.index + 1))]
-                      }
-                    }
-                  ])
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "b-col",
-              { staticClass: "text-center" },
-              [
-                _c("h5", [_vm._v("Tests")]),
-                _vm._v(" "),
-                _c("b-table", {
-                  attrs: { fields: _vm.fields, items: _vm.test, bordered: "" },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "cell(Sn)",
-                      fn: function(data) {
-                        return [_vm._v(_vm._s(data.index + 1))]
-                      }
-                    }
-                  ])
-                })
-              ],
-              1
-            )
-          ],
-          1
-        )
-      ],
-      1
-    )
-  ])
+  return _c(
+    "div",
+    { staticClass: "assessment" },
+    [
+      _c(
+        "b-tabs",
+        { attrs: { "content-class": "" } },
+        [
+          _c(
+            "b-tab",
+            { attrs: { title: "Assignment", active: "" } },
+            [
+              _c(
+                "b-container-fluid",
+                [
+                  _c(
+                    "b-row",
+                    [
+                      _c(
+                        "b-col",
+                        { staticClass: "assessment-table", attrs: { md: "8" } },
+                        [
+                          _c("b-table", {
+                            attrs: {
+                              fields: _vm.fields,
+                              items: _vm.assignment,
+                              striped: "",
+                              hover: ""
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "cell(Sn)",
+                                fn: function(data) {
+                                  return [_vm._v(_vm._s(data.index + 1))]
+                                }
+                              }
+                            ])
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("b-col", { attrs: { md: "4" } }, [
+                        _c(
+                          "div",
+                          { staticClass: "right" },
+                          [
+                            _c(
+                              "router-link",
+                              { attrs: { to: "/tutor/assignment" } },
+                              [
+                                _c("div", { staticClass: "right-btn" }, [
+                                  _c(
+                                    "div",
+                                    { staticClass: "btn text-center" },
+                                    [_c("span", [_vm._v("ADD ASSIGNMENT")])]
+                                  )
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("h6", [_vm._v("Assignment Notification")]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "assignment-notification" },
+                              [
+                                _c(
+                                  "div",
+                                  { staticClass: "notification-content" },
+                                  [
+                                    _c("p", [
+                                      _vm._v(
+                                        "Henry Obudu submitted English Assignment"
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "notify-class" }, [
+                                      _c("p", [_vm._v("Primary 1")])
+                                    ])
+                                  ]
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-tab",
+            { attrs: { title: "Quiz" } },
+            [
+              _c(
+                "b-container-fluid",
+                [
+                  _c(
+                    "b-row",
+                    [
+                      _c(
+                        "b-col",
+                        { staticClass: "assessment-table", attrs: { md: "8" } },
+                        [
+                          _c("b-table", {
+                            attrs: {
+                              fields: _vm.fields,
+                              items: _vm.quiz,
+                              striped: "",
+                              hover: ""
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "cell(Sn)",
+                                fn: function(data) {
+                                  return [_vm._v(_vm._s(data.index + 1))]
+                                }
+                              }
+                            ])
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("b-col", { attrs: { md: "4" } }, [
+                        _c(
+                          "div",
+                          { staticClass: "right" },
+                          [
+                            _c(
+                              "router-link",
+                              { attrs: { to: "/tutor/quiz" } },
+                              [
+                                _c("div", { staticClass: "right-btn" }, [
+                                  _c(
+                                    "div",
+                                    { staticClass: "btn text-center" },
+                                    [_c("span", [_vm._v("ADD QUIZ")])]
+                                  )
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("h6", [_vm._v("Quiz Notification")]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "assignment-notification" },
+                              [
+                                _c(
+                                  "div",
+                                  { staticClass: "notification-content" },
+                                  [
+                                    _c("p", [
+                                      _vm._v("Henry Obudu submitted Maths Quiz")
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "notify-class" }, [
+                                      _c("p", [_vm._v("Primary 1")])
+                                    ])
+                                  ]
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-tab",
+            { attrs: { title: "Test" } },
+            [
+              _c(
+                "b-container-fluid",
+                [
+                  _c(
+                    "b-row",
+                    [
+                      _c(
+                        "b-col",
+                        { staticClass: "assessment-table", attrs: { md: "8" } },
+                        [
+                          _c("b-table", {
+                            attrs: {
+                              fields: _vm.fields,
+                              items: _vm.test,
+                              striped: "",
+                              hover: ""
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "cell(Sn)",
+                                fn: function(data) {
+                                  return [_vm._v(_vm._s(data.index + 1))]
+                                }
+                              }
+                            ])
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("b-col", { attrs: { md: "4" } }, [
+                        _c(
+                          "div",
+                          { staticClass: "right" },
+                          [
+                            _c(
+                              "router-link",
+                              { attrs: { to: "/tutor/test" } },
+                              [
+                                _c("div", { staticClass: "right-btn" }, [
+                                  _c(
+                                    "div",
+                                    { staticClass: "btn text-center" },
+                                    [_c("span", [_vm._v("ADD TEST")])]
+                                  )
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("h6", [_vm._v("Test Notification")]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "assignment-notification" },
+                              [
+                                _c(
+                                  "div",
+                                  { staticClass: "notification-content" },
+                                  [
+                                    _c("p", [
+                                      _vm._v("Henry Obudu submitted Maths Test")
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "notify-class" }, [
+                                      _c("p", [_vm._v("Primary 1")])
+                                    ])
+                                  ]
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-tab",
+            { attrs: { title: "Examination" } },
+            [
+              _c(
+                "b-container-fluid",
+                [
+                  _c(
+                    "b-row",
+                    [
+                      _c(
+                        "b-col",
+                        { staticClass: "assessment-table", attrs: { md: "8" } },
+                        [
+                          _c("b-table", {
+                            attrs: {
+                              fields: _vm.fields,
+                              items: _vm.examination,
+                              striped: "",
+                              hover: ""
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "cell(Sn)",
+                                fn: function(data) {
+                                  return [_vm._v(_vm._s(data.index + 1))]
+                                }
+                              }
+                            ])
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("b-col", { attrs: { md: "4" } }, [
+                        _c(
+                          "div",
+                          { staticClass: "right" },
+                          [
+                            _c(
+                              "router-link",
+                              { attrs: { to: "/tutor/exam" } },
+                              [
+                                _c("div", { staticClass: "right-btn" }, [
+                                  _c(
+                                    "div",
+                                    { staticClass: "btn text-center" },
+                                    [_c("span", [_vm._v("ADD EXAMINATION")])]
+                                  )
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("h6", [_vm._v("Exam Notification")]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "assignment-notification" },
+                              [
+                                _c(
+                                  "div",
+                                  { staticClass: "notification-content" },
+                                  [
+                                    _c("p", [
+                                      _vm._v("Henry Obudu submitted Maths Exam")
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "notify-class" }, [
+                                      _c("p", [_vm._v("Primary 1")])
+                                    ])
+                                  ]
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

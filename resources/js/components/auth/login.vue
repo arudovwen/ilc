@@ -8,9 +8,9 @@
         <b-col>
           <b-card class="login-card">
             <h4 class="text-center">LOG IN</h4>
-            <div>
+            <div class="login-tabs">
               <b-tabs content-class="mt-3">
-                <b-tab title="Student" active>
+                <b-tab class="login" title="Student" active>
                   <b-form @submit.prevent="submit" class="login-form">
                     <b-form-group id="input-group-1" label="Email">
                       <b-form-input id="input-1" v-model="user.email" type="email" required></b-form-input>
@@ -32,7 +32,7 @@
                     </b-form-group>
                   </b-form>
                 </b-tab>
-                <b-tab title="Tutor">
+                <b-tab class="login" title="Tutor">
                   <b-form @submit.prevent="tutorLogin" class="login-form">
                     <b-form-group id="input-group-1" label="Email">
                       <b-form-input id="input-1" v-model="tutor.email" type="email" required></b-form-input>

@@ -41,7 +41,7 @@ export default {
  height: 100%;
 position: absolute;
 right: 0;
-background:#fff7ed ;
+/* background:#fff7ed ; */
 }
 
  

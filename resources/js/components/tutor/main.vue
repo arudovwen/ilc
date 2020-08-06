@@ -134,7 +134,7 @@ export default {
 
 <style scoped>
 .semi-white{
-  padding:50px 20px;
+ background: #F9F7F0;
 }
 nav {
   display: flex;

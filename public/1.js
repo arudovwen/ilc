@@ -317,6 +317,7 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "div",
+                      { staticClass: "login-tabs" },
                       [
                         _c(
                           "b-tabs",
@@ -324,7 +325,10 @@ var render = function() {
                           [
                             _c(
                               "b-tab",
-                              { attrs: { title: "Student", active: "" } },
+                              {
+                                staticClass: "login",
+                                attrs: { title: "Student", active: "" }
+                              },
                               [
                                 _c(
                                   "b-form",
@@ -438,7 +442,10 @@ var render = function() {
                             _vm._v(" "),
                             _c(
                               "b-tab",
-                              { attrs: { title: "Tutor" } },
+                              {
+                                staticClass: "login",
+                                attrs: { title: "Tutor" }
+                              },
                               [
                                 _c(
                                   "b-form",

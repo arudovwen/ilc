@@ -1,5 +1,5 @@
 <template>
-  <div class="body">
+  <!-- <div class="body">
     <nav class="mb-5">
       <router-link to="/tutor/quiz">
         <b-button block class="shadow-sm reg-btn text-center">Quiz</b-button>
@@ -44,9 +44,136 @@
         </b-col>
       </b-row>
     </div>
-  </div>
+  </div>-->
 
- 
+  <div class="assessment">
+    <b-tabs content-class>
+      <b-tab title="Assignment" active>
+        <b-container-fluid>
+          <b-row>
+            <b-col md="8" class="assessment-table">
+              <b-table :fields="fields" :items="assignment" striped hover>
+                <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
+              </b-table>
+            </b-col>
+            <b-col md="4">
+              <div class="right">
+                <router-link to="/tutor/assignment">
+                  <div class="right-btn">
+                    <div class="btn text-center">
+                      <span>ADD ASSIGNMENT</span>
+                    </div>
+                  </div>
+                </router-link>
+                <h6>Assignment Notification</h6>
+                <div class="assignment-notification">
+                  <div class="notification-content">
+                    <p>Henry Obudu submitted English Assignment</p>
+                    <div class="notify-class">
+                      <p>Primary 1</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </b-col>
+          </b-row>
+        </b-container-fluid>
+      </b-tab>
+      <b-tab title="Quiz">
+        <b-container-fluid>
+          <b-row>
+            <b-col md="8" class="assessment-table">
+              <b-table :fields="fields" :items="quiz" striped hover>
+                <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
+              </b-table>
+            </b-col>
+            <b-col md="4">
+              <div class="right">
+                <router-link to="/tutor/quiz">
+                  <div class="right-btn">
+                    <div class="btn text-center">
+                      <span>ADD QUIZ</span>
+                    </div>
+                  </div>
+                </router-link>
+                <h6>Quiz Notification</h6>
+                <div class="assignment-notification">
+                  <div class="notification-content">
+                    <p>Henry Obudu submitted Maths Quiz</p>
+                    <div class="notify-class">
+                      <p>Primary 1</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </b-col>
+          </b-row>
+        </b-container-fluid>
+      </b-tab>
+      <b-tab title="Test">
+               <b-container-fluid>
+          <b-row>
+            <b-col md="8" class="assessment-table">
+              <b-table :fields="fields" :items="test" striped hover>
+                <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
+              </b-table>
+            </b-col>
+            <b-col md="4">
+              <div class="right">
+                <router-link to="/tutor/test">
+                  <div class="right-btn">
+                    <div class="btn text-center">
+                      <span>ADD TEST</span>
+                    </div>
+                  </div>
+                </router-link>
+                <h6>Test Notification</h6>
+                <div class="assignment-notification">
+                  <div class="notification-content">
+                    <p>Henry Obudu submitted Maths Test</p>
+                    <div class="notify-class">
+                      <p>Primary 1</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </b-col>
+          </b-row>
+        </b-container-fluid>
+      </b-tab>
+      <b-tab title="Examination">
+               <b-container-fluid>
+          <b-row>
+            <b-col md="8" class="assessment-table">
+              <b-table :fields="fields" :items="examination" striped hover>
+                <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
+              </b-table>
+            </b-col>
+            <b-col md="4">
+              <div class="right">
+                <router-link to="/tutor/exam">
+                  <div class="right-btn">
+                    <div class="btn text-center">
+                      <span>ADD EXAMINATION</span>
+                    </div>
+                  </div>
+                </router-link>
+                <h6>Exam Notification</h6>
+                <div class="assignment-notification">
+                  <div class="notification-content">
+                    <p>Henry Obudu submitted Maths Exam</p>
+                    <div class="notify-class">
+                      <p>Primary 1</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </b-col>
+          </b-row>
+        </b-container-fluid>
+      </b-tab>
+    </b-tabs>
+  </div>
 </template>
 
 
@@ -169,10 +296,55 @@ export default {
 </script>
 
 <style scoped>
-nav {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-column-gap: 30px;
+.container-fluid {
+  width: 100% !important;
+}
+.row {
+  margin-left: 0px !important;
+}
+.right {
+  background: #fff;
+  height: 100vh;
+}
+.right-btn {
+  display: flex;
+  justify-content: center;
+  padding-top: 2rem;
+}
+.btn {
+  background: transparent;
+  border: 1px solid #0a4065;
+  color: #0a4065;
+  font-weight: 500;
+}
+.btn:hover {
+  background: #0a4065;
+  color: white;
+}
+h6 {
+  padding-top: 1.5rem;
+  font-size: 14px;
+  text-align: center;
+}
+.assignment-notification {
+  background: rgba(34, 202, 222, 0.2);
+  border-left: 5px solid #22cade;
+  padding: 5px 10px;
+  margin-bottom: 1rem;
+}
+.notification-content p {
+  font-size: 12px;
+  margin-bottom: 0;
+}
+.notify-class {
+  display: flex;
+  justify-content: flex-end;
+  color: #0a4065;
+  font-weight: 500;
+}
+.assessment-table {
+  padding-left: 15px;
+  padding-top: 30px;
 }
 .hiden {
   opacity: 0;

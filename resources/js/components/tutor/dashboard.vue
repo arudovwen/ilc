@@ -42,8 +42,7 @@ export default {
  height: 100%;
 position: absolute;
 right: 0;
-background:#fff7ed ;
-overflow: scroll;
+/* background:#fff7ed ; */
 }
 
  

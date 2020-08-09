@@ -842,6 +842,10 @@ var Assignment = function Assignment() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/assessment/assignment.vue */ "./resources/js/components/tutor/assessment/assignment.vue"));
 };
 
+var AssessmentForm = function AssessmentForm() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/assessment/assessmentform.vue */ "./resources/js/components/tutor/assessment/assessmentform.vue"));
+};
+
 var StudentAssessmentHome = function StudentAssessmentHome() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/assessment/home.vue */ "./resources/js/components/student/assessment/home.vue"));
 };
@@ -1334,6 +1338,13 @@ var routes = [{
     path: "assessment/create/:type",
     component: AssessmentType,
     name: "AssessmentType",
+    meta: {
+      typeTutor: true
+    }
+  }, {
+    path: "assessmentform",
+    component: AssessmentForm,
+    name: "AssessmentForm",
     meta: {
       typeTutor: true
     }

@@ -278,6 +278,9 @@ const TimesTableTutor = () =>
     const Assignment  = () =>
     import(/* webpackChunkName: "home_routes" */ "./components/tutor/assessment/assignment.vue");
 
+    const AssessmentForm  = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/tutor/assessment/assessmentform.vue");
+
 
     const StudentAssessmentHome  = () =>
     import(/* webpackChunkName: "home_routes" */ "./components/student/assessment/home.vue");
@@ -797,6 +800,14 @@ export const routes = [
                 path: "assessment/create/:type",
                 component: AssessmentType,
                 name: "AssessmentType",
+                meta: {
+                    typeTutor: true
+                }
+            },
+            {
+                path: "assessmentform",
+                component: AssessmentForm,
+                name: "AssessmentForm",
                 meta: {
                     typeTutor: true
                 }

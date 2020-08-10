@@ -159,7 +159,7 @@ nav {
 }
 .badge {
   position: absolute;
-  top: -40%;
+  top: -10%;
   left: 50%;
   background: red;
   color: white;

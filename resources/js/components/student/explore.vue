@@ -204,8 +204,8 @@ font-size: 14px;
 .single-content .text-content,
 .single-content::after{
   position: absolute;
-  left: 20px;
-  right: 20px;
+  left: 10px;
+  right: 10px;
 }
 
 .single-content::after{

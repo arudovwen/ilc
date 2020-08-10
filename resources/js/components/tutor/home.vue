@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="container-fluid">
-      <b-row>
+      <b-row class="overview-board">
         <b-col md="6">
           <div class="assignment-overview-board">
             <p>Assignment Overview</p>
@@ -360,6 +360,9 @@ export default {
 </script>
 
 <style scoped>
+.overview-board{
+  padding-top: 20px;
+}
 .assignment-overview-board {
   background: #fff;
   font-family: "Montserrat";

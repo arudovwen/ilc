@@ -724,6 +724,30 @@ legend{
   .option ul{
       list-style: none;
   }
+  /* .nav-link {
+    color: #000 !important;
+  } */
+   .dropdown a{
+    color: black !important;
+  }
+  .dropdown-toggle::after {
+    display: inline-block;
+    font-family: "FontAwesome";
+    /* font-weight: 500; */
+    margin-left: 0 !important;
+    vertical-align: 0 !important;
+    content: "\f078" !important;
+    border-top: none !important;
+    border-right: none !important;
+    border-bottom: 0 !important;
+    border-left: none !important;
+    padding-left: 5px;
+    padding-top: 2px;
+}
+  /*
+  .navbar-dark .navbar-nav{
+      color: black !important;
+  } */
 
 /* * {
     margin: 0;

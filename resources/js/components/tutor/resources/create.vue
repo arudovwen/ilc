@@ -158,7 +158,7 @@
     <b-container class="form-container">
       <b-form @submit.prevent="submit">
         <b-form-row>
-          <b-col md="6">
+          <b-col md="4">
             <div class="form-group mb-3">
               <label for>Select Class</label>
               <br />
@@ -173,12 +173,35 @@
               </select>
             </div>
           </b-col>
-          <b-col md="6">
-            <div class="form-group mb-3">
+          <b-col md="4">
+            <div class="form-group mb-5">
+              <label for>Choose Subject</label>
+              <br />
+              <select
+                class="custom-select"
+                v-model="resource.subject"
+                :disabled="resource.level ==''"
+              >
+                <option selected disabled value>Select Subject</option>
+                <option
+                  :value="item.name"
+                  v-for="(item,idx) in subjects"
+                  class="toCaps"
+                  :key="idx"
+                >{{item.name}}</option>
+              </select>
+            </div>
+          </b-col>
+          <b-col md="4">
+            <div class="form-group mb-5">
               <label for>Select Module</label>
               <br />
-              <select class="custom-select" v-model="resource.module">
-                <option selected disabled value>Select Subject</option>
+              <select
+                class="custom-select"
+                v-model="resource.module"
+                :disabled="resource.subject ==''"
+              >
+                <option selected disabled value>Select one</option>
                 <option
                   :value="item.name"
                   v-for="(item,idx) in modules"
@@ -273,18 +296,23 @@
             />
             <span class="custom-control-indicator">No</span>
           </label>
-        </div> -->
-         <b-form-group label="Would You Like to Include Worksheet/Quiz">
-          <b-form-radio-group v-model="resource.worksheet" :options="worksheet" plain name="plain-inline"></b-form-radio-group>
+        </div>-->
+        <b-form-group label="Would You Like to Include Worksheet/Quiz">
+          <b-form-radio-group
+            v-model="resource.worksheet"
+            :options="worksheet"
+            plain
+            name="plain-inline"
+          ></b-form-radio-group>
         </b-form-group>
         <div class="form-group mb-5">
           <label for>Tutors Note</label>
           <textarea class="form-control" rows="3" v-model="resource.note"></textarea>
         </div>
 
-       <div class="save-btn">
+        <div class="save-btn">
           <b-button type="submit" class="btn-save">ADD RESOURCE</b-button>
-       </div>
+        </div>
       </b-form>
     </b-container>
   </div>
@@ -301,7 +329,7 @@ export default {
         { text: "Single Resource", value: "single" },
         { text: "Multiple Resource", value: "multiple" },
       ],
-       selected: "yes",
+      selected: "yes",
       worksheet: [
         { text: "Yes", value: "yes" },
         { text: "No", value: "no" },
@@ -454,7 +482,7 @@ export default {
 }
 .upload-resource {
   border: 1px dotted #22cade;
- padding: 10px 20px;
+  padding: 10px 20px;
   margin-top: 10px;
 }
 .custom-select {
@@ -509,12 +537,12 @@ label {
   top: 0;
   opacity: 0;
 }
-.save-btn{
+.save-btn {
   display: flex;
   justify-content: center;
 }
-.btn-save{
-  background-color: #0A4065;
+.btn-save {
+  background-color: #0a4065;
   padding: 10px 20px;
 }
 </style>

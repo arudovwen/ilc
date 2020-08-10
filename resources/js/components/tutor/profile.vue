@@ -1,5 +1,5 @@
 <template>
-  <div class="body">
+  <!-- <div class="body">
     <div class="text-right">
       <b-button type="button" @click="update">Update</b-button>
     </div>
@@ -50,6 +50,10 @@
         </div>
       </div>
     </div>
+  </div> -->
+  <div class="profile-page">
+    <div class="tutor-profile"></div>
+
   </div>
 </template>
 

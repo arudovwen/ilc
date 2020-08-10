@@ -1911,23 +1911,36 @@ __webpack_require__.r(__webpack_exports__);
     addNew: function addNew(value) {
       switch (value) {
         case 1:
-          this.curriculum.learner_outcome.push("");
+          this.curriculum.learner_outcome.push({
+            name: ""
+          });
+          console.log("addNew -> .learner_outco");
           break;
 
         case 2:
-          this.curriculum.target_skills.push("");
+          this.curriculum.target_skills.push({
+            name: ""
+          });
+          console.log("addNew -> target_skills");
           break;
 
         case 3:
-          this.curriculum.prerequisite.push("");
+          this.curriculum.prerequisite.push({
+            name: ""
+          });
+          console.log("addNew -> prerequisite");
           break;
 
         case 4:
-          this.curriculum.delivery_methods.push("");
+          this.curriculum.delivery_methods.push({
+            name: ""
+          });
           break;
 
         case 5:
-          this.curriculum.assessments.push("");
+          this.curriculum.assessments.push({
+            name: ""
+          });
           break;
 
         case 6:
@@ -10261,6 +10274,8 @@ __webpack_require__.r(__webpack_exports__);
               typeStudent.name = res.data.name;
               typeStudent.school_id = res.data.school_id;
               typeStudent.school = res.data.school;
+              typeStudent.profile = res.data.profile;
+              typeStudent.student_level = res.data.student_level;
               localStorage.setItem("typeStudent", JSON.stringify(typeStudent));
 
               _this.$toasted.success("Sucessful");
@@ -11319,82 +11334,13 @@ __webpack_require__.r(__webpack_exports__);
       syllabus: [],
       curriculum: [],
       fields: ["class", "subject"],
-      field: ["class"]
+      field: ["class"],
+      value: null,
+      max: null
     };
   },
-  mounted: function mounted() {// this.getStudents();
-    // this.getClasses();
-    // this.getTutors();
-    // this.getSyllabus()
-    // this.getCurriculum();
-  },
-  methods: {
-    getStudents: function getStudents() {
-      var _this = this;
-
-      axios.get("/api/student-get-students", {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this.students = res.data;
-        }
-      });
-    },
-    getCurriculum: function getCurriculum() {
-      var _this2 = this;
-
-      axios.get("/api/curriculum", {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this2.curriculum = res.data;
-        }
-      });
-    },
-    getTutors: function getTutors() {
-      var _this3 = this;
-
-      axios.get("/api/tutor", {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this3.tutors = res.data;
-        }
-      });
-    },
-    getClasses: function getClasses() {
-      var _this4 = this;
-
-      axios.get("/api/classes", {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this4.classes = res.data;
-        }
-      });
-    },
-    getSyllabus: function getSyllabus() {
-      var _this5 = this;
-
-      axios.get("/api/syllabus", {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this5.syllabus = res.data;
-        }
-      });
-    }
-  }
+  mounted: function mounted() {},
+  methods: {}
 });
 
 /***/ }),
@@ -11408,6 +11354,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -12825,170 +12773,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -13019,6 +12803,7 @@ __webpack_require__.r(__webpack_exports__);
         subject: this.subject,
         title: this.title,
         content: this.content,
+        excerpt: this.excerpt,
         worksheet_id: 0
       };
       axios.post("/api/library", data, {
@@ -13151,7 +12936,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-datetimepicker */ "./node_modules/vuejs-datetimepicker/src/datetime_picker.vue");
+/* harmony import */ var vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuejs-datetimepicker */ "./node_modules/vuejs-datetimepicker/src/datetime_picker.vue");
 //
 //
 //
@@ -13393,7 +13178,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    datetime: vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__["default"]
+    datetime: vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
@@ -13723,7 +13508,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-datetimepicker */ "./node_modules/vuejs-datetimepicker/src/datetime_picker.vue");
+/* harmony import */ var vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuejs-datetimepicker */ "./node_modules/vuejs-datetimepicker/src/datetime_picker.vue");
 //
 //
 //
@@ -14034,7 +13819,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    datetime: vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__["default"]
+    datetime: vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
@@ -18470,7 +18255,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-79ee3ba6] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100vh;\r\n   position: relative;\n}\nform[data-v-79ee3ba6]{\r\n    width:50%\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-79ee3ba6] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n   position: relative;\n}\nform[data-v-79ee3ba6]{\n    width:50%\n}\n", ""]);
 
 // exports
 
@@ -18489,7 +18274,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-20e0a484] {\r\n  height: 100%;\r\n  overflow: auto;\n}\n.hiden[data-v-20e0a484] {\r\n  opacity: 0;\n}\n.nav_box[data-v-20e0a484] {\r\n  background-color: #f7f8fa;\r\n\r\n  text-align: center;\r\n  padding: 10px 15px;\n}\nth[data-v-20e0a484]{\r\n  background: transparent;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-20e0a484] {\n  height: 100%;\n  overflow: auto;\n}\n.hiden[data-v-20e0a484] {\n  opacity: 0;\n}\n.nav_box[data-v-20e0a484] {\n  background-color: #f7f8fa;\n\n  text-align: center;\n  padding: 10px 15px;\n}\nth[data-v-20e0a484]{\n  background: transparent;\n}\n", ""]);
 
 // exports
 
@@ -18508,7 +18293,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.btn-sm[data-v-6c6e04d7] {\r\n  padding: 0.1rem 0.4rem;\r\n  font-size: 0.4rem;\r\n  line-height: 1.5;\n}\n.container[data-v-6c6e04d7]{\r\n    width:80%;\r\n    margin:0 auto;\n}\n.bod[data-v-6c6e04d7]{\r\n    background:#f7f8fa;\n}\r\n", ""]);
+exports.push([module.i, "\n.btn-sm[data-v-6c6e04d7] {\n  padding: 0.1rem 0.4rem;\n  font-size: 0.4rem;\n  line-height: 1.5;\n}\n.container[data-v-6c6e04d7]{\n    width:80%;\n    margin:0 auto;\n}\n.bod[data-v-6c6e04d7]{\n    background:#f7f8fa;\n}\n", ""]);
 
 // exports
 
@@ -18527,7 +18312,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-6e628573] {\r\n  width: 20%;\r\n  padding: 30px 15px;\n}\n.left-side[data-v-6e628573] {\r\n  width: 80%;\n}\n.form-group[data-v-6e628573]{\r\n  margin-bottom:24px;\n}\ntd[data-v-6e628573] {\r\n  text-transform: capitalize;\n}\n.hiden[data-v-6e628573] {\r\n  opacity: 0;\n}\n.add[data-v-6e628573] {\r\n  background-color: #f7f8fa;\n}\ntable[data-v-6e628573] {\r\n  font-size: 14.5px;\n}\r\n", ""]);
+exports.push([module.i, "\nnav[data-v-6e628573] {\n  width: 20%;\n  padding: 30px 15px;\n}\n.left-side[data-v-6e628573] {\n  width: 80%;\n}\n.form-group[data-v-6e628573]{\n  margin-bottom:24px;\n}\ntd[data-v-6e628573] {\n  text-transform: capitalize;\n}\n.hiden[data-v-6e628573] {\n  opacity: 0;\n}\n.add[data-v-6e628573] {\n  background-color: #f7f8fa;\n}\ntable[data-v-6e628573] {\n  font-size: 14.5px;\n}\n", ""]);
 
 // exports
 
@@ -18546,7 +18331,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nnav[data-v-7ba444bd] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\ntd[data-v-7ba444bd] {\r\n  text-transform: uppercase;\n}\n.hiden[data-v-7ba444bd] {\r\n  opacity: 0;\n}\n.add[data-v-7ba444bd] {\r\n  background-color: #f7f8fa;\n}\n.body[data-v-7ba444bd] {\r\n  padding: 20px 20px 50px;\r\n  height: 100%;\n}\n.form-group[data-v-7ba444bd]{\r\n  margin-bottom:24px;\n}\r\n", ""]);
+exports.push([module.i, "\nnav[data-v-7ba444bd] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\ntd[data-v-7ba444bd] {\n  text-transform: uppercase;\n}\n.hiden[data-v-7ba444bd] {\n  opacity: 0;\n}\n.add[data-v-7ba444bd] {\n  background-color: #f7f8fa;\n}\n.body[data-v-7ba444bd] {\n  padding: 20px 20px 50px;\n  height: 100%;\n}\n.form-group[data-v-7ba444bd]{\n  margin-bottom:24px;\n}\n", ""]);
 
 // exports
 
@@ -18565,7 +18350,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-2aa7ee15] {\r\n  padding: 40px 30px 70px;\r\n  position: relative;\n}\n.overflow-hide[data-v-2aa7ee15]{\r\n    overflow: hidden;\r\n    height: 100vh;\n}\n.preview[data-v-2aa7ee15] {\r\n  z-index: 2;\n}\n.popup-overlay[data-v-2aa7ee15] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(0, 0, 0, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\r\n  overflow: scroll;\r\n  padding: 20px;\n}\nform[data-v-2aa7ee15] {\r\n  padding-bottom: 60px;\r\n  font-size: 15.5px;\n}\nh5[data-v-2aa7ee15] {\r\n  margin-bottom: 24px;\n}\n.side-label[data-v-2aa7ee15] {\r\n  width: 150px;\n}\n.form-text[data-v-2aa7ee15] {\r\n  margin-bottom: 18px;\r\n  font-size: 14px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-2aa7ee15] {\n  padding: 40px 30px 70px;\n  position: relative;\n}\n.overflow-hide[data-v-2aa7ee15]{\n    overflow: hidden;\n    height: 100vh;\n}\n.preview[data-v-2aa7ee15] {\n  z-index: 2;\n}\n.popup-overlay[data-v-2aa7ee15] {\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  background: rgba(0, 0, 0, 0.7);\n  z-index: 1;\n  top: 0;\n  left: 0;\n  overflow: scroll;\n  padding: 20px;\n}\nform[data-v-2aa7ee15] {\n  padding-bottom: 60px;\n  font-size: 15.5px;\n}\nh5[data-v-2aa7ee15] {\n  margin-bottom: 24px;\n}\n.side-label[data-v-2aa7ee15] {\n  width: 150px;\n}\n.form-text[data-v-2aa7ee15] {\n  margin-bottom: 18px;\n  font-size: 14px;\n}\n", ""]);
 
 // exports
 
@@ -18584,7 +18369,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-3a9eb063] {\r\n  padding: 40px 30px 70px;\r\n  position: relative;\n}\n.overflow-hide[data-v-3a9eb063] {\r\n  overflow: hidden;\r\n  height: 100%;\n}\n.preview[data-v-3a9eb063] {\r\n  z-index: 2;\n}\n.popup-overlay[data-v-3a9eb063] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(0, 0, 0, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\r\n  overflow: scroll;\r\n  padding: 20px;\n}\nform[data-v-3a9eb063] {\r\n  padding-bottom: 60px;\r\n  font-size: 15.5px;\n}\nh5[data-v-3a9eb063] {\r\n  margin-bottom: 24px;\n}\n.side-label[data-v-3a9eb063] {\r\n  width: 150px;\n}\n.form-text[data-v-3a9eb063] {\r\n  margin-bottom: 18px;\r\n  font-size: 14px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-3a9eb063] {\n  padding: 40px 30px 70px;\n  position: relative;\n}\n.overflow-hide[data-v-3a9eb063] {\n  overflow: hidden;\n  height: 100%;\n}\n.preview[data-v-3a9eb063] {\n  z-index: 2;\n}\n.popup-overlay[data-v-3a9eb063] {\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  background: rgba(0, 0, 0, 0.7);\n  z-index: 1;\n  top: 0;\n  left: 0;\n  overflow: scroll;\n  padding: 20px;\n}\nform[data-v-3a9eb063] {\n  padding-bottom: 60px;\n  font-size: 15.5px;\n}\nh5[data-v-3a9eb063] {\n  margin-bottom: 24px;\n}\n.side-label[data-v-3a9eb063] {\n  width: 150px;\n}\n.form-text[data-v-3a9eb063] {\n  margin-bottom: 18px;\n  font-size: 14px;\n}\n", ""]);
 
 // exports
 
@@ -18603,7 +18388,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-83b27690] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-83b27690] {\r\n  opacity: 0;\n}\r\n\r\n\r\n", ""]);
+exports.push([module.i, "\nnav[data-v-83b27690] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-83b27690] {\n  opacity: 0;\n}\n\n\n", ""]);
 
 // exports
 
@@ -18622,7 +18407,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-0529ec02] {\r\n  padding: 40px 30px 70px;\r\n  height: 100%;\r\n  position: relative;\n}\n.popup-overlay[data-v-0529ec02] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(255, 255, 255, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\n}\n.suggestion-box[data-v-0529ec02] {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  background: white;\r\n  border-radius: 5px;\r\n  height: 250px;\r\n  width: 50%;\r\n  padding:15px;\r\n  position: absolute;\r\n  bottom: 50%;\r\n  transform: translate(50%, 50%);\r\n  right: 50%;\n}\n.suggestion-box p[data-v-0529ec02]{\r\n    font-size: 24px;\r\n    font-weight: bold;\r\n    text-align: center;\n}\n.close[data-v-0529ec02]{\r\n    position: absolute;\r\n    right: 5px;\r\n    top: 5px;\n}\nform[data-v-0529ec02] {\r\n  padding: 20px;\r\n  padding-bottom: 60px;\r\n  background: white;\r\n  font-size: 14px;\n}\nh5[data-v-0529ec02] {\r\n  margin-bottom: 24px;\n}\n.side-label[data-v-0529ec02] {\r\n  width: 150px;\n}\n.form-text[data-v-0529ec02] {\r\n  margin-bottom: 18px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-0529ec02] {\n  padding: 40px 30px 70px;\n  height: 100%;\n  position: relative;\n}\n.popup-overlay[data-v-0529ec02] {\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  background: rgba(255, 255, 255, 0.7);\n  z-index: 1;\n  top: 0;\n  left: 0;\n}\n.suggestion-box[data-v-0529ec02] {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: center;\n  background: white;\n  border-radius: 5px;\n  height: 250px;\n  width: 50%;\n  padding:15px;\n  position: absolute;\n  bottom: 50%;\n  transform: translate(50%, 50%);\n  right: 50%;\n}\n.suggestion-box p[data-v-0529ec02]{\n    font-size: 24px;\n    font-weight: bold;\n    text-align: center;\n}\n.close[data-v-0529ec02]{\n    position: absolute;\n    right: 5px;\n    top: 5px;\n}\nform[data-v-0529ec02] {\n  padding: 20px;\n  padding-bottom: 60px;\n  background: white;\n  font-size: 14px;\n}\nh5[data-v-0529ec02] {\n  margin-bottom: 24px;\n}\n.side-label[data-v-0529ec02] {\n  width: 150px;\n}\n.form-text[data-v-0529ec02] {\n  margin-bottom: 18px;\n}\n", ""]);
 
 // exports
 
@@ -18641,7 +18426,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-2268b77e] {\r\n  padding: 40px 30px 70px;\r\n  position: relative;\n}\n.popup-overlay[data-v-2268b77e] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(255, 255, 255, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\n}\n.suggestion-box[data-v-2268b77e] {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  background: white;\r\n  border-radius: 5px;\r\n  height: 250px;\r\n  width: 50%;\r\n  padding: 15px;\r\n  position: absolute;\r\n  bottom: 50%;\r\n  transform: translate(50%, 50%);\r\n  right: 50%;\n}\n.suggestion-box p[data-v-2268b77e] {\r\n  font-size: 24px;\r\n  font-weight: bold;\r\n  text-align: center;\n}\n.close[data-v-2268b77e] {\r\n  position: absolute;\r\n  right: 5px;\r\n  top: 5px;\n}\nform[data-v-2268b77e] {\r\n  padding: 20px;\r\n  padding-bottom: 60px;\r\n  background: white;\r\n  font-size: 14px;\n}\nh5[data-v-2268b77e] {\r\n  margin-bottom: 24px;\n}\n.side-label[data-v-2268b77e] {\r\n  width: 150px;\n}\n.form-text[data-v-2268b77e] {\r\n  margin-bottom: 18px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-2268b77e] {\n  padding: 40px 30px 70px;\n  position: relative;\n}\n.popup-overlay[data-v-2268b77e] {\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  background: rgba(255, 255, 255, 0.7);\n  z-index: 1;\n  top: 0;\n  left: 0;\n}\n.suggestion-box[data-v-2268b77e] {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: center;\n  background: white;\n  border-radius: 5px;\n  height: 250px;\n  width: 50%;\n  padding: 15px;\n  position: absolute;\n  bottom: 50%;\n  transform: translate(50%, 50%);\n  right: 50%;\n}\n.suggestion-box p[data-v-2268b77e] {\n  font-size: 24px;\n  font-weight: bold;\n  text-align: center;\n}\n.close[data-v-2268b77e] {\n  position: absolute;\n  right: 5px;\n  top: 5px;\n}\nform[data-v-2268b77e] {\n  padding: 20px;\n  padding-bottom: 60px;\n  background: white;\n  font-size: 14px;\n}\nh5[data-v-2268b77e] {\n  margin-bottom: 24px;\n}\n.side-label[data-v-2268b77e] {\n  width: 150px;\n}\n.form-text[data-v-2268b77e] {\n  margin-bottom: 18px;\n}\n", ""]);
 
 // exports
 
@@ -18660,7 +18445,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.my-container[data-v-3a73534e] {\r\n  width: 100%;\r\n  display: flex;\n}\n.side[data-v-3a73534e] {\r\n width: 15%;\r\n    height: 100vh;\r\n    background: #008E3A;\r\n    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);\r\n    position: fixed;\n}\n.main[data-v-3a73534e] {\r\n  width: 85%;\r\n  height: 100%;\r\n  position: absolute;\r\n  right: 0;\r\n   background: #f7f8fa;\n}\r\n", ""]);
+exports.push([module.i, "\n.my-container[data-v-3a73534e] {\n  width: 100%;\n  display: flex;\n}\n.side[data-v-3a73534e] {\n width: 15%;\n    height: 100vh;\n    background: #008E3A;\n    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);\n    position: fixed;\n}\n.main[data-v-3a73534e] {\n  width: 85%;\n  height: 100%;\n  position: absolute;\n  right: 0;\n   background: #f7f8fa;\n}\n", ""]);
 
 // exports
 
@@ -18679,7 +18464,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-6f9fe055] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100vh;\r\n  position: relative;\n}\nform[data-v-6f9fe055] {\r\n  width: 50%;\n}\n.form-group[data-v-6f9fe055]{\r\n  margin-bottom:24px;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-6f9fe055] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n  position: relative;\n}\nform[data-v-6f9fe055] {\n  width: 50%;\n}\n.form-group[data-v-6f9fe055]{\n  margin-bottom:24px;\n}\n", ""]);
 
 // exports
 
@@ -18698,7 +18483,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.cards[data-v-19b016ac]{\r\n  background: #fff;\r\n  height: 500px;\r\n  padding: 1.5rem;\r\n  border-radius: 10px;\r\n  box-shadow: 5px 4px 11px rgba(249, 247, 240, 0.25);\n}\n.ongoing-lesson-content[data-v-19b016ac]{\r\n  padding-top: 1.5rem;\r\n  border-bottom: 1px solid #e5e5e5;\n}\n.ongoing-lesson-content[data-v-19b016ac]:last-child{\r\n  border-bottom: none;\n}\nh6[data-v-19b016ac]{\r\n  font-weight: 600;\n}\n.ongoing-lesson-content p[data-v-19b016ac]{\r\n  margin-bottom: 0;\n}\n.ongoing-lesson-time[data-v-19b016ac]{\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  padding-bottom: 10px;\n}\n.ongoing-lesson-time p[data-v-19b016ac]{\r\n   background: #e5e5e5;\r\n  border-radius: 5px;\r\n  padding: 5px;\r\n  font-weight: 500;\n}\n.lesson-link[data-v-19b016ac]{\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  padding-top: 10px;\n}\n.lesson-link a[data-v-19b016ac]{\r\n  color:#008E3A ;\n}\n.lesson-link a[data-v-19b016ac]:hover{\r\n  background: #008E3A;\r\n  color: white;\r\n  border-radius: 5px;\r\n  padding: 10px;\n}\n.notes-top[data-v-19b016ac]{\r\n  display: flex;\r\n  justify-content: space-between;\r\n  padding-bottom: 1.5rem;\n}\n.btn[data-v-19b016ac]{\r\n  background: transparent;\r\n  border: 1px solid;\r\n  color: #008E3A;\r\n  padding: 5px 10px;\n}\n.btn[data-v-19b016ac]:hover{\r\n  background: #008E3A;\r\n  color: #fff ;\n}\r\n", ""]);
+exports.push([module.i, "\n.cards[data-v-19b016ac]{\n  background: #fff;\n  height: 500px;\n  padding: 1.5rem;\n  border-radius: 10px;\n  box-shadow: 5px 4px 11px rgba(249, 247, 240, 0.25);\n}\n.ongoing-lesson-content[data-v-19b016ac]{\n  padding-top: 1.5rem;\n  border-bottom: 1px solid #e5e5e5;\n}\n.ongoing-lesson-content[data-v-19b016ac]:last-child{\n  border-bottom: none;\n}\nh6[data-v-19b016ac]{\n  font-weight: 600;\n}\n.ongoing-lesson-content p[data-v-19b016ac]{\n  margin-bottom: 0;\n}\n.ongoing-lesson-time[data-v-19b016ac]{\n  display: flex;\n  justify-content: flex-end;\n  padding-bottom: 10px;\n}\n.ongoing-lesson-time p[data-v-19b016ac]{\n   background: #e5e5e5;\n  border-radius: 5px;\n  padding: 5px;\n  font-weight: 500;\n}\n.lesson-link[data-v-19b016ac]{\n  display: flex;\n  justify-content: flex-end;\n  padding-top: 10px;\n}\n.lesson-link a[data-v-19b016ac]{\n  color:#008E3A ;\n}\n.lesson-link a[data-v-19b016ac]:hover{\n  background: #008E3A;\n  color: white;\n  border-radius: 5px;\n  padding: 10px;\n}\n.notes-top[data-v-19b016ac]{\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 1.5rem;\n}\n.btn[data-v-19b016ac]{\n  background: transparent;\n  border: 1px solid;\n  color: #008E3A;\n  padding: 5px 10px;\n}\n.btn[data-v-19b016ac]:hover{\n  background: #008E3A;\n  color: #fff ;\n}\n", ""]);
 
 // exports
 
@@ -18717,7 +18502,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.semi-white[data-v-0fa20884]{\r\n \r\n  height: 100%;\n}\nnav[data-v-0fa20884] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\n}\n#notification[data-v-0fa20884] {\r\n  position: relative;\r\n  z-index: 999;\n}\n.notification-body[data-v-0fa20884] {\r\n  position: absolute;\r\n  left: -240px;\r\n  width: 250px;\n}\n.main-notify[data-v-0fa20884] {\r\n  max-height: 300px;\r\n  overflow: scroll;\n}\n.icon[data-v-0fa20884] {\r\n  position: relative;\n}\n.badge[data-v-0fa20884] {\r\n  position: absolute;\r\n  top: -40%;\r\n  left: 50%;\r\n  background: red;\r\n  color: white;\r\n  font-size: 14px;\n}\n.list-group-item[data-v-0fa20884] {\r\n  font-size: 14px;\n}\n.fa-bell[data-v-0fa20884] {\r\n  font-size: 24px;\r\n  color:#008E3A;\n}\n.search[data-v-0fa20884]{\r\n  width:250px;\r\n  border-color:#008E3A\n}\r\n", ""]);
+exports.push([module.i, "\n.semi-white[data-v-0fa20884]{\n \n  height: 100%;\n}\nnav[data-v-0fa20884] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n#notification[data-v-0fa20884] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-0fa20884] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-0fa20884] {\n  max-height: 300px;\n  overflow: scroll;\n}\n.icon[data-v-0fa20884] {\n  position: relative;\n}\n.badge[data-v-0fa20884] {\n  position: absolute;\n  top: -40%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 14px;\n}\n.list-group-item[data-v-0fa20884] {\n  font-size: 14px;\n}\n.fa-bell[data-v-0fa20884] {\n  font-size: 24px;\n  color:#008E3A;\n}\n.search[data-v-0fa20884]{\n  width:250px;\n  border-color:#008E3A\n}\n", ""]);
 
 // exports
 
@@ -18736,7 +18521,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.logo[data-v-6b6d5b7e]{\r\n    padding: 10px 20px;\r\n    margin-bottom:20px;\r\n    text-align:center;\n}\n.logo p[data-v-6b6d5b7e]{\r\n    font-weight: bold;\r\n    font-family: 'Josefin Sans';\r\n    font-size: 24px;\r\n    text-align:center;\r\n    color:#008E3A;\r\n    margin:0;\n}\n.logo small[data-v-6b6d5b7e]{\r\n \r\n  font-size:18px;\r\n    color:white\n}\nul[data-v-6b6d5b7e]{\r\n    list-style:none;\n}\nnav[data-v-6b6d5b7e]{\r\n    padding-left:20px;\n}\na i[data-v-6b6d5b7e]{\r\n  font-size: 24px;\n}\na li[data-v-6b6d5b7e]{\r\n  padding-top: 2px;\r\n  color: #fff;\n}\n.router-link-exact-active[data-v-6b6d5b7e] {\r\nbackground:#f7f8fa ;\r\nborder-top-left-radius:10px;\r\nborder-bottom-left-radius:10px;\r\n color:#008E3A;\n}\na[data-v-6b6d5b7e]:hover{\r\n  color: #fff !important;\n}\n.router-link-exact-active li[data-v-6b6d5b7e]{\r\n\r\n color:#008E3A;\n}\n.router-link-exact-active i[data-v-6b6d5b7e]{\r\n  font-size: 24px;\r\n color:#008E3A;\n}\r\n", ""]);
+exports.push([module.i, "\n.logo[data-v-6b6d5b7e]{\n    padding: 10px 20px;\n    margin-bottom:20px;\n    text-align:center;\n}\n.logo p[data-v-6b6d5b7e]{\n    font-weight: bold;\n    font-family: 'Josefin Sans';\n    font-size: 24px;\n    text-align:center;\n    color:#008E3A;\n    margin:0;\n}\n.logo small[data-v-6b6d5b7e]{\n \n  font-size:18px;\n    color:white\n}\nul[data-v-6b6d5b7e]{\n    list-style:none;\n}\nnav[data-v-6b6d5b7e]{\n    padding-left:20px;\n}\na i[data-v-6b6d5b7e]{\n  font-size: 24px;\n}\na li[data-v-6b6d5b7e]{\n  padding-top: 2px;\n  color: #fff;\n}\n.router-link-exact-active[data-v-6b6d5b7e] {\nbackground:#f7f8fa ;\nborder-top-left-radius:10px;\nborder-bottom-left-radius:10px;\n color:#008E3A;\n}\na[data-v-6b6d5b7e]:hover{\n  color: #fff !important;\n}\n.router-link-exact-active li[data-v-6b6d5b7e]{\n\n color:#008E3A;\n}\n.router-link-exact-active i[data-v-6b6d5b7e]{\n  font-size: 24px;\n color:#008E3A;\n}\n", ""]);
 
 // exports
 
@@ -18755,7 +18540,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-f8ed41f4] {\r\n  min-height: 100%;\r\n  padding: 40px 20px 70px;\n}\n.bottom_box[data-v-f8ed41f4] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 20px;\n}\n.t-body[data-v-f8ed41f4] {\r\n  max-height: 400px;\r\n  overflow: scroll;\n}\n.selected[data-v-f8ed41f4] {\r\n  background: slategrey;\n}\n.top_box[data-v-f8ed41f4] {\r\n  display: block;\r\n  position: relative;\r\n  height: 300px;\r\n  overflow: auto;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-f8ed41f4] {\n  min-height: 100%;\n  padding: 40px 20px 70px;\n}\n.bottom_box[data-v-f8ed41f4] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 20px;\n}\n.t-body[data-v-f8ed41f4] {\n  max-height: 400px;\n  overflow: scroll;\n}\n.selected[data-v-f8ed41f4] {\n  background: slategrey;\n}\n.top_box[data-v-f8ed41f4] {\n  display: block;\n  position: relative;\n  height: 300px;\n  overflow: auto;\n}\n", ""]);
 
 // exports
 
@@ -18774,7 +18559,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-15cd1a4a] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\n}\nform[data-v-15cd1a4a]{\r\n    width:100%\n}\n.form-group[data-v-15cd1a4a]{\r\n  margin-bottom: 24px;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-15cd1a4a] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\nform[data-v-15cd1a4a]{\n    width:100%\n}\n.form-group[data-v-15cd1a4a]{\n  margin-bottom: 24px;\n}\n", ""]);
 
 // exports
 
@@ -18793,7 +18578,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-4316aea9] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100vh;\n}\nform[data-v-4316aea9]{\r\n    width:50%\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-4316aea9] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n}\nform[data-v-4316aea9]{\n    width:50%\n}\n", ""]);
 
 // exports
 
@@ -18812,7 +18597,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.view[data-v-72c27a04] {\r\n  display: flex;\n}\n.nav[data-v-72c27a04] {\r\n  width: 20%;\r\n  padding: 30px 15px;\n}\n.left-side[data-v-72c27a04] {\r\n  width: 80%;\r\n  padding: 30px 15px;\n}\n.hiden[data-v-72c27a04] {\r\n  opacity: 0;\n}\n.class_list[data-v-72c27a04] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;\r\n  grid-row-gap: 15px;\r\n  grid-column-gap: 15px;\n}\n.single-class[data-v-72c27a04] {\r\n  padding: 15px;\r\n  background: #f7f8fa;\r\n  text-transform: capitalize;\r\n  text-align: center;\n}\r\n", ""]);
+exports.push([module.i, "\n.view[data-v-72c27a04] {\n  display: flex;\n}\n.nav[data-v-72c27a04] {\n  width: 20%;\n  padding: 30px 15px;\n}\n.left-side[data-v-72c27a04] {\n  width: 80%;\n  padding: 30px 15px;\n}\n.hiden[data-v-72c27a04] {\n  opacity: 0;\n}\n.class_list[data-v-72c27a04] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;\n  grid-row-gap: 15px;\n  grid-column-gap: 15px;\n}\n.single-class[data-v-72c27a04] {\n  padding: 15px;\n  background: #f7f8fa;\n  text-transform: capitalize;\n  text-align: center;\n}\n", ""]);
 
 // exports
 
@@ -18831,7 +18616,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nform[data-v-dc4d47b0] {\r\n  width: 70%;\r\n  margin:0 auto\n}\n.form-group[data-v-dc4d47b0]{\r\n  margin-bottom: 24px;\n}\r\n", ""]);
+exports.push([module.i, "\nform[data-v-dc4d47b0] {\n  width: 70%;\n  margin:0 auto\n}\n.form-group[data-v-dc4d47b0]{\n  margin-bottom: 24px;\n}\n", ""]);
 
 // exports
 
@@ -18850,7 +18635,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-2ae0b5c4] {\r\n  padding: 50px 20px 70px;\r\n  height: 100%;\n}\n.info[data-v-2ae0b5c4] {\r\n  width: 80%;\r\n  margin: 0 auto;\n}\n.image[data-v-2ae0b5c4] {\r\n  width: 140px;\r\n  height: 140px;\r\n  border-radius: 50%;\r\n  overflow: hidden;\n}\n.image img[data-v-2ae0b5c4]{\r\n    width:100%;\r\n    height:100%;\r\n    -o-object-fit: cover;\r\n       object-fit: cover;\n}\nul[data-v-2ae0b5c4] {\r\n  list-style: none;\n}\nli[data-v-2ae0b5c4] {\r\n  text-transform: capitalize;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-2ae0b5c4] {\n  padding: 50px 20px 70px;\n  height: 100%;\n}\n.info[data-v-2ae0b5c4] {\n  width: 80%;\n  margin: 0 auto;\n}\n.image[data-v-2ae0b5c4] {\n  width: 140px;\n  height: 140px;\n  border-radius: 50%;\n  overflow: hidden;\n}\n.image img[data-v-2ae0b5c4]{\n    width:100%;\n    height:100%;\n    -o-object-fit: cover;\n       object-fit: cover;\n}\nul[data-v-2ae0b5c4] {\n  list-style: none;\n}\nli[data-v-2ae0b5c4] {\n  text-transform: capitalize;\n}\n", ""]);
 
 // exports
 
@@ -18869,7 +18654,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-4c84158e] {\r\n  padding: 40px 30px 70px;\r\n  position: relative;\n}\n.overflow-hide[data-v-4c84158e] {\r\n  overflow: hidden;\r\n  height: 100%;\n}\n.preview[data-v-4c84158e] {\r\n  z-index: 2;\n}\n.popup-overlay[data-v-4c84158e] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(0, 0, 0, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\r\n  overflow: scroll;\r\n  padding: 20px;\n}\nform[data-v-4c84158e] {\r\n  padding-bottom: 60px;\r\n  font-size: 15.5px;\n}\nh5[data-v-4c84158e] {\r\n  margin-bottom: 24px;\n}\n.side-label[data-v-4c84158e] {\r\n  width: 150px;\n}\n.form-text[data-v-4c84158e] {\r\n  margin-bottom: 18px;\r\n  font-size: 14px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-4c84158e] {\n  padding: 40px 30px 70px;\n  position: relative;\n}\n.overflow-hide[data-v-4c84158e] {\n  overflow: hidden;\n  height: 100%;\n}\n.preview[data-v-4c84158e] {\n  z-index: 2;\n}\n.popup-overlay[data-v-4c84158e] {\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  background: rgba(0, 0, 0, 0.7);\n  z-index: 1;\n  top: 0;\n  left: 0;\n  overflow: scroll;\n  padding: 20px;\n}\nform[data-v-4c84158e] {\n  padding-bottom: 60px;\n  font-size: 15.5px;\n}\nh5[data-v-4c84158e] {\n  margin-bottom: 24px;\n}\n.side-label[data-v-4c84158e] {\n  width: 150px;\n}\n.form-text[data-v-4c84158e] {\n  margin-bottom: 18px;\n  font-size: 14px;\n}\n", ""]);
 
 // exports
 
@@ -18888,7 +18673,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-5d46098e] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-5d46098e]{\r\n    opacity: 0;\n}\n.body[data-v-5d46098e] {\r\n  padding: 20px 20px 50px;\r\n  height: 100%;\n}\r\n", ""]);
+exports.push([module.i, "\nnav[data-v-5d46098e] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-5d46098e]{\n    opacity: 0;\n}\n.body[data-v-5d46098e] {\n  padding: 20px 20px 50px;\n  height: 100%;\n}\n", ""]);
 
 // exports
 
@@ -18907,7 +18692,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-35368d69] {\r\n \r\n  position: relative;\r\n  height: 100%;\n}\n.popup-overlay[data-v-35368d69] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(255, 255, 255, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\n}\n.suggestion-box[data-v-35368d69] {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  background: white;\r\n  border-radius: 5px;\r\n  height: 300px;\r\n  width: 50%;\r\n  padding: 15px;\r\n  position: absolute;\r\n  bottom: 50%;\r\n  transform: translate(50%, 50%);\r\n  right: 50%;\n}\n.suggestion-box p[data-v-35368d69] {\r\n  font-size: 24px;\r\n  font-weight: bold;\r\n  text-align: center;\n}\n.close[data-v-35368d69] {\r\n  position: absolute;\r\n  right: 5px;\r\n  top: 5px;\n}\nform[data-v-35368d69] {\r\n  padding: 20px;\r\n  padding-bottom: 60px;\r\n  background: white;\r\n  font-size: 14px;\n}\nh3[data-v-35368d69] {\r\n  margin-bottom: 24px;\r\n  font-size: 1.4em;\n}\n.side-label[data-v-35368d69] {\r\n  width: 150px;\n}\n.form-text[data-v-35368d69] {\r\n  margin-bottom: 18px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-35368d69] {\n \n  position: relative;\n  height: 100%;\n}\n.popup-overlay[data-v-35368d69] {\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  background: rgba(255, 255, 255, 0.7);\n  z-index: 1;\n  top: 0;\n  left: 0;\n}\n.suggestion-box[data-v-35368d69] {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: center;\n  background: white;\n  border-radius: 5px;\n  height: 300px;\n  width: 50%;\n  padding: 15px;\n  position: absolute;\n  bottom: 50%;\n  transform: translate(50%, 50%);\n  right: 50%;\n}\n.suggestion-box p[data-v-35368d69] {\n  font-size: 24px;\n  font-weight: bold;\n  text-align: center;\n}\n.close[data-v-35368d69] {\n  position: absolute;\n  right: 5px;\n  top: 5px;\n}\nform[data-v-35368d69] {\n  padding: 20px;\n  padding-bottom: 60px;\n  background: white;\n  font-size: 14px;\n}\nh3[data-v-35368d69] {\n  margin-bottom: 24px;\n  font-size: 1.4em;\n}\n.side-label[data-v-35368d69] {\n  width: 150px;\n}\n.form-text[data-v-35368d69] {\n  margin-bottom: 18px;\n}\n", ""]);
 
 // exports
 
@@ -18926,7 +18711,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-be66e7d8] {\r\n  padding: 40px 30px 70px;\r\n  position: relative;\n}\nform[data-v-be66e7d8] {\r\n  padding-bottom: 60px;\r\n  font-size: 15.5px;\n}\nh5[data-v-be66e7d8] {\r\n  margin-bottom: 24px;\n}\n.side-label[data-v-be66e7d8] {\r\n  width: 150px;\n}\n.form-text[data-v-be66e7d8] {\r\n  margin-bottom: 18px;\r\n  font-size: 14px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-be66e7d8] {\n  padding: 40px 30px 70px;\n  position: relative;\n}\nform[data-v-be66e7d8] {\n  padding-bottom: 60px;\n  font-size: 15.5px;\n}\nh5[data-v-be66e7d8] {\n  margin-bottom: 24px;\n}\n.side-label[data-v-be66e7d8] {\n  width: 150px;\n}\n.form-text[data-v-be66e7d8] {\n  margin-bottom: 18px;\n  font-size: 14px;\n}\n", ""]);
 
 // exports
 
@@ -18945,7 +18730,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-7cf00758] {\r\n  padding: 40px 30px 70px;\r\n  position: relative;\n}\n.popup-overlay[data-v-7cf00758] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(255, 255, 255, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\n}\n.suggestion-box[data-v-7cf00758] {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  background: white;\r\n  border-radius: 5px;\r\n  height: 250px;\r\n  width: 50%;\r\n  padding: 15px;\r\n  position: absolute;\r\n  bottom: 50%;\r\n  transform: translate(50%, 50%);\r\n  right: 50%;\n}\n.suggestion-box p[data-v-7cf00758] {\r\n  font-size: 24px;\r\n  font-weight: bold;\r\n  text-align: center;\n}\n.close[data-v-7cf00758] {\r\n  position: absolute;\r\n  right: 5px;\r\n  top: 5px;\n}\nform[data-v-7cf00758] {\r\n  padding: 20px;\r\n  padding-bottom: 60px;\r\n  background: white;\r\n  font-size: 14px;\n}\nh3[data-v-7cf00758] {\r\n  margin-bottom: 24px;\r\n  font-size: 1.4em;\n}\n.side-label[data-v-7cf00758] {\r\n  width: 150px;\n}\n.form-text[data-v-7cf00758] {\r\n  margin-bottom: 18px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-7cf00758] {\n  padding: 40px 30px 70px;\n  position: relative;\n}\n.popup-overlay[data-v-7cf00758] {\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  background: rgba(255, 255, 255, 0.7);\n  z-index: 1;\n  top: 0;\n  left: 0;\n}\n.suggestion-box[data-v-7cf00758] {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: center;\n  background: white;\n  border-radius: 5px;\n  height: 250px;\n  width: 50%;\n  padding: 15px;\n  position: absolute;\n  bottom: 50%;\n  transform: translate(50%, 50%);\n  right: 50%;\n}\n.suggestion-box p[data-v-7cf00758] {\n  font-size: 24px;\n  font-weight: bold;\n  text-align: center;\n}\n.close[data-v-7cf00758] {\n  position: absolute;\n  right: 5px;\n  top: 5px;\n}\nform[data-v-7cf00758] {\n  padding: 20px;\n  padding-bottom: 60px;\n  background: white;\n  font-size: 14px;\n}\nh3[data-v-7cf00758] {\n  margin-bottom: 24px;\n  font-size: 1.4em;\n}\n.side-label[data-v-7cf00758] {\n  width: 150px;\n}\n.form-text[data-v-7cf00758] {\n  margin-bottom: 18px;\n}\n", ""]);
 
 // exports
 
@@ -18964,7 +18749,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-e3859b90] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-e3859b90] {\r\n  opacity: 0;\n}\n.body[data-v-e3859b90] {\r\n  padding: 20px 20px 50px;\r\n  height: 100%;\n}\r\n", ""]);
+exports.push([module.i, "\nnav[data-v-e3859b90] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-e3859b90] {\n  opacity: 0;\n}\n.body[data-v-e3859b90] {\n  padding: 20px 20px 50px;\n  height: 100%;\n}\n", ""]);
 
 // exports
 
@@ -18983,7 +18768,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-22ed2978] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-22ed2978] {\r\n  opacity: 0;\n}\n.nav_box[data-v-22ed2978] {\r\n  background-color: #f7f8fa;\r\n  display: flex;\r\n  text-align: center;\r\n  padding: 10px 15px;\n}\n.add[data-v-22ed2978] {\r\n  background-color: #f7f8fa;\n}\ntable[data-v-22ed2978] {\r\n  font-size: 14px;\n}\n.day .form-control[data-v-22ed2978] {\r\n  width: 150px;\n}\r\n", ""]);
+exports.push([module.i, "\nnav[data-v-22ed2978] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-22ed2978] {\n  opacity: 0;\n}\n.nav_box[data-v-22ed2978] {\n  background-color: #f7f8fa;\n  display: flex;\n  text-align: center;\n  padding: 10px 15px;\n}\n.add[data-v-22ed2978] {\n  background-color: #f7f8fa;\n}\ntable[data-v-22ed2978] {\n  font-size: 14px;\n}\n.day .form-control[data-v-22ed2978] {\n  width: 150px;\n}\n", ""]);
 
 // exports
 
@@ -19002,7 +18787,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-1b01b604] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-1b01b604] {\r\n  opacity: 0;\n}\n.add[data-v-1b01b604] {\r\n  background-color: #f7f8fa;\n}\n.body[data-v-1b01b604] {\r\n  padding: 20px 20px 50px;\r\n  height: 100%;\n}\ntable[data-v-1b01b604] {\r\n  font-size: 14px;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\nnav[data-v-1b01b604] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-1b01b604] {\n  opacity: 0;\n}\n.add[data-v-1b01b604] {\n  background-color: #f7f8fa;\n}\n.body[data-v-1b01b604] {\n  padding: 20px 20px 50px;\n  height: 100%;\n}\ntable[data-v-1b01b604] {\n  font-size: 14px;\n}\n\n", ""]);
 
 // exports
 
@@ -19021,7 +18806,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-b766b880] {\n}\nform[data-v-b766b880] {\r\n  width: 100%;\n}\n.form-group[data-v-b766b880] {\r\n  margin-bottom: 24px;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-b766b880] {\n}\nform[data-v-b766b880] {\n  width: 100%;\n}\n.form-group[data-v-b766b880] {\n  margin-bottom: 24px;\n}\n", ""]);
 
 // exports
 
@@ -19040,7 +18825,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-4abad4ce] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100vh;\n}\nform[data-v-4abad4ce] {\r\n  width: 50%;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-4abad4ce] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n}\nform[data-v-4abad4ce] {\n  width: 50%;\n}\n", ""]);
 
 // exports
 
@@ -19059,7 +18844,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.view[data-v-637a2dba] {\r\n  display: flex;\n}\nnav[data-v-637a2dba] {\r\n  width: 20%;\r\n  background: white;\r\n  padding: 30px 20px;\n}\n.hiden[data-v-637a2dba] {\r\n  opacity: 0;\n}\n.left-side[data-v-637a2dba] {\r\n  width: 80%;\r\n  padding: 30px 20px;\n}\r\n", ""]);
+exports.push([module.i, "\n.view[data-v-637a2dba] {\n  display: flex;\n}\nnav[data-v-637a2dba] {\n  width: 20%;\n  background: white;\n  padding: 30px 20px;\n}\n.hiden[data-v-637a2dba] {\n  opacity: 0;\n}\n.left-side[data-v-637a2dba] {\n  width: 80%;\n  padding: 30px 20px;\n}\n", ""]);
 
 // exports
 
@@ -19078,7 +18863,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-410c8d0d] {\n}\nform[data-v-410c8d0d] {\r\n  margin: 0 auto;\n}\n.form-group[data-v-410c8d0d]{\r\n  margin-bottom:24px;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-410c8d0d] {\n}\nform[data-v-410c8d0d] {\n  margin: 0 auto;\n}\n.form-group[data-v-410c8d0d]{\n  margin-bottom:24px;\n}\n", ""]);
 
 // exports
 
@@ -19097,7 +18882,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-3284dbe9] {\r\n  padding: 50px 20px 70px;\r\n  height: 100%;\n}\n.info[data-v-3284dbe9] {\r\n  width: 90%;\r\n  margin: 0 auto;\n}\n.image[data-v-3284dbe9] {\r\n  width: 140px;\r\n  height: 140px;\r\n  border-radius: 50%;\r\n  overflow: hidden;\n}\n.image img[data-v-3284dbe9]{\r\n    width:100%;\r\n    height:100%;\r\n    -o-object-fit: cover;\r\n       object-fit: cover;\n}\nul[data-v-3284dbe9] {\r\n  list-style: none;\n}\nli[data-v-3284dbe9] {\r\n  text-transform: capitalize;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-3284dbe9] {\n  padding: 50px 20px 70px;\n  height: 100%;\n}\n.info[data-v-3284dbe9] {\n  width: 90%;\n  margin: 0 auto;\n}\n.image[data-v-3284dbe9] {\n  width: 140px;\n  height: 140px;\n  border-radius: 50%;\n  overflow: hidden;\n}\n.image img[data-v-3284dbe9]{\n    width:100%;\n    height:100%;\n    -o-object-fit: cover;\n       object-fit: cover;\n}\nul[data-v-3284dbe9] {\n  list-style: none;\n}\nli[data-v-3284dbe9] {\n  text-transform: capitalize;\n}\n", ""]);
 
 // exports
 
@@ -19116,7 +18901,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.login[data-v-2557a474] {\n}\n.register[data-v-2557a474] {\r\n  padding-top: 3%;\n}\n.mini_box_1[data-v-2557a474],\r\n.mini_box_2[data-v-2557a474] {\r\n  width: 200px;\r\n  height: 100px;\r\n  position: absolute;\n}\n.mini_box_1[data-v-2557a474] {\r\n  background: #333;\r\n  top: -6%;\r\n  right: -6%;\r\n  transform: rotate(45deg);\n}\n.mini_box_2[data-v-2557a474] {\r\n  background: yellow;\r\n  bottom: -6%;\r\n  left: -6%;\r\n  transform: rotate(45deg);\n}\n@media (max-width: 1024px) {\n.container[data-v-2557a474] {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    height: 100vh;\n}\n.register .nav-tabs[data-v-2557a474] {\r\n    width: 35%;\n}\n.mini_box_2[data-v-2557a474] {\r\n    bottom: -12%;\r\n    left: -12%;\n}\n.mini_box_1[data-v-2557a474] {\r\n    top: -12%;\r\n    right: -12%;\n}\n}\n@media (max-width: 768px) {\n}\n@media (max-width: 425px) {\n.mini_box_2[data-v-2557a474] {\r\n    bottom: -12%;\r\n    left: -20%;\r\n    background: #333;\n}\n.mini_box_1[data-v-2557a474] {\r\n    top: -12%;\r\n    right: -20%;\r\n    background: yellow;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.login[data-v-2557a474] {\n}\n.register[data-v-2557a474] {\n  padding-top: 3%;\n}\n.mini_box_1[data-v-2557a474],\n.mini_box_2[data-v-2557a474] {\n  width: 200px;\n  height: 100px;\n  position: absolute;\n}\n.mini_box_1[data-v-2557a474] {\n  background: #333;\n  top: -6%;\n  right: -6%;\n  transform: rotate(45deg);\n}\n.mini_box_2[data-v-2557a474] {\n  background: yellow;\n  bottom: -6%;\n  left: -6%;\n  transform: rotate(45deg);\n}\n@media (max-width: 1024px) {\n.container[data-v-2557a474] {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    height: 100vh;\n}\n.register .nav-tabs[data-v-2557a474] {\n    width: 35%;\n}\n.mini_box_2[data-v-2557a474] {\n    bottom: -12%;\n    left: -12%;\n}\n.mini_box_1[data-v-2557a474] {\n    top: -12%;\n    right: -12%;\n}\n}\n@media (max-width: 768px) {\n}\n@media (max-width: 425px) {\n.mini_box_2[data-v-2557a474] {\n    bottom: -12%;\n    left: -20%;\n    background: #333;\n}\n.mini_box_1[data-v-2557a474] {\n    top: -12%;\n    right: -20%;\n    background: yellow;\n}\n}\n", ""]);
 
 // exports
 
@@ -19135,7 +18920,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.main[data-v-6792fb91] {\r\n  background: #f7f8fa;\r\n  font-size: 14px;\r\n  position: relative;\n}\n.back[data-v-6792fb91] {\r\n  position: absolute;\r\n  top: 20px;\r\n  left: 20px;\n}\r\n", ""]);
+exports.push([module.i, "\n.main[data-v-6792fb91] {\n  background: #f7f8fa;\n  font-size: 14px;\n  position: relative;\n}\n.back[data-v-6792fb91] {\n  position: absolute;\n  top: 20px;\n  left: 20px;\n}\n", ""]);
 
 // exports
 
@@ -19154,7 +18939,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.container-fluid[data-v-0a681d75] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  min-height: 100vh;\n}\n.register[data-v-0a681d75] {\r\n  background: transparent;\r\n  padding: 3%;\n}\n.register-left[data-v-0a681d75] {\r\n  text-align: center;\r\n  color: #fff;\r\n  padding-top: 4%;\n}\n.register-left input[data-v-0a681d75] {\r\n  border: none;\r\n  border-radius: 1.5rem;\r\n  padding: 2%;\r\n  width: 60%;\r\n  background: #f7f8fa;\r\n  font-weight: bold;\r\n  color: #383d41;\r\n  margin-top: 28%;\r\n  margin-bottom: 3%;\r\n  cursor: pointer;\n}\n.register-right[data-v-0a681d75] {\r\n  background: #f7f8fa;\r\n  border-top-left-radius: 10% 50%;\r\n  border-bottom-left-radius: 10% 50%;\r\n  width: 80%;\r\n  padding: 0 15px;\n}\n.register-left img[data-v-0a681d75] {\r\n  margin-top: 15%;\r\n  margin-bottom: 5%;\r\n  width: 25%;\r\n  -webkit-animation: mover-data-v-0a681d75 2s infinite alternate;\r\n  animation: mover-data-v-0a681d75 1s infinite alternate;\n}\n@-webkit-keyframes mover-data-v-0a681d75 {\n0% {\r\n    transform: translateY(0);\n}\n100% {\r\n    transform: translateY(-20px);\n}\n}\n@keyframes mover-data-v-0a681d75 {\n0% {\r\n    transform: translateY(0);\n}\n100% {\r\n    transform: translateY(-20px);\n}\n}\n.register-left p[data-v-0a681d75] {\r\n  font-weight: lighter;\r\n  padding: 12%;\r\n  margin-top: -9%;\n}\n.register .register-form[data-v-0a681d75] {\r\n  padding: 10%;\r\n  margin-top: 2%;\n}\n.btnRegister[data-v-0a681d75] {\r\n\r\n  margin-top: 4%;\r\n  border: none;\r\n  border-radius: 1.5rem;\r\n  padding: 10px 40px;\r\n  background: repeating-linear-gradient(\r\n    to right,\r\n    rgb(15, 122, 138, 0.7) 0%,\r\n    rgb(15, 122, 138, 0.7) 100%\r\n  );\r\n  color: #fff;\r\n  font-weight: 600;\r\n  max-width: 50%;\r\n  cursor: pointer;\n}\n.register .nav-tabs[data-v-0a681d75] {\r\n  margin-top: 3%;\r\n  border: none;\r\n  background: repeating-linear-gradient(\r\n    to right,\r\n    rgb(15, 122, 138, 0.7) 0%,\r\n    rgb(15, 122, 138, 0.7) 100%\r\n  );\r\n  border-radius: 1.5rem;\r\n  width: 20%;\r\n  float: right;\r\n  font-size: 14px;\n}\n.register .nav-tabs .nav-link[data-v-0a681d75] {\r\n  padding: 2%;\r\n  height: 34px;\r\n  font-weight: 600;\r\n  color: #fff;\r\n  border-top-right-radius: 1.5rem;\r\n  border-bottom-right-radius: 1.5rem;\r\n  font-size: 14px;\n}\n.register .nav-tabs .nav-link[data-v-0a681d75]:hover {\r\n  border: none;\n}\n.register .nav-tabs .nav-link.active[data-v-0a681d75] {\r\n  width: 100px;\r\n  color: #5fa1ac;\r\n  border: 2px solid #5fa1ac;\r\n  border-top-left-radius: 1.5rem;\r\n  border-bottom-left-radius: 1.5rem;\n}\n.register-heading[data-v-0a681d75] {\r\n  text-align: center;\r\n  margin-top: 8%;\r\n  margin-bottom: -15%;\r\n  color: #495057;\n}\n.form-group[data-v-0a681d75]{\r\n  border:1px solid #ccc;\r\n  margin-bottom: 24px;\r\n  padding: 10px;\n}\n@media (max-width: 1024px) {\n.register .nav-tabs[data-v-0a681d75] {\r\n    width: 35%;\n}\nh4.register-heading[data-v-0a681d75] {\r\n    font-size: 22px;\n}\n.register-form[data-v-0a681d75] {\r\n    width: 100%;\n}\n}\n@media (max-width: 768px) {\n.register .nav-tabs[data-v-0a681d75] {\r\n    width: 35%;\n}\n.register-right[data-v-0a681d75] {\r\n    width: 90%;\n}\n}\n@media (max-width: 425px) {\n.register-right[data-v-0a681d75] {\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\n}\n.register-right[data-v-0a681d75] {\r\n    width: 100%;\r\n    height: 75vh;\r\n    overflow: scroll;\r\n    padding-top: 80%;\n}\n.register .nav-tabs[data-v-0a681d75] {\r\n    width: 60%;\r\n    margin: 3% auto 0;\n}\n.register-left[data-v-0a681d75] {\r\n    padding-bottom: 20px;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.container-fluid[data-v-0a681d75] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  min-height: 100vh;\n}\n.register[data-v-0a681d75] {\n  background: transparent;\n  padding: 3%;\n}\n.register-left[data-v-0a681d75] {\n  text-align: center;\n  color: #fff;\n  padding-top: 4%;\n}\n.register-left input[data-v-0a681d75] {\n  border: none;\n  border-radius: 1.5rem;\n  padding: 2%;\n  width: 60%;\n  background: #f7f8fa;\n  font-weight: bold;\n  color: #383d41;\n  margin-top: 28%;\n  margin-bottom: 3%;\n  cursor: pointer;\n}\n.register-right[data-v-0a681d75] {\n  background: #f7f8fa;\n  border-top-left-radius: 10% 50%;\n  border-bottom-left-radius: 10% 50%;\n  width: 80%;\n  padding: 0 15px;\n}\n.register-left img[data-v-0a681d75] {\n  margin-top: 15%;\n  margin-bottom: 5%;\n  width: 25%;\n  -webkit-animation: mover-data-v-0a681d75 2s infinite alternate;\n  animation: mover-data-v-0a681d75 1s infinite alternate;\n}\n@-webkit-keyframes mover-data-v-0a681d75 {\n0% {\n    transform: translateY(0);\n}\n100% {\n    transform: translateY(-20px);\n}\n}\n@keyframes mover-data-v-0a681d75 {\n0% {\n    transform: translateY(0);\n}\n100% {\n    transform: translateY(-20px);\n}\n}\n.register-left p[data-v-0a681d75] {\n  font-weight: lighter;\n  padding: 12%;\n  margin-top: -9%;\n}\n.register .register-form[data-v-0a681d75] {\n  padding: 10%;\n  margin-top: 2%;\n}\n.btnRegister[data-v-0a681d75] {\n\n  margin-top: 4%;\n  border: none;\n  border-radius: 1.5rem;\n  padding: 10px 40px;\n  background: repeating-linear-gradient(\n    to right,\n    rgb(15, 122, 138, 0.7) 0%,\n    rgb(15, 122, 138, 0.7) 100%\n  );\n  color: #fff;\n  font-weight: 600;\n  max-width: 50%;\n  cursor: pointer;\n}\n.register .nav-tabs[data-v-0a681d75] {\n  margin-top: 3%;\n  border: none;\n  background: repeating-linear-gradient(\n    to right,\n    rgb(15, 122, 138, 0.7) 0%,\n    rgb(15, 122, 138, 0.7) 100%\n  );\n  border-radius: 1.5rem;\n  width: 20%;\n  float: right;\n  font-size: 14px;\n}\n.register .nav-tabs .nav-link[data-v-0a681d75] {\n  padding: 2%;\n  height: 34px;\n  font-weight: 600;\n  color: #fff;\n  border-top-right-radius: 1.5rem;\n  border-bottom-right-radius: 1.5rem;\n  font-size: 14px;\n}\n.register .nav-tabs .nav-link[data-v-0a681d75]:hover {\n  border: none;\n}\n.register .nav-tabs .nav-link.active[data-v-0a681d75] {\n  width: 100px;\n  color: #5fa1ac;\n  border: 2px solid #5fa1ac;\n  border-top-left-radius: 1.5rem;\n  border-bottom-left-radius: 1.5rem;\n}\n.register-heading[data-v-0a681d75] {\n  text-align: center;\n  margin-top: 8%;\n  margin-bottom: -15%;\n  color: #495057;\n}\n.form-group[data-v-0a681d75]{\n  border:1px solid #ccc;\n  margin-bottom: 24px;\n  padding: 10px;\n}\n@media (max-width: 1024px) {\n.register .nav-tabs[data-v-0a681d75] {\n    width: 35%;\n}\nh4.register-heading[data-v-0a681d75] {\n    font-size: 22px;\n}\n.register-form[data-v-0a681d75] {\n    width: 100%;\n}\n}\n@media (max-width: 768px) {\n.register .nav-tabs[data-v-0a681d75] {\n    width: 35%;\n}\n.register-right[data-v-0a681d75] {\n    width: 90%;\n}\n}\n@media (max-width: 425px) {\n.register-right[data-v-0a681d75] {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n}\n.register-right[data-v-0a681d75] {\n    width: 100%;\n    height: 75vh;\n    overflow: scroll;\n    padding-top: 80%;\n}\n.register .nav-tabs[data-v-0a681d75] {\n    width: 60%;\n    margin: 3% auto 0;\n}\n.register-left[data-v-0a681d75] {\n    padding-bottom: 20px;\n}\n}\n", ""]);
 
 // exports
 
@@ -19173,7 +18958,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.main_container[data-v-45b4b761] {\r\n  width: 100%;\r\n  height: 100vh;\r\n  position: relative;\r\n  background: repeating-linear-gradient(\r\n    to right,\r\n    rgb(15, 122, 138, 0.7) 0%,\r\n    rgb(15, 122, 138, 0.7) 100%\r\n  );\r\n  overflow: hidden;\n}\n.square[data-v-45b4b761] {\r\n  width: 60%;\r\n  height: 100%;\r\n  position: relative;\r\n  z-index: 4;\r\n  overflow: hidden;\r\n  display: flex;\r\n  justify-content: flex-start;\r\n  align-items: center;\n}\n.square_text[data-v-45b4b761] {\r\n  color: white;\r\n  width: 100%;\r\n  min-height: 45%;\r\n  display: grid;\r\n  justify-content: flex-start;\r\n  align-items: center;\r\n  padding-left: 50px;\n}\n.main_text[data-v-45b4b761] {\r\n  font-weight: 700;\r\n  font-size: 60px;\r\n  color: #333333;\n}\n.sub_text[data-v-45b4b761] {\r\n  color: white;\r\n  font-size: 24px;\r\n  font-weight: 700;\r\n  display: flex;\r\n  align-items: center;\n}\n.mini_square_1[data-v-45b4b761],\r\n.mini_square_2[data-v-45b4b761] {\r\n  width: 150px;\r\n  height: 250px;\r\n  background: yellow;\r\n  position: absolute;\r\n  transform: rotate(-45deg);\n}\n.mini_square_1[data-v-45b4b761] {\r\n  top: 0;\r\n  right: 0;\r\n  top: -95px;\r\n  right: -50px;\n}\n.mini_square_2[data-v-45b4b761] {\r\n  bottom: -95px;\r\n  left: -50px;\n}\n.circle_1[data-v-45b4b761],\r\n.circle_2[data-v-45b4b761] {\r\n  width: 500px;\r\n  height: 500px;\r\n  position: absolute;\r\n  right: 20%;\r\n  border: 6px solid white;\r\n  overflow: hidden;\n}\n.circle_3[data-v-45b4b761] {\r\n  width: 600px;\r\n  height: 600px;\r\n  background: white;\r\n  position: absolute;\r\n  right: -10%;\r\n  top: 50%;\r\n  margin-top: -300px;\r\n  z-index: 2;\r\n  border: 6px solid white;\r\n  overflow: hidden;\n}\n.rounded_circle img[data-v-45b4b761] {\r\n  width: 100%;\r\n  height: 100%;\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\n}\n.circle_1[data-v-45b4b761] {\r\n  background: orange;\r\n  top: -5%;\r\n  z-index: 1;\n}\n.circle_2[data-v-45b4b761] {\r\n  background: green;\r\n  bottom: -5%;\r\n  z-index: 3;\n}\nimg[data-v-45b4b761] {\r\n  width: 100%;\r\n  height: 100%;\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\n}\n@media (max-width: 1024px) {\n.circle_3[data-v-45b4b761] {\r\n    width: 450px;\r\n    height: 450px;\r\n    top: 70%;\n}\n.circle_1[data-v-45b4b761],\r\n  .circle_2[data-v-45b4b761] {\r\n    width: 350px;\r\n    height: 350px;\n}\n.circle_1[data-v-45b4b761] {\r\n    top: 14%;\n}\n.circle_2[data-v-45b4b761] {\r\n    bottom: 0%;\n}\n.main_text[data-v-45b4b761] {\r\n    font-size: 40px;\n}\n.mini_square_2[data-v-45b4b761],\r\n  .mini_square_1[data-v-45b4b761] {\r\n    width: 100px;\n}\n}\n@media (max-width: 768px) {\n.circle_3[data-v-45b4b761] {\r\n    width: 350px;\r\n    height: 350px;\r\n    top: 70%;\n}\n.circle_1[data-v-45b4b761],\r\n  .circle_2[data-v-45b4b761] {\r\n    width: 250px;\r\n    height: 250px;\n}\n.circle_1[data-v-45b4b761] {\r\n    top: 14%;\n}\n.circle_2[data-v-45b4b761] {\r\n    bottom: 0%;\n}\n.main_text[data-v-45b4b761] {\r\n    font-size: 38px;\n}\n.square_text[data-v-45b4b761]{\r\n    min-width: 35%;\n}\n}\n@media (max-width: 425px) {\n.square[data-v-45b4b761] {\r\n    width: 100%;\n}\n.square_text[data-v-45b4b761] {\r\n    padding-left: 25px;\n}\n.mini_square_2[data-v-45b4b761],\r\n  .mini_square_1[data-v-45b4b761] {\r\n    width: 80px;\n}\n.circle_3[data-v-45b4b761] {\r\n    width: 350px;\r\n    height: 350px;\r\n    top: 70%;\r\n    right: -45%;\n}\n.circle_1[data-v-45b4b761],\r\n  .circle_2[data-v-45b4b761] {\r\n    width: 200px;\r\n    height: 200px;\r\n    right: 5%;\n}\n.circle_1[data-v-45b4b761] {\r\n    top: 10%;\n}\n.circle_2[data-v-45b4b761] {\r\n    bottom: -2%;\r\n    width: 250px;\r\n    height: 250px;\n}\n.main_text[data-v-45b4b761] {\r\n    font-size: 24px;\n}\n.sec_color[data-v-45b4b761] {\r\n    font-size: 16px;\n}\n}\n@media (max-width: 375px) {\n.square[data-v-45b4b761] {\r\n    width: 100%;\n}\n.square_text[data-v-45b4b761] {\r\n    padding-left: 25px;\n}\n.mini_square_2[data-v-45b4b761],\r\n  .mini_square_1[data-v-45b4b761] {\r\n    width: 80px;\n}\n.circle_3[data-v-45b4b761] {\r\n    width: 300px;\r\n    height: 300px;\r\n    top: 70%;\r\n    right: -45%;\n}\n.circle_1[data-v-45b4b761],\r\n  .circle_2[data-v-45b4b761] {\r\n    width: 200px;\r\n    height: 200px;\r\n    right: 1%;\n}\n.circle_1[data-v-45b4b761] {\r\n    top: 10%;\n}\n.circle_2[data-v-45b4b761] {\r\n    bottom: -2%;\r\n    width: 250px;\r\n    height: 250px;\n}\n.main_text[data-v-45b4b761] {\r\n    font-size: 22px;\n}\n.sec_color[data-v-45b4b761] {\r\n    font-size: 16px;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.main_container[data-v-45b4b761] {\n  width: 100%;\n  height: 100vh;\n  position: relative;\n  background: repeating-linear-gradient(\n    to right,\n    rgb(15, 122, 138, 0.7) 0%,\n    rgb(15, 122, 138, 0.7) 100%\n  );\n  overflow: hidden;\n}\n.square[data-v-45b4b761] {\n  width: 60%;\n  height: 100%;\n  position: relative;\n  z-index: 4;\n  overflow: hidden;\n  display: flex;\n  justify-content: flex-start;\n  align-items: center;\n}\n.square_text[data-v-45b4b761] {\n  color: white;\n  width: 100%;\n  min-height: 45%;\n  display: grid;\n  justify-content: flex-start;\n  align-items: center;\n  padding-left: 50px;\n}\n.main_text[data-v-45b4b761] {\n  font-weight: 700;\n  font-size: 60px;\n  color: #333333;\n}\n.sub_text[data-v-45b4b761] {\n  color: white;\n  font-size: 24px;\n  font-weight: 700;\n  display: flex;\n  align-items: center;\n}\n.mini_square_1[data-v-45b4b761],\n.mini_square_2[data-v-45b4b761] {\n  width: 150px;\n  height: 250px;\n  background: yellow;\n  position: absolute;\n  transform: rotate(-45deg);\n}\n.mini_square_1[data-v-45b4b761] {\n  top: 0;\n  right: 0;\n  top: -95px;\n  right: -50px;\n}\n.mini_square_2[data-v-45b4b761] {\n  bottom: -95px;\n  left: -50px;\n}\n.circle_1[data-v-45b4b761],\n.circle_2[data-v-45b4b761] {\n  width: 500px;\n  height: 500px;\n  position: absolute;\n  right: 20%;\n  border: 6px solid white;\n  overflow: hidden;\n}\n.circle_3[data-v-45b4b761] {\n  width: 600px;\n  height: 600px;\n  background: white;\n  position: absolute;\n  right: -10%;\n  top: 50%;\n  margin-top: -300px;\n  z-index: 2;\n  border: 6px solid white;\n  overflow: hidden;\n}\n.rounded_circle img[data-v-45b4b761] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.circle_1[data-v-45b4b761] {\n  background: orange;\n  top: -5%;\n  z-index: 1;\n}\n.circle_2[data-v-45b4b761] {\n  background: green;\n  bottom: -5%;\n  z-index: 3;\n}\nimg[data-v-45b4b761] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n@media (max-width: 1024px) {\n.circle_3[data-v-45b4b761] {\n    width: 450px;\n    height: 450px;\n    top: 70%;\n}\n.circle_1[data-v-45b4b761],\n  .circle_2[data-v-45b4b761] {\n    width: 350px;\n    height: 350px;\n}\n.circle_1[data-v-45b4b761] {\n    top: 14%;\n}\n.circle_2[data-v-45b4b761] {\n    bottom: 0%;\n}\n.main_text[data-v-45b4b761] {\n    font-size: 40px;\n}\n.mini_square_2[data-v-45b4b761],\n  .mini_square_1[data-v-45b4b761] {\n    width: 100px;\n}\n}\n@media (max-width: 768px) {\n.circle_3[data-v-45b4b761] {\n    width: 350px;\n    height: 350px;\n    top: 70%;\n}\n.circle_1[data-v-45b4b761],\n  .circle_2[data-v-45b4b761] {\n    width: 250px;\n    height: 250px;\n}\n.circle_1[data-v-45b4b761] {\n    top: 14%;\n}\n.circle_2[data-v-45b4b761] {\n    bottom: 0%;\n}\n.main_text[data-v-45b4b761] {\n    font-size: 38px;\n}\n.square_text[data-v-45b4b761]{\n    min-width: 35%;\n}\n}\n@media (max-width: 425px) {\n.square[data-v-45b4b761] {\n    width: 100%;\n}\n.square_text[data-v-45b4b761] {\n    padding-left: 25px;\n}\n.mini_square_2[data-v-45b4b761],\n  .mini_square_1[data-v-45b4b761] {\n    width: 80px;\n}\n.circle_3[data-v-45b4b761] {\n    width: 350px;\n    height: 350px;\n    top: 70%;\n    right: -45%;\n}\n.circle_1[data-v-45b4b761],\n  .circle_2[data-v-45b4b761] {\n    width: 200px;\n    height: 200px;\n    right: 5%;\n}\n.circle_1[data-v-45b4b761] {\n    top: 10%;\n}\n.circle_2[data-v-45b4b761] {\n    bottom: -2%;\n    width: 250px;\n    height: 250px;\n}\n.main_text[data-v-45b4b761] {\n    font-size: 24px;\n}\n.sec_color[data-v-45b4b761] {\n    font-size: 16px;\n}\n}\n@media (max-width: 375px) {\n.square[data-v-45b4b761] {\n    width: 100%;\n}\n.square_text[data-v-45b4b761] {\n    padding-left: 25px;\n}\n.mini_square_2[data-v-45b4b761],\n  .mini_square_1[data-v-45b4b761] {\n    width: 80px;\n}\n.circle_3[data-v-45b4b761] {\n    width: 300px;\n    height: 300px;\n    top: 70%;\n    right: -45%;\n}\n.circle_1[data-v-45b4b761],\n  .circle_2[data-v-45b4b761] {\n    width: 200px;\n    height: 200px;\n    right: 1%;\n}\n.circle_1[data-v-45b4b761] {\n    top: 10%;\n}\n.circle_2[data-v-45b4b761] {\n    bottom: -2%;\n    width: 250px;\n    height: 250px;\n}\n.main_text[data-v-45b4b761] {\n    font-size: 22px;\n}\n.sec_color[data-v-45b4b761] {\n    font-size: 16px;\n}\n}\n", ""]);
 
 // exports
 
@@ -19192,7 +18977,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.main[data-v-2ac2c897]{\r\n    position: relative;\n}\r\n", ""]);
+exports.push([module.i, "\n.main[data-v-2ac2c897]{\n    position: relative;\n}\n", ""]);
 
 // exports
 
@@ -19211,7 +18996,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-6c8c6944]{\r\n    padding-top: 60px;\r\n    padding-bottom: 45px;\n}\nform[data-v-6c8c6944]{\r\n    margin-bottom: 34px;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-6c8c6944]{\n    padding-top: 60px;\n    padding-bottom: 45px;\n}\nform[data-v-6c8c6944]{\n    margin-bottom: 34px;\n}\n", ""]);
 
 // exports
 
@@ -19230,7 +19015,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.overlay[data-v-362a9371] {\r\n  position: absolute;\r\n  top: 0;\r\n  bottom: 0;\r\n  right: 0;\r\n  left: 0;\r\n  background: rgba(255, 255, 255, 0.7);\r\n  z-index: 99;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\n}\n.overlay_box[data-v-362a9371] {\r\n  position: relative;\r\n  width: 60%;\r\n  height: 60%;\r\n  background: #fff;\r\n  border-radius: 5px;\n}\n.overlay_text[data-v-362a9371]{\r\n  display:grid;\r\n  justify-content:center;\r\n  align-items: center;\r\n  padding:15px;\r\n  height: 100%;\n}\n.quote[data-v-362a9371]{\r\n  color:#006600;\r\n  font-size: 20px;\n}\n.get_started[data-v-362a9371]{\r\n    background: #333;\r\n    color: white !important;\r\n    margin: 0 auto;\n}\n.sub_text[data-v-362a9371]{\r\n    text-align: center;\n}\n.close[data-v-362a9371]{\r\n    position:absolute;\r\n    top:-15px;\r\n    right:-15px;\n}\n@media(max-width:425px){\n.overlay_box[data-v-362a9371] {\r\n  position: relative;\r\n  width: 90%;\r\n  height: 60%;\r\n  background: #fff;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.overlay[data-v-362a9371] {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  background: rgba(255, 255, 255, 0.7);\n  z-index: 99;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.overlay_box[data-v-362a9371] {\n  position: relative;\n  width: 60%;\n  height: 60%;\n  background: #fff;\n  border-radius: 5px;\n}\n.overlay_text[data-v-362a9371]{\n  display:grid;\n  justify-content:center;\n  align-items: center;\n  padding:15px;\n  height: 100%;\n}\n.quote[data-v-362a9371]{\n  color:#006600;\n  font-size: 20px;\n}\n.get_started[data-v-362a9371]{\n    background: #333;\n    color: white !important;\n    margin: 0 auto;\n}\n.sub_text[data-v-362a9371]{\n    text-align: center;\n}\n.close[data-v-362a9371]{\n    position:absolute;\n    top:-15px;\n    right:-15px;\n}\n@media(max-width:425px){\n.overlay_box[data-v-362a9371] {\n  position: relative;\n  width: 90%;\n  height: 60%;\n  background: #fff;\n}\n}\n", ""]);
 
 // exports
 
@@ -19249,7 +19034,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.form[data-v-2d0dcb3a] {\r\n  position: relative;\n}\n.container[data-v-2d0dcb3a] {\r\n  height: 100vh;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  position: relative;\n}\n.logo[data-v-2d0dcb3a] {\r\n  position: absolute;\r\n  top: 20px;\r\n  left: 40px;\n}\nlegend[data-v-2d0dcb3a] {\r\n  font-size: 22px;\n}\n.row[data-v-2d0dcb3a] {\r\n  width: 60%;\n}\nform[data-v-2d0dcb3a] {\r\n  font-size: 15px;\r\n  border-radius: 20px;\n}\r\n", ""]);
+exports.push([module.i, "\n.form[data-v-2d0dcb3a] {\n  position: relative;\n}\n.container[data-v-2d0dcb3a] {\n  height: 100vh;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: relative;\n}\n.logo[data-v-2d0dcb3a] {\n  position: absolute;\n  top: 20px;\n  left: 40px;\n}\nlegend[data-v-2d0dcb3a] {\n  font-size: 22px;\n}\n.row[data-v-2d0dcb3a] {\n  width: 60%;\n}\nform[data-v-2d0dcb3a] {\n  font-size: 15px;\n  border-radius: 20px;\n}\n", ""]);
 
 // exports
 
@@ -19268,7 +19053,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-71c18bbd] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-71c18bbd] {\r\n  opacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\nnav[data-v-71c18bbd] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-71c18bbd] {\n  opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -19287,7 +19072,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.btn-sm[data-v-53f902fa] {\r\n  padding: 0.1rem 0.4rem;\r\n  font-size: 0.4rem;\r\n  line-height: 1.5;\n}\n.container[data-v-53f902fa] {\r\n  width: 80%;\r\n  margin: 0 auto;\n}\n.bod[data-v-53f902fa] {\r\n  background: #f7f8fa;\n}\r\n", ""]);
+exports.push([module.i, "\n.btn-sm[data-v-53f902fa] {\n  padding: 0.1rem 0.4rem;\n  font-size: 0.4rem;\n  line-height: 1.5;\n}\n.container[data-v-53f902fa] {\n  width: 80%;\n  margin: 0 auto;\n}\n.bod[data-v-53f902fa] {\n  background: #f7f8fa;\n}\n", ""]);
 
 // exports
 
@@ -19306,7 +19091,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-b40839be] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100vh;\n}\nform[data-v-b40839be] {\r\n  width: 50%;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-b40839be] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n}\nform[data-v-b40839be] {\n  width: 50%;\n}\n", ""]);
 
 // exports
 
@@ -19325,7 +19110,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-79b5561b] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100vh;\n}\nform[data-v-79b5561b]{\r\n    width:50%\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-79b5561b] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n}\nform[data-v-79b5561b]{\n    width:50%\n}\n", ""]);
 
 // exports
 
@@ -19344,7 +19129,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.view[data-v-51658877] {\r\n  background: white;\r\n  position: relative;\r\n  display: flex;\r\n  height: 92vh;\n}\n.progress[data-v-51658877] {\r\n  height: 15px;\n}\nlabel[data-v-51658877] {\r\n  margin: 0 !important;\r\n  display: block;\n}\n.message[data-v-51658877] {\r\n  font-size: 16px;\r\n  padding: 20px;\n}\n.chat-body[data-v-51658877] {\r\n  width: 80%;\r\n  height: 100%;\r\n  background: #f7f8fa;\r\n  padding: 20px 0 60px;\r\n  position: relative;\r\n  overflow: auto;\n}\n.online[data-v-51658877] {\r\n  height: 100%;\r\n  width: 20%;\n}\n.send-tab[data-v-51658877] {\r\n  position: fixed;\r\n  bottom: 0;\r\n  width: 80%;\r\n  margin: 0 auto;\r\n  padding: 10px;\r\n  background: white;\r\n  display: flex;\n}\n.emoji[data-v-51658877] {\r\n  position: absolute;\r\n  bottom: 100%;\r\n  overflow: hidden !important;\n}\n.online ul li[data-v-51658877] {\r\n  font-size: 15px;\r\n  padding: 10px 15px;\n}\n.form-group[data-v-51658877] {\r\n  position: relative;\n}\n.fa-paperclip[data-v-51658877] {\r\n  position: absolute;\r\n  font-size: 17px;\r\n  right: 10px;\r\n  top: 50%;\r\n  margin-top: -8px;\n}\n.chat-item[data-v-51658877] {\r\n  background: white;\r\n  padding: 30px 50px;\n}\r\n", ""]);
+exports.push([module.i, "\n.view[data-v-51658877] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 92vh;\n}\n.progress[data-v-51658877] {\n  height: 15px;\n}\nlabel[data-v-51658877] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-51658877] {\n  font-size: 16px;\n  padding: 20px;\n}\n.chat-body[data-v-51658877] {\n  width: 80%;\n  height: 100%;\n  background: #f7f8fa;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-51658877] {\n  height: 100%;\n  width: 20%;\n}\n.send-tab[data-v-51658877] {\n  position: fixed;\n  bottom: 0;\n  width: 80%;\n  margin: 0 auto;\n  padding: 10px;\n  background: white;\n  display: flex;\n}\n.emoji[data-v-51658877] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-51658877] {\n  font-size: 15px;\n  padding: 10px 15px;\n}\n.form-group[data-v-51658877] {\n  position: relative;\n}\n.fa-paperclip[data-v-51658877] {\n  position: absolute;\n  font-size: 17px;\n  right: 10px;\n  top: 50%;\n  margin-top: -8px;\n}\n.chat-item[data-v-51658877] {\n  background: white;\n  padding: 30px 50px;\n}\n", ""]);
 
 // exports
 
@@ -19363,7 +19148,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.my-container[data-v-bc98fdf6]{\r\n    widows: 100vw;\r\n    width: 100%;\r\n    background: rgba(255, 247, 237, 0.68);\n}\n.side[data-v-bc98fdf6]{\r\n    width: 15%;\r\n    height: 100vh;\r\n   background: #FFFFFF;\r\nbox-shadow: 0px 4px 9px rgba(128, 128, 128, 0.25);\r\nborder-radius: 0px 15px 15px 0px;\r\nposition: fixed;\n}\n.main[data-v-bc98fdf6]{\r\n    width:85%;\r\n    position: absolute;\r\n    right: 0;\r\n    background: rgba(255, 247, 237, 0.68);\r\n    height: 100vh;\r\n    overflow: auto;\n}\r\n", ""]);
+exports.push([module.i, "\n.my-container[data-v-bc98fdf6]{\n    widows: 100vw;\n    width: 100%;\n    background: rgba(255, 247, 237, 0.68);\n}\n.side[data-v-bc98fdf6]{\n    width: 15%;\n    height: 100vh;\n   background: #FFFFFF;\nbox-shadow: 0px 4px 9px rgba(128, 128, 128, 0.25);\nborder-radius: 0px 15px 15px 0px;\nposition: fixed;\n}\n.main[data-v-bc98fdf6]{\n    width:85%;\n    position: absolute;\n    right: 0;\n    background: rgba(255, 247, 237, 0.68);\n    height: 100vh;\n    overflow: auto;\n}\n", ""]);
 
 // exports
 
@@ -19382,7 +19167,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.view[data-v-7c861bc4] {\r\n  padding: 40px 20px 60px;\n}\n.main-content[data-v-7c861bc4] {\r\n  width: 80%;\r\n  margin: 0 auto;\n}\n.top_box[data-v-7c861bc4] {\r\n  background: #f7f8fa;\n}\na[data-v-7c861bc4]{\r\n  text-decoration: none;\r\n  color: black;\n}\nul[data-v-7c861bc4],\r\nol[data-v-7c861bc4] {\r\n  list-style: none;\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before {\r\n  padding: 8px;\r\n  color: black;\r\n  content: \"/\\A0\";\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before:last-child {\r\n  content: \"\";\n}\n.filter-list[data-v-7c861bc4]{\r\n  display: flex;\r\n  justify-content: flex-start;\r\nfont-size: 14px;\r\n  border-bottom: 1px solid #ccc;\r\n  font-weight: bold;\n}\n.filter-list li[data-v-7c861bc4]{\r\n color: rgba(0, 0, 0, .54);\r\n   border-bottom: 2px solid transparent;\r\n    padding: 8px 0;\n}\n.filter-list li[data-v-7c861bc4]:hover{\r\n   color: rgba(0, 0, 0, .84);\r\n   border-color: rgba(0, 0, 0, .84);\n}\n.single-content[data-v-7c861bc4]{\r\n  position: relative;\r\n  transition: .3s;\r\n  box-shadow: 10px 20px 20px rgba(247, 248, 250, 0.8);\n}\n.single-content .text-content[data-v-7c861bc4],\r\n.single-content[data-v-7c861bc4]::after{\r\n  position: absolute;\r\n  left: 20px;\r\n  right: 20px;\n}\n.single-content[data-v-7c861bc4]::after{\r\n  content: \"\";\r\n  display: block;\r\n  background: #13a699;\r\n  top: 20px;\r\n  bottom: 20px;\r\n  opacity: 0;\r\n  transform: rotate3d(-1,1,0,100deg);\r\n  transition: .4s;\n}\n.single-content[data-v-7c861bc4]:hover::after{\r\n  opacity: .9;\r\n  transform: rotate3d(0,0,0,0deg);\n}\n.single-content img[data-v-7c861bc4]{\r\n  width: 100%;\r\n  height: 100%;\n}\n.text-content[data-v-7c861bc4]{\r\n  top: 45%;\r\n  opacity: 0;\r\n  z-index: 1;\r\n  transform: translate(10%, -30%);\r\n  transition: .3s;\r\n  text-align: center;\r\n  color: #fff;\r\n  margin-top: 5px;\n}\n.text-content .btn[data-v-7c861bc4]{\r\n  color: #fff !important;\r\n  border: 1px solid #fff;\r\n  border-radius: 5px;\r\n  padding: 10px 20px;\n}\n.single-content:hover .text-content[data-v-7c861bc4]{\r\n  opacity: 1;\r\n  transform: translate(0, -50%);\r\n  transition-delay: .3s;\n}\n.explore-content[data-v-7c861bc4]{\r\n  margin-top: 15px;\n}\r\n/* .router-link-active{\r\n  border-bottom: 2px solid #ffd708;\r\n} */\ndiv[data-v-7c861bc4] {\r\n  font-family: \"Montserrat\";\n}\n.excerpt[data-v-7c861bc4]{\r\n  height: 75px;\r\n  font-size:15px;\r\n  overflow:hidden;\r\n   display: -webkit-box !important;\r\n  -webkit-line-clamp: 4;\r\n  -moz-line-clamp: 4;\r\n  -ms-line-clamp: 4;\r\n  -o-line-clamp: 4;\r\n  line-clamp: 4;\r\n  -webkit-box-orient: vertical;\r\n  -ms-box-orient: vertical;\r\n  -o-box-orient: vertical;\r\n  box-orient: vertical;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  white-space: normal;\n}\n.update[data-v-7c861bc4]{\r\n  background: #ffd708;\r\n  padding: 2px;\r\n  border-radius: 4px;\n}\r\n", ""]);
+exports.push([module.i, "\n.view[data-v-7c861bc4] {\n  padding: 40px 20px 60px;\n}\n.main-content[data-v-7c861bc4] {\n  width: 80%;\n  margin: 0 auto;\n}\n.top_box[data-v-7c861bc4] {\n  background: #f7f8fa;\n}\na[data-v-7c861bc4]{\n  text-decoration: none;\n  color: black;\n}\nul[data-v-7c861bc4],\nol[data-v-7c861bc4] {\n  list-style: none;\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before {\n  padding: 8px;\n  color: black;\n  content: \"/\\A0\";\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before:last-child {\n  content: \"\";\n}\n.filter-list[data-v-7c861bc4]{\n  display: flex;\n  justify-content: flex-start;\nfont-size: 14px;\n  border-bottom: 1px solid #ccc;\n  font-weight: bold;\n}\n.filter-list li[data-v-7c861bc4]{\n color: rgba(0, 0, 0, .54);\n   border-bottom: 2px solid transparent;\n    padding: 8px 0;\n}\n.filter-list li[data-v-7c861bc4]:hover{\n   color: rgba(0, 0, 0, .84);\n   border-color: rgba(0, 0, 0, .84);\n}\n.single-content[data-v-7c861bc4]{\n  position: relative;\n  transition: .3s;\n  box-shadow: 10px 20px 20px rgba(247, 248, 250, 0.8);\n}\n.single-content .text-content[data-v-7c861bc4],\n.single-content[data-v-7c861bc4]::after{\n  position: absolute;\n  left: 20px;\n  right: 20px;\n}\n.single-content[data-v-7c861bc4]::after{\n  content: \"\";\n  display: block;\n  background: #13a699;\n  top: 20px;\n  bottom: 20px;\n  opacity: 0;\n  transform: rotate3d(-1,1,0,100deg);\n  transition: .4s;\n}\n.single-content[data-v-7c861bc4]:hover::after{\n  opacity: .9;\n  transform: rotate3d(0,0,0,0deg);\n}\n.single-content img[data-v-7c861bc4]{\n  width: 100%;\n  height: 100%;\n}\n.text-content[data-v-7c861bc4]{\n  top: 45%;\n  opacity: 0;\n  z-index: 1;\n  transform: translate(10%, -30%);\n  transition: .3s;\n  text-align: center;\n  color: #fff;\n  margin-top: 5px;\n}\n.text-content .btn[data-v-7c861bc4]{\n  color: #fff !important;\n  border: 1px solid #fff;\n  border-radius: 5px;\n  padding: 10px 20px;\n}\n.single-content:hover .text-content[data-v-7c861bc4]{\n  opacity: 1;\n  transform: translate(0, -50%);\n  transition-delay: .3s;\n}\n.explore-content[data-v-7c861bc4]{\n  margin-top: 15px;\n}\n/* .router-link-active{\n  border-bottom: 2px solid #ffd708;\n} */\ndiv[data-v-7c861bc4] {\n  font-family: \"Montserrat\";\n}\n.excerpt[data-v-7c861bc4]{\n  height: 75px;\n  font-size:15px;\n  overflow:hidden;\n   display: -webkit-box !important;\n  -webkit-line-clamp: 4;\n  -moz-line-clamp: 4;\n  -ms-line-clamp: 4;\n  -o-line-clamp: 4;\n  line-clamp: 4;\n  -webkit-box-orient: vertical;\n  -ms-box-orient: vertical;\n  -o-box-orient: vertical;\n  box-orient: vertical;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: normal;\n}\n.update[data-v-7c861bc4]{\n  background: #ffd708;\n  padding: 2px;\n  border-radius: 4px;\n}\n", ""]);
 
 // exports
 
@@ -19401,7 +19186,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nnav[data-v-7d83ab33] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\ntd[data-v-7d83ab33] {\r\n  text-transform: capitalize;\n}\n.hiden[data-v-7d83ab33] {\r\n  opacity: 0;\n}\n.add[data-v-7d83ab33] {\r\n  background-color: #f7f8fa;\n}\ntable[data-v-7d83ab33] {\r\n  font-size: 15.5px;\n}\n.chat[data-v-7d83ab33]{\r\n  cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\nnav[data-v-7d83ab33] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\ntd[data-v-7d83ab33] {\n  text-transform: capitalize;\n}\n.hiden[data-v-7d83ab33] {\n  opacity: 0;\n}\n.add[data-v-7d83ab33] {\n  background-color: #f7f8fa;\n}\ntable[data-v-7d83ab33] {\n  font-size: 15.5px;\n}\n.chat[data-v-7d83ab33]{\n  cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -19420,7 +19205,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-42846304] {\r\n  font-family: \"Montserrat\";\n}\n.welcome-board[data-v-42846304] {\r\n  background: rgba(19, 166, 153, 0.43);\r\n  width: 100%;\r\n  height: 200px;\r\n  border-radius: 10px;\r\n  display: flex;\r\n  position: relative;\r\n  margin-top: 2rem;\n}\n.welcome-board img[data-v-42846304] {\r\n  width: 320px;\r\n  height: 280px;\r\n  position: absolute;\r\n  transform: translateY(-28%);\n}\n.welcome-board-content[data-v-42846304] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  padding: 2.5rem;\n}\n.welcome-board-content p[data-v-42846304] {\r\n  text-align: center;\r\n  padding: 10px;\n}\n.welcome-board-content h3[data-v-42846304] {\r\n  color: #13a699;\n}\n.cards[data-v-42846304] {\r\n  margin-top: 2rem;\r\n  background: #fff;\r\n  padding: 1.5rem;\r\n  border-radius: 10px;\r\n  height: 400px;\n}\n.result-progress[data-v-42846304] {\r\n  margin-top: 10px;\n}\n.progress-top[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.progress-bar[data-v-42846304] {\r\n  width: 67% !important;\r\n  background-color: #de1515 !important;\n}\n.update-content[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.update-content p[data-v-42846304] {\r\n  font-size: 12px;\r\n  padding-left: 10px;\r\n  margin-bottom: 0;\n}\n.log-link[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.log-link a[data-v-42846304] {\r\n  color: #808080;\n}\n.log-link a[data-v-42846304]:hover {\r\n  color: #13a699;\r\n  text-decoration: underline !important;\n}\n.resources-inner[data-v-42846304] {\r\n  border-bottom: 1px solid #e4e4e4;\r\n  padding-top: 5px;\n}\n.resources-inner[data-v-42846304]:last-child {\r\n  border-bottom: none;\n}\n.class-content[data-v-42846304]{\r\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-42846304]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.class-content-top i[data-v-42846304]{\r\n  color: #008e3a;\n}\n.content-2 i[data-v-42846304]{\r\n  color: #ff0000;\n}\n.class-content-main[data-v-42846304]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.class-content-main p[data-v-42846304]{\r\n  font-size: 12px;\n}\n.notes-top[data-v-42846304]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.btn[data-v-42846304]{\r\n  background: transparent;\r\n  border: 1px solid #13A699;\r\n  border-radius: 5px;\r\n  color: #13A699;\n}\n.btn[data-v-42846304]:hover{\r\n  background: #13A699;\r\n  border-radius: 5px;\r\n  color: #fff;\n}\n.update-avatar img[data-v-42846304]{\r\n  height: 40px;\r\n  width: 40px;\n}\n.notes-content[data-v-42846304] {\r\n  border-bottom: 1px solid #e4e4e4;\n}\n.notes-content[data-v-42846304]:last-child {\r\n  border-bottom: none;\n}\n.notes-top[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  padding-bottom: 1rem;\n}\n.notes-content-top[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.notes-content-top h6[data-v-42846304] {\r\n  margin-bottom: 0;\r\n  padding-top: 5px;\n}\n.notes-content[data-v-42846304] {\r\n  padding-top: 5px;\n}\n.notes-content-main[data-v-42846304] {\r\n  padding-bottom: 5px;\n}\n.notes-content-main p[data-v-42846304] {\r\n  font-size: 12px;\r\n  margin-bottom: 0;\n}\n.notes-date[data-v-42846304] {\r\n  color: #808080;\r\n  padding-top: 5px;\r\n  padding-left: 10px;\n}\n.fa-file-o[data-v-42846304] {\r\n  color: #13A699;\r\n  background: rgba(19, 166, 153, 0.43);\r\n  border-radius: 50%;\r\n  padding: 9px;\n}\n.discussion-content[data-v-42846304]{\r\n  border-bottom:1px solid #e4e4e4;\r\n  padding-bottom: 10px;\r\n  padding-top: 5px;\n}\n.discussion-content[data-v-42846304]:last-child{\r\n  border-bottom: none;\n}\n.discussion-content p[data-v-42846304]{\r\n  font-size: 10px;\n}\n.discussion-content-top[data-v-42846304]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.discussion-content-top p[data-v-42846304]{\r\n font-size: 14px;\n}\n.discussion-content-bottom[data-v-42846304]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.discussion-content-bottom p[data-v-42846304]{\r\n  font-size: 12px;\r\n  margin-bottom: 0;\n}\n.notify-discussion p[data-v-42846304]{\r\n background: #e4e4e4;\r\n color: #808080;\r\n border-radius: 5px;\r\n font-weight: 500;\r\n padding: 5px 10px;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-42846304] {\n  font-family: \"Montserrat\";\n}\n.welcome-board[data-v-42846304] {\n  background: rgba(19, 166, 153, 0.43);\n  width: 100%;\n  height: 200px;\n  border-radius: 10px;\n  display: flex;\n  position: relative;\n  margin-top: 2rem;\n}\n.welcome-board img[data-v-42846304] {\n  width: 320px;\n  height: 280px;\n  position: absolute;\n  transform: translateY(-28%);\n}\n.welcome-board-content[data-v-42846304] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  padding: 2.5rem;\n}\n.welcome-board-content p[data-v-42846304] {\n  text-align: center;\n  padding: 10px;\n}\n.welcome-board-content h3[data-v-42846304] {\n  color: #13a699;\n}\n.cards[data-v-42846304] {\n  margin-top: 2rem;\n  background: #fff;\n  padding: 1.5rem;\n  border-radius: 10px;\n  height: 400px;\n}\n.result-progress[data-v-42846304] {\n  margin-top: 10px;\n}\n.progress-top[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.progress-bar[data-v-42846304] {\n  width: 67% !important;\n  background-color: #de1515 !important;\n}\n.update-content[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.update-content p[data-v-42846304] {\n  font-size: 12px;\n  padding-left: 10px;\n  margin-bottom: 0;\n}\n.log-link[data-v-42846304] {\n  display: flex;\n  justify-content: flex-end;\n}\n.log-link a[data-v-42846304] {\n  color: #808080;\n}\n.log-link a[data-v-42846304]:hover {\n  color: #13a699;\n  text-decoration: underline !important;\n}\n.resources-inner[data-v-42846304] {\n  border-bottom: 1px solid #e4e4e4;\n  padding-top: 5px;\n}\n.resources-inner[data-v-42846304]:last-child {\n  border-bottom: none;\n}\n.class-content[data-v-42846304]{\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-top i[data-v-42846304]{\n  color: #008e3a;\n}\n.content-2 i[data-v-42846304]{\n  color: #ff0000;\n}\n.class-content-main[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-42846304]{\n  font-size: 12px;\n}\n.notes-top[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.btn[data-v-42846304]{\n  background: transparent;\n  border: 1px solid #13A699;\n  border-radius: 5px;\n  color: #13A699;\n}\n.btn[data-v-42846304]:hover{\n  background: #13A699;\n  border-radius: 5px;\n  color: #fff;\n}\n.update-avatar img[data-v-42846304]{\n  height: 40px;\n  width: 40px;\n}\n.notes-content[data-v-42846304] {\n  border-bottom: 1px solid #e4e4e4;\n}\n.notes-content[data-v-42846304]:last-child {\n  border-bottom: none;\n}\n.notes-top[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 1rem;\n}\n.notes-content-top[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.notes-content-top h6[data-v-42846304] {\n  margin-bottom: 0;\n  padding-top: 5px;\n}\n.notes-content[data-v-42846304] {\n  padding-top: 5px;\n}\n.notes-content-main[data-v-42846304] {\n  padding-bottom: 5px;\n}\n.notes-content-main p[data-v-42846304] {\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notes-date[data-v-42846304] {\n  color: #808080;\n  padding-top: 5px;\n  padding-left: 10px;\n}\n.fa-file-o[data-v-42846304] {\n  color: #13A699;\n  background: rgba(19, 166, 153, 0.43);\n  border-radius: 50%;\n  padding: 9px;\n}\n.discussion-content[data-v-42846304]{\n  border-bottom:1px solid #e4e4e4;\n  padding-bottom: 10px;\n  padding-top: 5px;\n}\n.discussion-content[data-v-42846304]:last-child{\n  border-bottom: none;\n}\n.discussion-content p[data-v-42846304]{\n  font-size: 10px;\n}\n.discussion-content-top[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-top p[data-v-42846304]{\n font-size: 14px;\n}\n.discussion-content-bottom[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-bottom p[data-v-42846304]{\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notify-discussion p[data-v-42846304]{\n background: #e4e4e4;\n color: #808080;\n border-radius: 5px;\n font-weight: 500;\n padding: 5px 10px;\n}\n", ""]);
 
 // exports
 
@@ -19439,7 +19224,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nnav[data-v-a2f61c28] {\r\n  background: #f7f8fa;\n}\n.bar[data-v-a2f61c28] {\r\n  position: relative;\r\n  width: 20%;\r\n  text-align: center;\r\n  font-size: 14px;\n}\n.red[data-v-a2f61c28] {\r\n  color: var(--red, red);\n}\n.search_bar[data-v-a2f61c28] {\r\n  position: relative;\r\n  margin-bottom: 0;\n}\n.search_input[data-v-a2f61c28] {\r\n  border-color: #f7f8fa;\r\n  height: 30px;\r\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-webkit-input-placeholder {\r\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-moz-placeholder {\r\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]:-ms-input-placeholder {\r\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-ms-input-placeholder {\r\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::placeholder {\r\n  font-size: 13px;\n}\n.fa-search[data-v-a2f61c28] {\r\n  position: absolute;\r\n  font-size: 12px;\r\n  right: 14px;\r\n  top: 50%;\r\n  margin-top: -6px;\r\n  color: rgba(0, 0, 0, 0.44);\n}\n.options[data-v-a2f61c28] {\r\n  width: 15px;\n}\ntd[data-v-a2f61c28] {\r\n  text-transform: capitalize;\n}\nul[data-v-a2f61c28] {\r\n  list-style: none;\n}\n.options[data-v-a2f61c28] {\r\n  position: relative;\n}\n.option[data-v-a2f61c28] {\r\n  display: none;\r\n  position: absolute;\r\n  padding: 15px;\r\n  bottom: 80%;\r\n  width: 100px;\r\n  right: 12px;\r\n  background: white;\n}\n.options:hover .option[data-v-a2f61c28] {\r\n  display: block;\n}\n.option li[data-v-a2f61c28] {\r\n  padding: 4px 15px;\r\n  cursor: pointer;\n}\n.view-resource-header[data-v-a2f61c28] {\r\n  background-image: linear-gradient(\r\n      to bottom,\r\n      rgba(19, 166, 153, 0.65),\r\n      rgba(19, 166, 153, 0.65)\r\n    ),\r\n    url(/images/resource-bg.png);\r\n  color: #fff;\r\n  padding: 1.5rem;\r\n  margin-top: 2rem;\n}\n.view-resource-header p[data-v-a2f61c28] {\r\n  margin-bottom: 0.5rem !important;\n}\n.btn[data-v-a2f61c28] {\r\n  background: transparent;\r\n  border: 1px solid #fff;\r\n  color: white !important;\r\n  margin-right: 10px;\r\n  margin-bottom: 15px;\n}\n.btn[data-v-a2f61c28]:hover {\r\n  background: #fff;\r\n  color: #13a699 !important;\r\n  transition: 0.3s;\r\n  border: none;\n}\n.what-you-will-learn[data-v-a2f61c28] {\r\n  margin-top: 2rem;\n}\n.what-you-will-learn ul[data-v-a2f61c28] {\r\n  list-style-image: url(\"/images/checked-1.png\");\r\n  padding: 15px;\n}\n.what-you-will-learn ul li[data-v-a2f61c28] {\r\n  padding-top: 10px;\n}\n.sutdent-assessed ul[data-v-a2f61c28] {\r\n  list-style-image: url(\"/images/checked-1.png\");\r\n  padding: 10px 15px;\n}\n.sutdent-assessed ul li[data-v-a2f61c28] {\r\n  padding-bottom: 10px;\n}\n.sutdent-assessed[data-v-a2f61c28] {\r\n  margin-top: 2rem;\n}\n.course-content[data-v-a2f61c28] {\r\n  color: #13a699;\n}\n.featured-review-inner-top[data-v-a2f61c28] {\r\n  display: flex;\r\n  padding: 15px;\n}\n.featured-review-top[data-v-a2f61c28] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.featured-review-inner-top p[data-v-a2f61c28] {\r\n  padding-left: 10px;\n}\n.featured-review-top img[data-v-a2f61c28] {\r\n  height: 20px;\r\n  width: 100px;\n}\n.review[data-v-a2f61c28] {\r\n  background-color: #fff;\r\n  border: 1px solid #808080;\r\n  border-radius: 5px;\r\n  padding: 10px;\r\n  margin-bottom: 10px;\n}\n.btn-review[data-v-a2f61c28]{\r\n  background-color:#13a699 ;\r\n  color: #fff !important;\r\n  border: none;\r\n  padding: 10px 20px;\r\n  border-radius: 10px;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\nnav[data-v-a2f61c28] {\n  background: #f7f8fa;\n}\n.bar[data-v-a2f61c28] {\n  position: relative;\n  width: 20%;\n  text-align: center;\n  font-size: 14px;\n}\n.red[data-v-a2f61c28] {\n  color: var(--red, red);\n}\n.search_bar[data-v-a2f61c28] {\n  position: relative;\n  margin-bottom: 0;\n}\n.search_input[data-v-a2f61c28] {\n  border-color: #f7f8fa;\n  height: 30px;\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-webkit-input-placeholder {\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-moz-placeholder {\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]:-ms-input-placeholder {\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-ms-input-placeholder {\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::placeholder {\n  font-size: 13px;\n}\n.fa-search[data-v-a2f61c28] {\n  position: absolute;\n  font-size: 12px;\n  right: 14px;\n  top: 50%;\n  margin-top: -6px;\n  color: rgba(0, 0, 0, 0.44);\n}\n.options[data-v-a2f61c28] {\n  width: 15px;\n}\ntd[data-v-a2f61c28] {\n  text-transform: capitalize;\n}\nul[data-v-a2f61c28] {\n  list-style: none;\n}\n.options[data-v-a2f61c28] {\n  position: relative;\n}\n.option[data-v-a2f61c28] {\n  display: none;\n  position: absolute;\n  padding: 15px;\n  bottom: 80%;\n  width: 100px;\n  right: 12px;\n  background: white;\n}\n.options:hover .option[data-v-a2f61c28] {\n  display: block;\n}\n.option li[data-v-a2f61c28] {\n  padding: 4px 15px;\n  cursor: pointer;\n}\n.view-resource-header[data-v-a2f61c28] {\n  background-image: linear-gradient(\n      to bottom,\n      rgba(19, 166, 153, 0.65),\n      rgba(19, 166, 153, 0.65)\n    ),\n    url(/images/resource-bg.png);\n  color: #fff;\n  padding: 1.5rem;\n  margin-top: 2rem;\n}\n.view-resource-header p[data-v-a2f61c28] {\n  margin-bottom: 0.5rem !important;\n}\n.btn[data-v-a2f61c28] {\n  background: transparent;\n  border: 1px solid #fff;\n  color: white !important;\n  margin-right: 10px;\n  margin-bottom: 15px;\n}\n.btn[data-v-a2f61c28]:hover {\n  background: #fff;\n  color: #13a699 !important;\n  transition: 0.3s;\n  border: none;\n}\n.what-you-will-learn[data-v-a2f61c28] {\n  margin-top: 2rem;\n}\n.what-you-will-learn ul[data-v-a2f61c28] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 15px;\n}\n.what-you-will-learn ul li[data-v-a2f61c28] {\n  padding-top: 10px;\n}\n.sutdent-assessed ul[data-v-a2f61c28] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 10px 15px;\n}\n.sutdent-assessed ul li[data-v-a2f61c28] {\n  padding-bottom: 10px;\n}\n.sutdent-assessed[data-v-a2f61c28] {\n  margin-top: 2rem;\n}\n.course-content[data-v-a2f61c28] {\n  color: #13a699;\n}\n.featured-review-inner-top[data-v-a2f61c28] {\n  display: flex;\n  padding: 15px;\n}\n.featured-review-top[data-v-a2f61c28] {\n  display: flex;\n  justify-content: space-between;\n}\n.featured-review-inner-top p[data-v-a2f61c28] {\n  padding-left: 10px;\n}\n.featured-review-top img[data-v-a2f61c28] {\n  height: 20px;\n  width: 100px;\n}\n.review[data-v-a2f61c28] {\n  background-color: #fff;\n  border: 1px solid #808080;\n  border-radius: 5px;\n  padding: 10px;\n  margin-bottom: 10px;\n}\n.btn-review[data-v-a2f61c28] {\n  background-color: #13a699;\n  color: #fff !important;\n  border: none;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n", ""]);
 
 // exports
 
@@ -19458,7 +19243,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.nav-item i[data-v-09903b50] {\r\n  color: #808080;\r\n  font-size: 24px;\n}\n#notification[data-v-09903b50] {\r\n  position: relative;\r\n  z-index: 999;\n}\n.notification-body[data-v-09903b50] {\r\n  position: absolute;\r\n  left: -240px;\r\n  width: 250px;\n}\n.main-notify[data-v-09903b50] {\r\n  max-height: 300px;\r\n  overflow: scroll;\n}\n.icon[data-v-09903b50] {\r\n  position: relative;\n}\n.badge[data-v-09903b50] {\r\n  position: absolute;\r\n  top: -40%;\r\n  left: 50%;\r\n  background: red;\r\n  color: white;\r\n  font-size: 14px;\n}\n.list-group-item[data-v-09903b50] {\r\n  font-size: 14px;\n}\r\n/* .semi-white{\r\n\r\n  padding:50px 20px;\r\n\r\n}\r\nnav {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  background:white;\r\n}\r\n\r\n.fa-bell {\r\n  font-size: 24px;\r\n  color:#ffd708;\r\n} */\n.search[data-v-09903b50] {\r\n  width: 250px;\r\n  background: transparent !important;\r\n  border-color: #808080;\n}\r\n", ""]);
+exports.push([module.i, "\n.nav-item i[data-v-09903b50] {\n  color: #808080;\n  font-size: 24px;\n}\n#notification[data-v-09903b50] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-09903b50] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-09903b50] {\n  max-height: 300px;\n  overflow: scroll;\n}\n.icon[data-v-09903b50] {\n  position: relative;\n}\n.badge[data-v-09903b50] {\n  position: absolute;\n  top: -40%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 14px;\n}\n.list-group-item[data-v-09903b50] {\n  font-size: 14px;\n}\n/* .semi-white{\n\n  padding:50px 20px;\n\n}\nnav {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background:white;\n}\n\n.fa-bell {\n  font-size: 24px;\n  color:#ffd708;\n} */\n.search[data-v-09903b50] {\n  width: 250px;\n  background: transparent !important;\n  border-color: #808080;\n}\n", ""]);
 
 // exports
 
@@ -19477,7 +19262,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-4519a04c] {\r\n  padding: 50px 20px 70px;\r\n  height: 100%;\n}\n.info[data-v-4519a04c] {\r\n  width: 80%;\r\n  margin: 0 auto;\n}\nli[data-v-4519a04c]{\r\n  padding:8px 0\n}\n.image[data-v-4519a04c] {\r\n  width: 140px;\r\n  height: 140px;\r\n  border-radius: 50%;\r\n  overflow: hidden;\n}\n.image img[data-v-4519a04c]{\r\n    width:100%;\r\n    height:100%;\r\n    -o-object-fit: cover;\r\n       object-fit: cover;\n}\nul[data-v-4519a04c] {\r\n  list-style: none;\n}\nli[data-v-4519a04c] {\r\n  text-transform: capitalize;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-4519a04c] {\n  padding: 50px 20px 70px;\n  height: 100%;\n}\n.info[data-v-4519a04c] {\n  width: 80%;\n  margin: 0 auto;\n}\nli[data-v-4519a04c]{\n  padding:8px 0\n}\n.image[data-v-4519a04c] {\n  width: 140px;\n  height: 140px;\n  border-radius: 50%;\n  overflow: hidden;\n}\n.image img[data-v-4519a04c]{\n    width:100%;\n    height:100%;\n    -o-object-fit: cover;\n       object-fit: cover;\n}\nul[data-v-4519a04c] {\n  list-style: none;\n}\nli[data-v-4519a04c] {\n  text-transform: capitalize;\n}\n", ""]);
 
 // exports
 
@@ -19496,7 +19281,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nul[data-v-1d9937ed] {\r\n  margin: auto;\n}\nli[data-v-1d9937ed] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  align-items: center;\r\n  padding-top: 1rem;\n}\nul a[data-v-1d9937ed] {\r\n  color: #565454;\r\n  font-size: 12px;\r\n  font-family: \"Montserrat\";\n}\nul i[data-v-1d9937ed] {\r\n  font-size: 20px;\n}\n.logo[data-v-1d9937ed]{\r\n    padding: 10px 20px;\r\n    margin-bottom:20px;\r\n    text-align:center;\r\n    font-weight: bold;\r\n    font-family: 'Josefin Sans';\r\n    font-size: 32px;\n}\n.logo h6[data-v-1d9937ed]{\r\n    font-weight: bold;\r\n    font-family: 'Josefin Sans';\r\n    font-size: 24px;\r\n    text-align:center;\r\n    color:#ffd708;\r\n    margin:0;\n}\r\n/* .logo{\r\n    padding: 10px 20px;\r\n    margin-bottom:20px;\r\n    text-align:center;\r\n}\r\n.logo h6{\r\n    font-weight: bold;\r\n    font-family: 'Josefin Sans';\r\n    font-size: 24px;\r\n    text-align:center;\r\n    color:#ffd708;\r\n    margin:0;\r\n}\r\n.logo small{\r\n \r\n  font-size:18px;\r\n    color:hsl(50deg 100% 20%)\r\n\r\n}\r\nul{\r\n    list-style:none;\r\n}\r\nnav ul li{\r\n  padding: 10px 20px;\r\n  font-size: 15px;\r\n  cursor: pointer;\r\n  color:hsl(50deg 100% 20%);\r\n}\r\nnav{\r\n    padding-left:20px;\r\n} */\r\n/* .router-link-exact-active li{\r\nbackground:#f7f8fa ;\r\nborder-top-left-radius:10px;\r\nborder-bottom-left-radius:10px\r\n} */\r\n", ""]);
+exports.push([module.i, "\nul[data-v-1d9937ed] {\n  margin: auto;\n}\nli[data-v-1d9937ed] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  padding-top: 1rem;\n}\nul a[data-v-1d9937ed] {\n  color: #565454;\n  font-size: 12px;\n  font-family: \"Montserrat\";\n}\nul i[data-v-1d9937ed] {\n  font-size: 20px;\n}\n.logo[data-v-1d9937ed]{\n    padding: 10px 20px;\n    margin-bottom:20px;\n    text-align:center;\n    font-weight: bold;\n    font-family: 'Josefin Sans';\n    font-size: 32px;\n}\n.logo h6[data-v-1d9937ed]{\n    font-weight: bold;\n    font-family: 'Josefin Sans';\n    font-size: 24px;\n    text-align:center;\n    color:#ffd708;\n    margin:0;\n}\n/* .logo{\n    padding: 10px 20px;\n    margin-bottom:20px;\n    text-align:center;\n}\n.logo h6{\n    font-weight: bold;\n    font-family: 'Josefin Sans';\n    font-size: 24px;\n    text-align:center;\n    color:#ffd708;\n    margin:0;\n}\n.logo small{\n \n  font-size:18px;\n    color:hsl(50deg 100% 20%)\n\n}\nul{\n    list-style:none;\n}\nnav ul li{\n  padding: 10px 20px;\n  font-size: 15px;\n  cursor: pointer;\n  color:hsl(50deg 100% 20%);\n}\nnav{\n    padding-left:20px;\n} */\n/* .router-link-exact-active li{\nbackground:#f7f8fa ;\nborder-top-left-radius:10px;\nborder-bottom-left-radius:10px\n} */\n", ""]);
 
 // exports
 
@@ -19515,7 +19300,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.views[data-v-08cfd63a] {\r\n  display: flex;\r\n  height: 100%;\n}\n.main-view[data-v-08cfd63a] {\r\n  width: 70%;\r\n  height: 100%;\n}\n.side-view[data-v-08cfd63a] {\r\n  width: 30%;\r\n  background: #f7f8f8;\r\n  height: 100%;\r\n  padding: 20px;\n}\n.player[data-v-08cfd63a] {\r\n  width: 100%;\r\n  margin: 0 auto;\r\n  background: black;\n}\n.audio-player[data-v-08cfd63a] {\r\n  padding: 40px 15px;\n}\n.screen[data-v-08cfd63a] {\r\n  width: 70%;\r\n  min-height: 100vh;\r\n  padding: 15px;\r\n  position: relative;\n}\n.fullOpen[data-v-08cfd63a] {\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  padding: 5px;\r\n  background: #f7f8fa;\n}\n.pageNum[data-v-08cfd63a] {\r\n  width: 30px;\r\n  border: none !important;\n}\n.navigate[data-v-08cfd63a] {\r\n  display: flex;\r\n  align-items: center;\n}\n.content_view[data-v-08cfd63a] {\r\n  width: 30%;\r\n  min-height: 100vh;\r\n  padding: 15px;\r\n  background: #f7f8fa;\n}\n.pdf_container[data-v-08cfd63a] {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 90%;\r\n  position: relative;\n}\n.loade[data-v-08cfd63a] {\r\n  position: absolute;\n}\n.pdf_about[data-v-08cfd63a] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: flex-start;\r\n  min-height: 250px;\r\n  overflow: scroll;\r\n  padding-bottom: 20px;\n}\n.pdf_title[data-v-08cfd63a] {\r\n  text-transform: capitalize;\n}\n.cover_image[data-v-08cfd63a] {\r\n  width: 100px;\r\n  height: auto;\n}\n.controls[data-v-08cfd63a] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\n}\n.view[data-v-08cfd63a] {\r\n  overflow-y: scroll;\r\n  max-height: 60vh;\n}\n.info[data-v-08cfd63a] {\r\n  padding: 0 15px;\n}\n.buttons[data-v-08cfd63a] {\r\n  padding: 0 15px;\n}\n.link-title[data-v-08cfd63a] {\r\n  cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\n.views[data-v-08cfd63a] {\n  display: flex;\n  height: 100%;\n}\n.main-view[data-v-08cfd63a] {\n  width: 70%;\n  height: 100%;\n}\n.side-view[data-v-08cfd63a] {\n  width: 30%;\n  background: #f7f8f8;\n  height: 100%;\n  padding: 20px;\n}\n.player[data-v-08cfd63a] {\n  width: 100%;\n  margin: 0 auto;\n  background: black;\n}\n.audio-player[data-v-08cfd63a] {\n  padding: 40px 15px;\n}\n.screen[data-v-08cfd63a] {\n  width: 70%;\n  min-height: 100vh;\n  padding: 15px;\n  position: relative;\n}\n.fullOpen[data-v-08cfd63a] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  padding: 5px;\n  background: #f7f8fa;\n}\n.pageNum[data-v-08cfd63a] {\n  width: 30px;\n  border: none !important;\n}\n.navigate[data-v-08cfd63a] {\n  display: flex;\n  align-items: center;\n}\n.content_view[data-v-08cfd63a] {\n  width: 30%;\n  min-height: 100vh;\n  padding: 15px;\n  background: #f7f8fa;\n}\n.pdf_container[data-v-08cfd63a] {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 90%;\n  position: relative;\n}\n.loade[data-v-08cfd63a] {\n  position: absolute;\n}\n.pdf_about[data-v-08cfd63a] {\n  display: flex;\n  justify-content: space-between;\n  align-items: flex-start;\n  min-height: 250px;\n  overflow: scroll;\n  padding-bottom: 20px;\n}\n.pdf_title[data-v-08cfd63a] {\n  text-transform: capitalize;\n}\n.cover_image[data-v-08cfd63a] {\n  width: 100px;\n  height: auto;\n}\n.controls[data-v-08cfd63a] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.view[data-v-08cfd63a] {\n  overflow-y: scroll;\n  max-height: 60vh;\n}\n.info[data-v-08cfd63a] {\n  padding: 0 15px;\n}\n.buttons[data-v-08cfd63a] {\n  padding: 0 15px;\n}\n.link-title[data-v-08cfd63a] {\n  cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -19534,7 +19319,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-1e6387a8] {\r\n  position: relative;\n}\nform[data-v-1e6387a8] {\r\n  width: 70%;\r\n  margin:0 auto;\r\n  padding:70px 0\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-1e6387a8] {\n  position: relative;\n}\nform[data-v-1e6387a8] {\n  width: 70%;\n  margin:0 auto;\n  padding:70px 0\n}\n", ""]);
 
 // exports
 
@@ -19553,7 +19338,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.jumb[data-v-ce72931c] {\r\n  width: 100%;\r\n  position: relative;\r\n  background: transparent;\n}\n.top_n[data-v-ce72931c] {\r\n  position: relative;\r\n\r\n  -o-object-fit: cover;\r\n\r\n     object-fit: cover;\n}\n.excerpt[data-v-ce72931c]{\r\n  width: 60%;\n}\n.overlay-n[data-v-ce72931c] {\r\n  top: 0px;\r\n  left: 0px;\r\n  bottom: 0px;\r\n  right: 0px;\r\n  opacity: 0.85;\r\n  background: #f7f8fa;\r\n  -webkit-backdrop-filter: blur(2px);\r\n          backdrop-filter: blur(2px);\r\n  position: absolute;\n}\n.main-bar[data-v-ce72931c] {\r\n  width: 70%;\r\n  margin-right: auto;\n}\n.floating-bar[data-v-ce72931c]{\r\n  position: fixed;\r\n  right: 5%;\r\n  top:30%;\n}\n.view-resource-header[data-v-ce72931c] {\r\n  background-image: linear-gradient(\r\n      to bottom,\r\n      rgba(19, 166, 153, 0.65),\r\n      rgba(19, 166, 153, 0.65)\r\n    ),\r\n    url(/images/resource-bg.png);\r\n  color: #fff;\r\n  padding: 1.5rem;\r\n  margin-top: 2rem;\n}\n.view-resource-header p[data-v-ce72931c] {\r\n  margin-bottom: 0.5rem !important;\n}\n.btn[data-v-ce72931c] {\r\n  background: transparent;\r\n  border: 1px solid #fff;\r\n  color: white !important;\r\n  margin-right: 10px;\r\n  margin-bottom: 15px;\n}\n.btn[data-v-ce72931c]:hover {\r\n  background: #fff;\r\n  color: #13a699 !important;\r\n  transition: 0.3s;\r\n  border: none;\n}\n.what-you-will-learn[data-v-ce72931c] {\r\n  margin-top: 2rem;\n}\n.what-you-will-learn ul[data-v-ce72931c] {\r\n  list-style-image: url(\"/images/checked-1.png\");\r\n  padding: 15px;\n}\n.what-you-will-learn ul li[data-v-ce72931c] {\r\n  padding-top: 10px;\n}\n.sutdent-assessed ul[data-v-ce72931c] {\r\n  list-style-image: url(\"/images/checked-1.png\");\r\n  padding: 10px 15px;\n}\n.sutdent-assessed ul li[data-v-ce72931c] {\r\n  padding-bottom: 10px;\n}\n.sutdent-assessed[data-v-ce72931c] {\r\n  margin-top: 2rem;\n}\n.course-content[data-v-ce72931c] {\r\n  color: #13a699;\n}\n.featured-review-inner-top[data-v-ce72931c] {\r\n  display: flex;\r\n  padding: 15px;\n}\n.featured-review-top[data-v-ce72931c] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.featured-review-inner-top p[data-v-ce72931c] {\r\n  padding-left: 10px;\n}\n.featured-review-top img[data-v-ce72931c] {\r\n  height: 20px;\r\n  width: 100px;\n}\n.review[data-v-ce72931c] {\r\n  background-color: #fff;\r\n  border: 1px solid #808080;\r\n  border-radius: 5px;\r\n  padding: 10px;\r\n  margin-bottom: 10px;\n}\n.btn-review[data-v-ce72931c]{\r\n  background-color:#13a699 ;\r\n  color: #fff !important;\r\n  border: none;\r\n  padding: 10px 20px;\r\n  border-radius: 10px;\n}\r\n", ""]);
+exports.push([module.i, "\n.jumb[data-v-ce72931c] {\n  width: 100%;\n  position: relative;\n  background: transparent;\n}\n.top_n[data-v-ce72931c] {\n  position: relative;\n\n  -o-object-fit: cover;\n\n     object-fit: cover;\n}\n.excerpt[data-v-ce72931c]{\n  width: 60%;\n}\n.overlay-n[data-v-ce72931c] {\n  top: 0px;\n  left: 0px;\n  bottom: 0px;\n  right: 0px;\n  opacity: 0.85;\n  background: #f7f8fa;\n  -webkit-backdrop-filter: blur(2px);\n          backdrop-filter: blur(2px);\n  position: absolute;\n}\n.main-bar[data-v-ce72931c] {\n  width: 70%;\n  margin-right: auto;\n}\n.floating-bar[data-v-ce72931c]{\n  position: fixed;\n  right: 5%;\n  top:30%;\n}\n.view-resource-header[data-v-ce72931c] {\n  background-image: linear-gradient(\n      to bottom,\n      rgba(19, 166, 153, 0.65),\n      rgba(19, 166, 153, 0.65)\n    ),\n    url(/images/resource-bg.png);\n  color: #fff;\n  padding: 1.5rem;\n  margin-top: 2rem;\n}\n.view-resource-header p[data-v-ce72931c] {\n  margin-bottom: 0.5rem !important;\n}\n.btn[data-v-ce72931c] {\n  background: transparent;\n  border: 1px solid #fff;\n  color: white !important;\n  margin-right: 10px;\n  margin-bottom: 15px;\n}\n.btn[data-v-ce72931c]:hover {\n  background: #fff;\n  color: #13a699 !important;\n  transition: 0.3s;\n  border: none;\n}\n.what-you-will-learn[data-v-ce72931c] {\n  margin-top: 2rem;\n}\n.what-you-will-learn ul[data-v-ce72931c] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 15px;\n}\n.what-you-will-learn ul li[data-v-ce72931c] {\n  padding-top: 10px;\n}\n.sutdent-assessed ul[data-v-ce72931c] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 10px 15px;\n}\n.sutdent-assessed ul li[data-v-ce72931c] {\n  padding-bottom: 10px;\n}\n.sutdent-assessed[data-v-ce72931c] {\n  margin-top: 2rem;\n}\n.course-content[data-v-ce72931c] {\n  color: #13a699;\n}\n.featured-review-inner-top[data-v-ce72931c] {\n  display: flex;\n  padding: 15px;\n}\n.featured-review-top[data-v-ce72931c] {\n  display: flex;\n  justify-content: space-between;\n}\n.featured-review-inner-top p[data-v-ce72931c] {\n  padding-left: 10px;\n}\n.featured-review-top img[data-v-ce72931c] {\n  height: 20px;\n  width: 100px;\n}\n.review[data-v-ce72931c] {\n  background-color: #fff;\n  border: 1px solid #808080;\n  border-radius: 5px;\n  padding: 10px;\n  margin-bottom: 10px;\n}\n.btn-review[data-v-ce72931c]{\n  background-color:#13a699 ;\n  color: #fff !important;\n  border: none;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n.btn-secondary[data-v-ce72931c] {\n    color: #fff !important;\n    background-color: #13a699 !important;\n    border-color: #13a699;\n}\n.btn-secondary[data-v-ce72931c]:hover{\ncolor: #13a699 !important;\n    background-color: #fff !important;\n}\n.container[data-v-ce72931c]{\n  width:60%;\n  margin-right: 40%;\n}\n", ""]);
 
 // exports
 
@@ -19572,7 +19357,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.main-box[data-v-b3669d42] {\r\n  padding: 20px;\r\n  background: #fff;\r\n  border-radius: 10px;\r\n  position: relative;\r\n  box-shadow: 5px 4px 11px rgba(249, 247, 240, 0.25);\n}\n.top-box[data-v-b3669d42] {\r\n  margin: 0 auto;\r\n  background: white;\r\n  height: auto;\n}\n.bottom-box[data-v-b3669d42] {\r\n  margin: 0 auto;\r\n  background: white;\n}\n.hide[data-v-b3669d42] {\r\n  height: 120px;\r\n  overflow: hidden;\n}\n.btn-sm[data-v-b3669d42] {\r\n  padding: 0.1rem 0.4rem;\r\n  font-size: 0.4rem;\r\n  line-height: 1.5;\n}\n.custom-select[data-v-b3669d42] {\r\n  display: inline-block !important;\r\n  width: 100%;\r\n  height: calc(1.5em + 0.75rem + 2px);\r\n  padding: 0.375rem 1.75rem 0.375rem 0.75rem;\r\n  font-size: 1rem;\r\n  font-weight: 400;\r\n  line-height: 1.5;\r\n  color: #495057;\r\n  vertical-align: middle;\r\n  /* background: #fff; */\r\n  border: 1px solid #ced4da;\r\n  border-radius: 0.25rem;\r\n  /* -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none; */\r\n  background: #fff url(/images/down-chevron.png) no-repeat right 0.75rem\r\n    center/8px 10px;\n}\n.right-btn[data-v-b3669d42] {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  margin-right: 25px;\r\n  margin-top: 25px;\n}\n.upload-btn-wrapper[data-v-b3669d42] {\r\n  position: relative;\r\n  overflow: hidden;\r\n  display: inline-block;\r\n  width: 100%;\n}\n.upload-btn-wrapper .btn[data-v-b3669d42] {\r\n  border: 1px solid gray;\r\n  color: gray;\r\n  background-color: white;\r\n  padding: 8px 20px;\r\n  border-radius: 8px;\r\n  font-size: 20px;\r\n  font-weight: bold;\r\n  border-style: dotted;\r\n  width: 100%;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  align-items: center;\n}\n.upload-btn-wrapper input[type=file][data-v-b3669d42] {\r\n  font-size: 100px;\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0;\r\n  opacity: 0;\n}\n.save[data-v-b3669d42]{\r\n  background: #fff;\r\n  border-radius: 10px;\r\n  display: flex;\r\n  flex-direction:column;\r\n  padding: 15px;\r\n  margin-top: 2rem;\n}\n.btn[data-v-b3669d42]{\r\n  padding: 10px 20px;\r\n  border-radius: 5px;\r\n  margin: 10px;\n}\n.btn-save[data-v-b3669d42]{\r\n  background: #0a4065;\r\n  color: #fff;\n}\n.btn-submit[data-v-b3669d42]{\r\n  background: transparent;\r\n  border: 1px solid #0a4065;\r\n  color: #0a4065;\n}\n.preview[data-v-b3669d42]{\r\n  background: #fff;\r\n  margin-top: 1.5rem;\r\n  border-radius: 10px;\r\n  padding: 10px;\n}\n.btn-trash[data-v-b3669d42]{\r\n  color: red;\n}\n.action-btn[data-v-b3669d42]{\r\n  display: flex;\n}\n.btn-preview[data-v-b3669d42]{\r\n  background: #ced4da;\r\n  border-radius: 5px;\n}\n.publish-btn[data-v-b3669d42]{\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.btn-publish[data-v-b3669d42]{\r\n background: #0a4065;\r\n  color: #fff;\n}\r\n", ""]);
+exports.push([module.i, "\n.main-box[data-v-b3669d42] {\n  padding: 20px;\n  background: #fff;\n  border-radius: 10px;\n  position: relative;\n  box-shadow: 5px 4px 11px rgba(249, 247, 240, 0.25);\n}\n.top-box[data-v-b3669d42] {\n  margin: 0 auto;\n  background: white;\n  height: auto;\n}\n.bottom-box[data-v-b3669d42] {\n  margin: 0 auto;\n  background: white;\n}\n.hide[data-v-b3669d42] {\n  height: 120px;\n  overflow: hidden;\n}\n.btn-sm[data-v-b3669d42] {\n  padding: 0.1rem 0.4rem;\n  font-size: 0.4rem;\n  line-height: 1.5;\n}\n.custom-select[data-v-b3669d42] {\n  display: inline-block !important;\n  width: 100%;\n  height: calc(1.5em + 0.75rem + 2px);\n  padding: 0.375rem 1.75rem 0.375rem 0.75rem;\n  font-size: 1rem;\n  font-weight: 400;\n  line-height: 1.5;\n  color: #495057;\n  vertical-align: middle;\n  /* background: #fff; */\n  border: 1px solid #ced4da;\n  border-radius: 0.25rem;\n  /* -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none; */\n  background: #fff url(/images/down-chevron.png) no-repeat right 0.75rem\n    center/8px 10px;\n}\n.right-btn[data-v-b3669d42] {\n  display: flex;\n  justify-content: flex-end;\n  margin-right: 25px;\n  margin-top: 25px;\n}\n.upload-btn-wrapper[data-v-b3669d42] {\n  position: relative;\n  overflow: hidden;\n  display: inline-block;\n  width: 100%;\n}\n.upload-btn-wrapper .btn[data-v-b3669d42] {\n  border: 1px solid gray;\n  color: gray;\n  background-color: white;\n  padding: 8px 20px;\n  border-radius: 8px;\n  font-size: 20px;\n  font-weight: bold;\n  border-style: dotted;\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.upload-btn-wrapper input[type=file][data-v-b3669d42] {\n  font-size: 100px;\n  position: absolute;\n  left: 0;\n  top: 0;\n  opacity: 0;\n}\n.save[data-v-b3669d42]{\n  background: #fff;\n  border-radius: 10px;\n  display: flex;\n  flex-direction:column;\n  padding: 15px;\n  margin-top: 2rem;\n}\n.btn[data-v-b3669d42]{\n  padding: 10px 20px;\n  border-radius: 5px;\n  margin: 10px;\n}\n.btn-save[data-v-b3669d42]{\n  background: #0a4065;\n  color: #fff;\n}\n.btn-submit[data-v-b3669d42]{\n  background: transparent;\n  border: 1px solid #0a4065;\n  color: #0a4065;\n}\n.preview[data-v-b3669d42]{\n  background: #fff;\n  margin-top: 1.5rem;\n  border-radius: 10px;\n  padding: 10px;\n}\n.btn-trash[data-v-b3669d42]{\n  color: red;\n}\n.action-btn[data-v-b3669d42]{\n  display: flex;\n}\n.btn-preview[data-v-b3669d42]{\n  background: #ced4da;\n  border-radius: 5px;\n}\n.publish-btn[data-v-b3669d42]{\n  display: flex;\n  justify-content: flex-end;\n}\n.btn-publish[data-v-b3669d42]{\n background: #0a4065;\n  color: #fff;\n}\n", ""]);
 
 // exports
 
@@ -19591,7 +19376,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.options[data-v-fa671ab4] {\r\n  position: relative;\n}\n.option[data-v-fa671ab4] {\r\n  display: none;\r\n  position: absolute;\r\n  padding: 15px;\r\n  bottom: 80%;\r\n  width: 100px;\r\n  right: 12px;\r\n  background: white;\n}\n.options:hover .option[data-v-fa671ab4] {\r\n  display: block;\n}\n.option li[data-v-fa671ab4] {\r\n  padding: 4px 15px;\r\n  cursor: pointer;\n}\nul[data-v-fa671ab4] {\r\n  list-style: none;\n}\r\n", ""]);
+exports.push([module.i, "\n.options[data-v-fa671ab4] {\n  position: relative;\n}\n.option[data-v-fa671ab4] {\n  display: none;\n  position: absolute;\n  padding: 15px;\n  bottom: 80%;\n  width: 100px;\n  right: 12px;\n  background: white;\n}\n.options:hover .option[data-v-fa671ab4] {\n  display: block;\n}\n.option li[data-v-fa671ab4] {\n  padding: 4px 15px;\n  cursor: pointer;\n}\nul[data-v-fa671ab4] {\n  list-style: none;\n}\n", ""]);
 
 // exports
 
@@ -19610,7 +19395,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.main-box[data-v-1723e5d5] {\r\n  padding: 20px;\r\n  background: lightblue;\r\n  position: relative;\n}\n.top-box[data-v-1723e5d5] {\r\n  margin: 0 auto;\r\n  background: white;\r\n  height: auto;\n}\n.bottom-box[data-v-1723e5d5] {\r\n  margin: 0 auto;\r\n  background: white;\n}\n.hide[data-v-1723e5d5] {\r\n  height: 120px;\r\n  overflow: hidden;\n}\n.btn-sm[data-v-1723e5d5] {\r\n  padding: 0.1rem 0.4rem;\r\n  font-size: 0.4rem;\r\n  line-height: 1.5;\n}\n.custom-select[data-v-1723e5d5] {\r\n  display: inline-block !important;\r\n  width: 100%;\r\n  height: calc(1.5em + 0.75rem + 2px);\r\n  padding: 0.375rem 1.75rem 0.375rem 0.75rem;\r\n  font-size: 1rem;\r\n  font-weight: 400;\r\n  line-height: 1.5;\r\n  color: #495057;\r\n  vertical-align: middle;\r\n  /* background: #fff; */\r\n  border: 1px solid #ced4da;\r\n  border-radius: 0.25rem;\r\n  /* -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none; */\r\n  background: #fff url(/images/down-chevron.png) no-repeat right 0.75rem\r\n    center/8px 10px;\n}\n.right-btn[data-v-1723e5d5] {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  margin-right: 25px;\r\n  margin-top: 25px;\n}\n.btn[data-v-1723e5d5] {\r\n  background: transparent;\r\n  border: 1px solid #0a4065;\r\n  color: #0a4065;\r\n  font-weight: 500;\n}\n.btn[data-v-1723e5d5]:hover {\r\n  background: #0a4065;\r\n  color: white;\n}\na[data-v-1723e5d5] {\r\n  text-decoration: none !important;\n}\na[data-v-1723e5d5]:hover {\r\n  text-decoration: none !important;\n}\r\n", ""]);
+exports.push([module.i, "\n.main-box[data-v-1723e5d5] {\n  padding: 20px;\n  background: lightblue;\n  position: relative;\n}\n.top-box[data-v-1723e5d5] {\n  margin: 0 auto;\n  background: white;\n  height: auto;\n}\n.bottom-box[data-v-1723e5d5] {\n  margin: 0 auto;\n  background: white;\n}\n.hide[data-v-1723e5d5] {\n  height: 120px;\n  overflow: hidden;\n}\n.btn-sm[data-v-1723e5d5] {\n  padding: 0.1rem 0.4rem;\n  font-size: 0.4rem;\n  line-height: 1.5;\n}\n.custom-select[data-v-1723e5d5] {\n  display: inline-block !important;\n  width: 100%;\n  height: calc(1.5em + 0.75rem + 2px);\n  padding: 0.375rem 1.75rem 0.375rem 0.75rem;\n  font-size: 1rem;\n  font-weight: 400;\n  line-height: 1.5;\n  color: #495057;\n  vertical-align: middle;\n  /* background: #fff; */\n  border: 1px solid #ced4da;\n  border-radius: 0.25rem;\n  /* -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none; */\n  background: #fff url(/images/down-chevron.png) no-repeat right 0.75rem\n    center/8px 10px;\n}\n.right-btn[data-v-1723e5d5] {\n  display: flex;\n  justify-content: flex-end;\n  margin-right: 25px;\n  margin-top: 25px;\n}\n.btn[data-v-1723e5d5] {\n  background: transparent;\n  border: 1px solid #0a4065;\n  color: #0a4065;\n  font-weight: 500;\n}\n.btn[data-v-1723e5d5]:hover {\n  background: #0a4065;\n  color: white;\n}\na[data-v-1723e5d5] {\n  text-decoration: none !important;\n}\na[data-v-1723e5d5]:hover {\n  text-decoration: none !important;\n}\n", ""]);
 
 // exports
 
@@ -19629,7 +19414,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.options[data-v-f5ae6090] {\r\n  position: relative;\n}\n.option[data-v-f5ae6090] {\r\n  display: none;\r\n  position: absolute;\r\n  padding: 15px;\r\n  bottom: 80%;\r\n  width: 100px;\r\n  right: 12px;\r\n  background: white;\n}\n.options:hover .option[data-v-f5ae6090] {\r\n  display: block;\n}\n.option li[data-v-f5ae6090] {\r\n  padding: 4px 15px;\r\n  cursor: pointer;\n}\nul[data-v-f5ae6090] {\r\n  list-style: none;\n}\r\n", ""]);
+exports.push([module.i, "\n.options[data-v-f5ae6090] {\n  position: relative;\n}\n.option[data-v-f5ae6090] {\n  display: none;\n  position: absolute;\n  padding: 15px;\n  bottom: 80%;\n  width: 100px;\n  right: 12px;\n  background: white;\n}\n.options:hover .option[data-v-f5ae6090] {\n  display: block;\n}\n.option li[data-v-f5ae6090] {\n  padding: 4px 15px;\n  cursor: pointer;\n}\nul[data-v-f5ae6090] {\n  list-style: none;\n}\n", ""]);
 
 // exports
 
@@ -19648,7 +19433,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container-fluid[data-v-1684a710] {\r\n  width: 100% !important;\n}\n.row[data-v-1684a710] {\r\n  margin-left: 0px !important;\n}\n.right[data-v-1684a710] {\r\n  background: #fff;\r\n  height: 100vh;\n}\n.right-btn[data-v-1684a710] {\r\n  display: flex;\r\n  justify-content: center;\r\n  padding-top: 2rem;\n}\n.btn[data-v-1684a710] {\r\n  background: transparent;\r\n  border: 1px solid #0a4065;\r\n  color: #0a4065;\r\n  font-weight: 500;\n}\n.btn[data-v-1684a710]:hover {\r\n  background: #0a4065;\r\n  color: white;\n}\nh6[data-v-1684a710] {\r\n  padding-top: 1.5rem;\r\n  font-size: 14px;\r\n  text-align: center;\n}\n.assignment-notification[data-v-1684a710] {\r\n  background: rgba(34, 202, 222, 0.2);\r\n  border-left: 5px solid #22cade;\r\n  padding: 5px 10px;\r\n  margin-bottom: 1rem;\n}\n.notification-content p[data-v-1684a710] {\r\n  font-size: 12px;\r\n  margin-bottom: 0;\n}\n.notify-class[data-v-1684a710] {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  color: #0a4065;\r\n  font-weight: 500;\n}\n.assessment-table[data-v-1684a710] {\r\n  padding-left: 15px;\r\n  padding-top: 30px;\n}\n.hiden[data-v-1684a710] {\r\n  opacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.container-fluid[data-v-1684a710] {\n  width: 100% !important;\n}\n.row[data-v-1684a710] {\n  margin-left: 0px !important;\n}\n.right[data-v-1684a710] {\n  background: #fff;\n  height: 100vh;\n}\n.right-btn[data-v-1684a710] {\n  display: flex;\n  justify-content: center;\n  padding-top: 2rem;\n}\n.btn[data-v-1684a710] {\n  background: transparent;\n  border: 1px solid #0a4065;\n  color: #0a4065;\n  font-weight: 500;\n}\n.btn[data-v-1684a710]:hover {\n  background: #0a4065;\n  color: white;\n}\nh6[data-v-1684a710] {\n  padding-top: 1.5rem;\n  font-size: 14px;\n  text-align: center;\n}\n.assignment-notification[data-v-1684a710] {\n  background: rgba(34, 202, 222, 0.2);\n  border-left: 5px solid #22cade;\n  padding: 5px 10px;\n  margin-bottom: 1rem;\n}\n.notification-content p[data-v-1684a710] {\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notify-class[data-v-1684a710] {\n  display: flex;\n  justify-content: flex-end;\n  color: #0a4065;\n  font-weight: 500;\n}\n.assessment-table[data-v-1684a710] {\n  padding-left: 15px;\n  padding-top: 30px;\n}\n.hiden[data-v-1684a710] {\n  opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -19667,7 +19452,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.options[data-v-593ba224] {\r\n  position: relative;\n}\n.option[data-v-593ba224] {\r\n  display: none;\r\n  position: absolute;\r\n  padding: 15px;\r\n  bottom: 80%;\r\n  width: 100px;\r\n  right: 12px;\r\n  background: white;\n}\n.options:hover .option[data-v-593ba224] {\r\n  display: block;\n}\n.option li[data-v-593ba224] {\r\n  padding: 4px 15px;\r\n  cursor: pointer;\n}\nul[data-v-593ba224] {\r\n  list-style: none;\n}\r\n", ""]);
+exports.push([module.i, "\n.options[data-v-593ba224] {\n  position: relative;\n}\n.option[data-v-593ba224] {\n  display: none;\n  position: absolute;\n  padding: 15px;\n  bottom: 80%;\n  width: 100px;\n  right: 12px;\n  background: white;\n}\n.options:hover .option[data-v-593ba224] {\n  display: block;\n}\n.option li[data-v-593ba224] {\n  padding: 4px 15px;\n  cursor: pointer;\n}\nul[data-v-593ba224] {\n  list-style: none;\n}\n", ""]);
 
 // exports
 
@@ -19686,7 +19471,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.options[data-v-65442aaa] {\r\n  position: relative;\n}\n.option[data-v-65442aaa] {\r\n  display: none;\r\n  position: absolute;\r\n  padding: 15px;\r\n  bottom: 80%;\r\n  width: 100px;\r\n  right: 12px;\r\n  background: white;\n}\n.options:hover .option[data-v-65442aaa] {\r\n  display: block;\n}\n.option li[data-v-65442aaa] {\r\n  padding: 4px 15px;\r\n  cursor: pointer;\n}\nul[data-v-65442aaa] {\r\n  list-style: none;\n}\r\n", ""]);
+exports.push([module.i, "\n.options[data-v-65442aaa] {\n  position: relative;\n}\n.option[data-v-65442aaa] {\n  display: none;\n  position: absolute;\n  padding: 15px;\n  bottom: 80%;\n  width: 100px;\n  right: 12px;\n  background: white;\n}\n.options:hover .option[data-v-65442aaa] {\n  display: block;\n}\n.option li[data-v-65442aaa] {\n  padding: 4px 15px;\n  cursor: pointer;\n}\nul[data-v-65442aaa] {\n  list-style: none;\n}\n", ""]);
 
 // exports
 
@@ -19705,7 +19490,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.view[data-v-f752e2c8] {\r\n  background: white;\r\n  position: relative;\r\n  display: flex;\r\n  height: 92vh;\n}\nlabel[data-v-f752e2c8]{\r\n  margin: 0 !important;\r\n  display: block;\n}\n.message[data-v-f752e2c8]{\r\n  font-size: 16px;\r\n  padding: 20px;\n}\n.chat-body[data-v-f752e2c8] {\r\n  width: 80%;\r\n  height: 100%;\r\n  background: #f7f8fa;\r\n  padding:20px 0;\r\n  position: relative;\n}\n.online[data-v-f752e2c8] {\r\n  height: 100%;\r\n  width: 20%;\n}\n.send-tab[data-v-f752e2c8] {\r\n  position: fixed;\r\n  bottom: 0;\r\n  width: 80%;\r\n  margin: 0 auto;\r\n  padding: 10px;\r\n  background: white;\r\n  display: flex;\n}\n.emoji[data-v-f752e2c8] {\r\n  position: absolute;\r\n  bottom: 100%;\r\n  overflow: hidden !important;\n}\n.online ul li[data-v-f752e2c8] {\r\n  font-size: 15px;\r\n  padding: 10px 15px;\n}\n.form-group[data-v-f752e2c8] {\r\n  position: relative;\n}\n.fa-paperclip[data-v-f752e2c8] {\r\n  position: absolute;\r\n  font-size: 17px;\r\n  right: 10px;\r\n  top: 50%;\r\n  margin-top: -8px;\n}\n.chat-item[data-v-f752e2c8]{\r\n  background: white;\r\n  padding: 30px 50px;\n}\r\n", ""]);
+exports.push([module.i, "\n.view[data-v-f752e2c8] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 92vh;\n}\nlabel[data-v-f752e2c8]{\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-f752e2c8]{\n  font-size: 16px;\n  padding: 20px;\n}\n.chat-body[data-v-f752e2c8] {\n  width: 80%;\n  height: 100%;\n  background: #f7f8fa;\n  padding:20px 0;\n  position: relative;\n}\n.online[data-v-f752e2c8] {\n  height: 100%;\n  width: 20%;\n}\n.send-tab[data-v-f752e2c8] {\n  position: fixed;\n  bottom: 0;\n  width: 80%;\n  margin: 0 auto;\n  padding: 10px;\n  background: white;\n  display: flex;\n}\n.emoji[data-v-f752e2c8] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-f752e2c8] {\n  font-size: 15px;\n  padding: 10px 15px;\n}\n.form-group[data-v-f752e2c8] {\n  position: relative;\n}\n.fa-paperclip[data-v-f752e2c8] {\n  position: absolute;\n  font-size: 17px;\n  right: 10px;\n  top: 50%;\n  margin-top: -8px;\n}\n.chat-item[data-v-f752e2c8]{\n  background: white;\n  padding: 30px 50px;\n}\n", ""]);
 
 // exports
 
@@ -19724,7 +19509,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.my-container[data-v-19998a00]{\r\n    widows: 100vw;\n}\n.side[data-v-19998a00]{\r\n    width: 15%;\r\n    height: 100vh;\r\n    background:#41cee2 ;\r\n    color:white;\r\n    position: fixed;\n}\n.main[data-v-19998a00]{\r\n    width:85%;\r\n height: 100%;\r\nposition: absolute;\r\nright: 0;\r\n/* background:#fff7ed ; */\n}\r\n\r\n \r\n", ""]);
+exports.push([module.i, "\n.my-container[data-v-19998a00]{\n    widows: 100vw;\n}\n.side[data-v-19998a00]{\n    width: 15%;\n    height: 100vh;\n    background:#41cee2 ;\n    color:white;\n    position: fixed;\n}\n.main[data-v-19998a00]{\n    width:85%;\n height: 100%;\nposition: absolute;\nright: 0;\n/* background:#fff7ed ; */\n}\n\n \n", ""]);
 
 // exports
 
@@ -19743,7 +19528,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nnav[data-v-8f6887d0] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.names[data-v-8f6887d0]{\r\n max-height: 400px;\r\n overflow: hidden;\r\n background: white;\n}\n.custom-control-input[data-v-8f6887d0]{\r\n  z-index: 1;\r\n  opacity: 1;\n}\ntd[data-v-8f6887d0] {\r\n  text-transform: capitalize;\r\n  position: relative;\n}\n.chat[data-v-8f6887d0]{\r\n  cursor: pointer;\n}\n.enter[data-v-8f6887d0] {\r\n  position: absolute;\r\n  right: 20px;\r\n  top: 50%;\r\n  margin-top: -10px;\n}\n.hiden[data-v-8f6887d0] {\r\n  opacity: 0;\n}\n.add[data-v-8f6887d0] {\r\n  background-color: #f7f8fa;\n}\n.body[data-v-8f6887d0] {\r\n  padding: 20px 20px 50px;\r\n  height: 100%;\n}\ntable[data-v-8f6887d0] {\r\n  font-size: 14.5px;\n}\r\n", ""]);
+exports.push([module.i, "\nnav[data-v-8f6887d0] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.names[data-v-8f6887d0]{\n max-height: 400px;\n overflow: hidden;\n background: white;\n}\n.custom-control-input[data-v-8f6887d0]{\n  z-index: 1;\n  opacity: 1;\n}\ntd[data-v-8f6887d0] {\n  text-transform: capitalize;\n  position: relative;\n}\n.chat[data-v-8f6887d0]{\n  cursor: pointer;\n}\n.enter[data-v-8f6887d0] {\n  position: absolute;\n  right: 20px;\n  top: 50%;\n  margin-top: -10px;\n}\n.hiden[data-v-8f6887d0] {\n  opacity: 0;\n}\n.add[data-v-8f6887d0] {\n  background-color: #f7f8fa;\n}\n.body[data-v-8f6887d0] {\n  padding: 20px 20px 50px;\n  height: 100%;\n}\ntable[data-v-8f6887d0] {\n  font-size: 14.5px;\n}\n", ""]);
 
 // exports
 
@@ -19762,7 +19547,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.assignment-overview-board[data-v-11aed4a3] {\r\n  background: #fff;\r\n  font-family: \"Montserrat\";\r\n  padding: 15px;\r\n  border-radius: 10px;\n}\n.assignment-overview-board p[data-v-11aed4a3] {\r\n  font-weight: 600;\r\n  color: #808080;\n}\n.text-center p[data-v-11aed4a3] {\r\n  font-weight: 500;\r\n  margin-bottom: 10px;\n}\n.text-center h6[data-v-11aed4a3] {\r\n  font-weight: 700;\n}\n.overview-log-1[data-v-11aed4a3] {\r\n  border-right: 1px solid #c4c4c4;\n}\n.overview-log-4[data-v-11aed4a3] {\r\n  border-right: 1px solid #c4c4c4;\n}\n.overview-log-1 i[data-v-11aed4a3] {\r\n  color: #22cade;\r\n  background: rgba(34, 202, 222, 0.25);\r\n  border-radius: 50%;\r\n  padding: 10px;\n}\n.overview-log-2 i[data-v-11aed4a3] {\r\n  color: #dfd291;\r\n  background: rgba(223, 210, 145, 0.25);\r\n  border-radius: 50%;\r\n  padding: 10px;\n}\n.overview-log-3 i[data-v-11aed4a3] {\r\n  color: #ff0000;\r\n  background: rgba(255, 0, 0, 0.25);\r\n  border-radius: 50%;\r\n  padding: 10px;\n}\n.overview-log-4 i[data-v-11aed4a3] {\r\n  color: #008e3a;\r\n  background: rgba(0, 142, 58, 0.25);\r\n  border-radius: 50%;\r\n  padding: 10px;\n}\n.log-link[data-v-11aed4a3] {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  padding-top: 1rem;\n}\n.content-cards[data-v-11aed4a3] {\r\n  padding-top: 2rem;\n}\n.cards[data-v-11aed4a3] {\r\n  background: #fff;\r\n  border-radius: 10px;\r\n  padding: 10px;\r\n  height: 450px;\n}\n.class-content[data-v-11aed4a3] {\r\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-11aed4a3] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.class-content-top i[data-v-11aed4a3] {\r\n  color: #008e3a;\n}\n.content-2 i[data-v-11aed4a3] {\r\n  color: #ff0000;\n}\n.class-content-main[data-v-11aed4a3] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.class-content-main p[data-v-11aed4a3] {\r\n  font-size: 12px;\n}\n.notes-content[data-v-11aed4a3] {\r\n  border-bottom: 1px solid #e4e4e4;\n}\n.notes-content[data-v-11aed4a3]:last-child {\r\n  border-bottom: none;\n}\n.notes-top[data-v-11aed4a3] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  padding-bottom: 1rem;\n}\n.notes-content-top[data-v-11aed4a3] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.notes-content-top h6[data-v-11aed4a3] {\r\n  margin-bottom: 0;\r\n  padding-top: 5px;\n}\n.notes-content[data-v-11aed4a3] {\r\n  padding-top: 5px;\n}\n.notes-content-main[data-v-11aed4a3] {\r\n  padding-bottom: 5px;\n}\n.notes-content-main p[data-v-11aed4a3] {\r\n  font-size: 12px;\r\n  margin-bottom: 0;\n}\n.notes-date[data-v-11aed4a3] {\r\n  color: #808080;\r\n  padding-top: 5px;\r\n  padding-left: 10px;\n}\n.fa-file-o[data-v-11aed4a3] {\r\n  color: #22cade;\r\n  background: rgba(34, 202, 222, 0.25);\r\n  border-radius: 50%;\r\n  padding: 9px;\n}\n.btn[data-v-11aed4a3] {\r\n  border: 1px solid #0a4065;\r\n  color: #0a4065;\n}\n.discussion-content[data-v-11aed4a3]{\r\n  border-bottom:1px solid #e4e4e4;\r\n  padding-bottom: 10px;\r\n  padding-top: 5px;\n}\n.discussion-content[data-v-11aed4a3]:last-child{\r\n  border-bottom: none;\n}\n.discussion-content p[data-v-11aed4a3]{\r\n  font-size: 10px;\n}\n.discussion-content-top[data-v-11aed4a3]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.discussion-content-top p[data-v-11aed4a3]{\r\n font-size: 14px;\n}\n.discussion-content-bottom[data-v-11aed4a3]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.discussion-content-bottom p[data-v-11aed4a3]{\r\n  font-size: 12px;\r\n  margin-bottom: 0;\n}\n.notify-discussion p[data-v-11aed4a3]{\r\n background: #e4e4e4;\r\n color: #808080;\r\n border-radius: 5px;\r\n font-weight: 500;\r\n padding: 5px 10px;\n}\r\n", ""]);
+exports.push([module.i, "\n.assignment-overview-board[data-v-11aed4a3] {\n  background: #fff;\n  font-family: \"Montserrat\";\n  padding: 15px;\n  border-radius: 10px;\n}\n.assignment-overview-board p[data-v-11aed4a3] {\n  font-weight: 600;\n  color: #808080;\n}\n.text-center p[data-v-11aed4a3] {\n  font-weight: 500;\n  margin-bottom: 10px;\n}\n.text-center h6[data-v-11aed4a3] {\n  font-weight: 700;\n}\n.overview-log-1[data-v-11aed4a3] {\n  border-right: 1px solid #c4c4c4;\n}\n.overview-log-4[data-v-11aed4a3] {\n  border-right: 1px solid #c4c4c4;\n}\n.overview-log-1 i[data-v-11aed4a3] {\n  color: #22cade;\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.overview-log-2 i[data-v-11aed4a3] {\n  color: #dfd291;\n  background: rgba(223, 210, 145, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.overview-log-3 i[data-v-11aed4a3] {\n  color: #ff0000;\n  background: rgba(255, 0, 0, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.overview-log-4 i[data-v-11aed4a3] {\n  color: #008e3a;\n  background: rgba(0, 142, 58, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.log-link[data-v-11aed4a3] {\n  display: flex;\n  justify-content: flex-end;\n  padding-top: 1rem;\n}\n.content-cards[data-v-11aed4a3] {\n  padding-top: 2rem;\n}\n.cards[data-v-11aed4a3] {\n  background: #fff;\n  border-radius: 10px;\n  padding: 10px;\n  height: 450px;\n}\n.class-content[data-v-11aed4a3] {\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-top i[data-v-11aed4a3] {\n  color: #008e3a;\n}\n.content-2 i[data-v-11aed4a3] {\n  color: #ff0000;\n}\n.class-content-main[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-11aed4a3] {\n  font-size: 12px;\n}\n.notes-content[data-v-11aed4a3] {\n  border-bottom: 1px solid #e4e4e4;\n}\n.notes-content[data-v-11aed4a3]:last-child {\n  border-bottom: none;\n}\n.notes-top[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 1rem;\n}\n.notes-content-top[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.notes-content-top h6[data-v-11aed4a3] {\n  margin-bottom: 0;\n  padding-top: 5px;\n}\n.notes-content[data-v-11aed4a3] {\n  padding-top: 5px;\n}\n.notes-content-main[data-v-11aed4a3] {\n  padding-bottom: 5px;\n}\n.notes-content-main p[data-v-11aed4a3] {\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notes-date[data-v-11aed4a3] {\n  color: #808080;\n  padding-top: 5px;\n  padding-left: 10px;\n}\n.fa-file-o[data-v-11aed4a3] {\n  color: #22cade;\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 50%;\n  padding: 9px;\n}\n.btn[data-v-11aed4a3] {\n  border: 1px solid #0a4065;\n  color: #0a4065;\n}\n.discussion-content[data-v-11aed4a3]{\n  border-bottom:1px solid #e4e4e4;\n  padding-bottom: 10px;\n  padding-top: 5px;\n}\n.discussion-content[data-v-11aed4a3]:last-child{\n  border-bottom: none;\n}\n.discussion-content p[data-v-11aed4a3]{\n  font-size: 10px;\n}\n.discussion-content-top[data-v-11aed4a3]{\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-top p[data-v-11aed4a3]{\n font-size: 14px;\n}\n.discussion-content-bottom[data-v-11aed4a3]{\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-bottom p[data-v-11aed4a3]{\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notify-discussion p[data-v-11aed4a3]{\n background: #e4e4e4;\n color: #808080;\n border-radius: 5px;\n font-weight: 500;\n padding: 5px 10px;\n}\n", ""]);
 
 // exports
 
@@ -19781,7 +19566,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.semi-white[data-v-2e28e87d]{\r\n background: #F9F7F0;\n}\nnav[data-v-2e28e87d] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\n}\n#notification[data-v-2e28e87d] {\r\n  position: relative;\r\n  z-index: 999;\n}\n.notification-body[data-v-2e28e87d] {\r\n  position: absolute;\r\n  left: -240px;\r\n  width: 250px;\n}\n.main-notify[data-v-2e28e87d] {\r\n  max-height: 300px;\r\n  overflow: scroll;\n}\n.icon[data-v-2e28e87d] {\r\n  position: relative;\n}\n.badge[data-v-2e28e87d] {\r\n  position: absolute;\r\n  top: -40%;\r\n  left: 50%;\r\n  background: red;\r\n  color: white;\r\n  font-size: 14px;\n}\n.list-group-item[data-v-2e28e87d] {\r\n  font-size: 14px;\n}\n.fa-bell[data-v-2e28e87d] {\r\n  font-size: 24px;\r\n  color:#41cee2;\n}\n.search[data-v-2e28e87d]{\r\n  width:250px;\r\n  border-color:#41cee2\n}\r\n", ""]);
+exports.push([module.i, "\n.semi-white[data-v-2e28e87d]{\n background: #F9F7F0;\n}\nnav[data-v-2e28e87d] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n#notification[data-v-2e28e87d] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-2e28e87d] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-2e28e87d] {\n  max-height: 300px;\n  overflow: scroll;\n}\n.icon[data-v-2e28e87d] {\n  position: relative;\n}\n.badge[data-v-2e28e87d] {\n  position: absolute;\n  top: -40%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 14px;\n}\n.list-group-item[data-v-2e28e87d] {\n  font-size: 14px;\n}\n.fa-bell[data-v-2e28e87d] {\n  font-size: 24px;\n  color:#41cee2;\n}\n.search[data-v-2e28e87d]{\n  width:250px;\n  border-color:#41cee2\n}\n", ""]);
 
 // exports
 
@@ -19800,7 +19585,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.info[data-v-08a588d6] {\r\n  width: 80%;\r\n  margin: 0 auto;\n}\n.image[data-v-08a588d6] {\r\n  width: 140px;\r\n  height: 140px;\r\n  border-radius: 50%;\r\n  overflow: hidden;\n}\n.image img[data-v-08a588d6]{\r\n    width:100%;\r\n    height:100%;\r\n    -o-object-fit: cover;\r\n       object-fit: cover;\n}\nul[data-v-08a588d6] {\r\n  list-style: none;\n}\nli[data-v-08a588d6] {\r\n  text-transform: capitalize;\r\n  padding: 10px 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.info[data-v-08a588d6] {\n  width: 80%;\n  margin: 0 auto;\n}\n.image[data-v-08a588d6] {\n  width: 140px;\n  height: 140px;\n  border-radius: 50%;\n  overflow: hidden;\n}\n.image img[data-v-08a588d6]{\n    width:100%;\n    height:100%;\n    -o-object-fit: cover;\n       object-fit: cover;\n}\nul[data-v-08a588d6] {\n  list-style: none;\n}\nli[data-v-08a588d6] {\n  text-transform: capitalize;\n  padding: 10px 0;\n}\n", ""]);
 
 // exports
 
@@ -19819,7 +19604,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-f80a7b2c] {\r\n  padding: 40px 20px 60px;\n}\nform[data-v-f80a7b2c] {\r\n  padding: 20px;\r\n  width: 95%;\r\n  margin: 0 auto;\n}\n.custom-control-input[data-v-f80a7b2c] {\r\n  opacity: 1;\r\n  z-index: 1;\n}\n.custom-control[data-v-f80a7b2c] {\r\n  display: flex;\r\n  align-items: center;\n}\n.resource[data-v-f80a7b2c] {\r\n  display: grid;\r\n  grid-template-columns: 31% 31% 31%;\r\n  grid-column-gap: 2.33%;\r\n  grid-row-gap: 20px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-f80a7b2c] {\n  padding: 40px 20px 60px;\n}\nform[data-v-f80a7b2c] {\n  padding: 20px;\n  width: 95%;\n  margin: 0 auto;\n}\n.custom-control-input[data-v-f80a7b2c] {\n  opacity: 1;\n  z-index: 1;\n}\n.custom-control[data-v-f80a7b2c] {\n  display: flex;\n  align-items: center;\n}\n.resource[data-v-f80a7b2c] {\n  display: grid;\n  grid-template-columns: 31% 31% 31%;\n  grid-column-gap: 2.33%;\n  grid-row-gap: 20px;\n}\n", ""]);
 
 // exports
 
@@ -19838,7 +19623,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-ec56d410] {\r\n  padding: 40px 20px 60px;\n}\nform[data-v-ec56d410] {\r\n  padding: 20px;\r\n  width: 80%;\r\n  margin: 0 auto;\n}\n.custom-control-input[data-v-ec56d410] {\r\n  opacity: 1;\r\n  z-index: 1;\n}\n.custom-control[data-v-ec56d410] {\r\n  display: flex;\r\n  align-items: center;\n}\n.resource[data-v-ec56d410] {\r\n  display: grid;\r\n  grid-template-columns: 31% 31% 31%;\r\n  grid-column-gap: 2.33%;\r\n  grid-row-gap: 20px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-ec56d410] {\n  padding: 40px 20px 60px;\n}\nform[data-v-ec56d410] {\n  padding: 20px;\n  width: 80%;\n  margin: 0 auto;\n}\n.custom-control-input[data-v-ec56d410] {\n  opacity: 1;\n  z-index: 1;\n}\n.custom-control[data-v-ec56d410] {\n  display: flex;\n  align-items: center;\n}\n.resource[data-v-ec56d410] {\n  display: grid;\n  grid-template-columns: 31% 31% 31%;\n  grid-column-gap: 2.33%;\n  grid-row-gap: 20px;\n}\n", ""]);
 
 // exports
 
@@ -19857,7 +19642,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-0d5caa4d] {\r\n  height: 100%;\r\n  padding: 40px 30px 70px;\n}\nnav[data-v-0d5caa4d] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-0d5caa4d] {\r\n  opacity: 0;\n}\n.options[data-v-0d5caa4d]{\r\n  position: relative;\r\n  width:10px\n}\n.option-box[data-v-0d5caa4d]{\r\n  position: absolute;\r\n  bottom: 100%;\r\n  background: white;\r\n  padding:15px;\r\n font-size: 14px;\r\n width:100px;\r\n display: none;\r\n right: 10px;\n}\n.options:hover .option-box[data-v-0d5caa4d]{\r\n  display: block;\n}\n.option-box ul[data-v-0d5caa4d]{\r\n  text-decoration: none;\r\n  list-style: none;\n}\n.option-box ul li[data-v-0d5caa4d]{\r\n  padding: 5px 0;\r\n  cursor: pointer;\n}\n.fa-ellipsis-v[data-v-0d5caa4d]{\r\n   cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-0d5caa4d] {\n  height: 100%;\n  padding: 40px 30px 70px;\n}\nnav[data-v-0d5caa4d] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-0d5caa4d] {\n  opacity: 0;\n}\n.options[data-v-0d5caa4d]{\n  position: relative;\n  width:10px\n}\n.option-box[data-v-0d5caa4d]{\n  position: absolute;\n  bottom: 100%;\n  background: white;\n  padding:15px;\n font-size: 14px;\n width:100px;\n display: none;\n right: 10px;\n}\n.options:hover .option-box[data-v-0d5caa4d]{\n  display: block;\n}\n.option-box ul[data-v-0d5caa4d]{\n  text-decoration: none;\n  list-style: none;\n}\n.option-box ul li[data-v-0d5caa4d]{\n  padding: 5px 0;\n  cursor: pointer;\n}\n.fa-ellipsis-v[data-v-0d5caa4d]{\n   cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -19876,7 +19661,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.jumb[data-v-719e9d13] {\r\n  width: 100%;\r\n  position: relative;\r\n  background: transparent;\n}\n.top_n[data-v-719e9d13] {\r\n  position: relative;\r\n\r\n  -o-object-fit: cover;\r\n\r\n     object-fit: cover;\n}\n.overlay-n[data-v-719e9d13] {\r\n  top: 0px;\r\n  left: 0px;\r\n  bottom: 0px;\r\n  right: 0px;\r\n  opacity: 0.85;\r\n  background: #f7f8fa;\r\n  -webkit-backdrop-filter: blur(2px);\r\n          backdrop-filter: blur(2px);\r\n  position: absolute;\n}\n.main-bar[data-v-719e9d13] {\r\n  width: 70%;\r\n  margin-right: auto;\n}\n.floating-bar[data-v-719e9d13]{\r\n  position: fixed;\r\n  right: 5%;\r\n  top:30%;\n}\r\n", ""]);
+exports.push([module.i, "\n.jumb[data-v-719e9d13] {\n  width: 100%;\n  position: relative;\n  background: transparent;\n}\n.top_n[data-v-719e9d13] {\n  position: relative;\n\n  -o-object-fit: cover;\n\n     object-fit: cover;\n}\n.overlay-n[data-v-719e9d13] {\n  top: 0px;\n  left: 0px;\n  bottom: 0px;\n  right: 0px;\n  opacity: 0.85;\n  background: #f7f8fa;\n  -webkit-backdrop-filter: blur(2px);\n          backdrop-filter: blur(2px);\n  position: absolute;\n}\n.main-bar[data-v-719e9d13] {\n  width: 70%;\n  margin-right: auto;\n}\n.floating-bar[data-v-719e9d13]{\n  position: fixed;\n  right: 5%;\n  top:30%;\n}\n", ""]);
 
 // exports
 
@@ -19895,7 +19680,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.logo[data-v-3bd343a8]{\r\n    padding: 10px 20px;\r\n    margin-bottom:20px;\r\n    text-align:center;\n}\n.logo p[data-v-3bd343a8]{\r\n    font-weight: bold;\r\n    font-family: 'Josefin Sans';\r\n    font-size: 24px;\r\n    text-align:center;\r\n    color:#41cee2;\r\n    margin:0;\n}\n.logo small[data-v-3bd343a8]{\r\n \r\n  font-size:18px;\r\n    color:white\n}\nul[data-v-3bd343a8]{\r\n    list-style:none;\n}\nnav ul li[data-v-3bd343a8]{\r\n  padding: 10px 20px;\r\n  font-size: 15px;\r\n  cursor: pointer;\r\n  color:hsl(187deg 74% 95%)\n}\nnav[data-v-3bd343a8]{\r\n    padding-left:20px;\n}\n.router-link-exact-active li[data-v-3bd343a8]{\r\nbackground:#0a4065 ;\r\nborder-top-left-radius:10px;\r\nborder-bottom-left-radius:10px\n}\r\n", ""]);
+exports.push([module.i, "\n.logo[data-v-3bd343a8]{\n    padding: 10px 20px;\n    margin-bottom:20px;\n    text-align:center;\n}\n.logo p[data-v-3bd343a8]{\n    font-weight: bold;\n    font-family: 'Josefin Sans';\n    font-size: 24px;\n    text-align:center;\n    color:#41cee2;\n    margin:0;\n}\n.logo small[data-v-3bd343a8]{\n \n  font-size:18px;\n    color:white\n}\nul[data-v-3bd343a8]{\n    list-style:none;\n}\nnav ul li[data-v-3bd343a8]{\n  padding: 10px 20px;\n  font-size: 15px;\n  cursor: pointer;\n  color:hsl(187deg 74% 95%)\n}\nnav[data-v-3bd343a8]{\n    padding-left:20px;\n}\n.router-link-exact-active li[data-v-3bd343a8]{\nbackground:#0a4065 ;\nborder-top-left-radius:10px;\nborder-bottom-left-radius:10px\n}\n", ""]);
 
 // exports
 
@@ -19914,7 +19699,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-0effc4a9]{\r\n  padding:50px 30px 70px;\r\n  height: 100%;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-0effc4a9]{\n  padding:50px 30px 70px;\n  height: 100%;\n}\n", ""]);
 
 // exports
 
@@ -19933,7 +19718,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-a874f09c] {\r\n  position: relative;\r\n  padding: 40px 20px 50px;\r\n  height: 100%;\n}\n.overlay-content[data-v-a874f09c] {\r\n  position: absolute;\r\n top: 0px;\r\n    left: 0px;\r\n    bottom: 0px;\r\n    right: 0px;\r\n    opacity: 0.85;\r\n    -webkit-backdrop-filter: blur(2px);\r\n            backdrop-filter: blur(2px);\r\n  height: 100vh;\r\n  width: 100%;\r\n  left: 0;\r\n  background: rgba(0, 0, 0, 0.8);\r\n  padding: 10px;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\n}\n.cancel[data-v-a874f09c] {\r\n  position: absolute;\r\n  right: 10px;\r\n  top: 10px;\n}\n.ov[data-v-a874f09c]{\r\n    width: 100%;\r\n    position: relative;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-a874f09c] {\n  position: relative;\n  padding: 40px 20px 50px;\n  height: 100%;\n}\n.overlay-content[data-v-a874f09c] {\n  position: absolute;\n top: 0px;\n    left: 0px;\n    bottom: 0px;\n    right: 0px;\n    opacity: 0.85;\n    -webkit-backdrop-filter: blur(2px);\n            backdrop-filter: blur(2px);\n  height: 100vh;\n  width: 100%;\n  left: 0;\n  background: rgba(0, 0, 0, 0.8);\n  padding: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.cancel[data-v-a874f09c] {\n  position: absolute;\n  right: 10px;\n  top: 10px;\n}\n.ov[data-v-a874f09c]{\n    width: 100%;\n    position: relative;\n}\n", ""]);
 
 // exports
 
@@ -19952,7 +19737,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-592b988d] {\n}\nform[data-v-592b988d] {\r\n  width: 70%;\r\n  margin:0 auto;\r\n  padding:70px 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-592b988d] {\n}\nform[data-v-592b988d] {\n  width: 70%;\n  margin:0 auto;\n  padding:70px 0;\n}\n", ""]);
 
 // exports
 
@@ -19971,7 +19756,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-5572edf8] {\r\n  padding: 40px 30px 70px;\r\n  position: relative;\n}\n.popup-overlay[data-v-5572edf8] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(255, 255, 255, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\n}\n.suggestion-box[data-v-5572edf8] {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  background: white;\r\n  border-radius: 5px;\r\n  height: 250px;\r\n  width: 50%;\r\n  padding: 15px;\r\n  position: absolute;\r\n  bottom: 50%;\r\n  transform: translate(50%, 50%);\r\n  right: 50%;\n}\n.suggestion-box p[data-v-5572edf8] {\r\n  font-size: 24px;\r\n  font-weight: bold;\r\n  text-align: center;\n}\n.close[data-v-5572edf8] {\r\n  position: absolute;\r\n  right: 5px;\r\n  top: 5px;\n}\nform[data-v-5572edf8] {\r\n  padding: 20px;\r\n  padding-bottom: 60px;\r\n  background: white;\r\n  font-size: 14px;\n}\nh5[data-v-5572edf8] {\r\n  margin-bottom: 24px;\n}\n.side-label[data-v-5572edf8] {\r\n  width: 150px;\n}\n.form-text[data-v-5572edf8] {\r\n  margin-bottom: 18px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-5572edf8] {\n  padding: 40px 30px 70px;\n  position: relative;\n}\n.popup-overlay[data-v-5572edf8] {\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  background: rgba(255, 255, 255, 0.7);\n  z-index: 1;\n  top: 0;\n  left: 0;\n}\n.suggestion-box[data-v-5572edf8] {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: center;\n  background: white;\n  border-radius: 5px;\n  height: 250px;\n  width: 50%;\n  padding: 15px;\n  position: absolute;\n  bottom: 50%;\n  transform: translate(50%, 50%);\n  right: 50%;\n}\n.suggestion-box p[data-v-5572edf8] {\n  font-size: 24px;\n  font-weight: bold;\n  text-align: center;\n}\n.close[data-v-5572edf8] {\n  position: absolute;\n  right: 5px;\n  top: 5px;\n}\nform[data-v-5572edf8] {\n  padding: 20px;\n  padding-bottom: 60px;\n  background: white;\n  font-size: 14px;\n}\nh5[data-v-5572edf8] {\n  margin-bottom: 24px;\n}\n.side-label[data-v-5572edf8] {\n  width: 150px;\n}\n.form-text[data-v-5572edf8] {\n  margin-bottom: 18px;\n}\n", ""]);
 
 // exports
 
@@ -19990,7 +19775,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-45774dee] {\r\n  padding: 40px 30px 70px;\r\n  position: relative;\n}\n.popup-overlay[data-v-45774dee] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(255, 255, 255, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\n}\n.suggestion-box[data-v-45774dee] {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  background: white;\r\n  border-radius: 5px;\r\n  height: 250px;\r\n  width: 50%;\r\n  padding: 15px;\r\n  position: absolute;\r\n  bottom: 50%;\r\n  transform: translate(50%, 50%);\r\n  right: 50%;\n}\n.suggestion-box p[data-v-45774dee] {\r\n  font-size: 24px;\r\n  font-weight: bold;\r\n  text-align: center;\n}\n.close[data-v-45774dee] {\r\n  position: absolute;\r\n  right: 5px;\r\n  top: 5px;\n}\nform[data-v-45774dee] {\r\n  padding: 20px;\r\n  padding-bottom: 60px;\r\n  background: white;\r\n  font-size: 14px;\n}\nh3[data-v-45774dee] {\r\n  margin-bottom: 24px;\r\n  font-size: 1.4em;\n}\n.side-label[data-v-45774dee] {\r\n  width: 150px;\n}\n.form-text[data-v-45774dee] {\r\n  margin-bottom: 18px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-45774dee] {\n  padding: 40px 30px 70px;\n  position: relative;\n}\n.popup-overlay[data-v-45774dee] {\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  background: rgba(255, 255, 255, 0.7);\n  z-index: 1;\n  top: 0;\n  left: 0;\n}\n.suggestion-box[data-v-45774dee] {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: center;\n  background: white;\n  border-radius: 5px;\n  height: 250px;\n  width: 50%;\n  padding: 15px;\n  position: absolute;\n  bottom: 50%;\n  transform: translate(50%, 50%);\n  right: 50%;\n}\n.suggestion-box p[data-v-45774dee] {\n  font-size: 24px;\n  font-weight: bold;\n  text-align: center;\n}\n.close[data-v-45774dee] {\n  position: absolute;\n  right: 5px;\n  top: 5px;\n}\nform[data-v-45774dee] {\n  padding: 20px;\n  padding-bottom: 60px;\n  background: white;\n  font-size: 14px;\n}\nh3[data-v-45774dee] {\n  margin-bottom: 24px;\n  font-size: 1.4em;\n}\n.side-label[data-v-45774dee] {\n  width: 150px;\n}\n.form-text[data-v-45774dee] {\n  margin-bottom: 18px;\n}\n", ""]);
 
 // exports
 
@@ -20009,7 +19794,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.progress[data-v-15764681] {\r\n  height: 20px;\n}\n.logo[data-v-15764681] {\r\n  width: 50%;\r\n  height: 120px;\r\n  padding: 5px;\n}\n.images[data-v-15764681] {\r\n  display: flex;\r\n  margin-top: 15px;\n}\n.oldimg[data-v-15764681] {\r\n  width: 50%;\r\n  height: 120px;\r\n  padding: 5px;\n}\n.oldimg img[data-v-15764681],\r\n.logo img[data-v-15764681] {\r\n  width: 100%;\r\n  height: 100%;\r\n  -o-object-fit: contain;\r\n     object-fit: contain;\n}\r\n", ""]);
+exports.push([module.i, "\n.progress[data-v-15764681] {\n  height: 20px;\n}\n.logo[data-v-15764681] {\n  width: 50%;\n  height: 120px;\n  padding: 5px;\n}\n.images[data-v-15764681] {\n  display: flex;\n  margin-top: 15px;\n}\n.oldimg[data-v-15764681] {\n  width: 50%;\n  height: 120px;\n  padding: 5px;\n}\n.oldimg img[data-v-15764681],\n.logo img[data-v-15764681] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: contain;\n     object-fit: contain;\n}\n", ""]);
 
 // exports
 
@@ -27648,8 +27433,8 @@ var render = function() {
     { staticClass: "body" },
     [
       _c(
-        "b-container-fluid",
-        { staticClass: "bv-example-row" },
+        "b-container",
+        { staticClass: "bv-example-row", attrs: { fluid: "" } },
         [
           _c(
             "b-row",
@@ -29208,7 +28993,7 @@ var render = function() {
                                 },
                                 [
                                   _c("i", { staticClass: "fas fa-eye" }),
-                                  _vm._v("View\r\n                  ")
+                                  _vm._v("View\n                  ")
                                 ]
                               )
                             ]),
@@ -29225,7 +29010,7 @@ var render = function() {
                                 },
                                 [
                                   _c("i", { staticClass: "fas fa-edit" }),
-                                  _vm._v("Edit\r\n                  ")
+                                  _vm._v("Edit\n                  ")
                                 ]
                               )
                             ]),
@@ -29246,7 +29031,7 @@ var render = function() {
                                     staticClass: "fa fa-minus-circle",
                                     attrs: { "aria-hidden": "true" }
                                   }),
-                                  _vm._v(" Drop\r\n                  ")
+                                  _vm._v(" Drop\n                  ")
                                 ]
                               )
                             ])
@@ -29314,12 +29099,12 @@ var render = function() {
                   attrs: { block: "" }
                 },
                 [
-                  _vm._v("\r\n            Students\r\n            "),
+                  _vm._v("\n            Students\n            "),
                   _c("i", {
                     staticClass: "fa fa-arrows-h mx-2",
                     attrs: { "aria-hidden": "true" }
                   }),
-                  _vm._v("\r\n            Subjects\r\n          ")
+                  _vm._v("\n            Subjects\n          ")
                 ]
               ),
               _vm._v(" "),
@@ -29337,12 +29122,12 @@ var render = function() {
                   attrs: { block: "" }
                 },
                 [
-                  _vm._v("\r\n            Students\r\n            "),
+                  _vm._v("\n            Students\n            "),
                   _c("i", {
                     staticClass: "fa fa-arrows-h mx-2",
                     attrs: { "aria-hidden": "true" }
                   }),
-                  _vm._v("\r\n            Class\r\n          ")
+                  _vm._v("\n            Class\n          ")
                 ]
               ),
               _vm._v(" "),
@@ -41295,10 +41080,22 @@ var render = function() {
     "div",
     { staticClass: "container" },
     [
-      _vm._m(0),
+      _c("div", { staticClass: "welcome-board" }, [
+        _c("img", { attrs: { src: "/images/clip-99.png", alt: "" } }),
+        _vm._v(" "),
+        _c("div", { staticClass: "welcome-board-content ml-auto" }, [
+          _c("h3", [
+            _vm._v("\n        Welcome OnBoard\n        "),
+            _c("span", [_vm._v(_vm._s(_vm.student.name))])
+          ]),
+          _vm._v(" "),
+          _vm._m(0)
+        ])
+      ]),
       _vm._v(" "),
       _c(
-        "b-container-fluid",
+        "b-container",
+        { attrs: { fluid: "" } },
         [
           _c(
             "b-row",
@@ -41941,25 +41738,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "welcome-board" }, [
-      _c("img", { attrs: { src: "/images/clip-99.png", alt: "" } }),
-      _vm._v(" "),
-      _c("div", { staticClass: "welcome-board-content ml-auto" }, [
-        _c("h3", [
-          _vm._v("\n        Welcome OnBoard\n        "),
-          _c("span", [_vm._v("SUCESS AHOAN")])
-        ]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "\n        Get quick access to your assesment and grade book on the dash board\n        "
-          ),
-          _c("br"),
-          _vm._v(
-            "Gain fast knowlege add resources to your library and more\n      "
-          )
-        ])
-      ])
+    return _c("p", [
+      _vm._v(
+        "\n        Get quick access to your assesment and grade book on the dash board\n        "
+      ),
+      _c("br"),
+      _vm._v(
+        "Gain fast knowlege add resources to your library and more\n      "
+      )
     ])
   }
 ]
@@ -41984,79 +41770,212 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", {}, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "container" }, [
-      _vm._m(1),
-      _vm._v(" "),
-      _vm._m(2),
-      _vm._v(" "),
-      _vm._m(3),
-      _vm._v(" "),
-      _vm._m(4),
-      _vm._v(" "),
-      _vm._m(5),
-      _vm._v(" "),
-      _c("div", { staticClass: "review" }, [
-        _c("h3", [_vm._v("Review")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "featured-review" }, [
-          _c("div", { staticClass: "active-review" }, [
-            _c("div", { staticClass: "featured-review-top" }, [
-              _c(
-                "div",
-                { staticClass: "featured-review-inner-top" },
-                [
-                  _c("b-avatar", { attrs: { src: "/images/profile-img.jpg" } }),
-                  _vm._v(" "),
-                  _vm._m(6)
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("img", {
-                staticClass: "img-fluid",
-                attrs: { src: "/images/five-star.png", alt: "" }
+  return _c("div", { staticClass: "body" }, [
+    _c(
+      "nav",
+      {
+        staticClass:
+          "form-control d-flex justify-content-between align-items-center mb-5"
+      },
+      [
+        _c("div", { staticClass: "bar border-right" }, [
+          _vm.first_page
+            ? _c("i", {
+                staticClass: "fa fa-angle-double-left pr-2",
+                attrs: { "aria-hidden": "true" },
+                on: { click: _vm.firstPage }
               })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.prev_page
+            ? _c("i", {
+                staticClass: "fas fa-angle-left pr-2",
+                on: { click: _vm.prev }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.current_page,
+                expression: "current_page"
+              }
+            ],
+            staticClass: "row_numb pl-2",
+            attrs: { type: "number", readonly: "" },
+            domProps: { value: _vm.current_page },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.current_page = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.next_page
+            ? _c("i", {
+                staticClass: "fas fa-angle-right pl-2",
+                attrs: { "aria-hidden": "true" },
+                on: { click: _vm.next }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.last_page
+            ? _c("i", {
+                staticClass: "fa fa-angle-double-right pl-2",
+                attrs: { "aria-hidden": "true" },
+                on: { click: _vm.lastPage }
+              })
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "bar border-right", on: { click: _vm.getAll } },
+          [
+            _c("span", { staticClass: "mr-3" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.all,
+                    expression: "all"
+                  }
+                ],
+                attrs: { type: "checkbox" },
+                domProps: {
+                  checked: Array.isArray(_vm.all)
+                    ? _vm._i(_vm.all, null) > -1
+                    : _vm.all
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.all,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && (_vm.all = $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          (_vm.all = $$a
+                            .slice(0, $$i)
+                            .concat($$a.slice($$i + 1)))
+                      }
+                    } else {
+                      _vm.all = $$c
+                    }
+                  }
+                }
+              }),
+              _vm._v(" Show all\n      ")
             ]),
             _vm._v(" "),
-            _vm._m(7)
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "input-review container" },
-            [
-              _c(
-                "b-form-row",
-                [
+            _vm.item
+              ? _c(
+                  "button",
+                  { staticClass: "button-red", on: { click: _vm.multiDrop } },
+                  [_vm._v("Multi drop")]
+                )
+              : _vm._e()
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "bar border-right" }, [
+          _vm._v("Number of rows " + _vm._s(_vm.row_number))
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "bar border-right" }, [
+          _vm._v("Total library " + _vm._s(_vm.total_library))
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "bar" }, [
+          _c("div", { staticClass: "form-group search_bar" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.search,
+                  expression: "search"
+                }
+              ],
+              staticClass: "form-control search_input rounded-pill",
+              attrs: {
+                type: "text",
+                "aria-describedby": "helpId",
+                placeholder: "Search row"
+              },
+              domProps: { value: _vm.search },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.search = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("i", {
+              staticClass: "fa fa-search",
+              attrs: { "aria-hidden": "true" }
+            })
+          ])
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c("table", { staticClass: "table table-bordered" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.library, function(item, idx) {
+          return _c("tr", { key: idx }, [
+            _c("td", { attrs: { scope: "row" } }, [_vm._v(_vm._s(idx + 1))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(item.subject))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(item.title))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(item.excerpt ? item.excerpt : "-"))]),
+            _vm._v(" "),
+            _c("td", { staticClass: "options" }, [
+              _c("i", {
+                staticClass: "fa fa-ellipsis-v",
+                attrs: { "aria-hidden": "true" }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "option shadow" }, [
+                _c("ul", [
                   _c(
-                    "b-col",
-                    { attrs: { lg: "10" } },
-                    [
-                      _c("b-form-textarea", {
-                        attrs: {
-                          id: "textarea-small",
-                          size: "sm",
-                          placeholder: "Write a Review"
+                    "li",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.view(item.id)
                         }
-                      })
-                    ],
-                    1
+                      }
+                    },
+                    [_vm._v("View")]
                   ),
                   _vm._v(" "),
-                  _c("b-col", { attrs: { lg: "2" } }, [
-                    _c("button", { staticClass: "btn-review" }, [_vm._v("Add")])
-                  ])
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ])
-      ])
+                  _c("li", [_vm._v("Drop")])
+                ])
+              ])
+            ])
+          ])
+        }),
+        0
+      )
     ])
   ])
 }
@@ -42065,163 +41984,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "view-resource-header mx-auto" }, [
-      _c("h2", [_vm._v("Mathematics")]),
-      _vm._v(" "),
-      _c("h6", [_vm._v("First Term")]),
-      _vm._v(" "),
-      _c("p", { staticClass: "subject-description" }, [
-        _vm._v("\n      Lorem ipsum dolor sit amet\n      "),
-        _c("br"),
-        _vm._v("Veniam rem eligendi at provident dolor iste molestiae\n      "),
-        _c("br"),
-        _vm._v(
-          "cupiditate, adipisci vero distinctio sed quam? Natus in doloribus ullam.\n    "
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "resource-btn" }, [
-        _c("button", { staticClass: "btn" }, [_vm._v("Add to Library")]),
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", [_vm._v("S/n")]),
         _vm._v(" "),
-        _c("button", { staticClass: "btn" }, [_vm._v("Share")])
-      ]),
-      _vm._v(" "),
-      _c("p", [
-        _vm._v("\n      Created by\n      "),
-        _c("strong", [_vm._v("John Doe")])
-      ]),
-      _vm._v(" "),
-      _c("p", [_vm._v("Last Updated 20/07/2020")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "what-you-will-learn container" }, [
-      _c("h3", [_vm._v("What You Will Learn:")]),
-      _vm._v(" "),
-      _c("ul", [
-        _c("li", [
-          _vm._v(
-            "You will understand the basis of all topic attached to the subject"
-          )
-        ]),
+        _c("th", [_vm._v("Subject")]),
         _vm._v(" "),
-        _c("li", [
-          _vm._v(
-            "You will understand the basis of all topic attached to the subject"
-          )
-        ]),
+        _c("th", [_vm._v("Title")]),
         _vm._v(" "),
-        _c("li", [
-          _vm._v(
-            "You will understand the basis of all topic attached to the subject"
-          )
-        ]),
+        _c("th", [_vm._v("Excerpts")]),
         _vm._v(" "),
-        _c("li", [
-          _vm._v(
-            "You will understand the basis of all topic attached to the subject"
-          )
-        ])
+        _c("th")
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "what-you-will-learn container" }, [
-      _c("h3", [_vm._v("Requirements:")]),
-      _vm._v(" "),
-      _c("ul", [
-        _c("li", [
-          _vm._v("You need to have completed last term topic on mathematics")
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _vm._v(
-            "You will understand the basis of all topic attached to the subject"
-          )
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "description container" }, [
-      _c("h3", [_vm._v("Description")]),
-      _vm._v(" "),
-      _c("p", [
-        _vm._v(
-          "\n        Lorem ipsum dolor sit, amet consectetur adipisicing elit.\n        "
-        ),
-        _c("br"),
-        _vm._v(
-          "Rerum totam fugit perferendis debitis praesentium officiis voluptate in est nulla,\n        "
-        ),
-        _c("br"),
-        _vm._v(
-          "provident labore dignissimos aspernatur iusto optio cumque. Possimus sunt aperiam totam.\n      "
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "sutdent-assessed container" }, [
-      _c("h3", [_vm._v("How will student be Assessed")]),
-      _vm._v(" "),
-      _c("p", [_vm._v("Students Performance will be assessed based on:")]),
-      _vm._v(" "),
-      _c("ul", [
-        _c("li", [
-          _vm._v(
-            "You will understand the basis of all topic attached to the subject"
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _vm._v(
-            "You will understand the basis of all topic attached to the subject"
-          )
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "course-content" }, [
-      _c("h3", [_vm._v("Course Content")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [_c("strong", [_vm._v("Nkechi Onuha")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v(
-        "\n            Lorem ipsum dolor sit amet, consectetur adipisicing elit.\n            "
-      ),
-      _c("br"),
-      _vm._v("Exercitationem molestias explicabo sit.\n            "),
-      _c("br"),
-      _vm._v(
-        "Tenetur veniam aperiam qui quis ducimus ipsum ipsa? Ad nesciunt quas quia cum,.\n          "
-      )
     ])
   }
 ]
@@ -42257,10 +42031,7 @@ var render = function() {
             "b-nav-item",
             [
               _c("b-avatar", {
-                attrs: {
-                  to: "/student/profile",
-                  src: "/images/profile-img.jpg"
-                }
+                attrs: { to: "/student/profile", src: _vm.student.profile }
               })
             ],
             1
@@ -43412,880 +43183,477 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "main-b" },
     [
+      _c("div", { staticClass: "view-resource-header mx-auto" }, [
+        _c("h2", [_vm._v(_vm._s(_vm.title))]),
+        _vm._v(" "),
+        _c("h6", { staticClass: "toCaps" }, [_vm._v(_vm._s(_vm.subject))]),
+        _vm._v(" "),
+        _c("p", { staticClass: "subject-description" }, [
+          _vm._v("\n     " + _vm._s(_vm.excerpt) + "\n    ")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "resource-btn" }, [
+          _c(
+            "button",
+            { staticClass: "btn", on: { click: _vm.addtolibrary } },
+            [_vm._v("Add to Library")]
+          ),
+          _vm._v(" "),
+          _c("button", { staticClass: "btn" }, [_vm._v("Share")])
+        ]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v("\n      Created by\n      "),
+          _c("strong", [_vm._v(_vm._s(_vm.tutor.name))])
+        ]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "Last Updated " + _vm._s(_vm._f("moment")(_vm.time, "MMM D  "))
+          )
+        ])
+      ]),
+      _vm._v(" "),
       _c(
-        "b-overlay",
-        {
-          staticClass: "h-100",
-          attrs: { show: _vm.show, rounded: "sm" },
-          scopedSlots: _vm._u([
-            {
-              key: "overlay",
-              fn: function() {
-                return [
-                  _c(
-                    "div",
-                    { staticClass: "text-center" },
-                    [
-                      _c("b-icon", {
-                        attrs: {
-                          icon: "stopwatch",
-                          "font-scale": "3",
-                          animation: "cylon"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("p", { attrs: { id: "cancel-label" } }, [
-                        _vm._v("Please wait...")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-button",
-                        {
-                          ref: "cancel",
-                          attrs: {
-                            variant: "outline-info",
-                            size: "sm",
-                            "aria-describedby": "cancel-label"
-                          }
-                        },
-                        [_vm._v("Loading")]
-                      )
-                    ],
-                    1
-                  )
-                ]
-              },
-              proxy: true
-            }
-          ])
-        },
+        "div",
+        { staticClass: "container" },
         [
-          !_vm.show
-            ? _c(
-                "div",
+          _c("div", { staticClass: "what-you-will-learn container" }, [
+            _c("h4", [_vm._v("What You Will Learn:")]),
+            _vm._v(" "),
+            _c(
+              "ul",
+              _vm._l(_vm.curriculum.learner_outcome, function(item, idx) {
+                return _c("li", { key: idx }, [_vm._v(_vm._s(item.name))])
+              }),
+              0
+            )
+          ]),
+          _vm._v(" "),
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "description container" }, [
+            _c("h4", [_vm._v("Description")]),
+            _vm._v(" "),
+            _c("p", [
+              _vm._v(
+                "\n       " + _vm._s(_vm.syllabus.description) + "\n      "
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "sutdent-assessed container" }, [
+            _c("h4", [_vm._v("How will student be Assessed")]),
+            _vm._v(" "),
+            _c("p", [
+              _vm._v("Students Performance will be assessed based on:")
+            ]),
+            _vm._v(" "),
+            _c(
+              "ul",
+              _vm._l(_vm.syllabus.assessments, function(item, idx) {
+                return _c("li", { key: idx }, [_vm._v(_vm._s(item.name))])
+              }),
+              0
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "course-content" },
+            [
+              _c(
+                "b-row",
+                { staticClass: "mb-5" },
                 [
                   _c(
-                    "div",
-                    {
-                      staticClass: "top_n",
-                      style: {
-                        "background-image": "url(" + _vm.cover_image + ")"
-                      }
-                    },
+                    "b-col",
                     [
-                      _c("div", { staticClass: "overlay-n" }),
+                      _c("h4", [_vm._v("Course Content")]),
                       _vm._v(" "),
-                      _c(
-                        "b-jumbotron",
-                        {
-                          staticClass: "jumb toCaps",
-                          attrs: { header: _vm.title, lead: _vm.subject }
-                        },
-                        [
-                          _c("p", { staticClass: "excerpt" }, [
-                            _vm._v(_vm._s(_vm.excerpt))
-                          ]),
-                          _vm._v(" "),
-                          _c("p", { staticClass: "toCaps" }, [
-                            _vm._v("created by " + _vm._s(_vm.tutor.name))
-                          ]),
-                          _vm._v(" "),
-                          _c("small", [
-                            _vm._v(
-                              "Last update " +
-                                _vm._s(_vm._f("moment")(_vm.time, "MMM D  "))
+                      _vm._l(_vm.content, function(item, idx) {
+                        return _c(
+                          "div",
+                          { key: idx, attrs: { role: "tablist" } },
+                          [
+                            _c(
+                              "b-card",
+                              { staticClass: "mb-1", attrs: { "no-body": "" } },
+                              [
+                                _c(
+                                  "b-card-header",
+                                  {
+                                    staticClass: "p-1 text-left",
+                                    attrs: {
+                                      "header-tag": "header",
+                                      role: "tab"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "b-button",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "b-toggle",
+                                            rawName: "v-b-toggle",
+                                            value: item.title,
+                                            expression: "item.title"
+                                          }
+                                        ],
+                                        staticClass: "text-left",
+                                        attrs: {
+                                          block: "",
+                                          variant: "secondary"
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                      " +
+                                            _vm._s(item.title) +
+                                            "\n                      "
+                                        ),
+                                        _c("span", { staticClass: "ml-3" }, [
+                                          item.type == "video"
+                                            ? _c("i", {
+                                                staticClass:
+                                                  "fa fa-play-circle",
+                                                attrs: { "aria-hidden": "true" }
+                                              })
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          item.type == "pdf"
+                                            ? _c("i", {
+                                                staticClass: "fa fa-file-pdf-o",
+                                                attrs: { "aria-hidden": "true" }
+                                              })
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          item.type == "audio"
+                                            ? _c("i", {
+                                                staticClass: "fa fa-volume-up",
+                                                attrs: { "aria-hidden": "true" }
+                                              })
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          item.type == "ppt"
+                                            ? _c("i", {
+                                                staticClass:
+                                                  "fa fa-file-powerpoint-o",
+                                                attrs: { "aria-hidden": "true" }
+                                              })
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          item.item == "csv"
+                                            ? _c("i", {
+                                                staticClass: "fas fa-file-csv"
+                                              })
+                                            : _vm._e()
+                                        ])
+                                      ]
+                                    )
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "b-collapse",
+                                  {
+                                    attrs: {
+                                      id: item.title,
+                                      accordion: "my-accordion",
+                                      role: "tabpanel"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "b-card-body",
+                                      [
+                                        _c("b-card-text", [
+                                          _vm._v(_vm._s(item.overview))
+                                        ])
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
                             )
-                          ]),
-                          _vm._v(" "),
-                          _c("hr"),
-                          _vm._v(" "),
-                          _c("b-button", { attrs: { variant: "secondary" } }, [
-                            _vm._v("Share")
-                          ]),
-                          _vm._v(" "),
-                          _c("b-button", [_vm._v("Bookmark")])
-                        ],
-                        1
-                      )
+                          ],
+                          1
+                        )
+                      })
                     ],
-                    1
-                  ),
+                    2
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            { staticClass: "mb-5" },
+            [
+              _c(
+                "b-col",
+                [
+                  _c("h4", [_vm._v("Frequently Asked Questions")]),
+                  _vm._v(" "),
+                  _vm._l(_vm.syllabus.faqs, function(item, idx) {
+                    return _c(
+                      "div",
+                      { key: idx, attrs: { role: "tablist" } },
+                      [
+                        _c(
+                          "b-card",
+                          { staticClass: "mb-1", attrs: { "no-body": "" } },
+                          [
+                            _c(
+                              "b-card-header",
+                              {
+                                staticClass: "p-1",
+                                attrs: { "header-tag": "header", role: "tab" }
+                              },
+                              [
+                                _c(
+                                  "b-button",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "b-toggle",
+                                        rawName: "v-b-toggle",
+                                        value: item.question,
+                                        expression: "item.question"
+                                      }
+                                    ],
+                                    staticClass: "text-left",
+                                    attrs: { block: "", variant: "secondary" }
+                                  },
+                                  [_vm._v(_vm._s(item.question))]
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-collapse",
+                              {
+                                attrs: {
+                                  id: item.question,
+                                  accordion: "my-accordion",
+                                  role: "tabpanel"
+                                }
+                              },
+                              [
+                                _c(
+                                  "b-card-body",
+                                  [
+                                    _c("b-card-text", [
+                                      _vm._v(_vm._s(item.answer))
+                                    ])
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  })
+                ],
+                2
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            { staticClass: "mb-5" },
+            [
+              _c(
+                "b-col",
+                [
+                  _c("h4", [_vm._v("Course Availability")]),
                   _vm._v(" "),
                   _c(
-                    "b-container",
+                    "b-list-group",
                     [
-                      _c(
-                        "b-row",
-                        [
-                          _c(
-                            "b-col",
-                            { staticClass: "main-bar", attrs: { cols: "7" } },
-                            [
-                              _c(
-                                "b-row",
-                                { staticClass: "mb-5" },
-                                [
-                                  _c(
-                                    "b-col",
-                                    [
-                                      _c("h4", [_vm._v("What you will learn")]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-list-group",
-                                        _vm._l(
-                                          _vm.curriculum.learner_outcome,
-                                          function(item, idx) {
-                                            return _c(
-                                              "b-list-group-item",
-                                              { key: idx },
-                                              [_vm._v(_vm._s(item.name))]
-                                            )
-                                          }
-                                        ),
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-row",
-                                { staticClass: "mb-5" },
-                                [
-                                  _c(
-                                    "b-col",
-                                    [
-                                      _c("h4", [_vm._v("Requirements")]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-list-group",
-                                        [
-                                          _c("b-list-group-item", [
-                                            _vm._v("item")
-                                          ])
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-row",
-                                { staticClass: "mb-5" },
-                                [
-                                  _c("b-col", [
-                                    _c("h4", [_vm._v("Description")]),
-                                    _vm._v(" "),
-                                    _c("p", [
-                                      _vm._v(_vm._s(_vm.syllabus.description))
-                                    ])
-                                  ])
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-row",
-                                { staticClass: "mb-5" },
-                                [
-                                  _c(
-                                    "b-col",
-                                    [
-                                      _c("h4", [
-                                        _vm._v("Who is this course for?")
-                                      ]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-list-group",
-                                        [
-                                          _vm.curriculum.profile.age
-                                            ? _c("b-list-group-item", [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    _vm.curriculum.profile.age
-                                                  )
-                                                )
-                                              ])
-                                            : _vm._e(),
-                                          _vm._v(" "),
-                                          _vm.curriculum.profile.interest
-                                            ? _c("b-list-group-item", [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    _vm.curriculum.profile
-                                                      .interest
-                                                  )
-                                                )
-                                              ])
-                                            : _vm._e(),
-                                          _vm._v(" "),
-                                          _vm.curriculum.profile.abilities
-                                            ? _c("b-list-group-item", [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    _vm.curriculum.profile
-                                                      .abilities
-                                                  )
-                                                )
-                                              ])
-                                            : _vm._e(),
-                                          _vm._v(" "),
-                                          _vm.curriculum.profile.others
-                                            ? _c("b-list-group-item", [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    _vm.curriculum.profile
-                                                      .others
-                                                  )
-                                                )
-                                              ])
-                                            : _vm._e()
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-row",
-                                { staticClass: "mb-5" },
-                                [
-                                  _c(
-                                    "b-col",
-                                    [
-                                      _c("h4", [
-                                        _vm._v(
-                                          "How will the students be assessed"
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-list-group",
-                                        _vm._l(
-                                          _vm.syllabus.assessment,
-                                          function(item, idx) {
-                                            return _c(
-                                              "b-list-group-item",
-                                              { key: idx },
-                                              [_vm._v(_vm._s(item.name))]
-                                            )
-                                          }
-                                        ),
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-row",
-                                { staticClass: "mb-5" },
-                                [
-                                  _c(
-                                    "b-col",
-                                    [
-                                      _c("h4", [_vm._v("Featured Review")]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-list-group",
-                                        [
-                                          _c(
-                                            "b-list-group-item",
-                                            [
-                                              _c(
-                                                "b-row",
-                                                [
-                                                  _c(
-                                                    "b-col",
-                                                    [
-                                                      _c(
-                                                        "div",
-                                                        { staticClass: "mb-3" },
-                                                        [
-                                                          _c("b-avatar"),
-                                                          _vm._v(" "),
-                                                          _c("strong", [
-                                                            _vm._v("Ada Nkechi")
-                                                          ])
-                                                        ],
-                                                        1
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "b-row",
-                                                        {
-                                                          staticClass:
-                                                            "mb-3 ml-1"
-                                                        },
-                                                        _vm._l(
-                                                          _vm.review,
-                                                          function(item, idx) {
-                                                            return _c("i", {
-                                                              key: idx,
-                                                              staticClass:
-                                                                "fa fa-star-o",
-                                                              attrs: {
-                                                                "aria-hidden":
-                                                                  "true",
-                                                                id: item
-                                                              }
-                                                            })
-                                                          }
-                                                        ),
-                                                        0
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c("p", [
-                                                        _vm._v(
-                                                          " Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti odio modi dolorum ex praesentium eius facilis. Illo aut quos sequi? Est modi eius consequatur veritatis atque! Optio illo accusamus maiores?"
-                                                        )
-                                                      ])
-                                                    ],
-                                                    1
-                                                  )
-                                                ],
-                                                1
-                                              )
-                                            ],
-                                            1
-                                          )
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-row",
-                                { staticClass: "mb-5" },
-                                [
-                                  _c(
-                                    "b-col",
-                                    [
-                                      _c("h4", [_vm._v("Course Content")]),
-                                      _vm._v(" "),
-                                      _vm._l(_vm.content, function(item, idx) {
-                                        return _c(
-                                          "div",
-                                          {
-                                            key: idx,
-                                            attrs: { role: "tablist" }
-                                          },
-                                          [
-                                            _c(
-                                              "b-card",
-                                              {
-                                                staticClass: "mb-1",
-                                                attrs: { "no-body": "" }
-                                              },
-                                              [
-                                                _c(
-                                                  "b-card-header",
-                                                  {
-                                                    staticClass:
-                                                      "p-1 text-left",
-                                                    attrs: {
-                                                      "header-tag": "header",
-                                                      role: "tab"
-                                                    }
-                                                  },
-                                                  [
-                                                    _c(
-                                                      "b-button",
-                                                      {
-                                                        directives: [
-                                                          {
-                                                            name: "b-toggle",
-                                                            rawName:
-                                                              "v-b-toggle",
-                                                            value: item.title,
-                                                            expression:
-                                                              "item.title"
-                                                          }
-                                                        ],
-                                                        staticClass:
-                                                          "text-left",
-                                                        attrs: {
-                                                          block: "",
-                                                          variant: "secondary"
-                                                        }
-                                                      },
-                                                      [
-                                                        _vm._v(
-                                                          "\n                        " +
-                                                            _vm._s(item.title) +
-                                                            "\n                        "
-                                                        ),
-                                                        _c(
-                                                          "span",
-                                                          {
-                                                            staticClass: "ml-3"
-                                                          },
-                                                          [
-                                                            item.type == "video"
-                                                              ? _c("i", {
-                                                                  staticClass:
-                                                                    "fa fa-play-circle",
-                                                                  attrs: {
-                                                                    "aria-hidden":
-                                                                      "true"
-                                                                  }
-                                                                })
-                                                              : _vm._e(),
-                                                            _vm._v(" "),
-                                                            item.type == "pdf"
-                                                              ? _c("i", {
-                                                                  staticClass:
-                                                                    "fa fa-file-pdf-o",
-                                                                  attrs: {
-                                                                    "aria-hidden":
-                                                                      "true"
-                                                                  }
-                                                                })
-                                                              : _vm._e(),
-                                                            _vm._v(" "),
-                                                            item.type == "audio"
-                                                              ? _c("i", {
-                                                                  staticClass:
-                                                                    "fa fa-volume-up",
-                                                                  attrs: {
-                                                                    "aria-hidden":
-                                                                      "true"
-                                                                  }
-                                                                })
-                                                              : _vm._e(),
-                                                            _vm._v(" "),
-                                                            item.type == "ppt"
-                                                              ? _c("i", {
-                                                                  staticClass:
-                                                                    "fa fa-file-powerpoint-o",
-                                                                  attrs: {
-                                                                    "aria-hidden":
-                                                                      "true"
-                                                                  }
-                                                                })
-                                                              : _vm._e(),
-                                                            _vm._v(" "),
-                                                            item.item == "csv"
-                                                              ? _c("i", {
-                                                                  staticClass:
-                                                                    "fas fa-file-csv"
-                                                                })
-                                                              : _vm._e()
-                                                          ]
-                                                        )
-                                                      ]
-                                                    )
-                                                  ],
-                                                  1
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "b-collapse",
-                                                  {
-                                                    attrs: {
-                                                      id: item.title,
-                                                      accordion: "my-accordion",
-                                                      role: "tabpanel"
-                                                    }
-                                                  },
-                                                  [
-                                                    _c(
-                                                      "b-card-body",
-                                                      [
-                                                        _c("b-card-text", [
-                                                          _vm._v(
-                                                            _vm._s(
-                                                              item.overview
-                                                            )
-                                                          )
-                                                        ])
-                                                      ],
-                                                      1
-                                                    )
-                                                  ],
-                                                  1
-                                                )
-                                              ],
-                                              1
-                                            )
-                                          ],
-                                          1
-                                        )
-                                      })
-                                    ],
-                                    2
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-row",
-                                { staticClass: "mb-5" },
-                                [
-                                  _c(
-                                    "b-col",
-                                    [
-                                      _c("h4", [
-                                        _vm._v("Frequently Asked Questions")
-                                      ]),
-                                      _vm._v(" "),
-                                      _vm._l(_vm.syllabus.faqs, function(
-                                        item,
-                                        idx
-                                      ) {
-                                        return _c(
-                                          "div",
-                                          {
-                                            key: idx,
-                                            attrs: { role: "tablist" }
-                                          },
-                                          [
-                                            _c(
-                                              "b-card",
-                                              {
-                                                staticClass: "mb-1",
-                                                attrs: { "no-body": "" }
-                                              },
-                                              [
-                                                _c(
-                                                  "b-card-header",
-                                                  {
-                                                    staticClass: "p-1",
-                                                    attrs: {
-                                                      "header-tag": "header",
-                                                      role: "tab"
-                                                    }
-                                                  },
-                                                  [
-                                                    _c(
-                                                      "b-button",
-                                                      {
-                                                        directives: [
-                                                          {
-                                                            name: "b-toggle",
-                                                            rawName:
-                                                              "v-b-toggle",
-                                                            value:
-                                                              item.question,
-                                                            expression:
-                                                              "item.question"
-                                                          }
-                                                        ],
-                                                        staticClass:
-                                                          "text-left",
-                                                        attrs: {
-                                                          block: "",
-                                                          variant: "secondary"
-                                                        }
-                                                      },
-                                                      [
-                                                        _vm._v(
-                                                          _vm._s(item.question)
-                                                        )
-                                                      ]
-                                                    )
-                                                  ],
-                                                  1
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "b-collapse",
-                                                  {
-                                                    attrs: {
-                                                      id: item.question,
-                                                      accordion: "my-accordion",
-                                                      role: "tabpanel"
-                                                    }
-                                                  },
-                                                  [
-                                                    _c(
-                                                      "b-card-body",
-                                                      [
-                                                        _c("b-card-text", [
-                                                          _vm._v(
-                                                            _vm._s(item.answer)
-                                                          )
-                                                        ])
-                                                      ],
-                                                      1
-                                                    )
-                                                  ],
-                                                  1
-                                                )
-                                              ],
-                                              1
-                                            )
-                                          ],
-                                          1
-                                        )
-                                      })
-                                    ],
-                                    2
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-row",
-                                { staticClass: "mb-5" },
-                                [
-                                  _c(
-                                    "b-col",
-                                    [
-                                      _c("h4", [_vm._v("Course Availability")]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-list-group",
-                                        [
-                                          _c("b-list-group-item", [
-                                            _vm._v(
-                                              _vm._s(_vm.syllabus.availability)
-                                            )
-                                          ])
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-row",
-                                { staticClass: "mb-5" },
-                                [
-                                  _c(
-                                    "b-col",
-                                    [
-                                      _c("h4", [_vm._v("Student Feedback")]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-list-group",
-                                        [
-                                          _c(
-                                            "b-list-group-item",
-                                            [
-                                              _c(
-                                                "b-row",
-                                                [
-                                                  _c(
-                                                    "b-col",
-                                                    {
-                                                      staticClass: "text-right",
-                                                      attrs: { cols: "2" }
-                                                    },
-                                                    [_c("b-avatar")],
-                                                    1
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "b-col",
-                                                    { attrs: { cols: "10" } },
-                                                    [
-                                                      _c("strong", [
-                                                        _vm._v("John Enugu")
-                                                      ]),
-                                                      _vm._v(" "),
-                                                      _c("p", [
-                                                        _vm._v(
-                                                          " Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti odio modi dolorum ex praesentium eius facilis. Illo aut quos sequi? Est modi eius consequatur veritatis atque! Optio illo accusamus maiores?"
-                                                        )
-                                                      ])
-                                                    ]
-                                                  )
-                                                ],
-                                                1
-                                              )
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "b-list-group-item",
-                                            [
-                                              _c(
-                                                "b-row",
-                                                [
-                                                  _c(
-                                                    "b-col",
-                                                    {
-                                                      staticClass: "text-right",
-                                                      attrs: { cols: "2" }
-                                                    },
-                                                    [_c("b-avatar")],
-                                                    1
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "b-col",
-                                                    { attrs: { cols: "10" } },
-                                                    [
-                                                      _c("strong", [
-                                                        _vm._v("Ada Nkechi")
-                                                      ]),
-                                                      _vm._v(" "),
-                                                      _c("p", [
-                                                        _vm._v(
-                                                          " Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti odio modi dolorum ex praesentium eius facilis. Illo aut quos sequi? Est modi eius consequatur veritatis atque! Optio illo accusamus maiores?"
-                                                        )
-                                                      ])
-                                                    ]
-                                                  )
-                                                ],
-                                                1
-                                              )
-                                            ],
-                                            1
-                                          )
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-row",
-                                { staticClass: "mb-5" },
-                                [
-                                  _c(
-                                    "b-col",
-                                    [
-                                      _c("h4", [_vm._v("Review")]),
-                                      _vm._v(" "),
-                                      _c("b-textarea", {
-                                        staticClass: "mb-3",
-                                        attrs: { placeholder: "Write a review" }
-                                      }),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-row",
-                                        { staticClass: "mb-3 ml-1" },
-                                        _vm._l(_vm.review, function(item, idx) {
-                                          return _c("i", {
-                                            key: idx,
-                                            staticClass: "fa fa-star-o",
-                                            attrs: {
-                                              "aria-hidden": "true",
-                                              id: item
-                                            }
-                                          })
-                                        }),
-                                        0
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-button",
-                                        {
-                                          attrs: {
-                                            type: "button",
-                                            variant: "secondary"
-                                          }
-                                        },
-                                        [_vm._v("Submit")]
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-col",
-                            { attrs: { cols: "5" } },
-                            [
-                              _c(
-                                "b-card",
-                                {
-                                  staticClass: "mb-2 floating-bar shadow-lg",
-                                  staticStyle: { "max-width": "25rem" },
-                                  attrs: {
-                                    title: _vm.title,
-                                    "img-src": _vm.cover_image,
-                                    "img-alt": "Image",
-                                    "img-top": "",
-                                    tag: "article"
-                                  }
-                                },
-                                [
-                                  _c("b-card-text", [
-                                    _c("strong", [_vm._v("This includes:")])
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("b-card-text", [
-                                    _vm._v(
-                                      " " +
-                                        _vm._s(_vm.content.length) +
-                                        " downloadable resources"
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-button",
-                                    {
-                                      attrs: {
-                                        href: "#",
-                                        block: "",
-                                        variant: "primary"
-                                      },
-                                      on: { click: _vm.addtolibrary }
-                                    },
-                                    [_vm._v("Add to library")]
-                                  )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
+                      _c("b-list-group-item", [
+                        _vm._v(_vm._s(_vm.syllabus.availability))
+                      ])
                     ],
                     1
                   )
                 ],
                 1
               )
-            : _vm._e()
-        ]
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "review" }, [
+            _c("h4", [_vm._v("Review")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "featured-review" }, [
+              _c("div", { staticClass: "active-review" }, [
+                _c("div", { staticClass: "featured-review-top" }, [
+                  _c(
+                    "div",
+                    { staticClass: "featured-review-inner-top" },
+                    [
+                      _c("b-avatar", {
+                        attrs: { src: "/images/profile-img.jpg" }
+                      }),
+                      _vm._v(" "),
+                      _vm._m(1)
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("img", {
+                    staticClass: "img-fluid",
+                    attrs: { src: "/images/five-star.png", alt: "" }
+                  })
+                ]),
+                _vm._v(" "),
+                _vm._m(2)
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "input-review container" },
+                [
+                  _c(
+                    "b-form-row",
+                    [
+                      _c(
+                        "b-col",
+                        { attrs: { lg: "10" } },
+                        [
+                          _c("b-form-textarea", {
+                            attrs: {
+                              id: "textarea-small",
+                              size: "sm",
+                              placeholder: "Write a Review"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("b-col", { attrs: { lg: "2" } }, [
+                        _c("button", { staticClass: "btn-review" }, [
+                          _vm._v("Add")
+                        ])
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ])
+          ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-col",
+        { attrs: { cols: "5" } },
+        [
+          _c(
+            "b-card",
+            {
+              staticClass: "mb-2 floating-bar shadow-lg",
+              staticStyle: { "max-width": "25rem" },
+              attrs: {
+                title: _vm.title,
+                "img-src": _vm.cover_image,
+                "img-alt": "Image",
+                "img-top": "",
+                tag: "article"
+              }
+            },
+            [
+              _c("b-card-text", [_c("strong", [_vm._v("This includes:")])]),
+              _vm._v(" "),
+              _c("b-card-text", [
+                _vm._v(
+                  " " + _vm._s(_vm.content.length) + " downloadable resources"
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "b-button",
+                {
+                  attrs: { href: "#", block: "", variant: "primary" },
+                  on: { click: _vm.addtolibrary }
+                },
+                [_vm._v("Add to library")]
+              )
+            ],
+            1
+          )
+        ],
+        1
       )
     ],
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "what-you-will-learn container" }, [
+      _c("h4", [_vm._v("Requirements:")]),
+      _vm._v(" "),
+      _c("ul", [
+        _c("li", [
+          _vm._v("You need to have completed last term topic on mathematics")
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _vm._v(
+            "You will understand the basis of all topic attached to the subject"
+          )
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [_c("strong", [_vm._v("Nkechi Onuha")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _vm._v(
+        "\n           I had an easy time learning this course with the materials giving.\n            "
+      ),
+      _c("br"),
+      _vm._v("Easy to understand and grasp.\n           \n          ")
+    ])
+  }
+]
 render._withStripped = true
 
 

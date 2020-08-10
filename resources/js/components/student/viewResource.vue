@@ -172,7 +172,7 @@ export default {
       time: "",
       id: "",
       subject: "",
-      cover_image: "/images/english-lit.jpg",
+      cover_image: "",
       show: true,
       review:[1,2,3,4,5]
     };

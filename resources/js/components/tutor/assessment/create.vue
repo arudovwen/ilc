@@ -1,6 +1,58 @@
 <template>
   <div class="body">
     <b-container>
+      <h3 class="toCaps">{{$route.params.type}}</h3>
+      <b-form>
+        <b-form-group label="Enter Title ">
+          <b-form-input required></b-form-input>
+        </b-form-group>
+        <b-form-row>
+          <b-col md="6">
+            <b-form-group label="Select Class">
+              <b-form-select v-model="selected" :options="allClass" required ></b-form-select>
+            </b-form-group>
+          </b-col>
+          <b-col md="6">
+            <b-form-group label="Select Subject">
+              <b-form-select v-model="selected" :options="subjects" required ></b-form-select>
+            </b-form-group>
+          </b-col>
+        </b-form-row>
+        <b-form-row>
+          <b-col md="6">
+            <b-form-group label="Select Module">
+              <b-form-select v-model="selected" :options="allmodule" required></b-form-select>
+            </b-form-group>
+          </b-col>
+          <b-col md="6">
+            <b-form-group label="Select Term">
+              <b-form-select v-model="selected" :options="term" required></b-form-select>
+            </b-form-group>
+          </b-col>
+        </b-form-row>
+        <b-form-row>
+          <b-col md="6">
+            <b-form-group label="Start Time">
+              <datetime format=" h:i:s (12h)" v-model="val"></datetime>
+            </b-form-group>
+          </b-col>
+          <b-col md="6">
+            <b-form-group label="End Time">
+              <datetime format="h:i:s (12h)" v-model="val"></datetime>
+            </b-form-group>
+          </b-col>
+        </b-form-row>
+      </b-form>
+      <router-link to="/tutor/assessmentform">
+        <div class="right-btn">
+          <div class="btn text-center">
+            <span>NEXT PAGE</span>
+            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+          </div>
+        </div>
+      </router-link>
+    </b-container>
+    <!-- <b-container>
       <b-row class="justify-content-between">
         <h3 class="toCaps">{{$route.params.type}}</h3>
         <b-button @click="saveAssessment">Save</b-button>
@@ -249,12 +301,14 @@
           </b-form>
         </b-col>
       </b-row>
-    </b-container>
+    </b-container>-->
   </div>
 </template>
 
 <script>
+import datetime from "vuejs-datetimepicker";
 export default {
+  components: { datetime },
   data() {
     return {
       type: "",
@@ -265,7 +319,7 @@ export default {
         time: "",
         type: null,
       },
-      total_score:0,
+      total_score: 0,
       subject: null,
       assessment: [
         {
@@ -305,6 +359,7 @@ export default {
         { value: 9, text: "9" },
         { value: 10, text: "10" },
       ],
+
       typeOptions: [
         { value: null, text: "Please select type", disabled: true },
         { value: "multi-choice", text: "Multi Choice" },
@@ -437,7 +492,7 @@ export default {
           level: this.myclass,
           duration: JSON.stringify(this.duration),
           assessment: this.assessment,
-          total_score:this.total_score
+          total_score: this.total_score,
         };
         axios
           .post("/api/assessment", data, {
@@ -447,8 +502,8 @@ export default {
           })
           .then((res) => {
             if (res.status == 201) {
-              this.$toasted.success('Created successfully')
-              this.$router.go(-1)
+              this.$toasted.success("Created successfully");
+              this.$router.go(-1);
             }
           })
           .catch();
@@ -481,5 +536,46 @@ export default {
   padding: 0.1rem 0.4rem;
   font-size: 0.4rem;
   line-height: 1.5;
+}
+.custom-select {
+  display: inline-block !important;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  vertical-align: middle;
+  /* background: #fff; */
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  /* -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; */
+  background: #fff url(/images/down-chevron.png) no-repeat right 0.75rem
+    center/8px 10px;
+}
+.right-btn {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 25px;
+  margin-top: 25px;
+}
+.btn {
+  background: transparent;
+  border: 1px solid #0a4065;
+  color: #0a4065;
+  font-weight: 500;
+}
+.btn:hover {
+  background: #0a4065;
+  color: white;
+}
+a {
+  text-decoration: none !important;
+}
+a:hover {
+  text-decoration: none !important;
 }
 </style>

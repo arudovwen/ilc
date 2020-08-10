@@ -658,6 +658,43 @@ table{
     margin-right: 10px;
 }
 /* teacher dashboard  */
+.year-month-wrapper, .nav-l, .nav-r{
+    background-color: #0A4065 !important;
+}
+.okButton{
+    color: #0A4065 !important ;
+}
+.days, .port:hover{
+    color: #22CADE !important;
+}
+.activePort, .activePort:hover{
+    background-color: #22CADE !important;
+    color: white;
+}
+.port{
+    border-radius: 50% !important;
+}
+.calender-div{
+    border-radius: 10px;
+}
+#tj-datetime-input{
+    display: inline-block !important;
+      width: 100%;
+      height: calc(1.5em + 0.75rem + 2px);
+      padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #495057;
+      vertical-align: middle;
+      background: #fff;
+      border: 1px solid #ced4da;
+      border-radius: 0.25rem;
+  }
+legend{
+    font-family: "Montserrat";
+    font-weight: 500;
+}
 
 .cpointer{
     cursor: pointer;

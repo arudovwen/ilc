@@ -15,7 +15,7 @@
         Created by
         <strong>{{tutor.name}}</strong>
       </p>
-      <p>Last Updated {{time | moment('MMM D  ')}}</p>
+      <p>Last Updated {{time | moment('MMM D')}}</p>
     </div>
     <div class="container">
       <div class="what-you-will-learn ">
@@ -66,7 +66,7 @@
                         </span>
                       </div>
                     </b-card-header>
-                    <b-collapse :id="item.titlereplace(/[^a-z0-9]/gi, '').replace(/\$/g, '')" accordion="my-accordion" role="tabpanel">
+                    <b-collapse :id="item.title.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')" accordion="my-accordion" role="tabpanel">
                       <b-card-body>
                         <b-card-text>{{item.overview}}</b-card-text>
                       </b-card-body>
@@ -143,7 +143,6 @@
               :img-src="cover_image"
               img-alt="Image"
               img-top
-              tag="article"
               style="width: 22rem;"
               class="mb-2 floating-bar shadow-lg"
             >

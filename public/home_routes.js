@@ -12768,7 +12768,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -42021,7 +42020,7 @@ var render = function() {
     [
       _c(
         "b-nav",
-        { attrs: { align: "right" } },
+        { staticClass: "py-2 shadow-sm", attrs: { align: "right" } },
         [
           _c(
             "b-nav-item",
@@ -43206,9 +43205,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("p", [
-          _vm._v(
-            "Last Updated " + _vm._s(_vm._f("moment")(_vm.time, "MMM D  "))
-          )
+          _vm._v("Last Updated " + _vm._s(_vm._f("moment")(_vm.time, "MMM D")))
         ])
       ]),
       _vm._v(" "),
@@ -43362,8 +43359,8 @@ var render = function() {
                                   "b-collapse",
                                   {
                                     attrs: {
-                                      id: item
-                                        .titlereplace(/[^a-z0-9]/gi, "")
+                                      id: item.title
+                                        .replace(/[^a-z0-9]/gi, "")
                                         .replace(/\$/g, ""),
                                       accordion: "my-accordion",
                                       role: "tabpanel"
@@ -43584,8 +43581,7 @@ var render = function() {
                 title: _vm.title,
                 "img-src": _vm.cover_image,
                 "img-alt": "Image",
-                "img-top": "",
-                tag: "article"
+                "img-top": ""
               }
             },
             [

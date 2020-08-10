@@ -84,12 +84,12 @@
                     <b-card-header header-tag="header" class="p-2" role="tab">
                       <div
                         block
-                        v-b-toggle="item.question"
+                        v-b-toggle="item.question.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
                         variant="secondary"
                         class="text-left "
                       >{{item.question}}</div>
                     </b-card-header>
-                    <b-collapse :id="item.question" accordion="my-accordion" role="tabpanel">
+                    <b-collapse :id="item.question.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')" accordion="my-accordion" role="tabpanel">
                       <b-card-body>
                         <b-card-text>{{item.answer}}</b-card-text>
                       </b-card-body>

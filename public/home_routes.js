@@ -43428,8 +43428,11 @@ var render = function() {
                                       {
                                         name: "b-toggle",
                                         rawName: "v-b-toggle",
-                                        value: item.question,
-                                        expression: "item.question"
+                                        value: item.question
+                                          .replace(/[^a-z0-9]/gi, "")
+                                          .replace(/\$/g, ""),
+                                        expression:
+                                          "item.question.replace(/[^a-z0-9]/gi, '').replace(/\\$/g, '')"
                                       }
                                     ],
                                     staticClass: "text-left ",
@@ -43444,7 +43447,9 @@ var render = function() {
                               "b-collapse",
                               {
                                 attrs: {
-                                  id: item.question,
+                                  id: item.question
+                                    .replace(/[^a-z0-9]/gi, "")
+                                    .replace(/\$/g, ""),
                                   accordion: "my-accordion",
                                   role: "tabpanel"
                                 }

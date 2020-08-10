@@ -1,8 +1,7 @@
 <template>
-  <b-overlay :show="show" rounded="sm" class="h-100">
+  <!-- <b-overlay :show="show" rounded="sm" class="h-100">
     <div v-if="!show">
-      <!-- banner  -->
-      <!-- title, overview, created at, buttons share,add,bookmark -->
+    
       <div class="top_n" :style="{'background-image':`url(${cover_image})`}">
         <div class="overlay-n"></div>
         <b-jumbotron :header="title" :lead="subject" class="jumb toCaps">
@@ -18,7 +17,7 @@
       <b-container>
         <b-row>
           <b-col cols="7" class="main-bar">
-            <!-- what you will learn  -->
+          
             <b-row class="mb-5">
               <b-col>
                 <h4>What you will learn</h4>
@@ -32,7 +31,7 @@
               </b-col>
             </b-row>
 
-            <!-- requirements  -->
+           
             <b-row class="mb-5">
               <b-col>
                 <h4>Requirements</h4>
@@ -41,7 +40,7 @@
                 </b-list-group>
               </b-col>
             </b-row>
-            <!-- description  -->
+           
             <b-row class="mb-5">
               <b-col>
                 <h4>Description</h4>
@@ -49,7 +48,7 @@
               </b-col>
             </b-row>
 
-            <!-- who is this course for  -->
+           
             <b-row class="mb-5">
               <b-col>
                 <h4>Who is this course for?</h4>
@@ -66,7 +65,7 @@
               </b-col>
             </b-row>
 
-            <!-- how will the student be assessed  -->
+           
             <b-row class="mb-5">
               <b-col>
                 <h4>How will the students be assessed</h4>
@@ -79,7 +78,7 @@
               </b-col>
             </b-row>
 
-            <!-- featured review  -->
+           
             <b-row class="mb-5">
               <b-col>
                 <h4>Featured Review</h4>
@@ -99,7 +98,6 @@
               </b-col>
             </b-row>
 
-            <!-- course content  -->
             <b-row class="mb-5">
               <b-col>
                 <h4>Course Content</h4>
@@ -131,7 +129,7 @@
               </b-col>
             </b-row>
 
-            <!-- faq  -->
+           
 
             <b-row class="mb-5">
               <b-col>
@@ -155,7 +153,7 @@
                 </div>
               </b-col>
             </b-row>
-            <!-- course availabilty  -->
+          
             <b-row class="mb-5">
               <b-col>
                 <h4>Course Availability</h4>
@@ -164,9 +162,9 @@
                 </b-list-group>
               </b-col>
             </b-row>
-            <!-- tutors  -->
+          
 
-            <!-- student feddback   -->
+           
             <b-row class="mb-5">
               <b-col>
                 <h4>Student Feedback</h4>
@@ -193,7 +191,7 @@
               </b-col>
             </b-row>
 
-            <!-- review  -->
+           
             <b-row class="mb-5">
               <b-col>
                 <h4>Review</h4>
@@ -216,7 +214,7 @@
               <b-card-text><strong>This includes:</strong></b-card-text>
               <b-card-text> {{content.length}} downloadable resources</b-card-text>
 
-              <!-- <b-button href="#" block variant="primary" @click="addtolibrary">Add to library</b-button> -->
+              <b-button href="#" block variant="primary" @click="addtolibrary">Add to library</b-button>
             </b-card>
           </b-col>
         </b-row>
@@ -234,7 +232,10 @@
         >Loading</b-button>
       </div>
     </template>
-  </b-overlay>
+  </b-overlay> -->
+  <div class="view-resource">
+
+  </div>
 </template>
 
 <script>

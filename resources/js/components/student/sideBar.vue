@@ -148,7 +148,7 @@ li {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 1rem;
+  padding-top: 10px;
 }
 ul a {
   color: #565454;

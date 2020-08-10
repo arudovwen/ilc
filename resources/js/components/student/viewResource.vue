@@ -18,7 +18,7 @@
       <p>Last Updated {{time | moment('MMM D  ')}}</p>
     </div>
     <div class="container">
-      <div class="what-you-will-learn container">
+      <div class="what-you-will-learn ">
         <h4>What You Will Learn:</h4>
         <ul>
           <li    v-for="(item,idx) in curriculum.learner_outcome"
@@ -26,20 +26,20 @@
         
         </ul>
       </div>
-      <div class="what-you-will-learn container">
+      <div class="what-you-will-learn ">
         <h4>Requirements:</h4>
         <ul>
           <li>You need to have completed last term topic on mathematics</li>
           <li>You will understand the basis of all topic attached to the subject</li>
         </ul>
       </div>
-      <div class="description container">
+      <div class="description ">
         <h4>Description</h4>
         <p>
          {{syllabus.description}}
         </p>
       </div>
-      <div class="sutdent-assessed container">
+      <div class="sutdent-assessed ">
         <h4>How will student be Assessed</h4>
         <p>Students Performance will be assessed based on:</p>
         <ul >
@@ -51,26 +51,22 @@
       <div class="course-content">
             <b-row class="mb-5">
               <b-col>
-                <h4>Course Content</h4>
+                <h4 class="text-dark">Course Content</h4>
                 <div role="tablist" v-for="(item,idx) in content" :key="idx">
                   <b-card no-body class="mb-1">
-                    <b-card-header header-tag="header" class="p-1 text-left" role="tab">
-                      <b-button block v-b-toggle="item.title" variant="secondary" class="text-left">
+                    <b-card-header header-tag="header" class="p-2 text-left" role="tab">
+                      <div block v-b-toggle="item.title.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')" variant="secondary" class="text-left">
                         {{item.title}}
                         <span class="ml-3">
                           <i class="fa fa-play-circle" v-if="item.type=='video'" aria-hidden="true"></i>
                           <i class="fa fa-file-pdf-o" v-if="item.type=='pdf'" aria-hidden="true"></i>
                           <i class="fa fa-volume-up" v-if="item.type=='audio'" aria-hidden="true"></i>
-                          <i
-                            class="fa fa-file-powerpoint-o"
-                            v-if="item.type=='ppt'"
-                            aria-hidden="true"
-                          ></i>
-                          <i class="fas fa-file-csv" v-if="item.item=='csv'"></i>
+                          <i class="fa fa-file-powerpoint-o" v-if="item.type=='ppt'" aria-hidden="true"></i>
+                          <i class="fas fa-file-csv" v-if="item.type=='csv'"></i>
                         </span>
-                      </b-button>
+                      </div>
                     </b-card-header>
-                    <b-collapse :id="item.title" accordion="my-accordion" role="tabpanel">
+                    <b-collapse :id="item.titlereplace(/[^a-z0-9]/gi, '').replace(/\$/g, '')" accordion="my-accordion" role="tabpanel">
                       <b-card-body>
                         <b-card-text>{{item.overview}}</b-card-text>
                       </b-card-body>
@@ -85,13 +81,13 @@
                 <h4>Frequently Asked Questions</h4>
                 <div role="tablist" v-for="(item,idx) in syllabus.faqs" :key="idx">
                   <b-card no-body class="mb-1">
-                    <b-card-header header-tag="header" class="p-1" role="tab">
-                      <b-button
+                    <b-card-header header-tag="header" class="p-2" role="tab">
+                      <div
                         block
                         v-b-toggle="item.question"
                         variant="secondary"
-                        class="text-left"
-                      >{{item.question}}</b-button>
+                        class="text-left "
+                      >{{item.question}}</div>
                     </b-card-header>
                     <b-collapse :id="item.question" accordion="my-accordion" role="tabpanel">
                       <b-card-body>
@@ -130,7 +126,7 @@
              
             </p>
           </div>
-          <div class="input-review container">
+          <div class="input-review ">
             <b-form-row>
               <b-col lg="10"><b-form-textarea id="textarea-small" size="sm" placeholder="Write a Review"></b-form-textarea></b-col>
               <b-col lg="2"><button class="btn-review">Add</button></b-col>
@@ -148,7 +144,7 @@
               img-alt="Image"
               img-top
               tag="article"
-              style="max-width: 25rem;"
+              style="width: 22rem;"
               class="mb-2 floating-bar shadow-lg"
             >
               <b-card-text><strong>This includes:</strong></b-card-text>
@@ -257,6 +253,12 @@ export default {
 }
 .excerpt{
   width: 60%;
+}
+.text-left:focus {
+    outline: none !important;
+}
+.subject-description{
+  width:65%;
 }
 .overlay-n {
   top: 0px;

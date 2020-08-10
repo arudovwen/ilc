@@ -12769,10 +12769,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -19338,7 +19334,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.jumb[data-v-ce72931c] {\n  width: 100%;\n  position: relative;\n  background: transparent;\n}\n.top_n[data-v-ce72931c] {\n  position: relative;\n\n  -o-object-fit: cover;\n\n     object-fit: cover;\n}\n.excerpt[data-v-ce72931c]{\n  width: 60%;\n}\n.overlay-n[data-v-ce72931c] {\n  top: 0px;\n  left: 0px;\n  bottom: 0px;\n  right: 0px;\n  opacity: 0.85;\n  background: #f7f8fa;\n  -webkit-backdrop-filter: blur(2px);\n          backdrop-filter: blur(2px);\n  position: absolute;\n}\n.main-bar[data-v-ce72931c] {\n  width: 70%;\n  margin-right: auto;\n}\n.floating-bar[data-v-ce72931c]{\n  position: fixed;\n  right: 5%;\n  top:30%;\n}\n.view-resource-header[data-v-ce72931c] {\n  background-image: linear-gradient(\n      to bottom,\n      rgba(19, 166, 153, 0.65),\n      rgba(19, 166, 153, 0.65)\n    ),\n    url(/images/resource-bg.png);\n  color: #fff;\n  padding: 1.5rem;\n  margin-top: 2rem;\n}\n.view-resource-header p[data-v-ce72931c] {\n  margin-bottom: 0.5rem !important;\n}\n.btn[data-v-ce72931c] {\n  background: transparent;\n  border: 1px solid #fff;\n  color: white !important;\n  margin-right: 10px;\n  margin-bottom: 15px;\n}\n.btn[data-v-ce72931c]:hover {\n  background: #fff;\n  color: #13a699 !important;\n  transition: 0.3s;\n  border: none;\n}\n.what-you-will-learn[data-v-ce72931c] {\n  margin-top: 2rem;\n}\n.what-you-will-learn ul[data-v-ce72931c] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 15px;\n}\n.what-you-will-learn ul li[data-v-ce72931c] {\n  padding-top: 10px;\n}\n.sutdent-assessed ul[data-v-ce72931c] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 10px 15px;\n}\n.sutdent-assessed ul li[data-v-ce72931c] {\n  padding-bottom: 10px;\n}\n.sutdent-assessed[data-v-ce72931c] {\n  margin-top: 2rem;\n}\n.course-content[data-v-ce72931c] {\n  color: #13a699;\n}\n.featured-review-inner-top[data-v-ce72931c] {\n  display: flex;\n  padding: 15px;\n}\n.featured-review-top[data-v-ce72931c] {\n  display: flex;\n  justify-content: space-between;\n}\n.featured-review-inner-top p[data-v-ce72931c] {\n  padding-left: 10px;\n}\n.featured-review-top img[data-v-ce72931c] {\n  height: 20px;\n  width: 100px;\n}\n.review[data-v-ce72931c] {\n  background-color: #fff;\n  border: 1px solid #808080;\n  border-radius: 5px;\n  padding: 10px;\n  margin-bottom: 10px;\n}\n.btn-review[data-v-ce72931c]{\n  background-color:#13a699 ;\n  color: #fff !important;\n  border: none;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n.btn-secondary[data-v-ce72931c] {\n    color: #fff !important;\n    background-color: #13a699 !important;\n    border-color: #13a699;\n}\n.btn-secondary[data-v-ce72931c]:hover{\ncolor: #13a699 !important;\n    background-color: #fff !important;\n}\n.container[data-v-ce72931c]{\n  width:60%;\n  margin-right: 40%;\n}\n", ""]);
+exports.push([module.i, "\n.jumb[data-v-ce72931c] {\n  width: 100%;\n  position: relative;\n  background: transparent;\n}\n.top_n[data-v-ce72931c] {\n  position: relative;\n\n  -o-object-fit: cover;\n\n     object-fit: cover;\n}\n.excerpt[data-v-ce72931c]{\n  width: 60%;\n}\n.text-left[data-v-ce72931c]:focus {\n    outline: none !important;\n}\n.subject-description[data-v-ce72931c]{\n  width:65%;\n}\n.overlay-n[data-v-ce72931c] {\n  top: 0px;\n  left: 0px;\n  bottom: 0px;\n  right: 0px;\n  opacity: 0.85;\n  background: #f7f8fa;\n  -webkit-backdrop-filter: blur(2px);\n          backdrop-filter: blur(2px);\n  position: absolute;\n}\n.main-bar[data-v-ce72931c] {\n  width: 70%;\n  margin-right: auto;\n}\n.floating-bar[data-v-ce72931c]{\n  position: fixed;\n  right: 5%;\n  top:30%;\n}\n.view-resource-header[data-v-ce72931c] {\n  background-image: linear-gradient(\n      to bottom,\n      rgba(19, 166, 153, 0.65),\n      rgba(19, 166, 153, 0.65)\n    ),\n    url(/images/resource-bg.png);\n  color: #fff;\n  padding: 1.5rem;\n  margin-top: 2rem;\n}\n.view-resource-header p[data-v-ce72931c] {\n  margin-bottom: 0.5rem !important;\n}\n.btn[data-v-ce72931c] {\n  background: transparent;\n  border: 1px solid #fff;\n  color: white !important;\n  margin-right: 10px;\n  margin-bottom: 15px;\n}\n.btn[data-v-ce72931c]:hover {\n  background: #fff;\n  color: #13a699 !important;\n  transition: 0.3s;\n  border: none;\n}\n.what-you-will-learn[data-v-ce72931c] {\n  margin-top: 2rem;\n}\n.what-you-will-learn ul[data-v-ce72931c] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 15px;\n}\n.what-you-will-learn ul li[data-v-ce72931c] {\n  padding-top: 10px;\n}\n.sutdent-assessed ul[data-v-ce72931c] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 10px 15px;\n}\n.sutdent-assessed ul li[data-v-ce72931c] {\n  padding-bottom: 10px;\n}\n.sutdent-assessed[data-v-ce72931c] {\n  margin-top: 2rem;\n}\n.course-content[data-v-ce72931c] {\n  color: #13a699;\n}\n.featured-review-inner-top[data-v-ce72931c] {\n  display: flex;\n  padding: 15px;\n}\n.featured-review-top[data-v-ce72931c] {\n  display: flex;\n  justify-content: space-between;\n}\n.featured-review-inner-top p[data-v-ce72931c] {\n  padding-left: 10px;\n}\n.featured-review-top img[data-v-ce72931c] {\n  height: 20px;\n  width: 100px;\n}\n.review[data-v-ce72931c] {\n  background-color: #fff;\n  border: 1px solid #808080;\n  border-radius: 5px;\n  padding: 10px;\n  margin-bottom: 10px;\n}\n.btn-review[data-v-ce72931c]{\n  background-color:#13a699 ;\n  color: #fff !important;\n  border: none;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n.btn-secondary[data-v-ce72931c] {\n    color: #fff !important;\n    background-color: #13a699 !important;\n    border-color: #13a699;\n}\n.btn-secondary[data-v-ce72931c]:hover{\ncolor: #13a699 !important;\n    background-color: #fff !important;\n}\n.container[data-v-ce72931c]{\n  width:60%;\n  margin-right: 40%;\n}\n", ""]);
 
 // exports
 
@@ -43220,7 +43216,7 @@ var render = function() {
         "div",
         { staticClass: "container" },
         [
-          _c("div", { staticClass: "what-you-will-learn container" }, [
+          _c("div", { staticClass: "what-you-will-learn " }, [
             _c("h4", [_vm._v("What You Will Learn:")]),
             _vm._v(" "),
             _c(
@@ -43234,7 +43230,7 @@ var render = function() {
           _vm._v(" "),
           _vm._m(0),
           _vm._v(" "),
-          _c("div", { staticClass: "description container" }, [
+          _c("div", { staticClass: "description " }, [
             _c("h4", [_vm._v("Description")]),
             _vm._v(" "),
             _c("p", [
@@ -43244,7 +43240,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "sutdent-assessed container" }, [
+          _c("div", { staticClass: "sutdent-assessed " }, [
             _c("h4", [_vm._v("How will student be Assessed")]),
             _vm._v(" "),
             _c("p", [
@@ -43271,7 +43267,9 @@ var render = function() {
                   _c(
                     "b-col",
                     [
-                      _c("h4", [_vm._v("Course Content")]),
+                      _c("h4", { staticClass: "text-dark" }, [
+                        _vm._v("Course Content")
+                      ]),
                       _vm._v(" "),
                       _vm._l(_vm.content, function(item, idx) {
                         return _c(
@@ -43285,7 +43283,7 @@ var render = function() {
                                 _c(
                                   "b-card-header",
                                   {
-                                    staticClass: "p-1 text-left",
+                                    staticClass: "p-2 text-left",
                                     attrs: {
                                       "header-tag": "header",
                                       role: "tab"
@@ -43293,14 +43291,17 @@ var render = function() {
                                   },
                                   [
                                     _c(
-                                      "b-button",
+                                      "div",
                                       {
                                         directives: [
                                           {
                                             name: "b-toggle",
                                             rawName: "v-b-toggle",
-                                            value: item.title,
-                                            expression: "item.title"
+                                            value: item.title
+                                              .replace(/[^a-z0-9]/gi, "")
+                                              .replace(/\$/g, ""),
+                                            expression:
+                                              "item.title.replace(/[^a-z0-9]/gi, '').replace(/\\$/g, '')"
                                           }
                                         ],
                                         staticClass: "text-left",
@@ -43346,7 +43347,7 @@ var render = function() {
                                               })
                                             : _vm._e(),
                                           _vm._v(" "),
-                                          item.item == "csv"
+                                          item.type == "csv"
                                             ? _c("i", {
                                                 staticClass: "fas fa-file-csv"
                                               })
@@ -43354,15 +43355,16 @@ var render = function() {
                                         ])
                                       ]
                                     )
-                                  ],
-                                  1
+                                  ]
                                 ),
                                 _vm._v(" "),
                                 _c(
                                   "b-collapse",
                                   {
                                     attrs: {
-                                      id: item.title,
+                                      id: item
+                                        .titlereplace(/[^a-z0-9]/gi, "")
+                                        .replace(/\$/g, ""),
                                       accordion: "my-accordion",
                                       role: "tabpanel"
                                     }
@@ -43418,12 +43420,12 @@ var render = function() {
                             _c(
                               "b-card-header",
                               {
-                                staticClass: "p-1",
+                                staticClass: "p-2",
                                 attrs: { "header-tag": "header", role: "tab" }
                               },
                               [
                                 _c(
-                                  "b-button",
+                                  "div",
                                   {
                                     directives: [
                                       {
@@ -43433,13 +43435,12 @@ var render = function() {
                                         expression: "item.question"
                                       }
                                     ],
-                                    staticClass: "text-left",
+                                    staticClass: "text-left ",
                                     attrs: { block: "", variant: "secondary" }
                                   },
                                   [_vm._v(_vm._s(item.question))]
                                 )
-                              ],
-                              1
+                              ]
                             ),
                             _vm._v(" "),
                             _c(
@@ -43533,7 +43534,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "input-review container" },
+                { staticClass: "input-review " },
                 [
                   _c(
                     "b-form-row",
@@ -43578,7 +43579,7 @@ var render = function() {
             "b-card",
             {
               staticClass: "mb-2 floating-bar shadow-lg",
-              staticStyle: { "max-width": "25rem" },
+              staticStyle: { width: "22rem" },
               attrs: {
                 title: _vm.title,
                 "img-src": _vm.cover_image,
@@ -43619,7 +43620,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "what-you-will-learn container" }, [
+    return _c("div", { staticClass: "what-you-will-learn " }, [
       _c("h4", [_vm._v("Requirements:")]),
       _vm._v(" "),
       _c("ul", [

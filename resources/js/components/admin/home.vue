@@ -2,7 +2,7 @@
   <div class="body">
         
        
-            <b-container-fluid class="bv-example-row">
+            <b-container fluid class="bv-example-row">
               <b-row>
                 <b-col>
                   <div class="admin-dashboard-top-cards">
@@ -104,7 +104,7 @@
                   </div>
                 </b-col>
               </b-row>
-           </b-container-fluid>
+           </b-container>
        
         
   </div>

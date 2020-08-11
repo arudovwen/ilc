@@ -35,6 +35,7 @@ export default {
     background:#41cee2 ;
     color:white;
     position: fixed;
+    
 }
 .main{
     width:85%;

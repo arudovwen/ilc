@@ -42,6 +42,12 @@ class SchoolController extends Controller
      */
     public function store(Request $request)
     {
+          $valid  =  request()->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:schools'],
+        
+            
+        ]);
         $present = School::where('email',$request->email)->where('verify',0)->first();
        if (is_null($present)) {
         $result =  DB::transaction(function () use ($request) {

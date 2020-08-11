@@ -232,9 +232,89 @@
         >Loading</b-button>
       </div>
     </template>
-  </b-overlay> -->
+  </b-overlay>-->
   <div class="view-resource">
+    <div class="view-resource-header mx-auto">
+      <!--please let this be Module-->
+      <h2>Module</h2>
+      <h6 class="toCaps">{{subject}}</h6>
+      <!--please change to Class-->
+      <p>JSS 1</p>
+      <p class="subject-description">{{excerpt}}</p>
+      <div class="resource-btn">
+        <button class="btn">
+          <i class="fa fa-pencil-square-o"></i> Edit
+        </button>
+        <button class="btn">
+          <i class="fa fa-share-alt"></i> Share
+        </button>
+      </div>
+      <p>
+        Created by
+        <strong>{{tutor.name}}</strong>
+      </p>
+      <p>Last Updated {{time | moment('MMM D')}}</p>
+    </div>
+    <div class="resource-content container">
+      <div class="resource-title">
+        <h4>
+          Title:
+          <strong>{{title}}</strong>
+        </h4>
+      </div>
+      <div class="resource-overview">
+        <h5>Overview</h5>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci dolorem vel sint
+          temporibus, dolore rem dicta architecto cupiditate quam quo nobis asperiores
+          accusamus ipsa praesentium obcaecati magni possimus delectus laboriosam. Lorem ipsum,
+          dolor sit amet consectetur adipisicing elit. Voluptate beatae repellendus iure veniam explicabo,
+          corporis repudiandae qui optio laudantium provident quibusdam nam modi quia saepe deleniti,
+          magnam exercitationem perspiciatis in!
+        </p>
+      </div>
+      <!--  let any media uploaded show within this frame video, image and the likes-->
+      <div class="resource-media-frame">
+        <img src="/images/Maths-unsplash.jpg" class="img-fluid text-center" alt />
+        <p>The origin of differentiation</p>
+      </div>
 
+      <div class="tutors-note">
+        <h5>Tutors Note</h5>
+        <p>You included no notes to this resource</p>
+      </div>
+      <div class="student-reviews">
+        <b-row class="mb-5">
+          <b-col>
+            <h4>Student Feedback</h4>
+            <b-list-group>
+              <b-list-group-item>
+                <b-row>
+                  <b-col cols="2" class="text-right">
+                    <b-avatar></b-avatar>
+                  </b-col>
+                  <b-col cols="10">
+                    <strong>John Enugu</strong>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti odio modi dolorum ex praesentium eius facilis. Illo aut quos sequi? Est modi eius consequatur veritatis atque! Optio illo accusamus maiores?</p>
+                  </b-col>
+                </b-row>
+              </b-list-group-item>
+              <b-list-group-item>
+                <b-row>
+                  <b-col cols="2" class="text-right">
+                    <b-avatar></b-avatar>
+                  </b-col>
+                  <b-col cols="10">
+                    <strong>Ada Nkechi</strong>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti odio modi dolorum ex praesentium eius facilis. Illo aut quos sequi? Est modi eius consequatur veritatis atque! Optio illo accusamus maiores?</p>
+                  </b-col>
+                </b-row>
+              </b-list-group-item>
+            </b-list-group>
+          </b-col>
+        </b-row>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -254,14 +334,13 @@ export default {
       subject: "",
       cover_image: "/images/english-lit.jpg",
       show: true,
-      review:[1,2,3,4,5]
+      review: [1, 2, 3, 4, 5],
     };
   },
   mounted() {
     this.getResource();
   },
   methods: {
-  
     getResource() {
       axios
         .get(`/api/resource/${this.$route.params.id}`, {
@@ -314,9 +393,60 @@ export default {
   width: 70%;
   margin-right: auto;
 }
-.floating-bar{
+.floating-bar {
   position: fixed;
   right: 5%;
-  top:30%;
+  top: 30%;
+}
+.view-resource-header {
+  background-image: linear-gradient(
+      to bottom,
+      rgba(10, 64, 101, 0.84),
+      rgba(10, 64, 101, 0.84)
+    ),
+    url(/images/resource-bg.png);
+  color: #fff;
+  padding: 1.5rem;
+  /* margin-top: 2rem; */
+}
+.view-resource-header p {
+  font-size: 14px;
+  margin-bottom: 0.5rem !important;
+}
+.btn {
+  background: transparent;
+  border: 1px solid #fff;
+  color: white !important;
+  margin-right: 10px;
+  margin-bottom: 15px;
+}
+.btn:hover {
+  background: #fff;
+  color: #0a4065 !important;
+  transition: 0.3s;
+  border: none;
+}
+.resource-content {
+  padding-top: 20px;
+}
+.resource-overview {
+  padding-top: 20px;
+}
+.resource-media-frame {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.resource-media-frame img {
+  width: 50%;
+  height: 300px;
+}
+.tutors-note{
+  padding-top: 20px;
+}
+.student-reviews{
+  padding: 20px 0;
 }
 </style>

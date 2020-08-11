@@ -71,6 +71,8 @@ export default {
                       typeStudent.name = res.data.name;
                       typeStudent.school_id = res.data.school_id;
                       typeStudent.school = res.data.school;
+                       typeStudent.profile = res.data.profile;
+                         typeStudent.student_level = res.data.student_level;
                 localStorage.setItem("typeStudent", JSON.stringify(typeStudent));
                 this.$toasted.success("Sucessful");
                 this.$router.push('/student')

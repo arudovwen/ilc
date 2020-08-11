@@ -22,7 +22,12 @@ class TimesTableController extends Controller
         $school_id = auth('tutor')->user()->school_id;
         return TimesTable::where('school_id', $school_id)->get();
     }
-
+    
+    public function getTimesTablePerClass($id)
+    {
+        $user = auth('student')->user();
+        return TimesTable::where('school_id', $user->school_id)->where('myclass', $user->student_level)->get();
+    }
     /**
      * Show the form for creating a new resource.
      *

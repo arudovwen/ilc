@@ -46,9 +46,9 @@
     </transition>
   </div>-->
   <div>
-    <b-nav align="right">
+    <b-nav align="right" class="py-2 shadow-sm">
       <b-nav-item>
-        <b-avatar to="/student/profile" src="/images/profile-img.jpg"></b-avatar>
+        <b-avatar to="/student/profile" :src="student.profile"></b-avatar>
       </b-nav-item>
       <b-nav-item>
         <b-form-input placeholder="Search... " class="search rounded-pill"></b-form-input>
@@ -212,7 +212,7 @@ export default {
 }
 .badge {
   position: absolute;
-  top: -40%;
+  top: -10%;
   left: 50%;
   background: red;
   color: white;

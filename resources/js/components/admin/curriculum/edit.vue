@@ -291,19 +291,22 @@ export default {
     addNew(value) {
       switch (value) {
         case 1:
-          this.curriculum.learner_outcome.push("");
+          this.curriculum.learner_outcome.push({name:""});
+          console.log("addNew -> .learner_outco")
           break;
         case 2:
-          this.curriculum.target_skills.push("");
+          this.curriculum.target_skills.push({name:""});
+          console.log("addNew -> target_skills")
           break;
         case 3:
-          this.curriculum.prerequisite.push("");
+          this.curriculum.prerequisite.push({name:""});
+          console.log("addNew -> prerequisite")
           break;
         case 4:
-          this.curriculum.delivery_methods.push("");
+          this.curriculum.delivery_methods.push({name:""});
           break;
         case 5:
-          this.curriculum.assessments.push("");
+          this.curriculum.assessments.push({name:""});
           break;
         case 6:
           this.curriculum.faqs.push({

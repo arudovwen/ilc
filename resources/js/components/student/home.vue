@@ -5,7 +5,7 @@
       <div class="welcome-board-content ml-auto">
         <h3>
           Welcome OnBoard
-          <span>SUCESS AHOAN</span>
+          <span>{{student.name}}</span>
         </h3>
         <p>
           Get quick access to your assesment and grade book on the dash board
@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <b-container-fluid>
+    <b-container fluid>
       <b-row>
         <b-col md="4">
           <div class="result-board">
@@ -260,7 +260,7 @@
             </div>
         </b-col>
       </b-row>
-    </b-container-fluid>
+    </b-container>
   </div>
 </template>
 
@@ -277,81 +277,17 @@ export default {
       curriculum: [],
       fields: ["class", "subject"],
       field: ["class"],
+      value:null,
+      max:null
     };
   },
   mounted() {
-    // this.getStudents();
-    // this.getClasses();
-    // this.getTutors();
-    // this.getSyllabus()
-    // this.getCurriculum();
+    
   },
   methods: {
-    getStudents() {
-      axios
-        .get("/api/student-get-students", {
-          headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            this.students = res.data;
-          }
-        });
-    },
-    getCurriculum() {
-      axios
-        .get("/api/curriculum", {
-          headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            this.curriculum = res.data;
-          }
-        });
-    },
-    getTutors() {
-      axios
-        .get("/api/tutor", {
-          headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            this.tutors = res.data;
-          }
-        });
-    },
-    getClasses() {
-      axios
-        .get("/api/classes", {
-          headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            this.classes = res.data;
-          }
-        });
-    },
-    getSyllabus() {
-      axios
-        .get("/api/syllabus", {
-          headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            this.syllabus = res.data;
-          }
-        });
-    },
+  
+   
+  
   },
 };
 </script>

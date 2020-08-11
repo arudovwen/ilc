@@ -154,7 +154,8 @@
     </form>
   </div>-->
   <div class="add-resource">
-    <h5 class="container">Add Resource</h5>
+    <p><router-link to="/tutor/resources">Go back</router-link></p>
+    <h5 class="text-center py-3">Add New Resource</h5>
     <b-container class="form-container">
       <b-form @submit.prevent="submit">
         <b-form-row>

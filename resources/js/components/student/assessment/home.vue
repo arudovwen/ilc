@@ -20,7 +20,7 @@
       <b-row>
         <b-col class="text-center">
           <h5>Quiz</h5>
-          <b-table :fields="fields" :items="quiz" bordered>
+          <b-table :fields="fields" :items="quiz" bordered head-variant="darkgreen">
             <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
             <template v-slot:cell(title)="data">
               <span @click="view(data.item.id)">{{data.item.title}}</span>
@@ -29,7 +29,7 @@
         </b-col>
         <b-col class="text-center">
           <h5>Assignment</h5>
-          <b-table :fields="fields" :items="assignment" bordered>
+          <b-table :fields="fields" :items="assignment" bordered head-variant="darkgreen">
             <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
              <template v-slot:cell(title)="data">
               <span @click="view(data.item.id)">{{data.item.title}}</span>
@@ -38,7 +38,7 @@
         </b-col>
         <b-col class="text-center">
           <h5>Examinations</h5>
-          <b-table :fields="fields" :items="examination" bordered>
+          <b-table :fields="fields" :items="examination" bordered head-variant="darkgreen">
             <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
              <template v-slot:cell(title)="data">
               <span @click="view(data.item.id)">{{data.item.title}}</span>
@@ -47,7 +47,7 @@
         </b-col>
         <b-col class="text-center">
           <h5>Tests</h5>
-          <b-table :fields="fields" :items="test" bordered>
+          <b-table :fields="fields" :items="test" bordered head-variant="darkgreen">
             <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
              <template v-slot:cell(title)="data">
               <span @click="view(data.item.id)">{{data.item.title}}</span>
@@ -186,4 +186,5 @@ nav {
 .hiden {
   opacity: 0;
 }
+
 </style>

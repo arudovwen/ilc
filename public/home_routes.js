@@ -11696,6 +11696,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -12372,11 +12374,78 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
     return {
+      modules: [],
       library: {},
       type: "video",
       fullScreen: false,
@@ -12414,11 +12483,16 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         if (res.status == 200) {
           _this.library = res.data;
-          _this.src = JSON.parse(_this.library.content)[0].file;
-          _this.type = JSON.parse(_this.library.content)[0].type;
-          _this.title = JSON.parse(_this.library.content)[0].title;
-          _this.overview = JSON.parse(_this.library.content)[0].overview;
-          _this.show = true;
+          axios.get("/api/get-module/".concat(res.data.subject, "/").concat(_this.$props.student.level)).then(function (res) {
+            if (res.status == 200) {
+              _this.modules = res.data;
+              _this.src = JSON.parse(_this.modules[0].content)[0].file;
+              _this.type = JSON.parse(_this.modules[0].content)[0].type;
+              _this.title = JSON.parse(_this.modules[0].content)[0].title;
+              _this.overview = JSON.parse(_this.modules[0].content)[0].overview;
+              _this.show = true;
+            }
+          });
         }
       });
     },
@@ -15550,17 +15624,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tutor"],
   data: function data() {
@@ -15573,15 +15636,15 @@ __webpack_require__.r(__webpack_exports__);
       item: false,
       update: false,
       allClass: [],
-      name_class: '',
+      name_class: "",
       names: [],
       added_names: []
     };
   },
   watch: {
     item: "selectAll",
-    name_class: 'getStudents',
-    class_name: 'reset'
+    name_class: "getStudents",
+    class_name: "reset"
   },
   mounted: function mounted() {
     this.getgroups();
@@ -15591,7 +15654,7 @@ __webpack_require__.r(__webpack_exports__);
     reset: function reset() {
       this.names = [];
       this.added_names = [];
-      this.name_class = '';
+      this.name_class = "";
     },
     cancel: function cancel() {
       this.update = false;
@@ -15633,7 +15696,7 @@ __webpack_require__.r(__webpack_exports__);
     getStudents: function getStudents() {
       var _this3 = this;
 
-      if (this.name_class !== '') {
+      if (this.name_class !== "") {
         axios.get("/api/all-students/".concat(this.name_class), {
           headers: {
             Authorization: "Bearer ".concat(this.$props.tutor.access_token)
@@ -16392,6 +16455,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _miniupload__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../miniupload */ "./resources/js/components/miniupload.vue");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -18601,6 +18665,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tutor"],
   data: function data() {
@@ -18639,6 +18724,150 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -19890,7 +20119,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-71c18bbd] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-71c18bbd] {\n  opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\nnav[data-v-71c18bbd] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-71c18bbd] {\n  opacity: 0;\n}\n\n", ""]);
 
 // exports
 
@@ -20023,7 +20252,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nnav[data-v-7d83ab33] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\ntd[data-v-7d83ab33] {\n  text-transform: capitalize;\n}\n.hiden[data-v-7d83ab33] {\n  opacity: 0;\n}\n.add[data-v-7d83ab33] {\n  background-color: #f7f8fa;\n}\ntable[data-v-7d83ab33] {\n  font-size: 15.5px;\n}\n.chat[data-v-7d83ab33]{\n  cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\nnav[data-v-7d83ab33] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.table .thead-light th[data-v-7d83ab33] {\n    color: white;\n    background-color: rgba(19, 166, 153, 0.9);\n    border-color: rgba(19, 166, 153, 0.9);\n}\ntd[data-v-7d83ab33] {\n  text-transform: capitalize;\n}\n.hiden[data-v-7d83ab33] {\n  opacity: 0;\n}\n.add[data-v-7d83ab33] {\n  background-color: #f7f8fa;\n}\ntable[data-v-7d83ab33] {\n  font-size: 15.5px;\n}\n.chat[data-v-7d83ab33]{\n  cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -20061,7 +20290,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nnav[data-v-a2f61c28] {\n  background: #f7f8fa;\n}\n.bar[data-v-a2f61c28] {\n  position: relative;\n  width: 20%;\n  text-align: center;\n  font-size: 14px;\n}\n.red[data-v-a2f61c28] {\n  color: var(--red, red);\n}\n.search_bar[data-v-a2f61c28] {\n  position: relative;\n}\n.search_input[data-v-a2f61c28] {\n  border-color: #f7f8fa;\n  height: 30px;\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-webkit-input-placeholder {\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-moz-placeholder {\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]:-ms-input-placeholder {\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-ms-input-placeholder {\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::placeholder {\n  font-size: 13px;\n}\n.fa-search[data-v-a2f61c28] {\n  position: absolute;\n  font-size: 12px;\n  right: 14px;\n  top: 50%;\n  margin-top: -6px;\n  color: rgba(0, 0, 0, 0.44);\n}\n.options[data-v-a2f61c28] {\n  width: 15px;\n}\ntd[data-v-a2f61c28] {\n  text-transform: capitalize;\n}\nul[data-v-a2f61c28] {\n  list-style: none;\n}\n.options[data-v-a2f61c28] {\n  position: relative;\n}\n.option[data-v-a2f61c28] {\n  display: none;\n  position: absolute;\n  padding: 15px;\n  bottom: 80%;\n  width: 100px;\n  right: 12px;\n  background: white;\n}\n.options:hover .option[data-v-a2f61c28] {\n  display: block;\n}\n.option li[data-v-a2f61c28] {\n  padding: 4px 15px;\n  cursor: pointer;\n}\n.view-resource-header[data-v-a2f61c28] {\n  background-image: linear-gradient(\n      to bottom,\n      rgba(19, 166, 153, 0.65),\n      rgba(19, 166, 153, 0.65)\n    ),\n    url(/images/resource-bg.png);\n  color: #fff;\n  padding: 1.5rem;\n  margin-top: 2rem;\n}\n.view-resource-header p[data-v-a2f61c28] {\n  margin-bottom: 0.5rem !important;\n}\n.btn[data-v-a2f61c28] {\n  background: transparent;\n  border: 1px solid #fff;\n  color: white !important;\n  margin-right: 10px;\n  margin-bottom: 15px;\n}\n.btn[data-v-a2f61c28]:hover {\n  background: #fff;\n  color: #13a699 !important;\n  transition: 0.3s;\n  border: none;\n}\n.what-you-will-learn[data-v-a2f61c28] {\n  margin-top: 2rem;\n}\n.what-you-will-learn ul[data-v-a2f61c28] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 15px;\n}\n.what-you-will-learn ul li[data-v-a2f61c28] {\n  padding-top: 10px;\n}\n.sutdent-assessed ul[data-v-a2f61c28] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 10px 15px;\n}\n.sutdent-assessed ul li[data-v-a2f61c28] {\n  padding-bottom: 10px;\n}\n.sutdent-assessed[data-v-a2f61c28] {\n  margin-top: 2rem;\n}\n.course-content[data-v-a2f61c28] {\n  color: #13a699;\n}\n.featured-review-inner-top[data-v-a2f61c28] {\n  display: flex;\n  padding: 15px;\n}\n.featured-review-top[data-v-a2f61c28] {\n  display: flex;\n  justify-content: space-between;\n}\n.featured-review-inner-top p[data-v-a2f61c28] {\n  padding-left: 10px;\n}\n.featured-review-top img[data-v-a2f61c28] {\n  height: 20px;\n  width: 100px;\n}\n.review[data-v-a2f61c28] {\n  background-color: #fff;\n  border: 1px solid #808080;\n  border-radius: 5px;\n  padding: 10px;\n  margin-bottom: 10px;\n}\n.btn-review[data-v-a2f61c28] {\n  background-color: #13a699;\n  color: #fff !important;\n  border: none;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n", ""]);
+exports.push([module.i, "\nnav[data-v-a2f61c28] {\n  background: rgba(19, 166, 153, 0.9);\n  color:white;\n}\n.table .thead-light th[data-v-a2f61c28] {\n    color: white;\n    background-color: rgba(19, 166, 153, 0.9);\n    border-color: rgba(19, 166, 153, 0.9);\n}\n.bar[data-v-a2f61c28] {\n  position: relative;\n  width: 20%;\n  text-align: center;\n  font-size: 14px;\n}\n.red[data-v-a2f61c28] {\n  color: var(--red, red);\n}\n.search_bar[data-v-a2f61c28] {\n  position: relative;\n}\n.search_input[data-v-a2f61c28] {\n  border-color: #f7f8fa;\n  height: 30px;\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-webkit-input-placeholder {\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-moz-placeholder {\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]:-ms-input-placeholder {\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-ms-input-placeholder {\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::placeholder {\n  font-size: 13px;\n}\n.fa-search[data-v-a2f61c28] {\n  position: absolute;\n  font-size: 12px;\n  right: 14px;\n  top: 50%;\n  margin-top: -6px;\n  color: rgba(0, 0, 0, 0.44);\n}\n.options[data-v-a2f61c28] {\n  width: 15px;\n}\ntd[data-v-a2f61c28] {\n  text-transform: capitalize;\n}\nul[data-v-a2f61c28] {\n  list-style: none;\n}\n.options[data-v-a2f61c28] {\n  position: relative;\n}\n.option[data-v-a2f61c28] {\n  display: none;\n  position: absolute;\n  padding: 15px;\n  bottom: 80%;\n  width: 100px;\n  right: 12px;\n  background: white;\n}\n.options:hover .option[data-v-a2f61c28] {\n  display: block;\n}\n.option li[data-v-a2f61c28] {\n  padding: 4px 15px;\n  cursor: pointer;\n}\n.view-resource-header[data-v-a2f61c28] {\n  background-image: linear-gradient(\n      to bottom,\n      rgba(19, 166, 153, 0.65),\n      rgba(19, 166, 153, 0.65)\n    ),\n    url(/images/resource-bg.png);\n  color: #fff;\n  padding: 1.5rem;\n  margin-top: 2rem;\n}\n.view-resource-header p[data-v-a2f61c28] {\n  margin-bottom: 0.5rem !important;\n}\n.btn[data-v-a2f61c28] {\n  background: transparent;\n  border: 1px solid #fff;\n  color: white !important;\n  margin-right: 10px;\n  margin-bottom: 15px;\n}\n.btn[data-v-a2f61c28]:hover {\n  background: #fff;\n  color: #13a699 !important;\n  transition: 0.3s;\n  border: none;\n}\n.what-you-will-learn[data-v-a2f61c28] {\n  margin-top: 2rem;\n}\n.what-you-will-learn ul[data-v-a2f61c28] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 15px;\n}\n.what-you-will-learn ul li[data-v-a2f61c28] {\n  padding-top: 10px;\n}\n.sutdent-assessed ul[data-v-a2f61c28] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 10px 15px;\n}\n.sutdent-assessed ul li[data-v-a2f61c28] {\n  padding-bottom: 10px;\n}\n.sutdent-assessed[data-v-a2f61c28] {\n  margin-top: 2rem;\n}\n.course-content[data-v-a2f61c28] {\n  color: #13a699;\n}\n.featured-review-inner-top[data-v-a2f61c28] {\n  display: flex;\n  padding: 15px;\n}\n.featured-review-top[data-v-a2f61c28] {\n  display: flex;\n  justify-content: space-between;\n}\n.featured-review-inner-top p[data-v-a2f61c28] {\n  padding-left: 10px;\n}\n.featured-review-top img[data-v-a2f61c28] {\n  height: 20px;\n  width: 100px;\n}\n.review[data-v-a2f61c28] {\n  background-color: #fff;\n  border: 1px solid #808080;\n  border-radius: 5px;\n  padding: 10px;\n  margin-bottom: 10px;\n}\n.btn-review[data-v-a2f61c28] {\n  background-color: #13a699;\n  color: #fff !important;\n  border: none;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n", ""]);
 
 // exports
 
@@ -20080,7 +20309,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.nav-item i[data-v-09903b50] {\n  color: #808080;\n  font-size: 24px;\n}\n#notification[data-v-09903b50] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-09903b50] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-09903b50] {\n  max-height: 300px;\n  overflow: scroll;\n}\n.icon[data-v-09903b50] {\n  position: relative;\n}\n.badge[data-v-09903b50] {\n  position: absolute;\n  top: -10%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 14px;\n}\n.list-group-item[data-v-09903b50] {\n  font-size: 14px;\n}\n/* .semi-white{\n\n  padding:50px 20px;\n\n}\nnav {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background:white;\n}\n\n.fa-bell {\n  font-size: 24px;\n  color:#ffd708;\n} */\n.search[data-v-09903b50] {\n  width: 250px;\n  background: transparent !important;\n  border-color: #808080;\n}\n", ""]);
+exports.push([module.i, "\n.nav[data-v-09903b50]{\n  background: #f2f6fe;\n}\n.nav-item i[data-v-09903b50] {\n  color: #808080;\n  font-size: 24px;\n}\n#notification[data-v-09903b50] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-09903b50] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-09903b50] {\n  max-height: 300px;\n  overflow: scroll;\n}\n.icon[data-v-09903b50] {\n  position: relative;\n}\n.badge[data-v-09903b50] {\n  position: absolute;\n  top: -10%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 14px;\n}\n.list-group-item[data-v-09903b50] {\n  font-size: 14px;\n}\n/* .semi-white{\n\n  padding:50px 20px;\n\n}\nnav {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background:white;\n}\n\n.fa-bell {\n  font-size: 24px;\n  color:#ffd708;\n} */\n.search[data-v-09903b50] {\n  width: 250px;\n  background: transparent !important;\n  border-color: #808080;\n}\n", ""]);
 
 // exports
 
@@ -20118,7 +20347,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nul[data-v-1d9937ed] {\n  margin: auto;\n}\nli[data-v-1d9937ed] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  padding-top: 10px;\n}\nul a[data-v-1d9937ed] {\n  color: #565454;\n  font-size: 12px;\n  font-family: \"Montserrat\";\n}\nul i[data-v-1d9937ed] {\n  font-size: 20px;\n}\n.logo[data-v-1d9937ed]{\n    padding: 10px 20px;\n    margin-bottom:20px;\n    text-align:center;\n    font-weight: bold;\n    font-family: 'Josefin Sans';\n    font-size: 32px;\n}\n.logo h6[data-v-1d9937ed]{\n    font-weight: bold;\n    font-family: 'Josefin Sans';\n    font-size: 24px;\n    text-align:center;\n    color:#ffd708;\n    margin:0;\n}\n/* .logo{\n    padding: 10px 20px;\n    margin-bottom:20px;\n    text-align:center;\n}\n.logo h6{\n    font-weight: bold;\n    font-family: 'Josefin Sans';\n    font-size: 24px;\n    text-align:center;\n    color:#ffd708;\n    margin:0;\n}\n.logo small{\n \n  font-size:18px;\n    color:hsl(50deg 100% 20%)\n\n}\nul{\n    list-style:none;\n}\nnav ul li{\n  padding: 10px 20px;\n  font-size: 15px;\n  cursor: pointer;\n  color:hsl(50deg 100% 20%);\n}\nnav{\n    padding-left:20px;\n} */\n/* .router-link-exact-active li{\nbackground:#f7f8fa ;\nborder-top-left-radius:10px;\nborder-bottom-left-radius:10px\n} */\n", ""]);
+exports.push([module.i, "\nul[data-v-1d9937ed] {\n  margin: auto;\n}\nli[data-v-1d9937ed] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  padding-top: 10px;\n}\n.router-link-exact-active li[data-v-1d9937ed]{\n  background: rgba(19, 166, 153, 0.2);\n}\nul a[data-v-1d9937ed] {\n  color: #565454;\n  font-size: 12px;\n  font-family: \"Montserrat\";\n}\nul li[data-v-1d9937ed] {\n  color: #565454;\n  font-size: 12px;\n  font-family: \"Montserrat\";\n}\nul i[data-v-1d9937ed] {\n  font-size: 20px;\n}\n.logo[data-v-1d9937ed]{\n    padding: 10px 20px;\n    margin-bottom:20px;\n    text-align:center;\n    font-weight: bold;\n    font-family: 'Josefin Sans';\n    font-size: 32px;\n}\n.logo h6[data-v-1d9937ed]{\n    font-weight: bold;\n    font-family: 'Josefin Sans';\n    font-size: 24px;\n    text-align:center;\n    color:#ffd708;\n    margin:0;\n}\n/* .logo{\n    padding: 10px 20px;\n    margin-bottom:20px;\n    text-align:center;\n}\n.logo h6{\n    font-weight: bold;\n    font-family: 'Josefin Sans';\n    font-size: 24px;\n    text-align:center;\n    color:#ffd708;\n    margin:0;\n}\n.logo small{\n \n  font-size:18px;\n    color:hsl(50deg 100% 20%)\n\n}\nul{\n    list-style:none;\n}\nnav ul li{\n  padding: 10px 20px;\n  font-size: 15px;\n  cursor: pointer;\n  color:hsl(50deg 100% 20%);\n}\nnav{\n    padding-left:20px;\n} */\n/* .router-link-exact-active li{\nbackground:#f7f8fa ;\nborder-top-left-radius:10px;\nborder-bottom-left-radius:10px\n} */\n", ""]);
 
 // exports
 
@@ -20137,7 +20366,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.views[data-v-08cfd63a] {\n  display: flex;\n  height: 100%;\n}\n.main-view[data-v-08cfd63a] {\n  width: 70%;\n  height: 100%;\n}\n.side-view[data-v-08cfd63a] {\n  width: 30%;\n  background: #f7f8f8;\n  height: 100%;\n  padding: 20px;\n}\n.player[data-v-08cfd63a] {\n  width: 100%;\n  margin: 0 auto;\n  background: black;\n}\n.audio-player[data-v-08cfd63a] {\n  padding: 40px 15px;\n}\n.screen[data-v-08cfd63a] {\n  width: 70%;\n  min-height: 100vh;\n  padding: 15px;\n  position: relative;\n}\n.fullOpen[data-v-08cfd63a] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  padding: 5px;\n  background: #f7f8fa;\n}\n.pageNum[data-v-08cfd63a] {\n  width: 30px;\n  border: none !important;\n}\n.navigate[data-v-08cfd63a] {\n  display: flex;\n  align-items: center;\n}\n.content_view[data-v-08cfd63a] {\n  width: 30%;\n  min-height: 100vh;\n  padding: 15px;\n  background: #f7f8fa;\n}\n.pdf_container[data-v-08cfd63a] {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 90%;\n  position: relative;\n}\n.loade[data-v-08cfd63a] {\n  position: absolute;\n}\n.pdf_about[data-v-08cfd63a] {\n  display: flex;\n  justify-content: space-between;\n  align-items: flex-start;\n  min-height: 250px;\n  overflow: scroll;\n  padding-bottom: 20px;\n}\n.pdf_title[data-v-08cfd63a] {\n  text-transform: capitalize;\n}\n.cover_image[data-v-08cfd63a] {\n  width: 100px;\n  height: auto;\n}\n.controls[data-v-08cfd63a] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.view[data-v-08cfd63a] {\n  overflow-y: scroll;\n  max-height: 60vh;\n}\n.info[data-v-08cfd63a] {\n  padding: 0 15px;\n}\n.buttons[data-v-08cfd63a] {\n  padding: 0 15px;\n}\n.link-title[data-v-08cfd63a] {\n  cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\n.views[data-v-08cfd63a] {\n  display: flex;\n  height: 100%;\n}\n.main-view[data-v-08cfd63a] {\n  width: 70%;\n  height: 100%;\n}\n.side-view[data-v-08cfd63a] {\n  width: 30%;\n  background: #f7f8f8;\n  height: 100%;\n  padding: 20px;\n}\n.player[data-v-08cfd63a] {\n  width: 100%;\n  margin: 0 auto;\n  background: black;\n}\n.audio-player[data-v-08cfd63a] {\n  padding: 40px 15px;\n}\n.screen[data-v-08cfd63a] {\n  width: 70%;\n  min-height: 100vh;\n  padding: 15px;\n  position: relative;\n}\n.fullOpen[data-v-08cfd63a] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  padding: 5px;\n  background: #f7f8fa;\n}\n.pageNum[data-v-08cfd63a] {\n  width: 30px;\n  border: none !important;\n}\n.navigate[data-v-08cfd63a] {\n  display: flex;\n  align-items: center;\n}\n.content_view[data-v-08cfd63a] {\n  width: 30%;\n  min-height: 100vh;\n  padding: 15px;\n  background: #f7f8fa;\n}\n.pdf_container[data-v-08cfd63a] {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 90%;\n  position: relative;\n}\n.loade[data-v-08cfd63a] {\n  position: absolute;\n}\n.mod ul[data-v-08cfd63a]{\n  list-style: none;\n}\n.mod ul li[data-v-08cfd63a]{\n  padding:10px 20px;\n  border-bottom:1px solid #ccc;\n}\n.pdf_about[data-v-08cfd63a] {\n  display: flex;\n  justify-content: space-between;\n  align-items: flex-start;\n  min-height: 250px;\n  overflow: scroll;\n  padding-bottom: 20px;\n}\n.pdf_title[data-v-08cfd63a] {\n  text-transform: capitalize;\n}\n.cover_image[data-v-08cfd63a] {\n  width: 100px;\n  height: auto;\n}\n.controls[data-v-08cfd63a] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.view[data-v-08cfd63a] {\n  overflow-y: scroll;\n  max-height: 60vh;\n}\n.info[data-v-08cfd63a] {\n  padding: 0 15px;\n}\n.buttons[data-v-08cfd63a] {\n  padding: 0 15px;\n}\n.link-title[data-v-08cfd63a] {\n  cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -20384,7 +20613,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nnav[data-v-8f6887d0] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.names[data-v-8f6887d0]{\n max-height: 400px;\n overflow: hidden;\n background: white;\n}\n.custom-control-input[data-v-8f6887d0]{\n  z-index: 1;\n  opacity: 1;\n}\ntd[data-v-8f6887d0] {\n  text-transform: capitalize;\n  position: relative;\n}\n.chat[data-v-8f6887d0]{\n  cursor: pointer;\n}\n.enter[data-v-8f6887d0] {\n  position: absolute;\n  right: 20px;\n  top: 50%;\n  margin-top: -10px;\n}\n.hiden[data-v-8f6887d0] {\n  opacity: 0;\n}\n.add[data-v-8f6887d0] {\n  background-color: #f7f8fa;\n}\n.body[data-v-8f6887d0] {\n  padding: 20px 20px 50px;\n  height: 100%;\n}\ntable[data-v-8f6887d0] {\n  font-size: 14.5px;\n}\n", ""]);
+exports.push([module.i, "\nnav[data-v-8f6887d0] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.names[data-v-8f6887d0] {\n  max-height: 400px;\n  overflow: hidden;\n  background: white;\n}\n.custom-control-input[data-v-8f6887d0] {\n  z-index: 1;\n  opacity: 1;\n}\ntd[data-v-8f6887d0] {\n  text-transform: capitalize;\n  position: relative;\n}\n.chat[data-v-8f6887d0] {\n  cursor: pointer;\n}\n.enter[data-v-8f6887d0] {\n  position: absolute;\n  right: 20px;\n  top: 50%;\n  margin-top: -10px;\n}\n.hiden[data-v-8f6887d0] {\n  opacity: 0;\n}\n.add[data-v-8f6887d0] {\n  background-color: #f7f8fa;\n}\n.body[data-v-8f6887d0] {\n  padding: 20px 20px 50px;\n  height: 100%;\n}\ntable[data-v-8f6887d0] {\n  font-size: 14.5px;\n}\n", ""]);
 
 // exports
 
@@ -20536,7 +20765,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.logo[data-v-3bd343a8]{\n    padding: 10px 20px;\n    margin-bottom:20px;\n    text-align:center;\n}\n.logo p[data-v-3bd343a8]{\n    font-weight: bold;\n    font-family: 'Josefin Sans';\n    font-size: 24px;\n    text-align:center;\n    color:#41cee2;\n    margin:0;\n}\n.logo small[data-v-3bd343a8]{\n \n  font-size:18px;\n    color:white\n}\nul[data-v-3bd343a8]{\n    list-style:none;\n}\nnav ul li[data-v-3bd343a8]{\n  padding: 10px 20px;\n  font-size: 15px;\n  cursor: pointer;\n  color:hsl(187deg 74% 95%)\n}\nnav[data-v-3bd343a8]{\n    padding-left:20px;\n}\n.router-link-exact-active li[data-v-3bd343a8]{\nbackground:#0a4065 ;\nborder-top-left-radius:10px;\nborder-bottom-left-radius:10px\n}\n", ""]);
+exports.push([module.i, "\n.logo[data-v-3bd343a8]{\n    padding: 10px 20px;\n    margin-bottom:20px;\n    text-align:center;\n}\n.logo p[data-v-3bd343a8]{\n    font-weight: bold;\n    font-family: 'Josefin Sans';\n    font-size: 24px;\n    text-align:center;\n    color:#41cee2;\n    margin:0;\n}\n.logo small[data-v-3bd343a8]{\n \n  font-size:18px;\n    color:white\n}\nul[data-v-3bd343a8]{\n    list-style:none;\n}\nnav ul li[data-v-3bd343a8]{\n  padding: 10px 20px;\n  font-size: 15px;\n  cursor: pointer;\n  color:hsl(187deg 74% 100%);\n}\nnav[data-v-3bd343a8]{\n    padding-left:20px;\n}\n.router-link-exact-active li[data-v-3bd343a8]{\nbackground:#0a4065 ;\nborder-top-left-radius:10px;\nborder-bottom-left-radius:10px\n}\n", ""]);
 
 // exports
 
@@ -20612,7 +20841,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-5572edf8] {\n  padding: 40px 30px 70px;\n  position: relative;\n}\n.popup-overlay[data-v-5572edf8] {\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  background: rgba(255, 255, 255, 0.7);\n  z-index: 1;\n  top: 0;\n  left: 0;\n}\n.suggestion-box[data-v-5572edf8] {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: center;\n  background: white;\n  border-radius: 5px;\n  height: 250px;\n  width: 50%;\n  padding: 15px;\n  position: absolute;\n  bottom: 50%;\n  transform: translate(50%, 50%);\n  right: 50%;\n}\n.suggestion-box p[data-v-5572edf8] {\n  font-size: 24px;\n  font-weight: bold;\n  text-align: center;\n}\n.close[data-v-5572edf8] {\n  position: absolute;\n  right: 5px;\n  top: 5px;\n}\nform[data-v-5572edf8] {\n  padding: 20px;\n  padding-bottom: 60px;\n  background: white;\n  font-size: 14px;\n}\nh5[data-v-5572edf8] {\n  margin-bottom: 24px;\n}\n.side-label[data-v-5572edf8] {\n  width: 150px;\n}\n.form-text[data-v-5572edf8] {\n  margin-bottom: 18px;\n}\n", ""]);
+exports.push([module.i, "\n.body[data-v-5572edf8] {\n  padding: 40px 30px 70px;\n  position: relative;\n}\n.table[data-v-5572edf8]{\n  border-radius: 40px;\n  font-size: 17px;\n}\n.popup-overlay[data-v-5572edf8] {\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  background: rgba(255, 255, 255, 0.7);\n  z-index: 1;\n  top: 0;\n  left: 0;\n}\n.suggestion-box[data-v-5572edf8] {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: center;\n  background: white;\n  border-bottom-left-radius: 5px;\n  height: 250px;\n  width: 50%;\n  padding: 15px;\n  position: absolute;\n  bottom: 50%;\n  transform: translate(50%, 50%);\n  right: 50%;\n}\n.suggestion-box p[data-v-5572edf8] {\n  font-size: 24px;\n  font-weight: bold;\n  text-align: center;\n}\nlabel[data-v-5572edf8]{\n  color: #888888;\n}\n.close[data-v-5572edf8] {\n  position: absolute;\n  right: 5px;\n  top: 5px;\n}\nform[data-v-5572edf8] {\n  padding: 20px;\n  padding-bottom: 60px;\n  background: white;\n  font-size: 14px;\n}\nh5[data-v-5572edf8] {\n  margin-bottom: 24px;\n}\n.side-label[data-v-5572edf8] {\n  width: 150px;\n}\n.form-text[data-v-5572edf8] {\n  margin-bottom: 18px;\n}\n.underline[data-v-5572edf8] {\n  width: 80px;\n  height: 3px;\n  background-color: #0a4065;\n}\n.class-information[data-v-5572edf8] {\n  padding-top: 20px;\n}\n.class-information h3[data-v-5572edf8] {\n  margin-bottom: 0 !important;\n}\n.class-information-inner[data-v-5572edf8] {\n  display: flex;\n  justify-content: space-around;\n  padding-top: 20px;\n}\n.class-information-inner span[data-v-5572edf8] {\n  color: #808080;\n}\n.view-syllabus[data-v-5572edf8] {\n  background: #fff;\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\n  padding: 30px;\n  border-bottom-radius: 10px;\n}\n.subject-description[data-v-5572edf8] {\n  padding-top: 15px;\n}\n.contain-syllabus[data-v-5572edf8] {\n  padding: 30px;\n}\ntd[data-v-5572edf8]{\n  padding:2.50rem;\n}\n", ""]);
 
 // exports
 
@@ -20631,7 +20860,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-45774dee] {\n  padding: 40px 30px 70px;\n  position: relative;\n}\n.popup-overlay[data-v-45774dee] {\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  background: rgba(255, 255, 255, 0.7);\n  z-index: 1;\n  top: 0;\n  left: 0;\n}\n.suggestion-box[data-v-45774dee] {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: center;\n  background: white;\n  border-radius: 5px;\n  height: 250px;\n  width: 50%;\n  padding: 15px;\n  position: absolute;\n  bottom: 50%;\n  transform: translate(50%, 50%);\n  right: 50%;\n}\n.suggestion-box p[data-v-45774dee] {\n  font-size: 24px;\n  font-weight: bold;\n  text-align: center;\n}\n.close[data-v-45774dee] {\n  position: absolute;\n  right: 5px;\n  top: 5px;\n}\nform[data-v-45774dee] {\n  padding: 20px;\n  padding-bottom: 60px;\n  background: white;\n  font-size: 14px;\n}\nh3[data-v-45774dee] {\n  margin-bottom: 24px;\n  font-size: 1.4em;\n}\n.side-label[data-v-45774dee] {\n  width: 150px;\n}\n.form-text[data-v-45774dee] {\n  margin-bottom: 18px;\n}\n", ""]);
+exports.push([module.i, "\n.body[data-v-45774dee] {\n  padding: 40px 30px 70px;\n  position: relative;\n}\n.popup-overlay[data-v-45774dee] {\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  background: rgba(255, 255, 255, 0.7);\n  z-index: 1;\n  top: 0;\n  left: 0;\n}\n.suggestion-box[data-v-45774dee] {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: center;\n  background: white;\n  border-radius: 5px;\n  height: 250px;\n  width: 50%;\n  padding: 15px;\n  position: absolute;\n  bottom: 50%;\n  transform: translate(50%, 50%);\n  right: 50%;\n}\n.suggestion-box p[data-v-45774dee] {\n  font-size: 24px;\n  font-weight: bold;\n  text-align: center;\n}\n.close[data-v-45774dee] {\n  position: absolute;\n  right: 5px;\n  top: 5px;\n}\nform[data-v-45774dee] {\n  padding: 20px;\n  padding-bottom: 60px;\n  background: white;\n  font-size: 14px;\n}\nstrong[data-v-45774dee] {\n  margin-bottom: 24px;\n  font-size: 1.3em;\n}\n.side-label[data-v-45774dee] {\n  width: 150px;\n}\n.form-text[data-v-45774dee] {\n  margin-bottom: 18px;\n}\n.underline[data-v-45774dee] {\n  width: 80px;\n  height: 3px;\n  background-color: #0a4065;\n}\n.class-information[data-v-45774dee] {\n  padding-top: 20px;\n}\n.class-information strong[data-v-45774dee] {\n  margin-bottom: 0 !important;\n}\n.class-information-inner[data-v-45774dee] {\n  display: flex;\n  justify-content: space-around;\n  padding-top: 20px;\n}\nh5[data-v-45774dee]{\n  color: #808080;\n}\n.class-information-inner span[data-v-45774dee] {\n  color: #333333;\n}\n.view-syllabus[data-v-45774dee] {\n  background: #fff;\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\n  padding: 30px;\n  border-radius: 10px;\n}\n.subject-description[data-v-45774dee] {\n  padding-top: 15px;\n}\n.contain-syllabus[data-v-45774dee] {\n  padding: 30px;\n}\n", ""]);
 
 // exports
 
@@ -40568,7 +40797,12 @@ var render = function() {
                 _c("h5", [_vm._v("Quiz")]),
                 _vm._v(" "),
                 _c("b-table", {
-                  attrs: { fields: _vm.fields, items: _vm.quiz, bordered: "" },
+                  attrs: {
+                    fields: _vm.fields,
+                    items: _vm.quiz,
+                    bordered: "",
+                    "head-variant": "darkgreen"
+                  },
                   scopedSlots: _vm._u([
                     {
                       key: "cell(Sn)",
@@ -40610,7 +40844,8 @@ var render = function() {
                   attrs: {
                     fields: _vm.fields,
                     items: _vm.assignment,
-                    bordered: ""
+                    bordered: "",
+                    "head-variant": "darkgreen"
                   },
                   scopedSlots: _vm._u([
                     {
@@ -40653,7 +40888,8 @@ var render = function() {
                   attrs: {
                     fields: _vm.fields,
                     items: _vm.examination,
-                    bordered: ""
+                    bordered: "",
+                    "head-variant": "darkgreen"
                   },
                   scopedSlots: _vm._u([
                     {
@@ -40693,7 +40929,12 @@ var render = function() {
                 _c("h5", [_vm._v("Tests")]),
                 _vm._v(" "),
                 _c("b-table", {
-                  attrs: { fields: _vm.fields, items: _vm.test, bordered: "" },
+                  attrs: {
+                    fields: _vm.fields,
+                    items: _vm.test,
+                    bordered: "",
+                    "head-variant": "darkgreen"
+                  },
                   scopedSlots: _vm._u([
                     {
                       key: "cell(Sn)",
@@ -42003,163 +42244,159 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("div", { staticClass: "d-flex justify-content-between" }, [
-      _c(
-        "table",
-        { staticClass: "table table-striped table-inverse table-bordered " },
-        [
-          _c("thead", { staticClass: "thead-inverse" }, [
-            _c("tr", [
-              _c("th", [_vm._v("Group Name")]),
+      _c("table", { staticClass: "table table-hover  table-bordered " }, [
+        _c("thead", { staticClass: "thead-light" }, [
+          _c("tr", [
+            _c("th", [_vm._v("Group Name")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Action")]),
+            _vm._v(" "),
+            _c("th", [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.item,
+                    expression: "item"
+                  }
+                ],
+                attrs: { type: "checkbox" },
+                domProps: {
+                  checked: Array.isArray(_vm.item)
+                    ? _vm._i(_vm.item, null) > -1
+                    : _vm.item
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.item,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && (_vm.item = $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          (_vm.item = $$a
+                            .slice(0, $$i)
+                            .concat($$a.slice($$i + 1)))
+                      }
+                    } else {
+                      _vm.item = $$c
+                    }
+                  }
+                }
+              })
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.groups, function(item, idx) {
+            return _c("tr", { key: idx }, [
+              _c(
+                "td",
+                {
+                  staticClass: "toCaps chat ",
+                  on: {
+                    click: function($event) {
+                      return _vm.gotoGroup(item.id)
+                    }
+                  }
+                },
+                [
+                  _vm._v(_vm._s(item.name) + "  "),
+                  _c("i", {
+                    staticClass: "fa fa-comment-o",
+                    attrs: { "aria-hidden": "true" }
+                  })
+                ]
+              ),
               _vm._v(" "),
-              _c("th", [_vm._v("Action")]),
+              _c("td", { staticClass: "d-flex justify-content-around" }, [
+                _c(
+                  "span",
+                  {
+                    staticClass: "mr-3",
+                    on: {
+                      click: function($event) {
+                        return _vm.drop(item.id)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fa fa-minus-circle",
+                      attrs: { "aria-hidden": "true" }
+                    }),
+                    _vm._v(" Drop\n            ")
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    on: {
+                      click: function($event) {
+                        return _vm.edit(item.id)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-edit" }),
+                    _vm._v("Update\n            ")
+                  ]
+                )
+              ]),
               _vm._v(" "),
-              _c("th", [
+              _c("td", [
                 _c("input", {
                   directives: [
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.item,
-                      expression: "item"
+                      value: _vm.items,
+                      expression: "items"
                     }
                   ],
                   attrs: { type: "checkbox" },
                   domProps: {
-                    checked: Array.isArray(_vm.item)
-                      ? _vm._i(_vm.item, null) > -1
-                      : _vm.item
+                    value: item.id,
+                    checked: Array.isArray(_vm.items)
+                      ? _vm._i(_vm.items, item.id) > -1
+                      : _vm.items
                   },
                   on: {
                     change: function($event) {
-                      var $$a = _vm.item,
+                      var $$a = _vm.items,
                         $$el = $event.target,
                         $$c = $$el.checked ? true : false
                       if (Array.isArray($$a)) {
-                        var $$v = null,
+                        var $$v = item.id,
                           $$i = _vm._i($$a, $$v)
                         if ($$el.checked) {
-                          $$i < 0 && (_vm.item = $$a.concat([$$v]))
+                          $$i < 0 && (_vm.items = $$a.concat([$$v]))
                         } else {
                           $$i > -1 &&
-                            (_vm.item = $$a
+                            (_vm.items = $$a
                               .slice(0, $$i)
                               .concat($$a.slice($$i + 1)))
                         }
                       } else {
-                        _vm.item = $$c
+                        _vm.items = $$c
                       }
                     }
                   }
                 })
               ])
             ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "tbody",
-            _vm._l(_vm.groups, function(item, idx) {
-              return _c("tr", { key: idx }, [
-                _c(
-                  "td",
-                  {
-                    staticClass: "toCaps chat ",
-                    on: {
-                      click: function($event) {
-                        return _vm.gotoGroup(item.id)
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(_vm._s(item.name) + "  "),
-                    _c("i", {
-                      staticClass: "fa fa-comment-o",
-                      attrs: { "aria-hidden": "true" }
-                    })
-                  ]
-                ),
-                _vm._v(" "),
-                _c("td", { staticClass: "d-flex justify-content-around" }, [
-                  _c(
-                    "span",
-                    {
-                      staticClass: "mr-3",
-                      on: {
-                        click: function($event) {
-                          return _vm.drop(item.id)
-                        }
-                      }
-                    },
-                    [
-                      _c("i", {
-                        staticClass: "fa fa-minus-circle",
-                        attrs: { "aria-hidden": "true" }
-                      }),
-                      _vm._v(" Drop\n            ")
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      on: {
-                        click: function($event) {
-                          return _vm.edit(item.id)
-                        }
-                      }
-                    },
-                    [
-                      _c("i", { staticClass: "fas fa-edit" }),
-                      _vm._v("Update\n            ")
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.items,
-                        expression: "items"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      value: item.id,
-                      checked: Array.isArray(_vm.items)
-                        ? _vm._i(_vm.items, item.id) > -1
-                        : _vm.items
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.items,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = item.id,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 && (_vm.items = $$a.concat([$$v]))
-                          } else {
-                            $$i > -1 &&
-                              (_vm.items = $$a
-                                .slice(0, $$i)
-                                .concat($$a.slice($$i + 1)))
-                          }
-                        } else {
-                          _vm.items = $$c
-                        }
-                      }
-                    }
-                  })
-                ])
-              ])
-            }),
-            0
-          )
-        ]
-      )
+          }),
+          0
+        )
+      ])
     ])
   ])
 }
@@ -42880,167 +43117,169 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "body" }, [
-    _c(
-      "nav",
-      {
-        staticClass:
-          "form-control d-flex justify-content-between align-items-center mb-5"
-      },
-      [
-        _c("div", { staticClass: "bar border-right" }, [
-          _vm.first_page
-            ? _c("i", {
-                staticClass: "fa fa-angle-double-left pr-2",
-                attrs: { "aria-hidden": "true" },
-                on: { click: _vm.firstPage }
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.prev_page
-            ? _c("i", {
-                staticClass: "fas fa-angle-left pr-2",
-                on: { click: _vm.prev }
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.current_page,
-                expression: "current_page"
-              }
-            ],
-            staticClass: "row_numb pl-2",
-            attrs: { type: "number", readonly: "" },
-            domProps: { value: _vm.current_page },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.current_page = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
-          _vm.next_page
-            ? _c("i", {
-                staticClass: "fas fa-angle-right pl-2",
-                attrs: { "aria-hidden": "true" },
-                on: { click: _vm.next }
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.last_page
-            ? _c("i", {
-                staticClass: "fa fa-angle-double-right pl-2",
-                attrs: { "aria-hidden": "true" },
-                on: { click: _vm.lastPage }
-              })
-            : _vm._e()
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "bar border-right", on: { click: _vm.getAll } },
-          [
-            _c("span", { staticClass: "mr-3" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.all,
-                    expression: "all"
-                  }
-                ],
-                attrs: { type: "checkbox" },
-                domProps: {
-                  checked: Array.isArray(_vm.all)
-                    ? _vm._i(_vm.all, null) > -1
-                    : _vm.all
-                },
-                on: {
-                  change: function($event) {
-                    var $$a = _vm.all,
-                      $$el = $event.target,
-                      $$c = $$el.checked ? true : false
-                    if (Array.isArray($$a)) {
-                      var $$v = null,
-                        $$i = _vm._i($$a, $$v)
-                      if ($$el.checked) {
-                        $$i < 0 && (_vm.all = $$a.concat([$$v]))
-                      } else {
-                        $$i > -1 &&
-                          (_vm.all = $$a
-                            .slice(0, $$i)
-                            .concat($$a.slice($$i + 1)))
-                      }
-                    } else {
-                      _vm.all = $$c
-                    }
-                  }
-                }
-              }),
-              _vm._v(" Show all\n      ")
-            ]),
+    _c("div", { staticClass: "bd-table mb-3" }, [
+      _c(
+        "nav",
+        {
+          staticClass:
+            "form-control d-flex justify-content-between align-items-center "
+        },
+        [
+          _c("div", { staticClass: "bar border-right" }, [
+            _vm.first_page
+              ? _c("i", {
+                  staticClass: "fa fa-angle-double-left pr-2",
+                  attrs: { "aria-hidden": "true" },
+                  on: { click: _vm.firstPage }
+                })
+              : _vm._e(),
             _vm._v(" "),
-            _vm.item
-              ? _c(
-                  "button",
-                  { staticClass: "button-red", on: { click: _vm.multiDrop } },
-                  [_vm._v("Multi drop")]
-                )
-              : _vm._e()
-          ]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "bar border-right" }, [
-          _vm._v("Number of rows " + _vm._s(_vm.row_number))
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "bar border-right" }, [
-          _vm._v("Total library " + _vm._s(_vm.total_library))
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "bar" }, [
-          _c("div", { staticClass: "form-group search_bar" }, [
+            _vm.prev_page
+              ? _c("i", {
+                  staticClass: "fas fa-angle-left pr-2",
+                  on: { click: _vm.prev }
+                })
+              : _vm._e(),
+            _vm._v(" "),
             _c("input", {
               directives: [
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.search,
-                  expression: "search"
+                  value: _vm.current_page,
+                  expression: "current_page"
                 }
               ],
-              staticClass: "form-control search_input rounded-pill",
-              attrs: {
-                type: "text",
-                "aria-describedby": "helpId",
-                placeholder: "Search row"
-              },
-              domProps: { value: _vm.search },
+              staticClass: "row_numb pl-2",
+              attrs: { type: "number", readonly: "" },
+              domProps: { value: _vm.current_page },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.search = $event.target.value
+                  _vm.current_page = $event.target.value
                 }
               }
             }),
             _vm._v(" "),
-            _c("i", {
-              staticClass: "fa fa-search",
-              attrs: { "aria-hidden": "true" }
-            })
+            _vm.next_page
+              ? _c("i", {
+                  staticClass: "fas fa-angle-right pl-2",
+                  attrs: { "aria-hidden": "true" },
+                  on: { click: _vm.next }
+                })
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.last_page
+              ? _c("i", {
+                  staticClass: "fa fa-angle-double-right pl-2",
+                  attrs: { "aria-hidden": "true" },
+                  on: { click: _vm.lastPage }
+                })
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "bar border-right", on: { click: _vm.getAll } },
+            [
+              _c("span", { staticClass: "mr-3" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.all,
+                      expression: "all"
+                    }
+                  ],
+                  attrs: { type: "checkbox" },
+                  domProps: {
+                    checked: Array.isArray(_vm.all)
+                      ? _vm._i(_vm.all, null) > -1
+                      : _vm.all
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.all,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 && (_vm.all = $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            (_vm.all = $$a
+                              .slice(0, $$i)
+                              .concat($$a.slice($$i + 1)))
+                        }
+                      } else {
+                        _vm.all = $$c
+                      }
+                    }
+                  }
+                }),
+                _vm._v(" Show all\n      ")
+              ]),
+              _vm._v(" "),
+              _vm.item
+                ? _c(
+                    "button",
+                    { staticClass: "button-red", on: { click: _vm.multiDrop } },
+                    [_vm._v("Multi drop")]
+                  )
+                : _vm._e()
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "bar border-right" }, [
+            _vm._v("Number of rows " + _vm._s(_vm.row_number))
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "bar border-right" }, [
+            _vm._v("Total library " + _vm._s(_vm.total_library))
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "bar" }, [
+            _c("div", { staticClass: "form-group search_bar" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.search,
+                    expression: "search"
+                  }
+                ],
+                staticClass: "form-control search_input rounded-pill",
+                attrs: {
+                  type: "text",
+                  "aria-describedby": "helpId",
+                  placeholder: "Search row"
+                },
+                domProps: { value: _vm.search },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.search = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("i", {
+                staticClass: "fa fa-search",
+                attrs: { "aria-hidden": "true" }
+              })
+            ])
           ])
-        ])
-      ]
-    ),
+        ]
+      )
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "bd-table" }, [
       _c("table", { staticClass: "table table-bordered table" }, [
@@ -43136,7 +43375,7 @@ var render = function() {
     [
       _c(
         "b-nav",
-        { staticClass: "py-2 shadow-sm", attrs: { align: "right" } },
+        { staticClass: "py-2 shadow-sm nav", attrs: { align: "right" } },
         [
           _c(
             "b-nav-item",
@@ -43462,14 +43701,12 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("router-link", { attrs: { to: "" } }, [
-            _c("li", { on: { click: _vm.logout } }, [
-              _c("i", {
-                staticClass: "icon-logout",
-                attrs: { "aria-hidden": "true" }
-              }),
-              _vm._v(" Log Out\n        ")
-            ])
+          _c("li", { on: { click: _vm.logout } }, [
+            _c("i", {
+              staticClass: "icon-logout",
+              attrs: { "aria-hidden": "true" }
+            }),
+            _vm._v(" Log Out\n        ")
           ])
         ],
         1
@@ -43633,63 +43870,188 @@ var render = function() {
           "div",
           { staticClass: "side-view" },
           [
-            _c("h4", { staticClass: "mb-5" }, [_vm._v("Resource")]),
+            _c("h4", { staticClass: "mb-3" }, [_vm._v("Resources")]),
             _vm._v(" "),
-            _vm._l(JSON.parse(_vm.library.content), function(item, idx) {
-              return _c("div", { key: idx, staticClass: "border-bottom" }, [
-                _c(
-                  "strong",
-                  {
-                    staticClass: "link-title",
-                    on: {
-                      click: function($event) {
-                        return _vm.play(
-                          item.file,
-                          item.type,
-                          item.title,
-                          item.overview
-                        )
-                      }
-                    }
-                  },
-                  [
-                    _vm._v("\n        " + _vm._s(item.title) + "\n        "),
-                    item.type == "video"
-                      ? _c("i", {
-                          staticClass: "fa fa-play-circle",
-                          attrs: { "aria-hidden": "true" }
-                        })
-                      : _vm._e(),
-                    _vm._v(" "),
-                    item.type == "pdf"
-                      ? _c("i", {
-                          staticClass: "fa fa-file-pdf-o",
-                          attrs: { "aria-hidden": "true" }
-                        })
-                      : _vm._e(),
-                    _vm._v(" "),
-                    item.type == "audio"
-                      ? _c("i", {
-                          staticClass: "fa fa-volume-up",
-                          attrs: { "aria-hidden": "true" }
-                        })
-                      : _vm._e(),
-                    _vm._v(" "),
-                    item.type == "ppt"
-                      ? _c("i", {
-                          staticClass: "fa fa-file-powerpoint-o",
-                          attrs: { "aria-hidden": "true" }
-                        })
-                      : _vm._e(),
-                    _vm._v(" "),
-                    item.type == "csv"
-                      ? _c("i", { staticClass: "fas fa-file-csv" })
-                      : _vm._e()
-                  ]
-                ),
-                _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(item.overview))])
-              ])
+            _vm._l(_vm.modules, function(item, idx) {
+              return _c(
+                "div",
+                { key: idx, attrs: { role: "tablist" } },
+                [
+                  _c(
+                    "b-card",
+                    { staticClass: "mb-1", attrs: { "no-body": "" } },
+                    [
+                      _c(
+                        "b-card-header",
+                        {
+                          staticClass: "p-1 text-left",
+                          attrs: { "header-tag": "header", role: "tab" }
+                        },
+                        [
+                          _c(
+                            "b-button",
+                            {
+                              directives: [
+                                {
+                                  name: "b-toggle",
+                                  rawName: "v-b-toggle",
+                                  value: item.module
+                                    .replace(/[^a-z0-9]/gi, "")
+                                    .replace(/\$/g, ""),
+                                  expression:
+                                    "item.module.replace(/[^a-z0-9]/gi, '').replace(/\\$/g, '')"
+                                }
+                              ],
+                              staticClass: "text-left",
+                              attrs: { block: "", variant: "secondary" }
+                            },
+                            [_vm._v(_vm._s(item.module))]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-collapse",
+                        {
+                          attrs: {
+                            id: item.module
+                              .replace(/[^a-z0-9]/gi, "")
+                              .replace(/\$/g, ""),
+                            accordion: "my-accordion",
+                            role: "tabpanel"
+                          }
+                        },
+                        [
+                          _c(
+                            "b-card-body",
+                            [
+                              _c("b-card-text", [_vm._v(_vm._s(item.excerpt))]),
+                              _vm._v(" "),
+                              _c("b-card-text", [
+                                _c("div", { staticClass: "mod" }, [
+                                  _c(
+                                    "ul",
+                                    _vm._l(JSON.parse(item.content), function(
+                                      content,
+                                      index
+                                    ) {
+                                      return _c(
+                                        "li",
+                                        { key: index },
+                                        [
+                                          _c(
+                                            "span",
+                                            {
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.play(
+                                                    content.file,
+                                                    content.type,
+                                                    content.title,
+                                                    content.overview
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c(
+                                                "span",
+                                                { staticClass: "ml-3" },
+                                                [
+                                                  content.type == "video"
+                                                    ? _c("i", {
+                                                        staticClass:
+                                                          "fa fa-play-circle",
+                                                        attrs: {
+                                                          "aria-hidden": "true"
+                                                        }
+                                                      })
+                                                    : _vm._e(),
+                                                  _vm._v(" "),
+                                                  content.type == "pdf"
+                                                    ? _c("i", {
+                                                        staticClass:
+                                                          "fa fa-file-pdf-o",
+                                                        attrs: {
+                                                          "aria-hidden": "true"
+                                                        }
+                                                      })
+                                                    : _vm._e(),
+                                                  _vm._v(" "),
+                                                  content.type == "audio"
+                                                    ? _c("i", {
+                                                        staticClass:
+                                                          "fa fa-volume-up",
+                                                        attrs: {
+                                                          "aria-hidden": "true"
+                                                        }
+                                                      })
+                                                    : _vm._e(),
+                                                  _vm._v(" "),
+                                                  content.type == "ppt"
+                                                    ? _c("i", {
+                                                        staticClass:
+                                                          "fa fa-file-powerpoint-o",
+                                                        attrs: {
+                                                          "aria-hidden": "true"
+                                                        }
+                                                      })
+                                                    : _vm._e(),
+                                                  _vm._v(" "),
+                                                  content.type == "csv"
+                                                    ? _c("i", {
+                                                        staticClass:
+                                                          "fas fa-file-csv"
+                                                      })
+                                                    : _vm._e()
+                                                ]
+                                              ),
+                                              _vm._v(
+                                                "\n                            " +
+                                                  _vm._s(content.title) +
+                                                  "\n                          "
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "b-modal",
+                                            {
+                                              attrs: {
+                                                id: content.title
+                                                  .replace(/[^a-z0-9]/gi, "")
+                                                  .replace(/\$/g, ""),
+                                                title: content.title,
+                                                "hide-footer": ""
+                                              }
+                                            },
+                                            [
+                                              _c("p", { staticClass: "my-4" }, [
+                                                _vm._v(_vm._s(content.overview))
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    }),
+                                    0
+                                  )
+                                ])
+                              ])
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
             })
           ],
           2
@@ -44829,8 +45191,8 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "b-button",
-                { attrs: { href: "#", block: "", variant: "primary" } },
-                [_vm._v("Views : 24")]
+                { attrs: { href: "#", block: "", variant: "secondary" } },
+                [_vm._v("Views : 14")]
               )
             ],
             2
@@ -45536,7 +45898,11 @@ var render = function() {
                   { staticClass: "bd-table" },
                   [
                     _c("b-table", {
-                      attrs: { fields: _vm.fields, items: _vm.items },
+                      attrs: {
+                        fields: _vm.fields,
+                        items: _vm.items,
+                        "head-variant": "darkblue"
+                      },
                       scopedSlots: _vm._u([
                         {
                           key: "cell(action)",
@@ -45882,7 +46248,11 @@ var render = function() {
                   { staticClass: "bd-table" },
                   [
                     _c("b-table", {
-                      attrs: { fields: _vm.fields, items: _vm.items },
+                      attrs: {
+                        fields: _vm.fields,
+                        items: _vm.items,
+                        "head-variant": "darkblue"
+                      },
                       scopedSlots: _vm._u([
                         {
                           key: "cell(action)",
@@ -46003,7 +46373,8 @@ var render = function() {
                                 attrs: {
                                   fields: _vm.fields,
                                   bordered: "",
-                                  items: _vm.assignment
+                                  items: _vm.assignment,
+                                  "head-variant": "darkblue"
                                 },
                                 scopedSlots: _vm._u([
                                   {
@@ -46100,7 +46471,8 @@ var render = function() {
                                   fields: _vm.fields,
                                   bordered: "",
                                   items: _vm.quiz,
-                                  hover: ""
+                                  hover: "",
+                                  "head-variant": "darkblue"
                                 },
                                 scopedSlots: _vm._u([
                                   {
@@ -46195,6 +46567,7 @@ var render = function() {
                                   fields: _vm.fields,
                                   bordered: "",
                                   items: _vm.test,
+                                  "head-variant": "darkblue",
                                   hover: ""
                                 },
                                 scopedSlots: _vm._u([
@@ -46290,6 +46663,7 @@ var render = function() {
                                   fields: _vm.fields,
                                   bordered: "",
                                   items: _vm.examination,
+                                  "head-variant": "darkblue",
                                   hover: ""
                                 },
                                 scopedSlots: _vm._u([
@@ -46412,7 +46786,11 @@ var render = function() {
                   { staticClass: "bd-table" },
                   [
                     _c("b-table", {
-                      attrs: { fields: _vm.fields, items: _vm.items },
+                      attrs: {
+                        fields: _vm.fields,
+                        items: _vm.items,
+                        "head-variant": "darkblue"
+                      },
                       scopedSlots: _vm._u([
                         {
                           key: "cell(action)",
@@ -46525,7 +46903,11 @@ var render = function() {
                   { staticClass: "bd-table" },
                   [
                     _c("b-table", {
-                      attrs: { fields: _vm.fields, items: _vm.items },
+                      attrs: {
+                        fields: _vm.fields,
+                        items: _vm.items,
+                        "head-variant": "darkblue"
+                      },
                       scopedSlots: _vm._u([
                         {
                           key: "cell(action)",
@@ -46906,7 +47288,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "thead-dark" }, [
+    return _c("thead", { staticClass: "thead-darkblue" }, [
       _c("tr", [
         _c("th", [_vm._v("Class")]),
         _vm._v(" "),
@@ -47026,194 +47408,187 @@ var render = function() {
       [
         _c(
           "b-button",
-          { staticClass: " shadow-sm", on: { click: _vm.multiDrop } },
-          [_vm._v("\n     Multi-Drop\n     \n    ")]
+          { staticClass: "shadow-sm", on: { click: _vm.multiDrop } },
+          [_vm._v("Multi-Drop")]
         ),
         _vm._v(" "),
-        _c("b-button", { staticClass: " shadow-sm hiden" }, [
-          _vm._v("\n     Create Group\n     \n    ")
+        _c("b-button", { staticClass: "shadow-sm hiden" }, [
+          _vm._v("Create Group")
         ]),
         _vm._v(" "),
-        _c("b-button", { staticClass: " shadow-sm hiden" }, [
-          _vm._v("\n     Assign Course\n     \n    ")
+        _c("b-button", { staticClass: "shadow-sm hiden" }, [
+          _vm._v("Assign Course")
         ]),
         _vm._v(" "),
-        _c("b-button", { staticClass: " shadow-sm hiden" }, [
-          _vm._v("\n     Assign Level\n     \n    ")
+        _c("b-button", { staticClass: "shadow-sm hiden" }, [
+          _vm._v("Assign Level")
         ])
       ],
       1
     ),
     _vm._v(" "),
     _c("div", { staticClass: "d-flex justify-content-between" }, [
-      _c(
-        "table",
-        {
-          staticClass:
-            "table table-striped table-inverse table-bordered mr-4 w-75"
-        },
-        [
-          _c("thead", { staticClass: "thead-inverse" }, [
-            _c("tr", [
-              _c("th", [_vm._v("Group Name")]),
+      _c("table", { staticClass: "table table-bordered mr-4 w-75" }, [
+        _c("thead", { staticClass: "thead-darkblue" }, [
+          _c("tr", [
+            _c("th", [_vm._v("Group Name")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Class")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Action")]),
+            _vm._v(" "),
+            _c("th", [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.item,
+                    expression: "item"
+                  }
+                ],
+                attrs: { type: "checkbox" },
+                domProps: {
+                  checked: Array.isArray(_vm.item)
+                    ? _vm._i(_vm.item, null) > -1
+                    : _vm.item
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.item,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && (_vm.item = $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          (_vm.item = $$a
+                            .slice(0, $$i)
+                            .concat($$a.slice($$i + 1)))
+                      }
+                    } else {
+                      _vm.item = $$c
+                    }
+                  }
+                }
+              })
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.groups, function(item, idx) {
+            return _c("tr", { key: idx }, [
+              _c(
+                "td",
+                {
+                  staticClass: "toCaps chat",
+                  on: {
+                    click: function($event) {
+                      return _vm.gotoGroup(item.id)
+                    }
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n            " + _vm._s(item.name) + "\n            "
+                  ),
+                  _c("i", {
+                    staticClass: "fa fa-comments",
+                    attrs: { "aria-hidden": "true" }
+                  })
+                ]
+              ),
               _vm._v(" "),
-              _c("th", [_vm._v("Class")]),
+              _c("td", [_vm._v(_vm._s(item.class_name))]),
               _vm._v(" "),
-              _c("th", [_vm._v("Action")]),
+              _c("td", { staticClass: "d-flex justify-content-around" }, [
+                _c(
+                  "span",
+                  {
+                    staticClass: "mr-3",
+                    on: {
+                      click: function($event) {
+                        return _vm.drop(item.id)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fa fa-minus-circle",
+                      attrs: { "aria-hidden": "true" }
+                    }),
+                    _vm._v(" Drop\n            ")
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    on: {
+                      click: function($event) {
+                        return _vm.edit(item.id)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-edit" }),
+                    _vm._v("Update\n            ")
+                  ]
+                )
+              ]),
               _vm._v(" "),
-              _c("th", [
+              _c("td", [
                 _c("input", {
                   directives: [
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.item,
-                      expression: "item"
+                      value: _vm.items,
+                      expression: "items"
                     }
                   ],
                   attrs: { type: "checkbox" },
                   domProps: {
-                    checked: Array.isArray(_vm.item)
-                      ? _vm._i(_vm.item, null) > -1
-                      : _vm.item
+                    value: item.id,
+                    checked: Array.isArray(_vm.items)
+                      ? _vm._i(_vm.items, item.id) > -1
+                      : _vm.items
                   },
                   on: {
                     change: function($event) {
-                      var $$a = _vm.item,
+                      var $$a = _vm.items,
                         $$el = $event.target,
                         $$c = $$el.checked ? true : false
                       if (Array.isArray($$a)) {
-                        var $$v = null,
+                        var $$v = item.id,
                           $$i = _vm._i($$a, $$v)
                         if ($$el.checked) {
-                          $$i < 0 && (_vm.item = $$a.concat([$$v]))
+                          $$i < 0 && (_vm.items = $$a.concat([$$v]))
                         } else {
                           $$i > -1 &&
-                            (_vm.item = $$a
+                            (_vm.items = $$a
                               .slice(0, $$i)
                               .concat($$a.slice($$i + 1)))
                         }
                       } else {
-                        _vm.item = $$c
+                        _vm.items = $$c
                       }
                     }
                   }
                 })
               ])
             ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "tbody",
-            _vm._l(_vm.groups, function(item, idx) {
-              return _c("tr", { key: idx }, [
-                _c(
-                  "td",
-                  {
-                    staticClass: "toCaps chat",
-                    on: {
-                      click: function($event) {
-                        return _vm.gotoGroup(item.id)
-                      }
-                    }
-                  },
-                  [
-                    _vm._v(
-                      "\n            " + _vm._s(item.name) + "\n           "
-                    ),
-                    _c("i", {
-                      staticClass: "fa fa-comments",
-                      attrs: { "aria-hidden": "true" }
-                    })
-                  ]
-                ),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(item.class_name))]),
-                _vm._v(" "),
-                _c("td", { staticClass: "d-flex justify-content-around" }, [
-                  _c(
-                    "span",
-                    {
-                      staticClass: "mr-3",
-                      on: {
-                        click: function($event) {
-                          return _vm.drop(item.id)
-                        }
-                      }
-                    },
-                    [
-                      _c("i", {
-                        staticClass: "fa fa-minus-circle",
-                        attrs: { "aria-hidden": "true" }
-                      }),
-                      _vm._v(" Drop\n            ")
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      on: {
-                        click: function($event) {
-                          return _vm.edit(item.id)
-                        }
-                      }
-                    },
-                    [
-                      _c("i", { staticClass: "fas fa-edit" }),
-                      _vm._v("Update\n            ")
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.items,
-                        expression: "items"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      value: item.id,
-                      checked: Array.isArray(_vm.items)
-                        ? _vm._i(_vm.items, item.id) > -1
-                        : _vm.items
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.items,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = item.id,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 && (_vm.items = $$a.concat([$$v]))
-                          } else {
-                            $$i > -1 &&
-                              (_vm.items = $$a
-                                .slice(0, $$i)
-                                .concat($$a.slice($$i + 1)))
-                          }
-                        } else {
-                          _vm.items = $$c
-                        }
-                      }
-                    }
-                  })
-                ])
-              ])
-            }),
-            0
-          )
-        ]
-      ),
+          }),
+          0
+        )
+      ]),
       _vm._v(" "),
-      _c("div", { staticClass: "add border p-2 w-25" }, [
+      _c("div", { staticClass: "bg-white shadow-sm p-2 w-25" }, [
         _c(
           "form",
           {
@@ -47304,7 +47679,8 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("p", [_vm._v("or\n          ")]),
+            _c("p", { staticClass: "text-center" }, [_vm._v("or")]),
+            _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
               _c("label", { attrs: { for: "" } }, [_vm._v("Add Students")]),
               _vm._v(" "),
@@ -47356,7 +47732,7 @@ var render = function() {
             _vm.names.length
               ? _c(
                   "div",
-                  { staticClass: "names" },
+                  { staticClass: "names form-group" },
                   _vm._l(_vm.names, function(item, idx) {
                     return _c(
                       "label",
@@ -47418,40 +47794,49 @@ var render = function() {
                 )
               : _vm._e(),
             _vm._v(" "),
-            !_vm.update
-              ? _c(
-                  "b-button",
-                  { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-                  [_vm._v("Create")]
-                )
-              : _c(
-                  "div",
-                  { staticClass: "d-flex justify-content-between" },
-                  [
-                    _c(
+            _c(
+              "div",
+              { staticClass: "form-group" },
+              [
+                !_vm.update
+                  ? _c(
                       "b-button",
                       {
                         staticClass: "btn btn-primary",
-                        attrs: { type: "button" },
-                        on: { click: _vm.updateN }
+                        attrs: { type: "submit" }
                       },
-                      [_vm._v("Update")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "b-button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "button" },
-                        on: { click: _vm.cancel }
-                      },
-                      [_vm._v("Cancel")]
+                      [_vm._v("Create")]
                     )
-                  ],
-                  1
-                )
-          ],
-          1
+                  : _c(
+                      "div",
+                      { staticClass: "d-flex justify-content-between" },
+                      [
+                        _c(
+                          "b-button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: { type: "button" },
+                            on: { click: _vm.updateN }
+                          },
+                          [_vm._v("Update")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "b-button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: { type: "button" },
+                            on: { click: _vm.cancel }
+                          },
+                          [_vm._v("Cancel")]
+                        )
+                      ],
+                      1
+                    )
+              ],
+              1
+            )
+          ]
         )
       ])
     ])
@@ -48329,7 +48714,19 @@ var render = function() {
     "div",
     { staticClass: "add-resource" },
     [
-      _c("h5", { staticClass: "container" }, [_vm._v("Add Resource")]),
+      _c(
+        "p",
+        [
+          _c("router-link", { attrs: { to: "/tutor/resources" } }, [
+            _vm._v("Go back")
+          ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("h5", { staticClass: "text-center py-3" }, [
+        _vm._v("Add New Resource")
+      ]),
       _vm._v(" "),
       _c(
         "b-container",
@@ -49751,7 +50148,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "thead-dark" }, [
+    return _c("thead", { staticClass: "thead-darkblue" }, [
       _c("tr", [
         _c("th", [_vm._v("S/N")]),
         _vm._v(" "),
@@ -50590,7 +50987,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "thead-dark" }, [
+    return _c("thead", { staticClass: "thead-darkblue" }, [
       _c("tr", [
         _c("th", [_vm._v("Class")]),
         _vm._v(" "),
@@ -50701,133 +51098,129 @@ var render = function() {
       : _vm._e(),
     _vm._v(" "),
     _c("div", [
-      _c(
-        "table",
-        { staticClass: "table table-striped table-inverse table-bordered" },
-        [
-          _c("thead", { staticClass: "thead-inverse" }, [
-            _c("tr", [
-              _c("th", [_vm._v("Class")]),
+      _c("table", { staticClass: "table table-bordered" }, [
+        _c("thead", { staticClass: "thead-darkblue" }, [
+          _c("tr", [
+            _c("th", [_vm._v("Class")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Action")]),
+            _vm._v(" "),
+            _c("th", [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.item,
+                    expression: "item"
+                  }
+                ],
+                attrs: { type: "checkbox" },
+                domProps: {
+                  checked: Array.isArray(_vm.item)
+                    ? _vm._i(_vm.item, null) > -1
+                    : _vm.item
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.item,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && (_vm.item = $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          (_vm.item = $$a
+                            .slice(0, $$i)
+                            .concat($$a.slice($$i + 1)))
+                      }
+                    } else {
+                      _vm.item = $$c
+                    }
+                  }
+                }
+              })
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.table, function(item, idx) {
+            return _c("tr", { key: idx }, [
+              _c("td", { staticClass: "toCaps", attrs: { scope: "row" } }, [
+                _vm._v(_vm._s(item.myclass))
+              ]),
               _vm._v(" "),
-              _c("th", [_vm._v("Action")]),
+              _c("td", { staticClass: "d-flex justify-content-around" }, [
+                _c(
+                  "span",
+                  {
+                    staticClass: "mr-3",
+                    on: {
+                      click: function($event) {
+                        return _vm.getTables(item.id)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fa fa-eye",
+                      attrs: { "aria-hidden": "true" }
+                    }),
+                    _vm._v(" View\n            ")
+                  ]
+                )
+              ]),
               _vm._v(" "),
-              _c("th", [
+              _c("td", [
                 _c("input", {
                   directives: [
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.item,
-                      expression: "item"
+                      value: _vm.items,
+                      expression: "items"
                     }
                   ],
                   attrs: { type: "checkbox" },
                   domProps: {
-                    checked: Array.isArray(_vm.item)
-                      ? _vm._i(_vm.item, null) > -1
-                      : _vm.item
+                    value: item.id,
+                    checked: Array.isArray(_vm.items)
+                      ? _vm._i(_vm.items, item.id) > -1
+                      : _vm.items
                   },
                   on: {
                     change: function($event) {
-                      var $$a = _vm.item,
+                      var $$a = _vm.items,
                         $$el = $event.target,
                         $$c = $$el.checked ? true : false
                       if (Array.isArray($$a)) {
-                        var $$v = null,
+                        var $$v = item.id,
                           $$i = _vm._i($$a, $$v)
                         if ($$el.checked) {
-                          $$i < 0 && (_vm.item = $$a.concat([$$v]))
+                          $$i < 0 && (_vm.items = $$a.concat([$$v]))
                         } else {
                           $$i > -1 &&
-                            (_vm.item = $$a
+                            (_vm.items = $$a
                               .slice(0, $$i)
                               .concat($$a.slice($$i + 1)))
                         }
                       } else {
-                        _vm.item = $$c
+                        _vm.items = $$c
                       }
                     }
                   }
                 })
               ])
             ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "tbody",
-            _vm._l(_vm.table, function(item, idx) {
-              return _c("tr", { key: idx }, [
-                _c("td", { staticClass: "toCaps", attrs: { scope: "row" } }, [
-                  _vm._v(_vm._s(item.myclass))
-                ]),
-                _vm._v(" "),
-                _c("td", { staticClass: "d-flex justify-content-around" }, [
-                  _c(
-                    "span",
-                    {
-                      staticClass: "mr-3",
-                      on: {
-                        click: function($event) {
-                          return _vm.getTables(item.id)
-                        }
-                      }
-                    },
-                    [
-                      _c("i", {
-                        staticClass: "fa fa-eye",
-                        attrs: { "aria-hidden": "true" }
-                      }),
-                      _vm._v(" View\n            ")
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.items,
-                        expression: "items"
-                      }
-                    ],
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      value: item.id,
-                      checked: Array.isArray(_vm.items)
-                        ? _vm._i(_vm.items, item.id) > -1
-                        : _vm.items
-                    },
-                    on: {
-                      change: function($event) {
-                        var $$a = _vm.items,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = item.id,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 && (_vm.items = $$a.concat([$$v]))
-                          } else {
-                            $$i > -1 &&
-                              (_vm.items = $$a
-                                .slice(0, $$i)
-                                .concat($$a.slice($$i + 1)))
-                          }
-                        } else {
-                          _vm.items = $$c
-                        }
-                      }
-                    }
-                  })
-                ])
-              ])
-            }),
-            0
-          )
-        ]
-      )
+          }),
+          0
+        )
+      ])
     ])
   ])
 }
@@ -50836,7 +51229,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "thead-light" }, [
+    return _c("thead", { staticClass: "thead-darkblue" }, [
       _c("tr", [
         _c("th", [_vm._v("Day")]),
         _vm._v(" "),
@@ -51446,7 +51839,7 @@ var render = function() {
     _c("h3", { staticClass: "text-center my-3" }, [_vm._v("Curriculum")]),
     _vm._v(" "),
     _vm.curriculum
-      ? _c("div", { staticClass: "form-group" }, [
+      ? _c("div", { staticClass: "form-group mx-0" }, [
           _c("h4", { staticClass: "toCaps" }, [
             _c("span", { staticClass: "text-muted" }, [
               _vm._v("Grade Level :")
@@ -51456,68 +51849,98 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
-    _c("table", { staticClass: "table table-bordered bg-white" }, [
+    _c("table", { staticClass: "table table-borderless bg-white" }, [
       _vm.curriculum.profile
-        ? _c("tr", { staticClass: "border p-3 my-4" }, [
-            _c("td", [
-              _c("h5", [_vm._v("Student Profile")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group d-flex" }, [
+        ? _c("tr", { staticClass: "border-bottom p-3 my-4" }, [
+            _c(
+              "td",
+              [
+                _c("h5", [_vm._v("Student Profile")]),
+                _vm._v(" "),
                 _c(
-                  "label",
-                  { staticClass: "mr-3 side-label", attrs: { for: "" } },
-                  [_vm._v("Target Age :")]
-                ),
-                _vm._v(
-                  "\n          " +
-                    _vm._s(_vm.curriculum.profile.age) +
-                    "\n        "
+                  "b-row",
+                  [
+                    _c("b-col", { attrs: { cols: "6" } }, [
+                      _c("div", { staticClass: "form-group d-flex" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "mr-3 side-label",
+                            attrs: { for: "" }
+                          },
+                          [_vm._v("Target Age :")]
+                        ),
+                        _vm._v(
+                          "\n          " +
+                            _vm._s(_vm.curriculum.profile.age) +
+                            "\n        "
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("b-col", { attrs: { cols: "6" } }, [
+                      _c("div", { staticClass: "form-group d-flex" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "mr-3 side-label",
+                            attrs: { for: "" }
+                          },
+                          [_vm._v("Interests :")]
+                        ),
+                        _vm._v(
+                          "\n          " +
+                            _vm._s(_vm.curriculum.profile.interests) +
+                            "\n        "
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("b-col", { attrs: { cols: "6" } }, [
+                      _c("div", { staticClass: "form-group d-flex" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "mr-3 side-label",
+                            attrs: { for: "" }
+                          },
+                          [_vm._v("Learning Abilities :")]
+                        ),
+                        _vm._v(
+                          "\n          " +
+                            _vm._s(_vm.curriculum.profile.abilities) +
+                            "\n        "
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("b-col", { attrs: { cols: "6" } }, [
+                      _c("div", { staticClass: "form-group d-flex" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "mr-3 side-label",
+                            attrs: { for: "" }
+                          },
+                          [_vm._v("Other Pecularities :")]
+                        ),
+                        _vm._v(
+                          "\n          " +
+                            _vm._s(_vm.curriculum.profile.others) +
+                            "\n        "
+                        )
+                      ])
+                    ])
+                  ],
+                  1
                 )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group d-flex" }, [
-                _c(
-                  "label",
-                  { staticClass: "mr-3 side-label", attrs: { for: "" } },
-                  [_vm._v("Interests :")]
-                ),
-                _vm._v(
-                  "\n          " +
-                    _vm._s(_vm.curriculum.profile.interests) +
-                    "\n        "
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group d-flex" }, [
-                _c(
-                  "label",
-                  { staticClass: "mr-3 side-label", attrs: { for: "" } },
-                  [_vm._v("Learning Abilities :")]
-                ),
-                _vm._v(
-                  "\n          " +
-                    _vm._s(_vm.curriculum.profile.abilities) +
-                    "\n        "
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group d-flex" }, [
-                _c(
-                  "label",
-                  { staticClass: "mr-3 side-label", attrs: { for: "" } },
-                  [_vm._v("Other Pecularities :")]
-                ),
-                _vm._v(
-                  "\n          " +
-                    _vm._s(_vm.curriculum.profile.others) +
-                    "\n        "
-                )
-              ])
-            ])
+              ],
+              1
+            )
           ])
         : _vm._e(),
       _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
+      _c("tr", { staticClass: "border-bottom p-3 my-4" }, [
         _c("td", [
           _c("h5", [_vm._v("Overarching Learner Outcome")]),
           _vm._v(" "),
@@ -51537,7 +51960,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
+      _c("tr", { staticClass: "border-bottom p-3 my-4" }, [
         _c(
           "td",
           [
@@ -51556,7 +51979,7 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
+      _c("tr", { staticClass: "border-bottom p-3 my-4" }, [
         _c(
           "td",
           [
@@ -51575,7 +51998,7 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
+      _c("tr", { staticClass: "border-bottom p-3 my-4" }, [
         _c(
           "td",
           [
@@ -51594,7 +52017,7 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
+      _c("tr", { staticClass: "border-bottom p-3 my-4" }, [
         _c(
           "td",
           [
@@ -51617,41 +52040,94 @@ var render = function() {
         _c(
           "td",
           [
-            _c("h5", [_vm._v("FAQs (Optional)")]),
+            _c("h5", [_vm._v("Frequently Asked Questions")]),
             _vm._v(" "),
-            _vm._l(_vm.curriculum.faqs, function(item, idx) {
-              return _c("div", { key: idx, staticClass: "mb-3" }, [
-                _c("span", { staticClass: "d-flex mb-2" }, [
-                  _c(
-                    "label",
-                    { staticClass: "side-label", attrs: { for: "Question" } },
-                    [_vm._v("Question")]
-                  ),
-                  _vm._v(
-                    "\n            " + _vm._s(item.question) + "\n          "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "d-flex" }, [
-                  _c(
-                    "label",
-                    { staticClass: "side-label", attrs: { for: "" } },
-                    [_vm._v("Answer")]
-                  ),
-                  _vm._v(
-                    "\n            " + _vm._s(item.answer) + "\n          "
-                  )
-                ]),
-                _vm._v(" "),
-                _vm.curriculum.faqs.length > 1 ? _c("hr") : _vm._e()
-              ])
-            })
+            _c(
+              "b-row",
+              {},
+              [
+                _c(
+                  "b-col",
+                  _vm._l(_vm.curriculum.faqs, function(item, idx) {
+                    return _c(
+                      "div",
+                      { key: idx, attrs: { role: "tablist" } },
+                      [
+                        _c(
+                          "b-card",
+                          { staticClass: "mb-1", attrs: { "no-body": "" } },
+                          [
+                            _c(
+                              "b-card-header",
+                              {
+                                staticClass: "p-2",
+                                attrs: { "header-tag": "header", role: "tab" }
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "b-toggle",
+                                        rawName: "v-b-toggle",
+                                        value: item.question
+                                          .replace(/[^a-z0-9]/gi, "")
+                                          .replace(/\$/g, ""),
+                                        expression:
+                                          "item.question.replace(/[^a-z0-9]/gi, '').replace(/\\$/g, '')"
+                                      }
+                                    ],
+                                    staticClass: "text-left",
+                                    attrs: { block: "", variant: "secondary" }
+                                  },
+                                  [_vm._v(_vm._s(item.question))]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-collapse",
+                              {
+                                attrs: {
+                                  id: item.question
+                                    .replace(/[^a-z0-9]/gi, "")
+                                    .replace(/\$/g, ""),
+                                  accordion: "my-accordion",
+                                  role: "tabpanel"
+                                }
+                              },
+                              [
+                                _c(
+                                  "b-card-body",
+                                  [
+                                    _c("b-card-text", [
+                                      _vm._v(_vm._s(item.answer))
+                                    ])
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  }),
+                  0
+                )
+              ],
+              1
+            )
           ],
-          2
+          1
         )
       ]),
       _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
+      _c("tr", { staticClass: "border-bottom p-3 my-4" }, [
         _c("td", [
           _c("h5", [_vm._v("Course Availability")]),
           _vm._v(
@@ -51660,7 +52136,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
+      _c("tr", { staticClass: "border-bottom p-3 my-4" }, [
         _c("td", [
           _c("h5", [_vm._v("Comments")]),
           _vm._v("\n        " + _vm._s(_vm.curriculum.comments) + "\n      ")
@@ -51691,215 +52167,346 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "body" }, [
-    _c("h3", { staticClass: "text-center my-3" }, [_vm._v("Syllabus")]),
+  return _c("div", { staticClass: "viewsyllabus pt-3 pl-3" }, [
+    _c("h2", [_vm._v("Syllabus")]),
     _vm._v(" "),
-    _c("div", { staticClass: "border p-3 my-4" }, [
-      _c("h3", [_vm._v("Class Information")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("h5", { staticClass: "toCaps" }, [
-          _c("span", { staticClass: "text-muted" }, [_vm._v("Term :")]),
-          _vm._v(" " + _vm._s(_vm.syllabus.term) + "\n      ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("h5", { staticClass: "toCaps" }, [
-          _c("span", { staticClass: "text-muted" }, [_vm._v("Grade Level :")]),
-          _vm._v("\n        " + _vm._s(_vm.syllabus.grade_level) + "\n      ")
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("table", { staticClass: "table table-bordered bg-white" }, [
-      _c("tr", { staticClass: "border p-3 my-4" }, [
-        _c("td", [
-          _c("h3", [_vm._v("Subject Information")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("h5", { staticClass: "toCaps" }, [
-              _c("span", { staticClass: "text-muted" }, [_vm._v("Subject :")]),
-              _vm._v(
-                "\n            " + _vm._s(_vm.syllabus.subject) + "\n          "
+    _c("div", { staticClass: "contain-syllabus" }, [
+      _c("div", { staticClass: "view-syllabus" }, [
+        _c("div", { staticClass: "border rounded p-2" }, [
+          _c(
+            "div",
+            { staticClass: "class-information" },
+            [
+              _c("strong", { staticClass: "mb-3" }, [
+                _vm._v("Class Information")
+              ]),
+              _vm._v(" "),
+              _c(
+                "b-row",
+                { staticClass: "class-information-inner p-2 px-sm-4" },
+                [
+                  _c("b-col", [
+                    _c("h5", [
+                      _vm._v("\n            Term:\n            "),
+                      _c("span", [_vm._v(_vm._s(_vm.syllabus.term))])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("b-col", [
+                    _c("h5", [
+                      _vm._v("\n            Class:\n            "),
+                      _c("span", [_vm._v(_vm._s(_vm.syllabus.grade_level))])
+                    ])
+                  ])
+                ],
+                1
               )
-            ])
-          ]),
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "" } }, [_vm._v("Description :")]),
-            _vm._v(
-              "\n          " + _vm._s(_vm.syllabus.description) + "\n        "
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "" } }, [_vm._v("Frequency :")]),
-            _vm._v(
-              "\n          " + _vm._s(_vm.syllabus.frequency) + "\n        "
-            )
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
-        _c("td", [
-          _c("h3", [_vm._v("Overarching Learner Outcome")]),
+          _c("hr"),
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "form-group" },
-            _vm._l(_vm.syllabus.learner_outcome, function(item, idx) {
-              return _c("span", { key: idx, staticClass: "mb-2 d-flex" }, [
-                _c("span", { staticClass: "mr-3" }, [
-                  _vm._v(_vm._s(idx + 1) + ".")
-                ]),
-                _vm._v("\n            " + _vm._s(item.name) + "\n          ")
-              ])
-            }),
-            0
+            { staticClass: "class-information " },
+            [
+              _c("strong", { staticClass: "mb-3" }, [
+                _vm._v("Subject Information")
+              ]),
+              _vm._v(" "),
+              _c(
+                "b-row",
+                { staticClass: "class-information-inner p-2 px-sm-4" },
+                [
+                  _c("b-col", { attrs: { cols: "6" } }, [
+                    _c("h5", [
+                      _vm._v("\n            Subject:\n            "),
+                      _c("span", { staticClass: "toCaps" }, [
+                        _vm._v(_vm._s(_vm.syllabus.subject))
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("b-col", { attrs: { cols: "6" } }, [
+                    _c("h5", [
+                      _vm._v("\n            Frequency:\n            "),
+                      _c("span", [_vm._v(_vm._s(_vm.syllabus.frequency))])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("b-col", { attrs: { cols: "12" } }, [
+                    _c("div", { staticClass: "subject-description" }, [
+                      _c("h5", [_vm._v("Subject Description")]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v(_vm._s(_vm.syllabus.description))])
+                    ])
+                  ])
+                ],
+                1
+              )
+            ],
+            1
           )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
+        ]),
+        _vm._v(" "),
         _c(
-          "td",
+          "div",
+          { staticClass: "class-information" },
           [
-            _c("h3", [_vm._v("Target skills to be learned")]),
-            _vm._v(" "),
-            _vm._l(_vm.syllabus.target_skills, function(item, idx) {
-              return _c("span", { key: idx, staticClass: "mb-2 d-flex" }, [
-                _c("span", { staticClass: "mr-3" }, [
-                  _vm._v(_vm._s(idx + 1) + ".")
-                ]),
-                _vm._v("\n          " + _vm._s(item.name) + "\n        ")
-              ])
-            })
-          ],
-          2
-        )
-      ]),
-      _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
-        _c(
-          "td",
-          [
-            _c("h3", [_vm._v("Required Modules")]),
-            _vm._v(" "),
-            _vm._l(_vm.syllabus.modules, function(item, idx) {
-              return _c("span", { key: idx, staticClass: "mb-2 d-flex" }, [
-                _c("span", { staticClass: "mr-3" }, [
-                  _vm._v(_vm._s(idx + 1) + ".")
-                ]),
-                _vm._v("\n          " + _vm._s(item.name) + "\n        ")
-              ])
-            })
-          ],
-          2
-        )
-      ]),
-      _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
-        _c(
-          "td",
-          [
-            _c("h3", [_vm._v("Delivery Methods")]),
-            _vm._v(" "),
-            _vm._l(_vm.syllabus.delivery_methods, function(item, idx) {
-              return _c("span", { key: idx, staticClass: "mb-2 d-flex" }, [
-                _c("span", { staticClass: "mr-3" }, [
-                  _vm._v(_vm._s(idx + 1) + ".")
-                ]),
-                _vm._v("\n          " + _vm._s(item.name) + "\n        ")
-              ])
-            })
-          ],
-          2
-        )
-      ]),
-      _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
-        _c(
-          "td",
-          [
-            _c("h3", [_vm._v("Assessment")]),
+            _c("strong", { staticClass: "mb-3" }, [
+              _vm._v("Overarching Learner Outcome")
+            ]),
             _vm._v(" "),
             _c(
-              "small",
-              { staticClass: "form-text text-muted", attrs: { id: "helpId" } },
-              [_vm._v("How will the students be assessed?")]
-            ),
-            _vm._v(" "),
-            _vm._l(_vm.syllabus.assessments, function(item, idx) {
-              return _c("span", { key: idx, staticClass: "mb-2 d-flex" }, [
-                _c("span", { staticClass: "mr-3" }, [
-                  _vm._v(_vm._s(idx + 1) + ".")
-                ]),
-                _vm._v("\n          " + _vm._s(item.name) + "\n        ")
-              ])
-            })
+              "b-row",
+              { staticClass: " p-2 px-sm-4" },
+              [
+                _c("b-col", [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    _vm._l(_vm.syllabus.learner_outcome, function(item, idx) {
+                      return _c(
+                        "span",
+                        { key: idx, staticClass: "mb-2 d-flex" },
+                        [
+                          _c("span", { staticClass: "mr-3" }, [
+                            _vm._v(_vm._s(idx + 1) + ".")
+                          ]),
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(item.name) +
+                              "\n          "
+                          )
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                ])
+              ],
+              1
+            )
           ],
-          2
-        )
-      ]),
-      _vm._v(" "),
-      _c("tr", [
+          1
+        ),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
         _c(
-          "td",
+          "div",
+          { staticClass: "class-information" },
           [
-            _c("h3", [_vm._v("FAQs (Optional)")]),
+            _c("strong", { staticClass: "mb-3" }, [
+              _vm._v("Target skills to be learned")
+            ]),
             _vm._v(" "),
-            _vm._l(_vm.syllabus.faqs, function(item, idx) {
-              return _c("div", { key: idx, staticClass: "mb-3" }, [
-                _c("span", { staticClass: "d-flex mb-2" }, [
+            _c(
+              "b-row",
+              [
+                _c("b-col", [
                   _c(
-                    "label",
-                    { staticClass: "side-label", attrs: { for: "Question" } },
-                    [_vm._v("Question")]
-                  ),
-                  _vm._v(
-                    "\n            " + _vm._s(item.question) + "\n          "
+                    "div",
+                    { staticClass: "form-group" },
+                    _vm._l(_vm.syllabus.target_skills, function(item, idx) {
+                      return _c(
+                        "span",
+                        { key: idx, staticClass: "mb-2 d-flex" },
+                        [
+                          _c("span", { staticClass: "mr-3" }, [
+                            _vm._v(_vm._s(idx + 1) + ".")
+                          ]),
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(item.name) +
+                              "\n          "
+                          )
+                        ]
+                      )
+                    }),
+                    0
                   )
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "d-flex" }, [
-                  _c(
-                    "label",
-                    { staticClass: "side-label", attrs: { for: "" } },
-                    [_vm._v("Answer")]
-                  ),
-                  _vm._v(
-                    "\n            " + _vm._s(item.answer) + "\n          "
-                  )
-                ]),
-                _vm._v(" "),
-                _vm.syllabus.faqs.length > 1 ? _c("hr") : _vm._e()
-              ])
-            })
+                ])
+              ],
+              1
+            )
           ],
-          2
+          1
+        ),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "class-information" },
+          [
+            _c("strong", { staticClass: "mb-3" }, [_vm._v("Required Modules")]),
+            _vm._v(" "),
+            _c(
+              "b-row",
+              [
+                _c("b-col", [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    _vm._l(_vm.syllabus.modules, function(item, idx) {
+                      return _c(
+                        "span",
+                        { key: idx, staticClass: "mb-2 d-flex" },
+                        [
+                          _c("span", { staticClass: "mr-3" }, [
+                            _vm._v(_vm._s(idx + 1) + ".")
+                          ]),
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(item.name) +
+                              "\n          "
+                          )
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                ])
+              ],
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "class-information" },
+          [
+            _c("strong", { staticClass: "mb-3" }, [_vm._v("Delivery Methods")]),
+            _vm._v(" "),
+            _c(
+              "b-row",
+              [
+                _c("b-col", [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    _vm._l(_vm.syllabus.delivery_methods, function(item, idx) {
+                      return _c(
+                        "span",
+                        { key: idx, staticClass: "mb-2 d-flex" },
+                        [
+                          _c("span", { staticClass: "mr-3" }, [
+                            _vm._v(_vm._s(idx + 1) + ".")
+                          ]),
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(item.name) +
+                              "\n          "
+                          )
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                ])
+              ],
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "class-information" },
+          [
+            _c("strong", { staticClass: "mb-3" }, [
+              _vm._v("Assessment(How the students be assessed)")
+            ]),
+            _vm._v(" "),
+            _c(
+              "b-row",
+              [
+                _c("b-col", [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    _vm._l(_vm.syllabus.assessments, function(item, idx) {
+                      return _c(
+                        "span",
+                        { key: idx, staticClass: "mb-2 d-flex" },
+                        [
+                          _c("span", { staticClass: "mr-3" }, [
+                            _vm._v(_vm._s(idx + 1) + ".")
+                          ]),
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(item.name) +
+                              "\n          "
+                          )
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                ])
+              ],
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "class-information" },
+          [
+            _c("strong", { staticClass: "mb-3" }, [
+              _vm._v("Course Availability")
+            ]),
+            _vm._v(" "),
+            _c(
+              "b-row",
+              [
+                _c("b-col", [
+                  _c("div", { staticClass: "form-group" }, [
+                    _vm._v(_vm._s(_vm.syllabus.availability))
+                  ])
+                ])
+              ],
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "class-information" },
+          [
+            _c("strong", { staticClass: "mb-3" }, [_vm._v("Comments")]),
+            _vm._v(" "),
+            _c(
+              "b-row",
+              [
+                _c("b-col", [
+                  _c("div", { staticClass: "form-group" }, [
+                    _vm._v(_vm._s(_vm.syllabus.comments))
+                  ])
+                ])
+              ],
+              1
+            )
+          ],
+          1
         )
-      ]),
-      _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
-        _c("td", [
-          _c("h3", [_vm._v("Course Availability")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _vm._v(_vm._s(_vm.syllabus.availability))
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
-        _c("td", [
-          _c("h3", [_vm._v("Comments")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _vm._v(_vm._s(_vm.syllabus.comments))
-          ])
-        ])
       ])
     ])
   ])

@@ -1,29 +1,17 @@
 <template>
   <div class="body">
     <nav class="mb-5">
-      <b-button class=" shadow-sm"  @click="multiDrop">
-       Multi-Drop
-       
-      </b-button>
-      <b-button class=" shadow-sm hiden">
-       Create Group
-       
-      </b-button>
+      <b-button class="shadow-sm" @click="multiDrop">Multi-Drop</b-button>
+      <b-button class="shadow-sm hiden">Create Group</b-button>
 
-      <b-button class=" shadow-sm hiden">
-       Assign Course
-       
-      </b-button>
+      <b-button class="shadow-sm hiden">Assign Course</b-button>
 
-      <b-button class=" shadow-sm hiden">
-       Assign Level
-       
-      </b-button>
+      <b-button class="shadow-sm hiden">Assign Level</b-button>
     </nav>
 
     <div class="d-flex justify-content-between">
-      <table class="table table-striped table-inverse table-bordered mr-4 w-75">
-        <thead class="thead-inverse">
+      <table class="table table-bordered mr-4 w-75">
+        <thead class="thead-darkblue">
           <tr>
             <th>Group Name</th>
             <th>Class</th>
@@ -37,7 +25,7 @@
           <tr v-for="(item,idx) in groups" :key="idx">
             <td class="toCaps chat" @click="gotoGroup(item.id)">
               {{item.name}}
-             <i class="fa fa-comments" aria-hidden="true"></i>
+              <i class="fa fa-comments" aria-hidden="true"></i>
             </td>
             <td>{{item.class_name}}</td>
             <td class="d-flex justify-content-around">
@@ -54,7 +42,7 @@
           </tr>
         </tbody>
       </table>
-      <div class="add border p-2 w-25">
+      <div class="bg-white shadow-sm p-2 w-25">
         <form @submit.prevent="addClass" class="mb-5">
           <div class="form-group">
             <label for>Group name</label>
@@ -74,33 +62,34 @@
             </select>
           </div>
 
-          <p>or
-            <div class="form-group">
+          <p class="text-center">or</p>
+          <div class="form-group">
             <label for>Add Students</label>
             <select class="custom-select" v-model="name_class">
               <option selected value>Select Class</option>
               <option :value="item" v-for="(item,idx) in allClass" :key="idx">{{item}}</option>
             </select>
-            
           </div>
 
-          <div class="names" v-if="names.length">
+          <div class="names form-group" v-if="names.length">
             <label class="custom-control custom-checkbox" v-for="(item,idx) in names" :key="idx">
-            <input type="checkbox"  :value="item.id" class="custom-control-input"  v-model="added_names">
-            <span class="custom-control-indicator">{{item.name}}</span>
-         
-          </label>
+              <input
+                type="checkbox"
+                :value="item.id"
+                class="custom-control-input"
+                v-model="added_names"
+              />
+              <span class="custom-control-indicator">{{item.name}}</span>
+            </label>
           </div>
 
-
-
-
-
-          <b-button v-if="!update" type="submit" class="btn btn-primary">Create</b-button>
+         <div class="form-group">
+            <b-button v-if="!update" type="submit" class="btn btn-primary">Create</b-button>
           <div v-else class="d-flex justify-content-between">
             <b-button type="button" class="btn btn-primary" @click="updateN">Update</b-button>
             <b-button type="button" class="btn btn-primary" @click="cancel">Cancel</b-button>
           </div>
+         </div>
         </form>
       </div>
     </div>
@@ -121,26 +110,25 @@ export default {
       item: false,
       update: false,
       allClass: [],
-      name_class:'',
-      names:[],
-      added_names:[]
+      name_class: "",
+      names: [],
+      added_names: [],
     };
   },
   watch: {
     item: "selectAll",
-    name_class:'getStudents',
-    class_name:'reset'
+    name_class: "getStudents",
+    class_name: "reset",
   },
   mounted() {
     this.getgroups();
     this.getCLasses();
   },
   methods: {
-    reset(){
-      this.names=[]
-      this.added_names = []
-      this.name_class = ''
-    
+    reset() {
+      this.names = [];
+      this.added_names = [];
+      this.name_class = "";
     },
     cancel() {
       this.update = false;
@@ -150,7 +138,7 @@ export default {
     selectAll() {
       if (this.item) {
         this.items = [];
-        this.groups.forEach(it => {
+        this.groups.forEach((it) => {
           this.items.push(it.id);
         });
       } else {
@@ -158,65 +146,63 @@ export default {
       }
     },
     getCLasses() {
-  
-        axios
+      axios
         .get("/api/all-classes", {
           headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
-            res.data.forEach(item => {
+            res.data.forEach((item) => {
               this.allClass.push(item.class_name);
               if (item.sub_class !== "") {
-                item.sub_class.split(",").forEach(i => {
+                item.sub_class.split(",").forEach((i) => {
                   this.allClass.push(i);
                 });
               }
             });
           }
         });
-     
     },
-     getStudents() {
-     if (this.name_class !=='') {
+    getStudents() {
+      if (this.name_class !== "") {
         axios
-        .get(`/api/all-students/${this.name_class}`, {
-          headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`
-          }
-        })
-        .then(res => {
-          if (res.status == 200) {
-            this.added_names=[]
-           this.names = res.data
-          }
-        });
-     }
+          .get(`/api/all-students/${this.name_class}`, {
+            headers: {
+              Authorization: `Bearer ${this.$props.tutor.access_token}`,
+            },
+          })
+          .then((res) => {
+            if (res.status == 200) {
+              this.added_names = [];
+              this.names = res.data;
+            }
+          });
+      }
     },
     addClass() {
       if (this.added_names.length) {
         var data = {
-        name: this.name,
-        class_name: this.name_class,
-        subscribers:this.added_names
-      };
-      }else{
-       var data = {
-        name: this.name,
-        class_name: this.class_name,
-        subscribers:null
-      };
+          name: this.name,
+          class_name: this.name_class,
+          subscribers: this.added_names,
+        };
+      } else {
+        var data = {
+          name: this.name,
+          class_name: this.class_name,
+          subscribers: null,
+        };
       }
-      
+
       axios
         .post("/api/group", data, {
           headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 201) {
             this.name = "";
             this.class_name = "";
@@ -228,10 +214,10 @@ export default {
       axios
         .put(`/api/group/${this.data.id}`, this.data, {
           headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.getgroups();
             this.update = false;
@@ -246,10 +232,10 @@ export default {
       axios
         .get(`/api/group/${id}`, {
           headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.name = res.data.name;
             this.update = true;
@@ -260,10 +246,10 @@ export default {
       axios
         .get("/api/group", {
           headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.groups = res.data;
           }
@@ -275,10 +261,10 @@ export default {
         axios
           .delete(`/api/group/${id}`, {
             headers: {
-              Authorization: `Bearer ${this.$props.tutor.access_token}`
-            }
+              Authorization: `Bearer ${this.$props.tutor.access_token}`,
+            },
           })
-          .then(res => {
+          .then((res) => {
             if (res.status == 200) {
               this.getgroups();
             }
@@ -288,27 +274,27 @@ export default {
     multiDrop() {
       let del = confirm("Are you sure about this?");
       let data = {
-        data: this.items
+        data: this.items,
       };
       if (del) {
         axios
           .post("/api/multi-group-drop", data, {
             headers: {
-              Authorization: `Bearer ${this.$props.tutor.access_token}`
-            }
+              Authorization: `Bearer ${this.$props.tutor.access_token}`,
+            },
           })
-          .then(res => {
+          .then((res) => {
             if (res.status == 200) {
               this.getgroups();
-              this.item = false
+              this.item = false;
             }
           })
-          .catch(err => {
+          .catch((err) => {
             console.log("del -> err", err);
           });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -318,12 +304,12 @@ nav {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-column-gap: 30px;
 }
-.names{
- max-height: 400px;
- overflow: hidden;
- background: white;
+.names {
+  max-height: 400px;
+  overflow: hidden;
+  background: white;
 }
-.custom-control-input{
+.custom-control-input {
   z-index: 1;
   opacity: 1;
 }
@@ -331,7 +317,7 @@ td {
   text-transform: capitalize;
   position: relative;
 }
-.chat{
+.chat {
   cursor: pointer;
 }
 .enter {

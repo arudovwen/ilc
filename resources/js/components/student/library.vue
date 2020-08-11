@@ -1,6 +1,7 @@
 <template>
   <div class="body">
-    <nav class="form-control d-flex justify-content-between align-items-center mb-5">
+   <div class="bd-table mb-3"> 
+   <nav class="form-control d-flex justify-content-between align-items-center ">
       <div class="bar border-right">
         <i
           class="fa fa-angle-double-left pr-2"
@@ -40,6 +41,7 @@
         </div>
       </div>
     </nav>
+   </div>
 
     <div class="bd-table">
    <table class="table table-bordered table">
@@ -206,7 +208,13 @@ export default {
 
 <style scoped>
 nav {
-  background: #f7f8fa;
+  background: rgba(19, 166, 153, 0.9);
+  color:white;
+}
+.table .thead-light th {
+    color: white;
+    background-color: rgba(19, 166, 153, 0.9);
+    border-color: rgba(19, 166, 153, 0.9);
 }
 .bar {
   position: relative;

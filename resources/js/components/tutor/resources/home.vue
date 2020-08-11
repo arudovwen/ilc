@@ -97,7 +97,7 @@
     </div>
     <div class="resource-table container">
       <table class="table table-hover">
-        <thead class="thead-dark">
+        <thead class="thead-darkblue">
           <tr>
             <th>S/N</th>
             <th>CLASS</th>

@@ -197,7 +197,7 @@ Easy to understand and grasp.
           :key="idx"
         >{{module.module}} - {{JSON.parse(module.content).length}} downloadable resources</b-card-text>
 
-        <b-button href="#" block variant="primary">Views : 24</b-button>
+        <b-button href="#" block variant="secondary">Views : 14</b-button>
       </b-card>
     </b-col>
   </div>

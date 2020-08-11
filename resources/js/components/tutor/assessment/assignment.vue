@@ -7,7 +7,7 @@
       <b-row>
         <b-col>
          <div class="bd-table">
-            <b-table :fields="fields" :items="items">
+            <b-table :fields="fields" :items="items" head-variant="darkblue">
             <template v-slot:cell(action)="data">
               <div class="options">
                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>

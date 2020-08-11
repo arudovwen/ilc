@@ -4,7 +4,7 @@
       <h4>School Curriculums</h4>
      <div class="bd-table">
    <table class="table table-hover table-bordered rounded">
-        <thead class="thead-dark">
+        <thead class="thead-darkblue">
           <tr>
             <th>Class</th>
 

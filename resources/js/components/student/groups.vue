@@ -22,8 +22,8 @@
     </nav>
 
     <div class="d-flex justify-content-between">
-      <table class="table table-striped table-inverse table-bordered ">
-        <thead class="thead-inverse">
+      <table class="table table-hover  table-bordered ">
+        <thead class="thead-light">
           <tr>
             <th>Group Name</th>
 
@@ -198,7 +198,11 @@ nav {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-column-gap: 30px;
 }
-
+.table .thead-light th {
+    color: white;
+    background-color: rgba(19, 166, 153, 0.9);
+    border-color: rgba(19, 166, 153, 0.9);
+}
 td {
   text-transform: capitalize;
 }

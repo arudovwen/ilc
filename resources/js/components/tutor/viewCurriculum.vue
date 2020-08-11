@@ -1,37 +1,42 @@
 <template>
   <div class="body">
     <h3 class="text-center my-3">Curriculum</h3>
-    <div class="form-group" v-if="curriculum">
+    <div class="form-group mx-0" v-if="curriculum">
       <h4 class="toCaps">
         <span class="text-muted">Grade Level :</span>
         {{curriculum.grade_level}}
       </h4>
     </div>
-    <table class="table table-bordered bg-white">
-      <tr class="border p-3 my-4"  v-if="curriculum.profile">
+    <table class="table table-borderless bg-white">
+      <tr class="border-bottom p-3 my-4"  v-if="curriculum.profile">
         <td>
           <h5>Student Profile</h5>
-
-          <div class="form-group d-flex">
+           <b-row>
+             <b-col  cols="6">  <div class="form-group d-flex">
             <label for class="mr-3 side-label">Target Age :</label>
             {{curriculum.profile.age}}
-          </div>
-          <div class="form-group d-flex">
+          </div></b-col>
+             <b-col  cols="6"> <div class="form-group d-flex">
             <label for class="mr-3 side-label">Interests :</label>
             {{curriculum.profile.interests}}
-          </div>
-          <div class="form-group d-flex">
+          </div></b-col>
+             <b-col  cols="6"> <div class="form-group d-flex">
             <label for class="mr-3 side-label">Learning Abilities :</label>
             {{curriculum.profile.abilities}}
-          </div>
-          <div class="form-group d-flex">
+          </div></b-col>
+             <b-col cols="6"> <div class="form-group d-flex">
             <label for class="mr-3 side-label">Other Pecularities :</label>
             {{curriculum.profile.others}}
-          </div>
+          </div></b-col>
+           </b-row>
+        
+         
+         
+         
         </td>
       </tr>
 
-      <tr class="border p-3 my-4">
+      <tr class="border-bottom p-3 my-4">
         <td>
           <h5>Overarching Learner Outcome</h5>
 
@@ -43,7 +48,7 @@
           </div>
         </td>
       </tr>
-      <tr class="border p-3 my-4">
+      <tr class="border-bottom p-3 my-4">
         <td>
           <h5>Target skills to be learned</h5>
 
@@ -53,7 +58,7 @@
           </span>
         </td>
       </tr>
-      <tr class="border p-3 my-4">
+      <tr class="border-bottom p-3 my-4">
         <td>
           <h5>Required subjects</h5>
 
@@ -63,7 +68,7 @@
           </span>
         </td>
       </tr>
-      <tr class="border p-3 my-4">
+      <tr class="border-bottom p-3 my-4">
         <td>
           <h5>Delivery Methods</h5>
 
@@ -73,7 +78,7 @@
           </span>
         </td>
       </tr>
-      <tr class="border p-3 my-4">
+      <tr class="border-bottom p-3 my-4">
         <td>
           <h5>Assessment</h5>
 
@@ -85,29 +90,44 @@
       </tr>
       <tr>
         <td>
-          <h5>FAQs (Optional)</h5>
-
-          <div v-for="(item,idx) in curriculum.faqs" :key="idx" class="mb-3">
-            <span class="d-flex mb-2">
-              <label for="Question" class="side-label">Question</label>
-              {{item.question}}
-            </span>
-            <span class="d-flex">
-              <label for class="side-label">Answer</label>
-              {{item.answer}}
-            </span>
-            <hr v-if="curriculum.faqs.length > 1" />
+          <h5>Frequently Asked Questions</h5>
+        <b-row class="">
+        <b-col>
+         
+          <div role="tablist" v-for="(item,idx) in curriculum.faqs" :key="idx">
+            <b-card no-body class="mb-1">
+              <b-card-header header-tag="header" class="p-2" role="tab">
+                <div
+                  block
+                  v-b-toggle="item.question.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
+                  variant="secondary"
+                  class="text-left"
+                >{{item.question}}</div>
+              </b-card-header>
+              <b-collapse
+                :id="item.question.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
+                accordion="my-accordion"
+                role="tabpanel"
+              >
+                <b-card-body>
+                  <b-card-text>{{item.answer}}</b-card-text>
+                </b-card-body>
+              </b-collapse>
+            </b-card>
           </div>
+        </b-col>
+      </b-row>
+         
         </td>
       </tr>
-      <tr class="border p-3 my-4">
+      <tr class="border-bottom p-3 my-4">
         <td>
           <h5>Course Availability</h5>
           {{curriculum.availability}}
         </td>
       </tr>
 
-      <tr class="border p-3 my-4">
+      <tr class="border-bottom p-3 my-4">
         <td>
           <h5>Comments</h5>
           {{curriculum.comments}}
@@ -153,6 +173,10 @@ export default {
   padding: 40px 30px 70px;
   position: relative;
 }
+.table{
+  border-radius: 40px;
+  font-size: 17px;
+}
 .popup-overlay {
   position: absolute;
   width: 100%;
@@ -168,7 +192,7 @@ export default {
   flex-direction: column;
   align-items: center;
   background: white;
-  border-radius: 5px;
+  border-bottom-left-radius: 5px;
   height: 250px;
   width: 50%;
   padding: 15px;
@@ -181,6 +205,9 @@ export default {
   font-size: 24px;
   font-weight: bold;
   text-align: center;
+}
+label{
+  color: #888888;
 }
 .close {
   position: absolute;
@@ -225,12 +252,15 @@ h5 {
   background: #fff;
   box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);
   padding: 30px;
-  border-radius: 10px;
+  border-bottom-radius: 10px;
 }
 .subject-description {
   padding-top: 15px;
 }
 .contain-syllabus {
   padding: 30px;
+}
+td{
+  padding:2.50rem;
 }
 </style>

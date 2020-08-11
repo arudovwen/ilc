@@ -5,7 +5,7 @@
         <h4>Syllabus</h4>
        <div class="bd-table">
             <table class="table table-hover table-bordered">
-          <thead class="thead-dark">
+          <thead class="thead-darkblue">
             <tr>
               <th>Class</th>
               <th>Subject</th>

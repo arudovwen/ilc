@@ -53,7 +53,7 @@
           <b-row>
             <b-col md="8" class="assessment-table">
              <div class="bd-table">
-                <b-table :fields="fields" bordered :items="assignment"  >
+                <b-table :fields="fields" bordered :items="assignment" head-variant="darkblue" >
                 <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
               </b-table>
              </div>
@@ -86,7 +86,7 @@
           <b-row>
             <b-col md="8" class="assessment-table">
               <div class="bd-table">
-                <b-table :fields="fields" bordered :items="quiz" hover  >
+                <b-table :fields="fields" bordered :items="quiz" hover head-variant="darkblue" >
                 <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
               </b-table>
               </div>
@@ -119,7 +119,7 @@
           <b-row>
             <b-col md="8" class="assessment-table">
              <div class="bd-table">
-                <b-table :fields="fields" bordered :items="test"  hover>
+                <b-table :fields="fields" bordered :items="test" head-variant="darkblue" hover>
                 <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
               </b-table>
              </div>
@@ -152,7 +152,7 @@
           <b-row>
             <b-col md="8" class="assessment-table">
               <div class="bd-table">
-                <b-table :fields="fields" bordered :items="examination"  hover>
+                <b-table :fields="fields" bordered :items="examination" head-variant="darkblue"  hover>
                 <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
               </b-table>
               </div>

@@ -67,7 +67,7 @@ nav ul li{
   padding: 10px 20px;
   font-size: 15px;
   cursor: pointer;
-  color:hsl(187deg 74% 95%)
+  color:hsl(187deg 74% 100%);
 }
 nav{
     padding-left:20px;

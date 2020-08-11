@@ -6,6 +6,7 @@
     <b-container>
       <b-row>
         <b-col>
+            <div class="bd-table">
           <b-table :fields="fields" :items="items">
             <template v-slot:cell(action)="data">
               <div class="options">
@@ -20,6 +21,7 @@
             <template v-slot:cell(created_at)="data">{{data.item.created_at | moment('MMM D YYYY')}}</template>
             <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
           </b-table>
+            </div>
         </b-col>
       </b-row>
     </b-container>

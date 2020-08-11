@@ -158,7 +158,7 @@
     <b-container class="form-container">
       <b-form @submit.prevent="submit">
         <b-form-row>
-          <b-col md="6">
+          <b-col md="4">
             <div class="form-group mb-3">
               <label for>Select Class</label>
               <br />
@@ -173,12 +173,36 @@
               </select>
             </div>
           </b-col>
-          <b-col md="6">
+          <b-col md="4">
+            <div class="form-group mb-3">
+              <label for>Select Subject</label>
+              <br />
+              <select
+                class="custom-select"
+                v-model="resource.subject"
+                :disabled="resource.level ==''"
+              >
+                <option selected disabled value>Select one</option>
+                <option
+                  :value="item.name"
+                  v-for="(item,idx) in subjects"
+                  class="toCaps"
+                  :key="idx"
+                >{{item.name}}</option>
+              </select>
+            </div>
+          </b-col>
+
+          <b-col md="4">
             <div class="form-group mb-3">
               <label for>Select Module</label>
               <br />
-              <select class="custom-select" v-model="resource.module">
-                <option selected disabled value>Select Subject</option>
+              <select
+                class="custom-select"
+                v-model="resource.module"
+                :disabled="resource.subject ==''"
+              >
+                <option selected disabled value>Select one</option>
                 <option
                   :value="item.name"
                   v-for="(item,idx) in modules"
@@ -196,10 +220,18 @@
         <b-form-group label="Resource Upload Type">
           <b-form-radio-group v-model="resource.count" :options="options" plain name="plain-inline"></b-form-radio-group>
         </b-form-group>
-        <b-button type="button" @click="addmore" v-if="resource.count == 'multiple'">Add more</b-button>
+        <b-form-row v-if="resource.count == 'multiple'">
+          <b-button type="button" @click="addmore" class="mr-4">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+          </b-button>
+
+          <b-button type="button" @click="addmore" v-if="resource.content.length > 1">
+            <i class="fa fa-times-circle" aria-hidden="true"></i>
+          </b-button>
+        </b-form-row>
         <div v-for="(item,idx) in resource.content" :key="idx">
           <div class="upload-resource container">
-            <h5>Upload Resource</h5>
+            <h5>Upload Resource {{idx + 1}}</h5>
             <b-form-row>
               <b-col md="6">
                 <div class="form-group mb-3">
@@ -245,11 +277,6 @@
               </label>
               <Upload :label="label" :index="cover" @getUploadDetails="getUploadDetails" />
             </b-form-group>-->
-            <div class="upload-btn-wrapper">
-              <h6>Uplaod Cover Image</h6>
-              <b-avatar :src="resource.cover_image" rounded size="7rem" icon="image-fill"></b-avatar>
-              <input type="file" name="myfile" />
-            </div>
           </div>
         </div>
         <!-- <div class="form-group mb-5">
@@ -273,18 +300,31 @@
             />
             <span class="custom-control-indicator">No</span>
           </label>
-        </div> -->
-         <b-form-group label="Would You Like to Include Worksheet/Quiz">
-          <b-form-radio-group v-model="resource.worksheet" :options="worksheet" plain name="plain-inline"></b-form-radio-group>
+        </div>-->
+        <b-form-group class="my-5 w-25">
+          <h5 class="mb-3">Upload Cover</h5>
+
+          <label for="cover">
+            <b-avatar :src="resource.cover_image" rounded size="7rem" icon="image-fill"></b-avatar>
+          </label>
+          <MiniUpload :label="label" :index="cover" @getUploadDetails="getUploadDetails" />
+        </b-form-group>
+        <b-form-group label="Would You Like to Include Worksheet/Quiz">
+          <b-form-radio-group
+            v-model="resource.worksheet"
+            :options="worksheet"
+            plain
+            name="plain-inline"
+          ></b-form-radio-group>
         </b-form-group>
         <div class="form-group mb-5">
           <label for>Tutors Note</label>
           <textarea class="form-control" rows="3" v-model="resource.note"></textarea>
         </div>
 
-       <div class="save-btn">
+        <div class="save-btn">
           <b-button type="submit" class="btn-save">ADD RESOURCE</b-button>
-       </div>
+        </div>
       </b-form>
     </b-container>
   </div>
@@ -292,6 +332,7 @@
 
 <script>
 import Upload from "../../uploadComponent";
+import MiniUpload from "../../miniupload";
 export default {
   props: ["tutor"],
   data() {
@@ -301,7 +342,7 @@ export default {
         { text: "Single Resource", value: "single" },
         { text: "Multiple Resource", value: "multiple" },
       ],
-       selected: "yes",
+      selected: "yes",
       worksheet: [
         { text: "Yes", value: "yes" },
         { text: "No", value: "no" },
@@ -336,6 +377,7 @@ export default {
 
   components: {
     Upload,
+    MiniUpload,
   },
   mounted() {
     this.getCLasses();
@@ -393,6 +435,9 @@ export default {
         title: "",
         overview: "",
       });
+    },
+    remove() {
+      this.resource.content.pop();
     },
     getUploadDetails(id, res) {
       console.log("getUploadDetails -> id", id);
@@ -454,7 +499,7 @@ export default {
 }
 .upload-resource {
   border: 1px dotted #22cade;
- padding: 10px 20px;
+  padding: 10px 20px;
   margin-top: 10px;
 }
 .custom-select {
@@ -509,12 +554,12 @@ label {
   top: 0;
   opacity: 0;
 }
-.save-btn{
+.save-btn {
   display: flex;
   justify-content: center;
 }
-.btn-save{
-  background-color: #0A4065;
+.btn-save {
+  background-color: #0a4065;
   padding: 10px 20px;
 }
 </style>

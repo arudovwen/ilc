@@ -41,7 +41,8 @@
       </div>
     </nav>
 
-    <table class="table table-bordered">
+    <div class="bd-table">
+   <table class="table table-bordered table">
         <thead class="thead-light">
             <tr>
                 <th>S/n</th>
@@ -69,6 +70,7 @@
             </tr>
         </tbody>
     </table>
+    </div>
   </div>
   <!-- <div class>
     <div class="view-resource-header mx-auto">
@@ -305,7 +307,6 @@ nav {
 }
 .search_bar {
   position: relative;
-  margin-bottom: 0;
 }
 .search_input {
   border-color: #f7f8fa;

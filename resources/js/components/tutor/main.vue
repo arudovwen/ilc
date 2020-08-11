@@ -135,6 +135,9 @@ export default {
 <style scoped>
 .semi-white{
  background: #F9F7F0;
+ max-height: 100%;
+ height: 100%;
+    overflow: scroll;
 }
 nav {
   display: flex;

@@ -49,12 +49,14 @@
   <div class="assessment">
     <b-tabs content-class>
       <b-tab title="Assignment" active>
-        <b-container-fluid>
+        <b-container fluid>
           <b-row>
             <b-col md="8" class="assessment-table">
-              <b-table :fields="fields" :items="assignment" striped hover>
+             <div class="bd-table">
+                <b-table :fields="fields" :items="assignment"  >
                 <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
               </b-table>
+             </div>
             </b-col>
             <b-col md="4">
               <div class="right">
@@ -77,15 +79,17 @@
               </div>
             </b-col>
           </b-row>
-        </b-container-fluid>
+        </b-container>
       </b-tab>
       <b-tab title="Quiz">
-        <b-container-fluid>
+        <b-container fluid>
           <b-row>
             <b-col md="8" class="assessment-table">
-              <b-table :fields="fields" :items="quiz" striped hover>
+              <div class="bd-table">
+                <b-table :fields="fields" :items="quiz" hover  >
                 <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
               </b-table>
+              </div>
             </b-col>
             <b-col md="4">
               <div class="right">
@@ -108,15 +112,17 @@
               </div>
             </b-col>
           </b-row>
-        </b-container-fluid>
+        </b-container>
       </b-tab>
       <b-tab title="Test">
-               <b-container-fluid>
+        <b-container fluid>
           <b-row>
             <b-col md="8" class="assessment-table">
-              <b-table :fields="fields" :items="test" striped hover>
+             <div class="bd-table">
+                <b-table :fields="fields" :items="test"  hover>
                 <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
               </b-table>
+             </div>
             </b-col>
             <b-col md="4">
               <div class="right">
@@ -139,15 +145,17 @@
               </div>
             </b-col>
           </b-row>
-        </b-container-fluid>
+        </b-container>
       </b-tab>
       <b-tab title="Examination">
-               <b-container-fluid>
+        <b-container fluid>
           <b-row>
             <b-col md="8" class="assessment-table">
-              <b-table :fields="fields" :items="examination" striped hover>
+              <div class="bd-table">
+                <b-table :fields="fields" :items="examination"  hover>
                 <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
               </b-table>
+              </div>
             </b-col>
             <b-col md="4">
               <div class="right">
@@ -170,7 +178,7 @@
               </div>
             </b-col>
           </b-row>
-        </b-container-fluid>
+        </b-container>
       </b-tab>
     </b-tabs>
   </div>

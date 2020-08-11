@@ -46,7 +46,7 @@
               </b-col>
             </b-form-row>-->
             <b-form-row>
-              <b-col cols="12">
+              <b-col cols="6">
                 <b-form-group>
                   <label for>Level</label>
                   <b-form-select v-model="subscriber.level" class="mb-3" label="Level">
@@ -57,9 +57,7 @@
                   </b-form-select>
                 </b-form-group>
               </b-col>
-            </b-form-row>
-            <b-form-row>
-              <b-col cols="12">
+              <b-col cols="6">
                 <b-form-group>
                   <label for>Ownership</label>
                   <b-form-select v-model="subscriber.ownership" class="mb-3" label="Ownership">
@@ -71,6 +69,7 @@
                 </b-form-group>
               </b-col>
             </b-form-row>
+           
             <b-form-row>
               <b-col cols="12">
                 <b-form-group>

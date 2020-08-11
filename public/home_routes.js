@@ -10986,8 +10986,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-// import Filterizr from "filterizr";
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -10996,7 +10994,7 @@ __webpack_require__.r(__webpack_exports__);
       opened: [],
       current: "",
       subjects: [],
-      filter: 'all'
+      filter: "all"
     };
   },
   mounted: function mounted() {
@@ -11008,11 +11006,11 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       return this.resources.filter(function (item) {
-        if (item.subject.toLowerCase() == _this.filter.toLowerCase()) {
+        if (item.subject == _this.filter) {
           return item;
         }
 
-        if (_this.filter.toLowerCase() == 'all') {
+        if (_this.filter == 'all') {
           return item;
         }
       });
@@ -11056,16 +11054,27 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
+    checkDuplicateInObject: function checkDuplicateInObject(propertyName, inputArray) {
+      var testObject = {};
+      var newArr = [];
+      inputArray.map(function (item) {
+        var itemPropertyName = item[propertyName];
+
+        if (Object.values(testObject).includes(itemPropertyName)) {} else {
+          testObject = item;
+          newArr.push(item);
+        }
+      });
+      return newArr;
+    },
     getResources: function getResources() {
       var _this3 = this;
 
-      axios.get("/api/student-resources", {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status = 200) {
-          _this3.resources = res.data;
+      axios.get("/api/get-modules/".concat(this.$props.student.level)).then(function (res) {
+        if (res.status == 200) {
+          console.log("getResources -> res.data.data", res.data.data);
+          _this3.resources = _this3.checkDuplicateInObject("subject", res.data.data);
+          console.log("getResources -> res.data.data", res.data.data);
         }
       });
     },
@@ -12938,6 +12947,51 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -12953,13 +13007,17 @@ __webpack_require__.r(__webpack_exports__);
       subject: "",
       cover_image: "",
       show: true,
-      review: [1, 2, 3, 4, 5]
+      review: [1, 2, 3, 4, 5],
+      modules: []
     };
   },
   mounted: function mounted() {
     this.getResource();
   },
   methods: {
+    handleToggle: function handleToggle(title) {
+      this.$bvModal.show(title);
+    },
     addtolibrary: function addtolibrary() {
       var _this = this;
 
@@ -13011,6 +13069,11 @@ __webpack_require__.r(__webpack_exports__);
           _this2.cover_image = res.data.data.cover_image;
           _this2.subject = res.data.data.subject;
           _this2.show = false;
+          axios.get("/api/get-module/".concat(_this2.subject, "/").concat(_this2.$props.student.level)).then(function (res) {
+            if (res.status == 200) {
+              _this2.modules = res.data;
+            }
+          });
         }
       });
     }
@@ -17751,6 +17814,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tutor"],
   data: function data() {
@@ -17766,19 +17865,28 @@ __webpack_require__.r(__webpack_exports__);
       subject: "",
       cover_image: "",
       show: true,
-      review: [1, 2, 3, 4, 5]
+      review: [1, 2, 3, 4, 5],
+      modules: []
     };
   },
   mounted: function mounted() {
     this.getResource();
   },
   methods: {
+    handleToggle: function handleToggle(title) {
+      this.$bvModal.show(title);
+    },
     edit: function edit(id) {
       this.$router.push("/tutor/resource/edit/".concat(id));
     },
     getResource: function getResource() {
       var _this = this;
 
+      axios.get("/api/get-module").then(function (res) {
+        if (res.status == 200) {
+          _this.modules = res.data;
+        }
+      });
       axios.get("/api/resource/".concat(this.$route.params.id), {
         headers: {
           Authorization: "Bearer ".concat(this.$props.tutor.access_token)
@@ -19896,7 +20004,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.view[data-v-7c861bc4] {\n  padding: 40px 20px 60px;\n}\n.main-content[data-v-7c861bc4] {\n  width: 80%;\n  margin: 0 auto;\n}\n.top_box[data-v-7c861bc4] {\n  background: #f7f8fa;\n}\na[data-v-7c861bc4]{\n  text-decoration: none;\n  color: black;\n}\nul[data-v-7c861bc4],\nol[data-v-7c861bc4] {\n  list-style: none;\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before {\n  padding: 8px;\n  color: black;\n  content: \"/\\A0\";\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before:last-child {\n  content: \"\";\n}\n.filter-list[data-v-7c861bc4]{\n  display: flex;\n  justify-content: flex-start;\nfont-size: 14px;\n  border-bottom: 1px solid #ccc;\n  font-weight: bold;\n}\n.filter-list li[data-v-7c861bc4]{\n color: rgba(0, 0, 0, .54);\n   border-bottom: 2px solid transparent;\n    padding: 8px 0;\n}\n.filter-list li[data-v-7c861bc4]:hover{\n   color: rgba(0, 0, 0, .84);\n   border-color: rgba(0, 0, 0, .84);\n}\n.single-content[data-v-7c861bc4]{\n  position: relative;\n  transition: .3s;\n  box-shadow: 10px 20px 20px rgba(247, 248, 250, 0.8);\n}\n.single-content .text-content[data-v-7c861bc4],\n.single-content[data-v-7c861bc4]::after{\n  position: absolute;\n  left: 10px;\n  right: 10px;\n}\n.single-content[data-v-7c861bc4]::after{\n  content: \"\";\n  display: block;\n  background: #13a699;\n  top: 20px;\n  bottom: 20px;\n  opacity: 0;\n  transform: rotate3d(-1,1,0,100deg);\n  transition: .4s;\n}\n.single-content[data-v-7c861bc4]:hover::after{\n  opacity: .9;\n  transform: rotate3d(0,0,0,0deg);\n}\n.single-content img[data-v-7c861bc4]{\n  width: 100%;\n  height: 100%;\n}\n.text-content[data-v-7c861bc4]{\n  top: 45%;\n  opacity: 0;\n  z-index: 1;\n  transform: translate(10%, -30%);\n  transition: .3s;\n  text-align: center;\n  color: #fff;\n  margin-top: 5px;\n}\n.text-content .btn[data-v-7c861bc4]{\n  color: #fff !important;\n  border: 1px solid #fff;\n  border-radius: 5px;\n  padding: 10px 20px;\n}\n.single-content:hover .text-content[data-v-7c861bc4]{\n  opacity: 1;\n  transform: translate(0, -50%);\n  transition-delay: .3s;\n}\n.explore-content[data-v-7c861bc4]{\n  margin-top: 15px;\n}\n/* .router-link-active{\n  border-bottom: 2px solid #ffd708;\n} */\ndiv[data-v-7c861bc4] {\n  font-family: \"Montserrat\";\n}\n.excerpt[data-v-7c861bc4]{\n  height: 75px;\n  font-size:15px;\n  overflow:hidden;\n   display: -webkit-box !important;\n  -webkit-line-clamp: 4;\n  -moz-line-clamp: 4;\n  -ms-line-clamp: 4;\n  -o-line-clamp: 4;\n  line-clamp: 4;\n  -webkit-box-orient: vertical;\n  -ms-box-orient: vertical;\n  -o-box-orient: vertical;\n  box-orient: vertical;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: normal;\n}\n.update[data-v-7c861bc4]{\n  background: #ffd708;\n  padding: 2px;\n  border-radius: 4px;\n}\n", ""]);
+exports.push([module.i, "\n.view[data-v-7c861bc4] {\n  padding: 40px 20px 60px;\n}\n.main-content[data-v-7c861bc4] {\n  width: 80%;\n  margin: 0 auto;\n}\n.title[data-v-7c861bc4]{\n  font-size:17px;\n  font-weight: bold;\n  margin-bottom:10px;\n}\n.desc[data-v-7c861bc4]{\n  height: 38px;\n  font-size: 15px;\n  overflow: hidden;\n  display: -webkit-box !important;\n  -webkit-line-clamp: 2;\n  -moz-line-clamp: 2;\n  -ms-line-clamp: 2;\n  -o-line-clamp: 2;\n  line-clamp: 2;\n  -webkit-box-orient: vertical;\n  -ms-box-orient: vertical;\n  -o-box-orient: vertical;\n  box-orient: vertical;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: normal;\n  margin-bottom:10px;\n}\n.top_box[data-v-7c861bc4] {\n  background: #f7f8fa;\n}\na[data-v-7c861bc4] {\n  text-decoration: none;\n  color: black;\n}\nul[data-v-7c861bc4],\nol[data-v-7c861bc4] {\n  list-style: none;\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before {\n  padding: 8px;\n  color: black;\n  content: \"/\\A0\";\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before:last-child {\n  content: \"\";\n}\n.filter-list[data-v-7c861bc4] {\n  display: flex;\n  justify-content: flex-start;\n  font-size: 14px;\n  border-bottom: 1px solid #ccc;\n  font-weight: bold;\n}\n.filter-list li[data-v-7c861bc4] {\n  color: rgba(0, 0, 0, 0.54);\n  border-bottom: 2px solid transparent;\n  padding: 8px 0;\n}\n.filter-list li[data-v-7c861bc4]:hover {\n  color: rgba(0, 0, 0, 0.84);\n  border-color: rgba(0, 0, 0, 0.84);\n}\n.single-content[data-v-7c861bc4] {\n  position: relative;\n  transition: 0.3s;\n  box-shadow: 10px 20px 20px rgba(247, 248, 250, 0.8);\n}\n.single-content .text-content[data-v-7c861bc4],\n.single-content[data-v-7c861bc4]::after {\n  position: absolute;\n  left: 10px;\n  right: 10px;\n}\n.single-content[data-v-7c861bc4]::after {\n  content: \"\";\n  display: block;\n  background: #13a699;\n  top: 20px;\n  bottom: 20px;\n  opacity: 0;\n  transform: rotate3d(-1, 1, 0, 100deg);\n  transition: 0.4s;\n}\n.single-content[data-v-7c861bc4]:hover::after {\n  opacity: 0.9;\n  transform: rotate3d(0, 0, 0, 0deg);\n}\n.single-content img[data-v-7c861bc4] {\n  width: 100%;\n  height: 100%;\n}\n.text-content[data-v-7c861bc4] {\n  top: 45%;\n  opacity: 0;\n  z-index: 1;\n  transform: translate(10%, -30%);\n  transition: 0.3s;\n  text-align: center;\n  color: #fff;\n  margin-top: 5px;\n}\n.text-content .btn[data-v-7c861bc4] {\n  color: #fff !important;\n  border: 1px solid #fff;\n  border-radius: 5px;\n  padding: 10px 20px;\n}\n.single-content:hover .text-content[data-v-7c861bc4] {\n  opacity: 1;\n  transform: translate(0, -50%);\n  transition-delay: 0.3s;\n}\n.explore-content[data-v-7c861bc4] {\n  margin-top: 15px;\n}\n/* .router-link-active{\n  border-bottom: 2px solid #ffd708;\n} */\ndiv[data-v-7c861bc4] {\n  font-family: \"Montserrat\";\n}\n.excerpt[data-v-7c861bc4] {\n  height: 75px;\n  font-size: 15px;\n  overflow: hidden;\n  display: -webkit-box !important;\n  -webkit-line-clamp: 4;\n  -moz-line-clamp: 4;\n  -ms-line-clamp: 4;\n  -o-line-clamp: 4;\n  line-clamp: 4;\n  -webkit-box-orient: vertical;\n  -ms-box-orient: vertical;\n  -o-box-orient: vertical;\n  box-orient: vertical;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: normal;\n}\n.update[data-v-7c861bc4] {\n  background: #ffd708;\n  padding: 2px;\n  border-radius: 4px;\n}\n", ""]);
 
 // exports
 
@@ -20067,7 +20175,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.jumb[data-v-ce72931c] {\n  width: 100%;\n  position: relative;\n  background: transparent;\n}\n.top_n[data-v-ce72931c] {\n  position: relative;\n\n  -o-object-fit: cover;\n\n     object-fit: cover;\n}\n.excerpt[data-v-ce72931c]{\n  width: 60%;\n}\n.text-left[data-v-ce72931c]:focus {\n    outline: none !important;\n}\n.subject-description[data-v-ce72931c]{\n  width:65%;\n}\n.overlay-n[data-v-ce72931c] {\n  top: 0px;\n  left: 0px;\n  bottom: 0px;\n  right: 0px;\n  opacity: 0.85;\n  background: #f7f8fa;\n  -webkit-backdrop-filter: blur(2px);\n          backdrop-filter: blur(2px);\n  position: absolute;\n}\n.main-bar[data-v-ce72931c] {\n  width: 70%;\n  margin-right: auto;\n}\n.floating-bar[data-v-ce72931c]{\n  position: fixed;\n  right: 5%;\n  top:30%;\n}\n.view-resource-header[data-v-ce72931c] {\n  background-image: linear-gradient(\n      to bottom,\n      rgba(19, 166, 153, 0.65),\n      rgba(19, 166, 153, 0.65)\n    ),\n    url(/images/resource-bg.png);\n  color: #fff;\n  padding: 1.5rem;\n  margin-top: 2rem;\n}\n.view-resource-header p[data-v-ce72931c] {\n  margin-bottom: 0.5rem !important;\n}\n.btn[data-v-ce72931c] {\n  background: transparent;\n  border: 1px solid #fff;\n  color: white !important;\n  margin-right: 10px;\n  margin-bottom: 15px;\n}\n.btn[data-v-ce72931c]:hover {\n  background: #fff;\n  color: #13a699 !important;\n  transition: 0.3s;\n  border: none;\n}\n.what-you-will-learn[data-v-ce72931c] {\n  margin-top: 2rem;\n}\n.what-you-will-learn ul[data-v-ce72931c] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 15px;\n}\n.what-you-will-learn ul li[data-v-ce72931c] {\n  padding-top: 10px;\n}\n.sutdent-assessed ul[data-v-ce72931c] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 10px 15px;\n}\n.sutdent-assessed ul li[data-v-ce72931c] {\n  padding-bottom: 10px;\n}\n.sutdent-assessed[data-v-ce72931c] {\n  margin-top: 2rem;\n}\n.course-content[data-v-ce72931c] {\n  color: #13a699;\n}\n.featured-review-inner-top[data-v-ce72931c] {\n  display: flex;\n  padding: 15px;\n}\n.featured-review-top[data-v-ce72931c] {\n  display: flex;\n  justify-content: space-between;\n}\n.featured-review-inner-top p[data-v-ce72931c] {\n  padding-left: 10px;\n}\n.featured-review-top img[data-v-ce72931c] {\n  height: 20px;\n  width: 100px;\n}\n.review[data-v-ce72931c] {\n  background-color: #fff;\n  border: 1px solid #808080;\n  border-radius: 5px;\n  padding: 10px;\n  margin-bottom: 10px;\n}\n.btn-review[data-v-ce72931c]{\n  background-color:#13a699 ;\n  color: #fff !important;\n  border: none;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n.btn-secondary[data-v-ce72931c] {\n    color: #fff !important;\n    background-color: #13a699 !important;\n    border-color: #13a699;\n}\n.btn-secondary[data-v-ce72931c]:hover{\ncolor: #13a699 !important;\n    background-color: #fff !important;\n}\n.container[data-v-ce72931c]{\n  width:60%;\n  margin-right: 40%;\n}\n", ""]);
+exports.push([module.i, "\n.jumb[data-v-ce72931c] {\n  width: 100%;\n  position: relative;\n  background: transparent;\n}\n.mod ul[data-v-ce72931c]{\n  list-style: none;\n}\n.mod ul li[data-v-ce72931c]{\n  padding:10px 20px;\n  border-bottom:1px solid #ccc;\n}\n.top_n[data-v-ce72931c] {\n  position: relative;\n\n  -o-object-fit: cover;\n\n     object-fit: cover;\n}\n.excerpt[data-v-ce72931c] {\n  width: 60%;\n}\n.text-left[data-v-ce72931c]:focus {\n  outline: none !important;\n}\n.subject-description[data-v-ce72931c] {\n  width: 65%;\n}\n.overlay-n[data-v-ce72931c] {\n  top: 0px;\n  left: 0px;\n  bottom: 0px;\n  right: 0px;\n  opacity: 0.85;\n  background: #f7f8fa;\n  -webkit-backdrop-filter: blur(2px);\n          backdrop-filter: blur(2px);\n  position: absolute;\n}\n.main-bar[data-v-ce72931c] {\n  width: 70%;\n  margin-right: auto;\n}\n.floating-bar[data-v-ce72931c] {\n  position: fixed;\n  right: 5%;\n  top: 30%;\n}\n.view-resource-header[data-v-ce72931c] {\n  background-image: linear-gradient(\n      to bottom,\n      rgba(19, 166, 153, 0.65),\n      rgba(19, 166, 153, 0.65)\n    ),\n    url(/images/resource-bg.png);\n  color: #fff;\n  padding: 1.5rem;\n  margin-top: 2rem;\n}\n.view-resource-header p[data-v-ce72931c] {\n  margin-bottom: 0.5rem !important;\n}\n.btn[data-v-ce72931c] {\n  background: transparent;\n  border: 1px solid #fff;\n  color: white !important;\n  margin-right: 10px;\n  margin-bottom: 15px;\n}\n.btn[data-v-ce72931c]:hover {\n  background: #fff;\n  color: #13a699 !important;\n  transition: 0.3s;\n  border: none;\n}\n.what-you-will-learn[data-v-ce72931c] {\n  margin-top: 2rem;\n}\n.what-you-will-learn ul[data-v-ce72931c] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 15px;\n}\n.what-you-will-learn ul li[data-v-ce72931c] {\n  padding-top: 10px;\n}\n.sutdent-assessed ul[data-v-ce72931c] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 10px 15px;\n}\n.sutdent-assessed ul li[data-v-ce72931c] {\n  padding-bottom: 10px;\n}\n.sutdent-assessed[data-v-ce72931c] {\n  margin-top: 2rem;\n}\n.course-content[data-v-ce72931c] {\n  color: #13a699;\n}\n.featured-review-inner-top[data-v-ce72931c] {\n  display: flex;\n  padding: 15px;\n}\n.featured-review-top[data-v-ce72931c] {\n  display: flex;\n  justify-content: space-between;\n}\n.featured-review-inner-top p[data-v-ce72931c] {\n  padding-left: 10px;\n}\n.featured-review-top img[data-v-ce72931c] {\n  height: 20px;\n  width: 100px;\n}\n.review[data-v-ce72931c] {\n  background-color: #fff;\n  border: 1px solid #808080;\n  border-radius: 5px;\n  padding: 10px;\n  margin-bottom: 10px;\n}\n.btn-review[data-v-ce72931c] {\n  background-color: #13a699;\n  color: #fff !important;\n  border: none;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n.btn-secondary[data-v-ce72931c] {\n  color: #fff !important;\n  background-color: #13a699 !important;\n  border-color: #13a699;\n}\n.btn-secondary[data-v-ce72931c]:hover {\n  color: #13a699 !important;\n  background-color: #fff !important;\n}\n.container[data-v-ce72931c] {\n  width: 60%;\n  margin-right: 40%;\n}\n", ""]);
 
 // exports
 
@@ -20409,7 +20517,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.jumb[data-v-719e9d13] {\n  width: 100%;\n  position: relative;\n  background: transparent;\n}\n.top_n[data-v-719e9d13] {\n  position: relative;\n\n  -o-object-fit: cover;\n\n     object-fit: cover;\n}\n.overlay-n[data-v-719e9d13] {\n  top: 0px;\n  left: 0px;\n  bottom: 0px;\n  right: 0px;\n  opacity: 0.85;\n  background: #f7f8fa;\n  -webkit-backdrop-filter: blur(2px);\n          backdrop-filter: blur(2px);\n  position: absolute;\n}\n.main-bar[data-v-719e9d13] {\n  width: 70%;\n  margin-right: auto;\n}\n.floating-bar[data-v-719e9d13] {\n  position: fixed;\n  right: 5%;\n  top: 30%;\n}\n.view-resource-header[data-v-719e9d13] {\n  background-image: linear-gradient(\n      to bottom,\n      rgba(10, 64, 101, 0.84),\n      rgba(10, 64, 101, 0.84)\n    ),\n    url(/images/resource-bg.png);\n  color: #fff;\n  padding: 1.5rem;\n  /* margin-top: 2rem; */\n  position: relative;\n}\n.view-resource-header p[data-v-719e9d13] {\n  font-size: 14px;\n  margin-bottom: 0.5rem !important;\n}\n.btn[data-v-719e9d13] {\n  background: transparent;\n  border: 1px solid #fff;\n  color: white !important;\n  /* margin-right: 10px; */\n  /* margin-bottom: 15px; */\n}\n.btn[data-v-719e9d13]:hover {\n  background: #fff;\n  color: #0a4065 !important;\n  transition: 0.3s;\n  border: none;\n}\n.resource-content[data-v-719e9d13] {\n  padding: 20px;\n  width: 60%;\n}\n.resource-overview[data-v-719e9d13] {\n  padding-top: 20px;\n}\n.resource-media-frame[data-v-719e9d13] {\n  padding-top: 20px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.resource-media-frame img[data-v-719e9d13] {\n  width: 50%;\n  height: 300px;\n}\n.tutors-note[data-v-719e9d13] {\n  padding-top: 20px;\n}\n.student-reviews[data-v-719e9d13] {\n  padding: 20px 0;\n}\n.btn-secondary[data-v-719e9d13] {\n  color: #333 !important;\n}\n.btn-primary[data-v-719e9d13] {\n  background: #41cee2 !important;\n}\n", ""]);
+exports.push([module.i, "\n.jumb[data-v-719e9d13] {\n  width: 100%;\n  position: relative;\n  background: transparent;\n}\n.mod ul[data-v-719e9d13]{\n  list-style: none;\n}\n.mod ul li[data-v-719e9d13]{\n  padding:10px 20px;\n  border-bottom:1px solid #ccc;\n}\n.top_n[data-v-719e9d13] {\n  position: relative;\n\n  -o-object-fit: cover;\n\n     object-fit: cover;\n}\n.overlay-n[data-v-719e9d13] {\n  top: 0px;\n  left: 0px;\n  bottom: 0px;\n  right: 0px;\n  opacity: 0.85;\n  background: #f7f8fa;\n  -webkit-backdrop-filter: blur(2px);\n          backdrop-filter: blur(2px);\n  position: absolute;\n}\n.main-bar[data-v-719e9d13] {\n  width: 70%;\n  margin-right: auto;\n}\n.floating-bar[data-v-719e9d13] {\n  position: fixed;\n  right: 5%;\n  top: 30%;\n}\n.view-resource-header[data-v-719e9d13] {\n  background-image: linear-gradient(\n      to bottom,\n      rgba(10, 64, 101, 0.84),\n      rgba(10, 64, 101, 0.84)\n    ),\n    url(/images/resource-bg.png);\n  color: #fff;\n  padding: 1.5rem;\n  /* margin-top: 2rem; */\n  position: relative;\n}\n.view-resource-header p[data-v-719e9d13] {\n  font-size: 14px;\n  margin-bottom: 0.5rem !important;\n}\n.btn[data-v-719e9d13] {\n  background: transparent;\n  border: 1px solid #fff;\n  color: white !important;\n  /* margin-right: 10px; */\n  /* margin-bottom: 15px; */\n}\n.btn[data-v-719e9d13]:hover {\n  background: #fff;\n  color: #0a4065 !important;\n  transition: 0.3s;\n  border: none;\n}\n.resource-content[data-v-719e9d13] {\n  padding: 20px;\n  width: 60%;\n}\n.resource-overview[data-v-719e9d13] {\n  padding-top: 20px;\n}\n.resource-media-frame[data-v-719e9d13] {\n  padding-top: 20px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.resource-media-frame img[data-v-719e9d13] {\n  width: 50%;\n  height: 300px;\n}\n.tutors-note[data-v-719e9d13] {\n  padding-top: 20px;\n}\n.student-reviews[data-v-719e9d13] {\n  padding: 20px 0;\n}\n.btn-secondary[data-v-719e9d13] {\n  color: #333 !important;\n}\n.btn-primary[data-v-719e9d13] {\n  background: #41cee2 !important;\n}\n", ""]);
 
 // exports
 
@@ -41734,7 +41842,7 @@ var render = function() {
               }
             }
           },
-          [_vm._v(" All Subject")]
+          [_vm._v("All Subject")]
         ),
         _vm._v(" "),
         _vm._l(_vm.subjects, function(item, idx) {
@@ -41749,7 +41857,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v(" " + _vm._s(item.name.toLowerCase()))]
+            [_vm._v(_vm._s(item.name))]
           )
         })
       ],
@@ -41762,76 +41870,81 @@ var render = function() {
             "div",
             { staticClass: "row" },
             _vm._l(_vm.filteredSubjects, function(item, idx) {
-              return _c(
-                "div",
-                { key: idx, staticClass: "col-md-3 col-sm-6 " },
-                [
-                  _c("div", { staticClass: "shadow" }, [
-                    _c("div", { staticClass: "single-content " }, [
-                      _c("img", { attrs: { src: item.cover_image, alt: "" } }),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "text-content" },
-                        [
-                          _c("p", { staticClass: "excerpt" }, [
-                            _vm._v(_vm._s(item.excerpt))
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            {
-                              attrs: { variant: "outline-success" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.gotoHer(item.id)
-                                }
-                              }
-                            },
-                            [_vm._v("Visit resource")]
-                          )
-                        ],
-                        1
-                      )
-                    ]),
+              return _c("div", { key: idx, staticClass: "col-md-3 col-sm-6" }, [
+                _c("div", { staticClass: "shadow" }, [
+                  _c("div", { staticClass: "single-content" }, [
+                    _c("img", { attrs: { src: item.cover_image, alt: "" } }),
                     _vm._v(" "),
-                    _c("div", { staticClass: "bg-white p-2" }, [
-                      _c("p", { staticClass: "  toCaps cpointer " }, [
+                    _c(
+                      "div",
+                      { staticClass: "text-content" },
+                      [
+                        _c("p", { staticClass: "excerpt" }, [
+                          _vm._v(
+                            _vm._s(
+                              JSON.parse(item.syllabus.syllabus).description
+                            )
+                          )
+                        ]),
+                        _vm._v(" "),
                         _c(
-                          "strong",
+                          "b-button",
                           {
+                            attrs: { variant: "outline-success" },
                             on: {
                               click: function($event) {
                                 return _vm.gotoHer(item.id)
                               }
                             }
                           },
-                          [_vm._v(_vm._s(item.module.toLowerCase()))]
+                          [_vm._v("Visit resource")]
                         )
-                      ]),
-                      _vm._v(" "),
-                      _c("span", { staticClass: " toCaps cpointer " }, [
-                        _vm._v(_vm._s(item.subject.toLowerCase()))
-                      ]),
-                      _vm._v(" "),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "toCaps cpointer " }, [
-                        _vm._v(_vm._s(item.level.toLowerCase()))
-                      ]),
-                      _vm._v(" "),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("small", { staticClass: "update" }, [
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "bg-white p-2" }, [
+                    _c(
+                      "p",
+                      {
+                        staticClass: "toCaps cpointer title",
+                        on: {
+                          click: function($event) {
+                            return _vm.gotoHer(item.id)
+                          }
+                        }
+                      },
+                      [
                         _vm._v(
-                          "Last update " +
-                            _vm._s(_vm._f("moment")(item.created_at, "MMMM D"))
+                          "\n             " +
+                            _vm._s(item.subject) +
+                            "\n            "
                         )
-                      ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "toCaps cpointer desc" }, [
+                      _vm._v(
+                        _vm._s(JSON.parse(item.syllabus.syllabus).description)
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "toCaps cpointer" }, [
+                      _vm._v(_vm._s(item.syllabus.myclass))
+                    ]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("small", { staticClass: "update" }, [
+                      _vm._v(
+                        "Last update " +
+                          _vm._s(_vm._f("moment")(item.created_at, "MMMM D"))
+                      )
                     ])
                   ])
-                ]
-              )
+                ])
+              ])
             }),
             0
           )
@@ -44184,12 +44297,19 @@ var render = function() {
     { staticClass: "main-b" },
     [
       _c("div", { staticClass: "view-resource-header mx-auto" }, [
-        _c("h2", [_vm._v(_vm._s(_vm.title))]),
+        _c("h2", { staticClass: "toCaps" }, [_vm._v(_vm._s(_vm.subject))]),
         _vm._v(" "),
-        _c("h6", { staticClass: "toCaps" }, [_vm._v(_vm._s(_vm.subject))]),
+        _c("p", { staticClass: "subject-description toCaps" }, [
+          _vm._v(_vm._s(_vm.syllabus.grade_level))
+        ]),
         _vm._v(" "),
-        _c("p", { staticClass: "subject-description" }, [
-          _vm._v("\n     " + _vm._s(_vm.excerpt) + "\n    ")
+        _c("p", [
+          _vm._v("\n        Created by\n        "),
+          _c("strong", [_vm._v(_vm._s(_vm.tutor.name))])
+        ]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v("Last Updated " + _vm._s(_vm._f("moment")(_vm.time, "MMM D")))
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "resource-btn" }, [
@@ -44200,15 +44320,6 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("button", { staticClass: "btn" }, [_vm._v("Share")])
-        ]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v("\n      Created by\n      "),
-          _c("strong", [_vm._v(_vm._s(_vm.tutor.name))])
-        ]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v("Last Updated " + _vm._s(_vm._f("moment")(_vm.time, "MMM D")))
         ])
       ]),
       _vm._v(" "),
@@ -44216,7 +44327,7 @@ var render = function() {
         "div",
         { staticClass: "container" },
         [
-          _c("div", { staticClass: "what-you-will-learn " }, [
+          _c("div", { staticClass: "what-you-will-learn" }, [
             _c("h4", [_vm._v("What You Will Learn:")]),
             _vm._v(" "),
             _c(
@@ -44230,17 +44341,13 @@ var render = function() {
           _vm._v(" "),
           _vm._m(0),
           _vm._v(" "),
-          _c("div", { staticClass: "description " }, [
+          _c("div", { staticClass: "description" }, [
             _c("h4", [_vm._v("Description")]),
             _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "\n       " + _vm._s(_vm.syllabus.description) + "\n      "
-              )
-            ])
+            _c("p", [_vm._v(_vm._s(_vm.syllabus.description))])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "sutdent-assessed " }, [
+          _c("div", { staticClass: "sutdent-assessed" }, [
             _c("h4", [_vm._v("How will student be Assessed")]),
             _vm._v(" "),
             _c("p", [
@@ -44271,7 +44378,7 @@ var render = function() {
                         _vm._v("Course Content")
                       ]),
                       _vm._v(" "),
-                      _vm._l(_vm.content, function(item, idx) {
+                      _vm._l(_vm.modules, function(item, idx) {
                         return _c(
                           "div",
                           { key: idx, attrs: { role: "tablist" } },
@@ -44283,7 +44390,7 @@ var render = function() {
                                 _c(
                                   "b-card-header",
                                   {
-                                    staticClass: "p-2 text-left",
+                                    staticClass: "p-1 text-left",
                                     attrs: {
                                       "header-tag": "header",
                                       role: "tab"
@@ -44291,17 +44398,17 @@ var render = function() {
                                   },
                                   [
                                     _c(
-                                      "div",
+                                      "b-button",
                                       {
                                         directives: [
                                           {
                                             name: "b-toggle",
                                             rawName: "v-b-toggle",
-                                            value: item.title
+                                            value: item.module
                                               .replace(/[^a-z0-9]/gi, "")
                                               .replace(/\$/g, ""),
                                             expression:
-                                              "item.title.replace(/[^a-z0-9]/gi, '').replace(/\\$/g, '')"
+                                              "item.module.replace(/[^a-z0-9]/gi, '').replace(/\\$/g, '')"
                                           }
                                         ],
                                         staticClass: "text-left",
@@ -44310,59 +44417,17 @@ var render = function() {
                                           variant: "secondary"
                                         }
                                       },
-                                      [
-                                        _vm._v(
-                                          "\n                      " +
-                                            _vm._s(item.title) +
-                                            "\n                      "
-                                        ),
-                                        _c("span", { staticClass: "ml-3" }, [
-                                          item.type == "video"
-                                            ? _c("i", {
-                                                staticClass:
-                                                  "fa fa-play-circle",
-                                                attrs: { "aria-hidden": "true" }
-                                              })
-                                            : _vm._e(),
-                                          _vm._v(" "),
-                                          item.type == "pdf"
-                                            ? _c("i", {
-                                                staticClass: "fa fa-file-pdf-o",
-                                                attrs: { "aria-hidden": "true" }
-                                              })
-                                            : _vm._e(),
-                                          _vm._v(" "),
-                                          item.type == "audio"
-                                            ? _c("i", {
-                                                staticClass: "fa fa-volume-up",
-                                                attrs: { "aria-hidden": "true" }
-                                              })
-                                            : _vm._e(),
-                                          _vm._v(" "),
-                                          item.type == "ppt"
-                                            ? _c("i", {
-                                                staticClass:
-                                                  "fa fa-file-powerpoint-o",
-                                                attrs: { "aria-hidden": "true" }
-                                              })
-                                            : _vm._e(),
-                                          _vm._v(" "),
-                                          item.type == "csv"
-                                            ? _c("i", {
-                                                staticClass: "fas fa-file-csv"
-                                              })
-                                            : _vm._e()
-                                        ])
-                                      ]
+                                      [_vm._v(_vm._s(item.module))]
                                     )
-                                  ]
+                                  ],
+                                  1
                                 ),
                                 _vm._v(" "),
                                 _c(
                                   "b-collapse",
                                   {
                                     attrs: {
-                                      id: item.title
+                                      id: item.module
                                         .replace(/[^a-z0-9]/gi, "")
                                         .replace(/\$/g, ""),
                                       accordion: "my-accordion",
@@ -44374,7 +44439,159 @@ var render = function() {
                                       "b-card-body",
                                       [
                                         _c("b-card-text", [
-                                          _vm._v(_vm._s(item.overview))
+                                          _vm._v(_vm._s(item.excerpt))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("b-card-text", [
+                                          _c("div", { staticClass: "mod" }, [
+                                            _c(
+                                              "ul",
+                                              _vm._l(
+                                                JSON.parse(item.content),
+                                                function(content, index) {
+                                                  return _c(
+                                                    "li",
+                                                    { key: index },
+                                                    [
+                                                      _c(
+                                                        "span",
+                                                        {
+                                                          on: {
+                                                            click: function(
+                                                              $event
+                                                            ) {
+                                                              _vm.handleToggle(
+                                                                content.title
+                                                                  .replace(
+                                                                    /[^a-z0-9]/gi,
+                                                                    ""
+                                                                  )
+                                                                  .replace(
+                                                                    /\$/g,
+                                                                    ""
+                                                                  )
+                                                              )
+                                                            }
+                                                          }
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "span",
+                                                            {
+                                                              staticClass:
+                                                                "ml-3"
+                                                            },
+                                                            [
+                                                              content.type ==
+                                                              "video"
+                                                                ? _c("i", {
+                                                                    staticClass:
+                                                                      "fa fa-play-circle",
+                                                                    attrs: {
+                                                                      "aria-hidden":
+                                                                        "true"
+                                                                    }
+                                                                  })
+                                                                : _vm._e(),
+                                                              _vm._v(" "),
+                                                              content.type ==
+                                                              "pdf"
+                                                                ? _c("i", {
+                                                                    staticClass:
+                                                                      "fa fa-file-pdf-o",
+                                                                    attrs: {
+                                                                      "aria-hidden":
+                                                                        "true"
+                                                                    }
+                                                                  })
+                                                                : _vm._e(),
+                                                              _vm._v(" "),
+                                                              content.type ==
+                                                              "audio"
+                                                                ? _c("i", {
+                                                                    staticClass:
+                                                                      "fa fa-volume-up",
+                                                                    attrs: {
+                                                                      "aria-hidden":
+                                                                        "true"
+                                                                    }
+                                                                  })
+                                                                : _vm._e(),
+                                                              _vm._v(" "),
+                                                              content.type ==
+                                                              "ppt"
+                                                                ? _c("i", {
+                                                                    staticClass:
+                                                                      "fa fa-file-powerpoint-o",
+                                                                    attrs: {
+                                                                      "aria-hidden":
+                                                                        "true"
+                                                                    }
+                                                                  })
+                                                                : _vm._e(),
+                                                              _vm._v(" "),
+                                                              content.type ==
+                                                              "csv"
+                                                                ? _c("i", {
+                                                                    staticClass:
+                                                                      "fas fa-file-csv"
+                                                                  })
+                                                                : _vm._e()
+                                                            ]
+                                                          ),
+                                                          _vm._v(
+                                                            "\n                              " +
+                                                              _vm._s(
+                                                                content.title
+                                                              ) +
+                                                              "\n                            "
+                                                          )
+                                                        ]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "b-modal",
+                                                        {
+                                                          attrs: {
+                                                            id: content.title
+                                                              .replace(
+                                                                /[^a-z0-9]/gi,
+                                                                ""
+                                                              )
+                                                              .replace(
+                                                                /\$/g,
+                                                                ""
+                                                              ),
+                                                            title:
+                                                              content.title,
+                                                            "hide-footer": ""
+                                                          }
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "p",
+                                                            {
+                                                              staticClass:
+                                                                "my-4"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  content.overview
+                                                                )
+                                                              )
+                                                            ]
+                                                          )
+                                                        ]
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                }
+                                              ),
+                                              0
+                                            )
+                                          ])
                                         ])
                                       ],
                                       1
@@ -44438,7 +44655,7 @@ var render = function() {
                                           "item.question.replace(/[^a-z0-9]/gi, '').replace(/\\$/g, '')"
                                       }
                                     ],
-                                    staticClass: "text-left ",
+                                    staticClass: "text-left",
                                     attrs: { block: "", variant: "secondary" }
                                   },
                                   [_vm._v(_vm._s(item.question))]
@@ -44539,7 +44756,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "input-review " },
+                { staticClass: "input-review" },
                 [
                   _c(
                     "b-form-row",
@@ -44583,10 +44800,10 @@ var render = function() {
           _c(
             "b-card",
             {
-              staticClass: "mb-2 floating-bar shadow-lg",
+              staticClass: "mb-2 floating-bar shadow-lg toCaps",
               staticStyle: { width: "22rem" },
               attrs: {
-                title: _vm.title,
+                title: _vm.subject,
                 "img-src": _vm.cover_image,
                 "img-alt": "Image",
                 "img-top": ""
@@ -44595,22 +44812,28 @@ var render = function() {
             [
               _c("b-card-text", [_c("strong", [_vm._v("This includes:")])]),
               _vm._v(" "),
-              _c("b-card-text", [
-                _vm._v(
-                  " " + _vm._s(_vm.content.length) + " downloadable resources"
+              _vm._l(_vm.modules, function(module, idx) {
+                return _c(
+                  "b-card-text",
+                  { key: idx, staticClass: "border-bottom" },
+                  [
+                    _vm._v(
+                      _vm._s(module.module) +
+                        " - " +
+                        _vm._s(JSON.parse(module.content).length) +
+                        " downloadable resources"
+                    )
+                  ]
                 )
-              ]),
+              }),
               _vm._v(" "),
               _c(
                 "b-button",
-                {
-                  attrs: { href: "#", block: "", variant: "primary" },
-                  on: { click: _vm.addtolibrary }
-                },
-                [_vm._v("Add to library")]
+                { attrs: { href: "#", block: "", variant: "primary" } },
+                [_vm._v("Views : 24")]
               )
             ],
-            1
+            2
           )
         ],
         1
@@ -44624,7 +44847,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "what-you-will-learn " }, [
+    return _c("div", { staticClass: "what-you-will-learn" }, [
       _c("h4", [_vm._v("Requirements:")]),
       _vm._v(" "),
       _c("ul", [
@@ -44652,10 +44875,10 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("p", [
       _vm._v(
-        "\n           I had an easy time learning this course with the materials giving.\n            "
+        "\n              I had an easy time learning this course with the materials giving.\n              "
       ),
       _c("br"),
-      _vm._v("Easy to understand and grasp.\n           \n          ")
+      _vm._v("\nEasy to understand and grasp.\n            ")
     ])
   }
 ]
@@ -49569,11 +49792,9 @@ var render = function() {
     { staticClass: "view-resource" },
     [
       _c("div", { staticClass: "view-resource-header mx-auto" }, [
-        _c("h2", [_vm._v(_vm._s(_vm.title))]),
+        _c("h2", { staticClass: "toCaps" }, [_vm._v(_vm._s(_vm.subject))]),
         _vm._v(" "),
-        _c("h6", { staticClass: "toCaps" }, [_vm._v(_vm._s(_vm.subject))]),
-        _vm._v(" "),
-        _c("p", [_vm._v("JSS 1")]),
+        _c("p", [_vm._v(_vm._s(_vm.syllabus.grade_level))]),
         _vm._v(" "),
         _c("p", [
           _vm._v("\n      Created by\n      "),
@@ -49624,7 +49845,7 @@ var render = function() {
             _c("h4", [_vm._v("Overview")]),
             _vm._v(" "),
             _c("p", { staticClass: "subject-description" }, [
-              _vm._v(_vm._s(_vm.excerpt))
+              _vm._v(_vm._s(_vm.syllabus.description))
             ])
           ]),
           _vm._v(" "),
@@ -49641,7 +49862,7 @@ var render = function() {
                     "b-list-group",
                     _vm._l(_vm.curriculum.learner_outcome, function(item, idx) {
                       return _c("b-list-group-item", { key: idx }, [
-                        _vm._v(" " + _vm._s(item.name))
+                        _vm._v(_vm._s(item.name))
                       ])
                     }),
                     1
@@ -49678,12 +49899,12 @@ var render = function() {
             "b-row",
             { staticClass: "mb-5" },
             [
-              _c(
-                "b-col",
-                [
-                  _c("h4", [_vm._v("Course Content")]),
-                  _vm._v(" "),
-                  _vm._l(_vm.content, function(item, idx) {
+              _c("b-col", [
+                _c("h4", [_vm._v("Course Modules")]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  _vm._l(_vm.modules, function(item, idx) {
                     return _c(
                       "div",
                       { key: idx, attrs: { role: "tablist" } },
@@ -49706,8 +49927,11 @@ var render = function() {
                                       {
                                         name: "b-toggle",
                                         rawName: "v-b-toggle",
-                                        value: item.title,
-                                        expression: "item.title"
+                                        value: item.module
+                                          .replace(/[^a-z0-9]/gi, "")
+                                          .replace(/\$/g, ""),
+                                        expression:
+                                          "item.module.replace(/[^a-z0-9]/gi, '').replace(/\\$/g, '')"
                                       }
                                     ],
                                     staticClass: "text-left",
@@ -49715,46 +49939,10 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                " +
-                                        _vm._s(item.title) +
-                                        "\n                "
-                                    ),
-                                    _c("span", { staticClass: "ml-3" }, [
-                                      item.type == "video"
-                                        ? _c("i", {
-                                            staticClass: "fa fa-play-circle",
-                                            attrs: { "aria-hidden": "true" }
-                                          })
-                                        : _vm._e(),
-                                      _vm._v(" "),
-                                      item.type == "pdf"
-                                        ? _c("i", {
-                                            staticClass: "fa fa-file-pdf-o",
-                                            attrs: { "aria-hidden": "true" }
-                                          })
-                                        : _vm._e(),
-                                      _vm._v(" "),
-                                      item.type == "audio"
-                                        ? _c("i", {
-                                            staticClass: "fa fa-volume-up",
-                                            attrs: { "aria-hidden": "true" }
-                                          })
-                                        : _vm._e(),
-                                      _vm._v(" "),
-                                      item.type == "ppt"
-                                        ? _c("i", {
-                                            staticClass:
-                                              "fa fa-file-powerpoint-o",
-                                            attrs: { "aria-hidden": "true" }
-                                          })
-                                        : _vm._e(),
-                                      _vm._v(" "),
-                                      item.item == "csv"
-                                        ? _c("i", {
-                                            staticClass: "fas fa-file-csv"
-                                          })
-                                        : _vm._e()
-                                    ])
+                                      "\n                  " +
+                                        _vm._s(item.module) +
+                                        "\n                 \n\n                "
+                                    )
                                   ]
                                 )
                               ],
@@ -49765,7 +49953,9 @@ var render = function() {
                               "b-collapse",
                               {
                                 attrs: {
-                                  id: item.title,
+                                  id: item.module
+                                    .replace(/[^a-z0-9]/gi, "")
+                                    .replace(/\$/g, ""),
                                   accordion: "my-accordion",
                                   role: "tabpanel"
                                 }
@@ -49775,7 +49965,146 @@ var render = function() {
                                   "b-card-body",
                                   [
                                     _c("b-card-text", [
-                                      _vm._v(_vm._s(item.overview))
+                                      _vm._v(_vm._s(item.excerpt))
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("b-card-text", [
+                                      _c("div", { staticClass: "mod" }, [
+                                        _c(
+                                          "ul",
+                                          _vm._l(
+                                            JSON.parse(item.content),
+                                            function(content, index) {
+                                              return _c(
+                                                "li",
+                                                { key: index },
+                                                [
+                                                  _c(
+                                                    "span",
+                                                    {
+                                                      on: {
+                                                        click: function(
+                                                          $event
+                                                        ) {
+                                                          _vm.handleToggle(
+                                                            content.title
+                                                              .replace(
+                                                                /[^a-z0-9]/gi,
+                                                                ""
+                                                              )
+                                                              .replace(
+                                                                /\$/g,
+                                                                ""
+                                                              )
+                                                          )
+                                                        }
+                                                      }
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "span",
+                                                        { staticClass: "ml-3" },
+                                                        [
+                                                          content.type ==
+                                                          "video"
+                                                            ? _c("i", {
+                                                                staticClass:
+                                                                  "fa fa-play-circle",
+                                                                attrs: {
+                                                                  "aria-hidden":
+                                                                    "true"
+                                                                }
+                                                              })
+                                                            : _vm._e(),
+                                                          _vm._v(" "),
+                                                          content.type == "pdf"
+                                                            ? _c("i", {
+                                                                staticClass:
+                                                                  "fa fa-file-pdf-o",
+                                                                attrs: {
+                                                                  "aria-hidden":
+                                                                    "true"
+                                                                }
+                                                              })
+                                                            : _vm._e(),
+                                                          _vm._v(" "),
+                                                          content.type ==
+                                                          "audio"
+                                                            ? _c("i", {
+                                                                staticClass:
+                                                                  "fa fa-volume-up",
+                                                                attrs: {
+                                                                  "aria-hidden":
+                                                                    "true"
+                                                                }
+                                                              })
+                                                            : _vm._e(),
+                                                          _vm._v(" "),
+                                                          content.type == "ppt"
+                                                            ? _c("i", {
+                                                                staticClass:
+                                                                  "fa fa-file-powerpoint-o",
+                                                                attrs: {
+                                                                  "aria-hidden":
+                                                                    "true"
+                                                                }
+                                                              })
+                                                            : _vm._e(),
+                                                          _vm._v(" "),
+                                                          content.type == "csv"
+                                                            ? _c("i", {
+                                                                staticClass:
+                                                                  "fas fa-file-csv"
+                                                              })
+                                                            : _vm._e()
+                                                        ]
+                                                      ),
+                                                      _vm._v(
+                                                        "  " +
+                                                          _vm._s(
+                                                            content.title
+                                                          ) +
+                                                          " "
+                                                      )
+                                                    ]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "b-modal",
+                                                    {
+                                                      attrs: {
+                                                        id: content.title
+                                                          .replace(
+                                                            /[^a-z0-9]/gi,
+                                                            ""
+                                                          )
+                                                          .replace(/\$/g, ""),
+                                                        title: content.title,
+                                                        "hide-footer": ""
+                                                      }
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "p",
+                                                        { staticClass: "my-4" },
+                                                        [
+                                                          _vm._v(
+                                                            _vm._s(
+                                                              content.overview
+                                                            )
+                                                          )
+                                                        ]
+                                                      )
+                                                    ]
+                                                  )
+                                                ],
+                                                1
+                                              )
+                                            }
+                                          ),
+                                          0
+                                        )
+                                      ])
                                     ])
                                   ],
                                   1
@@ -49789,10 +50118,10 @@ var render = function() {
                       ],
                       1
                     )
-                  })
-                ],
-                2
-              )
+                  }),
+                  0
+                )
+              ])
             ],
             1
           ),
@@ -49829,8 +50158,11 @@ var render = function() {
                                       {
                                         name: "b-toggle",
                                         rawName: "v-b-toggle",
-                                        value: item.question,
-                                        expression: "item.question"
+                                        value: item.question
+                                          .replace(/[^a-z0-9]/gi, "")
+                                          .replace(/\$/g, ""),
+                                        expression:
+                                          "item.question.replace(/[^a-z0-9]/gi, '').replace(/\\$/g, '')"
                                       }
                                     ],
                                     staticClass: "text-left",
@@ -49846,7 +50178,9 @@ var render = function() {
                               "b-collapse",
                               {
                                 attrs: {
-                                  id: item.question,
+                                  id: item.question
+                                    .replace(/[^a-z0-9]/gi, "")
+                                    .replace(/\$/g, ""),
                                   accordion: "my-accordion",
                                   role: "tabpanel"
                                 }
@@ -49982,10 +50316,10 @@ var render = function() {
           _c(
             "b-card",
             {
-              staticClass: "mb-2 floating-bar shadow-lg",
+              staticClass: "mb-2 floating-bar shadow-lg toCaps",
               staticStyle: { width: "22rem" },
               attrs: {
-                title: _vm.title,
+                title: _vm.subject,
                 "img-src": _vm.cover_image,
                 "img-alt": "Image",
                 "img-top": ""
@@ -49994,9 +50328,20 @@ var render = function() {
             [
               _c("b-card-text", [_c("strong", [_vm._v("This includes:")])]),
               _vm._v(" "),
-              _c("b-card-text", [
-                _vm._v(_vm._s(_vm.content.length) + " downloadable resources")
-              ]),
+              _vm._l(_vm.modules, function(module, idx) {
+                return _c(
+                  "b-card-text",
+                  { key: idx, staticClass: "border-bottom" },
+                  [
+                    _vm._v(
+                      _vm._s(module.module) +
+                        " - " +
+                        _vm._s(JSON.parse(module.content).length) +
+                        " downloadable resources "
+                    )
+                  ]
+                )
+              }),
               _vm._v(" "),
               _c(
                 "b-button",
@@ -50004,7 +50349,7 @@ var render = function() {
                 [_vm._v("Views : 24")]
               )
             ],
-            1
+            2
           )
         ],
         1

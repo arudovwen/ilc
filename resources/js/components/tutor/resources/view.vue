@@ -236,10 +236,10 @@
   <div class="view-resource">
     <div class="view-resource-header mx-auto">
       <!--please let this be Module-->
-      <h2>{{title}}</h2>
-      <h6 class="toCaps">{{subject}}</h6>
+      <h2 class="toCaps">{{subject}}</h2>
+      <!-- <h6 class="toCaps">{{subject}}</h6> -->
       <!--please change to Class-->
-      <p>JSS 1</p>
+      <p>{{syllabus.grade_level}}</p>
       <!-- <p class="subject-description">{{excerpt}}</p> -->
 
       <p>
@@ -260,7 +260,7 @@
       <div class="resource-title"></div>
       <div class="resource-overview">
         <h4>Overview</h4>
-        <p class="subject-description">{{excerpt}}</p>
+        <p class="subject-description">{{syllabus.description}}</p>
       </div>
 
       <b-row class="mb-5">
@@ -271,7 +271,7 @@
             <b-list-group-item
               v-for="(item,idx) in curriculum.learner_outcome"
               :key="idx"
-            > {{item.name}}</b-list-group-item>
+            >{{item.name}}</b-list-group-item>
           </b-list-group>
         </b-col>
       </b-row>
@@ -287,27 +287,59 @@
 
       <b-row class="mb-5">
         <b-col>
-          <h4>Course Content</h4>
-          <div role="tablist" v-for="(item,idx) in content" :key="idx">
-            <b-card no-body class="mb-1">
-              <b-card-header header-tag="header" class="p-1 text-left" role="tab">
-                <b-button block v-b-toggle="item.title" variant="secondary" class="text-left">
-                  {{item.title}}
-                  <span class="ml-3">
-                    <i class="fa fa-play-circle" v-if="item.type=='video'" aria-hidden="true"></i>
-                    <i class="fa fa-file-pdf-o" v-if="item.type=='pdf'" aria-hidden="true"></i>
-                    <i class="fa fa-volume-up" v-if="item.type=='audio'" aria-hidden="true"></i>
-                    <i class="fa fa-file-powerpoint-o" v-if="item.type=='ppt'" aria-hidden="true"></i>
-                    <i class="fas fa-file-csv" v-if="item.item=='csv'"></i>
-                  </span>
-                </b-button>
-              </b-card-header>
-              <b-collapse :id="item.title" accordion="my-accordion" role="tabpanel">
-                <b-card-body>
-                  <b-card-text>{{item.overview}}</b-card-text>
-                </b-card-body>
-              </b-collapse>
-            </b-card>
+          <h4>Course Modules</h4>
+
+          <div>
+            <div role="tablist" v-for="(item,idx) in modules" :key="idx">
+              <b-card no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1 text-left" role="tab">
+                  <b-button
+                    block
+                    v-b-toggle="item.module.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
+                    variant="secondary"
+                    class="text-left"
+                  >
+                    {{item.module}}
+                   
+
+                  </b-button>
+                </b-card-header>
+                <b-collapse
+                  :id="item.module.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
+                  accordion="my-accordion"
+                  role="tabpanel"
+                >
+                  <b-card-body>
+                    <b-card-text>{{item.excerpt}}</b-card-text>
+                    <b-card-text>
+
+                    <div class="mod">
+                      <ul>
+                        <li v-for="(content,index) in JSON.parse(item.content)" :key="index">
+                           
+                        <span  @click="handleToggle(content.title.replace(/[^a-z0-9]/gi, '').replace(/\$/g, ''))">  <span class="ml-3">
+                    <i class="fa fa-play-circle" v-if="content.type=='video'" aria-hidden="true"></i>
+                    <i class="fa fa-file-pdf-o" v-if="content.type=='pdf'" aria-hidden="true"></i>
+                    <i class="fa fa-volume-up" v-if="content.type=='audio'" aria-hidden="true"></i>
+                    <i class="fa fa-file-powerpoint-o" v-if="content.type=='ppt'" aria-hidden="true"></i>
+                    <i class="fas fa-file-csv" v-if="content.type=='csv'"></i>
+                    </span>  {{content.title}} </span> 
+                   
+
+                        <b-modal :id="content.title.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')" :title="content.title" hide-footer>
+                          <p class="my-4">{{content.overview}}</p>
+                        </b-modal>
+                           </li>
+
+                      </ul>
+                    </div>
+                    </b-card-text>
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
+            </div>
+
+          
           </div>
         </b-col>
       </b-row>
@@ -319,12 +351,16 @@
               <b-card-header header-tag="header" class="p-1" role="tab">
                 <b-button
                   block
-                  v-b-toggle="item.question"
+                  v-b-toggle="item.question.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
                   variant="secondary"
                   class="text-left"
                 >{{item.question}}</b-button>
               </b-card-header>
-              <b-collapse :id="item.question" accordion="my-accordion" role="tabpanel">
+              <b-collapse
+                :id="item.question.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
+                accordion="my-accordion"
+                role="tabpanel"
+              >
                 <b-card-body>
                   <b-card-text>{{item.answer}}</b-card-text>
                 </b-card-body>
@@ -376,18 +412,18 @@
     </div>
     <b-col cols="5">
       <b-card
-        :title="title"
+        :title="subject"
         :img-src="cover_image"
         img-alt="Image"
         img-top
         style="width: 22rem;"
-        class="mb-2 floating-bar shadow-lg"
+        class="mb-2 floating-bar shadow-lg toCaps"
       >
         <b-card-text>
           <strong>This includes:</strong>
         </b-card-text>
-        <b-card-text>{{content.length}} downloadable resources</b-card-text>
-
+        <b-card-text class="border-bottom" v-for="(module,idx) in modules" :key="idx">{{module.module}} - {{JSON.parse(module.content).length}} downloadable resources </b-card-text>
+      
         <b-button href="#" block variant="primary">Views : 24</b-button>
       </b-card>
     </b-col>
@@ -411,16 +447,25 @@ export default {
       cover_image: "",
       show: true,
       review: [1, 2, 3, 4, 5],
+      modules: [],
     };
   },
   mounted() {
     this.getResource();
   },
   methods: {
+    handleToggle(title){
+    this.$bvModal.show(title)
+    },
     edit(id) {
       this.$router.push(`/tutor/resource/edit/${id}`);
     },
     getResource() {
+      axios.get("/api/get-module").then((res) => {
+        if (res.status == 200) {
+          this.modules = res.data;
+        }
+      });
       axios
         .get(`/api/resource/${this.$route.params.id}`, {
           headers: {
@@ -452,6 +497,13 @@ export default {
   width: 100%;
   position: relative;
   background: transparent;
+}
+.mod ul{
+  list-style: none;
+}
+.mod ul li{
+  padding:10px 20px;
+  border-bottom:1px solid #ccc;
 }
 .top_n {
   position: relative;

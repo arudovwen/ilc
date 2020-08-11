@@ -1,112 +1,152 @@
 <template>
-
   <div class="main-b">
-    <div class="view-resource-header mx-auto" >
-      <h2>{{title}}</h2>
-      <h6 class="toCaps">{{subject}}</h6>
-      <p class="subject-description">
-       {{excerpt}}
-      </p>
-      <div class="resource-btn">
-        <button class="btn" @click="addtolibrary">Add to Library</button>
-        <button class="btn">Share</button>
-      </div>
+    <div class="view-resource-header mx-auto">
+      <h2 class="toCaps">{{subject}}</h2>
+      <!-- <h6 class="toCaps">{{subject}}</h6> -->
+      <p class="subject-description toCaps">{{syllabus.grade_level}}</p>
+     
       <p>
         Created by
         <strong>{{tutor.name}}</strong>
       </p>
       <p>Last Updated {{time | moment('MMM D')}}</p>
+       <div class="resource-btn">
+        <button class="btn" @click="addtolibrary">Add to Library</button>
+        <button class="btn">Share</button>
+      </div>
     </div>
     <div class="container">
-      <div class="what-you-will-learn ">
+      <div class="what-you-will-learn">
         <h4>What You Will Learn:</h4>
         <ul>
-          <li    v-for="(item,idx) in curriculum.learner_outcome"
-                    :key="idx">{{item.name}}</li>
-        
+          <li v-for="(item,idx) in curriculum.learner_outcome" :key="idx">{{item.name}}</li>
         </ul>
       </div>
-      <div class="what-you-will-learn ">
+      <div class="what-you-will-learn">
         <h4>Requirements:</h4>
         <ul>
           <li>You need to have completed last term topic on mathematics</li>
           <li>You will understand the basis of all topic attached to the subject</li>
         </ul>
       </div>
-      <div class="description ">
+      <div class="description">
         <h4>Description</h4>
-        <p>
-         {{syllabus.description}}
-        </p>
+        <p>{{syllabus.description}}</p>
       </div>
-      <div class="sutdent-assessed ">
+      <div class="sutdent-assessed">
         <h4>How will student be Assessed</h4>
         <p>Students Performance will be assessed based on:</p>
-        <ul >
-          <li  v-for="(item,idx) in syllabus.assessments"
-                    :key="idx">{{item.name}}</li>
-        
+        <ul>
+          <li v-for="(item,idx) in syllabus.assessments" :key="idx">{{item.name}}</li>
         </ul>
       </div>
       <div class="course-content">
-            <b-row class="mb-5">
-              <b-col>
-                <h4 class="text-dark">Course Content</h4>
-                <div role="tablist" v-for="(item,idx) in content" :key="idx">
-                  <b-card no-body class="mb-1">
-                    <b-card-header header-tag="header" class="p-2 text-left" role="tab">
-                      <div block v-b-toggle="item.title.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')" variant="secondary" class="text-left">
-                        {{item.title}}
-                        <span class="ml-3">
-                          <i class="fa fa-play-circle" v-if="item.type=='video'" aria-hidden="true"></i>
-                          <i class="fa fa-file-pdf-o" v-if="item.type=='pdf'" aria-hidden="true"></i>
-                          <i class="fa fa-volume-up" v-if="item.type=='audio'" aria-hidden="true"></i>
-                          <i class="fa fa-file-powerpoint-o" v-if="item.type=='ppt'" aria-hidden="true"></i>
-                          <i class="fas fa-file-csv" v-if="item.type=='csv'"></i>
-                        </span>
-                      </div>
-                    </b-card-header>
-                    <b-collapse :id="item.title.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')" accordion="my-accordion" role="tabpanel">
-                      <b-card-body>
-                        <b-card-text>{{item.overview}}</b-card-text>
-                      </b-card-body>
-                    </b-collapse>
-                  </b-card>
-                </div>
-              </b-col>
-            </b-row>
-      </div>
         <b-row class="mb-5">
-              <b-col>
-                <h4>Frequently Asked Questions</h4>
-                <div role="tablist" v-for="(item,idx) in syllabus.faqs" :key="idx">
-                  <b-card no-body class="mb-1">
-                    <b-card-header header-tag="header" class="p-2" role="tab">
-                      <div
-                        block
-                        v-b-toggle="item.question.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
-                        variant="secondary"
-                        class="text-left "
-                      >{{item.question}}</div>
-                    </b-card-header>
-                    <b-collapse :id="item.question.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')" accordion="my-accordion" role="tabpanel">
-                      <b-card-body>
-                        <b-card-text>{{item.answer}}</b-card-text>
-                      </b-card-body>
-                    </b-collapse>
-                  </b-card>
-                </div>
-              </b-col>
-            </b-row>
+          <b-col>
+            <h4 class="text-dark">Course Content</h4>
+            <div role="tablist" v-for="(item,idx) in modules" :key="idx">
+              <b-card no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1 text-left" role="tab">
+                  <b-button
+                    block
+                    v-b-toggle="item.module.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
+                    variant="secondary"
+                    class="text-left"
+                  >{{item.module}}</b-button>
+                </b-card-header>
+                <b-collapse
+                  :id="item.module.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
+                  accordion="my-accordion"
+                  role="tabpanel"
+                >
+                  <b-card-body>
+                    <b-card-text>{{item.excerpt}}</b-card-text>
+                    <b-card-text>
+                      <div class="mod">
+                        <ul>
+                          <li v-for="(content,index) in JSON.parse(item.content)" :key="index">
+                            <span
+                              @click="handleToggle(content.title.replace(/[^a-z0-9]/gi, '').replace(/\$/g, ''))"
+                            >
+                              <span class="ml-3">
+                                <i
+                                  class="fa fa-play-circle"
+                                  v-if="content.type=='video'"
+                                  aria-hidden="true"
+                                ></i>
+                                <i
+                                  class="fa fa-file-pdf-o"
+                                  v-if="content.type=='pdf'"
+                                  aria-hidden="true"
+                                ></i>
+                                <i
+                                  class="fa fa-volume-up"
+                                  v-if="content.type=='audio'"
+                                  aria-hidden="true"
+                                ></i>
+                                <i
+                                  class="fa fa-file-powerpoint-o"
+                                  v-if="content.type=='ppt'"
+                                  aria-hidden="true"
+                                ></i>
+                                <i class="fas fa-file-csv" v-if="content.type=='csv'"></i>
+                              </span>
+                              {{content.title}}
+                            </span>
 
-               <b-row class="mb-5">
-              <b-col>
-                <h4>Course Availability</h4>
-                <b-list-group>
-                  <b-list-group-item>{{syllabus.availability}}</b-list-group-item>
-                </b-list-group>
-              </b-col>
-            </b-row>
+                            <b-modal
+                              :id="content.title.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
+                              :title="content.title"
+                              hide-footer
+                            >
+                              <p class="my-4">{{content.overview}}</p>
+                            </b-modal>
+                          </li>
+                        </ul>
+                      </div>
+                    </b-card-text>
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
+            </div>
+          </b-col>
+        </b-row>
+      </div>
+      <b-row class="mb-5">
+        <b-col>
+          <h4>Frequently Asked Questions</h4>
+          <div role="tablist" v-for="(item,idx) in syllabus.faqs" :key="idx">
+            <b-card no-body class="mb-1">
+              <b-card-header header-tag="header" class="p-2" role="tab">
+                <div
+                  block
+                  v-b-toggle="item.question.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
+                  variant="secondary"
+                  class="text-left"
+                >{{item.question}}</div>
+              </b-card-header>
+              <b-collapse
+                :id="item.question.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
+                accordion="my-accordion"
+                role="tabpanel"
+              >
+                <b-card-body>
+                  <b-card-text>{{item.answer}}</b-card-text>
+                </b-card-body>
+              </b-collapse>
+            </b-card>
+          </div>
+        </b-col>
+      </b-row>
+
+      <b-row class="mb-5">
+        <b-col>
+          <h4>Course Availability</h4>
+          <b-list-group>
+            <b-list-group-item>{{syllabus.availability}}</b-list-group-item>
+          </b-list-group>
+        </b-col>
+      </b-row>
       <div class="review">
         <h4>Review</h4>
         <div class="featured-review">
@@ -121,41 +161,46 @@
               <img src="/images/five-star.png" class="img-fluid" alt />
             </div>
             <p>
-             I had an easy time learning this course with the materials giving.
-              <br />Easy to understand and grasp.
-             
+              I had an easy time learning this course with the materials giving.
+              <br />
+Easy to understand and grasp.
             </p>
           </div>
-          <div class="input-review ">
+          <div class="input-review">
             <b-form-row>
-              <b-col lg="10"><b-form-textarea id="textarea-small" size="sm" placeholder="Write a Review"></b-form-textarea></b-col>
-              <b-col lg="2"><button class="btn-review">Add</button></b-col>
+              <b-col lg="10">
+                <b-form-textarea id="textarea-small" size="sm" placeholder="Write a Review"></b-form-textarea>
+              </b-col>
+              <b-col lg="2">
+                <button class="btn-review">Add</button>
+              </b-col>
             </b-form-row>
           </div>
         </div>
       </div>
-
-
     </div>
-     <b-col cols="5">
-            <b-card
-              :title="title"
-              :img-src="cover_image"
-              img-alt="Image"
-              img-top
-              style="width: 22rem;"
-              class="mb-2 floating-bar shadow-lg"
-            >
-              <b-card-text><strong>This includes:</strong></b-card-text>
-              <b-card-text> {{content.length}} downloadable resources</b-card-text>
+    <b-col cols="5">
+      <b-card
+        :title="subject"
+        :img-src="cover_image"
+        img-alt="Image"
+        img-top
+        style="width: 22rem;"
+        class="mb-2 floating-bar shadow-lg toCaps"
+      >
+        <b-card-text>
+          <strong>This includes:</strong>
+        </b-card-text>
+        <b-card-text
+          class="border-bottom"
+          v-for="(module,idx) in modules"
+          :key="idx"
+        >{{module.module}} - {{JSON.parse(module.content).length}} downloadable resources</b-card-text>
 
-              <b-button href="#" block variant="primary" @click="addtolibrary">Add to library</b-button>
-            </b-card>
-          </b-col>
+        <b-button href="#" block variant="primary">Views : 24</b-button>
+      </b-card>
+    </b-col>
   </div>
-
-
-  
 </template>
 
 <script>
@@ -174,13 +219,17 @@ export default {
       subject: "",
       cover_image: "",
       show: true,
-      review:[1,2,3,4,5]
+      review: [1, 2, 3, 4, 5],
+      modules: [],
     };
   },
   mounted() {
     this.getResource();
   },
   methods: {
+    handleToggle(title) {
+      this.$bvModal.show(title);
+    },
     addtolibrary() {
       let data = {
         id: this.id,
@@ -213,6 +262,7 @@ export default {
         });
     },
     getResource() {
+     
       axios
         .get(`/api/student-resource/${this.$route.params.id}`, {
           headers: {
@@ -232,6 +282,12 @@ export default {
             this.cover_image = res.data.data.cover_image;
             this.subject = res.data.data.subject;
             this.show = false;
+
+             axios.get(`/api/get-module/${this.subject}/${this.$props.student.level}`).then((res) => {
+        if (res.status == 200) {
+          this.modules = res.data;
+        }
+      });
           }
         });
     },
@@ -245,19 +301,26 @@ export default {
   position: relative;
   background: transparent;
 }
+.mod ul{
+  list-style: none;
+}
+.mod ul li{
+  padding:10px 20px;
+  border-bottom:1px solid #ccc;
+}
 .top_n {
   position: relative;
 
   object-fit: cover;
 }
-.excerpt{
+.excerpt {
   width: 60%;
 }
 .text-left:focus {
-    outline: none !important;
+  outline: none !important;
 }
-.subject-description{
-  width:65%;
+.subject-description {
+  width: 65%;
 }
 .overlay-n {
   top: 0px;
@@ -273,10 +336,10 @@ export default {
   width: 70%;
   margin-right: auto;
 }
-.floating-bar{
+.floating-bar {
   position: fixed;
   right: 5%;
-  top:30%;
+  top: 30%;
 }
 .view-resource-header {
   background-image: linear-gradient(
@@ -352,24 +415,24 @@ export default {
   padding: 10px;
   margin-bottom: 10px;
 }
-.btn-review{
-  background-color:#13a699 ;
+.btn-review {
+  background-color: #13a699;
   color: #fff !important;
   border: none;
   padding: 10px 20px;
   border-radius: 10px;
 }
 .btn-secondary {
-    color: #fff !important;
-    background-color: #13a699 !important;
-    border-color: #13a699;
+  color: #fff !important;
+  background-color: #13a699 !important;
+  border-color: #13a699;
 }
-.btn-secondary:hover{
-color: #13a699 !important;
-    background-color: #fff !important;
+.btn-secondary:hover {
+  color: #13a699 !important;
+  background-color: #fff !important;
 }
-.container{
-  width:60%;
+.container {
+  width: 60%;
   margin-right: 40%;
 }
 </style>

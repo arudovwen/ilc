@@ -113,6 +113,23 @@ class ResourceController extends Controller
         return  new SyllabusCurriculumResource($resource);
     }
 
+    public function getModuleResource($name,$level)
+    {
+        
+      return  $resource = Resource::where('level',$level)->where('subject',$name)->get();
+
+     
+    }
+
+    public function getModules($level)
+    {
+        $resource = Resource::where('level',$level)->get();
+      
+      return  SyllabusCurriculumResource::collection($resource);
+
+       
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

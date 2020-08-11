@@ -114,8 +114,9 @@
         </td>
       </tr>
     </table>
-    <!-- form ends here  -->
+  
   </div>
+
 </template>
 
 <script>
@@ -200,5 +201,36 @@ h5 {
 }
 .form-text {
   margin-bottom: 18px;
+}
+.underline {
+  width: 80px;
+  height: 3px;
+  background-color: #0a4065;
+}
+.class-information {
+  padding-top: 20px;
+}
+.class-information h3 {
+  margin-bottom: 0 !important;
+}
+.class-information-inner {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 20px;
+}
+.class-information-inner span {
+  color: #808080;
+}
+.view-syllabus {
+  background: #fff;
+  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);
+  padding: 30px;
+  border-radius: 10px;
+}
+.subject-description {
+  padding-top: 15px;
+}
+.contain-syllabus {
+  padding: 30px;
 }
 </style>

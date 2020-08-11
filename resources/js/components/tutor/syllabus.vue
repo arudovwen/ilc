@@ -1,41 +1,15 @@
 <template>
   <div class="body">
-    <div class="d-flex justify-content-around">
-     <div class="w-50 p-3">
-       <h4 >School Curriculums</h4>
-        <table class="table table-striped table-inverse table-bordered">
-        <thead class="thead-dark">
-          <tr>
-            <th>Class</th>
-
-            <th>Action</th>
-           
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(item,idx) in curriculum" :key="idx">
-            <td scope="row" class="toCaps">{{item.subject}}</td>
-
-            <td class="d-flex justify-content-around">
-              <span class="mr-3" @click="viewCurriculum(item.id)">
-                <i class="fa fa-eye" aria-hidden="true"></i> View
-              </span>
-            </td>
-          
-          </tr>
-        </tbody>
-      </table>
-     </div>
-      <div class="w-50 p-3">
+    <div class>
+      <div class="p-3">
         <h4>Syllabus</h4>
-        <table class="table table-striped table-inverse table-bordered">
+        <table class="table table-striped table-bordered">
           <thead class="thead-dark">
             <tr>
               <th>Class</th>
               <th>Subject</th>
 
-              <th>Action</th>
-             
+              <th class= "d-flex justify-content-around">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -43,11 +17,10 @@
               <td scope="row" class="toCaps">{{item.myclass}}</td>
               <td scope="row" class="toCaps">{{item.subject}}</td>
               <td class="d-flex justify-content-around">
-                <span class="mr-3" @click="view(item.id)">
+                <span class="mr-3 view-link" @click="view(item.id)">
                   <i class="fa fa-eye" aria-hidden="true"></i> View
                 </span>
               </td>
-            
             </tr>
           </tbody>
         </table>
@@ -61,7 +34,7 @@ export default {
   data() {
     return {
       curriculum: [],
-      syllabus: []
+      syllabus: [],
     };
   },
   mounted() {
@@ -73,10 +46,10 @@ export default {
       axios
         .get("/api/tutor-curriculum", {
           headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.curriculum = res.data;
           }
@@ -86,10 +59,10 @@ export default {
       axios
         .get("/api/tutor-syllabus", {
           headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.syllabus = res.data;
           }
@@ -100,14 +73,23 @@ export default {
     },
     viewCurriculum(id) {
       this.$router.push(`/tutor/curriculum/view/${id}`);
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
-.body{
-  padding:50px 30px 70px;
+.body {
   height: 100%;
+}
+.table .thead-dark th{
+    background-color:  #22CADE;
+    border-color: #22CADE;
+}
+.view-link{
+  cursor: pointer;
+}
+.view-link:hover{
+  color:#22CADE ;
 }
 </style>

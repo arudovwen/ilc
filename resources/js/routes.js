@@ -43,6 +43,8 @@ const TutorGroupChat = () =>
 
 const TutorSyllabus = () =>
     import(/* webpackChunkName: "home_routes" */ "./components/tutor/syllabus");
+const TutorCurriculum = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/tutor/curriculum");
 
 const TutorSyllabusView = () =>
     import(
@@ -760,6 +762,14 @@ export const routes = [
                 path: "syllabus",
                 component: TutorSyllabus,
                 name: "TutorSyllabus",
+                meta: {
+                    typeTutor: true
+                }
+            },
+            {
+                path: "curriculum",
+                component: TutorCurriculum,
+                name: "TutorCurriculum",
                 meta: {
                     typeTutor: true
                 }

@@ -5,7 +5,7 @@
     <b-container>
       <b-row class="justify-content-center align-items-center">
         <b-col>
-          <b-form @submit.prevent="gotoSummary" class="shadow m-auto p-5">
+          <b-form @submit.prevent class="shadow m-auto p-5">
             <legend class="text-center">SUBSCRIBE</legend>
             <b-form-row>
               <b-col cols="12">
@@ -87,7 +87,25 @@
               </b-col>
             </b-form-row>
 
-            <b-button class="reg-btn ml-0" block type="submit" >Continue</b-button>
+           <b-form-row>
+             <b-col>
+               <b-form-group>
+                  <paystack
+              :amount="amount"
+              :email="email"
+              :paystackkey="paystackkey"
+              :reference="reference"
+              :callback="callback"
+              :close="close"
+              :embed="false"
+              class="w-100 border-0"
+            >
+              <b-button class="reg-btn m-0" block type="submit">PAY &#x20A6;{{amount}}</b-button>
+            </paystack>
+               </b-form-group>
+             </b-col>
+           </b-form-row>
+            <!-- <b-button class="reg-btn ml-0" block type="submit" >Continue</b-button> -->
           </b-form>
         </b-col>
       </b-row>
@@ -96,6 +114,7 @@
 </template>
 
 <script>
+import paystack from "vue-paystack";
 export default {
   name: "checkout",
   data() {
@@ -110,13 +129,84 @@ export default {
         ownership: null,
         lga: null,
       },
+      paystackkey: "pk_test_8047f2961e0e83a7b455b8c6644b21cccb01d900", //paystack public key
+      email: "succy2010@gmail.com", // Customer email
+      amount: 1000000, // in kobo
+      order_id: 0,
     };
+  },
+  components:{
+  paystack
   },
   created() {
     this.getLga();
     this.getInfo();
+    let user = JSON.parse(localStorage.getItem("regDetails"));
+    this.email = user.email;
+  },
+  mounted() {
+    this.createOrder()
+  },
+  computed: {
+    reference() {
+      let text = "";
+      let possible =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+      for (let i = 0; i < 10; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+      return text;
+    },
   },
   methods: {
+    createOrder() {
+      let user = JSON.parse(localStorage.getItem("regDetails"));
+      let cart = {
+        amount: this.amount,
+        email: this.email,
+        ref: this.reference,
+        school_id:user.school_id,
+         name:user.name,
+      };
+
+  
+      axios.post("/api/order", cart).then((res) => {
+        if (res.status == 201) {
+          this.order_id = res.data.id;
+        }
+      });
+    },
+    callback: function (response) {
+      let user = JSON.parse(localStorage.getItem("regDetails"));
+
+      if (response.status == "success") {
+        axios.get(`/api/verify/${this.reference}`).then((res) => {
+          if (res.status == 200) {
+            this.$toasted.info("Check your mail for your login details", {
+              icon: {
+                name: "check",
+              },
+            });
+            this.$router.push("/admin");
+          } else {
+            this.$toasted.error("Something went wrong", {
+              icon: {
+                name: "fingerprint",
+              },
+            });
+            this.$router.go(-1);
+          }
+        });
+      }
+    },
+    close: function () {
+      console.log("Payment closed");
+      axios.put(`/api/order/${this.order_id}`).then((res) => {
+        if (res.status == 200) {
+        }
+      });
+    },
     getLga() {
       axios
         .get("/api/lga")
@@ -131,7 +221,7 @@ export default {
       if (this.$route.query.id) {
         axios.get(`/api/school/${this.$route.query.id}`).then((res) => {
           if (res.status == 200) {
-                this.subscriber = res.data;
+            this.subscriber = res.data;
             this.subscriber.name = res.data.schools;
           }
         });
@@ -143,7 +233,7 @@ export default {
         this.getPackage(1);
       } else {
         this.user = JSON.parse(localStorage.getItem("adminDetails"));
-       
+
         this.getPackage(this.$route.params.id);
       }
     },

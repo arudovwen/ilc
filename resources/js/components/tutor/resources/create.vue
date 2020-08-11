@@ -203,6 +203,34 @@
                 :disabled="resource.subject ==''"
               >
                 <option selected disabled value>Select one</option>
+            <div class="form-group mb-5">
+              <label for>Choose Subject</label>
+              <br />
+              <select
+                class="custom-select"
+                v-model="resource.subject"
+                :disabled="resource.level ==''"
+              >
+                <option selected disabled value>Select Subject</option>
+                <option
+                  :value="item.name"
+                  v-for="(item,idx) in subjects"
+                  class="toCaps"
+                  :key="idx"
+                >{{item.name}}</option>
+              </select>
+            </div>
+          </b-col>
+          <b-col md="4">
+            <div class="form-group mb-5">
+              <label for>Select Module</label>
+              <br />
+              <select
+                class="custom-select"
+                v-model="resource.module"
+                :disabled="resource.subject ==''"
+              >
+                <option selected disabled value>Select one</option>
                 <option
                   :value="item.name"
                   v-for="(item,idx) in modules"

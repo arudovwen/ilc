@@ -1,8 +1,7 @@
 <template>
-  <b-overlay :show="show" rounded="sm" class="h-100">
+  <!-- <b-overlay :show="show" rounded="sm" class="h-100">
     <div v-if="!show">
-      <!-- banner  -->
-      <!-- title, overview, created at, buttons share,add,bookmark -->
+    
       <div class="top_n" :style="{'background-image':`url(${cover_image})`}">
         <div class="overlay-n"></div>
         <b-jumbotron :header="title" :lead="subject" class="jumb toCaps">
@@ -18,7 +17,7 @@
       <b-container>
         <b-row>
           <b-col cols="7" class="main-bar">
-            <!-- what you will learn  -->
+          
             <b-row class="mb-5">
               <b-col>
                 <h4>What you will learn</h4>
@@ -32,7 +31,7 @@
               </b-col>
             </b-row>
 
-            <!-- requirements  -->
+           
             <b-row class="mb-5">
               <b-col>
                 <h4>Requirements</h4>
@@ -41,7 +40,7 @@
                 </b-list-group>
               </b-col>
             </b-row>
-            <!-- description  -->
+           
             <b-row class="mb-5">
               <b-col>
                 <h4>Description</h4>
@@ -49,7 +48,7 @@
               </b-col>
             </b-row>
 
-            <!-- who is this course for  -->
+           
             <b-row class="mb-5">
               <b-col>
                 <h4>Who is this course for?</h4>
@@ -66,7 +65,7 @@
               </b-col>
             </b-row>
 
-            <!-- how will the student be assessed  -->
+           
             <b-row class="mb-5">
               <b-col>
                 <h4>How will the students be assessed</h4>
@@ -79,7 +78,7 @@
               </b-col>
             </b-row>
 
-            <!-- featured review  -->
+           
             <b-row class="mb-5">
               <b-col>
                 <h4>Featured Review</h4>
@@ -99,7 +98,6 @@
               </b-col>
             </b-row>
 
-            <!-- course content  -->
             <b-row class="mb-5">
               <b-col>
                 <h4>Course Content</h4>
@@ -131,7 +129,7 @@
               </b-col>
             </b-row>
 
-            <!-- faq  -->
+           
 
             <b-row class="mb-5">
               <b-col>
@@ -155,7 +153,7 @@
                 </div>
               </b-col>
             </b-row>
-            <!-- course availabilty  -->
+          
             <b-row class="mb-5">
               <b-col>
                 <h4>Course Availability</h4>
@@ -164,9 +162,9 @@
                 </b-list-group>
               </b-col>
             </b-row>
-            <!-- tutors  -->
+          
 
-            <!-- student feddback   -->
+           
             <b-row class="mb-5">
               <b-col>
                 <h4>Student Feedback</h4>
@@ -193,7 +191,7 @@
               </b-col>
             </b-row>
 
-            <!-- review  -->
+           
             <b-row class="mb-5">
               <b-col>
                 <h4>Review</h4>
@@ -216,7 +214,7 @@
               <b-card-text><strong>This includes:</strong></b-card-text>
               <b-card-text> {{content.length}} downloadable resources</b-card-text>
 
-              <!-- <b-button href="#" block variant="primary" @click="addtolibrary">Add to library</b-button> -->
+              <b-button href="#" block variant="primary" @click="addtolibrary">Add to library</b-button>
             </b-card>
           </b-col>
         </b-row>
@@ -234,7 +232,90 @@
         >Loading</b-button>
       </div>
     </template>
-  </b-overlay>
+  </b-overlay>-->
+  <div class="view-resource">
+    <div class="view-resource-header mx-auto">
+      <!--please let this be Module-->
+      <h2>Module</h2>
+      <h6 class="toCaps">{{subject}}</h6>
+      <!--please change to Class-->
+      <p>JSS 1</p>
+      <p class="subject-description">{{excerpt}}</p>
+      <div class="resource-btn">
+        <button class="btn">
+          <i class="fa fa-pencil-square-o"></i> Edit
+        </button>
+        <button class="btn">
+          <i class="fa fa-share-alt"></i> Share
+        </button>
+      </div>
+      <p>
+        Created by
+        <strong>{{tutor.name}}</strong>
+      </p>
+      <p>Last Updated {{time | moment('MMM D')}}</p>
+    </div>
+    <div class="resource-content container">
+      <div class="resource-title">
+        <h4>
+          Title:
+          <strong>{{title}}</strong>
+        </h4>
+      </div>
+      <div class="resource-overview">
+        <h5>Overview</h5>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci dolorem vel sint
+          temporibus, dolore rem dicta architecto cupiditate quam quo nobis asperiores
+          accusamus ipsa praesentium obcaecati magni possimus delectus laboriosam. Lorem ipsum,
+          dolor sit amet consectetur adipisicing elit. Voluptate beatae repellendus iure veniam explicabo,
+          corporis repudiandae qui optio laudantium provident quibusdam nam modi quia saepe deleniti,
+          magnam exercitationem perspiciatis in!
+        </p>
+      </div>
+      <!--  let any media uploaded show within this frame video, image and the likes-->
+      <div class="resource-media-frame">
+        <img src="/images/Maths-unsplash.jpg" class="img-fluid text-center" alt />
+        <p>The origin of differentiation</p>
+      </div>
+
+      <div class="tutors-note">
+        <h5>Tutors Note</h5>
+        <p>You included no notes to this resource</p>
+      </div>
+      <div class="student-reviews">
+        <b-row class="mb-5">
+          <b-col>
+            <h4>Student Feedback</h4>
+            <b-list-group>
+              <b-list-group-item>
+                <b-row>
+                  <b-col cols="2" class="text-right">
+                    <b-avatar></b-avatar>
+                  </b-col>
+                  <b-col cols="10">
+                    <strong>John Enugu</strong>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti odio modi dolorum ex praesentium eius facilis. Illo aut quos sequi? Est modi eius consequatur veritatis atque! Optio illo accusamus maiores?</p>
+                  </b-col>
+                </b-row>
+              </b-list-group-item>
+              <b-list-group-item>
+                <b-row>
+                  <b-col cols="2" class="text-right">
+                    <b-avatar></b-avatar>
+                  </b-col>
+                  <b-col cols="10">
+                    <strong>Ada Nkechi</strong>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti odio modi dolorum ex praesentium eius facilis. Illo aut quos sequi? Est modi eius consequatur veritatis atque! Optio illo accusamus maiores?</p>
+                  </b-col>
+                </b-row>
+              </b-list-group-item>
+            </b-list-group>
+          </b-col>
+        </b-row>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -253,14 +334,13 @@ export default {
       subject: "",
       cover_image: "/images/english-lit.jpg",
       show: true,
-      review:[1,2,3,4,5]
+      review: [1, 2, 3, 4, 5],
     };
   },
   mounted() {
     this.getResource();
   },
   methods: {
-  
     getResource() {
       axios
         .get(`/api/resource/${this.$route.params.id}`, {
@@ -313,9 +393,60 @@ export default {
   width: 70%;
   margin-right: auto;
 }
-.floating-bar{
+.floating-bar {
   position: fixed;
   right: 5%;
-  top:30%;
+  top: 30%;
+}
+.view-resource-header {
+  background-image: linear-gradient(
+      to bottom,
+      rgba(10, 64, 101, 0.84),
+      rgba(10, 64, 101, 0.84)
+    ),
+    url(/images/resource-bg.png);
+  color: #fff;
+  padding: 1.5rem;
+  /* margin-top: 2rem; */
+}
+.view-resource-header p {
+  font-size: 14px;
+  margin-bottom: 0.5rem !important;
+}
+.btn {
+  background: transparent;
+  border: 1px solid #fff;
+  color: white !important;
+  margin-right: 10px;
+  margin-bottom: 15px;
+}
+.btn:hover {
+  background: #fff;
+  color: #0a4065 !important;
+  transition: 0.3s;
+  border: none;
+}
+.resource-content {
+  padding-top: 20px;
+}
+.resource-overview {
+  padding-top: 20px;
+}
+.resource-media-frame {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.resource-media-frame img {
+  width: 50%;
+  height: 300px;
+}
+.tutors-note{
+  padding-top: 20px;
+}
+.student-reviews{
+  padding: 20px 0;
 }
 </style>

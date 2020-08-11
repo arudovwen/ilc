@@ -18093,6 +18093,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tutor"],
   data: function data() {
@@ -18131,6 +18132,114 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -20066,7 +20175,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-5572edf8] {\r\n  padding: 40px 30px 70px;\r\n  position: relative;\n}\n.popup-overlay[data-v-5572edf8] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(255, 255, 255, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\n}\n.suggestion-box[data-v-5572edf8] {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  background: white;\r\n  border-radius: 5px;\r\n  height: 250px;\r\n  width: 50%;\r\n  padding: 15px;\r\n  position: absolute;\r\n  bottom: 50%;\r\n  transform: translate(50%, 50%);\r\n  right: 50%;\n}\n.suggestion-box p[data-v-5572edf8] {\r\n  font-size: 24px;\r\n  font-weight: bold;\r\n  text-align: center;\n}\n.close[data-v-5572edf8] {\r\n  position: absolute;\r\n  right: 5px;\r\n  top: 5px;\n}\nform[data-v-5572edf8] {\r\n  padding: 20px;\r\n  padding-bottom: 60px;\r\n  background: white;\r\n  font-size: 14px;\n}\nh5[data-v-5572edf8] {\r\n  margin-bottom: 24px;\n}\n.side-label[data-v-5572edf8] {\r\n  width: 150px;\n}\n.form-text[data-v-5572edf8] {\r\n  margin-bottom: 18px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-5572edf8] {\r\n  padding: 40px 30px 70px;\r\n  position: relative;\n}\n.popup-overlay[data-v-5572edf8] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(255, 255, 255, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\n}\n.suggestion-box[data-v-5572edf8] {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  background: white;\r\n  border-radius: 5px;\r\n  height: 250px;\r\n  width: 50%;\r\n  padding: 15px;\r\n  position: absolute;\r\n  bottom: 50%;\r\n  transform: translate(50%, 50%);\r\n  right: 50%;\n}\n.suggestion-box p[data-v-5572edf8] {\r\n  font-size: 24px;\r\n  font-weight: bold;\r\n  text-align: center;\n}\n.close[data-v-5572edf8] {\r\n  position: absolute;\r\n  right: 5px;\r\n  top: 5px;\n}\nform[data-v-5572edf8] {\r\n  padding: 20px;\r\n  padding-bottom: 60px;\r\n  background: white;\r\n  font-size: 14px;\n}\nh5[data-v-5572edf8] {\r\n  margin-bottom: 24px;\n}\n.side-label[data-v-5572edf8] {\r\n  width: 150px;\n}\n.form-text[data-v-5572edf8] {\r\n  margin-bottom: 18px;\n}\n.underline[data-v-5572edf8] {\r\n  width: 80px;\r\n  height: 3px;\r\n  background-color: #0a4065;\n}\n.class-information[data-v-5572edf8] {\r\n  padding-top: 20px;\n}\n.class-information h3[data-v-5572edf8] {\r\n  margin-bottom: 0 !important;\n}\n.class-information-inner[data-v-5572edf8] {\r\n  display: flex;\r\n  justify-content: space-around;\r\n  padding-top: 20px;\n}\n.class-information-inner span[data-v-5572edf8] {\r\n  color: #808080;\n}\n.view-syllabus[data-v-5572edf8] {\r\n  background: #fff;\r\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  padding: 30px;\r\n  border-radius: 10px;\n}\n.subject-description[data-v-5572edf8] {\r\n  padding-top: 15px;\n}\n.contain-syllabus[data-v-5572edf8] {\r\n  padding: 30px;\n}\r\n", ""]);
 
 // exports
 
@@ -20085,7 +20194,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-45774dee] {\r\n  padding: 40px 30px 70px;\r\n  position: relative;\n}\n.popup-overlay[data-v-45774dee] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(255, 255, 255, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\n}\n.suggestion-box[data-v-45774dee] {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  background: white;\r\n  border-radius: 5px;\r\n  height: 250px;\r\n  width: 50%;\r\n  padding: 15px;\r\n  position: absolute;\r\n  bottom: 50%;\r\n  transform: translate(50%, 50%);\r\n  right: 50%;\n}\n.suggestion-box p[data-v-45774dee] {\r\n  font-size: 24px;\r\n  font-weight: bold;\r\n  text-align: center;\n}\n.close[data-v-45774dee] {\r\n  position: absolute;\r\n  right: 5px;\r\n  top: 5px;\n}\nform[data-v-45774dee] {\r\n  padding: 20px;\r\n  padding-bottom: 60px;\r\n  background: white;\r\n  font-size: 14px;\n}\nh3[data-v-45774dee] {\r\n  margin-bottom: 24px;\r\n  font-size: 1.4em;\n}\n.side-label[data-v-45774dee] {\r\n  width: 150px;\n}\n.form-text[data-v-45774dee] {\r\n  margin-bottom: 18px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-45774dee] {\r\n  padding: 40px 30px 70px;\r\n  position: relative;\n}\n.popup-overlay[data-v-45774dee] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(255, 255, 255, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\n}\n.suggestion-box[data-v-45774dee] {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  background: white;\r\n  border-radius: 5px;\r\n  height: 250px;\r\n  width: 50%;\r\n  padding: 15px;\r\n  position: absolute;\r\n  bottom: 50%;\r\n  transform: translate(50%, 50%);\r\n  right: 50%;\n}\n.suggestion-box p[data-v-45774dee] {\r\n  font-size: 24px;\r\n  font-weight: bold;\r\n  text-align: center;\n}\n.close[data-v-45774dee] {\r\n  position: absolute;\r\n  right: 5px;\r\n  top: 5px;\n}\nform[data-v-45774dee] {\r\n  padding: 20px;\r\n  padding-bottom: 60px;\r\n  background: white;\r\n  font-size: 14px;\n}\nh3[data-v-45774dee] {\r\n  margin-bottom: 24px;\r\n  font-size: 1.4em;\n}\n.side-label[data-v-45774dee] {\r\n  width: 150px;\n}\n.form-text[data-v-45774dee] {\r\n  margin-bottom: 18px;\n}\n.underline[data-v-45774dee] {\r\n  width: 80px;\r\n  height: 3px;\r\n  background-color: #0a4065;\n}\n.class-information[data-v-45774dee] {\r\n  padding-top: 20px;\n}\n.class-information h3[data-v-45774dee] {\r\n  margin-bottom: 0 !important;\n}\n.class-information-inner[data-v-45774dee] {\r\n  display: flex;\r\n  justify-content: space-around;\r\n  padding-top: 20px;\n}\n.class-information-inner span[data-v-45774dee] {\r\n  color: #808080;\n}\n.view-syllabus[data-v-45774dee] {\r\n  background: #fff;\r\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  padding: 30px;\r\n  border-radius: 10px;\n}\n.subject-description[data-v-45774dee] {\r\n  padding-top: 15px;\n}\n.contain-syllabus[data-v-45774dee] {\r\n  padding: 30px;\n}\r\n", ""]);
 
 // exports
 
@@ -50367,60 +50476,61 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "body" }, [
-    _c("h3", { staticClass: "text-center my-3" }, [_vm._v("Syllabus")]),
+  return _c("div", { staticClass: "viewsyllabus" }, [
+    _c("h2", [_vm._v("Syllabus")]),
     _vm._v(" "),
-    _c("div", { staticClass: "border p-3 my-4" }, [
-      _c("h3", [_vm._v("Class Information")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("h5", { staticClass: "toCaps" }, [
-          _c("span", { staticClass: "text-muted" }, [_vm._v("Term :")]),
-          _vm._v(" " + _vm._s(_vm.syllabus.term) + "\n      ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("h5", { staticClass: "toCaps" }, [
-          _c("span", { staticClass: "text-muted" }, [_vm._v("Grade Level :")]),
-          _vm._v("\n        " + _vm._s(_vm.syllabus.grade_level) + "\n      ")
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("table", { staticClass: "table table-bordered bg-white" }, [
-      _c("tr", { staticClass: "border p-3 my-4" }, [
-        _c("td", [
+    _c("div", { staticClass: "contain-syllabus" }, [
+      _c("div", { staticClass: "view-syllabus" }, [
+        _c("div", { staticClass: "class-information" }, [
+          _c("h3", [_vm._v("Class Information")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "underline" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "class-information-inner" }, [
+            _c("h4", [
+              _vm._v("\n            TERM:\n            "),
+              _c("span", [_vm._v(_vm._s(_vm.syllabus.term))])
+            ]),
+            _vm._v(" "),
+            _c("h4", [
+              _vm._v("\n            CLASS:\n            "),
+              _c("span", [_vm._v(_vm._s(_vm.syllabus.grade_level))])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("div", { staticClass: "class-information" }, [
           _c("h3", [_vm._v("Subject Information")]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("h5", { staticClass: "toCaps" }, [
-              _c("span", { staticClass: "text-muted" }, [_vm._v("Subject :")]),
-              _vm._v(
-                "\n            " + _vm._s(_vm.syllabus.subject) + "\n          "
-              )
+          _c("div", { staticClass: "underline" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "class-information-inner" }, [
+            _c("h4", [
+              _vm._v("\n            SUBJECT:\n            "),
+              _c("span", [_vm._v(_vm._s(_vm.syllabus.subject))])
+            ]),
+            _vm._v(" "),
+            _c("h4", [
+              _vm._v("\n            FREQUENCY:\n            "),
+              _c("span", [_vm._v(_vm._s(_vm.syllabus.frequency))])
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "" } }, [_vm._v("Description :")]),
-            _vm._v(
-              "\n          " + _vm._s(_vm.syllabus.description) + "\n        "
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "" } }, [_vm._v("Frequency :")]),
-            _vm._v(
-              "\n          " + _vm._s(_vm.syllabus.frequency) + "\n        "
-            )
+          _c("div", { staticClass: "subject-description" }, [
+            _c("h6", [_vm._v("Subject Description")]),
+            _vm._v(" "),
+            _c("p", [_vm._v(_vm._s(_vm.syllabus.description))])
           ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
-        _c("td", [
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("div", { staticClass: "class-information" }, [
           _c("h3", [_vm._v("Overarching Learner Outcome")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "underline" }),
           _vm._v(" "),
           _c(
             "div",
@@ -50435,142 +50545,120 @@ var render = function() {
             }),
             0
           )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
-        _c(
-          "td",
-          [
-            _c("h3", [_vm._v("Target skills to be learned")]),
-            _vm._v(" "),
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("div", { staticClass: "class-information" }, [
+          _c("h3", [_vm._v("Target skills to be learned")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "underline" }),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group" },
             _vm._l(_vm.syllabus.target_skills, function(item, idx) {
               return _c("span", { key: idx, staticClass: "mb-2 d-flex" }, [
                 _c("span", { staticClass: "mr-3" }, [
                   _vm._v(_vm._s(idx + 1) + ".")
                 ]),
-                _vm._v("\n          " + _vm._s(item.name) + "\n        ")
+                _vm._v("\n            " + _vm._s(item.name) + "\n          ")
               ])
-            })
-          ],
-          2
-        )
-      ]),
-      _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
-        _c(
-          "td",
-          [
-            _c("h3", [_vm._v("Required Modules")]),
-            _vm._v(" "),
+            }),
+            0
+          )
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("div", { staticClass: "class-information" }, [
+          _c("h3", [_vm._v("Required Modules")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "underline" }),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group" },
             _vm._l(_vm.syllabus.modules, function(item, idx) {
               return _c("span", { key: idx, staticClass: "mb-2 d-flex" }, [
                 _c("span", { staticClass: "mr-3" }, [
                   _vm._v(_vm._s(idx + 1) + ".")
                 ]),
-                _vm._v("\n          " + _vm._s(item.name) + "\n        ")
+                _vm._v("\n            " + _vm._s(item.name) + "\n          ")
               ])
-            })
-          ],
-          2
-        )
-      ]),
-      _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
-        _c(
-          "td",
-          [
-            _c("h3", [_vm._v("Delivery Methods")]),
-            _vm._v(" "),
+            }),
+            0
+          )
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("div", { staticClass: "class-information" }, [
+          _c("h3", [_vm._v("Delivery Methods")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "underline" }),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group" },
             _vm._l(_vm.syllabus.delivery_methods, function(item, idx) {
               return _c("span", { key: idx, staticClass: "mb-2 d-flex" }, [
                 _c("span", { staticClass: "mr-3" }, [
                   _vm._v(_vm._s(idx + 1) + ".")
                 ]),
-                _vm._v("\n          " + _vm._s(item.name) + "\n        ")
+                _vm._v("\n            " + _vm._s(item.name) + "\n          ")
               ])
-            })
-          ],
-          2
-        )
-      ]),
-      _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
-        _c(
-          "td",
-          [
-            _c("h3", [_vm._v("Assessment")]),
-            _vm._v(" "),
-            _c(
-              "small",
-              { staticClass: "form-text text-muted", attrs: { id: "helpId" } },
-              [_vm._v("How will the students be assessed?")]
-            ),
-            _vm._v(" "),
+            }),
+            0
+          )
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("div", { staticClass: "class-information" }, [
+          _c("h3", [_vm._v("Assessment")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "underline" }),
+          _vm._v(" "),
+          _c(
+            "small",
+            { staticClass: "form-text text-muted", attrs: { id: "helpId" } },
+            [_vm._v("How will the students be assessed?")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group" },
             _vm._l(_vm.syllabus.assessments, function(item, idx) {
               return _c("span", { key: idx, staticClass: "mb-2 d-flex" }, [
                 _c("span", { staticClass: "mr-3" }, [
                   _vm._v(_vm._s(idx + 1) + ".")
                 ]),
-                _vm._v("\n          " + _vm._s(item.name) + "\n        ")
+                _vm._v("\n            " + _vm._s(item.name) + "\n          ")
               ])
-            })
-          ],
-          2
-        )
-      ]),
-      _vm._v(" "),
-      _c("tr", [
-        _c(
-          "td",
-          [
-            _c("h3", [_vm._v("FAQs (Optional)")]),
-            _vm._v(" "),
-            _vm._l(_vm.syllabus.faqs, function(item, idx) {
-              return _c("div", { key: idx, staticClass: "mb-3" }, [
-                _c("span", { staticClass: "d-flex mb-2" }, [
-                  _c(
-                    "label",
-                    { staticClass: "side-label", attrs: { for: "Question" } },
-                    [_vm._v("Question")]
-                  ),
-                  _vm._v(
-                    "\n            " + _vm._s(item.question) + "\n          "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "d-flex" }, [
-                  _c(
-                    "label",
-                    { staticClass: "side-label", attrs: { for: "" } },
-                    [_vm._v("Answer")]
-                  ),
-                  _vm._v(
-                    "\n            " + _vm._s(item.answer) + "\n          "
-                  )
-                ]),
-                _vm._v(" "),
-                _vm.syllabus.faqs.length > 1 ? _c("hr") : _vm._e()
-              ])
-            })
-          ],
-          2
-        )
-      ]),
-      _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
-        _c("td", [
+            }),
+            0
+          )
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("div", { staticClass: "class-information" }, [
           _c("h3", [_vm._v("Course Availability")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "underline" }),
           _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
             _vm._v(_vm._s(_vm.syllabus.availability))
           ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
-        _c("td", [
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("div", { staticClass: "class-information" }, [
           _c("h3", [_vm._v("Comments")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "underline" }),
           _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
             _vm._v(_vm._s(_vm.syllabus.comments))

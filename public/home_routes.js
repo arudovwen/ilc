@@ -17914,6 +17914,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tutor"],
   data: function data() {
@@ -50282,7 +50285,23 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "b-list-group",
-                    [_c("b-list-group-item", [_vm._v("item")])],
+                    [
+                      _c("b-list-group-item", [
+                        _c("ul", [
+                          _c("li", [
+                            _vm._v(
+                              "You need to have completed last term topic on mathematics"
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("li", [
+                            _vm._v(
+                              "You will understand the basis of all topic attached to the subject"
+                            )
+                          ])
+                        ])
+                      ])
+                    ],
                     1
                   )
                 ],

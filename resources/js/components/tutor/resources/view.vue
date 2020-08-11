@@ -280,7 +280,10 @@
         <b-col>
           <h4>Requirements</h4>
           <b-list-group>
-            <b-list-group-item>item</b-list-group-item>
+            <b-list-group-item> <ul>
+          <li>You need to have completed last term topic on mathematics</li>
+          <li>You will understand the basis of all topic attached to the subject</li>
+        </ul></b-list-group-item>
           </b-list-group>
         </b-col>
       </b-row>

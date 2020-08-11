@@ -15,10 +15,10 @@
               <router-link to="/tutor/times-table"> <li><i class="icon-calendar  pr-2" aria-hidden="true"></i> TimesTable</li></router-link>
                 <router-link to="/tutor/groups"> <li><i class="icon-group  pr-2" aria-hidden="true"></i> Groups</li></router-link>
             <router-link to="/tutor/assessment"> <li><i class="icon-hour  pr-2" aria-hidden="true"></i> Assessments</li></router-link>              
-            <router-link to="/"> <li><i class="icon-market  pr-2" aria-hidden="true"></i> Activities</li></router-link>
-            <router-link to="/"> <li><i class="icon-edit   pr-2  "></i> Attendance</li></router-link>
+            <router-link to="#"> <li><i class="icon-market  pr-2" aria-hidden="true"></i> Activities</li></router-link>
+            <router-link to="#"> <li><i class="icon-edit   pr-2  "></i> Attendance</li></router-link>
             <router-link to="/tutor/gradebook"> <li><i class="icon-score  pr-2" aria-hidden="true"></i> Grade Book</li></router-link>
-                <router-link to="/"> <li><i class="icon-teacher pr-2  "></i> Virtual Class</li></router-link>
+                <router-link to="#"> <li><i class="icon-teacher pr-2  "></i> Virtual Class</li></router-link>
 
             <li @click="logout"><i class="icon-logout pr-2" aria-hidden="true"></i> Logout </li>
         </ul>

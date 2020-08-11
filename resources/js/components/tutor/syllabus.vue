@@ -3,7 +3,8 @@
     <div class>
       <div class="p-3">
         <h4>Syllabus</h4>
-        <table class="table table-striped table-bordered">
+       <div class="bd-table">
+            <table class="table table-hover table-bordered">
           <thead class="thead-dark">
             <tr>
               <th>Class</th>
@@ -24,6 +25,7 @@
             </tr>
           </tbody>
         </table>
+       </div>
       </div>
     </div>
   </div>

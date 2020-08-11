@@ -1,6 +1,6 @@
 <template>
   <div class="form">
-    <img src="/images/ilc-logo.png" class="d-inline-block align-top logo" alt="logo" />
+   <router-link to="/"> <img src="/images/ilc-logo.png" class="d-inline-block align-top logo" alt="logo" /></router-link>
 
     <b-container>
       <b-row class="justify-content-center align-items-center">

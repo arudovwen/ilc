@@ -1,14 +1,14 @@
 <template>
-    <div class="body">
-         <div class=" p-3">
-       <h4 >School Curriculums</h4>
-        <table class="table table-striped table-bordered">
+  <div class="body">
+    <div class="p-3">
+      <h4>School Curriculums</h4>
+     <div class="bd-table">
+   <table class="table table-hover table-bordered rounded">
         <thead class="thead-dark">
           <tr>
             <th>Class</th>
 
             <th class="d-flex justify-content-around">Action</th>
-           
           </tr>
         </thead>
         <tbody>
@@ -20,12 +20,12 @@
                 <i class="fa fa-eye" aria-hidden="true"></i> View
               </span>
             </td>
-          
           </tr>
         </tbody>
       </table>
      </div>
     </div>
+  </div>
 </template>
 <script>
 export default {
@@ -33,11 +33,9 @@ export default {
   data() {
     return {
       curriculum: [],
-     
     };
   },
   mounted() {
-   
     this.getCurriculum();
   },
   methods: {
@@ -54,7 +52,7 @@ export default {
           }
         });
     },
- 
+
     viewCurriculum(id) {
       this.$router.push(`/tutor/curriculum/view/${id}`);
     },
@@ -64,14 +62,14 @@ export default {
 
 
 <style scoped>
-.body{
-    height: 100%;
+.body {
+  height: 100%;
 }
-.table .thead-dark th{
-    background-color:  #22CADE;
-    border-color: #22CADE;
+.table .thead-dark th {
+  background-color: #22cade;
+  border-color: #22cade;
 }
-.view-link{
-    cursor: pointer;
+.view-link {
+  cursor: pointer;
 }
 </style>

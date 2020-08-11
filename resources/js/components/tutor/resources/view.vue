@@ -280,10 +280,12 @@
         <b-col>
           <h4>Requirements</h4>
           <b-list-group>
-            <b-list-group-item> <ul>
-          <li>You need to have completed last term topic on mathematics</li>
-          <li>You will understand the basis of all topic attached to the subject</li>
-        </ul></b-list-group-item>
+            <b-list-group-item >
+              <ul class="p-3">
+                <li>You need to have completed last term topic on mathematics</li>
+                <li>You will understand the basis of all topic attached to the subject</li>
+              </ul>
+            </b-list-group-item>
           </b-list-group>
         </b-col>
       </b-row>
@@ -301,11 +303,7 @@
                     v-b-toggle="item.module.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
                     variant="secondary"
                     class="text-left"
-                  >
-                    {{item.module}}
-                   
-
-                  </b-button>
+                  >{{item.module}}</b-button>
                 </b-card-header>
                 <b-collapse
                   :id="item.module.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
@@ -315,34 +313,53 @@
                   <b-card-body>
                     <b-card-text>{{item.excerpt}}</b-card-text>
                     <b-card-text>
+                      <div class="mod">
+                        <ul>
+                          <li v-for="(content,index) in JSON.parse(item.content)" :key="index">
+                            <span
+                              @click="handleToggle(content.title.replace(/[^a-z0-9]/gi, '').replace(/\$/g, ''))"
+                            >
+                              <span class="ml-3">
+                                <i
+                                  class="fa fa-play-circle"
+                                  v-if="content.type=='video'"
+                                  aria-hidden="true"
+                                ></i>
+                                <i
+                                  class="fa fa-file-pdf-o"
+                                  v-if="content.type=='pdf'"
+                                  aria-hidden="true"
+                                ></i>
+                                <i
+                                  class="fa fa-volume-up"
+                                  v-if="content.type=='audio'"
+                                  aria-hidden="true"
+                                ></i>
+                                <i
+                                  class="fa fa-file-powerpoint-o"
+                                  v-if="content.type=='ppt'"
+                                  aria-hidden="true"
+                                ></i>
+                                <i class="fas fa-file-csv" v-if="content.type=='csv'"></i>
+                              </span>
+                              {{content.title}}
+                            </span>
 
-                    <div class="mod">
-                      <ul>
-                        <li v-for="(content,index) in JSON.parse(item.content)" :key="index">
-                           
-                        <span  @click="handleToggle(content.title.replace(/[^a-z0-9]/gi, '').replace(/\$/g, ''))">  <span class="ml-3">
-                    <i class="fa fa-play-circle" v-if="content.type=='video'" aria-hidden="true"></i>
-                    <i class="fa fa-file-pdf-o" v-if="content.type=='pdf'" aria-hidden="true"></i>
-                    <i class="fa fa-volume-up" v-if="content.type=='audio'" aria-hidden="true"></i>
-                    <i class="fa fa-file-powerpoint-o" v-if="content.type=='ppt'" aria-hidden="true"></i>
-                    <i class="fas fa-file-csv" v-if="content.type=='csv'"></i>
-                    </span>  {{content.title}} </span> 
-                   
-
-                        <b-modal :id="content.title.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')" :title="content.title" hide-footer>
-                          <p class="my-4">{{content.overview}}</p>
-                        </b-modal>
-                           </li>
-
-                      </ul>
-                    </div>
+                            <b-modal
+                              :id="content.title.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
+                              :title="content.title"
+                              hide-footer
+                            >
+                              <p class="my-4">{{content.overview}}</p>
+                            </b-modal>
+                          </li>
+                        </ul>
+                      </div>
                     </b-card-text>
                   </b-card-body>
                 </b-collapse>
               </b-card>
             </div>
-
-          
           </div>
         </b-col>
       </b-row>
@@ -425,8 +442,12 @@
         <b-card-text>
           <strong>This includes:</strong>
         </b-card-text>
-        <b-card-text class="border-bottom" v-for="(module,idx) in modules" :key="idx">{{module.module}} - {{JSON.parse(module.content).length}} downloadable resources </b-card-text>
-      
+        <b-card-text
+          class="border-bottom"
+          v-for="(module,idx) in modules"
+          :key="idx"
+        >{{module.module}} - {{JSON.parse(module.content).length}} downloadable resources</b-card-text>
+
         <b-button href="#" block variant="primary">Views : 24</b-button>
       </b-card>
     </b-col>
@@ -457,18 +478,13 @@ export default {
     this.getResource();
   },
   methods: {
-    handleToggle(title){
-    this.$bvModal.show(title)
+    handleToggle(title) {
+      this.$bvModal.show(title);
     },
     edit(id) {
       this.$router.push(`/tutor/resource/edit/${id}`);
     },
     getResource() {
-      axios.get("/api/get-module").then((res) => {
-        if (res.status == 200) {
-          this.modules = res.data;
-        }
-      });
       axios
         .get(`/api/resource/${this.$route.params.id}`, {
           headers: {
@@ -487,7 +503,17 @@ export default {
             this.id = res.data.data.id;
             this.cover_image = res.data.data.cover_image;
             this.subject = res.data.data.subject;
-            this.show = false;
+
+            axios
+              .get(
+                `/api/get-module/${res.data.data.subject}/${this.syllabus.grade_level}`
+              )
+              .then((res) => {
+                if (res.status == 200) {
+                  this.modules = res.data;
+                  this.show = false;
+                }
+              });
           }
         });
     },
@@ -501,12 +527,12 @@ export default {
   position: relative;
   background: transparent;
 }
-.mod ul{
+.mod ul {
   list-style: none;
 }
-.mod ul li{
-  padding:10px 20px;
-  border-bottom:1px solid #ccc;
+.mod ul li {
+  padding: 10px 20px;
+  border-bottom: 1px solid #ccc;
 }
 .top_n {
   position: relative;

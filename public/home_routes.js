@@ -17917,6 +17917,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tutor"],
   data: function data() {
@@ -17949,11 +17970,6 @@ __webpack_require__.r(__webpack_exports__);
     getResource: function getResource() {
       var _this = this;
 
-      axios.get("/api/get-module").then(function (res) {
-        if (res.status == 200) {
-          _this.modules = res.data;
-        }
-      });
       axios.get("/api/resource/".concat(this.$route.params.id), {
         headers: {
           Authorization: "Bearer ".concat(this.$props.tutor.access_token)
@@ -17970,7 +17986,12 @@ __webpack_require__.r(__webpack_exports__);
           _this.id = res.data.data.id;
           _this.cover_image = res.data.data.cover_image;
           _this.subject = res.data.data.subject;
-          _this.show = false;
+          axios.get("/api/get-module/".concat(res.data.data.subject, "/").concat(_this.syllabus.grade_level)).then(function (res) {
+            if (res.status == 200) {
+              _this.modules = res.data;
+              _this.show = false;
+            }
+          });
         }
       });
     }
@@ -20749,7 +20770,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.jumb[data-v-719e9d13] {\n  width: 100%;\n  position: relative;\n  background: transparent;\n}\n.mod ul[data-v-719e9d13]{\n  list-style: none;\n}\n.mod ul li[data-v-719e9d13]{\n  padding:10px 20px;\n  border-bottom:1px solid #ccc;\n}\n.top_n[data-v-719e9d13] {\n  position: relative;\n\n  -o-object-fit: cover;\n\n     object-fit: cover;\n}\n.overlay-n[data-v-719e9d13] {\n  top: 0px;\n  left: 0px;\n  bottom: 0px;\n  right: 0px;\n  opacity: 0.85;\n  background: #f7f8fa;\n  -webkit-backdrop-filter: blur(2px);\n          backdrop-filter: blur(2px);\n  position: absolute;\n}\n.main-bar[data-v-719e9d13] {\n  width: 70%;\n  margin-right: auto;\n}\n.floating-bar[data-v-719e9d13] {\n  position: fixed;\n  right: 5%;\n  top: 30%;\n}\n.view-resource-header[data-v-719e9d13] {\n  background-image: linear-gradient(\n      to bottom,\n      rgba(10, 64, 101, 0.84),\n      rgba(10, 64, 101, 0.84)\n    ),\n    url(/images/resource-bg.png);\n  color: #fff;\n  padding: 1.5rem;\n  /* margin-top: 2rem; */\n  position: relative;\n}\n.view-resource-header p[data-v-719e9d13] {\n  font-size: 14px;\n  margin-bottom: 0.5rem !important;\n}\n.btn[data-v-719e9d13] {\n  background: transparent;\n  border: 1px solid #fff;\n  color: white !important;\n  /* margin-right: 10px; */\n  /* margin-bottom: 15px; */\n}\n.btn[data-v-719e9d13]:hover {\n  background: #fff;\n  color: #0a4065 !important;\n  transition: 0.3s;\n  border: none;\n}\n.resource-content[data-v-719e9d13] {\n  padding: 20px;\n  width: 60%;\n}\n.resource-overview[data-v-719e9d13] {\n  padding-top: 20px;\n}\n.resource-media-frame[data-v-719e9d13] {\n  padding-top: 20px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.resource-media-frame img[data-v-719e9d13] {\n  width: 50%;\n  height: 300px;\n}\n.tutors-note[data-v-719e9d13] {\n  padding-top: 20px;\n}\n.student-reviews[data-v-719e9d13] {\n  padding: 20px 0;\n}\n.btn-secondary[data-v-719e9d13] {\n  color: #333 !important;\n}\n.btn-primary[data-v-719e9d13] {\n  background: #41cee2 !important;\n}\n", ""]);
+exports.push([module.i, "\n.jumb[data-v-719e9d13] {\n  width: 100%;\n  position: relative;\n  background: transparent;\n}\n.mod ul[data-v-719e9d13] {\n  list-style: none;\n}\n.mod ul li[data-v-719e9d13] {\n  padding: 10px 20px;\n  border-bottom: 1px solid #ccc;\n}\n.top_n[data-v-719e9d13] {\n  position: relative;\n\n  -o-object-fit: cover;\n\n     object-fit: cover;\n}\n.overlay-n[data-v-719e9d13] {\n  top: 0px;\n  left: 0px;\n  bottom: 0px;\n  right: 0px;\n  opacity: 0.85;\n  background: #f7f8fa;\n  -webkit-backdrop-filter: blur(2px);\n          backdrop-filter: blur(2px);\n  position: absolute;\n}\n.main-bar[data-v-719e9d13] {\n  width: 70%;\n  margin-right: auto;\n}\n.floating-bar[data-v-719e9d13] {\n  position: fixed;\n  right: 5%;\n  top: 30%;\n}\n.view-resource-header[data-v-719e9d13] {\n  background-image: linear-gradient(\n      to bottom,\n      rgba(10, 64, 101, 0.84),\n      rgba(10, 64, 101, 0.84)\n    ),\n    url(/images/resource-bg.png);\n  color: #fff;\n  padding: 1.5rem;\n  /* margin-top: 2rem; */\n  position: relative;\n}\n.view-resource-header p[data-v-719e9d13] {\n  font-size: 14px;\n  margin-bottom: 0.5rem !important;\n}\n.btn[data-v-719e9d13] {\n  background: transparent;\n  border: 1px solid #fff;\n  color: white !important;\n  /* margin-right: 10px; */\n  /* margin-bottom: 15px; */\n}\n.btn[data-v-719e9d13]:hover {\n  background: #fff;\n  color: #0a4065 !important;\n  transition: 0.3s;\n  border: none;\n}\n.resource-content[data-v-719e9d13] {\n  padding: 20px;\n  width: 60%;\n}\n.resource-overview[data-v-719e9d13] {\n  padding-top: 20px;\n}\n.resource-media-frame[data-v-719e9d13] {\n  padding-top: 20px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.resource-media-frame img[data-v-719e9d13] {\n  width: 50%;\n  height: 300px;\n}\n.tutors-note[data-v-719e9d13] {\n  padding-top: 20px;\n}\n.student-reviews[data-v-719e9d13] {\n  padding: 20px 0;\n}\n.btn-secondary[data-v-719e9d13] {\n  color: #333 !important;\n}\n.btn-primary[data-v-719e9d13] {\n  background: #41cee2 !important;\n}\n", ""]);
 
 // exports
 
@@ -50287,7 +50308,7 @@ var render = function() {
                     "b-list-group",
                     [
                       _c("b-list-group-item", [
-                        _c("ul", [
+                        _c("ul", { staticClass: "p-3" }, [
                           _c("li", [
                             _vm._v(
                               "You need to have completed last term topic on mathematics"
@@ -50353,13 +50374,7 @@ var render = function() {
                                     staticClass: "text-left",
                                     attrs: { block: "", variant: "secondary" }
                                   },
-                                  [
-                                    _vm._v(
-                                      "\n                  " +
-                                        _vm._s(item.module) +
-                                        "\n                 \n\n                "
-                                    )
-                                  ]
+                                  [_vm._v(_vm._s(item.module))]
                                 )
                               ],
                               1
@@ -50476,11 +50491,11 @@ var render = function() {
                                                         ]
                                                       ),
                                                       _vm._v(
-                                                        "  " +
+                                                        "\n                            " +
                                                           _vm._s(
                                                             content.title
                                                           ) +
-                                                          " "
+                                                          "\n                          "
                                                       )
                                                     ]
                                                   ),
@@ -50753,7 +50768,7 @@ var render = function() {
                       _vm._s(module.module) +
                         " - " +
                         _vm._s(JSON.parse(module.content).length) +
-                        " downloadable resources "
+                        " downloadable resources"
                     )
                   ]
                 )

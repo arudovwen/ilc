@@ -57,49 +57,52 @@
       </b-row>
     </div>
   </div>-->
-  <div class="student-assessment ">
-    <b-tabs content-class class="container overall-tab">
-      <b-tab title="Assignment" active>
-        <b-container class="main-table" >
-          <b-table :fields="fields" :items="assignment" bordered>
-            <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
-            <template v-slot:cell(title)="data">
-              <span @click="view(data.item.id)">{{data.item.title}}</span>
-            </template>
-          </b-table>
-        </b-container>
-      </b-tab>
-            <b-tab title="Quiz" >
-        <b-container class="main-table">
-          <b-table :fields="fields" :items="quiz" bordered>
-            <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
-            <template v-slot:cell(title)="data">
-              <span @click="view(data.item.id)">{{data.item.title}}</span>
-            </template>
-          </b-table>
-        </b-container>
-      </b-tab>
-       <b-tab title="Test" >
-        <b-container class="main-table">
-          <b-table :fields="fields" :items="test" bordered>
-            <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
-            <template v-slot:cell(title)="data">
-              <span @click="view(data.item.id)">{{data.item.title}}</span>
-            </template>
-          </b-table>
-        </b-container>
-      </b-tab>
-      <b-tab title="Examination" >
-        <b-container class="main-table">
-          <b-table :fields="fields" :items="examination" bordered>
-            <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
-            <template v-slot:cell(title)="data">
-              <span @click="view(data.item.id)">{{data.item.title}}</span>
-            </template>
-          </b-table>
-        </b-container>
-      </b-tab>
-    </b-tabs>
+  <div class="student-assessment">
+    <b-card no-body>
+      <b-tabs card>
+        <b-tab title="Assignment" active>
+          <b-card-text>
+            <b-table :fields="fields" :items="assignment" bordered>
+              <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
+              <template v-slot:cell(title)="data">
+                <span @click="view(data.item.id)">{{data.item.title}}</span>
+              </template>
+            </b-table>
+          </b-card-text>
+        </b-tab>
+         <b-tab title="Quiz" >
+          <b-card-text>
+            <b-table :fields="fields" :items="quiz" bordered>
+              <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
+              <template v-slot:cell(title)="data">
+                <span @click="view(data.item.id)">{{data.item.title}}</span>
+              </template>
+            </b-table>
+          </b-card-text>
+        </b-tab>
+         <b-tab title="Test" >
+          <b-card-text>
+            <b-table :fields="fields" :items="test" bordered>
+              <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
+              <template v-slot:cell(title)="data">
+                <span @click="view(data.item.id)">{{data.item.title}}</span>
+              </template>
+            </b-table>
+          </b-card-text>
+        </b-tab>
+         <b-tab title="Examination" >
+          <b-card-text>
+            <b-table :fields="fields" :items="examination" bordered>
+              <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
+              <template v-slot:cell(title)="data">
+                <span @click="view(data.item.id)">{{data.item.title}}</span>
+              </template>
+            </b-table>
+          </b-card-text>
+        </b-tab>
+      </b-tabs>
+    </b-card>
+
   </div>
 </template>
 
@@ -119,10 +122,12 @@ export default {
       examination: [],
       fields: [
         "Sn",
+        "subject",
         {
           key: "title",
           sortable: true,
         },
+        "status"
       ],
     };
   },
@@ -230,10 +235,13 @@ nav {
 .hiden {
   opacity: 0;
 }
-.overall-tab{
+.overall-tab {
   padding-top: 20px;
 }
-.main-table{
+.main-table {
   padding-top: 20px;
+}
+.student-assessment{
+  padding:40px 20px;
 }
 </style>

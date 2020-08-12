@@ -1,129 +1,75 @@
 <template>
-  <!-- <div>
-    <div class="logo mb-4">
-     
-           <p class="bg-white text-center rounded px-3 py-2"> {{student.abbreviation}}</p> 
-  
-         <small>SCHOOL</small>
-    </div> 
-
-    <nav>
-      <ul>
-        <router-link to="/student">
-          <li>
-            <i class="fa fa-home pr-2" aria-hidden="true"></i> Home
-          </li>
-        </router-link>
-        <router-link to="/student/profile">
-          <li>
-            <i class="fa fa-user pr-2" aria-hidden="true"></i> Profile
-          </li>
-        </router-link>
-        <router-link to="/student/explore">
-          <li>
-            <i class="fa fa-venus-mars pr-2" aria-hidden="true"></i> Explore
-          </li>
-        </router-link>
-        <router-link to="/student/library">
-          <li>
-            <i class="fas fa-box-open pr-2"></i> Library
-          </li>
-        </router-link>
-      
-           <router-link to="/student/assessment">
-          <li>
-            <i class="fa fa-book pr-2" aria-hidden="true"></i> Assessments
-          </li>
-        </router-link>
-        <router-link to="/student/groups">
-          <li>
-            <i class="fa fa-users pr-2" aria-hidden="true"></i> Groups
-          </li>
-        </router-link>
-     <router-link to="/">
-          <li>
-            <i class="fa fa-list-alt pr-2" aria-hidden="true"></i> Grade Book
-          </li>
-        </router-link>
-        <router-link to="/">
-          <li>
-            <i class="fa fa-calendar pr-2" aria-hidden="true"></i> Activities
-          </li>
-        </router-link>
-     
-        <router-link to="/">
-          <li>
-            <i class="fas fa-chalkboard-teacher pr-2"></i> Virtual Classroom
-          </li>
-        </router-link>
-
-        <li @click="logout">
-          <i class="fa fa-sign-out pr-2" aria-hidden="true"></i> Logout
-        </li>
-      </ul>
-    </nav>
-  </div>-->
-  <div>
+  <div class="bar">
     <div class="logo">
-          
-      <h6> {{student.abbreviation}}</h6>
+      <h6>{{student.abbreviation}}</h6>
     </div>
     <nav>
       <ul>
         <router-link to="/student">
           <li>
-            <i class="icon-home-1" aria-hidden="true"></i> Home
+            <i class="icon-home-1" aria-hidden="true"></i>
+            <span v-if="!sideBar">Home</span>
           </li>
         </router-link>
         <router-link to="/student/explore">
           <li>
-            <i class="icon-refresh" aria-hidden="true"></i> Explore
+            <i class="icon-refresh" aria-hidden="true"></i>
+            <span v-if="!sideBar">Explore</span>
           </li>
         </router-link>
         <router-link to="/student/library">
           <li>
-            <i class="icon-open-book" aria-hidden="true"></i> Library
+            <i class="icon-open-book" aria-hidden="true"></i>
+            <span v-if="!sideBar">Library</span>
           </li>
         </router-link>
         <router-link to="/student/assessment">
           <li>
-            <i class="icon-hour" aria-hidden="true"></i> Assessment
+            <i class="icon-hour" aria-hidden="true"></i>
+            <span v-if="!sideBar">Assessment</span>
           </li>
         </router-link>
         <router-link to="/student/groups">
           <li>
-            <i class="icon-group-1" aria-hidden="true"></i> Groups
+            <i class="icon-group-1" aria-hidden="true"></i>
+            <span v-if="!sideBar">Groups</span>
           </li>
         </router-link>
         <router-link to="/student/groups">
           <li>
-            <i class="icon-score" aria-hidden="true"></i> Grade Books
+            <i class="icon-score" aria-hidden="true"></i>
+            <span v-if="!sideBar">Grade Books</span>
           </li>
         </router-link>
         <router-link to="/student/activities">
           <li>
-            <i class="icon-market" aria-hidden="true"></i> Activities
+            <i class="icon-market" aria-hidden="true"></i>
+            <span v-if="!sideBar">Activities</span>
           </li>
         </router-link>
         <router-link to="/student/virtual">
           <li>
-            <i class="icon-business-class" aria-hidden="true"></i> Virtual Class
+            <i class="icon-business-class" aria-hidden="true"></i>
+            <span v-if="!sideBar">Virtual Class</span>
           </li>
         </router-link>
-        
-          <li @click="logout">
-            <i class="icon-logout" aria-hidden="true"></i> Log Out
-          </li>
-       
+
+        <li @click="logout">
+          <i class="icon-logout" aria-hidden="true"></i>
+          <span v-if="!sideBar">Log Out</span>
+        </li>
       </ul>
     </nav>
+    <div class="min-nav" @click="minimise">
+      <i class="fas fa-compress-alt fa-1x"></i>
+    </div>
   </div>
 </template>
 
 
 <script>
 export default {
-  props: ["student"],
+  props: ["student", "sideBar"],
   data() {
     return {};
   },
@@ -133,12 +79,24 @@ export default {
       localStorage.removeItem("typeStudent");
       this.$router.push("/auth");
     },
+    minimise() {
+      this.$emit("minimise");
+    },
   },
 };
 </script>
 
 
 <style scoped>
+.bar {
+  position: relative;
+}
+.min-nav {
+  position: absolute;
+  text-align: center;
+  right: 20px;
+  bottom: 40px;
+}
 ul {
   margin: auto;
 }
@@ -148,10 +106,10 @@ li {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 10px;
+  padding: 10px 0;
 }
 
-.router-link-exact-active li{
+.router-link-exact-active li {
   background: rgba(19, 166, 153, 0.2);
 }
 ul a {
@@ -167,21 +125,21 @@ ul li {
 ul i {
   font-size: 20px;
 }
- .logo{
-    padding: 10px 20px;
-    margin-bottom:20px;
-    text-align:center;
-    font-weight: bold;
-    font-family: 'Josefin Sans';
-    font-size: 32px;
+.logo {
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bold;
+  font-family: "Josefin Sans";
+  font-size: 32px;
 }
-.logo h6{
-    font-weight: bold;
-    font-family: 'Josefin Sans';
-    font-size: 24px;
-    text-align:center;
-    color:#ffd708;
-    margin:0;
+.logo h6 {
+  font-weight: bold;
+  font-family: "Josefin Sans";
+  font-size: 24px;
+  text-align: center;
+  color: #ffd708;
+  margin: 0;
 }
 /* .logo{
     padding: 10px 20px;
@@ -215,8 +173,7 @@ nav{
     padding-left:20px;
 } */
 .router-link-exact-active {
-color: #13A699 ;
-font-weight: bold;
-
+  color: #13a699;
+  font-weight: bold;
 }
 </style>

@@ -1,60 +1,5 @@
 <template>
-  <!-- <div class="body">
-    <nav class="mb-5">
-      <b-button block class=" shadow-sm">
-        Multi-Drop
-      
-      </b-button>
-      <router-link to="/tutor/resource/create">
-        <b-button block class=" shadow-sm">
-         Create Resource
-        
-        </b-button>
-      </router-link>
-
-      <b-button block class=" shadow-sm hiden">
-       Assign Course
-      
-      </b-button>
-
-      <b-button block class=" shadow-sm hiden">
-       Assign Level
-      
-      </b-button>
-    </nav>
-
-    <table class="table table-bordered table-hover">
-      <thead class="thead-dark">
-        <tr>
-          <th>s/n</th>
-          <th>Level</th>
-          <th>Subject</th>
-          <th>Module Title</th>
-          
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item,idx) in resources" :key="idx">
-          <td scope="row">{{idx+1}}</td>
-          <td class="toCaps">{{item.level}}</td>
-          <td class="toCaps">{{item.subject}}</td>
-          <td class="toCaps">{{item.module}}</td>
-      
-          <td class="options">
-          <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-          <div class="option-box">
-            <ul>
-              <li @click="edit(item.id)"><i class="fas fa-edit"></i> Edit</li>
-              <li @click="view(item.id)"><i class="fa fa-eye" aria-hidden="true"></i> View</li>
-              <li @click="drop(item.id)"><i class="fas fa-minus-circle" aria-hidden="true"></i> Drop</li>
-            </ul>
-          </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>-->
+ 
   <div class="resource-main">
     <div class="resource-btn">
       <router-link to="/tutor/resource/create">
@@ -67,48 +12,60 @@
 
     <div class="container">
       <div class="filter-table">
-        <div class="filter-container">
-          <div class="filter-btn">
-            <span>Filter</span>
-            <i class="icon-sort"></i>
+          <div class="filter-container">
+            <div class="filter-btn" @click="toggleFilter">
+              <span>Filter</span>
+              <i class="icon-sort"></i>
+            </div>
           </div>
+          <b-navbar toggleable="lg" type="dark" variant="info" v-if="filterShow">
+            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+            <b-collapse id="nav-collapse" is-nav>
+              <b-navbar-nav>
+                <b-nav-item href="#">Sort By:</b-nav-item>
+              </b-navbar-nav>
+
+              <!-- Right aligned nav items -->
+              <b-navbar-nav class="mx-auto">
+                <b-form-select class="mr-3"  v-model="subject">
+                
+                    <b-form-select-option value="" disabled>-- Subject --</b-form-select-option>
+                    <b-form-select-option value="all">-- All --</b-form-select-option>
+                    <b-form-select-option
+                      :value="item.name"
+                      v-for="(item,idx) in subjects"
+                      :key="idx"
+                    >{{item.name}}</b-form-select-option>
+                
+                </b-form-select>
+                <b-form-select class="mr-3" v-model="myclass">
+                
+                    <b-form-select-option value="" disabled>-- Class --</b-form-select-option>
+                    <b-form-select-option value="all">-- All --</b-form-select-option>
+                    <b-form-select-option
+                      :value="item.class_name"
+                      v-for="(item,idx) in classess"
+                      :key="idx"
+                    >{{item.class_name}}</b-form-select-option>
+                
+                </b-form-select>
+                <b-form-select  v-model="term">
+                
+                    <b-form-select-option value="" disabled>-- Term --</b-form-select-option>
+                 
+                </b-form-select>
+              </b-navbar-nav>
+              <b-navbar-nav>
+                <b-nav-form class="ml-auto">
+                  <b-form-input size="sm" class="mr-sm-2 search rounded-pill" placeholder="Search"></b-form-input>
+                </b-nav-form>
+              </b-navbar-nav>
+            </b-collapse>
+          </b-navbar>
         </div>
-        <b-navbar toggleable="lg" type="dark" variant="info">
-          <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-          <b-collapse id="nav-collapse" is-nav>
-            <b-navbar-nav>
-              <b-nav-item href="#">Sort By:</b-nav-item>
-            </b-navbar-nav>
-
-            <!-- Right aligned nav items -->
-            <b-navbar-nav class="mx-auto">
-              <b-form-select class="mr-3" :options="subjects" v-model="subject">
-                <template v-slot:first>
-                  <b-form-select-option :value="null" disabled>-- Subject --</b-form-select-option>
-                </template>
-              </b-form-select>
-              <b-form-select class="mr-3" :options="classess" v-model="myclass">
-                <template v-slot:first>
-                  <b-form-select-option :value="null" disabled>-- Class --</b-form-select-option>
-                </template>
-              </b-form-select>
-               <b-form-select :options="term" v-model="term">
-                <template v-slot:first>
-                  <b-form-select-option :value="null" disabled>-- Term --</b-form-select-option>
-                </template>
-              </b-form-select>
-            </b-navbar-nav>
-            <b-navbar-nav>
-              <b-nav-form class="ml-auto">
-                <b-form-input size="sm" class="mr-sm-2 search rounded-pill" placeholder="Search"></b-form-input>
-              </b-nav-form>
-            </b-navbar-nav>
-          </b-collapse>
-        </b-navbar>
-      </div>
     </div>
-    <div class="resource-table container">
+    <div class="resource-table container bd-table">
       <table class="table table-hover table-bordered">
         <thead class="thead-darkblue">
           <tr>
@@ -121,7 +78,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item,idx) in resources" :key="idx">
+          <tr v-for="(item,idx) in sorted" :key="idx">
             <td scope="row">{{idx+1}}</td>
             <td class="toCaps">{{item.level}}</td>
             <td class="toCaps">{{item.subject}}</td>
@@ -158,23 +115,69 @@ export default {
       resources: [],
       subjects: [],
       classess: [],
-      subject: null,
-      myclass: null,
+      subject: '',
+      myclass: '',
+      term:'',
+      filterShow:false
     };
   },
   mounted() {
     this.getResources();
+      this.getClasses();
+    this.getSubjects();
   },
   computed: {
     sorted() {
       return this.resources.filter((item) => {
-        if (this.subject == item.subject || this.level == item.myclass) {
+        if (this.subject.toLowerCase() == item.subject.toLowerCase() || this.myclass.toLowerCase() == item.level.toLowerCase()) {
+          return item;
+        } else if(this.subject== '' || this.subject == 'all'){
           return item;
         }
       });
     },
   },
   methods: {
+     getSubjects() {
+      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios
+        .get("/api/tutor-all-subjects", {
+          headers: {
+            Authorization: `Bearer ${tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.subjects = res.data;
+          }
+        })
+        .catch();
+    },
+    getClasses() {
+      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios
+        .get("/api/all-classes", {
+          headers: {
+            Authorization: `Bearer ${tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.classess = res.data;
+            // res.data.forEach((item) => {
+            //   this.allClass.push(item.class_name);
+            //   if (item.sub_class !== "") {
+            //     item.sub_class.split(",").forEach((i) => {
+            //       this.allClass.push(i);
+            //     });
+            //   }
+            // });
+          }
+        });
+    },
+    toggleFilter(){
+      this.filterShow = !this.filterShow
+    },
     sortContent(arr) {
       let ans = [];
 
@@ -194,18 +197,11 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             this.resources = res.data;
-            res.data.forEach((item) => {
-              if (!this.subjects.includes(item.subject)) {
-                this.subjects.push(item.subject);
-              }
-
-              if (!this.classess.includes(item.level)) {
-                this.classess.push(item.level);
-              }
-            });
+           
           }
         });
     },
+    
     edit(id) {
       this.$router.push(`/tutor/resource/edit/${id}`);
     },

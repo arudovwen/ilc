@@ -1,34 +1,38 @@
 <template>
-  <div class="side-bar">
+  <div class="side-bar bar">
      <div class="logo">
      
            <p class="bg-white text-center rounded px-3 py-2"> {{admin.abbreviation}}</p> 
   
          <small>SCHOOL</small>
     </div> 
-    <nav class="side-menu">
+    <nav class="side-menu" :class="{'pl-0':sideBar}">
       <ul class="admin-dashboard-nav">
-        <router-link to="/admin" class="nav-item "><i class="icon-dashboard"></i><li>Dashboard</li></router-link>
-          <router-link to="/admin/administrators" class="nav-item "><i class="icon-admin"></i><li>Admin</li></router-link>
-            <router-link to="/admin/tutors" class="nav-item "><i class="icon-teacher"></i><li>Teacher</li></router-link>
-              <router-link to="/admin/students" class="nav-item "><i class="icon-students"></i><li>Student</li></router-link>
-                <router-link to="/admin/courses" class="nav-item "><i class="icon-edit"></i><li>Subject</li></router-link>
-                  <router-link to="/admin/classes/years" class="nav-item "><i class="icon-education"></i><li>Classes</li></router-link>
-                    <router-link to="/admin/curriculum/home" class="nav-item "><i class="icon-edit"></i><li>Curriculum</li></router-link>
-                      <router-link to="/admin/syllabus/home" class="nav-item "><i class="icon-education"></i><li>Syllabus</li></router-link>
-                         <router-link to="/admin/assessment" class="nav-item "><i class="icon-edit"></i><li>Assessments</li></router-link>
+        <router-link to="/admin" class="nav-item "><i class="icon-dashboard"></i> <li><span v-if="!sideBar">Dashboard</span> </li></router-link>
+          <router-link to="/admin/administrators" class="nav-item "><i class="icon-admin"></i> <li><span v-if="!sideBar">Admin</span> </li></router-link>
+            <router-link to="/admin/tutors" class="nav-item "><i class="icon-teacher"></i> <li><span v-if="!sideBar">Teacher</span> </li></router-link>
+              <router-link to="/admin/students" class="nav-item "><i class="icon-students"></i> <li><span v-if="!sideBar">Student</span> </li></router-link>
+                <router-link to="/admin/courses" class="nav-item "><i class="icon-edit"></i> <li><span v-if="!sideBar">Subject</span> </li></router-link>
+                  <router-link to="/admin/classes/years" class="nav-item "><i class="icon-education"></i> <li><span v-if="!sideBar">Classes</span> </li></router-link>
+                    <router-link to="/admin/curriculum/home" class="nav-item "><i class="icon-edit"></i> <li><span v-if="!sideBar">Curriculum</span> </li></router-link>
+                      <router-link to="/admin/syllabus/home" class="nav-item "><i class="icon-education"></i> <li><span v-if="!sideBar">Syllabus</span> </li></router-link>
+                         <router-link to="/admin/assessment" class="nav-item "><i class="icon-edit"></i> <li><span v-if="!sideBar">Assessments</span> </li></router-link>
                       
-                        <router-link to="/admin/time-table/home" class="nav-item "><i class="icon-calendar"></i><li>Time Table</li></router-link>
-                         <router-link to="/h"><i class="icon-logout"></i><li @click="logout" > Logout</li>  </router-link>
+                        <router-link to="/admin/time-table/home" class="nav-item "><i class="icon-calendar"></i> <li><span v-if="!sideBar">Time Table</span> </li></router-link>
+                         <router-link to="#" ><i class="icon-logout" @click="logout"></i> <li @click="logout"><span v-if="!sideBar"> Logout</span> </li>  </router-link>
                          
       </ul>
     </nav>
+      <div class="min-nav" @click="minimise">
+        <i class="fas fa-compress-alt   fa-1x "></i> 
+    </div>
   </div>
 </template>
 
 
 <script>
 export default {
+  props:[ "sideBar"],
   data() {
     return {
       admin: {},
@@ -42,10 +46,22 @@ export default {
       localStorage.removeItem("typeAdmin");
       this.$router.push("/admin/auth/login");
     },
+     minimise() {
+      this.$emit("minimise");
+    },
   },
 };
 </script>
 <style scoped>
+.bar{
+    position: relative;
+}
+.min-nav{
+    position: absolute;
+    text-align: center;
+    right: 20px;
+    bottom: 40px;
+}
 .logo{
     padding: 10px 20px;
     margin-bottom:20px;
@@ -95,5 +111,8 @@ a:hover{
 .router-link-exact-active i{
   font-size: 24px;
  color:#008E3A;
+}
+li span{
+  font-size:17px;
 }
 </style>

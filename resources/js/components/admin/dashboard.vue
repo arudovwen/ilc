@@ -1,7 +1,7 @@
 <template>
   <div class="my-container d-flex">
-    <Side class="side" />
-    <Main class="main" />
+    <Side class="side"   :sideBar='sideBar' @minimise="minimise" :class="{'min-side':sideBar}"/>
+    <Main class="main" :class="{'min-main':sideBar}" />
   </div>
 </template>
 
@@ -10,10 +10,20 @@
 import Side from "./sideBar";
 import Main from "./main";
 export default {
+  data() {
+    return {
+         sideBar:false
+    }
+  },
   components: {
     Main,
     Side
-  }
+  },
+   methods: {
+        minimise(){
+            this.sideBar = !this.sideBar
+        }
+    },
 };
 </script>
 
@@ -38,4 +48,11 @@ export default {
   right: 0;
    background: #f7f8fa;
 }
+.min-side{
+width: 4% !important;
+}
+.min-main{
+width: 96% !important;
+}
+
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="body">
+  <!-- <div class="body">
     <nav class="mb-5">
       <router-link to="/tutor/quiz">
         <b-button block class="shadow-sm reg-btn text-center">Quiz</b-button>
@@ -56,6 +56,50 @@
         </b-col>
       </b-row>
     </div>
+  </div>-->
+  <div class="student-assessment ">
+    <b-tabs content-class class="container overall-tab">
+      <b-tab title="Assignment" active>
+        <b-container class="main-table" >
+          <b-table :fields="fields" :items="assignment" bordered>
+            <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
+            <template v-slot:cell(title)="data">
+              <span @click="view(data.item.id)">{{data.item.title}}</span>
+            </template>
+          </b-table>
+        </b-container>
+      </b-tab>
+            <b-tab title="Quiz" >
+        <b-container class="main-table">
+          <b-table :fields="fields" :items="quiz" bordered>
+            <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
+            <template v-slot:cell(title)="data">
+              <span @click="view(data.item.id)">{{data.item.title}}</span>
+            </template>
+          </b-table>
+        </b-container>
+      </b-tab>
+       <b-tab title="Test" >
+        <b-container class="main-table">
+          <b-table :fields="fields" :items="test" bordered>
+            <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
+            <template v-slot:cell(title)="data">
+              <span @click="view(data.item.id)">{{data.item.title}}</span>
+            </template>
+          </b-table>
+        </b-container>
+      </b-tab>
+      <b-tab title="Examination" >
+        <b-container class="main-table">
+          <b-table :fields="fields" :items="examination" bordered>
+            <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
+            <template v-slot:cell(title)="data">
+              <span @click="view(data.item.id)">{{data.item.title}}</span>
+            </template>
+          </b-table>
+        </b-container>
+      </b-tab>
+    </b-tabs>
   </div>
 </template>
 
@@ -185,5 +229,11 @@ nav {
 }
 .hiden {
   opacity: 0;
+}
+.overall-tab{
+  padding-top: 20px;
+}
+.main-table{
+  padding-top: 20px;
 }
 </style>

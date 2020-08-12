@@ -9802,6 +9802,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -19453,7 +19497,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-71c18bbd] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-71c18bbd] {\r\n  opacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\nnav[data-v-71c18bbd] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-71c18bbd] {\r\n  opacity: 0;\n}\n.overall-tab[data-v-71c18bbd]{\r\n  padding-top: 20px;\n}\n.main-table[data-v-71c18bbd]{\r\n  padding-top: 20px;\n}\r\n", ""]);
 
 // exports
 
@@ -20194,7 +20238,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-45774dee] {\r\n  padding: 40px 30px 70px;\r\n  position: relative;\n}\n.popup-overlay[data-v-45774dee] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(255, 255, 255, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\n}\n.suggestion-box[data-v-45774dee] {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  background: white;\r\n  border-radius: 5px;\r\n  height: 250px;\r\n  width: 50%;\r\n  padding: 15px;\r\n  position: absolute;\r\n  bottom: 50%;\r\n  transform: translate(50%, 50%);\r\n  right: 50%;\n}\n.suggestion-box p[data-v-45774dee] {\r\n  font-size: 24px;\r\n  font-weight: bold;\r\n  text-align: center;\n}\n.close[data-v-45774dee] {\r\n  position: absolute;\r\n  right: 5px;\r\n  top: 5px;\n}\nform[data-v-45774dee] {\r\n  padding: 20px;\r\n  padding-bottom: 60px;\r\n  background: white;\r\n  font-size: 14px;\n}\nh3[data-v-45774dee] {\r\n  margin-bottom: 24px;\r\n  font-size: 1.4em;\n}\n.side-label[data-v-45774dee] {\r\n  width: 150px;\n}\n.form-text[data-v-45774dee] {\r\n  margin-bottom: 18px;\n}\n.underline[data-v-45774dee] {\r\n  width: 80px;\r\n  height: 3px;\r\n  background-color: #0a4065;\n}\n.class-information[data-v-45774dee] {\r\n  padding-top: 20px;\n}\n.class-information h3[data-v-45774dee] {\r\n  margin-bottom: 0 !important;\n}\n.class-information-inner[data-v-45774dee] {\r\n  display: flex;\r\n  justify-content: space-around;\r\n  padding-top: 20px;\n}\n.class-information-inner span[data-v-45774dee] {\r\n  color: #808080;\n}\n.view-syllabus[data-v-45774dee] {\r\n  background: #fff;\r\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  padding: 30px;\r\n  border-radius: 10px;\n}\n.subject-description[data-v-45774dee] {\r\n  padding-top: 15px;\n}\n.contain-syllabus[data-v-45774dee] {\r\n  padding: 30px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-45774dee] {\r\n  padding: 40px 30px 70px;\r\n  position: relative;\n}\n.popup-overlay[data-v-45774dee] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(255, 255, 255, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\n}\n.suggestion-box[data-v-45774dee] {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  background: white;\r\n  border-radius: 5px;\r\n  height: 250px;\r\n  width: 50%;\r\n  padding: 15px;\r\n  position: absolute;\r\n  bottom: 50%;\r\n  transform: translate(50%, 50%);\r\n  right: 50%;\n}\n.suggestion-box p[data-v-45774dee] {\r\n  font-size: 24px;\r\n  font-weight: bold;\r\n  text-align: center;\n}\n.close[data-v-45774dee] {\r\n  position: absolute;\r\n  right: 5px;\r\n  top: 5px;\n}\nform[data-v-45774dee] {\r\n  padding: 20px;\r\n  padding-bottom: 60px;\r\n  background: white;\r\n  font-size: 14px;\n}\nh5[data-v-45774dee] {\r\n  margin-bottom: 24px;\r\n  font-size: 1.4em;\n}\n.side-label[data-v-45774dee] {\r\n  width: 150px;\n}\n.form-text[data-v-45774dee] {\r\n  margin-bottom: 18px;\n}\n.underline[data-v-45774dee] {\r\n  width: 80px;\r\n  height: 3px;\r\n  background-color: #0a4065;\n}\n.class-information[data-v-45774dee] {\r\n  padding-top: 20px;\n}\n.class-information h5[data-v-45774dee] {\r\n  margin-bottom: 0 !important;\n}\n.class-information-inner[data-v-45774dee] {\r\n  display: flex;\r\n  justify-content: space-around;\r\n  padding-top: 20px;\n}\n.class-information-inner span[data-v-45774dee] {\r\n  color: #808080;\n}\n.view-syllabus[data-v-45774dee] {\r\n  background: #fff;\r\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  padding: 30px;\r\n  border-radius: 10px;\n}\n.subject-description[data-v-45774dee] {\r\n  padding-top: 15px;\n}\n.contain-syllabus[data-v-45774dee] {\r\n  padding: 30px;\n}\n.form-group[data-v-45774dee]{\r\n  font-family: \"Montserrat\";\n}\r\n", ""]);
 
 // exports
 
@@ -39876,255 +39920,214 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "body" }, [
-    _c(
-      "nav",
-      { staticClass: "mb-5" },
-      [
-        _c(
-          "router-link",
-          { attrs: { to: "/tutor/quiz" } },
-          [
-            _c(
-              "b-button",
-              {
-                staticClass: "shadow-sm reg-btn text-center",
-                attrs: { block: "" }
-              },
-              [_vm._v("Quiz")]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "router-link",
-          { attrs: { to: "/tutor/exam" } },
-          [
-            _c(
-              "b-button",
-              {
-                staticClass: "shadow-sm reg-btn text-center",
-                attrs: { block: "" }
-              },
-              [_vm._v("Examination")]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "router-link",
-          { attrs: { to: "/tutor/assignment" } },
-          [
-            _c(
-              "b-button",
-              {
-                staticClass: "shadow-sm reg-btn text-center",
-                attrs: { block: "" }
-              },
-              [_vm._v("Assignment")]
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "router-link",
-          { attrs: { to: "/tutor/test" } },
-          [
-            _c(
-              "b-button",
-              {
-                staticClass: "shadow-sm reg-btn text-center",
-                attrs: { block: "" }
-              },
-              [_vm._v("Test")]
-            )
-          ],
-          1
-        )
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "content" },
-      [
-        _c(
-          "b-row",
-          [
-            _c(
-              "b-col",
-              { staticClass: "text-center" },
-              [
-                _c("h5", [_vm._v("Quiz")]),
-                _vm._v(" "),
-                _c("b-table", {
-                  attrs: { fields: _vm.fields, items: _vm.quiz, bordered: "" },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "cell(Sn)",
-                      fn: function(data) {
-                        return [_vm._v(_vm._s(data.index + 1))]
-                      }
+  return _c(
+    "div",
+    { staticClass: "student-assessment " },
+    [
+      _c(
+        "b-tabs",
+        {
+          staticClass: "container overall-tab",
+          attrs: { "content-class": "" }
+        },
+        [
+          _c(
+            "b-tab",
+            { attrs: { title: "Assignment", active: "" } },
+            [
+              _c(
+                "b-container",
+                { staticClass: "main-table" },
+                [
+                  _c("b-table", {
+                    attrs: {
+                      fields: _vm.fields,
+                      items: _vm.assignment,
+                      bordered: ""
                     },
-                    {
-                      key: "cell(title)",
-                      fn: function(data) {
-                        return [
-                          _c(
-                            "span",
-                            {
-                              on: {
-                                click: function($event) {
-                                  return _vm.view(data.item.id)
+                    scopedSlots: _vm._u([
+                      {
+                        key: "cell(Sn)",
+                        fn: function(data) {
+                          return [_vm._v(_vm._s(data.index + 1))]
+                        }
+                      },
+                      {
+                        key: "cell(title)",
+                        fn: function(data) {
+                          return [
+                            _c(
+                              "span",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    return _vm.view(data.item.id)
+                                  }
                                 }
-                              }
-                            },
-                            [_vm._v(_vm._s(data.item.title))]
-                          )
-                        ]
+                              },
+                              [_vm._v(_vm._s(data.item.title))]
+                            )
+                          ]
+                        }
                       }
-                    }
-                  ])
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "b-col",
-              { staticClass: "text-center" },
-              [
-                _c("h5", [_vm._v("Assignment")]),
-                _vm._v(" "),
-                _c("b-table", {
-                  attrs: {
-                    fields: _vm.fields,
-                    items: _vm.assignment,
-                    bordered: ""
-                  },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "cell(Sn)",
-                      fn: function(data) {
-                        return [_vm._v(_vm._s(data.index + 1))]
-                      }
+                    ])
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-tab",
+            { attrs: { title: "Quiz" } },
+            [
+              _c(
+                "b-container",
+                { staticClass: "main-table" },
+                [
+                  _c("b-table", {
+                    attrs: {
+                      fields: _vm.fields,
+                      items: _vm.quiz,
+                      bordered: ""
                     },
-                    {
-                      key: "cell(title)",
-                      fn: function(data) {
-                        return [
-                          _c(
-                            "span",
-                            {
-                              on: {
-                                click: function($event) {
-                                  return _vm.view(data.item.id)
+                    scopedSlots: _vm._u([
+                      {
+                        key: "cell(Sn)",
+                        fn: function(data) {
+                          return [_vm._v(_vm._s(data.index + 1))]
+                        }
+                      },
+                      {
+                        key: "cell(title)",
+                        fn: function(data) {
+                          return [
+                            _c(
+                              "span",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    return _vm.view(data.item.id)
+                                  }
                                 }
-                              }
-                            },
-                            [_vm._v(_vm._s(data.item.title))]
-                          )
-                        ]
+                              },
+                              [_vm._v(_vm._s(data.item.title))]
+                            )
+                          ]
+                        }
                       }
-                    }
-                  ])
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "b-col",
-              { staticClass: "text-center" },
-              [
-                _c("h5", [_vm._v("Examinations")]),
-                _vm._v(" "),
-                _c("b-table", {
-                  attrs: {
-                    fields: _vm.fields,
-                    items: _vm.examination,
-                    bordered: ""
-                  },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "cell(Sn)",
-                      fn: function(data) {
-                        return [_vm._v(_vm._s(data.index + 1))]
-                      }
+                    ])
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-tab",
+            { attrs: { title: "Test" } },
+            [
+              _c(
+                "b-container",
+                { staticClass: "main-table" },
+                [
+                  _c("b-table", {
+                    attrs: {
+                      fields: _vm.fields,
+                      items: _vm.test,
+                      bordered: ""
                     },
-                    {
-                      key: "cell(title)",
-                      fn: function(data) {
-                        return [
-                          _c(
-                            "span",
-                            {
-                              on: {
-                                click: function($event) {
-                                  return _vm.view(data.item.id)
+                    scopedSlots: _vm._u([
+                      {
+                        key: "cell(Sn)",
+                        fn: function(data) {
+                          return [_vm._v(_vm._s(data.index + 1))]
+                        }
+                      },
+                      {
+                        key: "cell(title)",
+                        fn: function(data) {
+                          return [
+                            _c(
+                              "span",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    return _vm.view(data.item.id)
+                                  }
                                 }
-                              }
-                            },
-                            [_vm._v(_vm._s(data.item.title))]
-                          )
-                        ]
+                              },
+                              [_vm._v(_vm._s(data.item.title))]
+                            )
+                          ]
+                        }
                       }
-                    }
-                  ])
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "b-col",
-              { staticClass: "text-center" },
-              [
-                _c("h5", [_vm._v("Tests")]),
-                _vm._v(" "),
-                _c("b-table", {
-                  attrs: { fields: _vm.fields, items: _vm.test, bordered: "" },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "cell(Sn)",
-                      fn: function(data) {
-                        return [_vm._v(_vm._s(data.index + 1))]
-                      }
+                    ])
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-tab",
+            { attrs: { title: "Examination" } },
+            [
+              _c(
+                "b-container",
+                { staticClass: "main-table" },
+                [
+                  _c("b-table", {
+                    attrs: {
+                      fields: _vm.fields,
+                      items: _vm.examination,
+                      bordered: ""
                     },
-                    {
-                      key: "cell(title)",
-                      fn: function(data) {
-                        return [
-                          _c(
-                            "span",
-                            {
-                              on: {
-                                click: function($event) {
-                                  return _vm.view(data.item.id)
+                    scopedSlots: _vm._u([
+                      {
+                        key: "cell(Sn)",
+                        fn: function(data) {
+                          return [_vm._v(_vm._s(data.index + 1))]
+                        }
+                      },
+                      {
+                        key: "cell(title)",
+                        fn: function(data) {
+                          return [
+                            _c(
+                              "span",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    return _vm.view(data.item.id)
+                                  }
                                 }
-                              }
-                            },
-                            [_vm._v(_vm._s(data.item.title))]
-                          )
-                        ]
+                              },
+                              [_vm._v(_vm._s(data.item.title))]
+                            )
+                          ]
+                        }
                       }
-                    }
-                  ])
-                })
-              ],
-              1
-            )
-          ],
-          1
-        )
-      ],
-      1
-    )
-  ])
+                    ])
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -50507,7 +50510,7 @@ var render = function() {
     _c("div", { staticClass: "contain-syllabus" }, [
       _c("div", { staticClass: "view-syllabus" }, [
         _c("div", { staticClass: "class-information" }, [
-          _c("h3", [_vm._v("Class Information")]),
+          _c("h5", [_vm._v("Class Information")]),
           _vm._v(" "),
           _c("div", { staticClass: "underline" }),
           _vm._v(" "),
@@ -50527,17 +50530,17 @@ var render = function() {
         _c("hr"),
         _vm._v(" "),
         _c("div", { staticClass: "class-information" }, [
-          _c("h3", [_vm._v("Subject Information")]),
+          _c("h5", [_vm._v("Subject Information")]),
           _vm._v(" "),
           _c("div", { staticClass: "underline" }),
           _vm._v(" "),
           _c("div", { staticClass: "class-information-inner" }, [
-            _c("h4", [
+            _c("h6", [
               _vm._v("\n            SUBJECT:\n            "),
               _c("span", [_vm._v(_vm._s(_vm.syllabus.subject))])
             ]),
             _vm._v(" "),
-            _c("h4", [
+            _c("h6", [
               _vm._v("\n            FREQUENCY:\n            "),
               _c("span", [_vm._v(_vm._s(_vm.syllabus.frequency))])
             ])
@@ -50553,7 +50556,7 @@ var render = function() {
         _c("hr"),
         _vm._v(" "),
         _c("div", { staticClass: "class-information" }, [
-          _c("h3", [_vm._v("Overarching Learner Outcome")]),
+          _c("h5", [_vm._v("Overarching Learner Outcome")]),
           _vm._v(" "),
           _c("div", { staticClass: "underline" }),
           _vm._v(" "),
@@ -50575,7 +50578,7 @@ var render = function() {
         _c("hr"),
         _vm._v(" "),
         _c("div", { staticClass: "class-information" }, [
-          _c("h3", [_vm._v("Target skills to be learned")]),
+          _c("h5", [_vm._v("Target skills to be learned")]),
           _vm._v(" "),
           _c("div", { staticClass: "underline" }),
           _vm._v(" "),
@@ -50597,7 +50600,7 @@ var render = function() {
         _c("hr"),
         _vm._v(" "),
         _c("div", { staticClass: "class-information" }, [
-          _c("h3", [_vm._v("Required Modules")]),
+          _c("h5", [_vm._v("Required Modules")]),
           _vm._v(" "),
           _c("div", { staticClass: "underline" }),
           _vm._v(" "),
@@ -50619,7 +50622,7 @@ var render = function() {
         _c("hr"),
         _vm._v(" "),
         _c("div", { staticClass: "class-information" }, [
-          _c("h3", [_vm._v("Delivery Methods")]),
+          _c("h5", [_vm._v("Delivery Methods")]),
           _vm._v(" "),
           _c("div", { staticClass: "underline" }),
           _vm._v(" "),
@@ -50641,7 +50644,7 @@ var render = function() {
         _c("hr"),
         _vm._v(" "),
         _c("div", { staticClass: "class-information" }, [
-          _c("h3", [_vm._v("Assessment")]),
+          _c("h5", [_vm._v("Assessment")]),
           _vm._v(" "),
           _c("div", { staticClass: "underline" }),
           _vm._v(" "),
@@ -50669,7 +50672,7 @@ var render = function() {
         _c("hr"),
         _vm._v(" "),
         _c("div", { staticClass: "class-information" }, [
-          _c("h3", [_vm._v("Course Availability")]),
+          _c("h5", [_vm._v("Course Availability")]),
           _vm._v(" "),
           _c("div", { staticClass: "underline" }),
           _vm._v(" "),
@@ -50681,7 +50684,7 @@ var render = function() {
         _c("hr"),
         _vm._v(" "),
         _c("div", { staticClass: "class-information" }, [
-          _c("h3", [_vm._v("Comments")]),
+          _c("h5", [_vm._v("Comments")]),
           _vm._v(" "),
           _c("div", { staticClass: "underline" }),
           _vm._v(" "),

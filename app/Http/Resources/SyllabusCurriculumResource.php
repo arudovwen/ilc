@@ -25,6 +25,8 @@ class SyllabusCurriculumResource extends JsonResource
                 'subject'=>$this->subject,             
              'excerpt'=>$this->excerpt,
              'time'=>$this->created_at,
+             'created_at'=>$this->created_at,
+             'description'=>$this->description,
              'cover_image'=>$this->cover_image,
              'tutor'=>Tutor::find($this->tutor_id),
             'curriculum'=>Curriculum::where('school_id', $this->school_id)->where('subject', $this->level)->first(),

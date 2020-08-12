@@ -236,48 +236,159 @@
   <div class="view-resource">
     <div class="view-resource-header mx-auto">
       <!--please let this be Module-->
-      <h2>Module</h2>
-      <h6 class="toCaps">{{subject}}</h6>
+      <h2 class="toCaps">{{subject}}</h2>
+      <!-- <h6 class="toCaps">{{subject}}</h6> -->
       <!--please change to Class-->
-      <p>JSS 1</p>
-      <p class="subject-description">{{excerpt}}</p>
-      <div class="resource-btn">
-        <button class="btn">
-          <i class="fa fa-pencil-square-o"></i> Edit
-        </button>
-        <button class="btn">
-          <i class="fa fa-share-alt"></i> Share
-        </button>
-      </div>
+      <p>{{syllabus.grade_level}}</p>
+      <!-- <p class="subject-description">{{excerpt}}</p> -->
+
       <p>
         Created by
         <strong>{{tutor.name}}</strong>
       </p>
       <p>Last Updated {{time | moment('MMM D')}}</p>
+      <div class="resource-btn mb-3">
+        <b-button variant="outline-white" class="mr-3" @click="edit($route.params.id)">
+          <i class="fa fa-pencil-square-o"></i> Edit
+        </b-button>
+        <b-button variant="outline-white">
+          <i class="fa fa-share-alt"></i> Share
+        </b-button>
+      </div>
     </div>
-    <div class="resource-content container">
-      <div class="resource-title">
-        <h4>
-          Title:
-          <strong>{{title}}</strong>
-        </h4>
-      </div>
+    <div class="resource-content">
+      <div class="resource-title"></div>
       <div class="resource-overview">
-        <h5>Overview</h5>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci dolorem vel sint
-          temporibus, dolore rem dicta architecto cupiditate quam quo nobis asperiores
-          accusamus ipsa praesentium obcaecati magni possimus delectus laboriosam. Lorem ipsum,
-          dolor sit amet consectetur adipisicing elit. Voluptate beatae repellendus iure veniam explicabo,
-          corporis repudiandae qui optio laudantium provident quibusdam nam modi quia saepe deleniti,
-          magnam exercitationem perspiciatis in!
-        </p>
+        <h4>Overview</h4>
+        <p class="subject-description">{{syllabus.description}}</p>
       </div>
-      <!--  let any media uploaded show within this frame video, image and the likes-->
-      <div class="resource-media-frame">
-        <img src="/images/Maths-unsplash.jpg" class="img-fluid text-center" alt />
-        <p>The origin of differentiation</p>
-      </div>
+
+      <b-row class="mb-5">
+        <b-col>
+          <h4>What you will learn</h4>
+
+          <b-list-group>
+            <b-list-group-item
+              v-for="(item,idx) in curriculum.learner_outcome"
+              :key="idx"
+            >{{item.name}}</b-list-group-item>
+          </b-list-group>
+        </b-col>
+      </b-row>
+
+      <b-row class="mb-5">
+        <b-col>
+          <h4>Requirements</h4>
+          <b-list-group>
+            <b-list-group-item >
+              <ul class="p-3">
+                <li>You need to have completed last term topic on mathematics</li>
+                <li>You will understand the basis of all topic attached to the subject</li>
+              </ul>
+            </b-list-group-item>
+          </b-list-group>
+        </b-col>
+      </b-row>
+
+      <b-row class="mb-5">
+        <b-col>
+          <h4>Course Modules</h4>
+
+          <div>
+            <div role="tablist" v-for="(item,idx) in modules" :key="idx">
+              <b-card no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1 text-left" role="tab">
+                  <b-button
+                    block
+                    v-b-toggle="item.module.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
+                    variant="secondary"
+                    class="text-left"
+                  >{{item.module}}</b-button>
+                </b-card-header>
+                <b-collapse
+                  :id="item.module.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
+                  accordion="my-accordion"
+                  role="tabpanel"
+                >
+                  <b-card-body>
+                    <b-card-text>{{item.excerpt}}</b-card-text>
+                    <b-card-text>
+                      <div class="mod">
+                        <ul>
+                          <li v-for="(content,index) in JSON.parse(item.content)" :key="index">
+                            <span
+                              @click="handleToggle(content.title.replace(/[^a-z0-9]/gi, '').replace(/\$/g, ''))"
+                            >
+                              <span class="ml-3">
+                                <i
+                                  class="fa fa-play-circle"
+                                  v-if="content.type=='video'"
+                                  aria-hidden="true"
+                                ></i>
+                                <i
+                                  class="fa fa-file-pdf-o"
+                                  v-if="content.type=='pdf'"
+                                  aria-hidden="true"
+                                ></i>
+                                <i
+                                  class="fa fa-volume-up"
+                                  v-if="content.type=='audio'"
+                                  aria-hidden="true"
+                                ></i>
+                                <i
+                                  class="fa fa-file-powerpoint-o"
+                                  v-if="content.type=='ppt'"
+                                  aria-hidden="true"
+                                ></i>
+                                <i class="fas fa-file-csv" v-if="content.type=='csv'"></i>
+                              </span>
+                              {{content.title}}
+                            </span>
+
+                            <b-modal
+                              :id="content.title.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
+                              :title="content.title"
+                              hide-footer
+                            >
+                              <p class="my-4">{{content.overview}}</p>
+                            </b-modal>
+                          </li>
+                        </ul>
+                      </div>
+                    </b-card-text>
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
+            </div>
+          </div>
+        </b-col>
+      </b-row>
+      <b-row class="mb-5">
+        <b-col>
+          <h4>Frequently Asked Questions</h4>
+          <div role="tablist" v-for="(item,idx) in syllabus.faqs" :key="idx">
+            <b-card no-body class="mb-1">
+              <b-card-header header-tag="header" class="p-1" role="tab">
+                <b-button
+                  block
+                  v-b-toggle="item.question.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
+                  variant="secondary"
+                  class="text-left"
+                >{{item.question}}</b-button>
+              </b-card-header>
+              <b-collapse
+                :id="item.question.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
+                accordion="my-accordion"
+                role="tabpanel"
+              >
+                <b-card-body>
+                  <b-card-text>{{item.answer}}</b-card-text>
+                </b-card-body>
+              </b-collapse>
+            </b-card>
+          </div>
+        </b-col>
+      </b-row>
 
       <div class="tutors-note">
         <h5>Tutors Note</h5>
@@ -295,7 +406,11 @@
                   </b-col>
                   <b-col cols="10">
                     <strong>John Enugu</strong>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti odio modi dolorum ex praesentium eius facilis. Illo aut quos sequi? Est modi eius consequatur veritatis atque! Optio illo accusamus maiores?</p>
+                    <p>
+                      Very good info and easy to understand.
+                      Practical and insightful advice you can use in many situations even as an employee.
+                      Obviously Chris likes to help people succeed and knows some of the barriers to success from his own experience.
+                    </p>
                   </b-col>
                 </b-row>
               </b-list-group-item>
@@ -306,7 +421,7 @@
                   </b-col>
                   <b-col cols="10">
                     <strong>Ada Nkechi</strong>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti odio modi dolorum ex praesentium eius facilis. Illo aut quos sequi? Est modi eius consequatur veritatis atque! Optio illo accusamus maiores?</p>
+                    <p>Incredible, Amazing, Awesome. If you are this, I want to say "Thank you so much from all my heart & spirit." To love this course would be an understatement, I really learned a lot, bought this one years ago & never gone through this until recently when I took learning seriously and finished this course.</p>
                   </b-col>
                 </b-row>
               </b-list-group-item>
@@ -315,6 +430,27 @@
         </b-row>
       </div>
     </div>
+    <b-col cols="5">
+      <b-card
+        :title="subject"
+        :img-src="cover_image"
+        img-alt="Image"
+        img-top
+        style="width: 22rem;"
+        class="mb-2 floating-bar shadow-lg toCaps"
+      >
+        <b-card-text>
+          <strong>This includes:</strong>
+        </b-card-text>
+        <b-card-text
+          class="border-bottom"
+          v-for="(module,idx) in modules"
+          :key="idx"
+        >{{module.module}} - {{JSON.parse(module.content).length}} downloadable resources</b-card-text>
+
+        <b-button href="#" block variant="primary">Views : 24</b-button>
+      </b-card>
+    </b-col>
   </div>
 </template>
 
@@ -332,15 +468,22 @@ export default {
       time: "",
       id: "",
       subject: "",
-      cover_image: "/images/english-lit.jpg",
+      cover_image: "",
       show: true,
       review: [1, 2, 3, 4, 5],
+      modules: [],
     };
   },
   mounted() {
     this.getResource();
   },
   methods: {
+    handleToggle(title) {
+      this.$bvModal.show(title);
+    },
+    edit(id) {
+      this.$router.push(`/tutor/resource/edit/${id}`);
+    },
     getResource() {
       axios
         .get(`/api/resource/${this.$route.params.id}`, {
@@ -360,7 +503,17 @@ export default {
             this.id = res.data.data.id;
             this.cover_image = res.data.data.cover_image;
             this.subject = res.data.data.subject;
-            this.show = false;
+
+            axios
+              .get(
+                `/api/get-module/${res.data.data.subject}/${this.syllabus.grade_level}`
+              )
+              .then((res) => {
+                if (res.status == 200) {
+                  this.modules = res.data;
+                  this.show = false;
+                }
+              });
           }
         });
     },
@@ -373,6 +526,13 @@ export default {
   width: 100%;
   position: relative;
   background: transparent;
+}
+.mod ul {
+  list-style: none;
+}
+.mod ul li {
+  padding: 10px 20px;
+  border-bottom: 1px solid #ccc;
 }
 .top_n {
   position: relative;
@@ -408,6 +568,7 @@ export default {
   color: #fff;
   padding: 1.5rem;
   /* margin-top: 2rem; */
+  position: relative;
 }
 .view-resource-header p {
   font-size: 14px;
@@ -417,8 +578,8 @@ export default {
   background: transparent;
   border: 1px solid #fff;
   color: white !important;
-  margin-right: 10px;
-  margin-bottom: 15px;
+  /* margin-right: 10px; */
+  /* margin-bottom: 15px; */
 }
 .btn:hover {
   background: #fff;
@@ -427,7 +588,8 @@ export default {
   border: none;
 }
 .resource-content {
-  padding-top: 20px;
+  padding: 20px;
+  width: 60%;
 }
 .resource-overview {
   padding-top: 20px;
@@ -443,10 +605,16 @@ export default {
   width: 50%;
   height: 300px;
 }
-.tutors-note{
+.tutors-note {
   padding-top: 20px;
 }
-.student-reviews{
+.student-reviews {
   padding: 20px 0;
+}
+.btn-secondary {
+  color: #333 !important;
+}
+.btn-primary {
+  background: #41cee2 !important;
 }
 </style>

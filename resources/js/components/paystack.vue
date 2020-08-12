@@ -10,7 +10,7 @@
   >
     <b-button class="reg-btn ml-0" block>
       <i class="fas fa-money-bill-alt"></i>
-       PAY 
+       PAY &#8358;{{amount}}
     </b-button>
   </paystack>
 </template>

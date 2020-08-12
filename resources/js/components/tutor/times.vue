@@ -12,7 +12,7 @@
             <h5 class="toCaps">{{myclass}}</h5>
           </div>
           <table class="table table-bordered">
-            <thead class="thead-light">
+            <thead class="thead-darkblue">
               <tr>
                 <th>Day</th>
                 <th>Time</th>
@@ -42,8 +42,8 @@
     <!-- overlay end here  -->
 
     <div>
-      <table class="table table-striped table-inverse table-bordered">
-        <thead class="thead-inverse">
+      <table class="table table-bordered">
+        <thead class="thead-darkblue">
           <tr>
             <th>Class</th>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="body">
     <h3 class="text-center my-3">Curriculum</h3>
-    <div class="form-group" v-if="curriculum">
+    <div class="form-group mx-0" v-if="curriculum">
       <h4 class="toCaps">
         Grade Level :
         <span class>{{curriculum.grade_level}}</span>
@@ -12,22 +12,22 @@
         <div class="class-information" v-if="curriculum.profile">
           <h5>Student Profile</h5>
           <div class="underline"></div>
-          <div class="form-group d-flex">
+         <b-col cols="6"> <div class="form-group d-flex">
             <label for class="mr-3 side-label">Target Age :</label>
             {{curriculum.profile.age}}
-          </div>
-          <div class="form-group d-flex">
+          </div></b-col>
+             <b-col  cols="6"> <div class="form-group d-flex">
             <label for class="mr-3 side-label">Interests :</label>
             {{curriculum.profile.interests}}
-          </div>
-          <div class="form-group d-flex">
+          </div></b-col>
+             <b-col  cols="6"> <div class="form-group d-flex">
             <label for class="mr-3 side-label">Learning Abilities :</label>
             {{curriculum.profile.abilities}}
-          </div>
-          <div class="form-group d-flex">
+          </div></b-col>
+             <b-col cols="6"> <div class="form-group d-flex">
             <label for class="mr-3 side-label">Other Pecularities :</label>
             {{curriculum.profile.others}}
-          </div>
+          </div></b-col>
         </div>
         <hr />
         <div class="class-information">
@@ -153,6 +153,10 @@ export default {
   padding: 40px 30px 70px;
   position: relative;
 }
+.table{
+  border-radius: 40px;
+  font-size: 17px;
+}
 .popup-overlay {
   position: absolute;
   width: 100%;
@@ -168,7 +172,7 @@ export default {
   flex-direction: column;
   align-items: center;
   background: white;
-  border-radius: 5px;
+  border-bottom-left-radius: 5px;
   height: 250px;
   width: 50%;
   padding: 15px;
@@ -181,6 +185,9 @@ export default {
   font-size: 24px;
   font-weight: bold;
   text-align: center;
+}
+label{
+  color: #888888;
 }
 .close {
   position: absolute;

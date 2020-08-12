@@ -1,14 +1,50 @@
 <template>
-    <div class="body">
-         <div class=" p-3">
-       <h4 >School Curriculums</h4>
-        <table class="table table-striped table-bordered">
-        <thead class="thead-dark">
+  <div class="body">
+    <div class="p-3">
+      <h4>School Curriculums</h4>
+              <div class="filter-table">
+          <div class="filter-container">
+            <div class="filter-btn">
+              <span>Filter</span>
+              <i class="icon-sort"></i>
+            </div>
+          </div>
+          <b-navbar toggleable="lg" type="dark" variant="info">
+            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+            <b-collapse id="nav-collapse" is-nav>
+              <b-navbar-nav>
+                <b-nav-item href="#">Sort By:</b-nav-item>
+              </b-navbar-nav>
+
+              <!-- Right aligned nav items -->
+              <b-navbar-nav class="mx-auto">
+                <b-form-select class="mr-5" :options="subjects" v-model="subject">
+                  <template v-slot:first>
+                    <b-form-select-option :value="null" disabled>-- Subject --</b-form-select-option>
+                  </template>
+                </b-form-select>
+                <b-form-select :options="classess" v-model="myclass">
+                  <template v-slot:first>
+                    <b-form-select-option :value="null" disabled>-- Class --</b-form-select-option>
+                  </template>
+                </b-form-select>
+              </b-navbar-nav>
+              <b-navbar-nav>
+                <b-nav-form class="ml-auto">
+                  <b-form-input size="sm" class="mr-sm-2 search rounded-pill" placeholder="Search"></b-form-input>
+                </b-nav-form>
+              </b-navbar-nav>
+            </b-collapse>
+          </b-navbar>
+        </div>
+     <div class="syllabus-table">
+   <table class="table table-hover table-bordered rounded">
+        <thead class="thead-darkblue">
           <tr>
             <th>Class</th>
 
             <th class="d-flex justify-content-around">Action</th>
-           
           </tr>
         </thead>
         <tbody>
@@ -20,12 +56,12 @@
                 <i class="fa fa-eye" aria-hidden="true"></i> View
               </span>
             </td>
-          
           </tr>
         </tbody>
       </table>
      </div>
     </div>
+  </div>
 </template>
 <script>
 export default {
@@ -33,11 +69,9 @@ export default {
   data() {
     return {
       curriculum: [],
-     
     };
   },
   mounted() {
-   
     this.getCurriculum();
   },
   methods: {
@@ -54,7 +88,7 @@ export default {
           }
         });
     },
- 
+
     viewCurriculum(id) {
       this.$router.push(`/tutor/curriculum/view/${id}`);
     },
@@ -64,14 +98,58 @@ export default {
 
 
 <style scoped>
-.body{
-    height: 100%;
+.body {
+  height: 100%;
 }
-.table .thead-dark th{
-    background-color:  #22CADE;
-    border-color: #22CADE;
+.table .thead-dark th {
+  background-color: #22cade;
+  border-color: #22cade;
 }
-.view-link{
-    cursor: pointer;
+.view-link {
+  cursor: pointer;
+}
+.search {
+  width: 250px;
+  border-color: #41cee2;
+}
+
+.rounded-pill {
+  border-radius: 50rem !important;
+}
+.filter-container {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
+}
+.filter-btn {
+  background: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+.filter-btn span {
+  font-family: "Montserrat";
+  font-weight: bold;
+}
+.filter-btn i {
+  padding-left: 3px;
+}
+.sort-section {
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+  border-radius: 10px;
+}
+.bg-info {
+  background: #fff !important;
+  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.nav-link {
+  color: #000 !important;
+}
+.syllabus-table {
+  padding-top: 20px;
 }
 </style>

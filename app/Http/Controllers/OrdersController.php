@@ -55,7 +55,7 @@ class OrdersController extends Controller
             'name'=> $request->name,
             'ref' => $request->ref,
             'price' => $request->amount,
-            'status' => $request->status
+            'status' => 'pending'
         ]);
         
        });

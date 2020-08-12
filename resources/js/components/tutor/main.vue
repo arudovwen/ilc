@@ -135,6 +135,9 @@ export default {
 <style scoped>
 .semi-white{
  background: #F9F7F0;
+ max-height: 100%;
+ height: 100%;
+
 }
 nav {
   display: flex;
@@ -152,7 +155,7 @@ nav {
 }
 .main-notify {
   max-height: 300px;
-  overflow: scroll;
+ overflow: scroll;
 }
 .icon {
   position: relative;

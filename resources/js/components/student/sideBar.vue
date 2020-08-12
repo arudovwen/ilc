@@ -110,11 +110,11 @@
             <i class="icon-business-class" aria-hidden="true"></i> Virtual Class
           </li>
         </router-link>
-         <router-link to="" >
+        
           <li @click="logout">
             <i class="icon-logout" aria-hidden="true"></i> Log Out
           </li>
-        </router-link>
+       
       </ul>
     </nav>
   </div>
@@ -150,7 +150,16 @@ li {
   align-items: center;
   padding-top: 10px;
 }
+
+.router-link-exact-active li{
+  background: rgba(19, 166, 153, 0.2);
+}
 ul a {
+  color: #565454;
+  font-size: 12px;
+  font-family: "Montserrat";
+}
+ul li {
   color: #565454;
   font-size: 12px;
   font-family: "Montserrat";

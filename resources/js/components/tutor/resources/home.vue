@@ -56,85 +56,96 @@
     </table>
   </div>-->
   <div class="resource-main">
-    
-      <div class="resource-btn">
-        <router-link to="/tutor/resource/create">
+    <div class="resource-btn">
+      <router-link to="/tutor/resource/create">
         <div class="btn btn-resource">
           <i class="fa fa-plus"></i>
           <span>ADD RESOURCE</span>
         </div>
-         </router-link>
-      </div>
-   
+      </router-link>
+    </div>
+
     <div class="container">
-      <div class="filter-container">
-        <div class="filter-btn">
-        <span>Filter</span>  <i class="icon-sort"></i> 
+      <div class="filter-table">
+        <div class="filter-container">
+          <div class="filter-btn">
+            <span>Filter</span>
+            <i class="icon-sort"></i>
+          </div>
         </div>
+        <b-navbar toggleable="lg" type="dark" variant="info">
+          <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+          <b-collapse id="nav-collapse" is-nav>
+            <b-navbar-nav>
+              <b-nav-item href="#">Sort By:</b-nav-item>
+            </b-navbar-nav>
+
+            <!-- Right aligned nav items -->
+            <b-navbar-nav class="mx-auto">
+              <b-form-select class="mr-3" :options="subjects" v-model="subject">
+                <template v-slot:first>
+                  <b-form-select-option :value="null" disabled>-- Subject --</b-form-select-option>
+                </template>
+              </b-form-select>
+              <b-form-select class="mr-3" :options="classess" v-model="myclass">
+                <template v-slot:first>
+                  <b-form-select-option :value="null" disabled>-- Class --</b-form-select-option>
+                </template>
+              </b-form-select>
+               <b-form-select :options="term" v-model="term">
+                <template v-slot:first>
+                  <b-form-select-option :value="null" disabled>-- Term --</b-form-select-option>
+                </template>
+              </b-form-select>
+            </b-navbar-nav>
+            <b-navbar-nav>
+              <b-nav-form class="ml-auto">
+                <b-form-input size="sm" class="mr-sm-2 search rounded-pill" placeholder="Search"></b-form-input>
+              </b-nav-form>
+            </b-navbar-nav>
+          </b-collapse>
+        </b-navbar>
       </div>
-      <b-navbar toggleable="lg" type="dark" variant="info">
-        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-        <b-collapse id="nav-collapse" is-nav>
-          <b-navbar-nav>
-            <b-nav-item href="#">Sort By:</b-nav-item>
-          </b-navbar-nav>
-
-          <!-- Right aligned nav items -->
-          <b-navbar-nav class="mx-auto">
-            <b-nav-item-dropdown text="Subject" right>
-              <b-dropdown-item href="#">EN</b-dropdown-item>
-              <b-dropdown-item href="#">ES</b-dropdown-item>
-              <b-dropdown-item href="#">RU</b-dropdown-item>
-              <b-dropdown-item href="#">FA</b-dropdown-item>
-            </b-nav-item-dropdown>
-            <b-nav-item-dropdown text="Class" right>
-              <b-dropdown-item href="#">EN</b-dropdown-item>
-              <b-dropdown-item href="#">ES</b-dropdown-item>
-              <b-dropdown-item href="#">RU</b-dropdown-item>
-              <b-dropdown-item href="#">FA</b-dropdown-item>
-            </b-nav-item-dropdown>
-          </b-navbar-nav>
-          <b-navbar-nav>
-            <b-nav-form class="ml-auto">
-              <b-form-input size="sm" class="mr-sm-2 search rounded-pill" placeholder="Search"></b-form-input>
-            </b-nav-form>
-          </b-navbar-nav>
-        </b-collapse>
-      </b-navbar>
     </div>
     <div class="resource-table container">
-       <table class="table  table-hover table-bordered">
-      <thead class="thead-dark">
-        <tr>
-          <th>S/N</th>
-          <th>CLASS</th>
-          <th>SUBJECT</th>
-          <th>TITLE</th>
-          
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item,idx) in resources" :key="idx">
-          <td scope="row">{{idx+1}}</td>
-          <td class="toCaps">{{item.level}}</td>
-          <td class="toCaps">{{item.subject}}</td>
-          <td class="toCaps">{{item.module}}</td>
-      
-          <td class="options">
-          <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-          <div class="option-box">
-            <ul>
-              <li @click="edit(item.id)"><i class="fas fa-edit"></i> Edit</li>
-              <li @click="view(item.id)"><i class="fa fa-eye" aria-hidden="true"></i> View</li>
-              <li @click="drop(item.id)"><i class="fas fa-minus-circle" aria-hidden="true"></i> Drop</li>
-            </ul>
-          </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <table class="table table-hover table-bordered">
+        <thead class="thead-darkblue">
+          <tr>
+            <th>S/N</th>
+            <th>CLASS</th>
+            <th>SUBJECT</th>
+            <th>TITLE</th>
+
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item,idx) in resources" :key="idx">
+            <td scope="row">{{idx+1}}</td>
+            <td class="toCaps">{{item.level}}</td>
+            <td class="toCaps">{{item.subject}}</td>
+            <td class="toCaps">{{item.module}}</td>
+
+            <td class="options">
+              <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+              <div class="option-box">
+                <ul>
+                  <li @click="edit(item.id)">
+                    <i class="fas fa-edit"></i> Edit
+                  </li>
+                  <li @click="view(item.id)">
+                    <i class="fa fa-eye" aria-hidden="true"></i> View
+                  </li>
+                  <li @click="drop(item.id)">
+                    <i class="fas fa-minus-circle" aria-hidden="true"></i> Drop
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
@@ -145,10 +156,23 @@ export default {
   data() {
     return {
       resources: [],
+      subjects: [],
+      classess: [],
+      subject: null,
+      myclass: null,
     };
   },
   mounted() {
     this.getResources();
+  },
+  computed: {
+    sorted() {
+      return this.resources.filter((item) => {
+        if (this.subject == item.subject || this.level == item.myclass) {
+          return item;
+        }
+      });
+    },
   },
   methods: {
     sortContent(arr) {
@@ -157,7 +181,7 @@ export default {
       arr.forEach((item) => {
         ans.push(item.name);
       });
-      console.log("sortContent -> ans", ans);
+
       return arr;
     },
     getResources() {
@@ -170,6 +194,15 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             this.resources = res.data;
+            res.data.forEach((item) => {
+              if (!this.subjects.includes(item.subject)) {
+                this.subjects.push(item.subject);
+              }
+
+              if (!this.classess.includes(item.level)) {
+                this.classess.push(item.level);
+              }
+            });
           }
         });
     },
@@ -230,22 +263,22 @@ export default {
   display: flex;
   justify-content: flex-end;
 }
-.filter-container{
+.filter-container {
   display: flex;
   justify-content: flex-end;
   padding-top: 10px;
 }
-.filter-btn{
+.filter-btn {
   background: #fff;
   padding: 10px 20px;
   border-radius: 5px;
 }
-.filter-btn span{
+.filter-btn span {
   font-family: "Montserrat";
   font-weight: bold;
 }
-.filter-btn i{
- padding-left: 3px;
+.filter-btn i {
+  padding-left: 3px;
 }
 .btn-resource {
   background: #0a4065;
@@ -259,38 +292,36 @@ export default {
   justify-content: space-between;
   background: #fff;
   border-radius: 10px;
-
 }
-.bg-info{
+.bg-info {
   background: #fff !important;
-    box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);
+  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);
   margin-top: 20px;
   border-radius: 10px;
 }
 
-.nav-link{
+.nav-link {
   color: #000 !important;
 }
 
-.resource-table{
+.resource-table {
   padding-top: 20px;
 }
-.table{
-   border-radius: 10px;
+.table {
+  border-radius: 10px;
 }
 .table .thead-dark th {
-    color: #fff;
-    background-color: #22CADE;
-    border-color:  #22CADE;
-   
+  color: #fff;
+  background-color: #22cade;
+  border-color: #22cade;
 }
 .search {
-    width: 250px;
-    border-color: #41cee2;
+  width: 250px;
+  border-color: #41cee2;
 }
 
 .rounded-pill {
-    border-radius: 50rem !important;
+  border-radius: 50rem !important;
 }
 .hiden {
   opacity: 0;

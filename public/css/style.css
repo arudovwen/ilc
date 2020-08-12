@@ -740,6 +740,26 @@ legend{
   /* .nav-link {
     color: #000 !important;
   } */
+
+  .bd-table {
+    position: relative;
+    padding: 1rem;
+    margin: 1rem -15px 0;
+    border: solid #f8f9fa;
+    border-width: .2rem 0 0;
+    background-color: #fff;
+}
+.thead-darkgreen{
+    color: white;
+    background-color: rgba(19, 166, 153, 0.9);
+    border-color: rgba(19, 166, 153, 0.9);
+}
+
+.thead-darkblue{
+    color: white;
+    background-color:#0a4065;
+    border-color: #0a4065;
+}
    .dropdown a{
     color: black !important;
   }

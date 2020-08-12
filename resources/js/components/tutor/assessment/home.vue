@@ -49,19 +49,21 @@
   <div class="assessment">
     <b-tabs content-class>
       <b-tab title="Assignment" active>
-        <b-container-fluid>
+        <b-container fluid>
           <b-row>
             <b-col md="8" class="assessment-table">
-              <b-table :fields="fields" :items="assignment" striped hover>
+             <div class="bd-table">
+                <b-table :fields="fields" bordered :items="assignment" head-variant="darkblue" >
                 <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
               </b-table>
+             </div>
             </b-col>
             <b-col md="4">
               <div class="right">
                 <router-link to="/tutor/assignment">
                   <div class="right-btn">
                     <div class="btn text-center">
-                      <span>ADD ASSIGNMENT</span>
+                      <span>ALL ASSIGNMENTS</span>
                     </div>
                   </div>
                 </router-link>
@@ -77,22 +79,24 @@
               </div>
             </b-col>
           </b-row>
-        </b-container-fluid>
+        </b-container>
       </b-tab>
       <b-tab title="Quiz">
-        <b-container-fluid>
+        <b-container fluid>
           <b-row>
             <b-col md="8" class="assessment-table">
-              <b-table :fields="fields" :items="quiz" striped hover>
+              <div class="bd-table">
+                <b-table :fields="fields" bordered :items="quiz" hover head-variant="darkblue" >
                 <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
               </b-table>
+              </div>
             </b-col>
             <b-col md="4">
               <div class="right">
                 <router-link to="/tutor/quiz">
                   <div class="right-btn">
                     <div class="btn text-center">
-                      <span>ADD QUIZ</span>
+                      <span>ALL QUIZZES</span>
                     </div>
                   </div>
                 </router-link>
@@ -108,22 +112,24 @@
               </div>
             </b-col>
           </b-row>
-        </b-container-fluid>
+        </b-container>
       </b-tab>
       <b-tab title="Test">
-               <b-container-fluid>
+        <b-container fluid>
           <b-row>
             <b-col md="8" class="assessment-table">
-              <b-table :fields="fields" :items="test" striped hover>
+             <div class="bd-table">
+                <b-table :fields="fields" bordered :items="test" head-variant="darkblue" hover>
                 <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
               </b-table>
+             </div>
             </b-col>
             <b-col md="4">
               <div class="right">
                 <router-link to="/tutor/test">
                   <div class="right-btn">
                     <div class="btn text-center">
-                      <span>ADD TEST</span>
+                      <span>ALL TESTS</span>
                     </div>
                   </div>
                 </router-link>
@@ -139,22 +145,24 @@
               </div>
             </b-col>
           </b-row>
-        </b-container-fluid>
+        </b-container>
       </b-tab>
       <b-tab title="Examination">
-               <b-container-fluid>
+        <b-container fluid>
           <b-row>
             <b-col md="8" class="assessment-table">
-              <b-table :fields="fields" :items="examination" striped hover>
+              <div class="bd-table">
+                <b-table :fields="fields" bordered :items="examination" head-variant="darkblue"  hover>
                 <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
               </b-table>
+              </div>
             </b-col>
             <b-col md="4">
               <div class="right">
                 <router-link to="/tutor/exam">
                   <div class="right-btn">
                     <div class="btn text-center">
-                      <span>ADD EXAMINATION</span>
+                      <span>ALL EXAMINATIONS</span>
                     </div>
                   </div>
                 </router-link>
@@ -170,7 +178,7 @@
               </div>
             </b-col>
           </b-row>
-        </b-container-fluid>
+        </b-container>
       </b-tab>
     </b-tabs>
   </div>
@@ -305,6 +313,8 @@ export default {
 .right {
   background: #fff;
   height: 100vh;
+  padding: 10px;
+  margin-top: 1rem;
 }
 .right-btn {
   display: flex;
@@ -344,7 +354,7 @@ h6 {
 }
 .assessment-table {
   padding-left: 15px;
-  padding-top: 30px;
+  padding-top: 0;
 }
 .hiden {
   opacity: 0;

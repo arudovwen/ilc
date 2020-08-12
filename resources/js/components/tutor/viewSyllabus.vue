@@ -5,16 +5,16 @@
     <div class="border p-3 my-4">
       <h5>Class Information</h5>
       <div class="form-group">
-        <h5 class="toCaps">
+        <strong class="toCaps">
         
          <span class="text-muted">Term :</span> {{syllabus.term}}
-        </h5>
+        </strong>
       </div>
       <div class="form-group">
-        <h5 class="toCaps">
+        <strong class="toCaps">
           <span class="text-muted">Grade Level :</span>
           {{syllabus.grade_level}}
-        </h5>
+        </strong>
       </div>
     </div>
     <table class="table table-bordered bg-white">
@@ -23,10 +23,10 @@
           <h5>Subject Information</h5>
 
           <div class="form-group">
-            <h5 class="toCaps">
+            <strong class="toCaps">
               <span class="text-muted">Subject :</span>
               {{syllabus.subject}}
-            </h5>
+            </strong>
           </div>
 
           <div class="form-group">
@@ -128,7 +128,7 @@
     </table>
     
   </div>-->
-  <div class="viewsyllabus">
+  <div class="viewsyllabus pt-3 pl-3">
     <h2>Syllabus</h2>
     <div class="contain-syllabus">
       <div class="view-syllabus">
@@ -136,15 +136,16 @@
           <h5>Class Information</h5>
           <div class="underline"></div>
           <div class="class-information-inner">
-            <h4>
+            <h5>
               TERM:
               <span>{{syllabus.term}}</span>
-            </h4>
-            <h4>
-              CLASS:
+            </h5> 
+            <h5>
+              Class:
               <span>{{syllabus.grade_level}}</span>
-            </h4>
-          </div>
+            </h5>
+          
+        
         </div>
         <hr />
         <div class="class-information">
@@ -164,8 +165,12 @@
             <h6>Subject Description</h6>
             <p>{{syllabus.description}}</p>
           </div>
+         
+         
+          
         </div>
-        <hr />
+       
+       </div>
         <div class="class-information">
           <h5>Overarching Learner Outcome</h5>
           <div class="underline"></div>
@@ -175,6 +180,7 @@
               {{item.name}}
             </span>
           </div>
+         
         </div>
         <hr />
         <div class="class-information">
@@ -186,6 +192,8 @@
               {{item.name}}
             </span>
           </div>
+        
+         
         </div>
         <hr />
         <div class="class-information">
@@ -197,6 +205,8 @@
               {{item.name}}
             </span>
           </div>
+       
+         
         </div>
         <hr />
         <div class="class-information">
@@ -208,6 +218,8 @@
               {{item.name}}
             </span>
           </div>
+       
+         
         </div>
         <hr />
         <div class="class-information">
@@ -220,6 +232,8 @@
               {{item.name}}
             </span>
           </div>
+      
+         
         </div>
         <hr />
         <div class="class-information">
@@ -315,7 +329,7 @@ form {
 }
 h5 {
   margin-bottom: 24px;
-  font-size: 1.4em;
+  font-size: 1.3em;
 }
 .side-label {
   width: 150px;
@@ -339,8 +353,11 @@ h5 {
   justify-content: space-around;
   padding-top: 20px;
 }
-.class-information-inner span {
+h5{
   color: #808080;
+}
+.class-information-inner span {
+  color: #333333;
 }
 .view-syllabus {
   background: #fff;

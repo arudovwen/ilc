@@ -154,7 +154,8 @@
     </form>
   </div>-->
   <div class="add-resource">
-    <h5 class="container">Add Resource</h5>
+    <p><router-link to="/tutor/resources">Go back</router-link></p>
+    <h5 class="text-center py-3">Add New Resource</h5>
     <b-container class="form-container">
       <b-form @submit.prevent="submit">
         <b-form-row>
@@ -174,15 +175,15 @@
             </div>
           </b-col>
           <b-col md="4">
-            <div class="form-group mb-5">
-              <label for>Choose Subject</label>
+            <div class="form-group mb-3">
+              <label for>Select Subject</label>
               <br />
               <select
                 class="custom-select"
                 v-model="resource.subject"
                 :disabled="resource.level ==''"
               >
-                <option selected disabled value>Select Subject</option>
+                <option selected disabled value>Select one</option>
                 <option
                   :value="item.name"
                   v-for="(item,idx) in subjects"
@@ -192,6 +193,8 @@
               </select>
             </div>
           </b-col>
+
+         
           <b-col md="4">
             <div class="form-group mb-5">
               <label for>Select Module</label>
@@ -219,10 +222,18 @@
         <b-form-group label="Resource Upload Type">
           <b-form-radio-group v-model="resource.count" :options="options" plain name="plain-inline"></b-form-radio-group>
         </b-form-group>
-        <b-button type="button" @click="addmore" v-if="resource.count == 'multiple'">Add more</b-button>
+        <b-form-row v-if="resource.count == 'multiple'">
+          <b-button type="button" @click="addmore" class="mr-4">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+          </b-button>
+
+          <b-button type="button" @click="addmore" v-if="resource.content.length > 1">
+            <i class="fa fa-times-circle" aria-hidden="true"></i>
+          </b-button>
+        </b-form-row>
         <div v-for="(item,idx) in resource.content" :key="idx">
           <div class="upload-resource container">
-            <h5>Upload Resource</h5>
+            <h5>Upload Resource {{idx + 1}}</h5>
             <b-form-row>
               <b-col md="6">
                 <div class="form-group mb-3">
@@ -268,11 +279,6 @@
               </label>
               <Upload :label="label" :index="cover" @getUploadDetails="getUploadDetails" />
             </b-form-group>-->
-            <div class="upload-btn-wrapper">
-              <h6>Uplaod Cover Image</h6>
-              <b-avatar :src="resource.cover_image" rounded size="7rem" icon="image-fill"></b-avatar>
-              <input type="file" name="myfile" />
-            </div>
           </div>
         </div>
         <!-- <div class="form-group mb-5">
@@ -297,6 +303,14 @@
             <span class="custom-control-indicator">No</span>
           </label>
         </div>-->
+        <b-form-group class="my-5 w-25">
+          <h5 class="mb-3">Upload Cover</h5>
+
+          <label for="cover">
+            <b-avatar :src="resource.cover_image" rounded size="7rem" icon="image-fill"></b-avatar>
+          </label>
+          <MiniUpload :label="label" :index="cover" @getUploadDetails="getUploadDetails" />
+        </b-form-group>
         <b-form-group label="Would You Like to Include Worksheet/Quiz">
           <b-form-radio-group
             v-model="resource.worksheet"
@@ -320,6 +334,7 @@
 
 <script>
 import Upload from "../../uploadComponent";
+import MiniUpload from "../../miniupload";
 export default {
   props: ["tutor"],
   data() {
@@ -364,6 +379,7 @@ export default {
 
   components: {
     Upload,
+    MiniUpload,
   },
   mounted() {
     this.getCLasses();
@@ -421,6 +437,9 @@ export default {
         title: "",
         overview: "",
       });
+    },
+    remove() {
+      this.resource.content.pop();
     },
     getUploadDetails(id, res) {
       console.log("getUploadDetails -> id", id);

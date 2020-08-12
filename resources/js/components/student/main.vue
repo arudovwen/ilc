@@ -46,7 +46,7 @@
     </transition>
   </div>-->
   <div>
-    <b-nav align="right" class="py-2 shadow-sm">
+    <b-nav align="right" class="py-2 shadow-sm nav">
       <b-nav-item>
         <b-avatar to="/student/profile" :src="student.profile"></b-avatar>
       </b-nav-item>
@@ -189,7 +189,9 @@ export default {
 };
 </script>
 <style scoped>
-
+.nav{
+  background: #f2f6fe;
+}
 .nav-item i {
   color: #808080;
   font-size: 24px;

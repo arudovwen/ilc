@@ -434,5 +434,6 @@ export default {
 .container {
   width: 60%;
   margin-right: 40%;
+  padding: 30px;
 }
 </style>

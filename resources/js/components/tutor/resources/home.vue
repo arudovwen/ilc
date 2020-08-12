@@ -67,6 +67,11 @@
       </div>
    
     <div class="container">
+      <div class="filter-container">
+        <div class="filter-btn">
+        <span>Filter</span>  <i class="icon-sort"></i> 
+        </div>
+      </div>
       <b-navbar toggleable="lg" type="dark" variant="info">
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -224,6 +229,23 @@ export default {
 .resource-btn {
   display: flex;
   justify-content: flex-end;
+}
+.filter-container{
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
+}
+.filter-btn{
+  background: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+.filter-btn span{
+  font-family: "Montserrat";
+  font-weight: bold;
+}
+.filter-btn i{
+ padding-left: 3px;
 }
 .btn-resource {
   background: #0a4065;

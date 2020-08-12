@@ -16988,6 +16988,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tutor"],
   data: function data() {
@@ -20105,7 +20110,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.resource-main[data-v-0d5caa4d] {\r\n  padding: 20px 40px;\n}\n.resource-btn[data-v-0d5caa4d] {\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.btn-resource[data-v-0d5caa4d] {\r\n  background: #0a4065;\r\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  border-radius: 10px;\r\n  padding: 10px 20px;\r\n  color: #fff;\n}\n.sort-section[data-v-0d5caa4d] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  background: #fff;\r\n  border-radius: 10px;\n}\n.bg-info[data-v-0d5caa4d]{\r\n  background: #fff !important;\r\n    box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  margin-top: 20px;\r\n  border-radius: 10px;\n}\n.nav-link[data-v-0d5caa4d]{\r\n  color: #000 !important;\n}\n.resource-table[data-v-0d5caa4d]{\r\n  padding-top: 20px;\n}\n.table[data-v-0d5caa4d]{\r\n   border-radius: 10px;\n}\n.table .thead-dark th[data-v-0d5caa4d] {\r\n    color: #fff;\r\n    background-color: #22CADE;\r\n    border-color:  #22CADE;\n}\n.search[data-v-0d5caa4d] {\r\n    width: 250px;\r\n    border-color: #41cee2;\n}\n.rounded-pill[data-v-0d5caa4d] {\r\n    border-radius: 50rem !important;\n}\n.hiden[data-v-0d5caa4d] {\r\n  opacity: 0;\n}\n.options[data-v-0d5caa4d] {\r\n  position: relative;\r\n  width: 10px;\n}\n.option-box[data-v-0d5caa4d] {\r\n  position: absolute;\r\n  bottom: 100%;\r\n  background: white;\r\n  padding: 15px;\r\n  font-size: 14px;\r\n  width: 100px;\r\n  display: none;\r\n  right: 10px;\n}\n.options:hover .option-box[data-v-0d5caa4d] {\r\n  display: block;\n}\n.option-box ul[data-v-0d5caa4d] {\r\n  text-decoration: none;\r\n  list-style: none;\n}\n.option-box ul li[data-v-0d5caa4d] {\r\n  padding: 5px 0;\r\n  cursor: pointer;\n}\n.fa-ellipsis-v[data-v-0d5caa4d] {\r\n  cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\n.resource-main[data-v-0d5caa4d] {\r\n  padding: 20px 40px;\n}\n.resource-btn[data-v-0d5caa4d] {\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.filter-container[data-v-0d5caa4d]{\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  padding-top: 10px;\n}\n.filter-btn[data-v-0d5caa4d]{\r\n  background: #fff;\r\n  padding: 10px 20px;\r\n  border-radius: 5px;\n}\n.filter-btn span[data-v-0d5caa4d]{\r\n  font-family: \"Montserrat\";\r\n  font-weight: bold;\n}\n.filter-btn i[data-v-0d5caa4d]{\r\n padding-left: 3px;\n}\n.btn-resource[data-v-0d5caa4d] {\r\n  background: #0a4065;\r\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  border-radius: 10px;\r\n  padding: 10px 20px;\r\n  color: #fff;\n}\n.sort-section[data-v-0d5caa4d] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  background: #fff;\r\n  border-radius: 10px;\n}\n.bg-info[data-v-0d5caa4d]{\r\n  background: #fff !important;\r\n    box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  margin-top: 20px;\r\n  border-radius: 10px;\n}\n.nav-link[data-v-0d5caa4d]{\r\n  color: #000 !important;\n}\n.resource-table[data-v-0d5caa4d]{\r\n  padding-top: 20px;\n}\n.table[data-v-0d5caa4d]{\r\n   border-radius: 10px;\n}\n.table .thead-dark th[data-v-0d5caa4d] {\r\n    color: #fff;\r\n    background-color: #22CADE;\r\n    border-color:  #22CADE;\n}\n.search[data-v-0d5caa4d] {\r\n    width: 250px;\r\n    border-color: #41cee2;\n}\n.rounded-pill[data-v-0d5caa4d] {\r\n    border-radius: 50rem !important;\n}\n.hiden[data-v-0d5caa4d] {\r\n  opacity: 0;\n}\n.options[data-v-0d5caa4d] {\r\n  position: relative;\r\n  width: 10px;\n}\n.option-box[data-v-0d5caa4d] {\r\n  position: absolute;\r\n  bottom: 100%;\r\n  background: white;\r\n  padding: 15px;\r\n  font-size: 14px;\r\n  width: 100px;\r\n  display: none;\r\n  right: 10px;\n}\n.options:hover .option-box[data-v-0d5caa4d] {\r\n  display: block;\n}\n.option-box ul[data-v-0d5caa4d] {\r\n  text-decoration: none;\r\n  list-style: none;\n}\n.option-box ul li[data-v-0d5caa4d] {\r\n  padding: 5px 0;\r\n  cursor: pointer;\n}\n.fa-ellipsis-v[data-v-0d5caa4d] {\r\n  cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
@@ -48746,6 +48751,8 @@ var render = function() {
       "div",
       { staticClass: "container" },
       [
+        _vm._m(0),
+        _vm._v(" "),
         _c(
           "b-navbar",
           { attrs: { toggleable: "lg", type: "dark", variant: "info" } },
@@ -48848,7 +48855,7 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "resource-table container" }, [
       _c("table", { staticClass: "table  table-hover table-bordered" }, [
-        _vm._m(0),
+        _vm._m(1),
         _vm._v(" "),
         _c(
           "tbody",
@@ -48933,6 +48940,18 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "filter-container" }, [
+      _c("div", { staticClass: "filter-btn" }, [
+        _c("span", [_vm._v("Filter")]),
+        _vm._v(" "),
+        _c("i", { staticClass: "icon-sort" })
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

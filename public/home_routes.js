@@ -20061,7 +20061,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.resource-main[data-v-0d5caa4d] {\r\n  padding: 20px 40px;\n}\n.resource-btn[data-v-0d5caa4d] {\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.btn-resource[data-v-0d5caa4d] {\r\n  background: #0a4065;\r\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  border-radius: 10px;\r\n  padding: 10px 20px;\r\n  color: #fff;\n}\n.sort-section[data-v-0d5caa4d] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  background: #fff;\r\n  border-radius: 10px;\n}\n.bg-info[data-v-0d5caa4d]{\r\n  background: #fff !important;\r\n    box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  margin-top: 20px;\r\n  border-radius: 10px;\n}\n.nav-link[data-v-0d5caa4d]{\r\n  color: #000 !important;\n}\n.resource-table[data-v-0d5caa4d]{\r\n  padding-top: 20px;\n}\n.table[data-v-0d5caa4d]{\r\n   border-radius: 10px;\n}\n.table .thead-dark th[data-v-0d5caa4d] {\r\n    color: #000;\r\n    background-color: #c0bdbd;\r\n    border-color: #c0bdbd;\n}\n.search[data-v-0d5caa4d] {\r\n    width: 250px;\r\n    border-color: #41cee2;\n}\n.rounded-pill[data-v-0d5caa4d] {\r\n    border-radius: 50rem !important;\n}\n.hiden[data-v-0d5caa4d] {\r\n  opacity: 0;\n}\n.options[data-v-0d5caa4d] {\r\n  position: relative;\r\n  width: 10px;\n}\n.option-box[data-v-0d5caa4d] {\r\n  position: absolute;\r\n  bottom: 100%;\r\n  background: white;\r\n  padding: 15px;\r\n  font-size: 14px;\r\n  width: 100px;\r\n  display: none;\r\n  right: 10px;\n}\n.options:hover .option-box[data-v-0d5caa4d] {\r\n  display: block;\n}\n.option-box ul[data-v-0d5caa4d] {\r\n  text-decoration: none;\r\n  list-style: none;\n}\n.option-box ul li[data-v-0d5caa4d] {\r\n  padding: 5px 0;\r\n  cursor: pointer;\n}\n.fa-ellipsis-v[data-v-0d5caa4d] {\r\n  cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\n.resource-main[data-v-0d5caa4d] {\r\n  padding: 20px 40px;\n}\n.resource-btn[data-v-0d5caa4d] {\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.btn-resource[data-v-0d5caa4d] {\r\n  background: #0a4065;\r\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  border-radius: 10px;\r\n  padding: 10px 20px;\r\n  color: #fff;\n}\n.sort-section[data-v-0d5caa4d] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  background: #fff;\r\n  border-radius: 10px;\n}\n.bg-info[data-v-0d5caa4d]{\r\n  background: #fff !important;\r\n    box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  margin-top: 20px;\r\n  border-radius: 10px;\n}\n.nav-link[data-v-0d5caa4d]{\r\n  color: #000 !important;\n}\n.resource-table[data-v-0d5caa4d]{\r\n  padding-top: 20px;\n}\n.table[data-v-0d5caa4d]{\r\n   border-radius: 10px;\n}\n.table .thead-dark th[data-v-0d5caa4d] {\r\n    color: #fff;\r\n    background-color: #22CADE;\r\n    border-color:  #22CADE;\n}\n.search[data-v-0d5caa4d] {\r\n    width: 250px;\r\n    border-color: #41cee2;\n}\n.rounded-pill[data-v-0d5caa4d] {\r\n    border-radius: 50rem !important;\n}\n.hiden[data-v-0d5caa4d] {\r\n  opacity: 0;\n}\n.options[data-v-0d5caa4d] {\r\n  position: relative;\r\n  width: 10px;\n}\n.option-box[data-v-0d5caa4d] {\r\n  position: absolute;\r\n  bottom: 100%;\r\n  background: white;\r\n  padding: 15px;\r\n  font-size: 14px;\r\n  width: 100px;\r\n  display: none;\r\n  right: 10px;\n}\n.options:hover .option-box[data-v-0d5caa4d] {\r\n  display: block;\n}\n.option-box ul[data-v-0d5caa4d] {\r\n  text-decoration: none;\r\n  list-style: none;\n}\n.option-box ul li[data-v-0d5caa4d] {\r\n  padding: 5px 0;\r\n  cursor: pointer;\n}\n.fa-ellipsis-v[data-v-0d5caa4d] {\r\n  cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
@@ -20175,7 +20175,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-5572edf8] {\r\n  padding: 40px 30px 70px;\r\n  position: relative;\n}\n.popup-overlay[data-v-5572edf8] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(255, 255, 255, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\n}\n.suggestion-box[data-v-5572edf8] {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  background: white;\r\n  border-radius: 5px;\r\n  height: 250px;\r\n  width: 50%;\r\n  padding: 15px;\r\n  position: absolute;\r\n  bottom: 50%;\r\n  transform: translate(50%, 50%);\r\n  right: 50%;\n}\n.suggestion-box p[data-v-5572edf8] {\r\n  font-size: 24px;\r\n  font-weight: bold;\r\n  text-align: center;\n}\n.close[data-v-5572edf8] {\r\n  position: absolute;\r\n  right: 5px;\r\n  top: 5px;\n}\nform[data-v-5572edf8] {\r\n  padding: 20px;\r\n  padding-bottom: 60px;\r\n  background: white;\r\n  font-size: 14px;\n}\nh5[data-v-5572edf8] {\r\n  margin-bottom: 24px;\n}\n.side-label[data-v-5572edf8] {\r\n  width: 150px;\n}\n.form-text[data-v-5572edf8] {\r\n  margin-bottom: 18px;\n}\n.underline[data-v-5572edf8] {\r\n  width: 80px;\r\n  height: 3px;\r\n  background-color: #0a4065;\n}\n.class-information[data-v-5572edf8] {\r\n  padding-top: 20px;\n}\n.class-information h3[data-v-5572edf8] {\r\n  margin-bottom: 0 !important;\n}\n.class-information-inner[data-v-5572edf8] {\r\n  display: flex;\r\n  justify-content: space-around;\r\n  padding-top: 20px;\n}\n.class-information-inner span[data-v-5572edf8] {\r\n  color: #808080;\n}\n.view-syllabus[data-v-5572edf8] {\r\n  background: #fff;\r\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  padding: 30px;\r\n  border-radius: 10px;\n}\n.subject-description[data-v-5572edf8] {\r\n  padding-top: 15px;\n}\n.contain-syllabus[data-v-5572edf8] {\r\n  padding: 30px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-5572edf8] {\r\n  padding: 40px 30px 70px;\r\n  position: relative;\n}\n.popup-overlay[data-v-5572edf8] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(255, 255, 255, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\n}\n.suggestion-box[data-v-5572edf8] {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  background: white;\r\n  border-radius: 5px;\r\n  height: 250px;\r\n  width: 50%;\r\n  padding: 15px;\r\n  position: absolute;\r\n  bottom: 50%;\r\n  transform: translate(50%, 50%);\r\n  right: 50%;\n}\n.suggestion-box p[data-v-5572edf8] {\r\n  font-size: 24px;\r\n  font-weight: bold;\r\n  text-align: center;\n}\n.close[data-v-5572edf8] {\r\n  position: absolute;\r\n  right: 5px;\r\n  top: 5px;\n}\nform[data-v-5572edf8] {\r\n  padding: 20px;\r\n  padding-bottom: 60px;\r\n  background: white;\r\n  font-size: 14px;\n}\nh5[data-v-5572edf8] {\r\n  margin-bottom: 24px;\n}\n.side-label[data-v-5572edf8] {\r\n  width: 150px;\n}\n.form-text[data-v-5572edf8] {\r\n  margin-bottom: 18px;\n}\n.underline[data-v-5572edf8] {\r\n  width: 80px;\r\n  height: 3px;\r\n  background-color: #0a4065;\n}\n.class-information[data-v-5572edf8] {\r\n  padding-top: 20px;\n}\n.class-information h5[data-v-5572edf8] {\r\n  margin-bottom: 2px !important;\n}\n.class-information-inner[data-v-5572edf8] {\r\n  display: flex;\r\n  justify-content: space-around;\r\n  padding-top: 20px;\n}\n.class-information-inner span[data-v-5572edf8] {\r\n  color: #808080;\n}\n.view-syllabus[data-v-5572edf8] {\r\n  background: #fff;\r\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  padding: 30px;\r\n  border-radius: 10px;\n}\n.subject-description[data-v-5572edf8] {\r\n  padding-top: 15px;\n}\n.contain-syllabus[data-v-5572edf8] {\r\n  padding: 30px;\n}\n.form-group[data-v-5572edf8]{\r\n  font-family: \"Montserrat\";\n}\r\n", ""]);
 
 // exports
 
@@ -48844,7 +48844,7 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("div", { staticClass: "resource-table container" }, [
-      _c("table", { staticClass: "table  table-hover" }, [
+      _c("table", { staticClass: "table  table-hover table-bordered" }, [
         _vm._m(0),
         _vm._v(" "),
         _c(
@@ -50233,19 +50233,19 @@ var render = function() {
     _vm.curriculum
       ? _c("div", { staticClass: "form-group" }, [
           _c("h4", { staticClass: "toCaps" }, [
-            _c("span", { staticClass: "text-muted" }, [
-              _vm._v("Grade Level :")
-            ]),
-            _vm._v("\n      " + _vm._s(_vm.curriculum.grade_level) + "\n    ")
+            _vm._v("\n      Grade Level :\n      "),
+            _c("span", {}, [_vm._v(_vm._s(_vm.curriculum.grade_level))])
           ])
         ])
       : _vm._e(),
     _vm._v(" "),
-    _c("table", { staticClass: "table table-bordered bg-white" }, [
-      _vm.curriculum.profile
-        ? _c("tr", { staticClass: "border p-3 my-4" }, [
-            _c("td", [
+    _c("div", { staticClass: "contain-syllabus" }, [
+      _c("div", { staticClass: "view-syllabus" }, [
+        _vm.curriculum.profile
+          ? _c("div", { staticClass: "class-information" }, [
               _c("h5", [_vm._v("Student Profile")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "underline" }),
               _vm._v(" "),
               _c("div", { staticClass: "form-group d-flex" }, [
                 _c(
@@ -50299,12 +50299,14 @@ var render = function() {
                 )
               ])
             ])
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
-        _c("td", [
+          : _vm._e(),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("div", { staticClass: "class-information" }, [
           _c("h5", [_vm._v("Overarching Learner Outcome")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "underline" }),
           _vm._v(" "),
           _c(
             "div",
@@ -50319,14 +50321,17 @@ var render = function() {
             }),
             0
           )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
         _c(
-          "td",
+          "div",
+          { staticClass: "class-information" },
           [
             _c("h5", [_vm._v("Target skills to be learned")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "underline" }),
             _vm._v(" "),
             _vm._l(_vm.curriculum.target_skills, function(item, idx) {
               return _c("span", { key: idx, staticClass: "mb-2 d-flex" }, [
@@ -50338,71 +50343,83 @@ var render = function() {
             })
           ],
           2
-        )
-      ]),
-      _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
-        _c(
-          "td",
-          [
-            _c("h5", [_vm._v("Required subjects")]),
-            _vm._v(" "),
+        ),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("div", { staticClass: "class-information" }, [
+          _c("h5", [_vm._v("Required subjects")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "underline" }),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group" },
             _vm._l(_vm.curriculum.prerequisite, function(item, idx) {
               return _c("span", { key: idx, staticClass: "mb-2 d-flex" }, [
                 _c("span", { staticClass: "mr-3" }, [
                   _vm._v(_vm._s(idx + 1) + ".")
                 ]),
-                _vm._v("\n          " + _vm._s(item.name) + "\n        ")
+                _vm._v("\n            " + _vm._s(item.name) + "\n          ")
               ])
-            })
-          ],
-          2
-        )
-      ]),
-      _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
-        _c(
-          "td",
-          [
-            _c("h5", [_vm._v("Delivery Methods")]),
-            _vm._v(" "),
+            }),
+            0
+          )
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("div", { staticClass: "class-information" }, [
+          _c("h5", [_vm._v("Delivery Methods")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "underline" }),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group" },
             _vm._l(_vm.curriculum.delivery_methods, function(item, idx) {
               return _c("span", { key: idx, staticClass: "mb-2 d-flex" }, [
                 _c("span", { staticClass: "mr-3" }, [
                   _vm._v(_vm._s(idx + 1) + ".")
                 ]),
-                _vm._v("\n          " + _vm._s(item.name) + "\n        ")
+                _vm._v("\n            " + _vm._s(item.name) + "\n          ")
               ])
-            })
-          ],
-          2
-        )
-      ]),
-      _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
-        _c(
-          "td",
-          [
-            _c("h5", [_vm._v("Assessment")]),
-            _vm._v(" "),
+            }),
+            0
+          )
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("div", { staticClass: "class-information" }, [
+          _c("h5", [_vm._v("Assessment")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "underline" }),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group" },
             _vm._l(_vm.curriculum.assessments, function(item, idx) {
               return _c("span", { key: idx, staticClass: "mb-2 d-flex" }, [
                 _c("span", { staticClass: "mr-3" }, [
                   _vm._v(_vm._s(idx + 1) + ".")
                 ]),
-                _vm._v("\n          " + _vm._s(item.name) + "\n        ")
+                _vm._v("\n            " + _vm._s(item.name) + "\n          ")
               ])
-            })
-          ],
-          2
-        )
-      ]),
-      _vm._v(" "),
-      _c("tr", [
+            }),
+            0
+          )
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
         _c(
-          "td",
+          "div",
+          { staticClass: "class-information" },
           [
             _c("h5", [_vm._v("FAQs (Optional)")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "underline" }),
             _vm._v(" "),
             _vm._l(_vm.curriculum.faqs, function(item, idx) {
               return _c("div", { key: idx, staticClass: "mb-3" }, [
@@ -50433,22 +50450,30 @@ var render = function() {
             })
           ],
           2
-        )
-      ]),
-      _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
-        _c("td", [
+        ),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("div", { staticClass: "class-information" }, [
           _c("h5", [_vm._v("Course Availability")]),
-          _vm._v(
-            "\n        " + _vm._s(_vm.curriculum.availability) + "\n      "
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("tr", { staticClass: "border p-3 my-4" }, [
-        _c("td", [
+          _vm._v(" "),
+          _c("div", { staticClass: "underline" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("p", [_vm._v(_vm._s(_vm.curriculum.availability))])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("div", { staticClass: "class-information" }, [
           _c("h5", [_vm._v("Comments")]),
-          _vm._v("\n        " + _vm._s(_vm.curriculum.comments) + "\n      ")
+          _vm._v(" "),
+          _c("div", { staticClass: "underline" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("p", [_vm._v(_vm._s(_vm.curriculum.comments))])
+          ])
         ])
       ])
     ])

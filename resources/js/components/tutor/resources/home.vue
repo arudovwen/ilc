@@ -99,7 +99,7 @@
       </b-navbar>
     </div>
     <div class="resource-table container">
-       <table class="table  table-hover">
+       <table class="table  table-hover table-bordered">
       <thead class="thead-dark">
         <tr>
           <th>S/N</th>
@@ -257,9 +257,9 @@ export default {
    border-radius: 10px;
 }
 .table .thead-dark th {
-    color: #000;
-    background-color: #c0bdbd;
-    border-color: #c0bdbd;
+    color: #fff;
+    background-color: #22CADE;
+    border-color:  #22CADE;
    
 }
 .search {

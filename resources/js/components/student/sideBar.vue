@@ -205,9 +205,9 @@ nav ul li{
 nav{
     padding-left:20px;
 } */
-/* .router-link-exact-active li{
-background:#f7f8fa ;
-border-top-left-radius:10px;
-border-bottom-left-radius:10px
-} */
+.router-link-exact-active {
+color: #13A699 ;
+font-weight: bold;
+
+}
 </style>

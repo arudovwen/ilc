@@ -46,7 +46,7 @@
     </transition>
   </div>-->
   <div>
-    <b-nav align="right" class="py-2 shadow-sm nav">
+    <b-nav align="right" class="py-2 shadow nav">
       <b-nav-item>
         <b-avatar to="/student/profile" :src="student.profile"></b-avatar>
       </b-nav-item>

@@ -454,10 +454,10 @@ form .reg-btn{
       
     }
 /* student-dashboard */
-.student-assessment .nav-tabs {
+/* .student-assessment .nav-tabs {
     border-bottom: none;
     justify-content: space-around !important;
-    padding-top: 15px !important;
+   
 }
 .student-assessment .nav-tabs .nav-link.active {
     color: #ffd708 !important;
@@ -465,7 +465,7 @@ form .reg-btn{
     border-radius: 20px !important;
     /* padding: 10px 20px !important; */
     
-}
+ */
 
 
 /* admin dashboard  */

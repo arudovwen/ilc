@@ -1,7 +1,7 @@
 <template>
     <div class="my-container d-flex">
-       <Side  class="side"  :tutor='tutor'/> 
-       <Main class="main"  :tutor='tutor'/>
+       <Side  class="side" :sideBar='sideBar' @minimise="minimise" :tutor='tutor'  :class="{'min-side':sideBar}"/> 
+       <Main class="main"  :tutor='tutor' :class="{'min-main':sideBar}"/>
     </div>
 </template>
 
@@ -12,7 +12,8 @@ import Main from "./main";
 export default {
     data() {
         return {
-            tutor:''
+            tutor:'',
+            sideBar:false
         }
     },
     components:{
@@ -21,6 +22,11 @@ export default {
     },
      created() {
        this.tutor = JSON.parse(localStorage.getItem("typeTutor"));
+    },
+    methods: {
+        minimise(){
+            this.sideBar = !this.sideBar
+        }
     },
 }
 </script>
@@ -43,6 +49,12 @@ export default {
 position: absolute;
 right: 0;
 /* background:#fff7ed ; */
+}
+.min-side{
+width: 4% !important;
+}
+.min-main{
+width: 96% !important;
 }
 
  

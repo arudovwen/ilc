@@ -70,54 +70,140 @@
     </div>
   </div>-->
   <div class="time-table">
-    <b-container>
-      <b-row>
-        <b-col md="8">
-          <div class="table-responsive">
-            <div class="form-group">
-              <h5 class="toCaps">{{myclass}}</h5>
-            </div>
-            <table class="table table-bordered">
-              <thead class="thead-darkblue">
-                <tr>
-                  <th>Day</th>
-                  <th>Time</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(tab,index) in tables" :key="index">
-                  <td class="toCaps day">{{tab.day}}</td>
-                  <td class="d-flex justify-content-between p-0">
-                    <table class="w-100">
-                      <tr class="w-100">
-                        <td class="text-center" v-for="(item,idx) in tab.courses" :key="idx">
-                          <div class>{{item.start}} - {{item.end}}</div>
-                          <div>{{item.subject}}</div>
-                          <div>{{item.tutor}}</div>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+    <div class="timetable-schedule">
+      <b-container>
+              <div class="filter-table">
+        <div class="filter-container">
+          <div class="filter-btn btn" @click="toggleFilter">
+            <span>Filter</span>
+            <i class="icon-sort"></i>
           </div>
-        </b-col>
-        <b-col md="4">
-        <div class="schedule-part">
-           <vc-calendar></vc-calendar>
         </div>
-        </b-col>
-      </b-row>
-    </b-container>
+        <b-navbar toggleable="lg" type="dark" variant="info" v-if="filterShow">
+          <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+          <b-collapse id="nav-collapse" is-nav>
+            <b-navbar-nav>
+              <b-nav-item href="#">Sort By:</b-nav-item>
+            </b-navbar-nav>
+
+            <!-- Right aligned nav items -->
+            <b-navbar-nav class="mx-auto">
+              <b-form-select class="mr-3" v-model="myclass">
+                <b-form-select-option value disabled>-- Class --</b-form-select-option>
+                <b-form-select-option value="all">-- All --</b-form-select-option>
+                <b-form-select-option
+                  :value="item.class_name"
+                  v-for="(item,idx) in classess"
+                  :key="idx"
+                >{{item.class_name}}</b-form-select-option>
+              </b-form-select>
+            </b-navbar-nav>
+            <b-navbar-nav>
+              <b-nav-form class="ml-auto">
+                <b-form-input size="sm" class="mr-sm-2 search rounded-pill" placeholder="Search"></b-form-input>
+              </b-nav-form>
+            </b-navbar-nav>
+          </b-collapse>
+        </b-navbar>
+      </div>
+        <div class="table-responsive">
+          <div class="form-group">
+            <h5 class="toCaps">{{myclass}}</h5>
+          </div>
+          <table class="table table-bordered">
+            <thead class="thead-darkblue">
+              <tr>
+                <th>Day</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(tab,index) in tables" :key="index">
+                <td class="toCaps day">{{tab.day}}</td>
+                <td class="d-flex justify-content-between p-0">
+                  <table class="w-100">
+                    <tr class="w-100">
+                      <td class="text-center" v-for="(item,idx) in tab.courses" :key="idx">
+                        <div class>{{item.start}} - {{item.end}}</div>
+                        <div>{{item.subject}}</div>
+                        <div>{{item.tutor}}</div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </b-container>
+      <div class="schedule-part">
+        <div class="schedule-inner">
+          <h6>Scheduler</h6>
+          <p>keep reminders with your scheduler</p>
+          <div class="calendar">
+            <vc-calendar></vc-calendar>
+          </div>
+          <h6>Notifications</h6>
+          <div class="notify">
+            <div class="notify-i">
+              <i class="fa fa-book" aria-hidden="true"></i>
+            </div>
+            <div class="notify-word">
+              <p>
+                SS1
+                <strong>English Language</strong>
+                <em>8:00AM</em>
+              </p>
+            </div>
+          </div>
+          <div class="notify">
+            <div class="notify-i">
+              <i class="fa fa-book" aria-hidden="true"></i>
+            </div>
+            <div class="notify-word">
+              <p>
+                JSS2
+                <strong>Virtual Class</strong>
+                <em>10:00AM</em>
+              </p>
+            </div>
+          </div>
+              <div class="notify">
+            <div class="notify-i">
+              <i class="fa fa-book" aria-hidden="true"></i>
+            </div>
+            <div class="notify-word">
+              <p>
+                JSS2
+                <strong>Virtual Class</strong>
+                <em>10:00AM</em>
+              </p>
+            </div>
+          </div>
+              <div class="notify">
+            <div class="notify-i">
+              <i class="fa fa-book" aria-hidden="true"></i>
+            </div>
+            <div class="notify-word">
+              <p>
+                JSS2
+                <strong>Virtual Class</strong>
+                <em>10:00AM</em>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Calendar from 'v-calendar/lib/components/calendar.umd'
+import Calendar from "v-calendar/lib/components/calendar.umd";
 export default {
   components: {
-    Calendar
+    Calendar,
   },
   props: ["tutor"],
   data() {
@@ -128,6 +214,7 @@ export default {
       overlay: false,
       item: false,
       items: [],
+       filterShow: false,
     };
   },
   mounted() {
@@ -154,6 +241,9 @@ export default {
           }
         });
     },
+      toggleFilter() {
+      this.filterShow = !this.filterShow;
+    },
     getTable() {
       axios
         .get(`/api/tutor-times-table`, {
@@ -171,8 +261,9 @@ export default {
 };
 </script>
 <style scoped>
-.container{
-  width: 100%;
+.timetable-schedule {
+  display: flex;
+  justify-content: space-between;
 }
 .body {
   position: relative;
@@ -205,7 +296,96 @@ export default {
   width: 100%;
   position: relative;
 }
-.schedule-part{
+.schedule-part {
   background: #fff;
+  height: 100vh;
+}
+.schedule-inner {
+  padding: 20px;
+      height: 100vh;
+    overflow-y: scroll;
+}
+.schedule-inner p {
+  font-size: 14px;
+}
+.schedule-inner h6 {
+  padding-top: 20px;
+}
+.notify {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 15px;
+}
+.notify-i i {
+  color: #22cade;
+  padding: 10px;
+}
+.notify-i {
+  background: rgba(34, 202, 222, 0.25);
+  border-radius: 50%;
+}
+.noftify-word p{
+  font-size: 12px;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: none; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(34, 202, 222, 0.25); 
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+.search {
+  width: 250px;
+  border-color: #41cee2;
+}
+
+.rounded-pill {
+  border-radius: 50rem !important;
+}
+.filter-container {
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 10px;
+}
+.filter-btn {
+  background: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+.filter-btn span {
+  font-family: "Montserrat";
+  font-weight: bold;
+}
+.filter-btn i {
+  padding-left: 3px;
+}
+.sort-section {
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+  border-radius: 10px;
+}
+.bg-info {
+  background: #fff !important;
+  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.nav-link {
+  color: #000 !important;
 }
 </style>

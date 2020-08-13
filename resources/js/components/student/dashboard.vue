@@ -1,7 +1,7 @@
 <template>
     <div class="my-container d-flex">
-       <Side  class="side" :student ='student'/> 
-       <Main class="main" :student ='student'/>
+       <Side  class="side" :student ='student'  :sideBar='sideBar' @minimise="minimise" :class="{'min-side':sideBar}"/> 
+       <Main class="main" :student ='student' :class="{'min-main':sideBar}"/>
     </div>
 </template>
 
@@ -12,7 +12,8 @@ import Main from "./main";
 export default {
     data() {
         return {
-            student:{}
+            student:{},
+             sideBar:false
         }
     },
     components:{
@@ -21,6 +22,11 @@ export default {
     },
      created() {
        this.student = JSON.parse(localStorage.getItem("typeStudent"));
+    },
+     methods: {
+        minimise(){
+            this.sideBar = !this.sideBar
+        }
     },
 }
 </script>
@@ -49,4 +55,11 @@ position: fixed;
     overflow: auto;
    
 }
+.min-side{
+width: 4% !important;
+}
+.min-main{
+width: 96% !important;
+}
+
 </style>

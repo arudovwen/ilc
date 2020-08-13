@@ -5,12 +5,12 @@
         <h4>Syllabus</h4>
         <div class="filter-table">
           <div class="filter-container">
-            <div class="filter-btn">
+            <div class="filter-btn" @click="toggleFilter">
               <span>Filter</span>
               <i class="icon-sort"></i>
             </div>
           </div>
-          <b-navbar toggleable="lg" type="dark" variant="info">
+          <b-navbar toggleable="lg" type="dark" variant="info" v-if="filterShow">
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
             <b-collapse id="nav-collapse" is-nav>
@@ -20,20 +20,32 @@
 
               <!-- Right aligned nav items -->
               <b-navbar-nav class="mx-auto">
-                <b-form-select class="mr-3" :options="subjects" v-model="subject">
-                  <template v-slot:first>
-                    <b-form-select-option :value="null" disabled>-- Subject --</b-form-select-option>
-                  </template>
+                <b-form-select class="mr-3"  v-model="subject">
+                
+                    <b-form-select-option value="" disabled>-- Subject --</b-form-select-option>
+                    <b-form-select-option value="all">-- All --</b-form-select-option>
+                    <b-form-select-option
+                      :value="item.name"
+                      v-for="(item,idx) in subjects"
+                      :key="idx"
+                    >{{item.name}}</b-form-select-option>
+                
                 </b-form-select>
-                <b-form-select class="mr-3" :options="classess" v-model="myclass">
-                  <template v-slot:first>
-                    <b-form-select-option :value="null" disabled>-- Class --</b-form-select-option>
-                  </template>
+                <b-form-select class="mr-3" v-model="myclass">
+                
+                    <b-form-select-option value="" disabled>-- Class --</b-form-select-option>
+                    <b-form-select-option value="all">-- All --</b-form-select-option>
+                    <b-form-select-option
+                      :value="item.class_name"
+                      v-for="(item,idx) in classess"
+                      :key="idx"
+                    >{{item.class_name}}</b-form-select-option>
+                
                 </b-form-select>
-                <b-form-select :options="term" v-model="term">
-                  <template v-slot:first>
-                    <b-form-select-option :value="null" disabled>-- Term --</b-form-select-option>
-                  </template>
+                <b-form-select  v-model="term">
+                
+                    <b-form-select-option value="" disabled>-- Term --</b-form-select-option>
+                 
                 </b-form-select>
               </b-navbar-nav>
               <b-navbar-nav>
@@ -44,7 +56,7 @@
             </b-collapse>
           </b-navbar>
         </div>
-        <div class="syllabus-table">
+        <div class="bd-table syllabus-table">
           <table class="table table-hover table-bordered">
             <thead class="thead-darkblue">
               <tr>
@@ -55,7 +67,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(item,idx) in syllabus" :key="idx">
+              <tr v-for="(item,idx) in sorted" :key="idx">
                 <td scope="row" class="toCaps">{{item.myclass}}</td>
                 <td scope="row" class="toCaps">{{item.subject}}</td>
                 <td class="d-flex justify-content-around">
@@ -78,13 +90,72 @@ export default {
     return {
       curriculum: [],
       syllabus: [],
+      subjects: [],
+      classess: [],
+      subject: '',
+      myclass: '',
+      term: '',
+      filterShow: false,
     };
   },
   mounted() {
     this.getSyllabus();
     this.getCurriculum();
+    this.getClasses();
+    this.getSubjects();
+  },
+  computed: {
+    sorted() {
+      return this.syllabus.filter((item) => {
+        if (this.subject.toLowerCase() == item.subject.toLowerCase() || this.myclass.toLowerCase() == item.myclass.toLowerCase()) {
+          return item;
+        } else if(this.subject== '' || this.subject == 'all'){
+          return item;
+        }
+      });
+    },
   },
   methods: {
+    getSubjects() {
+      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios
+        .get("/api/tutor-all-subjects", {
+          headers: {
+            Authorization: `Bearer ${tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.subjects = res.data;
+          }
+        })
+        .catch();
+    },
+    getClasses() {
+      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios
+        .get("/api/all-classes", {
+          headers: {
+            Authorization: `Bearer ${tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.classess = res.data;
+            // res.data.forEach((item) => {
+            //   this.allClass.push(item.class_name);
+            //   if (item.sub_class !== "") {
+            //     item.sub_class.split(",").forEach((i) => {
+            //       this.allClass.push(i);
+            //     });
+            //   }
+            // });
+          }
+        });
+    },
+    toggleFilter() {
+      this.filterShow = !this.filterShow;
+    },
     getCurriculum() {
       axios
         .get("/api/tutor-curriculum", {

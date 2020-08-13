@@ -1,52 +1,25 @@
 <template>
   <div class="body">
-    <nav class="mb-5">
-      <b-button class=" shadow-sm" @click="multiDrop">
-       Multi-Drop
-        
-      </b-button>
-      <b-button class=" shadow-sm hiden">
-     Create Group
-        
-      </b-button>
-
-      <b-button class=" shadow-sm hiden">
-     Assign Course
-        
-      </b-button>
-
-      <div class=" shadow-sm hiden">
-     Assign Level
-        
-      </div>
-    </nav>
-
-    <div class="d-flex justify-content-between">
-      <table class="table table-hover  table-bordered ">
+    <h5 class="mb-3">Groups</h5>
+    <div class="px-5">
+      <table class="table table-hover table-bordered">
         <thead class="thead-light">
           <tr>
             <th>Group Name</th>
-
             <th>Action</th>
-            <th>
-              <input type="checkbox" v-model="item" />
-            </th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(item,idx) in groups" :key="idx">
-            <td class="toCaps chat " @click="gotoGroup(item.id)">{{item.name}}  <i class="fa fa-comment-o" aria-hidden="true"></i></td>
-
-            <td class="d-flex justify-content-around">
-              <span class="mr-3" @click="drop(item.id)">
-                <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
-              </span>
-              <span @click="edit(item.id)">
-                <i class="fas fa-edit"></i>Update
-              </span>
+            <td class="toCaps chat">
+              {{item.name}}
+              <i class="fa fa-comment-o" aria-hidden="true"></i>
             </td>
             <td>
-              <input type="checkbox" :value="item.id" v-model="items" />
+              <span @click="gotoGroup(item.id)">
+                Enter
+                <i class="fas fa-sign-in-alt"></i>
+              </span>
             </td>
           </tr>
         </tbody>
@@ -66,11 +39,11 @@ export default {
       name: "",
       items: [],
       item: false,
-      update: false
+      update: false,
     };
   },
   watch: {
-    item: "selectAll"
+    item: "selectAll",
   },
   mounted() {
     this.getgroups();
@@ -84,7 +57,7 @@ export default {
     selectAll() {
       if (this.item) {
         this.items = [];
-        this.groups.forEach(it => {
+        this.groups.forEach((it) => {
           this.items.push(it.id);
         });
       } else {
@@ -93,15 +66,15 @@ export default {
     },
     addClass() {
       let data = {
-        name: this.name
+        name: this.name,
       };
       axios
         .post("/api/student-group", data, {
           headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 201) {
             this.name = "";
             this.getgroups();
@@ -112,10 +85,10 @@ export default {
       axios
         .put(`/api/student-group/${this.data.id}`, this.data, {
           headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.getgroups();
             this.update = false;
@@ -130,10 +103,10 @@ export default {
       axios
         .get(`/api/student-group/${id}`, {
           headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.name = res.data.name;
             this.update = true;
@@ -144,10 +117,10 @@ export default {
       axios
         .get("/api/student-group", {
           headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.groups = res.data;
           }
@@ -159,10 +132,10 @@ export default {
         axios
           .delete(`/api/student-group/${id}`, {
             headers: {
-              Authorization: `Bearer ${this.$props.student.access_token}`
-            }
+              Authorization: `Bearer ${this.$props.student.access_token}`,
+            },
           })
-          .then(res => {
+          .then((res) => {
             if (res.status == 200) {
               this.getgroups();
             }
@@ -175,20 +148,20 @@ export default {
         axios
           .post("/api/multi-student-group-drop", this.items, {
             headers: {
-              Authorization: `Bearer ${this.$props.student.access_token}`
-            }
+              Authorization: `Bearer ${this.$props.student.access_token}`,
+            },
           })
-          .then(res => {
+          .then((res) => {
             if (res.status == 200) {
               this.getgroups();
             }
           })
-          .catch(err => {
+          .catch((err) => {
             console.log("del -> err", err);
           });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -199,9 +172,9 @@ nav {
   grid-column-gap: 30px;
 }
 .table .thead-light th {
-    color: white;
-    background-color: rgba(19, 166, 153, 0.9);
-    border-color: rgba(19, 166, 153, 0.9);
+  color: white;
+  background-color: rgba(19, 166, 153, 0.9);
+  border-color: rgba(19, 166, 153, 0.9);
 }
 td {
   text-transform: capitalize;
@@ -215,9 +188,11 @@ td {
 }
 
 table {
-  font-size: 15.5px;
+  font-size: 16px;
+  text-align: center;
 }
-.chat{
+.chat {
   cursor: pointer;
 }
+
 </style>

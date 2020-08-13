@@ -18285,6 +18285,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var v_calendar_lib_components_calendar_umd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! v-calendar/lib/components/calendar.umd */ "./node_modules/v-calendar/lib/components/calendar.umd.js");
+/* harmony import */ var v_calendar_lib_components_calendar_umd__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(v_calendar_lib_components_calendar_umd__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -18359,7 +18361,52 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Calendar: v_calendar_lib_components_calendar_umd__WEBPACK_IMPORTED_MODULE_0___default.a
+  },
   props: ["tutor"],
   data: function data() {
     return {
@@ -20919,7 +20966,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-a874f09c] {\r\n  position: relative;\r\n  padding: 40px 20px 50px;\r\n  height: 100%;\n}\n.overlay-content[data-v-a874f09c] {\r\n  position: absolute;\r\n top: 0px;\r\n    left: 0px;\r\n    bottom: 0px;\r\n    right: 0px;\r\n    opacity: 0.85;\r\n    -webkit-backdrop-filter: blur(2px);\r\n            backdrop-filter: blur(2px);\r\n  height: 100vh;\r\n  width: 100%;\r\n  left: 0;\r\n  background: rgba(0, 0, 0, 0.8);\r\n  padding: 10px;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\n}\n.cancel[data-v-a874f09c] {\r\n  position: absolute;\r\n  right: 10px;\r\n  top: 10px;\n}\n.ov[data-v-a874f09c]{\r\n    width: 100%;\r\n    position: relative;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-a874f09c]{\r\n  width: 100%;\n}\n.body[data-v-a874f09c] {\r\n  position: relative;\r\n  padding: 40px 20px 50px;\r\n  height: 100%;\n}\n.overlay-content[data-v-a874f09c] {\r\n  position: absolute;\r\n  top: 0px;\r\n  left: 0px;\r\n  bottom: 0px;\r\n  right: 0px;\r\n  opacity: 0.85;\r\n  -webkit-backdrop-filter: blur(2px);\r\n          backdrop-filter: blur(2px);\r\n  height: 100vh;\r\n  width: 100%;\r\n  left: 0;\r\n  background: rgba(0, 0, 0, 0.8);\r\n  padding: 10px;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\n}\n.cancel[data-v-a874f09c] {\r\n  position: absolute;\r\n  right: 10px;\r\n  top: 10px;\n}\n.ov[data-v-a874f09c] {\r\n  width: 100%;\r\n  position: relative;\n}\n.schedule-part[data-v-a874f09c]{\r\n  background: #fff;\n}\r\n", ""]);
 
 // exports
 
@@ -51414,223 +51461,104 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "body" }, [
-    _vm.overlay
-      ? _c("div", { staticClass: "overlay-content" }, [
-          _c("div", { staticClass: "ov bg-white  p-3" }, [
-            _c("div", { staticClass: "text-right" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary ml-auto",
-                  attrs: { type: "button" },
-                  on: { click: _vm.cancel }
-                },
-                [_vm._v("Close")]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "table-responsive " }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("h5", { staticClass: "toCaps" }, [
-                  _vm._v(_vm._s(_vm.myclass))
+  return _c(
+    "div",
+    { staticClass: "time-table" },
+    [
+      _c(
+        "b-container",
+        [
+          _c(
+            "b-row",
+            [
+              _c("b-col", { attrs: { md: "8" } }, [
+                _c("div", { staticClass: "table-responsive" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("h5", { staticClass: "toCaps" }, [
+                      _vm._v(_vm._s(_vm.myclass))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("table", { staticClass: "table table-bordered" }, [
+                    _c("thead", { staticClass: "thead-darkblue" }, [
+                      _c("tr", [
+                        _c("th", [_vm._v("Day")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Time")])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.tables, function(tab, index) {
+                        return _c("tr", { key: index }, [
+                          _c("td", { staticClass: "toCaps day" }, [
+                            _vm._v(_vm._s(tab.day))
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass: "d-flex justify-content-between p-0"
+                            },
+                            [
+                              _c("table", { staticClass: "w-100" }, [
+                                _c(
+                                  "tr",
+                                  { staticClass: "w-100" },
+                                  _vm._l(tab.courses, function(item, idx) {
+                                    return _c(
+                                      "td",
+                                      { key: idx, staticClass: "text-center" },
+                                      [
+                                        _c("div", {}, [
+                                          _vm._v(
+                                            _vm._s(item.start) +
+                                              " - " +
+                                              _vm._s(item.end)
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("div", [
+                                          _vm._v(_vm._s(item.subject))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("div", [_vm._v(_vm._s(item.tutor))])
+                                      ]
+                                    )
+                                  }),
+                                  0
+                                )
+                              ])
+                            ]
+                          )
+                        ])
+                      }),
+                      0
+                    )
+                  ])
                 ])
               ]),
               _vm._v(" "),
-              _c("table", { staticClass: "table table-bordered" }, [
-                _vm._m(0),
-                _vm._v(" "),
+              _c("b-col", { attrs: { md: "4" } }, [
                 _c(
-                  "tbody",
-                  _vm._l(_vm.tables, function(tab, index) {
-                    return _c("tr", { key: index }, [
-                      _c("td", { staticClass: "toCaps day" }, [
-                        _vm._v(_vm._s(tab.day))
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        { staticClass: "d-flex justify-content-between p-0" },
-                        [
-                          _c("table", { staticClass: "w-100" }, [
-                            _c(
-                              "tr",
-                              { staticClass: "w-100" },
-                              _vm._l(tab.courses, function(item, idx) {
-                                return _c(
-                                  "td",
-                                  { key: idx, staticClass: "text-center" },
-                                  [
-                                    _c("div", {}, [
-                                      _vm._v(
-                                        _vm._s(item.start) +
-                                          " - " +
-                                          _vm._s(item.end)
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("div", [_vm._v(_vm._s(item.subject))]),
-                                    _vm._v(" "),
-                                    _c("div", [_vm._v(_vm._s(item.tutor))])
-                                  ]
-                                )
-                              }),
-                              0
-                            )
-                          ])
-                        ]
-                      )
-                    ])
-                  }),
-                  0
+                  "div",
+                  { staticClass: "schedule-part" },
+                  [_c("vc-calendar")],
+                  1
                 )
               ])
-            ])
-          ])
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    _c("div", [
-      _c("table", { staticClass: "table table-bordered" }, [
-        _c("thead", { staticClass: "thead-darkblue" }, [
-          _c("tr", [
-            _c("th", [_vm._v("Class")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Action")]),
-            _vm._v(" "),
-            _c("th", [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.item,
-                    expression: "item"
-                  }
-                ],
-                attrs: { type: "checkbox" },
-                domProps: {
-                  checked: Array.isArray(_vm.item)
-                    ? _vm._i(_vm.item, null) > -1
-                    : _vm.item
-                },
-                on: {
-                  change: function($event) {
-                    var $$a = _vm.item,
-                      $$el = $event.target,
-                      $$c = $$el.checked ? true : false
-                    if (Array.isArray($$a)) {
-                      var $$v = null,
-                        $$i = _vm._i($$a, $$v)
-                      if ($$el.checked) {
-                        $$i < 0 && (_vm.item = $$a.concat([$$v]))
-                      } else {
-                        $$i > -1 &&
-                          (_vm.item = $$a
-                            .slice(0, $$i)
-                            .concat($$a.slice($$i + 1)))
-                      }
-                    } else {
-                      _vm.item = $$c
-                    }
-                  }
-                }
-              })
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "tbody",
-          _vm._l(_vm.table, function(item, idx) {
-            return _c("tr", { key: idx }, [
-              _c("td", { staticClass: "toCaps", attrs: { scope: "row" } }, [
-                _vm._v(_vm._s(item.myclass))
-              ]),
-              _vm._v(" "),
-              _c("td", { staticClass: "d-flex justify-content-around" }, [
-                _c(
-                  "span",
-                  {
-                    staticClass: "mr-3",
-                    on: {
-                      click: function($event) {
-                        return _vm.getTables(item.id)
-                      }
-                    }
-                  },
-                  [
-                    _c("i", {
-                      staticClass: "fa fa-eye",
-                      attrs: { "aria-hidden": "true" }
-                    }),
-                    _vm._v(" View\n            ")
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.items,
-                      expression: "items"
-                    }
-                  ],
-                  attrs: { type: "checkbox" },
-                  domProps: {
-                    value: item.id,
-                    checked: Array.isArray(_vm.items)
-                      ? _vm._i(_vm.items, item.id) > -1
-                      : _vm.items
-                  },
-                  on: {
-                    change: function($event) {
-                      var $$a = _vm.items,
-                        $$el = $event.target,
-                        $$c = $$el.checked ? true : false
-                      if (Array.isArray($$a)) {
-                        var $$v = item.id,
-                          $$i = _vm._i($$a, $$v)
-                        if ($$el.checked) {
-                          $$i < 0 && (_vm.items = $$a.concat([$$v]))
-                        } else {
-                          $$i > -1 &&
-                            (_vm.items = $$a
-                              .slice(0, $$i)
-                              .concat($$a.slice($$i + 1)))
-                        }
-                      } else {
-                        _vm.items = $$c
-                      }
-                    }
-                  }
-                })
-              ])
-            ])
-          }),
-          0
-        )
-      ])
-    ])
-  ])
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "thead-darkblue" }, [
-      _c("tr", [
-        _c("th", [_vm._v("Day")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Time")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

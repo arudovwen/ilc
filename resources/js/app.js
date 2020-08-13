@@ -20,7 +20,7 @@ import Chart from 'chart.js'
  
 
 import VueChatScroll from 'vue-chat-scroll'
-
+import VCalendar from 'v-calendar';
 
 import "swiper/css/swiper.css";
 import "bootstrap/dist/css/bootstrap.css";
@@ -57,6 +57,11 @@ Vue.use(IconsPlugin);
 Vue.use(VueAwesomeSwiper /* { default options with global component } */);
 Vue.use(require('vue-moment'));
 Vue.use(Chartkick.use(Chart));
+Vue.use(VCalendar, {
+  componentPrefix: 'vc',  // Use <vc-calendar /> instead of <v-calendar />
+              // ...other defaults
+});
+// Vue.component('calendar', Calendar)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

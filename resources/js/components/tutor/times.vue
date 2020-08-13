@@ -1,6 +1,6 @@
 <template>
-  <div class="body">
-    <!-- overlay starts here  -->
+  <!-- <div class="body">
+   
     <div class="overlay-content" v-if="overlay">
       <div class="ov bg-white  p-3">
         <div class="text-right">
@@ -39,8 +39,7 @@
       </div>
     </div>
 
-    <!-- overlay end here  -->
-
+ 
     <div>
       <table class="table table-bordered">
         <thead class="thead-darkblue">
@@ -69,11 +68,57 @@
         </tbody>
       </table>
     </div>
+  </div>-->
+  <div class="time-table">
+    <b-container>
+      <b-row>
+        <b-col md="8">
+          <div class="table-responsive">
+            <div class="form-group">
+              <h5 class="toCaps">{{myclass}}</h5>
+            </div>
+            <table class="table table-bordered">
+              <thead class="thead-darkblue">
+                <tr>
+                  <th>Day</th>
+                  <th>Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(tab,index) in tables" :key="index">
+                  <td class="toCaps day">{{tab.day}}</td>
+                  <td class="d-flex justify-content-between p-0">
+                    <table class="w-100">
+                      <tr class="w-100">
+                        <td class="text-center" v-for="(item,idx) in tab.courses" :key="idx">
+                          <div class>{{item.start}} - {{item.end}}</div>
+                          <div>{{item.subject}}</div>
+                          <div>{{item.tutor}}</div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </b-col>
+        <b-col md="4">
+        <div class="schedule-part">
+           <vc-calendar></vc-calendar>
+        </div>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
 <script>
+import Calendar from 'v-calendar/lib/components/calendar.umd'
 export default {
+  components: {
+    Calendar
+  },
   props: ["tutor"],
   data() {
     return {
@@ -81,8 +126,8 @@ export default {
       table: [],
       myclass: "",
       overlay: false,
-      item:false,
-      items:[]
+      item: false,
+      items: [],
     };
   },
   mounted() {
@@ -98,10 +143,10 @@ export default {
       axios
         .get(`/api/tutor-times-table/${id}`, {
           headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.tables = JSON.parse(res.data.table);
             this.myclass = res.data.myclass;
@@ -113,19 +158,22 @@ export default {
       axios
         .get(`/api/tutor-times-table`, {
           headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.table = res.data;
           }
         });
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
+.container{
+  width: 100%;
+}
 .body {
   position: relative;
   padding: 40px 20px 50px;
@@ -133,12 +181,12 @@ export default {
 }
 .overlay-content {
   position: absolute;
- top: 0px;
-    left: 0px;
-    bottom: 0px;
-    right: 0px;
-    opacity: 0.85;
-    backdrop-filter: blur(2px);
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  opacity: 0.85;
+  backdrop-filter: blur(2px);
   height: 100vh;
   width: 100%;
   left: 0;
@@ -153,8 +201,11 @@ export default {
   right: 10px;
   top: 10px;
 }
-.ov{
-    width: 100%;
-    position: relative;
+.ov {
+  width: 100%;
+  position: relative;
+}
+.schedule-part{
+  background: #fff;
 }
 </style>

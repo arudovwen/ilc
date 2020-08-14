@@ -72,7 +72,7 @@
   <div class="time-table">
     <div class="timetable-schedule">
       <b-container>
-              <div class="filter-table">
+       <div class="filter-table">
         <div class="filter-container">
           <div class="filter-btn btn" @click="toggleFilter">
             <span>Filter</span>

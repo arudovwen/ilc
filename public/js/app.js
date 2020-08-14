@@ -323,8 +323,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var chart_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(chart_js__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var vue_chat_scroll__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue-chat-scroll */ "./node_modules/vue-chat-scroll/dist/vue-chat-scroll.js");
 /* harmony import */ var vue_chat_scroll__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(vue_chat_scroll__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var v_calendar__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! v-calendar */ "./node_modules/v-calendar/lib/v-calendar.umd.min.js");
-/* harmony import */ var v_calendar__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(v_calendar__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var v_calendar__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! v-calendar */ "./node_modules/v-calendar/lib/v-calendar.umd.min.js");
+/* harmony import */ var v_calendar__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(v_calendar__WEBPACK_IMPORTED_MODULE_16__);
 /* harmony import */ var swiper_css_swiper_css__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! swiper/css/swiper.css */ "./node_modules/swiper/css/swiper.css");
 /* harmony import */ var swiper_css_swiper_css__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(swiper_css_swiper_css__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var bootstrap_dist_css_bootstrap_css__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! bootstrap/dist/css/bootstrap.css */ "./node_modules/bootstrap/dist/css/bootstrap.css");
@@ -383,7 +383,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_awesome_swiper__WEBPACK_IMPOR
 );
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(__webpack_require__(/*! vue-moment */ "./node_modules/vue-moment/dist/vue-moment.js"));
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_chartkick__WEBPACK_IMPORTED_MODULE_7__["default"].use(chart_js__WEBPACK_IMPORTED_MODULE_8___default.a));
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(v_calendar__WEBPACK_IMPORTED_MODULE_10___default.a, {
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(v_calendar__WEBPACK_IMPORTED_MODULE_16___default.a, {
   componentPrefix: 'vc' // Use <vc-calendar /> instead of <v-calendar />
   // ...other defaults
 
@@ -1571,8 +1571,8 @@ var routes = [{
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\User\Documents\coeur\ilc\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\User\Documents\coeur\ilc\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/ARUDOVWEN/Desktop/biztest/ilc/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/ARUDOVWEN/Desktop/biztest/ilc/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

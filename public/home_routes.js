@@ -43917,12 +43917,12 @@ var render = function() {
                     { staticClass: "main-note" },
                     _vm._l(_vm.notes, function(note, idx) {
                       return _c("div", { key: idx, staticClass: "note-body" }, [
-                        _c("div", { staticClass: "mr-2" }, [
-                          _c("i", {
-                            staticClass: "fa fa-sticky-note",
-                            attrs: { "aria-hidden": "true" }
-                          })
-                        ]),
+                        _c(
+                          "div",
+                          { staticClass: "mr-2" },
+                          [_c("b-icon", { attrs: { icon: "stickies-fill" } })],
+                          1
+                        ),
                         _vm._v(" "),
                         _c("div", { staticClass: "notes-content w-100" }, [
                           _c("div", { staticClass: "notes-content-top" }, [
@@ -43957,16 +43957,16 @@ var render = function() {
                                   ])
                                 ]),
                                 _vm._v(" "),
-                                _c("i", {
-                                  staticClass: "fa fa-trash-o",
-                                  attrs: { "aria-hidden": "true" },
+                                _c("b-icon", {
+                                  attrs: { icon: "trash" },
                                   on: {
                                     click: function($event) {
                                       return _vm.remove(note.id)
                                     }
                                   }
                                 })
-                              ]
+                              ],
+                              1
                             )
                           ])
                         ])
@@ -44004,7 +44004,7 @@ var render = function() {
         [
           _c(
             "b-modal",
-            { attrs: { id: "note", title: "Add note", "hide-footer": "" } },
+            { attrs: { id: "note", title: "New note", "hide-footer": "" } },
             [
               _c(
                 "b-form",
@@ -44069,7 +44069,7 @@ var render = function() {
                       _c(
                         "b-button",
                         { attrs: { variant: "darkgreen", type: "submit" } },
-                        [_vm._v("Add")]
+                        [_vm._v("Add note")]
                       )
                     ],
                     1
@@ -44090,12 +44090,12 @@ var render = function() {
                 {},
                 _vm._l(_vm.notes, function(note, idx) {
                   return _c("div", { key: idx, staticClass: "note-body" }, [
-                    _c("div", { staticClass: "mr-2" }, [
-                      _c("i", {
-                        staticClass: "fa fa-sticky-note",
-                        attrs: { "aria-hidden": "true" }
-                      })
-                    ]),
+                    _c(
+                      "div",
+                      { staticClass: "mr-2" },
+                      [_c("b-icon", { attrs: { icon: "stickies-fill" } })],
+                      1
+                    ),
                     _vm._v(" "),
                     _c("div", { staticClass: "notes-content w-100" }, [
                       _c("div", { staticClass: "notes-content-top" }, [
@@ -44130,16 +44130,16 @@ var render = function() {
                               ])
                             ]),
                             _vm._v(" "),
-                            _c("i", {
-                              staticClass: "fa fa-trash-o",
-                              attrs: { "aria-hidden": "true" },
+                            _c("b-icon", {
+                              attrs: { icon: "trash" },
                               on: {
                                 click: function($event) {
                                   return _vm.remove(note.id)
                                 }
                               }
                             })
-                          ]
+                          ],
+                          1
                         )
                       ])
                     ])

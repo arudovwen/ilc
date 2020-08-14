@@ -217,7 +217,7 @@
               <div class="main-note">
                 <div class="note-body" v-for="(note,idx) in notes" :key="idx">
                 <div class="mr-2">
-                  <i class="fa fa-sticky-note" aria-hidden="true"></i>
+                 <b-icon icon="stickies-fill"></b-icon>
                 </div>
                 <div class="notes-content w-100" >
                 <div class="notes-content-top">
@@ -234,7 +234,7 @@
                       <strong>{{note.created_at |  moment('DD/MM/YYYY')}}</strong>
                     </p>
 
-                    <i class="fa fa-trash-o" @click="remove(note.id)" aria-hidden="true"></i>
+                   <b-icon icon="trash" @click="remove(note.id)"></b-icon>
                   </div>
                 </div>
               </div>
@@ -251,7 +251,7 @@
     <div>
  
 
-  <b-modal id="note" title="Add note" hide-footer>
+  <b-modal id="note" title="New note" hide-footer>
      <b-form @submit.prevent="addNote">
        <b-form-group class="mb-3">
          <label for="">Title</label>
@@ -264,7 +264,7 @@
          </b-form-textarea>
        </b-form-group>
        <b-form-group  class="mb-3">
-         <b-button  variant="darkgreen" type="submit">Add</b-button>
+         <b-button  variant="darkgreen" type="submit">Add note</b-button>
        </b-form-group>
      </b-form>
   </b-modal>
@@ -272,7 +272,7 @@
      <div class="">
                 <div class="note-body" v-for="(note,idx) in notes" :key="idx">
                 <div class="mr-2">
-                  <i class="fa fa-sticky-note" aria-hidden="true"></i>
+                   <b-icon icon="stickies-fill"></b-icon>
                 </div>
                 <div class="notes-content w-100" >
                 <div class="notes-content-top">
@@ -288,8 +288,8 @@
                       Posted:
                       <strong>{{note.created_at |  moment('DD/MM/YYYY')}}</strong>
                     </p>
-
-                    <i class="fa fa-trash-o" @click="remove(note.id)" aria-hidden="true"></i>
+                    <b-icon icon="trash" @click="remove(note.id)"></b-icon>
+                  
                   </div>
                 </div>
               </div>

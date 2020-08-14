@@ -453,8 +453,9 @@ form .reg-btn{
         min-height: 100%;
       
     }
-/* student-dashboard */
-/* .student-assessment .nav-tabs {
+
+    /* student-dashboard */
+ .student-assessment .nav-tabs {
     border-bottom: none;
     justify-content: space-around !important;
    
@@ -463,9 +464,9 @@ form .reg-btn{
     color: #ffd708 !important;
     background-color: rgba(255, 215, 8, 0.18) !important;
     border-radius: 20px !important;
-    /* padding: 10px 20px !important; */
+    padding: 10px 20px !important;
     
- */
+}
 
 
 /* admin dashboard  */

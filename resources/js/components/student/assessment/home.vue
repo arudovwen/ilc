@@ -58,51 +58,40 @@
     </div>
   </div>-->
   <div class="student-assessment">
-    <b-card no-body>
-      <b-tabs card>
-        <b-tab title="Assignment" active>
-          <b-card-text>
-            <b-table :fields="fields" :items="assignment" bordered>
-              <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
-              <template v-slot:cell(title)="data">
-                <span @click="view(data.item.id)">{{data.item.title}}</span>
-              </template>
-            </b-table>
-          </b-card-text>
-        </b-tab>
-         <b-tab title="Quiz" >
-          <b-card-text>
-            <b-table :fields="fields" :items="quiz" bordered>
-              <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
-              <template v-slot:cell(title)="data">
-                <span @click="view(data.item.id)">{{data.item.title}}</span>
-              </template>
-            </b-table>
-          </b-card-text>
-        </b-tab>
-         <b-tab title="Test" >
-          <b-card-text>
-            <b-table :fields="fields" :items="test" bordered>
-              <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
-              <template v-slot:cell(title)="data">
-                <span @click="view(data.item.id)">{{data.item.title}}</span>
-              </template>
-            </b-table>
-          </b-card-text>
-        </b-tab>
-         <b-tab title="Examination" >
-          <b-card-text>
-            <b-table :fields="fields" :items="examination" bordered>
-              <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
-              <template v-slot:cell(title)="data">
-                <span @click="view(data.item.id)">{{data.item.title}}</span>
-              </template>
-            </b-table>
-          </b-card-text>
-        </b-tab>
-      </b-tabs>
-    </b-card>
-
+    <b-tabs>
+      <b-tab title="Assignment" active>
+        <b-table :fields="fields" :items="assignment" bordered class="main-table">
+          <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
+          <template v-slot:cell(title)="data">
+            <span @click="view(data.item.id)">{{data.item.title}}</span>
+          </template>
+        </b-table>
+      </b-tab>
+      <b-tab title="Quiz">
+        <b-table :fields="fields" :items="quiz" bordered class="main-table">
+          <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
+          <template v-slot:cell(title)="data">
+            <span @click="view(data.item.id)">{{data.item.title}}</span>
+          </template>
+        </b-table>
+      </b-tab>
+      <b-tab title="Test">
+        <b-table :fields="fields" :items="test" bordered class="main-table">
+          <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
+          <template v-slot:cell(title)="data">
+            <span @click="view(data.item.id)">{{data.item.title}}</span>
+          </template>
+        </b-table>
+      </b-tab>
+      <b-tab title="Examination">
+        <b-table :fields="fields" :items="examination" bordered class="main-table">
+          <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
+          <template v-slot:cell(title)="data">
+            <span @click="view(data.item.id)">{{data.item.title}}</span>
+          </template>
+        </b-table>
+      </b-tab>
+    </b-tabs>
   </div>
 </template>
 
@@ -127,7 +116,7 @@ export default {
           key: "title",
           sortable: true,
         },
-        "status"
+        "status",
       ],
     };
   },
@@ -239,9 +228,9 @@ nav {
   padding-top: 20px;
 }
 .main-table {
-  padding-top: 20px;
+  margin-top: 20px ;
 }
-.student-assessment{
-  padding:40px 20px;
+.student-assessment {
+  padding: 40px 20px;
 }
 </style>

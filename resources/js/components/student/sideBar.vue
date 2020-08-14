@@ -106,12 +106,9 @@ li {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 10px 0;
+  padding: 5px 0;
 }
 
-.router-link-exact-active li {
-  background: rgba(19, 166, 153, 0.2);
-}
 ul a {
   color: #565454;
   font-size: 12px;
@@ -140,6 +137,10 @@ ul i {
   text-align: center;
   color: #ffd708;
   margin: 0;
+}
+.router-link-exact-active li {
+  color: #13a699;
+  font-weight: bold;
 }
 /* .logo{
     padding: 10px 20px;
@@ -172,8 +173,5 @@ nav ul li{
 nav{
     padding-left:20px;
 } */
-.router-link-exact-active {
-  color: #13a699;
-  font-weight: bold;
-}
+
 </style>

@@ -62,12 +62,24 @@
               <div class="right">
                 <router-link to="/tutor/assignment">
                   <div class="right-btn">
-                    <div class="btn text-center">
+                    <div class="btn">
                       <span>ALL ASSIGNMENTS</span>
                     </div>
                   </div>
                 </router-link>
-                <h6>Assignment Notification</h6>
+                  <div class="overall-assessment">
+                  <div class="submitted">
+                    <i class="fa fa-check"></i>
+                    <h6>20</h6>
+                    <p>submitted</p>
+                  </div>
+                  <div class="pending">
+                    <i class="fa fa-ban"></i>
+                    <h6>10</h6>
+                    <p>submitted</p>
+                  </div>
+                </div>
+                <h6 class="notify">Assignment Notification</h6>
                 <div class="assignment-notification">
                   <div class="notification-content">
                     <p>Henry Obudu submitted English Assignment</p>
@@ -91,7 +103,7 @@
               </b-table>
               </div>
             </b-col>
-            <b-col md="4">
+            <b-col md="4" class="notify-board">
               <div class="right">
                 <router-link to="/tutor/quiz">
                   <div class="right-btn">
@@ -100,7 +112,19 @@
                     </div>
                   </div>
                 </router-link>
-                <h6>Quiz Notification</h6>
+                  <div class="overall-assessment">
+                  <div class="submitted">
+                    <i class="fa fa-check"></i>
+                    <h6>20</h6>
+                    <p>submitted</p>
+                  </div>
+                  <div class="pending">
+                    <i class="fa fa-ban"></i>
+                    <h6>10</h6>
+                    <p>submitted</p>
+                  </div>
+                </div>
+                <h6 class="notify">Quiz Notification</h6>
                 <div class="assignment-notification">
                   <div class="notification-content">
                     <p>Henry Obudu submitted Maths Quiz</p>
@@ -133,7 +157,19 @@
                     </div>
                   </div>
                 </router-link>
-                <h6>Test Notification</h6>
+                  <div class="overall-assessment">
+                  <div class="submitted">
+                    <i class="fa fa-check"></i>
+                    <h6>20</h6>
+                    <p>submitted</p>
+                  </div>
+                  <div class="pending">
+                    <i class="fa fa-ban"></i>
+                    <h6>10</h6>
+                    <p>submitted</p>
+                  </div>
+                </div>
+                <h6 class="notify">Test Notification</h6>
                 <div class="assignment-notification">
                   <div class="notification-content">
                     <p>Henry Obudu submitted Maths Test</p>
@@ -166,7 +202,19 @@
                     </div>
                   </div>
                 </router-link>
-                <h6>Exam Notification</h6>
+                <div class="overall-assessment">
+                  <div class="submitted">
+                    <i class="fa fa-check"></i>
+                    <h6>20</h6>
+                    <p>submitted</p>
+                  </div>
+                  <div class="pending">
+                    <i class="fa fa-ban"></i>
+                    <h6>10</h6>
+                    <p>submitted</p>
+                  </div>
+                </div>
+                <h6 class="notify">Exam Notification</h6>
                 <div class="assignment-notification">
                   <div class="notification-content">
                     <p>Henry Obudu submitted Maths Exam</p>
@@ -318,29 +366,29 @@ export default {
 }
 .right-btn {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   padding-top: 2rem;
 }
 .btn {
   background: transparent;
-  border: 1px solid #0a4065;
+ text-decoration: underline;
   color: #0a4065;
   font-weight: 500;
 }
 .btn:hover {
-  background: #0a4065;
-  color: white;
+  color:  #118fe2;;
 }
-h6 {
+.right h6 {
   padding-top: 1.5rem;
   font-size: 14px;
-  text-align: center;
+ 
 }
 .assignment-notification {
   background: rgba(34, 202, 222, 0.2);
   border-left: 5px solid #22cade;
   padding: 5px 10px;
   margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 .notification-content p {
   font-size: 12px;
@@ -358,5 +406,43 @@ h6 {
 }
 .hiden {
   opacity: 0;
+}
+.overall-assessment{
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 10px;
+}
+.overall-assessment h6{
+  margin-bottom: 3px;
+  padding-top: 5px;
+}
+.overall-assessment p{
+  color: grey;
+  font-size: 14px;
+}
+.submitted{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.pending{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.submitted .fa-check{
+        color: #008e3a;
+    background: rgba(0, 142, 58, 0.25);
+    border-radius: 50%;
+    padding: 10px;
+}
+.pending .fa-ban{
+  color: #dfd291;
+    background: rgba(223, 210, 145, 0.25);
+    border-radius: 50%;
+    padding: 10px;
+
 }
 </style>

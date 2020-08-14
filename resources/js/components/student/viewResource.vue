@@ -4,13 +4,13 @@
       <h2 class="toCaps">{{subject}}</h2>
       <!-- <h6 class="toCaps">{{subject}}</h6> -->
       <p class="subject-description toCaps">{{syllabus.grade_level}}</p>
-     
+
       <p>
         Created by
         <strong>{{tutor.name}}</strong>
       </p>
       <p>Last Updated {{time | moment('MMM D')}}</p>
-       <div class="resource-btn">
+      <div class="resource-btn">
         <button class="btn" @click="addtolibrary">Add to Library</button>
         <button class="btn">Share</button>
       </div>
@@ -44,15 +44,32 @@
         <b-row class="mb-5">
           <b-col>
             <h4 class="text-dark">Course Content</h4>
+
+            <small>{{modules.length}} sections • {{ totalVideos + totalDocs + totalAudio }} lectures • 8h 0m total length</small>
             <div role="tablist" v-for="(item,idx) in modules" :key="idx">
               <b-card no-body class="mb-1">
-                <b-card-header header-tag="header" class="p-1 text-left" role="tab">
-                  <b-button
+                <b-card-header header-tag="header" class="p-1 text-left d-flex" role="tab">
+                  <div
                     block
                     v-b-toggle="item.module.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
                     variant="secondary"
-                    class="text-left"
-                  >{{item.module}}</b-button>
+                    class="text-left d-flex justify-content-between align-items-center w-100"
+                  >
+                    <span>
+                      <b-icon
+                        icon="chevron-up"
+                        class="mr-2 content-open"
+                        style="width: 13px; height: 13px;"
+                      ></b-icon>
+                      <b-icon
+                        icon="chevron-down"
+                        class="mr-2 content-close"
+                        style="width: 13px; height: 13px;"
+                      ></b-icon>
+                      {{item.module}}
+                    </span>
+                    <small class="ml-auto">1hr 10mins</small>
+                  </div>
                 </b-card-header>
                 <b-collapse
                   :id="item.module.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
@@ -67,31 +84,37 @@
                           <li v-for="(content,index) in JSON.parse(item.content)" :key="index">
                             <span
                               @click="handleToggle(content.title.replace(/[^a-z0-9]/gi, '').replace(/\$/g, ''))"
+                              class="d-flex justify-content-between align-items-center"
                             >
-                              <span class="ml-3">
-                                <i
-                                  class="fa fa-play-circle"
-                                  v-if="content.type=='video'"
-                                  aria-hidden="true"
-                                ></i>
-                                <i
-                                  class="fa fa-file-pdf-o"
-                                  v-if="content.type=='pdf'"
-                                  aria-hidden="true"
-                                ></i>
-                                <i
-                                  class="fa fa-volume-up"
-                                  v-if="content.type=='audio'"
-                                  aria-hidden="true"
-                                ></i>
-                                <i
-                                  class="fa fa-file-powerpoint-o"
-                                  v-if="content.type=='ppt'"
-                                  aria-hidden="true"
-                                ></i>
-                                <i class="fas fa-file-csv" v-if="content.type=='csv'"></i>
-                              </span>
-                              {{content.title}}
+                              <div>
+                                <span class="ml-3">
+                                  <i
+                                    class="fa fa-play-circle"
+                                    v-if="content.type=='video'"
+                                    aria-hidden="true"
+                                  ></i>
+                                  <i
+                                    class="fa fa-file-pdf-o"
+                                    v-if="content.type=='pdf'"
+                                    aria-hidden="true"
+                                  ></i>
+                                  <i
+                                    class="fa fa-volume-up"
+                                    v-if="content.type=='audio'"
+                                    aria-hidden="true"
+                                  ></i>
+                                  <i
+                                    class="fa fa-file-powerpoint-o"
+                                    v-if="content.type=='ppt'"
+                                    aria-hidden="true"
+                                  ></i>
+                                  <i class="fas fa-file-csv" v-if="content.type=='csv'"></i>
+                                </span>
+                                {{content.title}}
+                              </div>
+                              <small
+                                v-if="content.type=='video' || content.type=='audio'"
+                              >20mins :33 secs</small>
                             </span>
 
                             <b-modal
@@ -122,8 +145,20 @@
                   block
                   v-b-toggle="item.question.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
                   variant="secondary"
-                  class="text-left"
-                >{{item.question}}</div>
+                  class="text-left d-flex-center"
+                >
+                  <b-icon
+                    icon="chevron-up"
+                    class="mr-2 content-open"
+                    style="width: 13px; height: 13px;"
+                  ></b-icon>
+                  <b-icon
+                    icon="chevron-down"
+                    class="mr-2 content-close"
+                    style="width: 13px; height: 13px;"
+                  ></b-icon>
+                  {{item.question}}
+                </div>
               </b-card-header>
               <b-collapse
                 :id="item.question.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
@@ -148,38 +183,83 @@
         </b-col>
       </b-row>
       <div class="review">
-        <h4>Review</h4>
-        <div class="featured-review">
+        <div class="featured-review p-3">
+          <h4>Featured Review</h4>
           <div class="active-review">
             <div class="featured-review-top">
               <div class="featured-review-inner-top">
                 <b-avatar src="/images/profile-img.jpg"></b-avatar>
-                <p>
+                <p class="mb-0">
                   <strong>Nkechi Onuha</strong>
                 </p>
               </div>
-              <img src="/images/five-star.png" class="img-fluid" alt />
+              <ratings :value="5" :disabled="true"></ratings>
             </div>
             <p>
               I had an easy time learning this course with the materials giving.
-              <br />
-Easy to understand and grasp.
+              <br />Easy to understand and grasp.
             </p>
           </div>
-          <div class="input-review">
+        </div>
+
+        <div>
+          <form @submit.prevent="rate" class="input-review p-3">
             <b-form-row>
-              <b-col lg="10">
-                <b-form-textarea id="textarea-small" size="sm" placeholder="Write a Review"></b-form-textarea>
-              </b-col>
-              <b-col lg="2">
-                <button class="btn-review">Add</button>
+              <b-col class="d-flex align-items-center">
+              <p class="mb-2">  Ratings :</p>
+                <ratings
+                  @handleRating="handleRating"
+                  :value="rating"
+                  :disabled="false"
+                  class="ml-2"
+                ></ratings>
               </b-col>
             </b-form-row>
+            <b-form-row>
+              <b-col lg="10">
+                <b-form-textarea
+                  id="textarea-small"
+                  size="md"
+                  rows="4"
+                  v-model="comment"
+                  required
+                  maxlength="250"
+                  placeholder="Write a Review"
+                ></b-form-textarea>
+              </b-col>
+              <b-col lg="2">
+                <b-button type="submit" variant="secondary">Add</b-button>
+              </b-col>
+            </b-form-row>
+          </form>
+        </div>
+
+        <hr />
+
+        <div class="p-3 all-review">
+          <h5>Reviews</h5>
+          <div class=" border-bottom" v-for="(item,id) in reviews" :key="id">
+            <div class="active-review">
+              <div class="featured-review-top">
+                <div class="featured-review-inner-top">
+                  <b-avatar :src="item.user.profile"></b-avatar>
+                  <p class="mb-0">
+                    <strong class="toCaps">{{item.user.name}}</strong>
+                  </p>
+                </div>
+              </div>
+              <div class="d-flex align-items-center">
+                <ratings :value="item.rating" :disabled="true" class="mr-2"></ratings>
+                <small>{{item.created_at | moment('MMM DD')}}</small>
+              </div>
+              <p>{{item.comment}}</p>
+            </div>
           </div>
+        
         </div>
       </div>
     </div>
-    <b-col cols="5">
+    <b-col cols="5" v-if="modules.length">
       <b-card
         :title="subject"
         :img-src="cover_image"
@@ -191,11 +271,22 @@ Easy to understand and grasp.
         <b-card-text>
           <strong>This includes:</strong>
         </b-card-text>
-        <b-card-text
-          class="border-bottom"
-          v-for="(module,idx) in modules"
-          :key="idx"
-        >{{module.module}} - {{JSON.parse(module.content).length}} downloadable resources</b-card-text>
+        <b-card-text class="border-bottom">
+          <b-icon icon="folder-symlink" class="mr-2"></b-icon>
+          {{ totalVideos + totalDocs + totalAudio }} downloadable resources
+        </b-card-text>
+        <b-card-text class="border-bottom" v-if="totalVideos">
+          <b-icon icon="collection-play" class="mr-2"></b-icon>
+          {{ totalVideos }} videos
+        </b-card-text>
+        <b-card-text class="border-bottom" v-if="totalAudio">
+          <b-icon icon="file-music" class="mr-2"></b-icon>
+          {{ totalAudio }} audios
+        </b-card-text>
+        <b-card-text class="border-bottom" v-if="totalDocs">
+          <b-icon icon="file-earmark-arrow-down" class="mr-2"></b-icon>
+          {{ totalDocs }} Documents
+        </b-card-text>
 
         <b-button href="#" block variant="secondary">Views : 14</b-button>
       </b-card>
@@ -204,6 +295,7 @@ Easy to understand and grasp.
 </template>
 
 <script>
+import Ratings from "../starRatings";
 export default {
   props: ["student"],
   data() {
@@ -219,14 +311,43 @@ export default {
       subject: "",
       cover_image: "",
       show: true,
-      review: [1, 2, 3, 4, 5],
+      reviews: [],
       modules: [],
+      rating: 0,
+      comment: "",
     };
+  },
+  components: {
+    Ratings,
   },
   mounted() {
     this.getResource();
   },
   methods: {
+    rate() {
+      let data = {
+        course_id: this.$route.params.id,
+        comment: this.comment,
+        rating: this.rating,
+      };
+      axios
+        .post("/api/rating", data, {
+          headers: {
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 201) {
+            this.comment = "";
+            this.getRating();
+            this.$toasted.success("Successful");
+          }
+        })
+        .catch();
+    },
+    handleRating(val) {
+      this.rating = val;
+    },
     handleToggle(title) {
       this.$bvModal.show(title);
     },
@@ -261,8 +382,20 @@ export default {
           }
         });
     },
+    getRating() {
+      axios
+        .get(`/api/rating/${this.$route.params.id}`, {
+          headers: {
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.reviews = res.data;
+          }
+        });
+    },
     getResource() {
-     
       axios
         .get(`/api/student-resource/${this.$route.params.id}`, {
           headers: {
@@ -283,30 +416,82 @@ export default {
             this.subject = res.data.data.subject;
             this.show = false;
 
-             axios.get(`/api/get-module/${this.subject}/${this.$props.student.level}`).then((res) => {
-        if (res.status == 200) {
-          this.modules = res.data;
-        }
-      });
+            axios
+              .get(
+                `/api/get-module/${this.subject}/${this.$props.student.level}`
+              )
+              .then((res) => {
+                if (res.status == 200) {
+                  this.modules = res.data;
+                  this.getRating();
+                }
+              });
           }
         });
+    },
+  },
+  computed: {
+    totalVideos() {
+      var vid = [];
+      this.modules.filter((element) => {
+        JSON.parse(element.content).filter((item) => {
+          if (item.type == "video") {
+            vid.push(item);
+          }
+        });
+      });
+     
+      return vid.length;
+    },
+    totalDocs() {
+      var doc = [];
+      this.modules.filter((element) => {
+        JSON.parse(element.content).filter((item) => {
+          if (item.type == "pdf" || item.type == "csv" || item.type == "ppt") {
+            doc.push(item);
+          }
+        });
+      });
+      return doc.length;
+    },
+    totalAudio() {
+      var aud = [];
+      this.modules.filter((element) => {
+        JSON.parse(element.content).filter((item) => {
+          if (item.type == "audio") {
+            aud.push(item);
+          }
+        });
+      });
+      return aud.length;
     },
   },
 };
 </script>
 
 <style scoped>
+.d-flex-center {
+  display: flex;
+  align-items: center;
+}
+.yellow-bg {
+  color: gold;
+}
+.all-review{
+  max-height:500px;
+  overflow: auto;
+}
 .jumb {
   width: 100%;
   position: relative;
   background: transparent;
 }
-.mod ul{
+.mod ul {
   list-style: none;
 }
-.mod ul li{
-  padding:10px 20px;
-  border-bottom:1px solid #ccc;
+.mod ul li {
+  padding: 10px 20px;
+  border-bottom: 1px solid #ccc;
 }
 .top_n {
   position: relative;
@@ -339,7 +524,7 @@ export default {
 .floating-bar {
   position: fixed;
   right: 5%;
-  top: 30%;
+  top: 20%;
 }
 .view-resource-header {
   background-image: linear-gradient(
@@ -350,7 +535,7 @@ export default {
     url(/images/resource-bg.png);
   color: #fff;
   padding: 1.5rem;
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
 }
 .view-resource-header p {
   margin-bottom: 0.5rem !important;
@@ -368,6 +553,17 @@ export default {
   transition: 0.3s;
   border: none;
 }
+
+.collapsed > span > .content-open,
+.not-collapsed > span > .content-close {
+  display: none;
+}
+
+.collapsed > .content-open,
+.not-collapsed > .content-close {
+  display: none;
+}
+
 .what-you-will-learn {
   margin-top: 2rem;
 }
@@ -389,12 +585,16 @@ export default {
 .sutdent-assessed {
   margin-top: 2rem;
 }
-.course-content {
+/* .course-content {
   color: #13a699;
+} */
+.featured-review {
+  background: #f7f8fa;
 }
 .featured-review-inner-top {
   display: flex;
-  padding: 15px;
+  padding: 15px 0;
+  align-items: center;
 }
 .featured-review-top {
   display: flex;
@@ -410,9 +610,7 @@ export default {
 
 .review {
   background-color: #fff;
-  border: 1px solid #808080;
   border-radius: 5px;
-  padding: 10px;
   margin-bottom: 10px;
 }
 .btn-review {

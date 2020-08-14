@@ -208,59 +208,95 @@
         <b-col md="6">
          <div class="notes cards">
               <div class="notes-top">
-                <h5>Notes</h5>
-                <div class="btn">
+                <h5>My Notes</h5>
+                <div class="btn" v-b-modal.note>
                   <i class="fa fa-plus" aria-hidden="true"></i>
                   <span>ADD</span>
                 </div>
               </div>
-              <div class="notes-content">
+              <div class="main-note">
+                <div class="note-body" v-for="(note,idx) in notes" :key="idx">
+                <div class="mr-2">
+                  <i class="fa fa-sticky-note" aria-hidden="true"></i>
+                </div>
+                <div class="notes-content w-100" >
                 <div class="notes-content-top">
-                  <i class="fa fa-file-o" aria-hidden="true"></i>
-
-                  <h6 class="title">Prepare for Geography test</h6>
-                  <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                  <h6 class="title mr-3 mb-2">{{note.title}}</h6>
+                
                 </div>
                 <div class="notes-content-main">
                   <p
                     class
-                  >Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure</p>
-                  <div class="notes-date">
+                  >{{note.note}}</p>
+                   <div class="notes-date d-flex align-items-center justify-content-between w-100">
                     <p>
                       Posted:
-                      <strong>07/07/2020</strong>
+                      <strong>{{note.created_at |  moment('DD/MM/YYYY')}}</strong>
                     </p>
-                  </div>
-                </div>
-              </div>
-              <div class="notes-content">
-                <div class="notes-content-top">
-                  <i class="fa fa-file-o" aria-hidden="true"></i>
 
-                  <h6 class="title">Submit English Assignment</h6>
-                  <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                </div>
-                <div class="notes-content-main">
-                  <p
-                    class
-                  >Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure</p>
-                  <div class="notes-date">
-                    <p>
-                      Posted:
-                      <strong>07/07/2020</strong>
-                    </p>
+                    <i class="fa fa-trash-o" @click="remove(note.id)" aria-hidden="true"></i>
                   </div>
                 </div>
-               
-               
               </div>
+              </div>
+              </div>
+            
                <div class="log-link"> 
-                   <router-link to>View All</router-link>
+                   <div v-b-modal.all-note>View All</div>
                 </div>
             </div>
         </b-col>
       </b-row>
     </b-container>
+    <div>
+ 
+
+  <b-modal id="note" title="Add note" hide-footer>
+     <b-form @submit.prevent="addNote">
+       <b-form-group class="mb-3">
+         <label for="">Title</label>
+         <b-form-input required v-model="note.title" placeholder="Enter title"></b-form-input>
+       </b-form-group>
+       <b-form-group  class="mb-3">
+         <label for="">Note</label>
+         <b-form-textarea maxlength="200" required v-model="note.description" rows="3" placeholder="Write note here">
+
+         </b-form-textarea>
+       </b-form-group>
+       <b-form-group  class="mb-3">
+         <b-button  variant="darkgreen" type="submit">Add</b-button>
+       </b-form-group>
+     </b-form>
+  </b-modal>
+  <b-modal id="all-note" title="My notes" hide-footer>
+     <div class="">
+                <div class="note-body" v-for="(note,idx) in notes" :key="idx">
+                <div class="mr-2">
+                  <i class="fa fa-sticky-note" aria-hidden="true"></i>
+                </div>
+                <div class="notes-content w-100" >
+                <div class="notes-content-top">
+                  <h6 class="title mr-3 mb-2">{{note.title}}</h6>
+                
+                </div>
+                <div class="notes-content-main">
+                  <p
+                    class
+                  >{{note.note}}</p>
+                  <div class="notes-date d-flex align-items-center justify-content-between w-100">
+                    <p>
+                      Posted:
+                      <strong>{{note.created_at |  moment('DD/MM/YYYY')}}</strong>
+                    </p>
+
+                    <i class="fa fa-trash-o" @click="remove(note.id)" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+              </div>
+              </div>
+  </b-modal>
+</div>
   </div>
 </template>
 
@@ -278,14 +314,72 @@ export default {
       fields: ["class", "subject"],
       field: ["class"],
       value:null,
-      max:null
+      max:null,
+      note:{
+        title:'',
+        description:''
+      },
+      notes:[]
     };
   },
   mounted() {
-    
+    this.getNotes()
   },
   methods: {
-  
+  addNote(){
+ 
+      let data = {
+        title: this.note.title,
+        description: this.note.description,
+       
+      };
+      axios
+        .post("/api/note", data, {
+          headers: {
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 201) {
+            this.note.description = "";
+            this.getNotes();
+            this.$toasted.success("Note created");
+            this.$bvModal.hide('note')
+          }
+        })
+        .catch();
+    
+  },
+     getNotes() {
+      axios
+        .get(`/api/note`, {
+          headers: {
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.notes = res.data;
+          }
+        });
+    },
+     remove(id) {
+      let del = confirm("Are you sure?");
+      if (del) {
+        axios
+          .delete(`/api/note/${id}`, {
+            headers: {
+              Authorization: `Bearer ${this.$props.student.access_token}`,
+            },
+          })
+          .then((res) => {
+            if (res.status == 200) {
+               this.$toasted.info("Note removed");
+              this.getNotes();
+            }
+          });
+      }
+    },
    
   
   },
@@ -295,8 +389,18 @@ export default {
 <style scoped>
 .container {
   font-family: "Montserrat";
+  padding-bottom: 50px;
 }
+.note-body{
+  display:flex;
+  border-bottom:1px solid #ccc;
+  margin-bottom: 14px;
 
+}
+.main-note{
+  height: 290px;
+  overflow:auto;
+}
 .welcome-board {
   background: rgba(19, 166, 153, 0.43);
   width: 100%;
@@ -426,14 +530,14 @@ export default {
 }
 .notes-content-top {
   display: flex;
-  justify-content: space-between;
+
 }
 .notes-content-top h6 {
   margin-bottom: 0;
-  padding-top: 5px;
+
 }
 .notes-content {
-  padding-top: 5px;
+
 }
 .notes-content-main {
   padding-bottom: 5px;
@@ -445,7 +549,6 @@ export default {
 .notes-date {
   color: #808080;
   padding-top: 5px;
-  padding-left: 10px;
 }
 .fa-file-o {
   color: #13A699;

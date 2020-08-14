@@ -15,7 +15,16 @@ class CreateCourseReviewsTable extends Migration
     {
         Schema::create('course_reviews', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('school_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('resource_id')->unsigned();
+            $table->longText('comment');
+            $table->integer('rating');
             $table->timestamps();
+
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');           
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('resource_id')->references('id')->on('resources')->onDelete('cascade');
         });
     }
 

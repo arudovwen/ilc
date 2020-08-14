@@ -80,4 +80,8 @@ class User extends Authenticatable
     public function gradebooks(){
         return $this->belongsTo(GradeBook::class);
     }
+
+    public function reviews(){
+        return $this->hasMany(CourseReview::class);
+    }
 }

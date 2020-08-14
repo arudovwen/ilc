@@ -64,10 +64,13 @@ Route::middleware('auth:api')->group(function () {
     Route::post('student-assessment-result', 'AssessmentResultController@store');
     Route::get('student-all-subjects', 'SubjectsController@getAllSubjectsForStudent');
     Route::get('student-times-table/{id}', 'TimesTableController@getTimesTablePerClass');
+    Route::resource('rating', 'CourseReviewController');
+    Route::resource('note', 'NoteController');
 });
 
 Route::middleware('auth:tutor')->group(function () {
     Route::resource('group', 'GroupsController');
+    Route::get('tutor-rating/{id}', 'CourseReviewController@tutorRatings');
     Route::post('multi-group-drop', 'GroupsController@multiDrop');
     Route::get('get-messages/{groupId}', 'MessagesController@getMessages');
     Route::post('send-message', 'MessagesController@sendGroupMessage');

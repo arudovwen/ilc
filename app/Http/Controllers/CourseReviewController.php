@@ -14,9 +14,17 @@ class CourseReviewController extends Controller
      */
     public function index()
     {
-        //
+        $user = auth('api')->user();
+        return CourseReview::where('school_id', $user->school_id)
+        ->with('user')->with('resource')->latest()->get();
     }
 
+    public function tutorRatings($id)
+    {
+        $user = auth('tutor')->user();
+        return CourseReview::where('school_id', $user->school_id)->where('resource_id', $id)->with('user')->with('resource')->latest()->get();
+    }
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -35,7 +43,14 @@ class CourseReviewController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = auth('api')->user();
+        return CourseReview::create([
+          'school_id'=> $user->school_id,
+          'user_id'=> $user->id,
+          'resource_id'=> $request->course_id,
+          'comment'=>$request->comment,
+          'rating'=> $request->rating
+        ]);
     }
 
     /**
@@ -44,9 +59,10 @@ class CourseReviewController extends Controller
      * @param  \App\CourseReview  $courseReview
      * @return \Illuminate\Http\Response
      */
-    public function show(CourseReview $courseReview)
+    public function show($id)
     {
-        //
+        $user = auth('api')->user();
+        return CourseReview::where('school_id', $user->school_id)->where('resource_id', $id)->with('user')->with('resource')->latest()->get();
     }
 
     /**

@@ -11822,6 +11822,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -20914,7 +20922,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.continue-reading[data-v-a2f61c28] {\r\n  background-color: #fff;\r\n  padding: 30px;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  margin: 40px;\n}\n.continue-word[data-v-a2f61c28] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  align-items: center;\n}\n.continue-word p[data-v-a2f61c28]:first-child {\r\n  font-weight: 500;\r\n  font-size: 30px;\n}\n.continue-word h6[data-v-a2f61c28] {\r\n  font-weight: bold;\r\n  font-size: 30px;\n}\n.continue-reading-icon[data-v-a2f61c28] {\r\n  display: flex;\n}\n.btn-continue[data-v-a2f61c28] {\r\n  background-color: #13a699;\r\n  border-radius: 50%;\r\n  color: #fff;\r\n  padding: 0 6px;\n}\n.btn-continue i[data-v-a2f61c28] {\r\n  font-size: 22px;\n}\n.continue-reading-icon p[data-v-a2f61c28] {\r\n  padding-left: 5px;\r\n  margin-bottom: 0;\n}\n.continue-img img[data-v-a2f61c28] {\r\n  width: 150px;\r\n  height: 150px;\n}\n.filter-view[data-v-a2f61c28] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  margin: 10px 40px;\n}\n.filter-view a[data-v-a2f61c28]{\r\n  color: #000 !important;\r\n  padding-top: 10px;\r\n  font-family: \"Montserrat\";\n}\n.filter-view a[data-v-a2f61c28]:hover{\r\n  color: #13a699 !important;\r\n  text-decoration: underline !important;\n}\n.resource-img img[data-v-a2f61c28] {\r\n  width: 200px;\r\n  height: 150px;\n}\n.books[data-v-a2f61c28]{\r\n  padding-top: 10px;\n}\n.search[data-v-a2f61c28] {\r\n  width: 250px;\r\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-a2f61c28] {\r\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-a2f61c28] {\r\n  display: flex;\r\n  justify-content: flex-start;\r\n  padding-top: 10px;\n}\n.filter-btn[data-v-a2f61c28] {\r\n  background: #fff;\r\n  padding: 10px 20px;\r\n  border-radius: 5px;\n}\n.filter-btn span[data-v-a2f61c28] {\r\n  font-family: \"Montserrat\";\r\n  font-weight: bold;\n}\n.filter-btn i[data-v-a2f61c28] {\r\n  padding-left: 3px;\n}\n.sort-section[data-v-a2f61c28] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  background: #fff;\r\n  border-radius: 10px;\n}\n.bg-info[data-v-a2f61c28] {\r\n  background: #fff !important;\r\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  margin-top: 20px;\r\n  border-radius: 10px;\n}\n.nav-link[data-v-a2f61c28] {\r\n  color: #000 !important;\n}\nnav[data-v-a2f61c28] {\r\n  background: rgba(19, 166, 153, 0.9);\r\n  color: white;\n}\n.table .thead-light th[data-v-a2f61c28] {\r\n  color: white;\r\n  background-color: rgba(19, 166, 153, 0.9);\r\n  border-color: rgba(19, 166, 153, 0.9);\n}\n.bar[data-v-a2f61c28] {\r\n  position: relative;\r\n  width: 20%;\r\n  text-align: center;\r\n  font-size: 14px;\n}\n.red[data-v-a2f61c28] {\r\n  color: var(--red, red);\n}\n.search_bar[data-v-a2f61c28] {\r\n  position: relative;\n}\n.search_input[data-v-a2f61c28] {\r\n  border-color: #f7f8fa;\r\n  height: 30px;\r\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-webkit-input-placeholder {\r\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-moz-placeholder {\r\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]:-ms-input-placeholder {\r\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-ms-input-placeholder {\r\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::placeholder {\r\n  font-size: 13px;\n}\n.fa-search[data-v-a2f61c28] {\r\n  position: absolute;\r\n  font-size: 12px;\r\n  right: 14px;\r\n  top: 50%;\r\n  margin-top: -6px;\r\n  color: rgba(0, 0, 0, 0.44);\n}\n.options[data-v-a2f61c28] {\r\n  width: 15px;\n}\ntd[data-v-a2f61c28] {\r\n  text-transform: capitalize;\n}\nul[data-v-a2f61c28] {\r\n  list-style: none;\n}\n.options[data-v-a2f61c28] {\r\n  position: relative;\n}\n.option[data-v-a2f61c28] {\r\n  display: none;\r\n  position: absolute;\r\n  padding: 15px;\r\n  bottom: 80%;\r\n  width: 100px;\r\n  right: 12px;\r\n  background: white;\n}\n.options:hover .option[data-v-a2f61c28] {\r\n  display: block;\n}\n.option li[data-v-a2f61c28] {\r\n  padding: 4px 15px;\r\n  cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\n.continue-reading[data-v-a2f61c28] {\r\n  background-color: #fff;\r\n  padding: 30px;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  margin: 40px;\n}\n.continue-word[data-v-a2f61c28] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  align-items: center;\n}\n.continue-word p[data-v-a2f61c28]:first-child {\r\n  font-weight: 500;\r\n  font-size: 30px;\n}\n.continue-word h6[data-v-a2f61c28] {\r\n  font-weight: bold;\r\n  font-size: 30px;\n}\n.continue-reading-icon[data-v-a2f61c28] {\r\n  display: flex;\n}\n.btn-continue[data-v-a2f61c28] {\r\n  background-color: #13a699;\r\n  border-radius: 50%;\r\n  color: #fff;\r\n  padding: 0 6px;\n}\n.btn-continue i[data-v-a2f61c28] {\r\n  font-size: 22px;\n}\n.continue-reading-icon p[data-v-a2f61c28] {\r\n  padding-left: 5px;\r\n  margin-bottom: 0;\n}\n.continue-img img[data-v-a2f61c28] {\r\n  width: 150px;\r\n  height: 150px;\n}\n.filter-view[data-v-a2f61c28] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  margin: 10px 40px;\n}\n.filter-view a[data-v-a2f61c28]{\r\n  color: #000 !important;\r\n  padding-top: 10px;\r\n  font-family: \"Montserrat\";\n}\n.filter-view a[data-v-a2f61c28]:hover{\r\n  color: #13a699 !important;\r\n  text-decoration: underline !important;\n}\n.resource-img img[data-v-a2f61c28] {\r\n  width: 200px;\r\n  height: 150px;\n}\n.col-md-3 a[data-v-a2f61c28]{\r\n  color: #000 !important;\n}\n.books[data-v-a2f61c28]{\r\n  padding-top: 10px;\n}\n.search[data-v-a2f61c28] {\r\n  width: 250px;\r\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-a2f61c28] {\r\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-a2f61c28] {\r\n  display: flex;\r\n  justify-content: flex-start;\r\n  padding-top: 10px;\n}\n.filter-btn[data-v-a2f61c28] {\r\n  background: #fff;\r\n  padding: 10px 20px;\r\n  border-radius: 5px;\n}\n.filter-btn span[data-v-a2f61c28] {\r\n  font-family: \"Montserrat\";\r\n  font-weight: bold;\n}\n.filter-btn i[data-v-a2f61c28] {\r\n  padding-left: 3px;\n}\n.sort-section[data-v-a2f61c28] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  background: #fff;\r\n  border-radius: 10px;\n}\n.bg-info[data-v-a2f61c28] {\r\n  background: #fff !important;\r\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  margin-top: 20px;\r\n  border-radius: 10px;\n}\n.nav-link[data-v-a2f61c28] {\r\n  color: #000 !important;\n}\nnav[data-v-a2f61c28] {\r\n  background: rgba(19, 166, 153, 0.9);\r\n  color: white;\n}\n.table .thead-light th[data-v-a2f61c28] {\r\n  color: white;\r\n  background-color: rgba(19, 166, 153, 0.9);\r\n  border-color: rgba(19, 166, 153, 0.9);\n}\n.bar[data-v-a2f61c28] {\r\n  position: relative;\r\n  width: 20%;\r\n  text-align: center;\r\n  font-size: 14px;\n}\n.red[data-v-a2f61c28] {\r\n  color: var(--red, red);\n}\n.search_bar[data-v-a2f61c28] {\r\n  position: relative;\n}\n.search_input[data-v-a2f61c28] {\r\n  border-color: #f7f8fa;\r\n  height: 30px;\r\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-webkit-input-placeholder {\r\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-moz-placeholder {\r\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]:-ms-input-placeholder {\r\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-ms-input-placeholder {\r\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::placeholder {\r\n  font-size: 13px;\n}\n.fa-search[data-v-a2f61c28] {\r\n  position: absolute;\r\n  font-size: 12px;\r\n  right: 14px;\r\n  top: 50%;\r\n  margin-top: -6px;\r\n  color: rgba(0, 0, 0, 0.44);\n}\n.options[data-v-a2f61c28] {\r\n  width: 15px;\n}\ntd[data-v-a2f61c28] {\r\n  text-transform: capitalize;\n}\nul[data-v-a2f61c28] {\r\n  list-style: none;\n}\n.options[data-v-a2f61c28] {\r\n  position: relative;\n}\n.option[data-v-a2f61c28] {\r\n  display: none;\r\n  position: absolute;\r\n  padding: 15px;\r\n  bottom: 80%;\r\n  width: 100px;\r\n  right: 12px;\r\n  background: white;\n}\n.options:hover .option[data-v-a2f61c28] {\r\n  display: block;\n}\n.option li[data-v-a2f61c28] {\r\n  padding: 4px 15px;\r\n  cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
@@ -43735,7 +43743,11 @@ var render = function() {
                         _c("img", {
                           staticClass: "img-fluid",
                           attrs: { src: "/images/text-book.png", alt: "" }
-                        })
+                        }),
+                        _vm._v(" "),
+                        _c("h6", [_vm._v("English Language")]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v("by: Tutor's Name")])
                       ])
                     ])
                   ],
@@ -43751,7 +43763,11 @@ var render = function() {
                         _c("img", {
                           staticClass: "img-fluid",
                           attrs: { src: "/images/text-book.png", alt: "" }
-                        })
+                        }),
+                        _vm._v(" "),
+                        _c("h6", [_vm._v("English Language")]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v("by: Tutor's Name")])
                       ])
                     ])
                   ],
@@ -43767,7 +43783,11 @@ var render = function() {
                         _c("img", {
                           staticClass: "img-fluid",
                           attrs: { src: "/images/text-book.png", alt: "" }
-                        })
+                        }),
+                        _vm._v(" "),
+                        _c("h6", [_vm._v("English Language")]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v("by: Tutor's Name")])
                       ])
                     ])
                   ],
@@ -43783,7 +43803,11 @@ var render = function() {
                         _c("img", {
                           staticClass: "img-fluid",
                           attrs: { src: "/images/text-book.png", alt: "" }
-                        })
+                        }),
+                        _vm._v(" "),
+                        _c("h6", [_vm._v("English Language")]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v("by: Tutor's Name")])
                       ])
                     ])
                   ],

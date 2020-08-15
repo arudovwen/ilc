@@ -139,6 +139,8 @@
           <router-link to>
             <div class="resource-img">
               <img src="/images/text-book.png" alt class="img-fluid"/>
+               <h6>English Language</h6>
+              <p>by: Tutor's Name</p>
             </div>
           </router-link>
         </b-col>
@@ -146,6 +148,8 @@
           <router-link to>
             <div class="resource-img">
               <img src="/images/text-book.png" alt class="img-fluid"/>
+               <h6>English Language</h6>
+              <p>by: Tutor's Name</p>
             </div>
           </router-link>
         </b-col>
@@ -153,6 +157,8 @@
           <router-link to>
             <div class="resource-img">
               <img src="/images/text-book.png" alt class="img-fluid"/>
+               <h6>English Language</h6>
+              <p>by: Tutor's Name</p>
             </div>
           </router-link>
         </b-col>
@@ -160,6 +166,8 @@
           <router-link to>
             <div class="resource-img">
               <img src="/images/text-book.png" alt class="img-fluid" />
+              <h6>English Language</h6>
+              <p>by: Tutor's Name</p>
             </div>
           </router-link>
         </b-col>
@@ -361,6 +369,9 @@ export default {
 .resource-img img {
   width: 200px;
   height: 150px;
+}
+.col-md-3 a{
+  color: #000 !important;
 }
 .books{
   padding-top: 10px;

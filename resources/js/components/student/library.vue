@@ -1,5 +1,5 @@
 <template>
-  <div class="body">
+  <!-- <div class="body">
    <div class="bd-table mb-3"> 
    <nav class="form-control d-flex justify-content-between align-items-center ">
       <div class="bar border-right">
@@ -74,7 +74,99 @@
     </table>
     </div>
   </div>
-  
+  -->
+  <div class="library">
+    <div class="continue-reading">
+      <div class="continue-word">
+        <p>You were Reading</p>
+        <h6>Basic Science</h6>
+        <div class="continue-reading-icon">
+          <div class="continue-btn">
+            <div class="btn-continue">
+              <i class="icon-visibility-open"></i>
+            </div>
+          </div>
+          <p>continue reading</p>
+        </div>
+      </div>
+      <div class="continue-img">
+        <img src="/images/text-book.png" alt />
+      </div>
+    </div>
+    <div class="library-content container">
+      <h6>My Library</h6>
+      <div class="filter-view">
+        <div class="filter-table">
+          <div class="filter-container">
+            <div class="filter-btn btn" @click="toggleFilter">
+              <span>Filter</span>
+              <i class="icon-sort"></i>
+            </div>
+          </div>
+          <b-navbar toggleable="lg" type="dark" variant="info" v-if="filterShow">
+            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+            <b-collapse id="nav-collapse" is-nav>
+              <b-navbar-nav>
+                <b-nav-item href="#">Sort By:</b-nav-item>
+              </b-navbar-nav>
+
+              <!-- Right aligned nav items -->
+              <b-navbar-nav class="mx-auto">
+                <b-form-select class="mr-3" v-model="myclass">
+                  <b-form-select-option value disabled>-- Class --</b-form-select-option>
+                  <b-form-select-option value="all">-- All --</b-form-select-option>
+                  <b-form-select-option
+                    :value="item.class_name"
+                    v-for="(item,idx) in classess"
+                    :key="idx"
+                  >{{item.class_name}}</b-form-select-option>
+                </b-form-select>
+              </b-navbar-nav>
+              <b-navbar-nav>
+                <b-nav-form class="ml-auto">
+                  <b-form-input size="sm" class="mr-sm-2 search rounded-pill" placeholder="Search"></b-form-input>
+                </b-nav-form>
+              </b-navbar-nav>
+            </b-collapse>
+          </b-navbar>
+        </div>
+        <router-link to>View all</router-link>
+      </div>
+    <b-container class="books">
+        <b-row>
+        <b-col md="3">
+          <router-link to>
+            <div class="resource-img">
+              <img src="/images/text-book.png" alt class="img-fluid"/>
+            </div>
+          </router-link>
+        </b-col>
+        <b-col md="3">
+          <router-link to>
+            <div class="resource-img">
+              <img src="/images/text-book.png" alt class="img-fluid"/>
+            </div>
+          </router-link>
+        </b-col>
+        <b-col md="3">
+          <router-link to>
+            <div class="resource-img">
+              <img src="/images/text-book.png" alt class="img-fluid"/>
+            </div>
+          </router-link>
+        </b-col>
+        <b-col md="3">
+          <router-link to>
+            <div class="resource-img">
+              <img src="/images/text-book.png" alt class="img-fluid" />
+            </div>
+          </router-link>
+        </b-col>
+      </b-row>
+    </b-container>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -94,6 +186,7 @@ export default {
       prev_page: "",
       current_page: 1,
       all: false,
+      filterShow: false,
     };
   },
   mounted() {
@@ -103,6 +196,9 @@ export default {
     all: "getAll",
   },
   methods: {
+    toggleFilter() {
+      this.filterShow = !this.filterShow;
+    },
     getLibrary() {
       axios
         .get("/api/library", {
@@ -207,14 +303,117 @@ export default {
 </script>
 
 <style scoped>
+.continue-reading {
+  background-color: #fff;
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  margin: 40px;
+}
+.continue-word {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.continue-word p:first-child {
+  font-weight: 500;
+  font-size: 30px;
+}
+.continue-word h6 {
+  font-weight: bold;
+  font-size: 30px;
+}
+.continue-reading-icon {
+  display: flex;
+}
+.btn-continue {
+  background-color: #13a699;
+  border-radius: 50%;
+  color: #fff;
+  padding: 0 6px;
+}
+.btn-continue i {
+  font-size: 22px;
+}
+.continue-reading-icon p {
+  padding-left: 5px;
+  margin-bottom: 0;
+}
+.continue-img img {
+  width: 150px;
+  height: 150px;
+}
+.filter-view {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 40px;
+}
+.filter-view a{
+  color: #000 !important;
+  padding-top: 10px;
+  font-family: "Montserrat";
+}
+.filter-view a:hover{
+  color: #13a699 !important;
+  text-decoration: underline !important;
+}
+.resource-img img {
+  width: 200px;
+  height: 150px;
+}
+.books{
+  padding-top: 10px;
+}
+.search {
+  width: 250px;
+  border-color: #41cee2;
+}
+
+.rounded-pill {
+  border-radius: 50rem !important;
+}
+.filter-container {
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 10px;
+}
+.filter-btn {
+  background: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+.filter-btn span {
+  font-family: "Montserrat";
+  font-weight: bold;
+}
+.filter-btn i {
+  padding-left: 3px;
+}
+.sort-section {
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+  border-radius: 10px;
+}
+.bg-info {
+  background: #fff !important;
+  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.nav-link {
+  color: #000 !important;
+}
 nav {
   background: rgba(19, 166, 153, 0.9);
-  color:white;
+  color: white;
 }
 .table .thead-light th {
-    color: white;
-    background-color: rgba(19, 166, 153, 0.9);
-    border-color: rgba(19, 166, 153, 0.9);
+  color: white;
+  background-color: rgba(19, 166, 153, 0.9);
+  border-color: rgba(19, 166, 153, 0.9);
 }
 .bar {
   position: relative;
@@ -271,86 +470,5 @@ ul {
 .option li {
   padding: 4px 15px;
   cursor: pointer;
-}
-.view-resource-header {
-  background-image: linear-gradient(
-      to bottom,
-      rgba(19, 166, 153, 0.65),
-      rgba(19, 166, 153, 0.65)
-    ),
-    url(/images/resource-bg.png);
-  color: #fff;
-  padding: 1.5rem;
-  margin-top: 2rem;
-}
-.view-resource-header p {
-  margin-bottom: 0.5rem !important;
-}
-.btn {
-  background: transparent;
-  border: 1px solid #fff;
-  color: white !important;
-  margin-right: 10px;
-  margin-bottom: 15px;
-}
-.btn:hover {
-  background: #fff;
-  color: #13a699 !important;
-  transition: 0.3s;
-  border: none;
-}
-.what-you-will-learn {
-  margin-top: 2rem;
-}
-
-.what-you-will-learn ul {
-  list-style-image: url("/images/checked-1.png");
-  padding: 15px;
-}
-.what-you-will-learn ul li {
-  padding-top: 10px;
-}
-.sutdent-assessed ul {
-  list-style-image: url("/images/checked-1.png");
-  padding: 10px 15px;
-}
-.sutdent-assessed ul li {
-  padding-bottom: 10px;
-}
-.sutdent-assessed {
-  margin-top: 2rem;
-}
-.course-content {
-  color: #13a699;
-}
-.featured-review-inner-top {
-  display: flex;
-  padding: 15px;
-}
-.featured-review-top {
-  display: flex;
-  justify-content: space-between;
-}
-.featured-review-inner-top p {
-  padding-left: 10px;
-}
-.featured-review-top img {
-  height: 20px;
-  width: 100px;
-}
-
-.review {
-  background-color: #fff;
-  border: 1px solid #808080;
-  border-radius: 5px;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-.btn-review {
-  background-color: #13a699;
-  color: #fff !important;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 10px;
 }
 </style>

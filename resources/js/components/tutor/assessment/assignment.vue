@@ -6,7 +6,7 @@
       </div>
     </router-link>
     <b-container>
-         <div class="filter-table">
+      <div class="filter-table">
         <div class="filter-container">
           <div class="filter-btn btn" @click="toggleFilter">
             <span>Filter</span>
@@ -83,7 +83,7 @@ export default {
         "action",
       ],
       items: [],
-      filterShow:false
+      filterShow: false,
     };
   },
   mounted() {

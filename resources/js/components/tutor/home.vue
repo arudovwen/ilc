@@ -193,84 +193,98 @@
           <b-col md="4">
             <div class="notes cards">
               <div class="notes-top">
-                <h5>Notes</h5>
-                <div class="btn">
+                <h5>My Notes</h5>
+                <div class="btn" v-b-modal.note>
                   <i class="fa fa-plus" aria-hidden="true"></i>
                   <span>ADD</span>
                 </div>
               </div>
-              <div class="notes-content">
-                <div class="notes-content-top">
-                  <i class="fa fa-file-o" aria-hidden="true"></i>
+              <div class="main-note">
+                <div class="note-body" v-for="(note,idx) in notes" :key="idx">
+                  <div class="mr-2">
+                    <b-icon icon="stickies-fill" class="my-icon"></b-icon>
+                  </div>
+                  <div class="notes-content w-100">
+                    <div class="notes-content-top">
+                      <h6 class="title mr-3 mb-2">{{note.title}}</h6>
+                    </div>
+                    <div class="notes-content-main">
+                      <p class>{{note.note}}</p>
+                      <div
+                        class="notes-date d-flex align-items-center justify-content-between w-100"
+                      >
+                        <p>
+                          Posted:
+                          <strong>{{note.created_at | moment('DD/MM/YYYY')}}</strong>
+                        </p>
 
-                  <h6 class="title">Prepare Test for Primary 1</h6>
-                  <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                </div>
-                <div class="notes-content-main">
-                  <p
-                    class
-                  >Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure</p>
-                  <div class="notes-date">
-                    <p>
-                      Posted:
-                      <strong>07/07/2020</strong>
-                    </p>
+                        <b-icon icon="trash" class="my-icon cpointer" @click="remove(note.id)"></b-icon>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="notes-content">
-                <div class="notes-content-top">
-                  <i class="fa fa-file-o" aria-hidden="true"></i>
 
-                  <h6 class="title">Prepare Test for JS 2</h6>
-                  <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                </div>
-                <div class="notes-content-main">
-                  <p
-                    class
-                  >Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure</p>
-                  <div class="notes-date">
-                    <p>
-                      Posted:
-                      <strong>07/07/2020</strong>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="notes-content">
-                <div class="notes-content-top">
-                  <i class="fa fa-file-o" aria-hidden="true"></i>
-
-                  <h6 class="title">Prepare Test for SS 2</h6>
-                  <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                </div>
-                <div class="notes-content-main">
-                  <p
-                    class
-                  >Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure</p>
-                  <div class="notes-date">
-                    <p>
-                      Posted:
-                      <strong>07/07/2020</strong>
-                    </p>
-                  </div>
-                </div>
-                <div class="log-link">
-                  <router-link to>View All</router-link>
-                </div>
+              <div class="log-link">
+                <div v-b-modal.all-note class="check_it">View All <b-icon icon="arrow-right"></b-icon> </div>
               </div>
             </div>
           </b-col>
         </b-row>
       </b-container>
     </div>
+      <b-modal id="note" title="New note" hide-footer>
+     <b-form @submit.prevent="addNote">
+       <b-form-group class="mb-3">
+         <label for="">Title</label>
+         <b-form-input required v-model="note.title" placeholder="Enter title"></b-form-input>
+       </b-form-group>
+       <b-form-group  class="mb-3">
+         <label for="">Note</label>
+         <b-form-textarea maxlength="200" required v-model="note.description" rows="3" placeholder="Write note here">
+
+         </b-form-textarea>
+       </b-form-group>
+       <b-form-group  class="mb-3">
+         <b-button  variant="darkgreen" type="submit">Add note</b-button>
+       </b-form-group>
+     </b-form>
+  </b-modal>
+  <b-modal id="all-note" title="My notes" hide-footer>
+     <div class="">
+                <div class="note-body" v-for="(note,idx) in notes" :key="idx">
+                <div class="mr-2">
+                   <b-icon icon="stickies-fill" class="my-icon"></b-icon>
+                </div>
+                <div class="notes-content w-100" >
+                <div class="notes-content-top">
+                  <h6 class="title mr-3 mb-2">{{note.title}}</h6>
+                
+                </div>
+                <div class="notes-content-main">
+                  <p
+                    class
+                  >{{note.note}}</p>
+                  <div class="notes-date d-flex align-items-center justify-content-between w-100">
+                    <p>
+                      Posted:
+                      <strong>{{note.created_at |  moment('DD/MM/YYYY')}}</strong>
+                    </p>
+                    <b-icon icon="trash" class="my-icon cpointer" @click="remove(note.id)"></b-icon>
+                  
+                  </div>
+                </div>
+              </div>
+              </div>
+              </div>
+  </b-modal>
   </div>
 </template>
 
 
 <script>
 export default {
-  props: ["student"],
+  props: ["tutor"],
   data() {
     return {
       tutors: [],
@@ -280,6 +294,11 @@ export default {
       curriculum: [],
       fields: ["class", "subject"],
       field: ["class"],
+       note:{
+        title:'',
+        description:''
+      },
+      notes:[]
     };
   },
   mounted() {
@@ -288,8 +307,50 @@ export default {
     // this.getTutors();
     // this.getSyllabus()
     // this.getCurriculum();
+     this.getNotes()
   },
   methods: {
+     gotoHer(id) {
+      this.$router.push(`/student/resource/view/${id}`);
+    },
+      addNote(){
+ 
+      let data = {
+        title: this.note.title,
+        description: this.note.description,
+       
+      };
+      axios
+        .post("/api/tutor-note", data, {
+          headers: {
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 201) {
+            this.note.description = "";
+             this.note.title = "";
+            this.getNotes();
+            this.$toasted.success("Note created");
+            this.$bvModal.hide('note')
+          }
+        })
+        .catch();
+    
+  },
+     getNotes() {
+      axios
+        .get(`/api/tutor-note`, {
+          headers: {
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.notes = res.data;
+          }
+        });
+    },
     getStudents() {
       axios
         .get("/api/student-get-students", {
@@ -360,8 +421,22 @@ export default {
 </script>
 
 <style scoped>
-.overview-board{
+.overview-board {
   padding-top: 20px;
+}
+.note-body{
+  display:flex;
+  border-bottom:1px solid #ccc;
+  margin-bottom: 14px;
+
+}
+.m-res{
+  height: 320px;
+  overflow: auto;
+}
+.main-note{
+  height: 330px;
+  overflow:auto;
 }
 .assignment-overview-board {
   background: #fff;
@@ -452,6 +527,10 @@ export default {
 .notes-content:last-child {
   border-bottom: none;
 }
+.check_it{
+  color: #008e3a;
+  font-size:12px;
+}
 .notes-top {
   display: flex;
   justify-content: space-between;
@@ -459,14 +538,14 @@ export default {
 }
 .notes-content-top {
   display: flex;
-  justify-content: space-between;
+
 }
 .notes-content-top h6 {
   margin-bottom: 0;
-  padding-top: 5px;
+
 }
 .notes-content {
-  padding-top: 5px;
+
 }
 .notes-content-main {
   padding-bottom: 5px;
@@ -478,7 +557,7 @@ export default {
 .notes-date {
   color: #808080;
   padding-top: 5px;
-  padding-left: 10px;
+
 }
 .fa-file-o {
   color: #22cade;
@@ -489,38 +568,42 @@ export default {
 .btn {
   border: 1px solid #0a4065;
   color: #0a4065;
+  font-size: 15px;
 }
-.discussion-content{
-  border-bottom:1px solid #e4e4e4;
+.discussion-content {
+  border-bottom: 1px solid #e4e4e4;
   padding-bottom: 10px;
   padding-top: 5px;
 }
-.discussion-content:last-child{
+.discussion-content:last-child {
   border-bottom: none;
 }
-.discussion-content p{
+.discussion-content p {
   font-size: 10px;
 }
-.discussion-content-top{
+.discussion-content-top {
   display: flex;
   justify-content: space-between;
 }
-.discussion-content-top p{
- font-size: 14px;
+.discussion-content-top p {
+  font-size: 14px;
 }
-.discussion-content-bottom{
+.discussion-content-bottom {
   display: flex;
   justify-content: space-between;
 }
-.discussion-content-bottom p{
+.discussion-content-bottom p {
   font-size: 12px;
   margin-bottom: 0;
 }
-.notify-discussion p{
- background: #e4e4e4;
- color: #808080;
- border-radius: 5px;
- font-weight: 500;
- padding: 5px 10px;
+.notify-discussion p {
+  background: #e4e4e4;
+  color: #808080;
+  border-radius: 5px;
+  font-weight: 500;
+  padding: 5px 10px;
+}
+.my-icon{
+   color: #008e3a;
 }
 </style>

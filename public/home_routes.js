@@ -11718,33 +11718,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["student"],
+  props: ["student", "notifications"],
   data: function data() {
     return {
       tutors: [],
+      new_resource: [],
       students: [],
       classes: [],
       syllabus: [],
@@ -11763,7 +11742,17 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.getNotes();
   },
+  computed: {
+    newresource: function newresource() {
+      return this.$props.notifications.filter(function (item) {
+        return item.type == 'new resource';
+      });
+    }
+  },
   methods: {
+    gotoHer: function gotoHer(id) {
+      this.$router.push("/student/resource/view/".concat(id));
+    },
     addNote: function addNote() {
       var _this = this;
 
@@ -11778,6 +11767,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         if (res.status == 201) {
           _this.note.description = "";
+          _this.note.title = "";
 
           _this.getNotes();
 
@@ -12050,10 +12040,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var _props$data$mounted$m;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -12102,52 +12088,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = (_props$data$mounted$m = {
+/* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
     return {
@@ -12156,7 +12097,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       count: 0
     };
   },
-  mounted: function mounted() {
+  created: function created() {
     var _this = this;
 
     Echo["private"]("group-subscribed" + this.$props.student.id).listen("GroupSubscribed", function (e) {
@@ -12170,70 +12111,73 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       _this.getNotifications();
     });
-  }
-}, _defineProperty(_props$data$mounted$m, "mounted", function mounted() {
-  this.getNotifications();
-}), _defineProperty(_props$data$mounted$m, "watch", {
-  $route: "reset"
-}), _defineProperty(_props$data$mounted$m, "methods", {
-  initialLoad: function initialLoad() {
-    axios.get("/api/student-group", {
-      headers: {
-        Authorization: "Bearer ".concat(this.$props.tutor.access_token)
-      }
-    }).then(function (res) {
-      if (res.status == 200) {}
-    });
   },
-  reset: function reset() {
-    this.showNotification = false;
+  mounted: function mounted() {
+    this.getNotifications();
   },
-  toggleNotification: function toggleNotification() {
-    this.showNotification = !this.showNotification;
-    this.count = 0;
+  watch: {
+    $route: "reset"
+  },
+  methods: {
+    initialLoad: function initialLoad() {
+      axios.get("/api/student-group", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {}
+      });
+    },
+    reset: function reset() {
+      this.showNotification = false;
+    },
+    toggleNotification: function toggleNotification() {
+      this.showNotification = !this.showNotification;
+      this.count = 0;
 
-    if (!this.showNotification) {
-      this.clearNotifications();
+      if (!this.showNotification) {
+        this.clearNotifications();
+      }
+    },
+    clearNotifications: function clearNotifications() {
+      var _this2 = this;
+
+      axios.get("/api/clear-user-notifications/".concat(this.$props.student.id), {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.student.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this2.getNotifications();
+
+          _this2.count = 0;
+        }
+      });
+    },
+    getNotifications: function getNotifications() {
+      var _this3 = this;
+
+      axios.get("/api/user-notifications/".concat(this.$props.student.id), {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.student.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          var count = [];
+          _this3.notifications = res.data;
+
+          _this3.notifications.forEach(function (item) {
+            if (!item.status) {
+              count.push(item);
+            }
+          });
+
+          _this3.count = count.length;
+        }
+      });
     }
-  },
-  clearNotifications: function clearNotifications() {
-    var _this2 = this;
-
-    axios.get("/api/clear-user-notifications/".concat(this.$props.student.id), {
-      headers: {
-        Authorization: "Bearer ".concat(this.$props.student.access_token)
-      }
-    }).then(function (res) {
-      if (res.status == 200) {
-        _this2.getNotifications();
-
-        _this2.count = 0;
-      }
-    });
-  },
-  getNotifications: function getNotifications() {
-    var _this3 = this;
-
-    axios.get("/api/user-notifications/".concat(this.$props.student.id), {
-      headers: {
-        Authorization: "Bearer ".concat(this.$props.student.access_token)
-      }
-    }).then(function (res) {
-      if (res.status == 200) {
-        var count = [];
-        _this3.notifications = res.data;
-
-        _this3.notifications.forEach(function (item) {
-          if (!item.status) {
-            count.push(item);
-          }
-        });
-
-        _this3.count = count.length;
-      }
-    });
   }
-}), _props$data$mounted$m);
+});
 
 /***/ }),
 
@@ -16751,8 +16695,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["student"],
+  props: ["tutor"],
   data: function data() {
     return {
       tutors: [],
@@ -16761,18 +16719,65 @@ __webpack_require__.r(__webpack_exports__);
       syllabus: [],
       curriculum: [],
       fields: ["class", "subject"],
-      field: ["class"]
+      field: ["class"],
+      note: {
+        title: '',
+        description: ''
+      },
+      notes: []
     };
   },
-  mounted: function mounted() {// this.getStudents();
+  mounted: function mounted() {
+    // this.getStudents();
     // this.getClasses();
     // this.getTutors();
     // this.getSyllabus()
     // this.getCurriculum();
+    this.getNotes();
   },
   methods: {
-    getStudents: function getStudents() {
+    gotoHer: function gotoHer(id) {
+      this.$router.push("/student/resource/view/".concat(id));
+    },
+    addNote: function addNote() {
       var _this = this;
+
+      var data = {
+        title: this.note.title,
+        description: this.note.description
+      };
+      axios.post("/api/tutor-note", data, {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 201) {
+          _this.note.description = "";
+          _this.note.title = "";
+
+          _this.getNotes();
+
+          _this.$toasted.success("Note created");
+
+          _this.$bvModal.hide('note');
+        }
+      })["catch"]();
+    },
+    getNotes: function getNotes() {
+      var _this2 = this;
+
+      axios.get("/api/tutor-note", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this2.notes = res.data;
+        }
+      });
+    },
+    getStudents: function getStudents() {
+      var _this3 = this;
 
       axios.get("/api/student-get-students", {
         headers: {
@@ -16780,12 +16785,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this.students = res.data;
+          _this3.students = res.data;
         }
       });
     },
     getCurriculum: function getCurriculum() {
-      var _this2 = this;
+      var _this4 = this;
 
       axios.get("/api/curriculum", {
         headers: {
@@ -16793,12 +16798,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this2.curriculum = res.data;
+          _this4.curriculum = res.data;
         }
       });
     },
     getTutors: function getTutors() {
-      var _this3 = this;
+      var _this5 = this;
 
       axios.get("/api/tutor", {
         headers: {
@@ -16806,12 +16811,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this3.tutors = res.data;
+          _this5.tutors = res.data;
         }
       });
     },
     getClasses: function getClasses() {
-      var _this4 = this;
+      var _this6 = this;
 
       axios.get("/api/classes", {
         headers: {
@@ -16819,12 +16824,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this4.classes = res.data;
+          _this6.classes = res.data;
         }
       });
     },
     getSyllabus: function getSyllabus() {
-      var _this5 = this;
+      var _this7 = this;
 
       axios.get("/api/syllabus", {
         headers: {
@@ -16832,7 +16837,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this5.syllabus = res.data;
+          _this7.syllabus = res.data;
         }
       });
     }
@@ -17459,6 +17464,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       excerpt: "",
       count: "single",
       cover_image: "",
+      type: "new resource",
       content: [{
         type: "",
         file: "",
@@ -21247,7 +21253,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-42846304] {\n  font-family: \"Montserrat\";\n  padding-bottom: 50px;\n}\n.note-body[data-v-42846304]{\n  display:flex;\n  border-bottom:1px solid #ccc;\n  margin-bottom: 14px;\n}\n.main-note[data-v-42846304]{\n  height: 290px;\n  overflow:auto;\n}\n.welcome-board[data-v-42846304] {\n  background: rgba(19, 166, 153, 0.43);\n  width: 100%;\n  height: 200px;\n  border-radius: 10px;\n  display: flex;\n  position: relative;\n  margin-top: 2rem;\n}\n.welcome-board img[data-v-42846304] {\n  width: 320px;\n  height: 280px;\n  position: absolute;\n  transform: translateY(-28%);\n}\n.welcome-board-content[data-v-42846304] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  padding: 2.5rem;\n}\n.welcome-board-content p[data-v-42846304] {\n  text-align: center;\n  padding: 10px;\n}\n.welcome-board-content h3[data-v-42846304] {\n  color: #13a699;\n}\n.cards[data-v-42846304] {\n  margin-top: 2rem;\n  background: #fff;\n  padding: 1.5rem;\n  border-radius: 10px;\n  height: 400px;\n}\n.result-progress[data-v-42846304] {\n  margin-top: 10px;\n}\n.progress-top[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.progress-bar[data-v-42846304] {\n  width: 67% !important;\n  background-color: #de1515 !important;\n}\n.update-content[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.update-content p[data-v-42846304] {\n  font-size: 12px;\n  padding-left: 10px;\n  margin-bottom: 0;\n}\n.log-link[data-v-42846304] {\n  display: flex;\n  justify-content: flex-end;\n}\n.log-link a[data-v-42846304] {\n  color: #808080;\n}\n.log-link a[data-v-42846304]:hover {\n  color: #13a699;\n  text-decoration: underline !important;\n}\n.resources-inner[data-v-42846304] {\n  border-bottom: 1px solid #e4e4e4;\n  padding-top: 5px;\n}\n.resources-inner[data-v-42846304]:last-child {\n  border-bottom: none;\n}\n.class-content[data-v-42846304]{\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-top i[data-v-42846304]{\n  color: #008e3a;\n}\n.content-2 i[data-v-42846304]{\n  color: #ff0000;\n}\n.class-content-main[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-42846304]{\n  font-size: 12px;\n}\n.notes-top[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.btn[data-v-42846304]{\n  background: transparent;\n  border: 1px solid #13A699;\n  border-radius: 5px;\n  color: #13A699;\n}\n.btn[data-v-42846304]:hover{\n  background: #13A699;\n  border-radius: 5px;\n  color: #fff;\n}\n.update-avatar img[data-v-42846304]{\n  height: 40px;\n  width: 40px;\n}\n.notes-content[data-v-42846304] {\n  border-bottom: 1px solid #e4e4e4;\n}\n.notes-content[data-v-42846304]:last-child {\n  border-bottom: none;\n}\n.notes-top[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 1rem;\n}\n.notes-content-top[data-v-42846304] {\n  display: flex;\n}\n.notes-content-top h6[data-v-42846304] {\n  margin-bottom: 0;\n}\n.notes-content[data-v-42846304] {\n}\n.notes-content-main[data-v-42846304] {\n  padding-bottom: 5px;\n}\n.notes-content-main p[data-v-42846304] {\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notes-date[data-v-42846304] {\n  color: #808080;\n  padding-top: 5px;\n}\n.fa-file-o[data-v-42846304] {\n  color: #13A699;\n  background: rgba(19, 166, 153, 0.43);\n  border-radius: 50%;\n  padding: 9px;\n}\n.discussion-content[data-v-42846304]{\n  border-bottom:1px solid #e4e4e4;\n  padding-bottom: 10px;\n  padding-top: 5px;\n}\n.discussion-content[data-v-42846304]:last-child{\n  border-bottom: none;\n}\n.discussion-content p[data-v-42846304]{\n  font-size: 10px;\n}\n.discussion-content-top[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-top p[data-v-42846304]{\n font-size: 14px;\n}\n.discussion-content-bottom[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-bottom p[data-v-42846304]{\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notify-discussion p[data-v-42846304]{\n background: #e4e4e4;\n color: #808080;\n border-radius: 5px;\n font-weight: 500;\n padding: 5px 10px;\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-42846304] {\n  font-family: \"Montserrat\";\n  padding-bottom: 50px;\n}\n.note-body[data-v-42846304]{\n  display:flex;\n  border-bottom:1px solid #ccc;\n  margin-bottom: 14px;\n}\n.m-res[data-v-42846304]{\n  height: 320px;\n  overflow: auto;\n}\n.main-note[data-v-42846304]{\n  height: 290px;\n  overflow:auto;\n}\n.welcome-board[data-v-42846304] {\n  background: rgba(19, 166, 153, 0.43);\n  width: 100%;\n  height: 200px;\n  border-radius: 10px;\n  display: flex;\n  position: relative;\n  margin-top: 2rem;\n}\n.welcome-board img[data-v-42846304] {\n  width: 320px;\n  height: 280px;\n  position: absolute;\n  transform: translateY(-28%);\n}\n.welcome-board-content[data-v-42846304] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  padding: 2.5rem;\n}\n.welcome-board-content p[data-v-42846304] {\n  text-align: center;\n  padding: 10px;\n}\n.welcome-board-content h3[data-v-42846304] {\n  color: #13a699;\n}\n.cards[data-v-42846304] {\n  margin-top: 2rem;\n  background: #fff;\n  padding: 1.5rem;\n  border-radius: 10px;\n  height: 400px;\n}\n.result-progress[data-v-42846304] {\n  margin-top: 10px;\n}\n.progress-top[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.progress-bar[data-v-42846304] {\n  width: 67% !important;\n  background-color: #de1515 !important;\n}\n.update-content[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.update-content p[data-v-42846304] {\n  font-size: 12px;\n  padding-left: 10px;\n  margin-bottom: 0;\n}\n.log-link[data-v-42846304] {\n  display: flex;\n  justify-content: flex-end;\n}\n.log-link a[data-v-42846304] {\n  color: #808080;\n}\n.log-link a[data-v-42846304]:hover {\n  color: #13a699;\n  text-decoration: underline !important;\n}\n.resources-inner[data-v-42846304] {\n  border-bottom: 1px solid #e4e4e4;\n  padding-top: 5px;\n}\n.resources-inner[data-v-42846304]:last-child {\n  border-bottom: none;\n}\n.class-content[data-v-42846304]{\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-top i[data-v-42846304]{\n  color: #008e3a;\n}\n.content-2 i[data-v-42846304]{\n  color: #ff0000;\n}\n.class-content-main[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-42846304]{\n  font-size: 12px;\n}\n.notes-top[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.btn[data-v-42846304]{\n  background: transparent;\n  border: 1px solid #13A699;\n  border-radius: 5px;\n  color: #13A699;\n  font-size: 15px;\n}\n.btn[data-v-42846304]:hover{\n  background: #13A699;\n  border-radius: 5px;\n  color: #fff;\n}\n.update-avatar img[data-v-42846304]{\n  height: 40px;\n  width: 40px;\n}\n.notes-content[data-v-42846304] {\n  border-bottom: 1px solid #e4e4e4;\n}\n.notes-content[data-v-42846304]:last-child {\n  border-bottom: none;\n}\n.notes-top[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 1rem;\n}\n.notes-content-top[data-v-42846304] {\n  display: flex;\n}\n.notes-content-top h6[data-v-42846304] {\n  margin-bottom: 0;\n}\n.notes-content[data-v-42846304] {\n}\n.notes-content-main[data-v-42846304] {\n  padding-bottom: 5px;\n}\n.notes-content-main p[data-v-42846304] {\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notes-date[data-v-42846304] {\n  color: #808080;\n  padding-top: 5px;\n}\n.fa-file-o[data-v-42846304] {\n  color: #13A699;\n  background: rgba(19, 166, 153, 0.43);\n  border-radius: 50%;\n  padding: 9px;\n}\n.discussion-content[data-v-42846304]{\n  border-bottom:1px solid #e4e4e4;\n  padding-bottom: 10px;\n  padding-top: 5px;\n}\n.discussion-content[data-v-42846304]:last-child{\n  border-bottom: none;\n}\n.discussion-content p[data-v-42846304]{\n  font-size: 10px;\n}\n.discussion-content-top[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-top p[data-v-42846304]{\n font-size: 14px;\n}\n.discussion-content-bottom[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-bottom p[data-v-42846304]{\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notify-discussion p[data-v-42846304]{\n background: #e4e4e4;\n color: #808080;\n border-radius: 5px;\n font-weight: 500;\n padding: 5px 10px;\n}\n.my-icon[data-v-42846304]{\n   color: #008e3a;\n}\n.check_it[data-v-42846304]{\n  color: #008e3a;\n  font-size:12px;\n}\n", ""]);
 
 // exports
 
@@ -21285,7 +21291,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.nav[data-v-09903b50]{\n  background: #f2f6fe;\n}\n.nav-item i[data-v-09903b50] {\n  color: #808080;\n  font-size: 24px;\n}\n#notification[data-v-09903b50] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-09903b50] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-09903b50] {\n  max-height: 300px;\n  overflow: scroll;\n}\n.icon[data-v-09903b50] {\n  position: relative;\n}\n.badge[data-v-09903b50] {\n  position: absolute;\n  top: -10%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 14px;\n}\n.list-group-item[data-v-09903b50] {\n  font-size: 14px;\n}\n/* .semi-white{\n\n  padding:50px 20px;\n\n}\nnav {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background:white;\n}\n\n.fa-bell {\n  font-size: 24px;\n  color:#ffd708;\n} */\n.search[data-v-09903b50] {\n  width: 250px;\n  background: transparent !important;\n  border-color: #808080;\n}\n", ""]);
+exports.push([module.i, "\n.nav[data-v-09903b50]{\n  background: #f2f6fe;\n}\n.nav-item i[data-v-09903b50] {\n  color: #808080;\n  font-size: 24px;\n}\n.anime-stop[data-v-09903b50]{\n  -webkit-animation:none;\n          animation:none;\n}\n.bell[data-v-09903b50]{\n  color: #13a699;\n}\n.bell[data-v-09903b50]:hover{\n  color:#008e3a;\n}\n#notification[data-v-09903b50] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-09903b50] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-09903b50] {\n  max-height: 300px;\n  overflow: scroll;\n}\n.icon[data-v-09903b50] {\n  position: relative;\n}\n.badge[data-v-09903b50] {\n  position: absolute;\n  top: -10%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 14px;\n}\n.list-group-item[data-v-09903b50] {\n  font-size: 14px;\n}\n/* .semi-white{\n\n  padding:50px 20px;\n\n}\nnav {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background:white;\n}\n\n.fa-bell {\n  font-size: 24px;\n  color:#ffd708;\n} */\n.search[data-v-09903b50] {\n  width: 250px;\n  \n  border-color: #ccc;\n}\n", ""]);
 
 // exports
 
@@ -21608,7 +21614,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.overview-board[data-v-11aed4a3]{\n  padding-top: 20px;\n}\n.assignment-overview-board[data-v-11aed4a3] {\n  background: #fff;\n  font-family: \"Montserrat\";\n  padding: 15px;\n  border-radius: 10px;\n}\n.assignment-overview-board p[data-v-11aed4a3] {\n  font-weight: 600;\n  color: #808080;\n}\n.text-center p[data-v-11aed4a3] {\n  font-weight: 500;\n  margin-bottom: 10px;\n}\n.text-center h6[data-v-11aed4a3] {\n  font-weight: 700;\n}\n.overview-log-1[data-v-11aed4a3] {\n  border-right: 1px solid #c4c4c4;\n}\n.overview-log-4[data-v-11aed4a3] {\n  border-right: 1px solid #c4c4c4;\n}\n.overview-log-1 i[data-v-11aed4a3] {\n  color: #22cade;\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.overview-log-2 i[data-v-11aed4a3] {\n  color: #dfd291;\n  background: rgba(223, 210, 145, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.overview-log-3 i[data-v-11aed4a3] {\n  color: #ff0000;\n  background: rgba(255, 0, 0, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.overview-log-4 i[data-v-11aed4a3] {\n  color: #008e3a;\n  background: rgba(0, 142, 58, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.log-link[data-v-11aed4a3] {\n  display: flex;\n  justify-content: flex-end;\n  padding-top: 1rem;\n}\n.content-cards[data-v-11aed4a3] {\n  padding-top: 2rem;\n}\n.cards[data-v-11aed4a3] {\n  background: #fff;\n  border-radius: 10px;\n  padding: 10px;\n  height: 450px;\n}\n.class-content[data-v-11aed4a3] {\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-top i[data-v-11aed4a3] {\n  color: #008e3a;\n}\n.content-2 i[data-v-11aed4a3] {\n  color: #ff0000;\n}\n.class-content-main[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-11aed4a3] {\n  font-size: 12px;\n}\n.notes-content[data-v-11aed4a3] {\n  border-bottom: 1px solid #e4e4e4;\n}\n.notes-content[data-v-11aed4a3]:last-child {\n  border-bottom: none;\n}\n.notes-top[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 1rem;\n}\n.notes-content-top[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.notes-content-top h6[data-v-11aed4a3] {\n  margin-bottom: 0;\n  padding-top: 5px;\n}\n.notes-content[data-v-11aed4a3] {\n  padding-top: 5px;\n}\n.notes-content-main[data-v-11aed4a3] {\n  padding-bottom: 5px;\n}\n.notes-content-main p[data-v-11aed4a3] {\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notes-date[data-v-11aed4a3] {\n  color: #808080;\n  padding-top: 5px;\n  padding-left: 10px;\n}\n.fa-file-o[data-v-11aed4a3] {\n  color: #22cade;\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 50%;\n  padding: 9px;\n}\n.btn[data-v-11aed4a3] {\n  border: 1px solid #0a4065;\n  color: #0a4065;\n}\n.discussion-content[data-v-11aed4a3]{\n  border-bottom:1px solid #e4e4e4;\n  padding-bottom: 10px;\n  padding-top: 5px;\n}\n.discussion-content[data-v-11aed4a3]:last-child{\n  border-bottom: none;\n}\n.discussion-content p[data-v-11aed4a3]{\n  font-size: 10px;\n}\n.discussion-content-top[data-v-11aed4a3]{\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-top p[data-v-11aed4a3]{\n font-size: 14px;\n}\n.discussion-content-bottom[data-v-11aed4a3]{\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-bottom p[data-v-11aed4a3]{\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notify-discussion p[data-v-11aed4a3]{\n background: #e4e4e4;\n color: #808080;\n border-radius: 5px;\n font-weight: 500;\n padding: 5px 10px;\n}\n", ""]);
+exports.push([module.i, "\n.overview-board[data-v-11aed4a3] {\n  padding-top: 20px;\n}\n.note-body[data-v-11aed4a3]{\n  display:flex;\n  border-bottom:1px solid #ccc;\n  margin-bottom: 14px;\n}\n.m-res[data-v-11aed4a3]{\n  height: 320px;\n  overflow: auto;\n}\n.main-note[data-v-11aed4a3]{\n  height: 330px;\n  overflow:auto;\n}\n.assignment-overview-board[data-v-11aed4a3] {\n  background: #fff;\n  font-family: \"Montserrat\";\n  padding: 15px;\n  border-radius: 10px;\n}\n.assignment-overview-board p[data-v-11aed4a3] {\n  font-weight: 600;\n  color: #808080;\n}\n.text-center p[data-v-11aed4a3] {\n  font-weight: 500;\n  margin-bottom: 10px;\n}\n.text-center h6[data-v-11aed4a3] {\n  font-weight: 700;\n}\n.overview-log-1[data-v-11aed4a3] {\n  border-right: 1px solid #c4c4c4;\n}\n.overview-log-4[data-v-11aed4a3] {\n  border-right: 1px solid #c4c4c4;\n}\n.overview-log-1 i[data-v-11aed4a3] {\n  color: #22cade;\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.overview-log-2 i[data-v-11aed4a3] {\n  color: #dfd291;\n  background: rgba(223, 210, 145, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.overview-log-3 i[data-v-11aed4a3] {\n  color: #ff0000;\n  background: rgba(255, 0, 0, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.overview-log-4 i[data-v-11aed4a3] {\n  color: #008e3a;\n  background: rgba(0, 142, 58, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.log-link[data-v-11aed4a3] {\n  display: flex;\n  justify-content: flex-end;\n  padding-top: 1rem;\n}\n.content-cards[data-v-11aed4a3] {\n  padding-top: 2rem;\n}\n.cards[data-v-11aed4a3] {\n  background: #fff;\n  border-radius: 10px;\n  padding: 10px;\n  height: 450px;\n}\n.class-content[data-v-11aed4a3] {\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-top i[data-v-11aed4a3] {\n  color: #008e3a;\n}\n.content-2 i[data-v-11aed4a3] {\n  color: #ff0000;\n}\n.class-content-main[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-11aed4a3] {\n  font-size: 12px;\n}\n.notes-content[data-v-11aed4a3] {\n  border-bottom: 1px solid #e4e4e4;\n}\n.notes-content[data-v-11aed4a3]:last-child {\n  border-bottom: none;\n}\n.check_it[data-v-11aed4a3]{\n  color: #008e3a;\n  font-size:12px;\n}\n.notes-top[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 1rem;\n}\n.notes-content-top[data-v-11aed4a3] {\n  display: flex;\n}\n.notes-content-top h6[data-v-11aed4a3] {\n  margin-bottom: 0;\n}\n.notes-content[data-v-11aed4a3] {\n}\n.notes-content-main[data-v-11aed4a3] {\n  padding-bottom: 5px;\n}\n.notes-content-main p[data-v-11aed4a3] {\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notes-date[data-v-11aed4a3] {\n  color: #808080;\n  padding-top: 5px;\n}\n.fa-file-o[data-v-11aed4a3] {\n  color: #22cade;\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 50%;\n  padding: 9px;\n}\n.btn[data-v-11aed4a3] {\n  border: 1px solid #0a4065;\n  color: #0a4065;\n  font-size: 15px;\n}\n.discussion-content[data-v-11aed4a3] {\n  border-bottom: 1px solid #e4e4e4;\n  padding-bottom: 10px;\n  padding-top: 5px;\n}\n.discussion-content[data-v-11aed4a3]:last-child {\n  border-bottom: none;\n}\n.discussion-content p[data-v-11aed4a3] {\n  font-size: 10px;\n}\n.discussion-content-top[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-top p[data-v-11aed4a3] {\n  font-size: 14px;\n}\n.discussion-content-bottom[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-bottom p[data-v-11aed4a3] {\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notify-discussion p[data-v-11aed4a3] {\n  background: #e4e4e4;\n  color: #808080;\n  border-radius: 5px;\n  font-weight: 500;\n  padding: 5px 10px;\n}\n.my-icon[data-v-11aed4a3]{\n   color: #008e3a;\n}\n", ""]);
 
 // exports
 
@@ -43446,126 +43452,61 @@ var render = function() {
                 _c("div", { staticClass: "resources-update cards" }, [
                   _c("h5", [_vm._v("Resources Update")]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "resources-inner" }, [
-                    _c(
-                      "div",
-                      { staticClass: "update-content" },
-                      [
-                        _c("b-avatar", {
-                          attrs: { src: "/images/english-lit.jpg" }
-                        }),
-                        _vm._v(" "),
-                        _c("p", [
-                          _vm._v(
-                            "Module 1.1 has been added to your english resources"
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "log-link" },
-                      [
-                        _c("router-link", { attrs: { to: "" } }, [
-                          _vm._v("View")
-                        ])
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "resources-inner" }, [
-                    _c(
-                      "div",
-                      { staticClass: "update-content" },
-                      [
-                        _c("b-avatar", {
-                          attrs: { src: "/images/english-lit.jpg" }
-                        }),
-                        _vm._v(" "),
-                        _c("p", [
-                          _vm._v(
-                            "Module 1.1 has been added to your english resources"
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "log-link" },
-                      [
-                        _c("router-link", { attrs: { to: "" } }, [
-                          _vm._v("View")
-                        ])
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "resources-inner" }, [
-                    _c(
-                      "div",
-                      { staticClass: "update-content" },
-                      [
-                        _c("b-avatar", {
-                          attrs: { src: "/images/english-lit.jpg" }
-                        }),
-                        _vm._v(" "),
-                        _c("p", [
-                          _vm._v(
-                            "Module 1.1 has been added to your english resources"
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "log-link" },
-                      [
-                        _c("router-link", { attrs: { to: "" } }, [
-                          _vm._v("View")
-                        ])
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "resources-inner" }, [
-                    _c(
-                      "div",
-                      { staticClass: "update-content" },
-                      [
-                        _c("b-avatar", {
-                          staticClass: "update-avatar",
-                          attrs: { src: "/images/english-lit.jpg" }
-                        }),
-                        _vm._v(" "),
-                        _c("p", [
-                          _vm._v(
-                            "Module 1.1 has been added to your english resources"
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "log-link" },
-                      [
-                        _c("router-link", { attrs: { to: "" } }, [
-                          _vm._v("View")
-                        ])
-                      ],
-                      1
-                    )
-                  ])
+                  _c(
+                    "div",
+                    { staticClass: "m-res" },
+                    _vm._l(_vm.newresource, function(resource, idx) {
+                      return _c(
+                        "div",
+                        {
+                          key: idx,
+                          staticClass: "resources-inner border-bottom"
+                        },
+                        [
+                          _c("div", { staticClass: "update-content" }, [
+                            _c(
+                              "div",
+                              [
+                                _c("b-avatar", {
+                                  attrs: {
+                                    icon: "asterisk",
+                                    variant: "success",
+                                    size: "sm"
+                                  }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("p", [_vm._v(_vm._s(resource.message))])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "log-link" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "check_it cpointer",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.gotoHer(resource.resource_id)
+                                  }
+                                }
+                              },
+                              [
+                                _c("span", { staticClass: "mr-1" }, [
+                                  _vm._v("Check it")
+                                ]),
+                                _vm._v(" "),
+                                _c("b-icon", { attrs: { icon: "arrow-right" } })
+                              ],
+                              1
+                            )
+                          ])
+                        ]
+                      )
+                    }),
+                    0
+                  )
                 ])
               ]),
               _vm._v(" "),
@@ -43920,7 +43861,12 @@ var render = function() {
                         _c(
                           "div",
                           { staticClass: "mr-2" },
-                          [_c("b-icon", { attrs: { icon: "stickies-fill" } })],
+                          [
+                            _c("b-icon", {
+                              staticClass: "my-icon",
+                              attrs: { icon: "stickies-fill" }
+                            })
+                          ],
                           1
                         ),
                         _vm._v(" "),
@@ -43958,6 +43904,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("b-icon", {
+                                  staticClass: "my-icon cpointer",
                                   attrs: { icon: "trash" },
                                   on: {
                                     click: function($event) {
@@ -43985,9 +43932,14 @@ var render = function() {
                             rawName: "v-b-modal.all-note",
                             modifiers: { "all-note": true }
                           }
-                        ]
+                        ],
+                        staticClass: "check_it"
                       },
-                      [_vm._v("View All")]
+                      [
+                        _vm._v("View All "),
+                        _c("b-icon", { attrs: { icon: "arrow-right" } })
+                      ],
+                      1
                     )
                   ])
                 ])
@@ -44093,7 +44045,12 @@ var render = function() {
                     _c(
                       "div",
                       { staticClass: "mr-2" },
-                      [_c("b-icon", { attrs: { icon: "stickies-fill" } })],
+                      [
+                        _c("b-icon", {
+                          staticClass: "my-icon",
+                          attrs: { icon: "stickies-fill" }
+                        })
+                      ],
                       1
                     ),
                     _vm._v(" "),
@@ -44131,6 +44088,7 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("b-icon", {
+                              staticClass: "my-icon cpointer",
                               attrs: { icon: "trash" },
                               on: {
                                 click: function($event) {
@@ -44475,20 +44433,29 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("b-nav-item", [
+          _c("b-nav-item", { staticClass: "py-0 px-3" }, [
             _c("div", { staticClass: "mx-3", attrs: { id: "notification" } }, [
               _c(
                 "div",
                 { staticClass: "icon", on: { click: _vm.toggleNotification } },
                 [
-                  _c("i", { staticClass: "icon-bell-1" }),
+                  _c("b-icon", {
+                    staticClass: "bell",
+                    class: { "anime-stop": _vm.count == 0 },
+                    attrs: {
+                      icon: "bell-fill",
+                      animation: "cylon",
+                      "font-scale": "2"
+                    }
+                  }),
                   _vm._v(" "),
                   _vm.count > 0
                     ? _c("div", { staticClass: "badge animated pulse" }, [
                         _vm._v(_vm._s(_vm.count))
                       ])
                     : _vm._e()
-                ]
+                ],
+                1
               ),
               _vm._v(" "),
               _vm.showNotification
@@ -44550,7 +44517,7 @@ var render = function() {
         [
           _c("router-view", {
             staticClass: "semi-white",
-            attrs: { student: _vm.student }
+            attrs: { student: _vm.student, notifications: _vm.notifications }
           })
         ],
         1
@@ -49911,660 +49878,839 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "main" }, [
-    _c(
-      "div",
-      { staticClass: "container-fluid" },
-      [
-        _c(
-          "b-row",
-          { staticClass: "overview-board" },
-          [
-            _c("b-col", { attrs: { md: "6" } }, [
-              _c(
-                "div",
-                { staticClass: "assignment-overview-board" },
-                [
-                  _c("p", [_vm._v("Assignment Overview")]),
-                  _vm._v(" "),
-                  _c(
-                    "b-container",
-                    { staticClass: "overview-main" },
-                    [
-                      _c(
-                        "b-row",
-                        [
-                          _c(
-                            "b-col",
-                            {
-                              staticClass: "overview-log-1 text-center",
-                              attrs: { md: "6" }
-                            },
-                            [
-                              _c("h6", [_vm._v("30+")]),
-                              _vm._v(" "),
-                              _c("p", [_vm._v("Recieved")]),
-                              _vm._v(" "),
-                              _c("i", {
-                                staticClass: "fa fa-check",
-                                attrs: { "aria-hidden": "true" }
-                              })
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-col",
-                            {
-                              staticClass: "overview-log-3 text-center",
-                              attrs: { md: "6" }
-                            },
-                            [
-                              _c("h6", [_vm._v("20+")]),
-                              _vm._v(" "),
-                              _c("p", [_vm._v("Yet to Recieve")]),
-                              _vm._v(" "),
-                              _c("i", {
-                                staticClass: "fa fa-ban",
-                                attrs: { "aria-hidden": "true" }
-                              })
-                            ]
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "log-link" },
-                        [
-                          _c("router-link", { attrs: { to: "" } }, [
-                            _vm._v("View assignment log")
-                          ])
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ]),
-            _vm._v(" "),
-            _c("b-col", { attrs: { md: "6" } }, [
-              _c(
-                "div",
-                { staticClass: "assignment-overview-board" },
-                [
-                  _c("p", [_vm._v("Resource Overview")]),
-                  _vm._v(" "),
-                  _c(
-                    "b-container",
-                    { staticClass: "overview-main" },
-                    [
-                      _c(
-                        "b-row",
-                        [
-                          _c(
-                            "b-col",
-                            {
-                              staticClass: "overview-log-4 text-center",
-                              attrs: { md: "6" }
-                            },
-                            [
-                              _c("h6", [_vm._v("30+")]),
-                              _vm._v(" "),
-                              _c("p", [_vm._v("Submitted")]),
-                              _vm._v(" "),
-                              _c("i", {
-                                staticClass: "fa fa-thumbs-o-up",
-                                attrs: { "aria-hidden": "true" }
-                              })
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-col",
-                            {
-                              directives: [
-                                {
-                                  name: "b-tooltip",
-                                  rawName: "v-b-tooltip.hover",
-                                  modifiers: { hover: true }
-                                }
-                              ],
-                              staticClass: "overview-log-2 text-center",
-                              attrs: {
-                                title:
-                                  "You have over 20 resource to be submitted",
-                                md: "6"
-                              }
-                            },
-                            [
-                              _c("h6", [_vm._v("20+")]),
-                              _vm._v(" "),
-                              _c("p", [_vm._v("Pending")]),
-                              _vm._v(" "),
-                              _c("i", {
-                                staticClass: "fa fa-clock-o",
-                                attrs: { "aria-hidden": "true" }
-                              })
-                            ]
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "log-link" },
-                        [
-                          _c("router-link", { attrs: { to: "" } }, [
-                            _vm._v("View Resources")
-                          ])
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ])
-          ],
-          1
-        )
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "content-cards" },
-      [
-        _c(
-          "b-container",
-          [
-            _c(
-              "b-row",
-              [
-                _c("b-col", { attrs: { md: "4" } }, [
-                  _c("div", { staticClass: "cards" }, [
-                    _c("h5", [_vm._v("Today's Class")]),
+  return _c(
+    "div",
+    { staticClass: "main" },
+    [
+      _c(
+        "div",
+        { staticClass: "container-fluid" },
+        [
+          _c(
+            "b-row",
+            { staticClass: "overview-board" },
+            [
+              _c("b-col", { attrs: { md: "6" } }, [
+                _c(
+                  "div",
+                  { staticClass: "assignment-overview-board" },
+                  [
+                    _c("p", [_vm._v("Assignment Overview")]),
                     _vm._v(" "),
                     _c(
-                      "div",
-                      {
-                        directives: [
-                          {
-                            name: "b-tooltip",
-                            rawName: "v-b-tooltip.hover",
-                            modifiers: { hover: true }
-                          }
-                        ],
-                        staticClass: "class-content",
-                        attrs: { title: "This class is currently ongoing" }
-                      },
+                      "b-container",
+                      { staticClass: "overview-main" },
                       [
-                        _c("div", { staticClass: "class-content-top" }, [
-                          _c("h6", [_vm._v("Geography")]),
+                        _c(
+                          "b-row",
+                          [
+                            _c(
+                              "b-col",
+                              {
+                                staticClass: "overview-log-1 text-center",
+                                attrs: { md: "6" }
+                              },
+                              [
+                                _c("h6", [_vm._v("30+")]),
+                                _vm._v(" "),
+                                _c("p", [_vm._v("Recieved")]),
+                                _vm._v(" "),
+                                _c("i", {
+                                  staticClass: "fa fa-check",
+                                  attrs: { "aria-hidden": "true" }
+                                })
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-col",
+                              {
+                                staticClass: "overview-log-3 text-center",
+                                attrs: { md: "6" }
+                              },
+                              [
+                                _c("h6", [_vm._v("20+")]),
+                                _vm._v(" "),
+                                _c("p", [_vm._v("Yet to Recieve")]),
+                                _vm._v(" "),
+                                _c("i", {
+                                  staticClass: "fa fa-ban",
+                                  attrs: { "aria-hidden": "true" }
+                                })
+                              ]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "log-link" },
+                          [
+                            _c("router-link", { attrs: { to: "" } }, [
+                              _vm._v("View assignment log")
+                            ])
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("b-col", { attrs: { md: "6" } }, [
+                _c(
+                  "div",
+                  { staticClass: "assignment-overview-board" },
+                  [
+                    _c("p", [_vm._v("Resource Overview")]),
+                    _vm._v(" "),
+                    _c(
+                      "b-container",
+                      { staticClass: "overview-main" },
+                      [
+                        _c(
+                          "b-row",
+                          [
+                            _c(
+                              "b-col",
+                              {
+                                staticClass: "overview-log-4 text-center",
+                                attrs: { md: "6" }
+                              },
+                              [
+                                _c("h6", [_vm._v("30+")]),
+                                _vm._v(" "),
+                                _c("p", [_vm._v("Submitted")]),
+                                _vm._v(" "),
+                                _c("i", {
+                                  staticClass: "fa fa-thumbs-o-up",
+                                  attrs: { "aria-hidden": "true" }
+                                })
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-col",
+                              {
+                                directives: [
+                                  {
+                                    name: "b-tooltip",
+                                    rawName: "v-b-tooltip.hover",
+                                    modifiers: { hover: true }
+                                  }
+                                ],
+                                staticClass: "overview-log-2 text-center",
+                                attrs: {
+                                  title:
+                                    "You have over 20 resource to be submitted",
+                                  md: "6"
+                                }
+                              },
+                              [
+                                _c("h6", [_vm._v("20+")]),
+                                _vm._v(" "),
+                                _c("p", [_vm._v("Pending")]),
+                                _vm._v(" "),
+                                _c("i", {
+                                  staticClass: "fa fa-clock-o",
+                                  attrs: { "aria-hidden": "true" }
+                                })
+                              ]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "log-link" },
+                          [
+                            _c("router-link", { attrs: { to: "" } }, [
+                              _vm._v("View Resources")
+                            ])
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ])
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "content-cards" },
+        [
+          _c(
+            "b-container",
+            [
+              _c(
+                "b-row",
+                [
+                  _c("b-col", { attrs: { md: "4" } }, [
+                    _c("div", { staticClass: "cards" }, [
+                      _c("h5", [_vm._v("Today's Class")]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "b-tooltip",
+                              rawName: "v-b-tooltip.hover",
+                              modifiers: { hover: true }
+                            }
+                          ],
+                          staticClass: "class-content",
+                          attrs: { title: "This class is currently ongoing" }
+                        },
+                        [
+                          _c("div", { staticClass: "class-content-top" }, [
+                            _c("h6", [_vm._v("Geography")]),
+                            _vm._v(" "),
+                            _c("i", {
+                              staticClass: "fa fa-dot-circle-o",
+                              attrs: { "aria-hidden": "true" }
+                            })
+                          ]),
                           _vm._v(" "),
-                          _c("i", {
-                            staticClass: "fa fa-dot-circle-o",
-                            attrs: { "aria-hidden": "true" }
-                          })
+                          _c("div", { staticClass: "class-content-main" }, [
+                            _c("p", [
+                              _vm._v(
+                                "\n                  Primary 1,\n                  "
+                              ),
+                              _c("span", [
+                                _vm._v(
+                                  "\n                    by:\n                    "
+                                ),
+                                _c("strong", [_vm._v("Henry Annayo")])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("p", [_vm._v("Ongoing")])
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "b-tooltip",
+                              rawName: "v-b-tooltip.hover",
+                              modifiers: { hover: true }
+                            }
+                          ],
+                          staticClass: "class-content",
+                          attrs: { title: "This class starts 12pm" }
+                        },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "class-content-top content-2" },
+                            [
+                              _c("h6", [_vm._v("Geography")]),
+                              _vm._v(" "),
+                              _c("i", {
+                                staticClass: "fa fa-dot-circle-o",
+                                attrs: { "aria-hidden": "true" }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "class-content-main" }, [
+                            _c("p", [
+                              _vm._v(
+                                "\n                  SS 3,\n                  "
+                              ),
+                              _c("span", [
+                                _vm._v(
+                                  "\n                    by:\n                    "
+                                ),
+                                _c("strong", [_vm._v("Henry Annayo")])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("p", [_vm._v("Upcoming")])
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "b-tooltip",
+                              rawName: "v-b-tooltip.hover",
+                              modifiers: { hover: true }
+                            }
+                          ],
+                          staticClass: "class-content",
+                          attrs: { title: "This class starts 12pm" }
+                        },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "class-content-top content-2" },
+                            [
+                              _c("h6", [_vm._v("Geography")]),
+                              _vm._v(" "),
+                              _c("i", {
+                                staticClass: "fa fa-dot-circle-o",
+                                attrs: { "aria-hidden": "true" }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "class-content-main" }, [
+                            _c("p", [
+                              _vm._v(
+                                "\n                  JS 2,\n                  "
+                              ),
+                              _c("span", [
+                                _vm._v(
+                                  "\n                    by:\n                    "
+                                ),
+                                _c("strong", [_vm._v("Henry Annayo")])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("p", [_vm._v("Upcoming")])
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "b-tooltip",
+                              rawName: "v-b-tooltip.hover",
+                              modifiers: { hover: true }
+                            }
+                          ],
+                          staticClass: "class-content",
+                          attrs: { title: "This class starts 12pm" }
+                        },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "class-content-top content-2" },
+                            [
+                              _c("h6", [_vm._v("Geography")]),
+                              _vm._v(" "),
+                              _c("i", {
+                                staticClass: "fa fa-dot-circle-o",
+                                attrs: { "aria-hidden": "true" }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "class-content-main" }, [
+                            _c("p", [
+                              _vm._v(
+                                "\n                  Primary 3,\n                  "
+                              ),
+                              _c("span", [
+                                _vm._v(
+                                  "\n                    by:\n                    "
+                                ),
+                                _c("strong", [_vm._v("Henry Annayo")])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("p", [_vm._v("Upcoming")])
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "log-link" },
+                        [
+                          _c("router-link", { attrs: { to: "" } }, [
+                            _vm._v("View Today's Class")
+                          ])
+                        ],
+                        1
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("b-col", { attrs: { md: "4" } }, [
+                    _c("div", { staticClass: "discussion cards" }, [
+                      _c("h5", [_vm._v("Discussion")]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "discussion-content" }, [
+                        _c(
+                          "div",
+                          { staticClass: "discussion-content-top" },
+                          [
+                            _c("p", [
+                              _c("strong", [_vm._v("Up coming Exams")])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "b-avatar-group",
+                              { attrs: { size: "2.5rem" } },
+                              [
+                                _c("b-avatar"),
+                                _vm._v(" "),
+                                _c("b-avatar", {
+                                  attrs: { text: "BV", variant: "primary" }
+                                }),
+                                _vm._v(" "),
+                                _c("b-avatar", {
+                                  attrs: {
+                                    src: "https://placekitten.com/300/300",
+                                    variant: "info"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v(
+                            "the upcoming exam is coming up ................."
+                          )
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "class-content-main" }, [
-                          _c("p", [
-                            _vm._v(
-                              "\n                  Primary 1,\n                  "
-                            ),
-                            _c("span", [
-                              _vm._v(
-                                "\n                    by:\n                    "
-                              ),
-                              _c("strong", [_vm._v("Henry Annayo")])
+                        _c(
+                          "div",
+                          { staticClass: "discussion-content-bottom" },
+                          [
+                            _c("p", [_vm._v("Updated 2mins ago")]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "notify-discussion" }, [
+                              _c("p", [_vm._v("3 New Messages")])
                             ])
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [_vm._v("Ongoing")])
-                        ])
-                      ]
-                    ),
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "discussion-content" }, [
+                        _c(
+                          "div",
+                          { staticClass: "discussion-content-top" },
+                          [
+                            _c("p", [
+                              _c("strong", [_vm._v("Up coming Exams")])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "b-avatar-group",
+                              { attrs: { size: "2.5rem" } },
+                              [
+                                _c("b-avatar"),
+                                _vm._v(" "),
+                                _c("b-avatar", {
+                                  attrs: { text: "BV", variant: "primary" }
+                                }),
+                                _vm._v(" "),
+                                _c("b-avatar", {
+                                  attrs: {
+                                    src: "https://placekitten.com/300/300",
+                                    variant: "info"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v(
+                            "the upcoming exam is coming up ................."
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "discussion-content-bottom" },
+                          [
+                            _c("p", [_vm._v("Updated 2mins ago")]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "notify-discussion" }, [
+                              _c("p", [_vm._v("3 New Messages")])
+                            ])
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "discussion-content" }, [
+                        _c(
+                          "div",
+                          { staticClass: "discussion-content-top" },
+                          [
+                            _c("p", [
+                              _c("strong", [_vm._v("Up coming Exams")])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "b-avatar-group",
+                              { attrs: { size: "2.5rem" } },
+                              [
+                                _c("b-avatar"),
+                                _vm._v(" "),
+                                _c("b-avatar", {
+                                  attrs: { text: "BV", variant: "primary" }
+                                }),
+                                _vm._v(" "),
+                                _c("b-avatar", {
+                                  attrs: {
+                                    src: "https://placekitten.com/300/300",
+                                    variant: "info"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v(
+                            "the upcoming exam is coming up ................."
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "discussion-content-bottom" },
+                          [
+                            _c("p", [_vm._v("Updated 2mins ago")]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "notify-discussion" }, [
+                              _c("p", [_vm._v("3 New Messages")])
+                            ])
+                          ]
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("b-col", { attrs: { md: "4" } }, [
+                    _c("div", { staticClass: "notes cards" }, [
+                      _c("div", { staticClass: "notes-top" }, [
+                        _c("h5", [_vm._v("My Notes")]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            directives: [
+                              {
+                                name: "b-modal",
+                                rawName: "v-b-modal.note",
+                                modifiers: { note: true }
+                              }
+                            ],
+                            staticClass: "btn"
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "fa fa-plus",
+                              attrs: { "aria-hidden": "true" }
+                            }),
+                            _vm._v(" "),
+                            _c("span", [_vm._v("ADD")])
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "main-note" },
+                        _vm._l(_vm.notes, function(note, idx) {
+                          return _c(
+                            "div",
+                            { key: idx, staticClass: "note-body" },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "mr-2" },
+                                [
+                                  _c("b-icon", {
+                                    staticClass: "my-icon",
+                                    attrs: { icon: "stickies-fill" }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "notes-content w-100" },
+                                [
+                                  _c(
+                                    "div",
+                                    { staticClass: "notes-content-top" },
+                                    [
+                                      _c(
+                                        "h6",
+                                        { staticClass: "title mr-3 mb-2" },
+                                        [_vm._v(_vm._s(note.title))]
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    { staticClass: "notes-content-main" },
+                                    [
+                                      _c("p", {}, [_vm._v(_vm._s(note.note))]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "notes-date d-flex align-items-center justify-content-between w-100"
+                                        },
+                                        [
+                                          _c("p", [
+                                            _vm._v(
+                                              "\n                        Posted:\n                        "
+                                            ),
+                                            _c("strong", [
+                                              _vm._v(
+                                                _vm._s(
+                                                  _vm._f("moment")(
+                                                    note.created_at,
+                                                    "DD/MM/YYYY"
+                                                  )
+                                                )
+                                              )
+                                            ])
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("b-icon", {
+                                            staticClass: "my-icon cpointer",
+                                            attrs: { icon: "trash" },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.remove(note.id)
+                                              }
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "log-link" }, [
+                        _c(
+                          "div",
+                          {
+                            directives: [
+                              {
+                                name: "b-modal",
+                                rawName: "v-b-modal.all-note",
+                                modifiers: { "all-note": true }
+                              }
+                            ],
+                            staticClass: "check_it"
+                          },
+                          [
+                            _vm._v("View All "),
+                            _c("b-icon", { attrs: { icon: "arrow-right" } })
+                          ],
+                          1
+                        )
+                      ])
+                    ])
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        { attrs: { id: "note", title: "New note", "hide-footer": "" } },
+        [
+          _c(
+            "b-form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.addNote($event)
+                }
+              }
+            },
+            [
+              _c(
+                "b-form-group",
+                { staticClass: "mb-3" },
+                [
+                  _c("label", { attrs: { for: "" } }, [_vm._v("Title")]),
+                  _vm._v(" "),
+                  _c("b-form-input", {
+                    attrs: { required: "", placeholder: "Enter title" },
+                    model: {
+                      value: _vm.note.title,
+                      callback: function($$v) {
+                        _vm.$set(_vm.note, "title", $$v)
+                      },
+                      expression: "note.title"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                { staticClass: "mb-3" },
+                [
+                  _c("label", { attrs: { for: "" } }, [_vm._v("Note")]),
+                  _vm._v(" "),
+                  _c("b-form-textarea", {
+                    attrs: {
+                      maxlength: "200",
+                      required: "",
+                      rows: "3",
+                      placeholder: "Write note here"
+                    },
+                    model: {
+                      value: _vm.note.description,
+                      callback: function($$v) {
+                        _vm.$set(_vm.note, "description", $$v)
+                      },
+                      expression: "note.description"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                { staticClass: "mb-3" },
+                [
+                  _c(
+                    "b-button",
+                    { attrs: { variant: "darkgreen", type: "submit" } },
+                    [_vm._v("Add note")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        { attrs: { id: "all-note", title: "My notes", "hide-footer": "" } },
+        [
+          _c(
+            "div",
+            {},
+            _vm._l(_vm.notes, function(note, idx) {
+              return _c("div", { key: idx, staticClass: "note-body" }, [
+                _c(
+                  "div",
+                  { staticClass: "mr-2" },
+                  [
+                    _c("b-icon", {
+                      staticClass: "my-icon",
+                      attrs: { icon: "stickies-fill" }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "notes-content w-100" }, [
+                  _c("div", { staticClass: "notes-content-top" }, [
+                    _c("h6", { staticClass: "title mr-3 mb-2" }, [
+                      _vm._v(_vm._s(note.title))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "notes-content-main" }, [
+                    _c("p", {}, [_vm._v(_vm._s(note.note))]),
                     _vm._v(" "),
                     _c(
                       "div",
                       {
-                        directives: [
-                          {
-                            name: "b-tooltip",
-                            rawName: "v-b-tooltip.hover",
-                            modifiers: { hover: true }
-                          }
-                        ],
-                        staticClass: "class-content",
-                        attrs: { title: "This class starts 12pm" }
+                        staticClass:
+                          "notes-date d-flex align-items-center justify-content-between w-100"
                       },
                       [
-                        _c(
-                          "div",
-                          { staticClass: "class-content-top content-2" },
-                          [
-                            _c("h6", [_vm._v("Geography")]),
-                            _vm._v(" "),
-                            _c("i", {
-                              staticClass: "fa fa-dot-circle-o",
-                              attrs: { "aria-hidden": "true" }
-                            })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "class-content-main" }, [
-                          _c("p", [
+                        _c("p", [
+                          _vm._v(
+                            "\n                    Posted:\n                    "
+                          ),
+                          _c("strong", [
                             _vm._v(
-                              "\n                  SS 3,\n                  "
-                            ),
-                            _c("span", [
-                              _vm._v(
-                                "\n                    by:\n                    "
-                              ),
-                              _c("strong", [_vm._v("Henry Annayo")])
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [_vm._v("Upcoming")])
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        directives: [
-                          {
-                            name: "b-tooltip",
-                            rawName: "v-b-tooltip.hover",
-                            modifiers: { hover: true }
+                              _vm._s(
+                                _vm._f("moment")(note.created_at, "DD/MM/YYYY")
+                              )
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("b-icon", {
+                          staticClass: "my-icon cpointer",
+                          attrs: { icon: "trash" },
+                          on: {
+                            click: function($event) {
+                              return _vm.remove(note.id)
+                            }
                           }
-                        ],
-                        staticClass: "class-content",
-                        attrs: { title: "This class starts 12pm" }
-                      },
-                      [
-                        _c(
-                          "div",
-                          { staticClass: "class-content-top content-2" },
-                          [
-                            _c("h6", [_vm._v("Geography")]),
-                            _vm._v(" "),
-                            _c("i", {
-                              staticClass: "fa fa-dot-circle-o",
-                              attrs: { "aria-hidden": "true" }
-                            })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "class-content-main" }, [
-                          _c("p", [
-                            _vm._v(
-                              "\n                  JS 2,\n                  "
-                            ),
-                            _c("span", [
-                              _vm._v(
-                                "\n                    by:\n                    "
-                              ),
-                              _c("strong", [_vm._v("Henry Annayo")])
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [_vm._v("Upcoming")])
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        directives: [
-                          {
-                            name: "b-tooltip",
-                            rawName: "v-b-tooltip.hover",
-                            modifiers: { hover: true }
-                          }
-                        ],
-                        staticClass: "class-content",
-                        attrs: { title: "This class starts 12pm" }
-                      },
-                      [
-                        _c(
-                          "div",
-                          { staticClass: "class-content-top content-2" },
-                          [
-                            _c("h6", [_vm._v("Geography")]),
-                            _vm._v(" "),
-                            _c("i", {
-                              staticClass: "fa fa-dot-circle-o",
-                              attrs: { "aria-hidden": "true" }
-                            })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "class-content-main" }, [
-                          _c("p", [
-                            _vm._v(
-                              "\n                  Primary 3,\n                  "
-                            ),
-                            _c("span", [
-                              _vm._v(
-                                "\n                    by:\n                    "
-                              ),
-                              _c("strong", [_vm._v("Henry Annayo")])
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [_vm._v("Upcoming")])
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "log-link" },
-                      [
-                        _c("router-link", { attrs: { to: "" } }, [
-                          _vm._v("View Today's Class")
-                        ])
+                        })
                       ],
                       1
                     )
                   ])
-                ]),
-                _vm._v(" "),
-                _c("b-col", { attrs: { md: "4" } }, [
-                  _c("div", { staticClass: "discussion cards" }, [
-                    _c("h5", [_vm._v("Discussion")]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "discussion-content" }, [
-                      _c(
-                        "div",
-                        { staticClass: "discussion-content-top" },
-                        [
-                          _c("p", [_c("strong", [_vm._v("Up coming Exams")])]),
-                          _vm._v(" "),
-                          _c(
-                            "b-avatar-group",
-                            { attrs: { size: "2.5rem" } },
-                            [
-                              _c("b-avatar"),
-                              _vm._v(" "),
-                              _c("b-avatar", {
-                                attrs: { text: "BV", variant: "primary" }
-                              }),
-                              _vm._v(" "),
-                              _c("b-avatar", {
-                                attrs: {
-                                  src: "https://placekitten.com/300/300",
-                                  variant: "info"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("p", [
-                        _vm._v(
-                          "the upcoming exam is coming up ................."
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "discussion-content-bottom" }, [
-                        _c("p", [_vm._v("Updated 2mins ago")]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "notify-discussion" }, [
-                          _c("p", [_vm._v("3 New Messages")])
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "discussion-content" }, [
-                      _c(
-                        "div",
-                        { staticClass: "discussion-content-top" },
-                        [
-                          _c("p", [_c("strong", [_vm._v("Up coming Exams")])]),
-                          _vm._v(" "),
-                          _c(
-                            "b-avatar-group",
-                            { attrs: { size: "2.5rem" } },
-                            [
-                              _c("b-avatar"),
-                              _vm._v(" "),
-                              _c("b-avatar", {
-                                attrs: { text: "BV", variant: "primary" }
-                              }),
-                              _vm._v(" "),
-                              _c("b-avatar", {
-                                attrs: {
-                                  src: "https://placekitten.com/300/300",
-                                  variant: "info"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("p", [
-                        _vm._v(
-                          "the upcoming exam is coming up ................."
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "discussion-content-bottom" }, [
-                        _c("p", [_vm._v("Updated 2mins ago")]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "notify-discussion" }, [
-                          _c("p", [_vm._v("3 New Messages")])
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "discussion-content" }, [
-                      _c(
-                        "div",
-                        { staticClass: "discussion-content-top" },
-                        [
-                          _c("p", [_c("strong", [_vm._v("Up coming Exams")])]),
-                          _vm._v(" "),
-                          _c(
-                            "b-avatar-group",
-                            { attrs: { size: "2.5rem" } },
-                            [
-                              _c("b-avatar"),
-                              _vm._v(" "),
-                              _c("b-avatar", {
-                                attrs: { text: "BV", variant: "primary" }
-                              }),
-                              _vm._v(" "),
-                              _c("b-avatar", {
-                                attrs: {
-                                  src: "https://placekitten.com/300/300",
-                                  variant: "info"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("p", [
-                        _vm._v(
-                          "the upcoming exam is coming up ................."
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "discussion-content-bottom" }, [
-                        _c("p", [_vm._v("Updated 2mins ago")]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "notify-discussion" }, [
-                          _c("p", [_vm._v("3 New Messages")])
-                        ])
-                      ])
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("b-col", { attrs: { md: "4" } }, [
-                  _c("div", { staticClass: "notes cards" }, [
-                    _c("div", { staticClass: "notes-top" }, [
-                      _c("h5", [_vm._v("Notes")]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "btn" }, [
-                        _c("i", {
-                          staticClass: "fa fa-plus",
-                          attrs: { "aria-hidden": "true" }
-                        }),
-                        _vm._v(" "),
-                        _c("span", [_vm._v("ADD")])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "notes-content" }, [
-                      _c("div", { staticClass: "notes-content-top" }, [
-                        _c("i", {
-                          staticClass: "fa fa-file-o",
-                          attrs: { "aria-hidden": "true" }
-                        }),
-                        _vm._v(" "),
-                        _c("h6", { staticClass: "title" }, [
-                          _vm._v("Prepare Test for Primary 1")
-                        ]),
-                        _vm._v(" "),
-                        _c("i", {
-                          staticClass: "fa fa-ellipsis-v",
-                          attrs: { "aria-hidden": "true" }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "notes-content-main" }, [
-                        _c("p", {}, [
-                          _vm._v(
-                            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure"
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "notes-date" }, [
-                          _c("p", [
-                            _vm._v(
-                              "\n                    Posted:\n                    "
-                            ),
-                            _c("strong", [_vm._v("07/07/2020")])
-                          ])
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "notes-content" }, [
-                      _c("div", { staticClass: "notes-content-top" }, [
-                        _c("i", {
-                          staticClass: "fa fa-file-o",
-                          attrs: { "aria-hidden": "true" }
-                        }),
-                        _vm._v(" "),
-                        _c("h6", { staticClass: "title" }, [
-                          _vm._v("Prepare Test for JS 2")
-                        ]),
-                        _vm._v(" "),
-                        _c("i", {
-                          staticClass: "fa fa-ellipsis-v",
-                          attrs: { "aria-hidden": "true" }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "notes-content-main" }, [
-                        _c("p", {}, [
-                          _vm._v(
-                            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure"
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "notes-date" }, [
-                          _c("p", [
-                            _vm._v(
-                              "\n                    Posted:\n                    "
-                            ),
-                            _c("strong", [_vm._v("07/07/2020")])
-                          ])
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "notes-content" }, [
-                      _c("div", { staticClass: "notes-content-top" }, [
-                        _c("i", {
-                          staticClass: "fa fa-file-o",
-                          attrs: { "aria-hidden": "true" }
-                        }),
-                        _vm._v(" "),
-                        _c("h6", { staticClass: "title" }, [
-                          _vm._v("Prepare Test for SS 2")
-                        ]),
-                        _vm._v(" "),
-                        _c("i", {
-                          staticClass: "fa fa-ellipsis-v",
-                          attrs: { "aria-hidden": "true" }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "notes-content-main" }, [
-                        _c("p", {}, [
-                          _vm._v(
-                            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure"
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "notes-date" }, [
-                          _c("p", [
-                            _vm._v(
-                              "\n                    Posted:\n                    "
-                            ),
-                            _c("strong", [_vm._v("07/07/2020")])
-                          ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "log-link" },
-                        [
-                          _c("router-link", { attrs: { to: "" } }, [
-                            _vm._v("View All")
-                          ])
-                        ],
-                        1
-                      )
-                    ])
-                  ])
                 ])
-              ],
-              1
-            )
-          ],
-          1
-        )
-      ],
-      1
-    )
-  ])
+              ])
+            }),
+            0
+          )
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

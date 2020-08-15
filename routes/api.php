@@ -69,6 +69,8 @@ Route::middleware('auth:api')->group(function () {
 });
 
 Route::middleware('auth:tutor')->group(function () {
+    Route::get('tutor-note', 'NoteController@tutorNote');
+    Route::post('tutor-note', 'NoteController@storeTutorNote');
     Route::resource('group', 'GroupsController');
     Route::get('tutor-rating/{id}', 'CourseReviewController@tutorRatings');
     Route::post('multi-group-drop', 'GroupsController@multiDrop');

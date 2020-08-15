@@ -54,42 +54,20 @@
         <b-col md="4">
           <div class="resources-update cards">
             <h5>Resources Update</h5>
-            <div class="resources-inner">
+           <div class="m-res">
+              <div class="resources-inner border-bottom" v-for="(resource,idx) in newresource"  :key="idx">
               <div class="update-content">
-                <b-avatar src="/images/english-lit.jpg"></b-avatar>
-                <p>Module 1.1 has been added to your english resources</p>
+               <div> <b-avatar icon="asterisk" variant="success" size="sm"></b-avatar></div>
+                <p>{{resource.message}}</p>
               </div>
               <div class="log-link">
-                <router-link to>View</router-link>
+                 <div class="check_it cpointer" @click="gotoHer(resource.resource_id)"><span class="mr-1">Check it</span> <b-icon icon="arrow-right"></b-icon> </div>
               </div>
             </div>
-            <div class="resources-inner">
-              <div class="update-content">
-                <b-avatar src="/images/english-lit.jpg"></b-avatar>
-                <p>Module 1.1 has been added to your english resources</p>
-              </div>
-              <div class="log-link">
-                <router-link to>View</router-link>
-              </div>
-            </div>
-            <div class="resources-inner">
-              <div class="update-content">
-                <b-avatar src="/images/english-lit.jpg"></b-avatar>
-                <p>Module 1.1 has been added to your english resources</p>
-              </div>
-              <div class="log-link">
-                <router-link to>View</router-link>
-              </div>
-            </div>
-             <div class="resources-inner">
-              <div class="update-content">
-                <b-avatar class="update-avatar" src="/images/english-lit.jpg"></b-avatar>
-                <p>Module 1.1 has been added to your english resources</p>
-              </div>
-              <div class="log-link">
-                <router-link to>View</router-link>
-              </div>
-            </div>
+           </div>
+          
+            
+            
           </div>
         </b-col>
         
@@ -217,7 +195,7 @@
               <div class="main-note">
                 <div class="note-body" v-for="(note,idx) in notes" :key="idx">
                 <div class="mr-2">
-                 <b-icon icon="stickies-fill"></b-icon>
+                 <b-icon icon="stickies-fill" class="my-icon"></b-icon>
                 </div>
                 <div class="notes-content w-100" >
                 <div class="notes-content-top">
@@ -234,7 +212,7 @@
                       <strong>{{note.created_at |  moment('DD/MM/YYYY')}}</strong>
                     </p>
 
-                   <b-icon icon="trash" @click="remove(note.id)"></b-icon>
+                   <b-icon icon="trash" class="my-icon cpointer" @click="remove(note.id)"></b-icon>
                   </div>
                 </div>
               </div>
@@ -242,7 +220,7 @@
               </div>
             
                <div class="log-link"> 
-                   <div v-b-modal.all-note>View All</div>
+                   <div v-b-modal.all-note class="check_it">View All <b-icon icon="arrow-right"></b-icon> </div>
                 </div>
             </div>
         </b-col>
@@ -272,7 +250,7 @@
      <div class="">
                 <div class="note-body" v-for="(note,idx) in notes" :key="idx">
                 <div class="mr-2">
-                   <b-icon icon="stickies-fill"></b-icon>
+                   <b-icon icon="stickies-fill" class="my-icon"></b-icon>
                 </div>
                 <div class="notes-content w-100" >
                 <div class="notes-content-top">
@@ -288,7 +266,7 @@
                       Posted:
                       <strong>{{note.created_at |  moment('DD/MM/YYYY')}}</strong>
                     </p>
-                    <b-icon icon="trash" @click="remove(note.id)"></b-icon>
+                    <b-icon icon="trash" class="my-icon cpointer" @click="remove(note.id)"></b-icon>
                   
                   </div>
                 </div>
@@ -303,10 +281,11 @@
 
 <script>
 export default {
-  props: ["student"],
+  props: ["student","notifications"],
   data() {
     return {
       tutors: [],
+      new_resource:[],
       students: [],
       classes: [],
       syllabus: [],
@@ -325,7 +304,17 @@ export default {
   mounted() {
     this.getNotes()
   },
+  computed:{
+    newresource(){
+     return this.$props.notifications.filter(item=>{
+        return item.type== 'new resource'
+      })
+    }
+  },
   methods: {
+     gotoHer(id) {
+      this.$router.push(`/student/resource/view/${id}`);
+    },
   addNote(){
  
       let data = {
@@ -342,6 +331,7 @@ export default {
         .then((res) => {
           if (res.status == 201) {
             this.note.description = "";
+             this.note.title = "";
             this.getNotes();
             this.$toasted.success("Note created");
             this.$bvModal.hide('note')
@@ -396,6 +386,10 @@ export default {
   border-bottom:1px solid #ccc;
   margin-bottom: 14px;
 
+}
+.m-res{
+  height: 320px;
+  overflow: auto;
 }
 .main-note{
   height: 290px;
@@ -507,6 +501,7 @@ export default {
   border: 1px solid #13A699;
   border-radius: 5px;
   color: #13A699;
+  font-size: 15px;
 }
 .btn:hover{
   background: #13A699;
@@ -588,5 +583,12 @@ export default {
  border-radius: 5px;
  font-weight: 500;
  padding: 5px 10px;
+}
+.my-icon{
+   color: #008e3a;
+}
+.check_it{
+  color: #008e3a;
+  font-size:12px;
 }
 </style>

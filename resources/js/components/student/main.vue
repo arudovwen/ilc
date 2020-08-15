@@ -1,50 +1,5 @@
 <template>
-  <!-- <div>
-  <nav class="shadow-sm p-3">
-      <b-form-input placeholder="Search... " class="search rounded-pill"></b-form-input>
-       <b-row class="align-items-center">
-      
-          <div id="notification" class="mx-3">
-          <div class="icon" @click="toggleNotification">
-            <i class="fa fa-bell"></i>
-            <div class="badge animated pulse" v-if="count>0">{{count}}</div>
-          </div>
-          <div
-            class="notification-body animated slideInDown shadow-sm bg-white"
-            v-if="showNotification"
-          >
-            <ul class="list-group">
-              <li class="list-group-item">
-                <h6>Notifications</h6>
-              </li>
-
-              <div class="main-notify">
-                <li class="list-group-item" v-for="(item,idx) in notifications" :key="idx">
-                  <span :class="{'text-muted':item.status}">{{item.message}}</span>
-                  <small class v-if="!item.status">New</small>
-                </li>
-              </div>
-              <li class="list-group-item bg-gray text-center">
-                <small>View all</small>
-              </li>
-            </ul>
-            
-          </div>
-        </div>
   
-        
-     
-     <div  class="mx-3">
-         <b-avatar src="" ></b-avatar> <span class="toCaps mx-2">{{student.name}}</span>   <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-     </div>
-    
-      
-      </b-row>
-    </nav>
-    <transition name="slide-fade">
-      <router-view :student="student"  class="semi-white "></router-view>
-    </transition>
-  </div>-->
   <div>
     <b-nav align="right" class="py-2 shadow nav">
       <b-nav-item>
@@ -53,11 +8,11 @@
       <b-nav-item>
         <b-form-input placeholder="Search... " class="search rounded-pill"></b-form-input>
       </b-nav-item>
-      <b-nav-item>
+      <b-nav-item class="py-0 px-3">
       
           <div id="notification" class="mx-3">
           <div class="icon" @click="toggleNotification">
-             <i class="icon-bell-1"></i>
+            <b-icon icon="bell-fill" class="bell" animation="cylon" :class="{'anime-stop': count == 0}" font-scale="2"></b-icon>
             <div class="badge animated pulse" v-if="count>0">{{count}}</div>
           </div>
           <div
@@ -85,7 +40,7 @@
       </b-nav-item>
     </b-nav>
     <transition name="slide-fade">
-      <router-view :student="student" class="semi-white"></router-view>
+      <router-view :student="student" :notifications="notifications" class="semi-white"></router-view>
     </transition>
   </div>
 </template>
@@ -101,7 +56,7 @@ export default {
       count: 0,
     };
   },
-  mounted() {
+  created() {
     Echo.private("group-subscribed" + this.$props.student.id).listen(
       "GroupSubscribed",
       (e) => {
@@ -196,6 +151,16 @@ export default {
   color: #808080;
   font-size: 24px;
 }
+.anime-stop{
+  animation:none;
+}
+
+.bell{
+  color: #13a699;
+}
+.bell:hover{
+  color:#008e3a;
+}
 #notification {
   position: relative;
   z-index: 999;
@@ -242,7 +207,7 @@ nav {
 } */
 .search {
   width: 250px;
-  background: transparent !important;
-  border-color: #808080;
+  
+  border-color: #ccc;
 }
 </style>

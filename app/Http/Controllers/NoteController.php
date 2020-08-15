@@ -15,7 +15,13 @@ class NoteController extends Controller
     public function index()
     {
         $user = auth('api')->user();
-        return Note::where('school_id', $user->school_id)->where('user_id', $user->id)->latest()->get();
+        return Note::where('school_id', $user->school_id)->where('user_id', $user->id)->where('user', 'student')->latest()->get();
+    }
+
+    public function tutorNote()
+    {
+        $user = auth('tutor')->user();
+        return Note::where('school_id', $user->school_id)->where('user_id', $user->id)->where('user', 'tutor')->latest()->get();
     }
 
     /**
@@ -42,6 +48,20 @@ class NoteController extends Controller
           'user_id'=> $user->id,
           'note'=> $request->description,
           'title'=>$request->title,
+          'user'=>'student',
+       
+        ]);
+    }
+
+    public function storeTutorNote(Request $request)
+    {
+        $user = auth('tutor')->user();
+        return Note::create([
+          'school_id'=> $user->school_id,
+          'user_id'=> $user->id,
+          'note'=> $request->description,
+          'title'=>$request->title,
+          'user'=>'tutor',
        
         ]);
     }

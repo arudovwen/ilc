@@ -362,6 +362,7 @@ export default {
         excerpt: "",
         count: "single",
         cover_image: "",
+        type:"new resource",
         content: [
           {
             type: "",

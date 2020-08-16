@@ -21,6 +21,7 @@ class SyllabusCurriculumResource extends JsonResource
              'id'=> $this->id,
             'syllabus'=>  Syllabus::where('school_id', $this->school_id)->where('myclass', $this->level)->where('subject', $this->subject)->first(),
              'content'=>$this->content,
+             'level'=>$this->level,
              'title'=>$this->module,
                 'subject'=>$this->subject,             
              'excerpt'=>$this->excerpt,

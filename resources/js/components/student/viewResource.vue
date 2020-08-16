@@ -24,9 +24,12 @@
       </div>
       <div class="what-you-will-learn">
         <h4>Requirements:</h4>
-        <ul>
+        <ul v-if="!syllabus.requirements">
           <li>You need to have completed last term topic on mathematics</li>
           <li>You will understand the basis of all topic attached to the subject</li>
+        </ul>
+        <ul v-else>
+          <li v-for="(item,idx) in syllabus.requirements" :key="idx">{{item.name}}</li>
         </ul>
       </div>
       <div class="description">
@@ -45,9 +48,9 @@
           <b-col>
             <h4 class="text-dark">Course Content</h4>
 
-            <small>{{modules.length}} sections • {{ totalVideos + totalDocs + totalAudio }} lectures • 8h 0m total length</small>
+            <small>{{modules.length}} sections • {{ totalVideos + totalDocs + totalAudio }} lectures • {{totalMedia | time}} total length</small>
             <div role="tablist" v-for="(item,idx) in modules" :key="idx">
-              <b-card no-body class="mb-1">
+              <b-card no-body class>
                 <b-card-header header-tag="header" class="p-1 text-left d-flex" role="tab">
                   <div
                     block
@@ -68,7 +71,10 @@
                       ></b-icon>
                       {{item.module}}
                     </span>
-                    <small class="ml-auto">1hr 10mins</small>
+                    <small
+                      class="ml-auto"
+                      v-if="getModuleDuration(JSON.parse(item.content))>0"
+                    >{{getModuleDuration(JSON.parse(item.content)) | time}}</small>
                   </div>
                 </b-card-header>
                 <b-collapse
@@ -113,8 +119,11 @@
                                 {{content.title}}
                               </div>
                               <small
-                                v-if="content.type=='video' || content.type=='audio'"
-                              >20mins :33 secs</small>
+                                v-if="(content.type=='video' || content.type=='audio') && content.duration"
+                              >{{content.duration | time }}</small>
+                              <small
+                                v-if="(content.type=='video' || content.type=='audio') && !content.duration"
+                              >-:-</small>
                             </span>
 
                             <b-modal
@@ -139,7 +148,7 @@
         <b-col>
           <h4>Frequently Asked Questions</h4>
           <div role="tablist" v-for="(item,idx) in syllabus.faqs" :key="idx">
-            <b-card no-body class="mb-1">
+            <b-card no-body class>
               <b-card-header header-tag="header" class="p-2" role="tab">
                 <div
                   block
@@ -206,7 +215,7 @@
           <form @submit.prevent="rate" class="input-review p-3">
             <b-form-row>
               <b-col class="d-flex align-items-center">
-              <p class="mb-2">  Ratings :</p>
+                <p class="mb-2">Ratings :</p>
                 <ratings
                   @handleRating="handleRating"
                   :value="rating"
@@ -238,7 +247,7 @@
 
         <div class="p-3 all-review">
           <h5>Reviews</h5>
-          <div class=" border-bottom" v-for="(item,id) in reviews" :key="id">
+          <div class="border-bottom" v-for="(item,id) in reviews" :key="id">
             <div class="active-review">
               <div class="featured-review-top">
                 <div class="featured-review-inner-top">
@@ -255,7 +264,6 @@
               <p>{{item.comment}}</p>
             </div>
           </div>
-        
         </div>
       </div>
     </div>
@@ -288,7 +296,7 @@
           {{ totalDocs }} Documents
         </b-card-text>
 
-        <b-button href="#" block variant="secondary">Views : 14</b-button>
+        <b-button href="#" block variant="secondary">Total reviews : {{reviews.length}}</b-button>
       </b-card>
     </b-col>
   </div>
@@ -429,6 +437,20 @@ export default {
           }
         });
     },
+    getModuleDuration(arr) {
+      var newArr = [];
+      arr.filter((item) => {
+        if (item.type == "video" || item.type == "audio") {
+          newArr.push(Number(item.duration));
+        }
+      });
+
+      let sum = newArr.reduce(function (a, b) {
+        return a + b;
+      }, 0);
+
+      return sum;
+    },
   },
   computed: {
     totalVideos() {
@@ -440,7 +462,7 @@ export default {
           }
         });
       });
-     
+
       return vid.length;
     },
     totalDocs() {
@@ -465,6 +487,22 @@ export default {
       });
       return aud.length;
     },
+    totalMedia() {
+      var media = [];
+      this.modules.filter((element) => {
+        JSON.parse(element.content).filter((item) => {
+          if (item.type == "audio" || item.type == "video") {
+            if (item.duration) {
+              media.push(Number(item.duration));
+            }
+          }
+        });
+      });
+
+      return media.reduce((a, b) => {
+        return a + b;
+      }, 0);
+    },
   },
 };
 </script>
@@ -477,8 +515,8 @@ export default {
 .yellow-bg {
   color: gold;
 }
-.all-review{
-  max-height:500px;
+.all-review {
+  max-height: 500px;
   overflow: auto;
 }
 .jumb {
@@ -566,6 +604,9 @@ export default {
 
 .what-you-will-learn {
   margin-top: 2rem;
+  background: #f7f8fa;
+  padding: 15px;
+  border: 1px solid #ccc;
 }
 
 .what-you-will-learn ul {
@@ -582,8 +623,17 @@ export default {
 .sutdent-assessed ul li {
   padding-bottom: 10px;
 }
+.description {
+  margin-top: 2rem;
+  background: #f7f8fa;
+  padding: 15px;
+  border: 1px solid #ccc;
+}
 .sutdent-assessed {
   margin-top: 2rem;
+  background: #f7f8fa;
+  padding: 15px;
+  border: 1px solid #ccc;
 }
 /* .course-content {
   color: #13a699;
@@ -632,6 +682,12 @@ export default {
 .container {
   width: 60%;
   margin-right: 40%;
-  padding: 30px;
+  padding: 20px 30px 40px;
+}
+.course-content {
+  margin-top: 2rem;
+}
+.card {
+  border-radius: 0;
 }
 </style>

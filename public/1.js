@@ -321,7 +321,7 @@ var render = function() {
                       [
                         _c(
                           "b-tabs",
-                          { attrs: { "content-class": "mt-3" } },
+                          { attrs: { "content-class": "mt-3", justified: "" } },
                           [
                             _c(
                               "b-tab",
@@ -463,14 +463,14 @@ var render = function() {
                                       "b-form-group",
                                       {
                                         attrs: {
-                                          id: "input-group-1",
+                                          id: "input-group-3",
                                           label: "Email"
                                         }
                                       },
                                       [
                                         _c("b-form-input", {
                                           attrs: {
-                                            id: "input-1",
+                                            id: "input-3",
                                             type: "email",
                                             required: ""
                                           },
@@ -490,14 +490,14 @@ var render = function() {
                                       "b-form-group",
                                       {
                                         attrs: {
-                                          id: "input-group-2",
+                                          id: "input-group-4",
                                           label: "Password"
                                         }
                                       },
                                       [
                                         _c("b-form-input", {
                                           attrs: {
-                                            id: "input-2",
+                                            id: "input-4",
                                             type: "password",
                                             required: ""
                                           },

@@ -28,7 +28,19 @@ import "bootstrap-vue/dist/bootstrap-vue.css";
 import 'vue-waves-button/waves.css';
 import '../sass/app.scss';
 
+Vue.filter('time',function(num){
+ 
+    let secs = String(Math.floor(num % 60)).padStart(2, "0");
+    let mins = String(Math.floor(num / 60)).padStart(2, "0");
+    let hours = String(Math.floor(num / 3600)).padStart(2, "0");
 
+    if (hours === "00") {
+      return mins+'m' + " : " + secs+'s';
+    } else {
+      return hours+'hr' + " :" + mins+'m' + " : " + secs+'s';
+    }
+  
+})
 
 Vue.use(VueChatScroll)
 

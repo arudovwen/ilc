@@ -2,14 +2,7 @@
   <div>
     <form @submit.prevent="processUpload" class>
       <div>
-        <!-- <input
-            type="file"
-            class="form-control"
-            id="file-input"
-            aria-describedby="helpId"
-            placeholder
-            @change="handleFileChange($event)"
-        />-->
+       
         <div class="upload-btn-wrapper">
           <div class="centered">
            

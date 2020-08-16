@@ -1,9 +1,9 @@
 <template>
   <!-- <div class="body">
-      <h5 class="text-center my-3">Syllabus</h5>
+      <strong class="text-center my-3">Syllabus</strong>
     
     <div class="border p-3 my-4">
-      <h5>Class Information</h5>
+      <strong>Class Information</strong>
       <div class="form-group">
         <strong class="toCaps">
         
@@ -20,7 +20,7 @@
     <table class="table table-bordered bg-white">
       <tr class="border p-3 my-4">
         <td>
-          <h5>Subject Information</h5>
+          <strong>Subject Information</strong>
 
           <div class="form-group">
             <strong class="toCaps">
@@ -43,7 +43,7 @@
 
       <tr class="border p-3 my-4">
         <td>
-          <h5>Overarching Learner Outcome</h5>
+          <strong>Overarching Learner Outcome</strong>
 
           <div class="form-group">
             <span v-for="(item,idx) in syllabus.learner_outcome" :key="idx" class="mb-2 d-flex">
@@ -55,7 +55,7 @@
       </tr>
       <tr class="border p-3 my-4">
         <td>
-          <h5>Target skills to be learned</h5>
+          <strong>Target skills to be learned</strong>
 
           <span v-for="(item,idx) in syllabus.target_skills" :key="idx" class="mb-2 d-flex">
             <span class="mr-3">{{idx+1}}.</span>
@@ -65,7 +65,7 @@
       </tr>
       <tr class="border p-3 my-4">
         <td>
-          <h5>Required Modules</h5>
+          <strong>Required Modules</strong>
 
           <span v-for="(item,idx) in syllabus.modules" :key="idx" class="mb-2 d-flex">
             <span class="mr-3">{{idx+1}}.</span>
@@ -75,7 +75,7 @@
       </tr>
       <tr class="border p-3 my-4">
         <td>
-          <h5>Delivery Methods</h5>
+          <strong>Delivery Methods</strong>
 
           <span v-for="(item,idx) in syllabus.delivery_methods" :key="idx" class="mb-2 d-flex">
             <span class="mr-3">{{idx+1}}.</span>
@@ -85,7 +85,7 @@
       </tr>
       <tr class="border p-3 my-4">
         <td>
-          <h5>Assessment</h5>
+          <strong>Assessment</strong>
           <small id="helpId" class="form-text text-muted">How will the students be assessed?</small>
 
           <span v-for="(item,idx) in syllabus.assessments" :key="idx" class="mb-2 d-flex">
@@ -96,7 +96,7 @@
       </tr>
       <tr>
         <td>
-          <h5>FAQs (Optional)</h5>
+          <strong>FAQs (Optional)</strong>
 
           <div v-for="(item,idx) in syllabus.faqs" :key="idx" class="mb-3">
             <span class="d-flex mb-2">
@@ -113,7 +113,7 @@
       </tr>
       <tr class="border p-3 my-4">
         <td>
-          <h5>Course Availability</h5>
+          <strong>Course Availability</strong>
 
           <div class="form-group">{{syllabus.availability}}</div>
         </td>
@@ -121,7 +121,7 @@
 
       <tr class="border p-3 my-4">
         <td>
-          <h5>Comments</h5>
+          <strong>Comments</strong>
           <div class="form-group">{{syllabus.comments}}</div>
         </td>
       </tr>
@@ -132,120 +132,142 @@
     <h2>Syllabus</h2>
     <div class="contain-syllabus">
       <div class="view-syllabus">
-        <div class="class-information">
-          <h5>Class Information</h5>
-          <div class="underline"></div>
-          <div class="class-information-inner">
-            <h5>
-              TERM:
+       <div class="border rounded p-2">
+          <div class="class-information">
+          <strong class="mb-3">Class Information</strong>
+         <b-row class="class-information-inner p-2 px-sm-4">
+           <b-col> <h5>
+              Term:
               <span>{{syllabus.term}}</span>
-            </h5> 
+            </h5> </b-col>
+            <b-col>
             <h5>
               Class:
               <span>{{syllabus.grade_level}}</span>
             </h5>
-          
+            </b-col>
+         </b-row>
         
         </div>
         <hr />
-        <div class="class-information">
-          <h5>Subject Information</h5>
-          <div class="underline"></div>
-          <div class="class-information-inner">
-            <h6>
-              SUBJECT:
-              <span>{{syllabus.subject}}</span>
-            </h6>
-            <h6>
-              FREQUENCY:
+        <div class="class-information ">
+          <strong  class="mb-3">Subject Information</strong>
+         <b-row class="class-information-inner p-2 px-sm-4">
+           <b-col cols="6">  <h5>
+              Subject:
+              <span class="toCaps">{{syllabus.subject}}</span>
+            </h5></b-col>
+            <b-col cols="6">
+             <h5>
+              Frequency:
               <span>{{syllabus.frequency}}</span>
-            </h6>
-          </div>
-          <div class="subject-description">
-            <h6>Subject Description</h6>
+            </h5>
+            </b-col>
+            <b-col cols="12">
+              <div class="subject-description">
+            <h5>Subject Description</h5>
             <p>{{syllabus.description}}</p>
           </div>
-         
+            </b-col>
+         </b-row>
          
           
         </div>
        
        </div>
         <div class="class-information">
-          <h5>Overarching Learner Outcome</h5>
-          <div class="underline"></div>
-          <div class="form-group">
+          <strong  class="mb-3">Overarching Learner Outcome</strong>
+         <b-row class=" p-2 px-sm-4">
+           <b-col>
+             <div class="form-group">
             <span v-for="(item,idx) in syllabus.learner_outcome" :key="idx" class="mb-2 d-flex">
               <span class="mr-3">{{idx+1}}.</span>
               {{item.name}}
             </span>
           </div>
-         
+              </b-col>
+         </b-row>
+          
         </div>
         <hr />
         <div class="class-information">
-          <h5>Target skills to be learned</h5>
-          <div class="underline"></div>
-          <div class="form-group">
+          <strong  class="mb-3">Target skills to be learned</strong>
+         <b-row>
+           <b-col> 
+              <div class="form-group">
             <span v-for="(item,idx) in syllabus.target_skills" :key="idx" class="mb-2 d-flex">
               <span class="mr-3">{{idx+1}}.</span>
               {{item.name}}
             </span>
           </div>
-        
+           </b-col>
+         </b-row>
          
         </div>
         <hr />
         <div class="class-information">
-          <h5>Required Modules</h5>
-          <div class="underline"></div>
-          <div class="form-group">
+          <strong  class="mb-3">Required Modules</strong>
+         <b-row>
+           <b-col> 
+               <div class="form-group">
             <span v-for="(item,idx) in syllabus.modules" :key="idx" class="mb-2 d-flex">
               <span class="mr-3">{{idx+1}}.</span>
               {{item.name}}
             </span>
           </div>
-       
+           </b-col>
+         </b-row>
          
         </div>
         <hr />
         <div class="class-information">
-          <h5>Delivery Methods</h5>
-          <div class="underline"></div>
-          <div class="form-group">
+          <strong  class="mb-3">Delivery Methods</strong>
+         <b-row>
+           <b-col> 
+              <div class="form-group">
             <span v-for="(item,idx) in syllabus.delivery_methods" :key="idx" class="mb-2 d-flex">
               <span class="mr-3">{{idx+1}}.</span>
               {{item.name}}
             </span>
           </div>
-       
+           </b-col>
+         </b-row>
          
         </div>
         <hr />
         <div class="class-information">
-          <h5>Assessment</h5>
-          <div class="underline"></div>
-          <small id="helpId" class="form-text text-muted">How will the students be assessed?</small>
+          <strong  class="mb-3">Assessment(How the students be assessed)</strong>
+         <b-row>
+           <b-col> 
+           
           <div class="form-group">
             <span v-for="(item,idx) in syllabus.assessments" :key="idx" class="mb-2 d-flex">
               <span class="mr-3">{{idx+1}}.</span>
               {{item.name}}
             </span>
           </div>
-      
+           </b-col>
+         </b-row>
          
         </div>
         <hr />
         <div class="class-information">
-          <h5>Course Availability</h5>
-          <div class="underline"></div>
-          <div class="form-group">{{syllabus.availability}}</div>
+          <strong  class="mb-3">Course Availability</strong>
+         <b-row>
+           <b-col> 
+               <div class="form-group">{{syllabus.availability}}</div>
+           </b-col>
+         </b-row>
+        
         </div>
         <hr>
         <div class="class-information">
-          <h5>Comments</h5>
-          <div class="underline"></div>
-          <div class="form-group">{{syllabus.comments}}</div>
+          <strong  class="mb-3">Comments</strong>
+         <b-row>
+           <b-col>
+              <div class="form-group">{{syllabus.comments}}</div> </b-col>
+         </b-row>
+         
         </div>
       </div>
     </div>
@@ -327,7 +349,7 @@ form {
   background: white;
   font-size: 14px;
 }
-h5 {
+strong {
   margin-bottom: 24px;
   font-size: 1.3em;
 }
@@ -345,7 +367,7 @@ h5 {
 .class-information {
   padding-top: 20px;
 }
-.class-information h5 {
+.class-information strong {
   margin-bottom: 0 !important;
 }
 .class-information-inner {
@@ -370,8 +392,5 @@ h5{
 }
 .contain-syllabus {
   padding: 30px;
-}
-.form-group{
-  font-family: "Montserrat";
 }
 </style>

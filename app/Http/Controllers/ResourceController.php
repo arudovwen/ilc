@@ -162,8 +162,6 @@ class ResourceController extends Controller
         $resource->worksheet_id  = $request->worksheet_id;
         $resource->note = $request->note;
         $resource->cover_image = $request->cover_image;
-        $resource->curriculum_id = $request->curriculum_id;
-        $resource->syllabus_id = $request->syllabus_id;
         $resource->save();
     }
 

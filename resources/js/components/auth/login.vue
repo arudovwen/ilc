@@ -9,7 +9,7 @@
           <b-card class="login-card">
             <h4 class="text-center">LOG IN</h4>
             <div class="login-tabs">
-              <b-tabs content-class="mt-3">
+              <b-tabs content-class="mt-3" justified>
                 <b-tab class="login" title="Student" active>
                   <b-form @submit.prevent="submit" class="login-form">
                     <b-form-group id="input-group-1" label="Email">
@@ -34,11 +34,11 @@
                 </b-tab>
                 <b-tab class="login" title="Tutor">
                   <b-form @submit.prevent="tutorLogin" class="login-form">
-                    <b-form-group id="input-group-1" label="Email">
-                      <b-form-input id="input-1" v-model="tutor.email" type="email" required></b-form-input>
+                    <b-form-group id="input-group-3" label="Email">
+                      <b-form-input id="input-3" v-model="tutor.email" type="email" required></b-form-input>
                     </b-form-group>
-                    <b-form-group id="input-group-2" label="Password">
-                      <b-form-input id="input-2" v-model="tutor.password" type="password" required></b-form-input>
+                    <b-form-group id="input-group-4" label="Password">
+                      <b-form-input id="input-4" v-model="tutor.password" type="password" required></b-form-input>
                       <button class="reg-btn" type="submit">
                         TUTOR
                         <b-spinner

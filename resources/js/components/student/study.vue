@@ -61,73 +61,67 @@
           <i class="fas fa-file-csv" v-if="item.type=='csv'"></i>
         </strong>
         <p>{{item.overview}}</p>
-      </div> -->
+      </div>-->
 
-        <div role="tablist" v-for="(item,idx) in modules" :key="idx">
-              <b-card no-body class="mb-1">
-                <b-card-header header-tag="header" class="p-1 text-left" role="tab">
-                  <b-button
-                    block
-                    v-b-toggle="item.module.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
-                    variant="secondary"
-                    class="text-left"
-                  >{{item.module}}</b-button>
-                </b-card-header>
-                <b-collapse
-                  :id="item.module.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
-                  accordion="my-accordion"
-                  role="tabpanel"
-                >
-                  <b-card-body>
-                    <b-card-text>{{item.excerpt}}</b-card-text>
-                    <b-card-text>
-                      <div class="mod">
-                        <ul>
-                          <li v-for="(content,index) in JSON.parse(item.content)" :key="index">
-                            <span
-                            @click="play(content.file,content.type,content.title,content.overview)"
-                            >
-                              <span class="ml-3">
-                                <i
-                                  class="fa fa-play-circle"
-                                  v-if="content.type=='video'"
-                                  aria-hidden="true"
-                                ></i>
-                                <i
-                                  class="fa fa-file-pdf-o"
-                                  v-if="content.type=='pdf'"
-                                  aria-hidden="true"
-                                ></i>
-                                <i
-                                  class="fa fa-volume-up"
-                                  v-if="content.type=='audio'"
-                                  aria-hidden="true"
-                                ></i>
-                                <i
-                                  class="fa fa-file-powerpoint-o"
-                                  v-if="content.type=='ppt'"
-                                  aria-hidden="true"
-                                ></i>
-                                <i class="fas fa-file-csv" v-if="content.type=='csv'"></i>
-                              </span>
-                              {{content.title}}
-                            </span>
+      <div role="tablist" v-for="(item,idx) in modules" :key="idx">
+        <b-card no-body class="mb-1">
+          <b-card-header header-tag="header" class="p-1 text-left" role="tab">
+            <b-button
+              block
+              v-b-toggle="item.module.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
+              variant="secondary"
+              class="text-left"
+            >{{item.module}}</b-button>
+          </b-card-header>
+          <b-collapse
+            :id="item.module.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
+            accordion="my-accordion"
+            role="tabpanel"
+          >
+            <b-card-body>
+              <b-card-text>{{item.excerpt}}</b-card-text>
+              <b-card-text>
+                <div class="mod">
+                  <ul>
+                    <li v-for="(content,index) in JSON.parse(item.content)" :key="index">
+                      <span @click="play(content.file,content.type,content.title,content.overview)">
+                        <span class="ml-3">
+                          <i
+                            class="fa fa-play-circle"
+                            v-if="content.type=='video'"
+                            aria-hidden="true"
+                          ></i>
+                          <i class="fa fa-file-pdf-o" v-if="content.type=='pdf'" aria-hidden="true"></i>
+                          <i
+                            class="fa fa-volume-up"
+                            v-if="content.type=='audio'"
+                            aria-hidden="true"
+                          ></i>
+                          <i
+                            class="fa fa-file-powerpoint-o"
+                            v-if="content.type=='ppt'"
+                            aria-hidden="true"
+                          ></i>
+                          <i class="fas fa-file-csv" v-if="content.type=='csv'"></i>
+                        </span>
+                        {{content.title}}
+                      </span>
 
-                            <b-modal
-                              :id="content.title.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
-                              :title="content.title"
-                              hide-footer
-                            >
-                              <p class="my-4">{{content.overview}}</p>
-                            </b-modal>
-                          </li>
-                        </ul>
-                      </div>
-                    </b-card-text>
-                  </b-card-body>
-                </b-collapse>
-              </b-card>
-            </div>
+                      <b-modal
+                        :id="content.title.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
+                        :title="content.title"
+                        hide-footer
+                      >
+                        <p class="my-4">{{content.overview}}</p>
+                      </b-modal>
+                    </li>
+                  </ul>
+                </div>
+              </b-card-text>
+            </b-card-body>
+          </b-collapse>
+        </b-card>
+      </div>
     </div>
   </div>
 </template>
@@ -137,7 +131,7 @@ export default {
   props: ["student"],
   data() {
     return {
-      modules:[],
+      modules: [],
       library: {},
       type: "video",
       fullScreen: false,
@@ -152,11 +146,11 @@ export default {
       openAssessment: false,
       show: false,
       title: "",
-      overview: ""
+      overview: "",
     };
   },
   components: {
-    pdf
+    pdf,
   },
 
   created() {
@@ -164,31 +158,41 @@ export default {
   },
 
   watch: {
-    num: "changepdf"
+    num: "changepdf",
   },
   methods: {
     getLibrary() {
       axios
         .get(`/api/library/${this.$route.params.id}`, {
           headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.library = res.data;
 
-              axios.get(`/api/get-module/${res.data.subject}/${this.$props.student.level}`).then((res) => {
-        if (res.status == 200) {
-          this.modules = res.data;
-          
-            this.src = JSON.parse(this.modules[0].content)[0].file;
-            this.type = JSON.parse(this.modules[0].content)[0].type;
-            this.title = JSON.parse(this.modules[0].content)[0].title;
-            this.overview = JSON.parse(this.modules[0].content)[0].overview;
-            this.show = true;
-        }
-          });
+            axios
+              .get(
+                `/api/get-module/${res.data.subject}/${this.$props.student.level}`
+              )
+              .then((res) => {
+                if (res.status == 200) {
+                  this.modules = res.data;
+
+                  this.src = JSON.parse(this.modules[0].content)[0].file;
+                  this.type = JSON.parse(this.modules[0].content)[0].type;
+                  this.title = JSON.parse(this.modules[0].content)[0].title;
+                  this.overview = JSON.parse(
+                    this.modules[0].content
+                  )[0].overview;
+                  let lastRead = JSON.parse(localStorage.getItem("lastRead"));
+                  lastRead.title = JSON.parse(this.modules[0].content)[0].title;
+                  lastRead.type = JSON.parse(this.modules[0].content)[0].type;
+                  localStorage.setItem("lastRead", JSON.stringify(lastRead));
+                  this.show = true;
+                }
+              });
           }
         });
     },
@@ -250,12 +254,17 @@ export default {
       this.src = file;
       this.type = type;
       this.title = title;
+
       this.overview = overview;
+      let lastRead = JSON.parse(localStorage.getItem("lastRead"));
+      lastRead.title = title;
+      lastRead.type = type;
+      localStorage.setItem("lastRead", JSON.stringify(lastRead));
       if (type == "pdf") {
         this.changepdf();
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -320,12 +329,12 @@ export default {
 .loade {
   position: absolute;
 }
-.mod ul{
+.mod ul {
   list-style: none;
 }
-.mod ul li{
-  padding:10px 20px;
-  border-bottom:1px solid #ccc;
+.mod ul li {
+  padding: 10px 20px;
+  border-bottom: 1px solid #ccc;
 }
 .pdf_about {
   display: flex;

@@ -130,7 +130,8 @@ export default {
                     this.$router.push(this.$route.query.redirect);
                   } else {
                     this.$toasted.info("Redirecting to dashboard..");
-                    this.$router.push("/student");
+                    // this.$router.push("/student");
+                    window.location.href="/student"
                   }
                 }
               })
@@ -189,7 +190,8 @@ export default {
                       name: "fingerprint",
                     },
                   });
-                  this.$router.push("/tutor");
+                  // this.$router.push("/tutor");
+                    window.location.href="/tutor"
                 }
               })
               .catch((error) => {

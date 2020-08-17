@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p-3">
     <b-modal id="student-create" scrollable hide-footer>
       <div>
         <Add @toggleModal="toggleModal" />
@@ -25,14 +25,33 @@
         <ViewStudent @toggleModal="toggleModal" :admin="admin" :id="id" />
       </div>
     </b-modal>
-    <div class="view">
-      <div class="left-side">
+    <div class="nav">
+      <nav class="d-flex">
+        <b-button block class="shadow-sm reg-btn m-0" v-b-modal.student-create>Add Student</b-button>
+
+        <b-button block class="shadow-sm reg-btn m-0" v-b-modal.student-assign>
+          Students
+          <i class="fa fa-arrows-h mx-2" aria-hidden="true"></i> Subjects
+        </b-button>
+
+        <b-button block class="shadow-sm reg-btn m-0" v-b-modal.assign-class>
+          Students
+          <i class="fa fa-arrows-h mx-2" aria-hidden="true"></i>
+          Class
+        </b-button>
+
+        <b-button block class="shadow-sm reg-btn m-0" @click="multiDrop">Multi-Drop</b-button>
+      </nav>
+    </div>
+
+    <div class="left-side">
+      <div class="bd-table">
         <b-row>
           <b-col>
             <h4 class="toCaps mb-4">Showing : {{current== ''? 'All': current.toLowerCase()}}</h4>
           </b-col>
-          <b-col>
-            <b-form-select v-model="current">
+          <b-col class="text-right">
+            <b-form-select v-model="current" class="w-25">
               <b-form-select-option value disabled>Select Level</b-form-select-option>
               <b-form-select-option value>All</b-form-select-option>
               <b-form-select-option
@@ -79,25 +98,6 @@
             <b-form-checkbox :value="data.item.id" v-model="items"></b-form-checkbox>
           </template>
         </b-table>
-      </div>
-      <div class="nav">
-        <nav class="mb-5">
-          <b-button block class="shadow-sm reg-btn" v-b-modal.student-create>Add Student</b-button>
-
-          <b-button block class="shadow-sm reg-btn" v-b-modal.student-assign>
-            Students
-            <i class="fa fa-arrows-h mx-2" aria-hidden="true"></i>
-            Subjects
-          </b-button>
-
-          <b-button block class="shadow-sm reg-btn" v-b-modal.assign-class>
-            Students
-            <i class="fa fa-arrows-h mx-2" aria-hidden="true"></i>
-            Class
-          </b-button>
-
-          <b-button block class="shadow-sm reg-btn" @click="multiDrop">Multi-Drop</b-button>
-        </nav>
       </div>
     </div>
   </div>
@@ -271,12 +271,15 @@ export default {
 .view {
   display: flex;
 }
-.nav {
-  width: 20%;
-  padding: 30px 15px;
+nav {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-column-gap: 20px;
+  width: 100%;
+  padding: 30px 0;
 }
 .left-side {
-  width: 80%;
+  /* width: 80%; */
   padding: 30px 15px;
 }
 .hiden {

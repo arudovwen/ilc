@@ -48,7 +48,7 @@
     <nav class="mb-5">
       <b-button class="shadow-sm" @click="multiDrop">Multi-Drop</b-button>
     
-        <b-button class="shadow-sm" v-b-modal.classes>Create Class</b-button>
+        <b-button class="shadow-sm" v-b-modal.classes>Add Subject</b-button>
     
 
       <div class="shadow-sm hiden">

@@ -11838,6 +11838,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student", "notifications"],
   data: function data() {
@@ -16974,6 +16989,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tutor"],
   data: function data() {
@@ -16986,26 +17005,71 @@ __webpack_require__.r(__webpack_exports__);
       fields: ["class", "subject"],
       field: ["class"],
       note: {
-        title: '',
-        description: ''
+        title: "",
+        description: ""
       },
-      notes: []
+      notes: [],
+      todaysClass: [],
+      today: new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds(),
+      resources: []
     };
   },
   mounted: function mounted() {
-    // this.getStudents();
-    // this.getClasses();
-    // this.getTutors();
-    // this.getSyllabus()
-    // this.getCurriculum();
     this.getNotes();
+    this.getResources();
+    this.getTodayClass();
+  },
+  computed: {
+    pendingResource: function pendingResource() {
+      return this.resources.filter(function (item) {
+        return item.status == 'pending';
+      });
+    },
+    approvedResource: function approvedResource() {
+      return this.resources.filter(function (item) {
+        return item.status == 'approved';
+      });
+    }
   },
   methods: {
+    getResources: function getResources() {
+      var _this = this;
+
+      axios.get("/api/resource", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this.resources = res.data;
+        }
+      });
+    },
+    getSecond: function getSecond(hms) {
+      var a = hms.split(":"); // split it at the colons
+      // minutes are worth 60 seconds. Hours are worth 60 minutes.
+
+      var seconds = +a[0] * 60 * 60 + +a[1] * 60 + +a[2];
+      return seconds;
+    },
+    getTodayClass: function getTodayClass() {
+      var _this2 = this;
+
+      axios.get("/api/current-class", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this2.todaysClass = res.data;
+        }
+      });
+    },
     gotoHer: function gotoHer(id) {
       this.$router.push("/student/resource/view/".concat(id));
     },
     addNote: function addNote() {
-      var _this = this;
+      var _this3 = this;
 
       var data = {
         title: this.note.title,
@@ -17017,19 +17081,19 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 201) {
-          _this.note.description = "";
-          _this.note.title = "";
+          _this3.note.description = "";
+          _this3.note.title = "";
 
-          _this.getNotes();
+          _this3.getNotes();
 
-          _this.$toasted.success("Note created");
+          _this3.$toasted.success("Note created");
 
-          _this.$bvModal.hide('note');
+          _this3.$bvModal.hide("note");
         }
       })["catch"]();
     },
     getNotes: function getNotes() {
-      var _this2 = this;
+      var _this4 = this;
 
       axios.get("/api/tutor-note", {
         headers: {
@@ -17037,12 +17101,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this2.notes = res.data;
+          _this4.notes = res.data;
         }
       });
     },
     getStudents: function getStudents() {
-      var _this3 = this;
+      var _this5 = this;
 
       axios.get("/api/student-get-students", {
         headers: {
@@ -17050,12 +17114,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this3.students = res.data;
+          _this5.students = res.data;
         }
       });
     },
     getCurriculum: function getCurriculum() {
-      var _this4 = this;
+      var _this6 = this;
 
       axios.get("/api/curriculum", {
         headers: {
@@ -17063,12 +17127,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this4.curriculum = res.data;
+          _this6.curriculum = res.data;
         }
       });
     },
     getTutors: function getTutors() {
-      var _this5 = this;
+      var _this7 = this;
 
       axios.get("/api/tutor", {
         headers: {
@@ -17076,12 +17140,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this5.tutors = res.data;
+          _this7.tutors = res.data;
         }
       });
     },
     getClasses: function getClasses() {
-      var _this6 = this;
+      var _this8 = this;
 
       axios.get("/api/classes", {
         headers: {
@@ -17089,12 +17153,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this6.classes = res.data;
+          _this8.classes = res.data;
         }
       });
     },
     getSyllabus: function getSyllabus() {
-      var _this7 = this;
+      var _this9 = this;
 
       axios.get("/api/syllabus", {
         headers: {
@@ -17102,7 +17166,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this7.syllabus = res.data;
+          _this9.syllabus = res.data;
         }
       });
     }
@@ -20973,7 +21037,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.view[data-v-72c27a04] {\n  display: flex;\n}\n.nav[data-v-72c27a04] {\n  width: 20%;\n  padding: 30px 15px;\n}\n.left-side[data-v-72c27a04] {\n  width: 80%;\n  padding: 30px 15px;\n}\n.hiden[data-v-72c27a04] {\n  opacity: 0;\n}\n.class_list[data-v-72c27a04] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;\n  grid-row-gap: 15px;\n  grid-column-gap: 15px;\n}\n.single-class[data-v-72c27a04] {\n  padding: 15px;\n  background: #f7f8fa;\n  text-transform: capitalize;\n  text-align: center;\n}\n", ""]);
+exports.push([module.i, "\n.view[data-v-72c27a04] {\n  display: flex;\n}\nnav[data-v-72c27a04] {\n  display: grid;\n  grid-template-columns: 25% 25% 25% 25%;\n  grid-column-gap: 20px;\n  width: 100%;\n  padding: 30px 0;\n}\n.left-side[data-v-72c27a04] {\n  /* width: 80%; */\n  padding: 30px 15px;\n}\n.hiden[data-v-72c27a04] {\n  opacity: 0;\n}\n.class_list[data-v-72c27a04] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;\n  grid-row-gap: 15px;\n  grid-column-gap: 15px;\n}\n.single-class[data-v-72c27a04] {\n  padding: 15px;\n  background: #f7f8fa;\n  text-transform: capitalize;\n  text-align: center;\n}\n", ""]);
 
 // exports
 
@@ -21980,7 +22044,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.overview-board[data-v-11aed4a3] {\n  padding-top: 20px;\n}\n.note-body[data-v-11aed4a3]{\n  display:flex;\n  border-bottom:1px solid #ccc;\n  margin-bottom: 14px;\n}\n.m-res[data-v-11aed4a3]{\n  height: 320px;\n  overflow: auto;\n}\n.main-note[data-v-11aed4a3]{\n  height: 330px;\n  overflow:auto;\n}\n.assignment-overview-board[data-v-11aed4a3] {\n  background: #fff;\n  font-family: \"Montserrat\";\n  padding: 15px;\n  border-radius: 10px;\n}\n.assignment-overview-board p[data-v-11aed4a3] {\n  font-weight: 600;\n  color: #808080;\n}\n.text-center p[data-v-11aed4a3] {\n  font-weight: 500;\n  margin-bottom: 10px;\n}\n.text-center h6[data-v-11aed4a3] {\n  font-weight: 700;\n}\n.overview-log-1[data-v-11aed4a3] {\n  border-right: 1px solid #c4c4c4;\n}\n.overview-log-4[data-v-11aed4a3] {\n  border-right: 1px solid #c4c4c4;\n}\n.overview-log-1 i[data-v-11aed4a3] {\n  color: #22cade;\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.overview-log-2 i[data-v-11aed4a3] {\n  color: #dfd291;\n  background: rgba(223, 210, 145, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.overview-log-3 i[data-v-11aed4a3] {\n  color: #ff0000;\n  background: rgba(255, 0, 0, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.overview-log-4 i[data-v-11aed4a3] {\n  color: #008e3a;\n  background: rgba(0, 142, 58, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.log-link[data-v-11aed4a3] {\n  display: flex;\n  justify-content: flex-end;\n  padding-top: 1rem;\n}\n.content-cards[data-v-11aed4a3] {\n  padding-top: 2rem;\n}\n.cards[data-v-11aed4a3] {\n  background: #fff;\n  border-radius: 10px;\n  padding: 10px;\n  height: 450px;\n}\n.class-content[data-v-11aed4a3] {\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-top i[data-v-11aed4a3] {\n  color: #008e3a;\n}\n.content-2 i[data-v-11aed4a3] {\n  color: #ff0000;\n}\n.class-content-main[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-11aed4a3] {\n  font-size: 12px;\n}\n.notes-content[data-v-11aed4a3] {\n  border-bottom: 1px solid #e4e4e4;\n}\n.notes-content[data-v-11aed4a3]:last-child {\n  border-bottom: none;\n}\n.check_it[data-v-11aed4a3]{\n  color: #008e3a;\n  font-size:12px;\n}\n.notes-top[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 1rem;\n}\n.notes-content-top[data-v-11aed4a3] {\n  display: flex;\n}\n.notes-content-top h6[data-v-11aed4a3] {\n  margin-bottom: 0;\n}\n.notes-content[data-v-11aed4a3] {\n}\n.notes-content-main[data-v-11aed4a3] {\n  padding-bottom: 5px;\n}\n.notes-content-main p[data-v-11aed4a3] {\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notes-date[data-v-11aed4a3] {\n  color: #808080;\n  padding-top: 5px;\n}\n.fa-file-o[data-v-11aed4a3] {\n  color: #22cade;\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 50%;\n  padding: 9px;\n}\n.btn[data-v-11aed4a3] {\n  border: 1px solid #0a4065;\n  color: #0a4065;\n  font-size: 15px;\n}\n.discussion-content[data-v-11aed4a3] {\n  border-bottom: 1px solid #e4e4e4;\n  padding-bottom: 10px;\n  padding-top: 5px;\n}\n.discussion-content[data-v-11aed4a3]:last-child {\n  border-bottom: none;\n}\n.discussion-content p[data-v-11aed4a3] {\n  font-size: 10px;\n}\n.discussion-content-top[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-top p[data-v-11aed4a3] {\n  font-size: 14px;\n}\n.discussion-content-bottom[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-bottom p[data-v-11aed4a3] {\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notify-discussion p[data-v-11aed4a3] {\n  background: #e4e4e4;\n  color: #808080;\n  border-radius: 5px;\n  font-weight: 500;\n  padding: 5px 10px;\n}\n.my-icon[data-v-11aed4a3]{\n   color: #008e3a;\n}\n", ""]);
+exports.push([module.i, "\n.overview-board[data-v-11aed4a3] {\n  padding-top: 20px;\n}\n.note-body[data-v-11aed4a3] {\n  display: flex;\n  border-bottom: 1px solid #ccc;\n  margin-bottom: 14px;\n}\n.m-res[data-v-11aed4a3] {\n  height: 320px;\n  overflow: auto;\n}\n.main-note[data-v-11aed4a3] {\n  height: 330px;\n  overflow: auto;\n}\n.assignment-overview-board[data-v-11aed4a3] {\n  background: #fff;\n  font-family: \"Montserrat\";\n  padding: 15px;\n  border-radius: 10px;\n}\n.assignment-overview-board p[data-v-11aed4a3] {\n  font-weight: 600;\n  color: #808080;\n}\n.text-center p[data-v-11aed4a3] {\n  font-weight: 500;\n  margin-bottom: 10px;\n}\n.text-center h6[data-v-11aed4a3] {\n  font-weight: 700;\n}\n.overview-log-1[data-v-11aed4a3] {\n  border-right: 1px solid #c4c4c4;\n}\n.overview-log-4[data-v-11aed4a3] {\n  border-right: 1px solid #c4c4c4;\n}\n.overview-log-1 i[data-v-11aed4a3] {\n  color: #22cade;\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.overview-log-2 i[data-v-11aed4a3] {\n  color: #dfd291;\n  background: rgba(223, 210, 145, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.overview-log-3 i[data-v-11aed4a3] {\n  color: #ff0000;\n  background: rgba(255, 0, 0, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.overview-log-4 i[data-v-11aed4a3] {\n  color: #008e3a;\n  background: rgba(0, 142, 58, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.log-link[data-v-11aed4a3] {\n  display: flex;\n  justify-content: flex-end;\n  padding-top: 1rem;\n}\n.content-cards[data-v-11aed4a3] {\n  padding-top: 2rem;\n}\n.cards[data-v-11aed4a3] {\n  background: #fff;\n  border-radius: 10px;\n  padding: 10px;\n  height: 450px;\n}\n.class-content[data-v-11aed4a3] {\n  padding-bottom: 10px;\n}\n.class_section[data-v-11aed4a3] {\n  height: 340px;\n  overflow: auto;\n}\n.class-content-top[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-11aed4a3] {\n  font-size: 12px;\n}\n.notes-content[data-v-11aed4a3] {\n  border-bottom: 1px solid #e4e4e4;\n}\n.notes-content[data-v-11aed4a3]:last-child {\n  border-bottom: none;\n}\n.check_it[data-v-11aed4a3] {\n  color: #008e3a;\n  font-size: 12px;\n}\n.red[data-v-11aed4a3] {\n  color: #ff0000;\n}\n.green[data-v-11aed4a3] {\n  color: green;\n}\n.notes-top[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 1rem;\n}\n.notes-content-top[data-v-11aed4a3] {\n  display: flex;\n}\n.notes-content-top h6[data-v-11aed4a3] {\n  margin-bottom: 0;\n}\n.notes-content[data-v-11aed4a3] {\n}\n.notes-content-main[data-v-11aed4a3] {\n  padding-bottom: 5px;\n}\n.notes-content-main p[data-v-11aed4a3] {\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notes-date[data-v-11aed4a3] {\n  color: #808080;\n  padding-top: 5px;\n}\n.fa-file-o[data-v-11aed4a3] {\n  color: #22cade;\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 50%;\n  padding: 9px;\n}\n.btn[data-v-11aed4a3] {\n  border: 1px solid #0a4065;\n  color: #0a4065;\n  font-size: 15px;\n}\n.discussion-content[data-v-11aed4a3] {\n  border-bottom: 1px solid #e4e4e4;\n  padding-bottom: 10px;\n  padding-top: 5px;\n}\n.discussion-content[data-v-11aed4a3]:last-child {\n  border-bottom: none;\n}\n.discussion-content p[data-v-11aed4a3] {\n  font-size: 10px;\n}\n.discussion-content-top[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-top p[data-v-11aed4a3] {\n  font-size: 14px;\n}\n.discussion-content-bottom[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-bottom p[data-v-11aed4a3] {\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notify-discussion p[data-v-11aed4a3] {\n  background: #e4e4e4;\n  color: #808080;\n  border-radius: 5px;\n  font-weight: 500;\n  padding: 5px 10px;\n}\n.my-icon[data-v-11aed4a3] {\n  color: #008e3a;\n}\n", ""]);
 
 // exports
 
@@ -26559,7 +26623,7 @@ var render = function() {
               ],
               staticClass: "shadow-sm"
             },
-            [_vm._v("Create Class")]
+            [_vm._v("Add Subject")]
           ),
           _vm._v(" "),
           _c(
@@ -31471,6 +31535,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "p-3" },
     [
       _c(
         "b-modal",
@@ -31577,10 +31642,91 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "view" }, [
+      _c("div", { staticClass: "nav" }, [
+        _c(
+          "nav",
+          { staticClass: "d-flex" },
+          [
+            _c(
+              "b-button",
+              {
+                directives: [
+                  {
+                    name: "b-modal",
+                    rawName: "v-b-modal.student-create",
+                    modifiers: { "student-create": true }
+                  }
+                ],
+                staticClass: "shadow-sm reg-btn m-0",
+                attrs: { block: "" }
+              },
+              [_vm._v("Add Student")]
+            ),
+            _vm._v(" "),
+            _c(
+              "b-button",
+              {
+                directives: [
+                  {
+                    name: "b-modal",
+                    rawName: "v-b-modal.student-assign",
+                    modifiers: { "student-assign": true }
+                  }
+                ],
+                staticClass: "shadow-sm reg-btn m-0",
+                attrs: { block: "" }
+              },
+              [
+                _vm._v("\n        Students\n        "),
+                _c("i", {
+                  staticClass: "fa fa-arrows-h mx-2",
+                  attrs: { "aria-hidden": "true" }
+                }),
+                _vm._v(" Subjects\n      ")
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "b-button",
+              {
+                directives: [
+                  {
+                    name: "b-modal",
+                    rawName: "v-b-modal.assign-class",
+                    modifiers: { "assign-class": true }
+                  }
+                ],
+                staticClass: "shadow-sm reg-btn m-0",
+                attrs: { block: "" }
+              },
+              [
+                _vm._v("\n        Students\n        "),
+                _c("i", {
+                  staticClass: "fa fa-arrows-h mx-2",
+                  attrs: { "aria-hidden": "true" }
+                }),
+                _vm._v("\n        Class\n      ")
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "b-button",
+              {
+                staticClass: "shadow-sm reg-btn m-0",
+                attrs: { block: "" },
+                on: { click: _vm.multiDrop }
+              },
+              [_vm._v("Multi-Drop")]
+            )
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "left-side" }, [
         _c(
           "div",
-          { staticClass: "left-side" },
+          { staticClass: "bd-table" },
           [
             _c(
               "b-row",
@@ -31598,10 +31744,12 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "b-col",
+                  { staticClass: "text-right" },
                   [
                     _c(
                       "b-form-select",
                       {
+                        staticClass: "w-25",
                         model: {
                           value: _vm.current,
                           callback: function($$v) {
@@ -31759,88 +31907,7 @@ var render = function() {
             })
           ],
           1
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "nav" }, [
-          _c(
-            "nav",
-            { staticClass: "mb-5" },
-            [
-              _c(
-                "b-button",
-                {
-                  directives: [
-                    {
-                      name: "b-modal",
-                      rawName: "v-b-modal.student-create",
-                      modifiers: { "student-create": true }
-                    }
-                  ],
-                  staticClass: "shadow-sm reg-btn",
-                  attrs: { block: "" }
-                },
-                [_vm._v("Add Student")]
-              ),
-              _vm._v(" "),
-              _c(
-                "b-button",
-                {
-                  directives: [
-                    {
-                      name: "b-modal",
-                      rawName: "v-b-modal.student-assign",
-                      modifiers: { "student-assign": true }
-                    }
-                  ],
-                  staticClass: "shadow-sm reg-btn",
-                  attrs: { block: "" }
-                },
-                [
-                  _vm._v("\n          Students\n          "),
-                  _c("i", {
-                    staticClass: "fa fa-arrows-h mx-2",
-                    attrs: { "aria-hidden": "true" }
-                  }),
-                  _vm._v("\n          Subjects\n        ")
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "b-button",
-                {
-                  directives: [
-                    {
-                      name: "b-modal",
-                      rawName: "v-b-modal.assign-class",
-                      modifiers: { "assign-class": true }
-                    }
-                  ],
-                  staticClass: "shadow-sm reg-btn",
-                  attrs: { block: "" }
-                },
-                [
-                  _vm._v("\n          Students\n          "),
-                  _c("i", {
-                    staticClass: "fa fa-arrows-h mx-2",
-                    attrs: { "aria-hidden": "true" }
-                  }),
-                  _vm._v("\n          Class\n        ")
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "b-button",
-                {
-                  staticClass: "shadow-sm reg-btn",
-                  attrs: { block: "" },
-                  on: { click: _vm.multiDrop }
-                },
-                [_vm._v("Multi-Drop")]
-              )
-            ],
-            1
-          )
-        ])
+        )
       ])
     ],
     1
@@ -44222,48 +44289,84 @@ var render = function() {
                       return _c(
                         "div",
                         {
-                          directives: [
-                            {
-                              name: "b-tooltip",
-                              rawName: "v-b-tooltip.hover",
-                              modifiers: { hover: true }
-                            }
-                          ],
                           key: idx,
-                          staticClass: "class-content border-bottom p-2",
-                          attrs: { title: "This class is currently ongoing" }
+                          staticClass: "class-content border-bottom p-2"
                         },
                         [
-                          _c("div", { staticClass: "class-content-top" }, [
-                            _c("h6", { staticClass: "toCaps" }, [
-                              _vm._v(_vm._s(item.subject))
-                            ]),
-                            _vm._v(" "),
-                            _vm.getSecond(_vm.today) >
-                              _vm.getSecond(item.start) &&
-                            _vm.getSecond(_vm.today) < _vm.getSecond(item.end)
-                              ? _c("i", {
-                                  staticClass: "fa fa-play-circle-o green",
-                                  attrs: { "aria-hidden": "true" }
-                                })
-                              : _vm.getSecond(_vm.today) <
-                                  _vm.getSecond(item.start) &&
-                                _vm.getSecond(_vm.today) <
-                                  _vm.getSecond(item.end)
-                              ? _c("i", {
-                                  staticClass: "fa fa-dot-circle-o text-dark",
-                                  attrs: { "aria-hidden": "true" }
-                                })
-                              : _vm.getSecond(_vm.today) >
-                                  _vm.getSecond(item.start) &&
-                                _vm.getSecond(_vm.today) >
-                                  _vm.getSecond(item.end)
-                              ? _c("i", {
-                                  staticClass: "fa  fa-stop-circle-o red",
-                                  attrs: { "aria-hidden": "true" }
-                                })
-                              : _vm._e()
-                          ]),
+                          _c(
+                            "div",
+                            { staticClass: "class-content-top" },
+                            [
+                              _c("h6", { staticClass: "toCaps" }, [
+                                _vm._v(_vm._s(item.subject))
+                              ]),
+                              _vm._v(" "),
+                              _vm.getSecond(_vm.today) >
+                                _vm.getSecond(item.start) &&
+                              _vm.getSecond(_vm.today) < _vm.getSecond(item.end)
+                                ? _c("i", {
+                                    staticClass: "fa fa-play-circle-o green",
+                                    attrs: { "aria-hidden": "true" }
+                                  })
+                                : _vm.getSecond(_vm.today) <
+                                    _vm.getSecond(item.start) &&
+                                  _vm.getSecond(_vm.today) <
+                                    _vm.getSecond(item.end)
+                                ? _c("i", {
+                                    staticClass: "fa fa-dot-circle-o text-dark",
+                                    attrs: { "aria-hidden": "true" }
+                                  })
+                                : _vm.getSecond(_vm.today) >
+                                    _vm.getSecond(item.start) &&
+                                  _vm.getSecond(_vm.today) >
+                                    _vm.getSecond(item.end)
+                                ? _c("i", {
+                                    staticClass: "fa fa-stop-circle-o red",
+                                    attrs: {
+                                      id: idx.toString(),
+                                      "aria-hidden": "true"
+                                    }
+                                  })
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _c(
+                                "b-tooltip",
+                                {
+                                  ref: "tooltip",
+                                  refInFor: true,
+                                  attrs: { target: idx.toString() }
+                                },
+                                [
+                                  _vm.getSecond(_vm.today) >
+                                    _vm.getSecond(item.start) &&
+                                  _vm.getSecond(_vm.today) <
+                                    _vm.getSecond(item.end)
+                                    ? _c("p", { staticClass: "m-0" }, [
+                                        _vm._v("This class is ongoing")
+                                      ])
+                                    : _vm.getSecond(_vm.today) <
+                                        _vm.getSecond(item.start) &&
+                                      _vm.getSecond(_vm.today) <
+                                        _vm.getSecond(item.end)
+                                    ? _c("p", { staticClass: "m-0" }, [
+                                        _vm._v(
+                                          "This class begins by " +
+                                            _vm._s(_vm._f("format")(item.start))
+                                        )
+                                      ])
+                                    : _vm.getSecond(_vm.today) >
+                                        _vm.getSecond(item.start) &&
+                                      _vm.getSecond(_vm.today) >
+                                        _vm.getSecond(item.end)
+                                    ? _c("p", { staticClass: "m-0" }, [
+                                        _vm._v("This class has ended")
+                                      ])
+                                    : _vm._e()
+                                ]
+                              )
+                            ],
+                            1
+                          ),
                           _vm._v(" "),
                           _c("small", [
                             _vm._v(
@@ -50789,7 +50892,9 @@ var render = function() {
                                 attrs: { md: "6" }
                               },
                               [
-                                _c("h6", [_vm._v("30+")]),
+                                _c("h6", [
+                                  _vm._v(_vm._s(_vm.resources.length) + "+")
+                                ]),
                                 _vm._v(" "),
                                 _c("p", [_vm._v("Submitted")]),
                                 _vm._v(" "),
@@ -50803,22 +50908,15 @@ var render = function() {
                             _c(
                               "b-col",
                               {
-                                directives: [
-                                  {
-                                    name: "b-tooltip",
-                                    rawName: "v-b-tooltip.hover",
-                                    modifiers: { hover: true }
-                                  }
-                                ],
                                 staticClass: "overview-log-2 text-center",
-                                attrs: {
-                                  title:
-                                    "You have over 20 resource to be submitted",
-                                  md: "6"
-                                }
+                                attrs: { md: "6" }
                               },
                               [
-                                _c("h6", [_vm._v("20+")]),
+                                _c("h6", [
+                                  _vm._v(
+                                    _vm._s(_vm.pendingResource.length) + "+"
+                                  )
+                                ]),
                                 _vm._v(" "),
                                 _c("p", [_vm._v("Pending")]),
                                 _vm._v(" "),
@@ -50836,9 +50934,11 @@ var render = function() {
                           "div",
                           { staticClass: "log-link" },
                           [
-                            _c("router-link", { attrs: { to: "" } }, [
-                              _vm._v("View Resources")
-                            ])
+                            _c(
+                              "router-link",
+                              { attrs: { to: "/tutor/resources" } },
+                              [_vm._v("View Resources")]
+                            )
                           ],
                           1
                         )
@@ -50872,178 +50972,136 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "div",
-                        {
-                          directives: [
-                            {
-                              name: "b-tooltip",
-                              rawName: "v-b-tooltip.hover",
-                              modifiers: { hover: true }
-                            }
-                          ],
-                          staticClass: "class-content",
-                          attrs: { title: "This class is currently ongoing" }
-                        },
-                        [
-                          _c("div", { staticClass: "class-content-top" }, [
-                            _c("h6", [_vm._v("Geography")]),
-                            _vm._v(" "),
-                            _c("i", {
-                              staticClass: "fa fa-dot-circle-o",
-                              attrs: { "aria-hidden": "true" }
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "class-content-main" }, [
-                            _c("p", [
-                              _vm._v(
-                                "\n                  Primary 1,\n                  "
-                              ),
-                              _c("span", [
-                                _vm._v(
-                                  "\n                    by:\n                    "
-                                ),
-                                _c("strong", [_vm._v("Henry Annayo")])
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("p", [_vm._v("Ongoing")])
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          directives: [
-                            {
-                              name: "b-tooltip",
-                              rawName: "v-b-tooltip.hover",
-                              modifiers: { hover: true }
-                            }
-                          ],
-                          staticClass: "class-content",
-                          attrs: { title: "This class starts 12pm" }
-                        },
-                        [
-                          _c(
+                        { staticClass: "class_section" },
+                        _vm._l(_vm.todaysClass, function(item, idx) {
+                          return _c(
                             "div",
-                            { staticClass: "class-content-top content-2" },
-                            [
-                              _c("h6", [_vm._v("Geography")]),
-                              _vm._v(" "),
-                              _c("i", {
-                                staticClass: "fa fa-dot-circle-o",
-                                attrs: { "aria-hidden": "true" }
-                              })
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "class-content-main" }, [
-                            _c("p", [
-                              _vm._v(
-                                "\n                  SS 3,\n                  "
-                              ),
-                              _c("span", [
-                                _vm._v(
-                                  "\n                    by:\n                    "
-                                ),
-                                _c("strong", [_vm._v("Henry Annayo")])
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("p", [_vm._v("Upcoming")])
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          directives: [
                             {
-                              name: "b-tooltip",
-                              rawName: "v-b-tooltip.hover",
-                              modifiers: { hover: true }
-                            }
-                          ],
-                          staticClass: "class-content",
-                          attrs: { title: "This class starts 12pm" }
-                        },
-                        [
-                          _c(
-                            "div",
-                            { staticClass: "class-content-top content-2" },
+                              key: idx,
+                              staticClass: "class-content border-bottom p-2"
+                            },
                             [
-                              _c("h6", [_vm._v("Geography")]),
-                              _vm._v(" "),
-                              _c("i", {
-                                staticClass: "fa fa-dot-circle-o",
-                                attrs: { "aria-hidden": "true" }
-                              })
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "class-content-main" }, [
-                            _c("p", [
-                              _vm._v(
-                                "\n                  JS 2,\n                  "
+                              _c(
+                                "div",
+                                { staticClass: "class-content-top" },
+                                [
+                                  _c("h6", { staticClass: "toCaps" }, [
+                                    _vm._v(_vm._s(item.subject))
+                                  ]),
+                                  _vm._v(" "),
+                                  _vm.getSecond(_vm.today) >
+                                    _vm.getSecond(item.start) &&
+                                  _vm.getSecond(_vm.today) <
+                                    _vm.getSecond(item.end)
+                                    ? _c("i", {
+                                        staticClass:
+                                          "fa fa-play-circle-o green",
+                                        attrs: { "aria-hidden": "true" }
+                                      })
+                                    : _vm.getSecond(_vm.today) <
+                                        _vm.getSecond(item.start) &&
+                                      _vm.getSecond(_vm.today) <
+                                        _vm.getSecond(item.end)
+                                    ? _c("i", {
+                                        staticClass:
+                                          "fa fa-dot-circle-o text-dark",
+                                        attrs: { "aria-hidden": "true" }
+                                      })
+                                    : _vm.getSecond(_vm.today) >
+                                        _vm.getSecond(item.start) &&
+                                      _vm.getSecond(_vm.today) >
+                                        _vm.getSecond(item.end)
+                                    ? _c("i", {
+                                        staticClass: "fa fa-stop-circle-o red",
+                                        attrs: {
+                                          id: idx.toString(),
+                                          "aria-hidden": "true"
+                                        }
+                                      })
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-tooltip",
+                                    {
+                                      ref: "tooltip",
+                                      refInFor: true,
+                                      attrs: { target: idx.toString() }
+                                    },
+                                    [
+                                      _vm.getSecond(_vm.today) >
+                                        _vm.getSecond(item.start) &&
+                                      _vm.getSecond(_vm.today) <
+                                        _vm.getSecond(item.end)
+                                        ? _c("p", { staticClass: "m-0" }, [
+                                            _vm._v("This class is ongoing")
+                                          ])
+                                        : _vm.getSecond(_vm.today) <
+                                            _vm.getSecond(item.start) &&
+                                          _vm.getSecond(_vm.today) <
+                                            _vm.getSecond(item.end)
+                                        ? _c("p", { staticClass: "m-0" }, [
+                                            _vm._v(
+                                              "This class begins by " +
+                                                _vm._s(
+                                                  _vm._f("format")(item.start)
+                                                )
+                                            )
+                                          ])
+                                        : _vm.getSecond(_vm.today) >
+                                            _vm.getSecond(item.start) &&
+                                          _vm.getSecond(_vm.today) >
+                                            _vm.getSecond(item.end)
+                                        ? _c("p", { staticClass: "m-0" }, [
+                                            _vm._v("This class has ended")
+                                          ])
+                                        : _vm._e()
+                                    ]
+                                  )
+                                ],
+                                1
                               ),
-                              _c("span", [
-                                _vm._v(
-                                  "\n                    by:\n                    "
-                                ),
-                                _c("strong", [_vm._v("Henry Annayo")])
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("p", [_vm._v("Upcoming")])
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          directives: [
-                            {
-                              name: "b-tooltip",
-                              rawName: "v-b-tooltip.hover",
-                              modifiers: { hover: true }
-                            }
-                          ],
-                          staticClass: "class-content",
-                          attrs: { title: "This class starts 12pm" }
-                        },
-                        [
-                          _c(
-                            "div",
-                            { staticClass: "class-content-top content-2" },
-                            [
-                              _c("h6", [_vm._v("Geography")]),
                               _vm._v(" "),
-                              _c("i", {
-                                staticClass: "fa fa-dot-circle-o",
-                                attrs: { "aria-hidden": "true" }
-                              })
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "class-content-main" }, [
-                            _c("p", [
-                              _vm._v(
-                                "\n                  Primary 3,\n                  "
-                              ),
-                              _c("span", [
+                              _c("small", [
                                 _vm._v(
-                                  "\n                    by:\n                    "
-                                ),
-                                _c("strong", [_vm._v("Henry Annayo")])
+                                  _vm._s(_vm._f("format")(item.start)) +
+                                    " to " +
+                                    _vm._s(_vm._f("format")(item.end))
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "class-content-main" }, [
+                                _c("p", [
+                                  _c("span", [
+                                    _vm._v(
+                                      "\n                      by:\n                      "
+                                    ),
+                                    _c("strong", { staticClass: "toCaps" }, [
+                                      _vm._v(_vm._s(item.tutor))
+                                    ])
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _vm.getSecond(_vm.today) >
+                                  _vm.getSecond(item.start) &&
+                                _vm.getSecond(_vm.today) <
+                                  _vm.getSecond(item.end)
+                                  ? _c("p", [_vm._v("Ongoing")])
+                                  : _vm.getSecond(_vm.today) <
+                                      _vm.getSecond(item.start) &&
+                                    _vm.getSecond(_vm.today) <
+                                      _vm.getSecond(item.end)
+                                  ? _c("p", [_vm._v("Upcoming")])
+                                  : _vm.getSecond(_vm.today) >
+                                      _vm.getSecond(item.start) &&
+                                    _vm.getSecond(_vm.today) >
+                                      _vm.getSecond(item.end)
+                                  ? _c("p", [_vm._v("Finished")])
+                                  : _vm._e()
                               ])
-                            ]),
-                            _vm._v(" "),
-                            _c("p", [_vm._v("Upcoming")])
-                          ])
-                        ]
+                            ]
+                          )
+                        }),
+                        0
                       ),
                       _vm._v(" "),
                       _c(
@@ -51347,7 +51405,9 @@ var render = function() {
                             staticClass: "check_it"
                           },
                           [
-                            _vm._v("View All "),
+                            _vm._v(
+                              "\n                View All\n                "
+                            ),
                             _c("b-icon", { attrs: { icon: "arrow-right" } })
                           ],
                           1
@@ -51483,9 +51543,7 @@ var render = function() {
                       },
                       [
                         _c("p", [
-                          _vm._v(
-                            "\n                    Posted:\n                    "
-                          ),
+                          _vm._v("\n                Posted:\n                "),
                           _c("strong", [
                             _vm._v(
                               _vm._s(

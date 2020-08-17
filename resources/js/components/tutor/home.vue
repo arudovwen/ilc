@@ -30,23 +30,22 @@
             <b-container class="overview-main">
               <b-row>
                 <b-col md="6" class="overview-log-4 text-center">
-                  <h6>30+</h6>
+                  <h6>{{resources.length}}+</h6>
                   <p>Submitted</p>
                   <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                 </b-col>
                 <b-col
-                  v-b-tooltip.hover
-                  title="You have over 20 resource to be submitted"
+                 
                   md="6"
                   class="overview-log-2 text-center"
                 >
-                  <h6>20+</h6>
+                  <h6>{{ pendingResource.length}}+</h6>
                   <p>Pending</p>
                   <i class="fa fa-clock-o" aria-hidden="true"></i>
                 </b-col>
               </b-row>
               <div class="log-link">
-                <router-link to>View Resources</router-link>
+                <router-link to="/tutor/resources">View Resources</router-link>
               </div>
             </b-container>
           </div>
@@ -59,70 +58,72 @@
           <b-col md="4">
             <div class="cards">
               <h5>Today's Class</h5>
-              <div v-b-tooltip.hover title="This class is currently ongoing" class="class-content">
-                <div class="class-content-top">
-                  <h6>Geography</h6>
-                  <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
-                </div>
-                <div class="class-content-main">
-                  <p>
-                    Primary 1,
-                    <span>
-                      by:
-                      <strong>Henry Annayo</strong>
-                    </span>
-                  </p>
-                  <p>Ongoing</p>
+              <div class="class_section">
+                <div
+                  class="class-content border-bottom p-2"
+                  v-for="(item,idx) in todaysClass"
+                  :key="idx"
+                >
+                  <div class="class-content-top">
+                    <h6 class="toCaps">{{item.subject}}</h6>
+
+                    <i
+                      class="fa fa-play-circle-o green"
+                      v-if="(getSecond(today)  > getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
+                      aria-hidden="true"
+                    ></i>
+
+                    <i
+                      class="fa fa-dot-circle-o text-dark"
+                      v-else-if="(getSecond(today)  <  getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
+                      aria-hidden="true"
+                    ></i>
+
+                    <i
+                      class="fa fa-stop-circle-o red"
+                      :id="idx.toString()"
+                      v-else-if="(getSecond(today)   >  getSecond(item.start)) && (getSecond(today) >getSecond(item.end))"
+                      aria-hidden="true"
+                    ></i>
+                    <b-tooltip ref="tooltip" :target="idx.toString()">
+                      <p
+                        class="m-0"
+                        v-if="(getSecond(today)  > getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
+                      >This class is ongoing</p>
+                      <p
+                        class="m-0"
+                        v-else-if="(getSecond(today)  <  getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
+                      >This class begins by {{item.start | format}}</p>
+
+                      <p
+                        class="m-0"
+                        v-else-if="(getSecond(today)   >  getSecond(item.start)) && (getSecond(today) >getSecond(item.end))"
+                      >This class has ended</p>
+                    </b-tooltip>
+                  </div>
+                  <small>{{item.start | format}} to {{item.end | format}}</small>
+                  <div class="class-content-main">
+                    <p>
+                      <span>
+                        by:
+                        <strong class="toCaps">{{item.tutor}}</strong>
+                      </span>
+                    </p>
+
+                    <p
+                      v-if="(getSecond(today)  > getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
+                    >Ongoing</p>
+                    <p
+                      v-else-if="(getSecond(today)  <  getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
+                    >Upcoming</p>
+
+                    <p
+                      v-else-if="(getSecond(today)   >  getSecond(item.start)) && (getSecond(today) >getSecond(item.end))"
+                    >Finished</p>
+                  </div>
                 </div>
               </div>
-              <div v-b-tooltip.hover title="This class starts 12pm" class="class-content">
-                <div class="class-content-top content-2">
-                  <h6>Geography</h6>
-                  <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
-                </div>
-                <div class="class-content-main">
-                  <p>
-                    SS 3,
-                    <span>
-                      by:
-                      <strong>Henry Annayo</strong>
-                    </span>
-                  </p>
-                  <p>Upcoming</p>
-                </div>
-              </div>
-              <div v-b-tooltip.hover title="This class starts 12pm" class="class-content">
-                <div class="class-content-top content-2">
-                  <h6>Geography</h6>
-                  <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
-                </div>
-                <div class="class-content-main">
-                  <p>
-                    JS 2,
-                    <span>
-                      by:
-                      <strong>Henry Annayo</strong>
-                    </span>
-                  </p>
-                  <p>Upcoming</p>
-                </div>
-              </div>
-              <div v-b-tooltip.hover title="This class starts 12pm" class="class-content">
-                <div class="class-content-top content-2">
-                  <h6>Geography</h6>
-                  <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
-                </div>
-                <div class="class-content-main">
-                  <p>
-                    Primary 3,
-                    <span>
-                      by:
-                      <strong>Henry Annayo</strong>
-                    </span>
-                  </p>
-                  <p>Upcoming</p>
-                </div>
-              </div>
+
               <div class="log-link">
                 <router-link to>View Today's Class</router-link>
               </div>
@@ -226,58 +227,61 @@
               </div>
 
               <div class="log-link">
-                <div v-b-modal.all-note class="check_it">View All <b-icon icon="arrow-right"></b-icon> </div>
+                <div v-b-modal.all-note class="check_it">
+                  View All
+                  <b-icon icon="arrow-right"></b-icon>
+                </div>
               </div>
             </div>
           </b-col>
         </b-row>
       </b-container>
     </div>
-      <b-modal id="note" title="New note" hide-footer>
-     <b-form @submit.prevent="addNote">
-       <b-form-group class="mb-3">
-         <label for="">Title</label>
-         <b-form-input required v-model="note.title" placeholder="Enter title"></b-form-input>
-       </b-form-group>
-       <b-form-group  class="mb-3">
-         <label for="">Note</label>
-         <b-form-textarea maxlength="200" required v-model="note.description" rows="3" placeholder="Write note here">
-
-         </b-form-textarea>
-       </b-form-group>
-       <b-form-group  class="mb-3">
-         <b-button  variant="darkgreen" type="submit">Add note</b-button>
-       </b-form-group>
-     </b-form>
-  </b-modal>
-  <b-modal id="all-note" title="My notes" hide-footer>
-     <div class="">
-                <div class="note-body" v-for="(note,idx) in notes" :key="idx">
-                <div class="mr-2">
-                   <b-icon icon="stickies-fill" class="my-icon"></b-icon>
-                </div>
-                <div class="notes-content w-100" >
-                <div class="notes-content-top">
-                  <h6 class="title mr-3 mb-2">{{note.title}}</h6>
-                
-                </div>
-                <div class="notes-content-main">
-                  <p
-                    class
-                  >{{note.note}}</p>
-                  <div class="notes-date d-flex align-items-center justify-content-between w-100">
-                    <p>
-                      Posted:
-                      <strong>{{note.created_at |  moment('DD/MM/YYYY')}}</strong>
-                    </p>
-                    <b-icon icon="trash" class="my-icon cpointer" @click="remove(note.id)"></b-icon>
-                  
-                  </div>
-                </div>
+    <b-modal id="note" title="New note" hide-footer>
+      <b-form @submit.prevent="addNote">
+        <b-form-group class="mb-3">
+          <label for>Title</label>
+          <b-form-input required v-model="note.title" placeholder="Enter title"></b-form-input>
+        </b-form-group>
+        <b-form-group class="mb-3">
+          <label for>Note</label>
+          <b-form-textarea
+            maxlength="200"
+            required
+            v-model="note.description"
+            rows="3"
+            placeholder="Write note here"
+          ></b-form-textarea>
+        </b-form-group>
+        <b-form-group class="mb-3">
+          <b-button variant="darkgreen" type="submit">Add note</b-button>
+        </b-form-group>
+      </b-form>
+    </b-modal>
+    <b-modal id="all-note" title="My notes" hide-footer>
+      <div class>
+        <div class="note-body" v-for="(note,idx) in notes" :key="idx">
+          <div class="mr-2">
+            <b-icon icon="stickies-fill" class="my-icon"></b-icon>
+          </div>
+          <div class="notes-content w-100">
+            <div class="notes-content-top">
+              <h6 class="title mr-3 mb-2">{{note.title}}</h6>
+            </div>
+            <div class="notes-content-main">
+              <p class>{{note.note}}</p>
+              <div class="notes-date d-flex align-items-center justify-content-between w-100">
+                <p>
+                  Posted:
+                  <strong>{{note.created_at | moment('DD/MM/YYYY')}}</strong>
+                </p>
+                <b-icon icon="trash" class="my-icon cpointer" @click="remove(note.id)"></b-icon>
               </div>
-              </div>
-              </div>
-  </b-modal>
+            </div>
+          </div>
+        </div>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -294,31 +298,75 @@ export default {
       curriculum: [],
       fields: ["class", "subject"],
       field: ["class"],
-       note:{
-        title:'',
-        description:''
+      note: {
+        title: "",
+        description: "",
       },
-      notes:[]
+      notes: [],
+      todaysClass: [],
+      today:
+        new Date().getHours() +
+        ":" +
+        new Date().getMinutes() +
+        ":" +
+        new Date().getSeconds(),
+      resources: [],
     };
   },
   mounted() {
-    // this.getStudents();
-    // this.getClasses();
-    // this.getTutors();
-    // this.getSyllabus()
-    // this.getCurriculum();
-     this.getNotes()
+    this.getNotes();
+    this.getResources();
+    this.getTodayClass();
+  },
+  computed:{
+    pendingResource(){
+       return this.resources.filter(item=> item.status == 'pending')
+    },
+    approvedResource(){
+  return this.resources.filter(item=> item.status == 'approved')
+    }
   },
   methods: {
-     gotoHer(id) {
+    getResources() {
+      axios
+        .get("/api/resource", {
+          headers: {
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.resources = res.data;
+          }
+        });
+    },
+    getSecond(hms) {
+      var a = hms.split(":"); // split it at the colons
+
+      // minutes are worth 60 seconds. Hours are worth 60 minutes.
+      var seconds = +a[0] * 60 * 60 + +a[1] * 60 + +a[2];
+      return seconds;
+    },
+    getTodayClass() {
+      axios
+        .get(`/api/current-class`, {
+          headers: {
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.todaysClass = res.data;
+          }
+        });
+    },
+    gotoHer(id) {
       this.$router.push(`/student/resource/view/${id}`);
     },
-      addNote(){
- 
+    addNote() {
       let data = {
         title: this.note.title,
         description: this.note.description,
-       
       };
       axios
         .post("/api/tutor-note", data, {
@@ -329,16 +377,15 @@ export default {
         .then((res) => {
           if (res.status == 201) {
             this.note.description = "";
-             this.note.title = "";
+            this.note.title = "";
             this.getNotes();
             this.$toasted.success("Note created");
-            this.$bvModal.hide('note')
+            this.$bvModal.hide("note");
           }
         })
         .catch();
-    
-  },
-     getNotes() {
+    },
+    getNotes() {
       axios
         .get(`/api/tutor-note`, {
           headers: {
@@ -424,19 +471,18 @@ export default {
 .overview-board {
   padding-top: 20px;
 }
-.note-body{
-  display:flex;
-  border-bottom:1px solid #ccc;
+.note-body {
+  display: flex;
+  border-bottom: 1px solid #ccc;
   margin-bottom: 14px;
-
 }
-.m-res{
+.m-res {
   height: 320px;
   overflow: auto;
 }
-.main-note{
+.main-note {
   height: 330px;
-  overflow:auto;
+  overflow: auto;
 }
 .assignment-overview-board {
   background: #fff;
@@ -504,16 +550,15 @@ export default {
 .class-content {
   padding-bottom: 10px;
 }
+.class_section {
+  height: 340px;
+  overflow: auto;
+}
 .class-content-top {
   display: flex;
   justify-content: space-between;
 }
-.class-content-top i {
-  color: #008e3a;
-}
-.content-2 i {
-  color: #ff0000;
-}
+
 .class-content-main {
   display: flex;
   justify-content: space-between;
@@ -527,9 +572,15 @@ export default {
 .notes-content:last-child {
   border-bottom: none;
 }
-.check_it{
+.check_it {
   color: #008e3a;
-  font-size:12px;
+  font-size: 12px;
+}
+.red {
+  color: #ff0000;
+}
+.green {
+  color: green;
 }
 .notes-top {
   display: flex;
@@ -538,14 +589,11 @@ export default {
 }
 .notes-content-top {
   display: flex;
-
 }
 .notes-content-top h6 {
   margin-bottom: 0;
-
 }
 .notes-content {
-
 }
 .notes-content-main {
   padding-bottom: 5px;
@@ -557,7 +605,6 @@ export default {
 .notes-date {
   color: #808080;
   padding-top: 5px;
-
 }
 .fa-file-o {
   color: #22cade;
@@ -603,7 +650,7 @@ export default {
   font-weight: 500;
   padding: 5px 10px;
 }
-.my-icon{
-   color: #008e3a;
+.my-icon {
+  color: #008e3a;
 }
 </style>

@@ -82,31 +82,46 @@
             <h5>Today's Class</h5>
             <div class="class_section">
               <div
-                v-b-tooltip.hover
-                title="This class is currently ongoing"
+
                 class="class-content border-bottom p-2"
                 v-for="(item,idx) in todaysClass"
                 :key="idx"
               >
                 <div class="class-content-top">
                   <h6 class="toCaps">{{item.subject}}</h6>
-                  <i
-                    class="fa fa-play-circle-o green"
-                    v-if="(getSecond(today)  > getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
-                    aria-hidden="true"
-                  ></i>
+                <i
+                      class="fa fa-play-circle-o green"
+                      v-if="(getSecond(today)  > getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
+                      aria-hidden="true"
+                    ></i>
 
-                  <i
-                    class="fa fa-dot-circle-o text-dark"
-                    v-else-if="(getSecond(today)  <  getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
-                    aria-hidden="true"
-                  ></i>
-                  
-                  <i
-                    class="fa  fa-stop-circle-o red"
-                    v-else-if="(getSecond(today)   >  getSecond(item.start)) && (getSecond(today) >getSecond(item.end))"
-                    aria-hidden="true"
-                  ></i>
+                    <i
+                      class="fa fa-dot-circle-o text-dark"
+                      v-else-if="(getSecond(today)  <  getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
+                      aria-hidden="true"
+                    ></i>
+
+                    <i
+                      class="fa fa-stop-circle-o red"
+                      :id="idx.toString()"
+                      v-else-if="(getSecond(today)   >  getSecond(item.start)) && (getSecond(today) >getSecond(item.end))"
+                      aria-hidden="true"
+                    ></i>
+                    <b-tooltip ref="tooltip" :target="idx.toString()">
+                      <p
+                        class="m-0"
+                        v-if="(getSecond(today)  > getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
+                      >This class is ongoing</p>
+                      <p
+                        class="m-0"
+                        v-else-if="(getSecond(today)  <  getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
+                      >This class begins by {{item.start | format}}</p>
+
+                      <p
+                        class="m-0"
+                        v-else-if="(getSecond(today)   >  getSecond(item.start)) && (getSecond(today) >getSecond(item.end))"
+                      >This class has ended</p>
+                    </b-tooltip>
                 </div>
                 <small>{{item.start | format}} to {{item.end | format}}</small>
                 <div class="class-content-main">

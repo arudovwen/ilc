@@ -95,6 +95,7 @@ Route::middleware('auth:tutor')->group(function () {
     Route::resource('assessment-result', 'AssessmentResultController');
     Route::post('tutor-grade-book', 'GradeBookController@getBooks');
     Route::get('tutor-grade-books', 'GradeBookController@index');
+    Route::get('current-class','TimesTableController@getCurrentClass');
 });
 Route::get('student-group/{id}', 'GroupsController@show');
 Route::post('school-register', 'SchoolController@store');

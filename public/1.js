@@ -135,9 +135,10 @@ __webpack_require__.r(__webpack_exports__);
               if (_this.$route.query.redirect) {
                 _this.$router.push(_this.$route.query.redirect);
               } else {
-                _this.$toasted.info("Redirecting to dashboard..");
+                _this.$toasted.info("Redirecting to dashboard.."); // this.$router.push("/student");
 
-                _this.$router.push("/student");
+
+                window.location.href = "/student";
               }
             }
           })["catch"](function (error) {
@@ -195,9 +196,10 @@ __webpack_require__.r(__webpack_exports__);
                 icon: {
                   name: "fingerprint"
                 }
-              });
+              }); // this.$router.push("/tutor");
 
-              _this2.$router.push("/tutor");
+
+              window.location.href = "/tutor";
             }
           })["catch"](function (error) {
             console.log("submit -> error", error);

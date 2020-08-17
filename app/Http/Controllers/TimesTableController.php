@@ -89,18 +89,45 @@ class TimesTableController extends Controller
 
     public function getCurrentTimesTable($class)
     {
-       $user = auth('api')->user();
-       $time = TimesTable::where('myclass',$class)->firstOrFail();
+        $user = auth('api')->user();
+        $time = TimesTable::where('myclass', $class)->where('school_id', $user->school_id)->firstOrFail();
         json_decode($time->table);
-       $today = strtolower(Carbon::now()->englishDayOfWeek);
-       $arr = [];
-       foreach (json_decode($time->table) as $value) {
-          if ($value->day == $today) {
-             array_push($arr,$value);
+        $today = strtolower(Carbon::now()->englishDayOfWeek);
+        $arr = [];
+        foreach (json_decode($time->table) as $value) {
+            if ($value->day == $today) {
+                array_push($arr, $value);
+            }
+        }
+        return  $arr;
+    }
+
+    public function getCurrentClass()
+    {
+        $user = auth('tutor')->user();
+        $times = TimesTable::where('school_id', $user->school_id)->get();
+        $today = strtolower(Carbon::now()->englishDayOfWeek);
+        $arr = [];
+        $ar =[];
+        foreach ($times as $time) {
+            foreach (json_decode($time->table) as $value) {
+             
+                if ($value->day == $today ) {
+                    array_push($arr, $value->courses);
+                }
+            }
+        }
+
+        foreach ($arr as $value) {
+            foreach ($value as $v) {
+             if ($v->tutor == $user->name) {
+                array_push($ar, $v);
              }
-           
-       }
-       return  $arr;
+               
+            }
+        }
+       
+        return  $ar;
     }
     public function update(Request $request, $id)
     {

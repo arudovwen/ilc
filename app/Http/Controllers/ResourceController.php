@@ -79,7 +79,8 @@ class ResourceController extends Controller
             'content'  => json_encode($request->content),
             'worksheet'  => $request->worksheet,
             'worksheet_id'  => $request->worksheet_id,
-            'note' => $request->note
+            'note' => $request->note,
+            'status' => 'pending'
         ]);
             $exploded=[];
        
@@ -161,6 +162,7 @@ class ResourceController extends Controller
         $resource->worksheet  = $request->worksheet;
         $resource->worksheet_id  = $request->worksheet_id;
         $resource->note = $request->note;
+        $resource->status = $request->status;
         $resource->cover_image = $request->cover_image;
         $resource->save();
     }

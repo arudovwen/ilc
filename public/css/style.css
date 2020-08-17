@@ -89,7 +89,15 @@ a:hover{
 .reg-btn.nav-link{
     color: #fff !important;
 }
-
+.btn-darkgreen{
+    background:rgba(19, 166, 153, 0.9);
+    color:#fff;
+}
+.btn-outline-darkgreen{
+  color:rgba(19, 166, 153, 0.9);
+  border:1px solid rgba(19, 166, 153, 0.9);
+  background:transparent;
+}
 .overlay{
     width: 100%; 
     height: 100%; 
@@ -376,15 +384,21 @@ form .reg-btn{
 }
 
 .nav-tabs .nav-link {
-    border: none !important;
+    /* border: none !important;
     border-top-left-radius: 0 !important;
-    border-top-right-radius: 0 !important;
+    border-top-right-radius: 0 !important; */
     color:  rgba(0, 0, 0, 0.7) ;
+   
 }
 .nav-tabs .nav-link:focus {
     outline: none;
 }
-
+/* .mylibrary{
+    border: 1px solid transparent !important;
+    border-top-left-radius: 0.25rem !important;
+    border-top-right-radius: 0.25rem !important;
+    color:  rgba(0, 0, 0, 0.7) ;
+} */
 .login-form .form-group >legend{
     font-family: "Montserrat";
     font-weight: 500;
@@ -453,6 +467,9 @@ form .reg-btn{
         min-height: 100%;
       
     }
+    
+/* student-dashboard */
+/* .student-assessment .nav-tabs {
 
     /* student-dashboard */
  .student-assessment .nav-tabs {
@@ -460,13 +477,17 @@ form .reg-btn{
     justify-content: space-around !important;
    
 }
-.student-assessment .nav-tabs .nav-link.active {
+/* .student-assessment .nav-tabs .nav-link.active {
     color: #ffd708 !important;
     background-color: rgba(255, 215, 8, 0.18) !important;
     border-radius: 20px !important;
     padding: 10px 20px !important;
     
-}
+} */
+
+.student-assessment > .card > .tabs > .card-header{
+    background-color:rgba(19, 166, 153, 0.9) !important;
+  }
 
 
 /* admin dashboard  */

@@ -394,43 +394,51 @@
         <h5>Tutors Note</h5>
         <p>You included no notes to this resource</p>
       </div>
-      <div class="student-reviews">
-        <b-row class="mb-5">
-          <b-col>
-            <h4>Student Feedback</h4>
-            <b-list-group>
-              <b-list-group-item>
-                <b-row>
-                  <b-col cols="2" class="text-right">
-                    <b-avatar></b-avatar>
-                  </b-col>
-                  <b-col cols="10">
-                    <strong>John Enugu</strong>
-                    <p>
-                      Very good info and easy to understand.
-                      Practical and insightful advice you can use in many situations even as an employee.
-                      Obviously Chris likes to help people succeed and knows some of the barriers to success from his own experience.
-                    </p>
-                  </b-col>
-                </b-row>
-              </b-list-group-item>
-              <b-list-group-item>
-                <b-row>
-                  <b-col cols="2" class="text-right">
-                    <b-avatar></b-avatar>
-                  </b-col>
-                  <b-col cols="10">
-                    <strong>Ada Nkechi</strong>
-                    <p>Incredible, Amazing, Awesome. If you are this, I want to say "Thank you so much from all my heart & spirit." To love this course would be an understatement, I really learned a lot, bought this one years ago & never gone through this until recently when I took learning seriously and finished this course.</p>
-                  </b-col>
-                </b-row>
-              </b-list-group-item>
-            </b-list-group>
-          </b-col>
-        </b-row>
+       <div class="student-feedback review">
+        <div class="featured-review p-3">
+          <h4>Featured Review</h4>
+          <div class="active-review">
+            <div class="featured-review-top">
+              <div class="featured-review-inner-top">
+                <b-avatar src="/images/profile-img.jpg"></b-avatar>
+                <p class="mb-0">
+                  <strong>Nkechi Onuha</strong>
+                </p>
+              </div>
+              <ratings :value="5" :disabled="true"></ratings>
+            </div>
+            <p>
+              I had an easy time learning this course with the materials giving.
+              <br />Easy to understand and grasp.
+            </p>
+          </div>
+        </div>
+
+
+        <div class="p-3 all-review">
+          <h5>Reviews</h5>
+          <div class=" border-bottom" v-for="(item,id) in reviews" :key="id">
+            <div class="active-review">
+              <div class="featured-review-top">
+                <div class="featured-review-inner-top">
+                  <b-avatar :src="item.user.profile"></b-avatar>
+                  <p class="mb-0">
+                    <strong class="toCaps">{{item.user.name}}</strong>
+                  </p>
+                </div>
+              </div>
+              <div class="d-flex align-items-center">
+                <ratings :value="item.rating" :disabled="true" class="mr-2"></ratings>
+                <small>{{item.created_at | moment('MMM DD')}}</small>
+              </div>
+              <p>{{item.comment}}</p>
+            </div>
+          </div>
+        
+        </div>
       </div>
     </div>
-    <b-col cols="5">
+  <b-col cols="5" v-if="modules.length">
       <b-card
         :title="subject"
         :img-src="cover_image"
@@ -442,19 +450,31 @@
         <b-card-text>
           <strong>This includes:</strong>
         </b-card-text>
-        <b-card-text
-          class="border-bottom"
-          v-for="(module,idx) in modules"
-          :key="idx"
-        >{{module.module}} - {{JSON.parse(module.content).length}} downloadable resources</b-card-text>
+        <b-card-text class="border-bottom">
+          <b-icon icon="folder-symlink" class="mr-2"></b-icon>
+          {{ totalVideos + totalDocs + totalAudio }} downloadable resources
+        </b-card-text>
+        <b-card-text class="border-bottom" v-if="totalVideos">
+          <b-icon icon="collection-play" class="mr-2"></b-icon>
+          {{ totalVideos }} videos
+        </b-card-text>
+        <b-card-text class="border-bottom" v-if="totalAudio">
+          <b-icon icon="file-music" class="mr-2"></b-icon>
+          {{ totalAudio }} audios
+        </b-card-text>
+        <b-card-text class="border-bottom" v-if="totalDocs">
+          <b-icon icon="file-earmark-arrow-down" class="mr-2"></b-icon>
+          {{ totalDocs }} Documents
+        </b-card-text>
 
-        <b-button href="#" block variant="primary">Views : 24</b-button>
+        <b-button href="#" block variant="secondary">Views : 14</b-button>
       </b-card>
     </b-col>
   </div>
 </template>
 
 <script>
+import Ratings from "../../starRatings";
 export default {
   props: ["tutor"],
   data() {
@@ -470,14 +490,66 @@ export default {
       subject: "",
       cover_image: "",
       show: true,
-      review: [1, 2, 3, 4, 5],
+      reviews: [],
       modules: [],
     };
   },
   mounted() {
     this.getResource();
   },
+   components: {
+    Ratings,
+  },
+  computed: {
+    totalVideos() {
+      var vid = [];
+      this.modules.filter((element) => {
+        JSON.parse(element.content).filter((item) => {
+          if (item.type == "video") {
+            vid.push(item);
+          }
+        });
+      });
+     
+      return vid.length;
+    },
+    totalDocs() {
+      var doc = [];
+      this.modules.filter((element) => {
+        JSON.parse(element.content).filter((item) => {
+          if (item.type == "pdf" || item.type == "csv" || item.type == "ppt") {
+            doc.push(item);
+          }
+        });
+      });
+      return doc.length;
+    },
+    totalAudio() {
+      var aud = [];
+      this.modules.filter((element) => {
+        JSON.parse(element.content).filter((item) => {
+          if (item.type == "audio") {
+            aud.push(item);
+          }
+        });
+      });
+      return aud.length;
+    },
+  },
   methods: {
+    getRating() {
+      axios
+        .get(`/api/tutor-rating/${this.$route.params.id}`, {
+          headers: {
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.reviews = res.data;
+          }
+        });
+    },
     handleToggle(title) {
       this.$bvModal.show(title);
     },
@@ -512,12 +584,14 @@ export default {
                 if (res.status == 200) {
                   this.modules = res.data;
                   this.show = false;
+                  this.getRating()
                 }
               });
           }
         });
     },
   },
+  
 };
 </script>
 
@@ -556,7 +630,7 @@ export default {
 .floating-bar {
   position: fixed;
   right: 5%;
-  top: 30%;
+  top: 20%;
 }
 .view-resource-header {
   background-image: linear-gradient(
@@ -573,6 +647,31 @@ export default {
 .view-resource-header p {
   font-size: 14px;
   margin-bottom: 0.5rem !important;
+}
+.featured-review {
+  background: #f7f8fa;
+}
+.featured-review-inner-top {
+  display: flex;
+  padding: 15px 0;
+  align-items: center;
+}
+.featured-review-top {
+  display: flex;
+  justify-content: space-between;
+}
+.featured-review-inner-top p {
+  padding-left: 10px;
+}
+.featured-review-top img {
+  height: 20px;
+  width: 100px;
+}
+
+.review {
+  background-color: #fff;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 .btn {
   background: transparent;

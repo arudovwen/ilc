@@ -1,8 +1,7 @@
 <template>
   <div class="body">
-    <b-modal id="preview" size="lg"  hide-footer>
-     <Preview
-        
+    <b-modal id="preview" size="lg" hide-footer>
+      <Preview
         :syllabus="syllabus"
         @submit="submit"
         @togglePreview="togglePreview"
@@ -10,7 +9,7 @@
         :afterSubmit="afterSubmit"
         @cancelToggle="cancelToggle"
       />
-  </b-modal>
+    </b-modal>
     <!-- form starts here  -->
     <form @submit.prevent="togglePreview">
       <legend class="text-center">New Syllabus</legend>
@@ -66,6 +65,14 @@
             class="form-text text-muted"
           >Provide a brief description of the subject, for the specific student profile</small>
           <textarea required class="form-control" rows="3" v-model="syllabus.description"></textarea>
+        </div>
+        <div class="form-group">
+          <label for>Cover Image</label>
+          <br>
+         <label for="cover">
+            <b-avatar :src="syllabus.cover" rounded size="5rem" icon="image-fill"></b-avatar>
+          </label>
+            <Upload :label="label" :index="label" @getUploadDetails="getUploadDetails" />
         </div>
 
         <div class="form-group">
@@ -164,6 +171,33 @@
           <b-button type="button" class @click="remove(3)" v-if="syllabus.modules.length > 1">Remove</b-button>
         </div>
       </div>
+
+      <div class="border p-3 my-4">
+        <h5>Requirements</h5>
+        <small id="helpId" class="form-text text-muted">Subject requiremnts</small>
+
+        <span v-for="(item,idx) in syllabus.requirements" :key="idx" class="mb-2 d-flex">
+          <span class="mr-3">{{idx+1}}.</span>
+          <input
+            type="text"
+            required
+            class="form-control w-25 mb-2"
+            aria-describedby="helpId"
+            v-model="item.name"
+            placeholder
+          />
+        </span>
+
+        <div class="d-flex">
+          <b-button type="button" class="mr-3" @click="addNew(7)">Add</b-button>
+          <b-button
+            type="button"
+            class
+            @click="remove(7)"
+            v-if="syllabus.requirements.length > 1"
+          >Remove</b-button>
+        </div>
+      </div>
       <div class="border p-3 my-4">
         <h5>Delivery Methods</h5>
         <small
@@ -227,7 +261,6 @@
             <input
               v-model="item.question"
               type="text"
-              
               class="form-control w-75 mb-2"
               aria-describedby="helpId"
               placeholder="Question"
@@ -238,7 +271,6 @@
             <input
               v-model="item.answer"
               type="text"
-              
               class="form-control w-75"
               aria-describedby="helpId"
               placeholder="Answer"
@@ -269,12 +301,11 @@
       </div>
     </form>
     <!-- form ends here  -->
-
-  
   </div>
 </template>
 
 <script>
+import Upload from "../../miniupload";
 import Preview from "./preview";
 export default {
   props: ["admin"],
@@ -284,13 +315,17 @@ export default {
       afterSubmit: false,
       termType: false,
       showPreview: false,
+       label: "cover",
+      cover: "cover",
       allclasses: [],
       syllabus: {
         term: "",
+        cover: "",
         grade_level: "",
         subject: "",
         frequency: "",
         learner_outcome: [{ name: "" }],
+        requirements: [{ name: "" }],
         target_skills: [{ name: "" }],
         modules: [{ name: "" }],
         delivery_methods: [{ name: "" }],
@@ -298,30 +333,32 @@ export default {
         faqs: [
           {
             question: "",
-            answer: ""
-          }
+            answer: "",
+          },
         ],
         availability: "",
-        comment: ""
-      }
+        comment: "",
+      },
     };
   },
   components: {
-    Preview
+    Preview,
+    Upload,
   },
   mounted() {
     this.getSubjects();
     this.getclasses();
   },
   methods: {
-    cancelToggle(){
-        this.$bvModal.hide("preview");
+    getUploadDetails(id, res) {
+      this.syllabus.cover = res.secure_url;
     },
-      togglePreview() {
-        
+    cancelToggle() {
+      this.$bvModal.hide("preview");
+    },
+    togglePreview() {
       this.showPreview = !this.showPreview;
-        this.$bvModal.show("preview");
-       
+      this.$bvModal.show("preview");
     },
     updateComment(value) {
       this.syllabus.comment = value;
@@ -330,10 +367,10 @@ export default {
       axios
         .get("/api/classes", {
           headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.admin.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.allclasses = res.data;
           }
@@ -343,16 +380,16 @@ export default {
       axios
         .get("/api/subject", {
           headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.admin.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.subjects = res.data;
           }
         });
     },
-    
+
     addNew(value) {
       switch (value) {
         case 1:
@@ -370,10 +407,13 @@ export default {
         case 5:
           this.syllabus.assessments.push({ name: "" });
           break;
+        case 7:
+          this.syllabus.requirements.push({ name: "" });
+          break;
         case 6:
           this.syllabus.faqs.push({
             answer: "",
-            question: ""
+            question: "",
           });
           break;
 
@@ -398,6 +438,9 @@ export default {
         case 5:
           this.syllabus.assessments.pop();
           break;
+        case 7:
+          this.syllabus.requirements.pop();
+          break;
         case 6:
           this.syllabus.faqs.pop();
           break;
@@ -410,22 +453,22 @@ export default {
       let data = {
         syllabus: this.syllabus,
         subject: this.syllabus.subject,
-        myclass: this.syllabus.grade_level
+        myclass: this.syllabus.grade_level,
       };
       axios
         .post("/api/syllabus", data, {
           headers: {
-            Authorization: `Bearer ${this.$props.admin.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.admin.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 201) {
             this.$router.push("/admin/syllabus/home");
-             this.$toasted.info('Added successfully')
+            this.$toasted.info("Added successfully");
           }
         });
-    }
-  }
+    },
+  },
 };
 </script>
 

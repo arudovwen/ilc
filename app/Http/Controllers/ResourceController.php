@@ -88,10 +88,12 @@ class ResourceController extends Controller
                 Notification::create([
                 'school_id'=>$tutor->school_id,
                 'receiver_id'=>$value->id,
-                'message'=> 'New resource added, '.$request->subject.','.$request->module,
+                'message'=> strtoupper($request->module).'- A new resource has been added to '.strtoupper($request->subject),
                 'status'=> false,
                 'sender_id'=> $tutor->id ,
-                'role' => 'student'
+                'role' => 'student',
+                'type'=>$request->type,
+                'resource_id'=>$resource->id,
             ]);
                 broadcast(new ResourceAdded($users, $resource));
             }
@@ -160,8 +162,6 @@ class ResourceController extends Controller
         $resource->worksheet_id  = $request->worksheet_id;
         $resource->note = $request->note;
         $resource->cover_image = $request->cover_image;
-        $resource->curriculum_id = $request->curriculum_id;
-        $resource->syllabus_id = $request->syllabus_id;
         $resource->save();
     }
 

@@ -4470,6 +4470,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _preview__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./preview */ "./resources/js/components/admin/syllabus/preview.vue");
+/* harmony import */ var _miniupload__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../miniupload */ "./resources/js/components/miniupload.vue");
 var _methods;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -4747,12 +4748,49 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["admin"],
   data: function data() {
     return {
       subjects: [],
+      label: "cover",
+      cover: "cover",
       afterSubmit: false,
       termType: false,
       showPreview: false,
@@ -4777,6 +4815,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         assessments: [{
           name: ""
         }],
+        requirements: [{
+          name: ""
+        }],
         faqs: [{
           question: "",
           answer: ""
@@ -4787,7 +4828,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   components: {
-    Preview: _preview__WEBPACK_IMPORTED_MODULE_0__["default"]
+    Preview: _preview__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Upload: _miniupload__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   mounted: function mounted() {
     this.getSubjects();
@@ -4833,6 +4875,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       });
     },
+    getUploadDetails: function getUploadDetails(id, res) {
+      this.syllabus.cover = res.secure_url;
+    },
     getSubjects: function getSubjects() {
       var _this3 = this;
 
@@ -4862,8 +4907,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     updateComment: function updateComment(value) {
       this.syllabus.comment = value;
     },
+    cancelToggle: function cancelToggle() {
+      this.$bvModal.hide("preview");
+    },
     togglePreview: function togglePreview() {
       this.showPreview = !this.showPreview;
+      this.$bvModal.show("preview");
     }
   }, _defineProperty(_methods, "getclasses", function getclasses() {
     var _this5 = this;
@@ -4909,6 +4958,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         });
         break;
 
+      case 7:
+        this.syllabus.requirements.push({
+          name: ""
+        });
+        break;
+
       case 6:
         this.syllabus.faqs.push({
           answer: "",
@@ -4939,6 +4994,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       case 5:
         this.syllabus.assessments.pop();
+        break;
+
+      case 7:
+        this.syllabus.requirements.pop();
         break;
 
       case 6:
@@ -5411,7 +5470,38 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _preview__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./preview */ "./resources/js/components/admin/syllabus/preview.vue");
+/* harmony import */ var _miniupload__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../miniupload */ "./resources/js/components/miniupload.vue");
+/* harmony import */ var _preview__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./preview */ "./resources/js/components/admin/syllabus/preview.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5689,6 +5779,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["admin"],
   data: function data() {
@@ -5697,13 +5788,19 @@ __webpack_require__.r(__webpack_exports__);
       afterSubmit: false,
       termType: false,
       showPreview: false,
+      label: "cover",
+      cover: "cover",
       allclasses: [],
       syllabus: {
         term: "",
+        cover: "",
         grade_level: "",
         subject: "",
         frequency: "",
         learner_outcome: [{
+          name: ""
+        }],
+        requirements: [{
           name: ""
         }],
         target_skills: [{
@@ -5728,13 +5825,17 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   components: {
-    Preview: _preview__WEBPACK_IMPORTED_MODULE_0__["default"]
+    Preview: _preview__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Upload: _miniupload__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   mounted: function mounted() {
     this.getSubjects();
     this.getclasses();
   },
   methods: {
+    getUploadDetails: function getUploadDetails(id, res) {
+      this.syllabus.cover = res.secure_url;
+    },
     cancelToggle: function cancelToggle() {
       this.$bvModal.hide("preview");
     },
@@ -5803,6 +5904,12 @@ __webpack_require__.r(__webpack_exports__);
           });
           break;
 
+        case 7:
+          this.syllabus.requirements.push({
+            name: ""
+          });
+          break;
+
         case 6:
           this.syllabus.faqs.push({
             answer: "",
@@ -5836,6 +5943,10 @@ __webpack_require__.r(__webpack_exports__);
           this.syllabus.assessments.pop();
           break;
 
+        case 7:
+          this.syllabus.requirements.pop();
+          break;
+
         case 6:
           this.syllabus.faqs.pop();
           break;
@@ -5860,7 +5971,7 @@ __webpack_require__.r(__webpack_exports__);
         if (res.status == 201) {
           _this3.$router.push("/admin/syllabus/home");
 
-          _this3.$toasted.info('Added successfully');
+          _this3.$toasted.info("Added successfully");
         }
       });
     }
@@ -9209,13 +9320,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CloudinaryUpload",
   props: ["index", "label"],
@@ -10004,10 +10108,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/assessment/home.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/student/assessment/home.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/starRatings.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/starRatings.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -10035,30 +10139,67 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    'name': String,
+    'value': null,
+    'id': String,
+    'disabled': Boolean,
+    'required': Boolean
+  },
+
+  /*
+   * Initial state of the component's data.
+   */
+  data: function data() {
+    return {
+      temp_value: null,
+      ratings: [1, 2, 3, 4, 5]
+    };
+  },
+  methods: {
+    /*
+     * Behaviour of the stars on mouseover.
+     */
+    star_over: function star_over(index) {
+      if (!this.disabled) {
+        this.temp_value = this.$props.value;
+        this.$emit('handleRating', index);
+      }
+    },
+
+    /*
+     * Behaviour of the stars on mouseout.
+     */
+    star_out: function star_out() {
+      if (!this.disabled) {
+        this.$emit('handleRating', this.temp_value);
+      }
+    },
+
+    /*
+     * Set the rating.
+     */
+    set: function set(value) {
+      if (!this.disabled) {
+        this.temp_value = value;
+        this.$emit('handleRating', value);
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/assessment/home.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/student/assessment/home.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 //
 //
 //
@@ -11621,11 +11762,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["student"],
+  props: ["student", "notifications"],
   data: function data() {
     return {
       tutors: [],
+      new_resource: [],
       students: [],
       classes: [],
       syllabus: [],
@@ -11633,11 +11789,85 @@ __webpack_require__.r(__webpack_exports__);
       fields: ["class", "subject"],
       field: ["class"],
       value: null,
-      max: null
+      max: null,
+      note: {
+        title: '',
+        description: ''
+      },
+      notes: []
     };
   },
-  mounted: function mounted() {},
-  methods: {}
+  mounted: function mounted() {
+    this.getNotes();
+  },
+  computed: {
+    newresource: function newresource() {
+      return this.$props.notifications.filter(function (item) {
+        return item.type == 'new resource';
+      });
+    }
+  },
+  methods: {
+    gotoHer: function gotoHer(id) {
+      this.$router.push("/student/resource/view/".concat(id));
+    },
+    addNote: function addNote() {
+      var _this = this;
+
+      var data = {
+        title: this.note.title,
+        description: this.note.description
+      };
+      axios.post("/api/note", data, {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.student.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 201) {
+          _this.note.description = "";
+          _this.note.title = "";
+
+          _this.getNotes();
+
+          _this.$toasted.success("Note created");
+
+          _this.$bvModal.hide('note');
+        }
+      })["catch"]();
+    },
+    getNotes: function getNotes() {
+      var _this2 = this;
+
+      axios.get("/api/note", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.student.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this2.notes = res.data;
+        }
+      });
+    },
+    remove: function remove(id) {
+      var _this3 = this;
+
+      var del = confirm("Are you sure?");
+
+      if (del) {
+        axios["delete"]("/api/note/".concat(id), {
+          headers: {
+            Authorization: "Bearer ".concat(this.$props.student.access_token)
+          }
+        }).then(function (res) {
+          if (res.status == 200) {
+            _this3.$toasted.info("Note removed");
+
+            _this3.getNotes();
+          }
+        });
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -11651,58 +11881,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -11846,21 +12024,41 @@ __webpack_require__.r(__webpack_exports__);
       prev_page: "",
       current_page: 1,
       all: false,
-      filterShow: false
+      filterShow: false,
+      subjects: [],
+      subject: "",
+      lastRead: {}
     };
   },
   mounted: function mounted() {
     this.getLibrary();
+    this.getLastRead();
   },
   watch: {
     all: "getAll"
   },
+  computed: {
+    sorted: function sorted() {
+      var _this = this;
+
+      return this.library.filter(function (item) {
+        if (_this.subject !== "") {
+          return item.subject = _this.subject;
+        } else {
+          return item;
+        }
+      });
+    }
+  },
   methods: {
+    getLastRead: function getLastRead() {
+      this.lastRead = JSON.parse(localStorage.getItem('lastRead'));
+    },
     toggleFilter: function toggleFilter() {
       this.filterShow = !this.filterShow;
     },
     getLibrary: function getLibrary() {
-      var _this = this;
+      var _this2 = this;
 
       axios.get("/api/library", {
         headers: {
@@ -11868,17 +12066,22 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this.next_page = res.data.next_page_url;
-          _this.prev_page = res.data.prev_page_url;
-          _this.current_page = res.data.current_page;
-          _this.row_number = res.data.per_page;
-          _this.total_library = res.data.total;
-          _this.library = res.data.data;
+          _this2.next_page = res.data.next_page_url;
+          _this2.prev_page = res.data.prev_page_url;
+          _this2.current_page = res.data.current_page;
+          _this2.row_number = res.data.per_page;
+          _this2.total_library = res.data.total;
+          _this2.library = res.data.data;
+          res.data.data.forEach(function (item) {
+            if (!_this2.subjects.includes(item.subject)) {
+              _this2.subjects.push(item.subject);
+            }
+          });
         }
       });
     },
     getAll: function getAll() {
-      var _this2 = this;
+      var _this3 = this;
 
       if (!this.all) {
         this.getLibrary();
@@ -11890,29 +12093,15 @@ __webpack_require__.r(__webpack_exports__);
           }
         }).then(function (res) {
           if (res.status == 200) {
-            _this2.library = res.data;
+            _this3.library = res.data;
           }
         });
       }
     },
     firstPage: function firstPage() {
-      var _this3 = this;
-
-      axios.get(this.first_page, {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        _this3.next_page = res.data.next_page_url;
-        _this3.prev_page = res.data.prev_page_url;
-        _this3.current_page = res.data.current_page;
-        _this3.library = res.data.data;
-      });
-    },
-    lastPage: function lastPage() {
       var _this4 = this;
 
-      axios.get(this.last_page, {
+      axios.get(this.first_page, {
         headers: {
           Authorization: "Bearer ".concat(this.$props.student.access_token)
         }
@@ -11923,27 +12112,25 @@ __webpack_require__.r(__webpack_exports__);
         _this4.library = res.data.data;
       });
     },
-    next: function next() {
+    lastPage: function lastPage() {
       var _this5 = this;
+
+      axios.get(this.last_page, {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.student.access_token)
+        }
+      }).then(function (res) {
+        _this5.next_page = res.data.next_page_url;
+        _this5.prev_page = res.data.prev_page_url;
+        _this5.current_page = res.data.current_page;
+        _this5.library = res.data.data;
+      });
+    },
+    next: function next() {
+      var _this6 = this;
 
       if (this.next_page) {
         axios.get(this.next_page, {
-          headers: {
-            Authorization: "Bearer ".concat(this.$props.student.access_token)
-          }
-        }).then(function (res) {
-          _this5.next_page = res.data.next_page_url;
-          _this5.prev_page = res.data.prev_page_url;
-          _this5.current_page = res.data.current_page;
-          _this5.library = res.data.data;
-        });
-      }
-    },
-    prev: function prev() {
-      var _this6 = this;
-
-      if (this.prev_page) {
-        axios.get(this.prev_page, {
           headers: {
             Authorization: "Bearer ".concat(this.$props.student.access_token)
           }
@@ -11955,7 +12142,29 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
-    view: function view(id) {
+    prev: function prev() {
+      var _this7 = this;
+
+      if (this.prev_page) {
+        axios.get(this.prev_page, {
+          headers: {
+            Authorization: "Bearer ".concat(this.$props.student.access_token)
+          }
+        }).then(function (res) {
+          _this7.next_page = res.data.next_page_url;
+          _this7.prev_page = res.data.prev_page_url;
+          _this7.current_page = res.data.current_page;
+          _this7.library = res.data.data;
+        });
+      }
+    },
+    view: function view(id, subject, cover) {
+      var read = {
+        id: id,
+        cover: cover,
+        subject: subject
+      };
+      localStorage.setItem('lastRead', JSON.stringify(read));
       this.$router.push("/student/study/".concat(id));
     }
   }
@@ -11972,10 +12181,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var _props$data$mounted$m;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -12024,52 +12229,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = (_props$data$mounted$m = {
+/* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
     return {
@@ -12078,7 +12238,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       count: 0
     };
   },
-  mounted: function mounted() {
+  created: function created() {
     var _this = this;
 
     Echo["private"]("group-subscribed" + this.$props.student.id).listen("GroupSubscribed", function (e) {
@@ -12092,70 +12252,73 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       _this.getNotifications();
     });
-  }
-}, _defineProperty(_props$data$mounted$m, "mounted", function mounted() {
-  this.getNotifications();
-}), _defineProperty(_props$data$mounted$m, "watch", {
-  $route: "reset"
-}), _defineProperty(_props$data$mounted$m, "methods", {
-  initialLoad: function initialLoad() {
-    axios.get("/api/student-group", {
-      headers: {
-        Authorization: "Bearer ".concat(this.$props.tutor.access_token)
-      }
-    }).then(function (res) {
-      if (res.status == 200) {}
-    });
   },
-  reset: function reset() {
-    this.showNotification = false;
+  mounted: function mounted() {
+    this.getNotifications();
   },
-  toggleNotification: function toggleNotification() {
-    this.showNotification = !this.showNotification;
-    this.count = 0;
+  watch: {
+    $route: "reset"
+  },
+  methods: {
+    initialLoad: function initialLoad() {
+      axios.get("/api/student-group", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {}
+      });
+    },
+    reset: function reset() {
+      this.showNotification = false;
+    },
+    toggleNotification: function toggleNotification() {
+      this.showNotification = !this.showNotification;
+      this.count = 0;
 
-    if (!this.showNotification) {
-      this.clearNotifications();
+      if (!this.showNotification) {
+        this.clearNotifications();
+      }
+    },
+    clearNotifications: function clearNotifications() {
+      var _this2 = this;
+
+      axios.get("/api/clear-user-notifications/".concat(this.$props.student.id), {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.student.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this2.getNotifications();
+
+          _this2.count = 0;
+        }
+      });
+    },
+    getNotifications: function getNotifications() {
+      var _this3 = this;
+
+      axios.get("/api/user-notifications/".concat(this.$props.student.id), {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.student.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          var count = [];
+          _this3.notifications = res.data;
+
+          _this3.notifications.forEach(function (item) {
+            if (!item.status) {
+              count.push(item);
+            }
+          });
+
+          _this3.count = count.length;
+        }
+      });
     }
-  },
-  clearNotifications: function clearNotifications() {
-    var _this2 = this;
-
-    axios.get("/api/clear-user-notifications/".concat(this.$props.student.id), {
-      headers: {
-        Authorization: "Bearer ".concat(this.$props.student.access_token)
-      }
-    }).then(function (res) {
-      if (res.status == 200) {
-        _this2.getNotifications();
-
-        _this2.count = 0;
-      }
-    });
-  },
-  getNotifications: function getNotifications() {
-    var _this3 = this;
-
-    axios.get("/api/user-notifications/".concat(this.$props.student.id), {
-      headers: {
-        Authorization: "Bearer ".concat(this.$props.student.access_token)
-      }
-    }).then(function (res) {
-      if (res.status == 200) {
-        var count = [];
-        _this3.notifications = res.data;
-
-        _this3.notifications.forEach(function (item) {
-          if (!item.status) {
-            count.push(item);
-          }
-        });
-
-        _this3.count = count.length;
-      }
-    });
   }
-}), _props$data$mounted$m);
+});
 
 /***/ }),
 
@@ -12519,12 +12682,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
@@ -12575,6 +12732,10 @@ __webpack_require__.r(__webpack_exports__);
               _this.type = JSON.parse(_this.modules[0].content)[0].type;
               _this.title = JSON.parse(_this.modules[0].content)[0].title;
               _this.overview = JSON.parse(_this.modules[0].content)[0].overview;
+              var lastRead = JSON.parse(localStorage.getItem("lastRead"));
+              lastRead.title = JSON.parse(_this.modules[0].content)[0].title;
+              lastRead.type = JSON.parse(_this.modules[0].content)[0].type;
+              localStorage.setItem("lastRead", JSON.stringify(lastRead));
               _this.show = true;
             }
           });
@@ -12643,6 +12804,10 @@ __webpack_require__.r(__webpack_exports__);
       this.type = type;
       this.title = title;
       this.overview = overview;
+      var lastRead = JSON.parse(localStorage.getItem("lastRead"));
+      lastRead.title = title;
+      lastRead.type = type;
+      localStorage.setItem("lastRead", JSON.stringify(lastRead));
 
       if (type == "pdf") {
         this.changepdf();
@@ -12946,6 +13111,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _starRatings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../starRatings */ "./resources/js/components/starRatings.vue");
 //
 //
 //
@@ -13151,6 +13317,106 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -13166,19 +13432,49 @@ __webpack_require__.r(__webpack_exports__);
       subject: "",
       cover_image: "",
       show: true,
-      review: [1, 2, 3, 4, 5],
-      modules: []
+      reviews: [],
+      modules: [],
+      rating: 0,
+      comment: ""
     };
+  },
+  components: {
+    Ratings: _starRatings__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   mounted: function mounted() {
     this.getResource();
   },
   methods: {
+    rate: function rate() {
+      var _this = this;
+
+      var data = {
+        course_id: this.$route.params.id,
+        comment: this.comment,
+        rating: this.rating
+      };
+      axios.post("/api/rating", data, {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.student.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 201) {
+          _this.comment = "";
+
+          _this.getRating();
+
+          _this.$toasted.success("Successful");
+        }
+      })["catch"]();
+    },
+    handleRating: function handleRating(val) {
+      this.rating = val;
+    },
     handleToggle: function handleToggle(title) {
       this.$bvModal.show(title);
     },
     addtolibrary: function addtolibrary() {
-      var _this = this;
+      var _this2 = this;
 
       var data = {
         id: this.id,
@@ -13194,22 +13490,35 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 201) {
-          _this.$toasted.success("Added to Library", {
+          _this2.$toasted.success("Added to Library", {
             icon: {
               name: "check",
               after: false
             }
           });
         } else {
-          _this.$toasted.error("Already in Library", {
+          _this2.$toasted.error("Already in Library", {
             icon: "ban",
             after: false
           });
         }
       });
     },
+    getRating: function getRating() {
+      var _this3 = this;
+
+      axios.get("/api/rating/".concat(this.$route.params.id), {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.student.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this3.reviews = res.data;
+        }
+      });
+    },
     getResource: function getResource() {
-      var _this2 = this;
+      var _this4 = this;
 
       axios.get("/api/student-resource/".concat(this.$route.params.id), {
         headers: {
@@ -13217,24 +13526,88 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this2.tutor = res.data.data.tutor;
-          _this2.syllabus = JSON.parse(res.data.data.syllabus.syllabus);
-          _this2.curriculum = JSON.parse(res.data.data.curriculum.curriculum);
-          _this2.content = JSON.parse(res.data.data.content);
-          _this2.excerpt = res.data.data.excerpt;
-          _this2.title = res.data.data.title;
-          _this2.time = res.data.data.time;
-          _this2.id = res.data.data.id;
-          _this2.cover_image = res.data.data.cover_image;
-          _this2.subject = res.data.data.subject;
-          _this2.show = false;
-          axios.get("/api/get-module/".concat(_this2.subject, "/").concat(_this2.$props.student.level)).then(function (res) {
+          _this4.tutor = res.data.data.tutor;
+          _this4.syllabus = JSON.parse(res.data.data.syllabus.syllabus);
+          _this4.curriculum = JSON.parse(res.data.data.curriculum.curriculum);
+          _this4.content = JSON.parse(res.data.data.content);
+          _this4.excerpt = res.data.data.excerpt;
+          _this4.title = res.data.data.title;
+          _this4.time = res.data.data.time;
+          _this4.id = res.data.data.id;
+          _this4.cover_image = res.data.data.cover_image;
+          _this4.subject = res.data.data.subject;
+          _this4.show = false;
+          axios.get("/api/get-module/".concat(_this4.subject, "/").concat(_this4.$props.student.level)).then(function (res) {
             if (res.status == 200) {
-              _this2.modules = res.data;
+              _this4.modules = res.data;
+
+              _this4.getRating();
             }
           });
         }
       });
+    },
+    getModuleDuration: function getModuleDuration(arr) {
+      var newArr = [];
+      arr.filter(function (item) {
+        if (item.type == "video" || item.type == "audio") {
+          newArr.push(Number(item.duration));
+        }
+      });
+      var sum = newArr.reduce(function (a, b) {
+        return a + b;
+      }, 0);
+      return sum;
+    }
+  },
+  computed: {
+    totalVideos: function totalVideos() {
+      var vid = [];
+      this.modules.filter(function (element) {
+        JSON.parse(element.content).filter(function (item) {
+          if (item.type == "video") {
+            vid.push(item);
+          }
+        });
+      });
+      return vid.length;
+    },
+    totalDocs: function totalDocs() {
+      var doc = [];
+      this.modules.filter(function (element) {
+        JSON.parse(element.content).filter(function (item) {
+          if (item.type == "pdf" || item.type == "csv" || item.type == "ppt") {
+            doc.push(item);
+          }
+        });
+      });
+      return doc.length;
+    },
+    totalAudio: function totalAudio() {
+      var aud = [];
+      this.modules.filter(function (element) {
+        JSON.parse(element.content).filter(function (item) {
+          if (item.type == "audio") {
+            aud.push(item);
+          }
+        });
+      });
+      return aud.length;
+    },
+    totalMedia: function totalMedia() {
+      var media = [];
+      this.modules.filter(function (element) {
+        JSON.parse(element.content).filter(function (item) {
+          if (item.type == "audio" || item.type == "video") {
+            if (item.duration) {
+              media.push(Number(item.duration));
+            }
+          }
+        });
+      });
+      return media.reduce(function (a, b) {
+        return a + b;
+      }, 0);
     }
   }
 });
@@ -16500,8 +16873,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["student"],
+  props: ["tutor"],
   data: function data() {
     return {
       tutors: [],
@@ -16510,18 +16897,65 @@ __webpack_require__.r(__webpack_exports__);
       syllabus: [],
       curriculum: [],
       fields: ["class", "subject"],
-      field: ["class"]
+      field: ["class"],
+      note: {
+        title: '',
+        description: ''
+      },
+      notes: []
     };
   },
-  mounted: function mounted() {// this.getStudents();
+  mounted: function mounted() {
+    // this.getStudents();
     // this.getClasses();
     // this.getTutors();
     // this.getSyllabus()
     // this.getCurriculum();
+    this.getNotes();
   },
   methods: {
-    getStudents: function getStudents() {
+    gotoHer: function gotoHer(id) {
+      this.$router.push("/student/resource/view/".concat(id));
+    },
+    addNote: function addNote() {
       var _this = this;
+
+      var data = {
+        title: this.note.title,
+        description: this.note.description
+      };
+      axios.post("/api/tutor-note", data, {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 201) {
+          _this.note.description = "";
+          _this.note.title = "";
+
+          _this.getNotes();
+
+          _this.$toasted.success("Note created");
+
+          _this.$bvModal.hide('note');
+        }
+      })["catch"]();
+    },
+    getNotes: function getNotes() {
+      var _this2 = this;
+
+      axios.get("/api/tutor-note", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this2.notes = res.data;
+        }
+      });
+    },
+    getStudents: function getStudents() {
+      var _this3 = this;
 
       axios.get("/api/student-get-students", {
         headers: {
@@ -16529,12 +16963,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this.students = res.data;
+          _this3.students = res.data;
         }
       });
     },
     getCurriculum: function getCurriculum() {
-      var _this2 = this;
+      var _this4 = this;
 
       axios.get("/api/curriculum", {
         headers: {
@@ -16542,12 +16976,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this2.curriculum = res.data;
+          _this4.curriculum = res.data;
         }
       });
     },
     getTutors: function getTutors() {
-      var _this3 = this;
+      var _this5 = this;
 
       axios.get("/api/tutor", {
         headers: {
@@ -16555,12 +16989,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this3.tutors = res.data;
+          _this5.tutors = res.data;
         }
       });
     },
     getClasses: function getClasses() {
-      var _this4 = this;
+      var _this6 = this;
 
       axios.get("/api/classes", {
         headers: {
@@ -16568,12 +17002,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this4.classes = res.data;
+          _this6.classes = res.data;
         }
       });
     },
     getSyllabus: function getSyllabus() {
-      var _this5 = this;
+      var _this7 = this;
 
       axios.get("/api/syllabus", {
         headers: {
@@ -16581,7 +17015,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this5.syllabus = res.data;
+          _this7.syllabus = res.data;
         }
       });
     }
@@ -17208,12 +17642,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       excerpt: "",
       count: "single",
       cover_image: "",
+      type: "new resource",
       content: [{
         type: "",
         file: "",
         name: "",
         title: "",
-        overview: ""
+        overview: "",
+        duration: ''
       }],
       worksheet: "",
       note: ""
@@ -17285,13 +17721,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.resource.content.pop();
     },
     getUploadDetails: function getUploadDetails(id, res) {
-      console.log("getUploadDetails -> id", id);
-
       if (id == "cover") {
         this.resource.cover_image = res.secure_url;
       } else {
         this.resource.content[id].file = res.secure_url;
         this.resource.content[id].name = res.original_filename;
+        this.resource.content[id].duration = res.duration;
       }
     },
     getModules: function getModules() {
@@ -17335,6 +17770,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _uploadComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../uploadComponent */ "./resources/js/components/uploadComponent.vue");
+/* harmony import */ var _miniupload__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../miniupload */ "./resources/js/components/miniupload.vue");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
 //
 //
 //
@@ -17486,42 +17927,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tutor"],
   data: function data() {
-    return {
-      allClass: [],
-      modules: [],
-      subjects: [],
-      resource: {
-        level: "",
-        subject: "",
-        module: "",
-        excerpt: '',
-        count: "single",
-        content: [{
-          type: "",
-          file: "",
-          name: "",
-          title: "",
-          overview: ""
-        }],
-        worksheet: "",
-        note: ""
-      }
-    };
+    var _ref;
+
+    return _ref = {
+      selected: "single",
+      options: [{
+        text: "Single Resource",
+        value: "single"
+      }, {
+        text: "Multiple Resource",
+        value: "multiple"
+      }]
+    }, _defineProperty(_ref, "selected", "yes"), _defineProperty(_ref, "worksheet", [{
+      text: "Yes",
+      value: "yes"
+    }, {
+      text: "No",
+      value: "no"
+    }]), _defineProperty(_ref, "label", "cover"), _defineProperty(_ref, "cover", "cover"), _defineProperty(_ref, "allClass", []), _defineProperty(_ref, "modules", []), _defineProperty(_ref, "subjects", []), _defineProperty(_ref, "resource", {
+      level: "",
+      subject: "",
+      module: "",
+      excerpt: "",
+      count: "single",
+      cover_image: "",
+      type: "new resource",
+      content: [{
+        type: "",
+        file: "",
+        name: "",
+        title: "",
+        overview: "",
+        duration: ''
+      }],
+      worksheet: "",
+      note: ""
+    }), _ref;
   },
   components: {
-    Upload: _uploadComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
+    Upload: _uploadComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
+    MiniUpload: _miniupload__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   mounted: function mounted() {
     this.getCLasses();
     this.getSubjects();
     this.getResource();
   },
-  watch: {
-    "resource.subject": "getModules"
-  },
+  // watch: {
+  //   "resource.subject": "getModules"
+  // },
   methods: {
     submit: function submit() {
       var _this = this;
@@ -17563,6 +18021,7 @@ __webpack_require__.r(__webpack_exports__);
     getUploadDetails: function getUploadDetails(id, res) {
       this.resource.content[id].file = res.secure_url;
       this.resource.content[id].name = res.original_filename;
+      this.resource.content[id].duration = res.duration;
     },
     getModules: function getModules() {
       var _this3 = this;
@@ -17586,8 +18045,13 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this4.resource = res.data;
-          _this4.resource.content = JSON.parse(res.data.content);
+          _this4.resource = res.data.data;
+          _this4.resource.level = res.data.data.level.toLowerCase();
+          _this4.resource.subject = res.data.data.subject.toLowerCase();
+          _this4.resource.module = res.data.data.title.toLowerCase();
+          _this4.resource.content = JSON.parse(res.data.data.content);
+
+          _this4.getModules();
         }
       });
     },
@@ -17877,6 +18341,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _starRatings__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../starRatings */ "./resources/js/components/starRatings.vue");
 //
 //
 //
@@ -18333,6 +18798,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tutor"],
   data: function data() {
@@ -18348,14 +18833,65 @@ __webpack_require__.r(__webpack_exports__);
       subject: "",
       cover_image: "",
       show: true,
-      review: [1, 2, 3, 4, 5],
+      reviews: [],
       modules: []
     };
   },
   mounted: function mounted() {
     this.getResource();
   },
+  components: {
+    Ratings: _starRatings__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  computed: {
+    totalVideos: function totalVideos() {
+      var vid = [];
+      this.modules.filter(function (element) {
+        JSON.parse(element.content).filter(function (item) {
+          if (item.type == "video") {
+            vid.push(item);
+          }
+        });
+      });
+      return vid.length;
+    },
+    totalDocs: function totalDocs() {
+      var doc = [];
+      this.modules.filter(function (element) {
+        JSON.parse(element.content).filter(function (item) {
+          if (item.type == "pdf" || item.type == "csv" || item.type == "ppt") {
+            doc.push(item);
+          }
+        });
+      });
+      return doc.length;
+    },
+    totalAudio: function totalAudio() {
+      var aud = [];
+      this.modules.filter(function (element) {
+        JSON.parse(element.content).filter(function (item) {
+          if (item.type == "audio") {
+            aud.push(item);
+          }
+        });
+      });
+      return aud.length;
+    }
+  },
   methods: {
+    getRating: function getRating() {
+      var _this = this;
+
+      axios.get("/api/tutor-rating/".concat(this.$route.params.id), {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this.reviews = res.data;
+        }
+      });
+    },
     handleToggle: function handleToggle(title) {
       this.$bvModal.show(title);
     },
@@ -18363,7 +18899,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$router.push("/tutor/resource/edit/".concat(id));
     },
     getResource: function getResource() {
-      var _this = this;
+      var _this2 = this;
 
       axios.get("/api/resource/".concat(this.$route.params.id), {
         headers: {
@@ -18371,20 +18907,22 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this.tutors = res.data.data.tutor;
-          _this.syllabus = JSON.parse(res.data.data.syllabus.syllabus);
-          _this.curriculum = JSON.parse(res.data.data.curriculum.curriculum);
-          _this.content = JSON.parse(res.data.data.content);
-          _this.excerpt = res.data.data.excerpt;
-          _this.title = res.data.data.title;
-          _this.time = res.data.data.time;
-          _this.id = res.data.data.id;
-          _this.cover_image = res.data.data.cover_image;
-          _this.subject = res.data.data.subject;
-          axios.get("/api/get-module/".concat(res.data.data.subject, "/").concat(_this.syllabus.grade_level)).then(function (res) {
+          _this2.tutors = res.data.data.tutor;
+          _this2.syllabus = JSON.parse(res.data.data.syllabus.syllabus);
+          _this2.curriculum = JSON.parse(res.data.data.curriculum.curriculum);
+          _this2.content = JSON.parse(res.data.data.content);
+          _this2.excerpt = res.data.data.excerpt;
+          _this2.title = res.data.data.title;
+          _this2.time = res.data.data.time;
+          _this2.id = res.data.data.id;
+          _this2.cover_image = res.data.data.cover_image;
+          _this2.subject = res.data.data.subject;
+          axios.get("/api/get-module/".concat(res.data.data.subject, "/").concat(_this2.syllabus.grade_level)).then(function (res) {
             if (res.status == 200) {
-              _this.modules = res.data;
-              _this.show = false;
+              _this2.modules = res.data;
+              _this2.show = false;
+
+              _this2.getRating();
             }
           });
         }
@@ -19340,6 +19878,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tutor"],
   data: function data() {
@@ -19378,6 +19936,28 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -19754,13 +20334,41 @@ __webpack_require__.r(__webpack_exports__);
         cloudName: "imostate"
       },
       progress: 0,
-      start: false
+      start: false,
+      duration: ""
     };
   },
   computed: {},
   methods: {
+    getDuration: function getDuration(file) {
+      window.URL = window.URL || window.webkitURL;
+      var video = document.createElement("video");
+      var that = this;
+      video.preload = "metadata";
+      video.src = URL.createObjectURL(file);
+
+      video.onloadedmetadata = function () {
+        window.URL.revokeObjectURL(video.src);
+        var duration = video.duration;
+        that.duration = duration;
+      };
+    },
+    getAudioDuration: function getAudioDuration(file) {
+      window.URL = window.URL || window.webkitURL;
+      var audio = document.createElement("audio");
+      audio.preload = "metadata";
+      audio.src = URL.createObjectURL(file);
+
+      audio.onloadedmetadata = function () {
+        window.URL.revokeObjectURL(audio.src);
+        var duration = audio.duration;
+        console.log("audio.onloadedmetadata -> duration", duration);
+        return duration;
+      };
+    },
     handleFileChange: function handleFileChange(event) {
       this.file = event.target.files[0];
+      this.getDuration(event.target.files[0]);
       this.filesSelectedLength = event.target.files.length;
       this.loadFile();
     },
@@ -19811,6 +20419,8 @@ __webpack_require__.r(__webpack_exports__);
           setTimeout(function () {}, 1000);
           var response = JSON.parse(xhr.response);
           _this2.uploadedFileUrl = response.secure_url; // https address of uploaded file
+
+          response.duration = _this2.duration;
 
           _this2.$emit("getUploadDetails", _this2.$props.index, response);
         } else {
@@ -19884,6 +20494,25 @@ exports.push([module.i, ".button-green[data-v-930ee7aa] {\n  padding: 8px 32px;\
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/starRatings.vue?vue&type=style&index=0&id=257974c9&scoped=true&lang=scss&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/starRatings.vue?vue&type=style&index=0&id=257974c9&scoped=true&lang=scss& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".star-rating__checkbox[data-v-257974c9] {\n  position: absolute;\n  overflow: hidden;\n  clip: rect(0 0 0 0);\n  height: 1px;\n  width: 1px;\n  margin: -1px;\n  padding: 0;\n  border: 0;\n}\n.star-rating__star[data-v-257974c9] {\n  display: inline-block;\n  padding: 3px;\n  vertical-align: middle;\n  line-height: 1;\n  font-size: 1.1em;\n  color: #ababab;\n  transition: color 0.2s ease-out;\n}\n.star-rating__star[data-v-257974c9]:hover {\n  cursor: pointer;\n}\n.star-rating__star.is-selected[data-v-257974c9] {\n  color: #ffd700;\n}\n.star-rating__star.is-disabled[data-v-257974c9]:hover {\n  cursor: default;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/summary.vue?vue&type=style&index=0&id=2cf9e62b&scoped=true&lang=scss&":
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/summary.vue?vue&type=style&index=0&id=2cf9e62b&scoped=true&lang=scss& ***!
@@ -19915,7 +20544,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-79ee3ba6] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100vh;\r\n   position: relative;\n}\nform[data-v-79ee3ba6]{\r\n    width:50%\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-79ee3ba6] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n   position: relative;\n}\nform[data-v-79ee3ba6]{\n    width:50%\n}\n", ""]);
 
 // exports
 
@@ -19934,7 +20563,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-20e0a484] {\r\n  height: 100%;\r\n  overflow: auto;\n}\n.hiden[data-v-20e0a484] {\r\n  opacity: 0;\n}\n.nav_box[data-v-20e0a484] {\r\n  background-color: #f7f8fa;\r\n\r\n  text-align: center;\r\n  padding: 10px 15px;\n}\nth[data-v-20e0a484]{\r\n  background: transparent;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-20e0a484] {\n  height: 100%;\n  overflow: auto;\n}\n.hiden[data-v-20e0a484] {\n  opacity: 0;\n}\n.nav_box[data-v-20e0a484] {\n  background-color: #f7f8fa;\n\n  text-align: center;\n  padding: 10px 15px;\n}\nth[data-v-20e0a484]{\n  background: transparent;\n}\n", ""]);
 
 // exports
 
@@ -19953,7 +20582,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.btn-sm[data-v-6c6e04d7] {\r\n  padding: 0.1rem 0.4rem;\r\n  font-size: 0.4rem;\r\n  line-height: 1.5;\n}\n.container[data-v-6c6e04d7]{\r\n    width:80%;\r\n    margin:0 auto;\n}\n.bod[data-v-6c6e04d7]{\r\n    background:#f7f8fa;\n}\r\n", ""]);
+exports.push([module.i, "\n.btn-sm[data-v-6c6e04d7] {\n  padding: 0.1rem 0.4rem;\n  font-size: 0.4rem;\n  line-height: 1.5;\n}\n.container[data-v-6c6e04d7]{\n    width:80%;\n    margin:0 auto;\n}\n.bod[data-v-6c6e04d7]{\n    background:#f7f8fa;\n}\n", ""]);
 
 // exports
 
@@ -19972,7 +20601,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-6e628573] {\r\n  width: 20%;\r\n  padding: 30px 15px;\n}\n.left-side[data-v-6e628573] {\r\n  width: 80%;\n}\n.form-group[data-v-6e628573]{\r\n  margin-bottom:24px;\n}\ntd[data-v-6e628573] {\r\n  text-transform: capitalize;\n}\n.hiden[data-v-6e628573] {\r\n  opacity: 0;\n}\n.add[data-v-6e628573] {\r\n  background-color: #f7f8fa;\n}\ntable[data-v-6e628573] {\r\n  font-size: 14.5px;\n}\r\n", ""]);
+exports.push([module.i, "\nnav[data-v-6e628573] {\n  width: 20%;\n  padding: 30px 15px;\n}\n.left-side[data-v-6e628573] {\n  width: 80%;\n}\n.form-group[data-v-6e628573]{\n  margin-bottom:24px;\n}\ntd[data-v-6e628573] {\n  text-transform: capitalize;\n}\n.hiden[data-v-6e628573] {\n  opacity: 0;\n}\n.add[data-v-6e628573] {\n  background-color: #f7f8fa;\n}\ntable[data-v-6e628573] {\n  font-size: 14.5px;\n}\n", ""]);
 
 // exports
 
@@ -19991,7 +20620,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nnav[data-v-7ba444bd] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\ntd[data-v-7ba444bd] {\r\n  text-transform: uppercase;\n}\n.hiden[data-v-7ba444bd] {\r\n  opacity: 0;\n}\n.add[data-v-7ba444bd] {\r\n  background-color: #f7f8fa;\n}\n.body[data-v-7ba444bd] {\r\n  padding: 20px 20px 50px;\r\n  height: 100%;\n}\n.form-group[data-v-7ba444bd]{\r\n  margin-bottom:24px;\n}\r\n", ""]);
+exports.push([module.i, "\nnav[data-v-7ba444bd] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\ntd[data-v-7ba444bd] {\n  text-transform: uppercase;\n}\n.hiden[data-v-7ba444bd] {\n  opacity: 0;\n}\n.add[data-v-7ba444bd] {\n  background-color: #f7f8fa;\n}\n.body[data-v-7ba444bd] {\n  padding: 20px 20px 50px;\n  height: 100%;\n}\n.form-group[data-v-7ba444bd]{\n  margin-bottom:24px;\n}\n", ""]);
 
 // exports
 
@@ -20010,7 +20639,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-2aa7ee15] {\r\n  padding: 40px 30px 70px;\r\n  position: relative;\n}\n.overflow-hide[data-v-2aa7ee15]{\r\n    overflow: hidden;\r\n    height: 100vh;\n}\n.preview[data-v-2aa7ee15] {\r\n  z-index: 2;\n}\n.popup-overlay[data-v-2aa7ee15] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(0, 0, 0, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\r\n  overflow: scroll;\r\n  padding: 20px;\n}\nform[data-v-2aa7ee15] {\r\n  padding-bottom: 60px;\r\n  font-size: 15.5px;\n}\nh5[data-v-2aa7ee15] {\r\n  margin-bottom: 24px;\n}\n.side-label[data-v-2aa7ee15] {\r\n  width: 150px;\n}\n.form-text[data-v-2aa7ee15] {\r\n  margin-bottom: 18px;\r\n  font-size: 14px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-2aa7ee15] {\n  padding: 40px 30px 70px;\n  position: relative;\n}\n.overflow-hide[data-v-2aa7ee15]{\n    overflow: hidden;\n    height: 100vh;\n}\n.preview[data-v-2aa7ee15] {\n  z-index: 2;\n}\n.popup-overlay[data-v-2aa7ee15] {\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  background: rgba(0, 0, 0, 0.7);\n  z-index: 1;\n  top: 0;\n  left: 0;\n  overflow: scroll;\n  padding: 20px;\n}\nform[data-v-2aa7ee15] {\n  padding-bottom: 60px;\n  font-size: 15.5px;\n}\nh5[data-v-2aa7ee15] {\n  margin-bottom: 24px;\n}\n.side-label[data-v-2aa7ee15] {\n  width: 150px;\n}\n.form-text[data-v-2aa7ee15] {\n  margin-bottom: 18px;\n  font-size: 14px;\n}\n", ""]);
 
 // exports
 
@@ -20029,7 +20658,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-3a9eb063] {\r\n  padding: 40px 30px 70px;\r\n  position: relative;\n}\n.overflow-hide[data-v-3a9eb063] {\r\n  overflow: hidden;\r\n  height: 100%;\n}\n.preview[data-v-3a9eb063] {\r\n  z-index: 2;\n}\n.popup-overlay[data-v-3a9eb063] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(0, 0, 0, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\r\n  overflow: scroll;\r\n  padding: 20px;\n}\nform[data-v-3a9eb063] {\r\n  padding-bottom: 60px;\r\n  font-size: 15.5px;\n}\nh5[data-v-3a9eb063] {\r\n  margin-bottom: 24px;\n}\n.side-label[data-v-3a9eb063] {\r\n  width: 150px;\n}\n.form-text[data-v-3a9eb063] {\r\n  margin-bottom: 18px;\r\n  font-size: 14px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-3a9eb063] {\n  padding: 40px 30px 70px;\n  position: relative;\n}\n.overflow-hide[data-v-3a9eb063] {\n  overflow: hidden;\n  height: 100%;\n}\n.preview[data-v-3a9eb063] {\n  z-index: 2;\n}\n.popup-overlay[data-v-3a9eb063] {\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  background: rgba(0, 0, 0, 0.7);\n  z-index: 1;\n  top: 0;\n  left: 0;\n  overflow: scroll;\n  padding: 20px;\n}\nform[data-v-3a9eb063] {\n  padding-bottom: 60px;\n  font-size: 15.5px;\n}\nh5[data-v-3a9eb063] {\n  margin-bottom: 24px;\n}\n.side-label[data-v-3a9eb063] {\n  width: 150px;\n}\n.form-text[data-v-3a9eb063] {\n  margin-bottom: 18px;\n  font-size: 14px;\n}\n", ""]);
 
 // exports
 
@@ -20048,7 +20677,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-83b27690] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-83b27690] {\r\n  opacity: 0;\n}\r\n\r\n\r\n", ""]);
+exports.push([module.i, "\nnav[data-v-83b27690] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-83b27690] {\n  opacity: 0;\n}\n\n\n", ""]);
 
 // exports
 
@@ -20067,7 +20696,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-0529ec02] {\r\n  padding: 40px 30px 70px;\r\n  height: 100%;\r\n  position: relative;\n}\n.popup-overlay[data-v-0529ec02] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(255, 255, 255, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\n}\n.suggestion-box[data-v-0529ec02] {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  background: white;\r\n  border-radius: 5px;\r\n  height: 250px;\r\n  width: 50%;\r\n  padding:15px;\r\n  position: absolute;\r\n  bottom: 50%;\r\n  transform: translate(50%, 50%);\r\n  right: 50%;\n}\n.suggestion-box p[data-v-0529ec02]{\r\n    font-size: 24px;\r\n    font-weight: bold;\r\n    text-align: center;\n}\n.close[data-v-0529ec02]{\r\n    position: absolute;\r\n    right: 5px;\r\n    top: 5px;\n}\nform[data-v-0529ec02] {\r\n  padding: 20px;\r\n  padding-bottom: 60px;\r\n  background: white;\r\n  font-size: 14px;\n}\nh5[data-v-0529ec02] {\r\n  margin-bottom: 24px;\n}\n.side-label[data-v-0529ec02] {\r\n  width: 150px;\n}\n.form-text[data-v-0529ec02] {\r\n  margin-bottom: 18px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-0529ec02] {\n  padding: 40px 30px 70px;\n  height: 100%;\n  position: relative;\n}\n.popup-overlay[data-v-0529ec02] {\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  background: rgba(255, 255, 255, 0.7);\n  z-index: 1;\n  top: 0;\n  left: 0;\n}\n.suggestion-box[data-v-0529ec02] {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: center;\n  background: white;\n  border-radius: 5px;\n  height: 250px;\n  width: 50%;\n  padding:15px;\n  position: absolute;\n  bottom: 50%;\n  transform: translate(50%, 50%);\n  right: 50%;\n}\n.suggestion-box p[data-v-0529ec02]{\n    font-size: 24px;\n    font-weight: bold;\n    text-align: center;\n}\n.close[data-v-0529ec02]{\n    position: absolute;\n    right: 5px;\n    top: 5px;\n}\nform[data-v-0529ec02] {\n  padding: 20px;\n  padding-bottom: 60px;\n  background: white;\n  font-size: 14px;\n}\nh5[data-v-0529ec02] {\n  margin-bottom: 24px;\n}\n.side-label[data-v-0529ec02] {\n  width: 150px;\n}\n.form-text[data-v-0529ec02] {\n  margin-bottom: 18px;\n}\n", ""]);
 
 // exports
 
@@ -20086,7 +20715,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-2268b77e] {\r\n  padding: 40px 30px 70px;\r\n  position: relative;\n}\n.popup-overlay[data-v-2268b77e] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(255, 255, 255, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\n}\n.suggestion-box[data-v-2268b77e] {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  background: white;\r\n  border-radius: 5px;\r\n  height: 250px;\r\n  width: 50%;\r\n  padding: 15px;\r\n  position: absolute;\r\n  bottom: 50%;\r\n  transform: translate(50%, 50%);\r\n  right: 50%;\n}\n.suggestion-box p[data-v-2268b77e] {\r\n  font-size: 24px;\r\n  font-weight: bold;\r\n  text-align: center;\n}\n.close[data-v-2268b77e] {\r\n  position: absolute;\r\n  right: 5px;\r\n  top: 5px;\n}\nform[data-v-2268b77e] {\r\n  padding: 20px;\r\n  padding-bottom: 60px;\r\n  background: white;\r\n  font-size: 14px;\n}\nh5[data-v-2268b77e] {\r\n  margin-bottom: 24px;\n}\n.side-label[data-v-2268b77e] {\r\n  width: 150px;\n}\n.form-text[data-v-2268b77e] {\r\n  margin-bottom: 18px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-2268b77e] {\n  padding: 40px 30px 70px;\n  position: relative;\n}\n.popup-overlay[data-v-2268b77e] {\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  background: rgba(255, 255, 255, 0.7);\n  z-index: 1;\n  top: 0;\n  left: 0;\n}\n.suggestion-box[data-v-2268b77e] {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: center;\n  background: white;\n  border-radius: 5px;\n  height: 250px;\n  width: 50%;\n  padding: 15px;\n  position: absolute;\n  bottom: 50%;\n  transform: translate(50%, 50%);\n  right: 50%;\n}\n.suggestion-box p[data-v-2268b77e] {\n  font-size: 24px;\n  font-weight: bold;\n  text-align: center;\n}\n.close[data-v-2268b77e] {\n  position: absolute;\n  right: 5px;\n  top: 5px;\n}\nform[data-v-2268b77e] {\n  padding: 20px;\n  padding-bottom: 60px;\n  background: white;\n  font-size: 14px;\n}\nh5[data-v-2268b77e] {\n  margin-bottom: 24px;\n}\n.side-label[data-v-2268b77e] {\n  width: 150px;\n}\n.form-text[data-v-2268b77e] {\n  margin-bottom: 18px;\n}\n", ""]);
 
 // exports
 
@@ -20105,7 +20734,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.my-container[data-v-3a73534e] {\r\n  width: 100%;\r\n  display: flex;\n}\n.side[data-v-3a73534e] {\r\n width: 15%;\r\n    height: 100vh;\r\n    background: #008E3A;\r\n    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);\r\n    position: fixed;\n}\n.main[data-v-3a73534e] {\r\n  width: 85%;\r\n  height: 100%;\r\n  position: absolute;\r\n  right: 0;\r\n   background: #f7f8fa;\n}\n.min-side[data-v-3a73534e]{\r\nwidth: 4% !important;\n}\n.min-main[data-v-3a73534e]{\r\nwidth: 96% !important;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.my-container[data-v-3a73534e] {\n  width: 100%;\n  display: flex;\n}\n.side[data-v-3a73534e] {\n width: 15%;\n    height: 100vh;\n    background: #008E3A;\n    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);\n    position: fixed;\n}\n.main[data-v-3a73534e] {\n  width: 85%;\n  min-height: 100%;\n  position: absolute;\n  right: 0;\n   background: #f7f8fa;\n}\n.min-side[data-v-3a73534e]{\nwidth: 4% !important;\n}\n.min-main[data-v-3a73534e]{\nwidth: 96% !important;\n}\n\n", ""]);
 
 // exports
 
@@ -20124,7 +20753,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-6f9fe055] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100vh;\r\n  position: relative;\n}\nform[data-v-6f9fe055] {\r\n  width: 50%;\n}\n.form-group[data-v-6f9fe055]{\r\n  margin-bottom:24px;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-6f9fe055] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n  position: relative;\n}\nform[data-v-6f9fe055] {\n  width: 50%;\n}\n.form-group[data-v-6f9fe055]{\n  margin-bottom:24px;\n}\n", ""]);
 
 // exports
 
@@ -20143,7 +20772,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.cards[data-v-19b016ac]{\r\n  background: #fff;\r\n  height: 500px;\r\n  padding: 1.5rem;\r\n  border-radius: 10px;\r\n  box-shadow: 5px 4px 11px rgba(249, 247, 240, 0.25);\n}\n.ongoing-lesson-content[data-v-19b016ac]{\r\n  padding-top: 1.5rem;\r\n  border-bottom: 1px solid #e5e5e5;\n}\n.ongoing-lesson-content[data-v-19b016ac]:last-child{\r\n  border-bottom: none;\n}\nh6[data-v-19b016ac]{\r\n  font-weight: 600;\n}\n.ongoing-lesson-content p[data-v-19b016ac]{\r\n  margin-bottom: 0;\n}\n.ongoing-lesson-time[data-v-19b016ac]{\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  padding-bottom: 10px;\n}\n.ongoing-lesson-time p[data-v-19b016ac]{\r\n   background: #e5e5e5;\r\n  border-radius: 5px;\r\n  padding: 5px;\r\n  font-weight: 500;\n}\n.lesson-link[data-v-19b016ac]{\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  padding-top: 10px;\n}\n.lesson-link a[data-v-19b016ac]{\r\n  color:#008E3A ;\n}\n.lesson-link a[data-v-19b016ac]:hover{\r\n  background: #008E3A;\r\n  color: white;\r\n  border-radius: 5px;\r\n  padding: 10px;\n}\n.notes-top[data-v-19b016ac]{\r\n  display: flex;\r\n  justify-content: space-between;\r\n  padding-bottom: 1.5rem;\n}\n.btn[data-v-19b016ac]{\r\n  background: transparent;\r\n  border: 1px solid;\r\n  color: #008E3A;\r\n  padding: 5px 10px;\n}\n.btn[data-v-19b016ac]:hover{\r\n  background: #008E3A;\r\n  color: #fff ;\n}\r\n", ""]);
+exports.push([module.i, "\n.cards[data-v-19b016ac]{\n  background: #fff;\n  height: 500px;\n  padding: 1.5rem;\n  border-radius: 10px;\n  box-shadow: 5px 4px 11px rgba(249, 247, 240, 0.25);\n}\n.ongoing-lesson-content[data-v-19b016ac]{\n  padding-top: 1.5rem;\n  border-bottom: 1px solid #e5e5e5;\n}\n.ongoing-lesson-content[data-v-19b016ac]:last-child{\n  border-bottom: none;\n}\nh6[data-v-19b016ac]{\n  font-weight: 600;\n}\n.ongoing-lesson-content p[data-v-19b016ac]{\n  margin-bottom: 0;\n}\n.ongoing-lesson-time[data-v-19b016ac]{\n  display: flex;\n  justify-content: flex-end;\n  padding-bottom: 10px;\n}\n.ongoing-lesson-time p[data-v-19b016ac]{\n   background: #e5e5e5;\n  border-radius: 5px;\n  padding: 5px;\n  font-weight: 500;\n}\n.lesson-link[data-v-19b016ac]{\n  display: flex;\n  justify-content: flex-end;\n  padding-top: 10px;\n}\n.lesson-link a[data-v-19b016ac]{\n  color:#008E3A ;\n}\n.lesson-link a[data-v-19b016ac]:hover{\n  background: #008E3A;\n  color: white;\n  border-radius: 5px;\n  padding: 10px;\n}\n.notes-top[data-v-19b016ac]{\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 1.5rem;\n}\n.btn[data-v-19b016ac]{\n  background: transparent;\n  border: 1px solid;\n  color: #008E3A;\n  padding: 5px 10px;\n}\n.btn[data-v-19b016ac]:hover{\n  background: #008E3A;\n  color: #fff ;\n}\n", ""]);
 
 // exports
 
@@ -20162,7 +20791,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.semi-white[data-v-0fa20884]{\r\n \r\n  height: 100%;\n}\nnav[data-v-0fa20884] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\n}\n#notification[data-v-0fa20884] {\r\n  position: relative;\r\n  z-index: 999;\n}\n.notification-body[data-v-0fa20884] {\r\n  position: absolute;\r\n  left: -240px;\r\n  width: 250px;\n}\n.main-notify[data-v-0fa20884] {\r\n  max-height: 300px;\r\n  overflow: scroll;\n}\n.icon[data-v-0fa20884] {\r\n  position: relative;\n}\n.badge[data-v-0fa20884] {\r\n  position: absolute;\r\n  top: -10%;\r\n  left: 50%;\r\n  background: red;\r\n  color: white;\r\n  font-size: 14px;\n}\n.list-group-item[data-v-0fa20884] {\r\n  font-size: 14px;\n}\n.fa-bell[data-v-0fa20884] {\r\n  font-size: 24px;\r\n  color:#008E3A;\n}\n.search[data-v-0fa20884]{\r\n  width:250px;\r\n  border-color:#008E3A\n}\r\n", ""]);
+exports.push([module.i, "\n.semi-white[data-v-0fa20884]{\n \n  height: 100%;\n}\nnav[data-v-0fa20884] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n#notification[data-v-0fa20884] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-0fa20884] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-0fa20884] {\n  max-height: 300px;\n  overflow: scroll;\n}\n.icon[data-v-0fa20884] {\n  position: relative;\n}\n.badge[data-v-0fa20884] {\n  position: absolute;\n  top: -10%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 14px;\n}\n.list-group-item[data-v-0fa20884] {\n  font-size: 14px;\n}\n.fa-bell[data-v-0fa20884] {\n  font-size: 24px;\n  color:#008E3A;\n}\n.search[data-v-0fa20884]{\n  width:250px;\n  border-color:#008E3A\n}\n", ""]);
 
 // exports
 
@@ -20181,7 +20810,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.bar[data-v-6b6d5b7e]{\r\n    position: relative;\n}\n.min-nav[data-v-6b6d5b7e]{\r\n    position: absolute;\r\n    text-align: center;\r\n    right: 20px;\r\n    bottom: 40px;\n}\n.logo[data-v-6b6d5b7e]{\r\n    padding: 10px 20px;\r\n    margin-bottom:20px;\r\n    text-align:center;\n}\n.logo p[data-v-6b6d5b7e]{\r\n    font-weight: bold;\r\n    font-family: 'Josefin Sans';\r\n    font-size: 24px;\r\n    text-align:center;\r\n    color:#008E3A;\r\n    margin:0;\n}\n.logo small[data-v-6b6d5b7e]{\r\n \r\n  font-size:18px;\r\n    color:white\n}\nul[data-v-6b6d5b7e]{\r\n    list-style:none;\n}\nnav[data-v-6b6d5b7e]{\r\n    padding-left:20px;\n}\na i[data-v-6b6d5b7e]{\r\n  font-size: 24px;\n}\na li[data-v-6b6d5b7e]{\r\n  padding-top: 2px;\r\n  color: #fff;\n}\n.router-link-exact-active[data-v-6b6d5b7e] {\r\nbackground:#f7f8fa ;\r\nborder-top-left-radius:10px;\r\nborder-bottom-left-radius:10px;\r\n color:#008E3A;\n}\na[data-v-6b6d5b7e]:hover{\r\n  color: #fff !important;\n}\n.router-link-exact-active li[data-v-6b6d5b7e]{\r\n\r\n color:#008E3A;\n}\n.router-link-exact-active i[data-v-6b6d5b7e]{\r\n  font-size: 24px;\r\n color:#008E3A;\n}\nli span[data-v-6b6d5b7e]{\r\n  font-size:17px;\n}\r\n", ""]);
+exports.push([module.i, "\n.bar[data-v-6b6d5b7e]{\n    position: relative;\n}\n.min-nav[data-v-6b6d5b7e]{\n    position: absolute;\n    text-align: center;\n    right: 20px;\n    bottom: 40px;\n}\n.logo[data-v-6b6d5b7e]{\n    padding: 10px 20px;\n    margin-bottom:20px;\n    text-align:center;\n}\n.logo p[data-v-6b6d5b7e]{\n    font-weight: bold;\n    font-family: 'Josefin Sans';\n    font-size: 24px;\n    text-align:center;\n    color:#008E3A;\n    margin:0;\n}\n.logo small[data-v-6b6d5b7e]{\n \n  font-size:18px;\n    color:white\n}\nul[data-v-6b6d5b7e]{\n    list-style:none;\n}\nnav[data-v-6b6d5b7e]{\n    padding-left:20px;\n}\na i[data-v-6b6d5b7e]{\n  font-size: 24px;\n}\na li[data-v-6b6d5b7e]{\n  padding-top: 2px;\n  color: #fff;\n}\n.router-link-exact-active[data-v-6b6d5b7e] {\nbackground:#f7f8fa ;\nborder-top-left-radius:10px;\nborder-bottom-left-radius:10px;\n color:#008E3A;\n}\na[data-v-6b6d5b7e]:hover{\n  color: #fff !important;\n}\n.router-link-exact-active li[data-v-6b6d5b7e]{\n\n color:#008E3A;\n}\n.router-link-exact-active i[data-v-6b6d5b7e]{\n  font-size: 24px;\n color:#008E3A;\n}\nli span[data-v-6b6d5b7e]{\n  font-size:17px;\n}\n", ""]);
 
 // exports
 
@@ -20200,7 +20829,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-f8ed41f4] {\r\n  min-height: 100%;\r\n  padding: 40px 20px 70px;\n}\n.bottom_box[data-v-f8ed41f4] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 20px;\n}\n.t-body[data-v-f8ed41f4] {\r\n  max-height: 400px;\r\n  overflow: scroll;\n}\n.selected[data-v-f8ed41f4] {\r\n  background: slategrey;\n}\n.top_box[data-v-f8ed41f4] {\r\n  display: block;\r\n  position: relative;\r\n  height: 300px;\r\n  overflow: auto;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-f8ed41f4] {\n  min-height: 100%;\n  padding: 40px 20px 70px;\n}\n.bottom_box[data-v-f8ed41f4] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 20px;\n}\n.t-body[data-v-f8ed41f4] {\n  max-height: 400px;\n  overflow: scroll;\n}\n.selected[data-v-f8ed41f4] {\n  background: slategrey;\n}\n.top_box[data-v-f8ed41f4] {\n  display: block;\n  position: relative;\n  height: 300px;\n  overflow: auto;\n}\n", ""]);
 
 // exports
 
@@ -20219,7 +20848,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-15cd1a4a] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\n}\nform[data-v-15cd1a4a]{\r\n    width:100%\n}\n.form-group[data-v-15cd1a4a]{\r\n  margin-bottom: 24px;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-15cd1a4a] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\nform[data-v-15cd1a4a]{\n    width:100%\n}\n.form-group[data-v-15cd1a4a]{\n  margin-bottom: 24px;\n}\n", ""]);
 
 // exports
 
@@ -20238,7 +20867,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-4316aea9] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100vh;\n}\nform[data-v-4316aea9]{\r\n    width:50%\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-4316aea9] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n}\nform[data-v-4316aea9]{\n    width:50%\n}\n", ""]);
 
 // exports
 
@@ -20257,7 +20886,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.view[data-v-72c27a04] {\r\n  display: flex;\n}\n.nav[data-v-72c27a04] {\r\n  width: 20%;\r\n  padding: 30px 15px;\n}\n.left-side[data-v-72c27a04] {\r\n  width: 80%;\r\n  padding: 30px 15px;\n}\n.hiden[data-v-72c27a04] {\r\n  opacity: 0;\n}\n.class_list[data-v-72c27a04] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;\r\n  grid-row-gap: 15px;\r\n  grid-column-gap: 15px;\n}\n.single-class[data-v-72c27a04] {\r\n  padding: 15px;\r\n  background: #f7f8fa;\r\n  text-transform: capitalize;\r\n  text-align: center;\n}\r\n", ""]);
+exports.push([module.i, "\n.view[data-v-72c27a04] {\n  display: flex;\n}\n.nav[data-v-72c27a04] {\n  width: 20%;\n  padding: 30px 15px;\n}\n.left-side[data-v-72c27a04] {\n  width: 80%;\n  padding: 30px 15px;\n}\n.hiden[data-v-72c27a04] {\n  opacity: 0;\n}\n.class_list[data-v-72c27a04] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;\n  grid-row-gap: 15px;\n  grid-column-gap: 15px;\n}\n.single-class[data-v-72c27a04] {\n  padding: 15px;\n  background: #f7f8fa;\n  text-transform: capitalize;\n  text-align: center;\n}\n", ""]);
 
 // exports
 
@@ -20276,7 +20905,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nform[data-v-dc4d47b0] {\r\n  width: 70%;\r\n  margin:0 auto\n}\n.form-group[data-v-dc4d47b0]{\r\n  margin-bottom: 24px;\n}\r\n", ""]);
+exports.push([module.i, "\nform[data-v-dc4d47b0] {\n  width: 70%;\n  margin:0 auto\n}\n.form-group[data-v-dc4d47b0]{\n  margin-bottom: 24px;\n}\n", ""]);
 
 // exports
 
@@ -20295,7 +20924,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-2ae0b5c4] {\r\n  padding: 50px 20px 70px;\r\n  height: 100%;\n}\n.info[data-v-2ae0b5c4] {\r\n  width: 80%;\r\n  margin: 0 auto;\n}\n.image[data-v-2ae0b5c4] {\r\n  width: 140px;\r\n  height: 140px;\r\n  border-radius: 50%;\r\n  overflow: hidden;\n}\n.image img[data-v-2ae0b5c4]{\r\n    width:100%;\r\n    height:100%;\r\n    -o-object-fit: cover;\r\n       object-fit: cover;\n}\nul[data-v-2ae0b5c4] {\r\n  list-style: none;\n}\nli[data-v-2ae0b5c4] {\r\n  text-transform: capitalize;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-2ae0b5c4] {\n  padding: 50px 20px 70px;\n  height: 100%;\n}\n.info[data-v-2ae0b5c4] {\n  width: 80%;\n  margin: 0 auto;\n}\n.image[data-v-2ae0b5c4] {\n  width: 140px;\n  height: 140px;\n  border-radius: 50%;\n  overflow: hidden;\n}\n.image img[data-v-2ae0b5c4]{\n    width:100%;\n    height:100%;\n    -o-object-fit: cover;\n       object-fit: cover;\n}\nul[data-v-2ae0b5c4] {\n  list-style: none;\n}\nli[data-v-2ae0b5c4] {\n  text-transform: capitalize;\n}\n", ""]);
 
 // exports
 
@@ -20314,7 +20943,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-4c84158e] {\r\n  padding: 40px 30px 70px;\r\n  position: relative;\n}\n.overflow-hide[data-v-4c84158e] {\r\n  overflow: hidden;\r\n  height: 100%;\n}\n.preview[data-v-4c84158e] {\r\n  z-index: 2;\n}\n.popup-overlay[data-v-4c84158e] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(0, 0, 0, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\r\n  overflow: scroll;\r\n  padding: 20px;\n}\nform[data-v-4c84158e] {\r\n  padding-bottom: 60px;\r\n  font-size: 15.5px;\n}\nh5[data-v-4c84158e] {\r\n  margin-bottom: 24px;\n}\n.side-label[data-v-4c84158e] {\r\n  width: 150px;\n}\n.form-text[data-v-4c84158e] {\r\n  margin-bottom: 18px;\r\n  font-size: 14px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-4c84158e] {\n  padding: 40px 30px 70px;\n  position: relative;\n}\n.overflow-hide[data-v-4c84158e] {\n  overflow: hidden;\n  height: 100%;\n}\n.preview[data-v-4c84158e] {\n  z-index: 2;\n}\n.popup-overlay[data-v-4c84158e] {\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  background: rgba(0, 0, 0, 0.7);\n  z-index: 1;\n  top: 0;\n  left: 0;\n  overflow: scroll;\n  padding: 20px;\n}\nform[data-v-4c84158e] {\n  padding-bottom: 60px;\n  font-size: 15.5px;\n}\nh5[data-v-4c84158e] {\n  margin-bottom: 24px;\n}\n.side-label[data-v-4c84158e] {\n  width: 150px;\n}\n.form-text[data-v-4c84158e] {\n  margin-bottom: 18px;\n  font-size: 14px;\n}\n", ""]);
 
 // exports
 
@@ -20333,7 +20962,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-5d46098e] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-5d46098e]{\r\n    opacity: 0;\n}\n.body[data-v-5d46098e] {\r\n  padding: 20px 20px 50px;\r\n  height: 100%;\n}\r\n", ""]);
+exports.push([module.i, "\nnav[data-v-5d46098e] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-5d46098e]{\n    opacity: 0;\n}\n.body[data-v-5d46098e] {\n  padding: 20px 20px 50px;\n  height: 100%;\n}\n", ""]);
 
 // exports
 
@@ -20352,7 +20981,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-35368d69] {\r\n \r\n  position: relative;\r\n  height: 100%;\n}\n.popup-overlay[data-v-35368d69] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(255, 255, 255, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\n}\n.suggestion-box[data-v-35368d69] {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  background: white;\r\n  border-radius: 5px;\r\n  height: 300px;\r\n  width: 50%;\r\n  padding: 15px;\r\n  position: absolute;\r\n  bottom: 50%;\r\n  transform: translate(50%, 50%);\r\n  right: 50%;\n}\n.suggestion-box p[data-v-35368d69] {\r\n  font-size: 24px;\r\n  font-weight: bold;\r\n  text-align: center;\n}\n.close[data-v-35368d69] {\r\n  position: absolute;\r\n  right: 5px;\r\n  top: 5px;\n}\nform[data-v-35368d69] {\r\n  padding: 20px;\r\n  padding-bottom: 60px;\r\n  background: white;\r\n  font-size: 14px;\n}\nh3[data-v-35368d69] {\r\n  margin-bottom: 24px;\r\n  font-size: 1.4em;\n}\n.side-label[data-v-35368d69] {\r\n  width: 150px;\n}\n.form-text[data-v-35368d69] {\r\n  margin-bottom: 18px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-35368d69] {\n \n  position: relative;\n  height: 100%;\n}\n.popup-overlay[data-v-35368d69] {\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  background: rgba(255, 255, 255, 0.7);\n  z-index: 1;\n  top: 0;\n  left: 0;\n}\n.suggestion-box[data-v-35368d69] {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: center;\n  background: white;\n  border-radius: 5px;\n  height: 300px;\n  width: 50%;\n  padding: 15px;\n  position: absolute;\n  bottom: 50%;\n  transform: translate(50%, 50%);\n  right: 50%;\n}\n.suggestion-box p[data-v-35368d69] {\n  font-size: 24px;\n  font-weight: bold;\n  text-align: center;\n}\n.close[data-v-35368d69] {\n  position: absolute;\n  right: 5px;\n  top: 5px;\n}\nform[data-v-35368d69] {\n  padding: 20px;\n  padding-bottom: 60px;\n  background: white;\n  font-size: 14px;\n}\nh3[data-v-35368d69] {\n  margin-bottom: 24px;\n  font-size: 1.4em;\n}\n.side-label[data-v-35368d69] {\n  width: 150px;\n}\n.form-text[data-v-35368d69] {\n  margin-bottom: 18px;\n}\n", ""]);
 
 // exports
 
@@ -20371,7 +21000,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-be66e7d8] {\r\n  padding: 40px 30px 70px;\r\n  position: relative;\n}\nform[data-v-be66e7d8] {\r\n  padding-bottom: 60px;\r\n  font-size: 15.5px;\n}\nh5[data-v-be66e7d8] {\r\n  margin-bottom: 24px;\n}\n.side-label[data-v-be66e7d8] {\r\n  width: 150px;\n}\n.form-text[data-v-be66e7d8] {\r\n  margin-bottom: 18px;\r\n  font-size: 14px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-be66e7d8] {\n  padding: 40px 30px 70px;\n  position: relative;\n}\nform[data-v-be66e7d8] {\n  padding-bottom: 60px;\n  font-size: 15.5px;\n}\nh5[data-v-be66e7d8] {\n  margin-bottom: 24px;\n}\n.side-label[data-v-be66e7d8] {\n  width: 150px;\n}\n.form-text[data-v-be66e7d8] {\n  margin-bottom: 18px;\n  font-size: 14px;\n}\n", ""]);
 
 // exports
 
@@ -20390,7 +21019,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-7cf00758] {\r\n  padding: 40px 30px 70px;\r\n  position: relative;\n}\n.popup-overlay[data-v-7cf00758] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(255, 255, 255, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\n}\n.suggestion-box[data-v-7cf00758] {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  background: white;\r\n  border-radius: 5px;\r\n  height: 250px;\r\n  width: 50%;\r\n  padding: 15px;\r\n  position: absolute;\r\n  bottom: 50%;\r\n  transform: translate(50%, 50%);\r\n  right: 50%;\n}\n.suggestion-box p[data-v-7cf00758] {\r\n  font-size: 24px;\r\n  font-weight: bold;\r\n  text-align: center;\n}\n.close[data-v-7cf00758] {\r\n  position: absolute;\r\n  right: 5px;\r\n  top: 5px;\n}\nform[data-v-7cf00758] {\r\n  padding: 20px;\r\n  padding-bottom: 60px;\r\n  background: white;\r\n  font-size: 14px;\n}\nh3[data-v-7cf00758] {\r\n  margin-bottom: 24px;\r\n  font-size: 1.4em;\n}\n.side-label[data-v-7cf00758] {\r\n  width: 150px;\n}\n.form-text[data-v-7cf00758] {\r\n  margin-bottom: 18px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-7cf00758] {\n  padding: 40px 30px 70px;\n  position: relative;\n}\n.popup-overlay[data-v-7cf00758] {\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  background: rgba(255, 255, 255, 0.7);\n  z-index: 1;\n  top: 0;\n  left: 0;\n}\n.suggestion-box[data-v-7cf00758] {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: center;\n  background: white;\n  border-radius: 5px;\n  height: 250px;\n  width: 50%;\n  padding: 15px;\n  position: absolute;\n  bottom: 50%;\n  transform: translate(50%, 50%);\n  right: 50%;\n}\n.suggestion-box p[data-v-7cf00758] {\n  font-size: 24px;\n  font-weight: bold;\n  text-align: center;\n}\n.close[data-v-7cf00758] {\n  position: absolute;\n  right: 5px;\n  top: 5px;\n}\nform[data-v-7cf00758] {\n  padding: 20px;\n  padding-bottom: 60px;\n  background: white;\n  font-size: 14px;\n}\nh3[data-v-7cf00758] {\n  margin-bottom: 24px;\n  font-size: 1.4em;\n}\n.side-label[data-v-7cf00758] {\n  width: 150px;\n}\n.form-text[data-v-7cf00758] {\n  margin-bottom: 18px;\n}\n", ""]);
 
 // exports
 
@@ -20409,7 +21038,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-e3859b90] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-e3859b90] {\r\n  opacity: 0;\n}\n.body[data-v-e3859b90] {\r\n  padding: 20px 20px 50px;\r\n  height: 100%;\n}\r\n", ""]);
+exports.push([module.i, "\nnav[data-v-e3859b90] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-e3859b90] {\n  opacity: 0;\n}\n.body[data-v-e3859b90] {\n  padding: 20px 20px 50px;\n  height: 100%;\n}\n", ""]);
 
 // exports
 
@@ -20428,7 +21057,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-22ed2978] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-22ed2978] {\r\n  opacity: 0;\n}\n.nav_box[data-v-22ed2978] {\r\n  background-color: #f7f8fa;\r\n  display: flex;\r\n  text-align: center;\r\n  padding: 10px 15px;\n}\n.add[data-v-22ed2978] {\r\n  background-color: #f7f8fa;\n}\ntable[data-v-22ed2978] {\r\n  font-size: 14px;\n}\n.day .form-control[data-v-22ed2978] {\r\n  width: 150px;\n}\r\n", ""]);
+exports.push([module.i, "\nnav[data-v-22ed2978] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-22ed2978] {\n  opacity: 0;\n}\n.nav_box[data-v-22ed2978] {\n  background-color: #f7f8fa;\n  display: flex;\n  text-align: center;\n  padding: 10px 15px;\n}\n.add[data-v-22ed2978] {\n  background-color: #f7f8fa;\n}\ntable[data-v-22ed2978] {\n  font-size: 14px;\n}\n.day .form-control[data-v-22ed2978] {\n  width: 150px;\n}\n", ""]);
 
 // exports
 
@@ -20447,7 +21076,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-1b01b604] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-1b01b604] {\r\n  opacity: 0;\n}\n.add[data-v-1b01b604] {\r\n  background-color: #f7f8fa;\n}\n.body[data-v-1b01b604] {\r\n  padding: 20px 20px 50px;\r\n  height: 100%;\n}\ntable[data-v-1b01b604] {\r\n  font-size: 14px;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\nnav[data-v-1b01b604] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-1b01b604] {\n  opacity: 0;\n}\n.add[data-v-1b01b604] {\n  background-color: #f7f8fa;\n}\n.body[data-v-1b01b604] {\n  padding: 20px 20px 50px;\n  height: 100%;\n}\ntable[data-v-1b01b604] {\n  font-size: 14px;\n}\n\n", ""]);
 
 // exports
 
@@ -20466,7 +21095,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-b766b880] {\n}\nform[data-v-b766b880] {\r\n  width: 100%;\n}\n.form-group[data-v-b766b880] {\r\n  margin-bottom: 24px;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-b766b880] {\n}\nform[data-v-b766b880] {\n  width: 100%;\n}\n.form-group[data-v-b766b880] {\n  margin-bottom: 24px;\n}\n", ""]);
 
 // exports
 
@@ -20485,7 +21114,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-4abad4ce] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100vh;\n}\nform[data-v-4abad4ce] {\r\n  width: 50%;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-4abad4ce] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n}\nform[data-v-4abad4ce] {\n  width: 50%;\n}\n", ""]);
 
 // exports
 
@@ -20504,7 +21133,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.view[data-v-637a2dba] {\r\n  display: flex;\n}\nnav[data-v-637a2dba] {\r\n  width: 20%;\r\n  background: white;\r\n  padding: 30px 20px;\n}\n.hiden[data-v-637a2dba] {\r\n  opacity: 0;\n}\n.left-side[data-v-637a2dba] {\r\n  width: 80%;\r\n  padding: 30px 20px;\n}\r\n", ""]);
+exports.push([module.i, "\n.view[data-v-637a2dba] {\n  display: flex;\n}\nnav[data-v-637a2dba] {\n  width: 20%;\n  background: white;\n  padding: 30px 20px;\n}\n.hiden[data-v-637a2dba] {\n  opacity: 0;\n}\n.left-side[data-v-637a2dba] {\n  width: 80%;\n  padding: 30px 20px;\n}\n", ""]);
 
 // exports
 
@@ -20523,7 +21152,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-410c8d0d] {\n}\nform[data-v-410c8d0d] {\r\n  margin: 0 auto;\n}\n.form-group[data-v-410c8d0d]{\r\n  margin-bottom:24px;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-410c8d0d] {\n}\nform[data-v-410c8d0d] {\n  margin: 0 auto;\n}\n.form-group[data-v-410c8d0d]{\n  margin-bottom:24px;\n}\n", ""]);
 
 // exports
 
@@ -20542,7 +21171,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-3284dbe9] {\r\n  padding: 50px 20px 70px;\r\n  height: 100%;\n}\n.info[data-v-3284dbe9] {\r\n  width: 90%;\r\n  margin: 0 auto;\n}\n.image[data-v-3284dbe9] {\r\n  width: 140px;\r\n  height: 140px;\r\n  border-radius: 50%;\r\n  overflow: hidden;\n}\n.image img[data-v-3284dbe9]{\r\n    width:100%;\r\n    height:100%;\r\n    -o-object-fit: cover;\r\n       object-fit: cover;\n}\nul[data-v-3284dbe9] {\r\n  list-style: none;\n}\nli[data-v-3284dbe9] {\r\n  text-transform: capitalize;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-3284dbe9] {\n  padding: 50px 20px 70px;\n  height: 100%;\n}\n.info[data-v-3284dbe9] {\n  width: 90%;\n  margin: 0 auto;\n}\n.image[data-v-3284dbe9] {\n  width: 140px;\n  height: 140px;\n  border-radius: 50%;\n  overflow: hidden;\n}\n.image img[data-v-3284dbe9]{\n    width:100%;\n    height:100%;\n    -o-object-fit: cover;\n       object-fit: cover;\n}\nul[data-v-3284dbe9] {\n  list-style: none;\n}\nli[data-v-3284dbe9] {\n  text-transform: capitalize;\n}\n", ""]);
 
 // exports
 
@@ -20561,7 +21190,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.login[data-v-2557a474] {\n}\n.register[data-v-2557a474] {\r\n  padding-top: 3%;\n}\n.mini_box_1[data-v-2557a474],\r\n.mini_box_2[data-v-2557a474] {\r\n  width: 200px;\r\n  height: 100px;\r\n  position: absolute;\n}\n.mini_box_1[data-v-2557a474] {\r\n  background: #333;\r\n  top: -6%;\r\n  right: -6%;\r\n  transform: rotate(45deg);\n}\n.mini_box_2[data-v-2557a474] {\r\n  background: yellow;\r\n  bottom: -6%;\r\n  left: -6%;\r\n  transform: rotate(45deg);\n}\n@media (max-width: 1024px) {\n.container[data-v-2557a474] {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    height: 100vh;\n}\n.register .nav-tabs[data-v-2557a474] {\r\n    width: 35%;\n}\n.mini_box_2[data-v-2557a474] {\r\n    bottom: -12%;\r\n    left: -12%;\n}\n.mini_box_1[data-v-2557a474] {\r\n    top: -12%;\r\n    right: -12%;\n}\n}\n@media (max-width: 768px) {\n}\n@media (max-width: 425px) {\n.mini_box_2[data-v-2557a474] {\r\n    bottom: -12%;\r\n    left: -20%;\r\n    background: #333;\n}\n.mini_box_1[data-v-2557a474] {\r\n    top: -12%;\r\n    right: -20%;\r\n    background: yellow;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.login[data-v-2557a474] {\n}\n.register[data-v-2557a474] {\n  padding-top: 3%;\n}\n.mini_box_1[data-v-2557a474],\n.mini_box_2[data-v-2557a474] {\n  width: 200px;\n  height: 100px;\n  position: absolute;\n}\n.mini_box_1[data-v-2557a474] {\n  background: #333;\n  top: -6%;\n  right: -6%;\n  transform: rotate(45deg);\n}\n.mini_box_2[data-v-2557a474] {\n  background: yellow;\n  bottom: -6%;\n  left: -6%;\n  transform: rotate(45deg);\n}\n@media (max-width: 1024px) {\n.container[data-v-2557a474] {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    height: 100vh;\n}\n.register .nav-tabs[data-v-2557a474] {\n    width: 35%;\n}\n.mini_box_2[data-v-2557a474] {\n    bottom: -12%;\n    left: -12%;\n}\n.mini_box_1[data-v-2557a474] {\n    top: -12%;\n    right: -12%;\n}\n}\n@media (max-width: 768px) {\n}\n@media (max-width: 425px) {\n.mini_box_2[data-v-2557a474] {\n    bottom: -12%;\n    left: -20%;\n    background: #333;\n}\n.mini_box_1[data-v-2557a474] {\n    top: -12%;\n    right: -20%;\n    background: yellow;\n}\n}\n", ""]);
 
 // exports
 
@@ -20580,7 +21209,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.main[data-v-6792fb91] {\r\n  background: #f7f8fa;\r\n  font-size: 14px;\r\n  position: relative;\n}\n.back[data-v-6792fb91] {\r\n  position: absolute;\r\n  top: 20px;\r\n  left: 20px;\n}\r\n", ""]);
+exports.push([module.i, "\n.main[data-v-6792fb91] {\n  background: #f7f8fa;\n  font-size: 14px;\n  position: relative;\n}\n.back[data-v-6792fb91] {\n  position: absolute;\n  top: 20px;\n  left: 20px;\n}\n", ""]);
 
 // exports
 
@@ -20599,7 +21228,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.container-fluid[data-v-0a681d75] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  min-height: 100vh;\n}\n.register[data-v-0a681d75] {\r\n  background: transparent;\r\n  padding: 3%;\n}\n.register-left[data-v-0a681d75] {\r\n  text-align: center;\r\n  color: #fff;\r\n  padding-top: 4%;\n}\n.register-left input[data-v-0a681d75] {\r\n  border: none;\r\n  border-radius: 1.5rem;\r\n  padding: 2%;\r\n  width: 60%;\r\n  background: #f7f8fa;\r\n  font-weight: bold;\r\n  color: #383d41;\r\n  margin-top: 28%;\r\n  margin-bottom: 3%;\r\n  cursor: pointer;\n}\n.register-right[data-v-0a681d75] {\r\n  background: #f7f8fa;\r\n  border-top-left-radius: 10% 50%;\r\n  border-bottom-left-radius: 10% 50%;\r\n  width: 80%;\r\n  padding: 0 15px;\n}\n.register-left img[data-v-0a681d75] {\r\n  margin-top: 15%;\r\n  margin-bottom: 5%;\r\n  width: 25%;\r\n  -webkit-animation: mover-data-v-0a681d75 2s infinite alternate;\r\n  animation: mover-data-v-0a681d75 1s infinite alternate;\n}\n@-webkit-keyframes mover-data-v-0a681d75 {\n0% {\r\n    transform: translateY(0);\n}\n100% {\r\n    transform: translateY(-20px);\n}\n}\n@keyframes mover-data-v-0a681d75 {\n0% {\r\n    transform: translateY(0);\n}\n100% {\r\n    transform: translateY(-20px);\n}\n}\n.register-left p[data-v-0a681d75] {\r\n  font-weight: lighter;\r\n  padding: 12%;\r\n  margin-top: -9%;\n}\n.register .register-form[data-v-0a681d75] {\r\n  padding: 10%;\r\n  margin-top: 2%;\n}\n.btnRegister[data-v-0a681d75] {\r\n\r\n  margin-top: 4%;\r\n  border: none;\r\n  border-radius: 1.5rem;\r\n  padding: 10px 40px;\r\n  background: repeating-linear-gradient(\r\n    to right,\r\n    rgb(15, 122, 138, 0.7) 0%,\r\n    rgb(15, 122, 138, 0.7) 100%\r\n  );\r\n  color: #fff;\r\n  font-weight: 600;\r\n  max-width: 50%;\r\n  cursor: pointer;\n}\n.register .nav-tabs[data-v-0a681d75] {\r\n  margin-top: 3%;\r\n  border: none;\r\n  background: repeating-linear-gradient(\r\n    to right,\r\n    rgb(15, 122, 138, 0.7) 0%,\r\n    rgb(15, 122, 138, 0.7) 100%\r\n  );\r\n  border-radius: 1.5rem;\r\n  width: 20%;\r\n  float: right;\r\n  font-size: 14px;\n}\n.register .nav-tabs .nav-link[data-v-0a681d75] {\r\n  padding: 2%;\r\n  height: 34px;\r\n  font-weight: 600;\r\n  color: #fff;\r\n  border-top-right-radius: 1.5rem;\r\n  border-bottom-right-radius: 1.5rem;\r\n  font-size: 14px;\n}\n.register .nav-tabs .nav-link[data-v-0a681d75]:hover {\r\n  border: none;\n}\n.register .nav-tabs .nav-link.active[data-v-0a681d75] {\r\n  width: 100px;\r\n  color: #5fa1ac;\r\n  border: 2px solid #5fa1ac;\r\n  border-top-left-radius: 1.5rem;\r\n  border-bottom-left-radius: 1.5rem;\n}\n.register-heading[data-v-0a681d75] {\r\n  text-align: center;\r\n  margin-top: 8%;\r\n  margin-bottom: -15%;\r\n  color: #495057;\n}\n.form-group[data-v-0a681d75]{\r\n  border:1px solid #ccc;\r\n  margin-bottom: 24px;\r\n  padding: 10px;\n}\n@media (max-width: 1024px) {\n.register .nav-tabs[data-v-0a681d75] {\r\n    width: 35%;\n}\nh4.register-heading[data-v-0a681d75] {\r\n    font-size: 22px;\n}\n.register-form[data-v-0a681d75] {\r\n    width: 100%;\n}\n}\n@media (max-width: 768px) {\n.register .nav-tabs[data-v-0a681d75] {\r\n    width: 35%;\n}\n.register-right[data-v-0a681d75] {\r\n    width: 90%;\n}\n}\n@media (max-width: 425px) {\n.register-right[data-v-0a681d75] {\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\n}\n.register-right[data-v-0a681d75] {\r\n    width: 100%;\r\n    height: 75vh;\r\n    overflow: scroll;\r\n    padding-top: 80%;\n}\n.register .nav-tabs[data-v-0a681d75] {\r\n    width: 60%;\r\n    margin: 3% auto 0;\n}\n.register-left[data-v-0a681d75] {\r\n    padding-bottom: 20px;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.container-fluid[data-v-0a681d75] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  min-height: 100vh;\n}\n.register[data-v-0a681d75] {\n  background: transparent;\n  padding: 3%;\n}\n.register-left[data-v-0a681d75] {\n  text-align: center;\n  color: #fff;\n  padding-top: 4%;\n}\n.register-left input[data-v-0a681d75] {\n  border: none;\n  border-radius: 1.5rem;\n  padding: 2%;\n  width: 60%;\n  background: #f7f8fa;\n  font-weight: bold;\n  color: #383d41;\n  margin-top: 28%;\n  margin-bottom: 3%;\n  cursor: pointer;\n}\n.register-right[data-v-0a681d75] {\n  background: #f7f8fa;\n  border-top-left-radius: 10% 50%;\n  border-bottom-left-radius: 10% 50%;\n  width: 80%;\n  padding: 0 15px;\n}\n.register-left img[data-v-0a681d75] {\n  margin-top: 15%;\n  margin-bottom: 5%;\n  width: 25%;\n  -webkit-animation: mover-data-v-0a681d75 2s infinite alternate;\n  animation: mover-data-v-0a681d75 1s infinite alternate;\n}\n@-webkit-keyframes mover-data-v-0a681d75 {\n0% {\n    transform: translateY(0);\n}\n100% {\n    transform: translateY(-20px);\n}\n}\n@keyframes mover-data-v-0a681d75 {\n0% {\n    transform: translateY(0);\n}\n100% {\n    transform: translateY(-20px);\n}\n}\n.register-left p[data-v-0a681d75] {\n  font-weight: lighter;\n  padding: 12%;\n  margin-top: -9%;\n}\n.register .register-form[data-v-0a681d75] {\n  padding: 10%;\n  margin-top: 2%;\n}\n.btnRegister[data-v-0a681d75] {\n\n  margin-top: 4%;\n  border: none;\n  border-radius: 1.5rem;\n  padding: 10px 40px;\n  background: repeating-linear-gradient(\n    to right,\n    rgb(15, 122, 138, 0.7) 0%,\n    rgb(15, 122, 138, 0.7) 100%\n  );\n  color: #fff;\n  font-weight: 600;\n  max-width: 50%;\n  cursor: pointer;\n}\n.register .nav-tabs[data-v-0a681d75] {\n  margin-top: 3%;\n  border: none;\n  background: repeating-linear-gradient(\n    to right,\n    rgb(15, 122, 138, 0.7) 0%,\n    rgb(15, 122, 138, 0.7) 100%\n  );\n  border-radius: 1.5rem;\n  width: 20%;\n  float: right;\n  font-size: 14px;\n}\n.register .nav-tabs .nav-link[data-v-0a681d75] {\n  padding: 2%;\n  height: 34px;\n  font-weight: 600;\n  color: #fff;\n  border-top-right-radius: 1.5rem;\n  border-bottom-right-radius: 1.5rem;\n  font-size: 14px;\n}\n.register .nav-tabs .nav-link[data-v-0a681d75]:hover {\n  border: none;\n}\n.register .nav-tabs .nav-link.active[data-v-0a681d75] {\n  width: 100px;\n  color: #5fa1ac;\n  border: 2px solid #5fa1ac;\n  border-top-left-radius: 1.5rem;\n  border-bottom-left-radius: 1.5rem;\n}\n.register-heading[data-v-0a681d75] {\n  text-align: center;\n  margin-top: 8%;\n  margin-bottom: -15%;\n  color: #495057;\n}\n.form-group[data-v-0a681d75]{\n  border:1px solid #ccc;\n  margin-bottom: 24px;\n  padding: 10px;\n}\n@media (max-width: 1024px) {\n.register .nav-tabs[data-v-0a681d75] {\n    width: 35%;\n}\nh4.register-heading[data-v-0a681d75] {\n    font-size: 22px;\n}\n.register-form[data-v-0a681d75] {\n    width: 100%;\n}\n}\n@media (max-width: 768px) {\n.register .nav-tabs[data-v-0a681d75] {\n    width: 35%;\n}\n.register-right[data-v-0a681d75] {\n    width: 90%;\n}\n}\n@media (max-width: 425px) {\n.register-right[data-v-0a681d75] {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n}\n.register-right[data-v-0a681d75] {\n    width: 100%;\n    height: 75vh;\n    overflow: scroll;\n    padding-top: 80%;\n}\n.register .nav-tabs[data-v-0a681d75] {\n    width: 60%;\n    margin: 3% auto 0;\n}\n.register-left[data-v-0a681d75] {\n    padding-bottom: 20px;\n}\n}\n", ""]);
 
 // exports
 
@@ -20618,7 +21247,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.main_container[data-v-45b4b761] {\r\n  width: 100%;\r\n  height: 100vh;\r\n  position: relative;\r\n  background: repeating-linear-gradient(\r\n    to right,\r\n    rgb(15, 122, 138, 0.7) 0%,\r\n    rgb(15, 122, 138, 0.7) 100%\r\n  );\r\n  overflow: hidden;\n}\n.square[data-v-45b4b761] {\r\n  width: 60%;\r\n  height: 100%;\r\n  position: relative;\r\n  z-index: 4;\r\n  overflow: hidden;\r\n  display: flex;\r\n  justify-content: flex-start;\r\n  align-items: center;\n}\n.square_text[data-v-45b4b761] {\r\n  color: white;\r\n  width: 100%;\r\n  min-height: 45%;\r\n  display: grid;\r\n  justify-content: flex-start;\r\n  align-items: center;\r\n  padding-left: 50px;\n}\n.main_text[data-v-45b4b761] {\r\n  font-weight: 700;\r\n  font-size: 60px;\r\n  color: #333333;\n}\n.sub_text[data-v-45b4b761] {\r\n  color: white;\r\n  font-size: 24px;\r\n  font-weight: 700;\r\n  display: flex;\r\n  align-items: center;\n}\n.mini_square_1[data-v-45b4b761],\r\n.mini_square_2[data-v-45b4b761] {\r\n  width: 150px;\r\n  height: 250px;\r\n  background: yellow;\r\n  position: absolute;\r\n  transform: rotate(-45deg);\n}\n.mini_square_1[data-v-45b4b761] {\r\n  top: 0;\r\n  right: 0;\r\n  top: -95px;\r\n  right: -50px;\n}\n.mini_square_2[data-v-45b4b761] {\r\n  bottom: -95px;\r\n  left: -50px;\n}\n.circle_1[data-v-45b4b761],\r\n.circle_2[data-v-45b4b761] {\r\n  width: 500px;\r\n  height: 500px;\r\n  position: absolute;\r\n  right: 20%;\r\n  border: 6px solid white;\r\n  overflow: hidden;\n}\n.circle_3[data-v-45b4b761] {\r\n  width: 600px;\r\n  height: 600px;\r\n  background: white;\r\n  position: absolute;\r\n  right: -10%;\r\n  top: 50%;\r\n  margin-top: -300px;\r\n  z-index: 2;\r\n  border: 6px solid white;\r\n  overflow: hidden;\n}\n.rounded_circle img[data-v-45b4b761] {\r\n  width: 100%;\r\n  height: 100%;\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\n}\n.circle_1[data-v-45b4b761] {\r\n  background: orange;\r\n  top: -5%;\r\n  z-index: 1;\n}\n.circle_2[data-v-45b4b761] {\r\n  background: green;\r\n  bottom: -5%;\r\n  z-index: 3;\n}\nimg[data-v-45b4b761] {\r\n  width: 100%;\r\n  height: 100%;\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\n}\n@media (max-width: 1024px) {\n.circle_3[data-v-45b4b761] {\r\n    width: 450px;\r\n    height: 450px;\r\n    top: 70%;\n}\n.circle_1[data-v-45b4b761],\r\n  .circle_2[data-v-45b4b761] {\r\n    width: 350px;\r\n    height: 350px;\n}\n.circle_1[data-v-45b4b761] {\r\n    top: 14%;\n}\n.circle_2[data-v-45b4b761] {\r\n    bottom: 0%;\n}\n.main_text[data-v-45b4b761] {\r\n    font-size: 40px;\n}\n.mini_square_2[data-v-45b4b761],\r\n  .mini_square_1[data-v-45b4b761] {\r\n    width: 100px;\n}\n}\n@media (max-width: 768px) {\n.circle_3[data-v-45b4b761] {\r\n    width: 350px;\r\n    height: 350px;\r\n    top: 70%;\n}\n.circle_1[data-v-45b4b761],\r\n  .circle_2[data-v-45b4b761] {\r\n    width: 250px;\r\n    height: 250px;\n}\n.circle_1[data-v-45b4b761] {\r\n    top: 14%;\n}\n.circle_2[data-v-45b4b761] {\r\n    bottom: 0%;\n}\n.main_text[data-v-45b4b761] {\r\n    font-size: 38px;\n}\n.square_text[data-v-45b4b761]{\r\n    min-width: 35%;\n}\n}\n@media (max-width: 425px) {\n.square[data-v-45b4b761] {\r\n    width: 100%;\n}\n.square_text[data-v-45b4b761] {\r\n    padding-left: 25px;\n}\n.mini_square_2[data-v-45b4b761],\r\n  .mini_square_1[data-v-45b4b761] {\r\n    width: 80px;\n}\n.circle_3[data-v-45b4b761] {\r\n    width: 350px;\r\n    height: 350px;\r\n    top: 70%;\r\n    right: -45%;\n}\n.circle_1[data-v-45b4b761],\r\n  .circle_2[data-v-45b4b761] {\r\n    width: 200px;\r\n    height: 200px;\r\n    right: 5%;\n}\n.circle_1[data-v-45b4b761] {\r\n    top: 10%;\n}\n.circle_2[data-v-45b4b761] {\r\n    bottom: -2%;\r\n    width: 250px;\r\n    height: 250px;\n}\n.main_text[data-v-45b4b761] {\r\n    font-size: 24px;\n}\n.sec_color[data-v-45b4b761] {\r\n    font-size: 16px;\n}\n}\n@media (max-width: 375px) {\n.square[data-v-45b4b761] {\r\n    width: 100%;\n}\n.square_text[data-v-45b4b761] {\r\n    padding-left: 25px;\n}\n.mini_square_2[data-v-45b4b761],\r\n  .mini_square_1[data-v-45b4b761] {\r\n    width: 80px;\n}\n.circle_3[data-v-45b4b761] {\r\n    width: 300px;\r\n    height: 300px;\r\n    top: 70%;\r\n    right: -45%;\n}\n.circle_1[data-v-45b4b761],\r\n  .circle_2[data-v-45b4b761] {\r\n    width: 200px;\r\n    height: 200px;\r\n    right: 1%;\n}\n.circle_1[data-v-45b4b761] {\r\n    top: 10%;\n}\n.circle_2[data-v-45b4b761] {\r\n    bottom: -2%;\r\n    width: 250px;\r\n    height: 250px;\n}\n.main_text[data-v-45b4b761] {\r\n    font-size: 22px;\n}\n.sec_color[data-v-45b4b761] {\r\n    font-size: 16px;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.main_container[data-v-45b4b761] {\n  width: 100%;\n  height: 100vh;\n  position: relative;\n  background: repeating-linear-gradient(\n    to right,\n    rgb(15, 122, 138, 0.7) 0%,\n    rgb(15, 122, 138, 0.7) 100%\n  );\n  overflow: hidden;\n}\n.square[data-v-45b4b761] {\n  width: 60%;\n  height: 100%;\n  position: relative;\n  z-index: 4;\n  overflow: hidden;\n  display: flex;\n  justify-content: flex-start;\n  align-items: center;\n}\n.square_text[data-v-45b4b761] {\n  color: white;\n  width: 100%;\n  min-height: 45%;\n  display: grid;\n  justify-content: flex-start;\n  align-items: center;\n  padding-left: 50px;\n}\n.main_text[data-v-45b4b761] {\n  font-weight: 700;\n  font-size: 60px;\n  color: #333333;\n}\n.sub_text[data-v-45b4b761] {\n  color: white;\n  font-size: 24px;\n  font-weight: 700;\n  display: flex;\n  align-items: center;\n}\n.mini_square_1[data-v-45b4b761],\n.mini_square_2[data-v-45b4b761] {\n  width: 150px;\n  height: 250px;\n  background: yellow;\n  position: absolute;\n  transform: rotate(-45deg);\n}\n.mini_square_1[data-v-45b4b761] {\n  top: 0;\n  right: 0;\n  top: -95px;\n  right: -50px;\n}\n.mini_square_2[data-v-45b4b761] {\n  bottom: -95px;\n  left: -50px;\n}\n.circle_1[data-v-45b4b761],\n.circle_2[data-v-45b4b761] {\n  width: 500px;\n  height: 500px;\n  position: absolute;\n  right: 20%;\n  border: 6px solid white;\n  overflow: hidden;\n}\n.circle_3[data-v-45b4b761] {\n  width: 600px;\n  height: 600px;\n  background: white;\n  position: absolute;\n  right: -10%;\n  top: 50%;\n  margin-top: -300px;\n  z-index: 2;\n  border: 6px solid white;\n  overflow: hidden;\n}\n.rounded_circle img[data-v-45b4b761] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.circle_1[data-v-45b4b761] {\n  background: orange;\n  top: -5%;\n  z-index: 1;\n}\n.circle_2[data-v-45b4b761] {\n  background: green;\n  bottom: -5%;\n  z-index: 3;\n}\nimg[data-v-45b4b761] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n@media (max-width: 1024px) {\n.circle_3[data-v-45b4b761] {\n    width: 450px;\n    height: 450px;\n    top: 70%;\n}\n.circle_1[data-v-45b4b761],\n  .circle_2[data-v-45b4b761] {\n    width: 350px;\n    height: 350px;\n}\n.circle_1[data-v-45b4b761] {\n    top: 14%;\n}\n.circle_2[data-v-45b4b761] {\n    bottom: 0%;\n}\n.main_text[data-v-45b4b761] {\n    font-size: 40px;\n}\n.mini_square_2[data-v-45b4b761],\n  .mini_square_1[data-v-45b4b761] {\n    width: 100px;\n}\n}\n@media (max-width: 768px) {\n.circle_3[data-v-45b4b761] {\n    width: 350px;\n    height: 350px;\n    top: 70%;\n}\n.circle_1[data-v-45b4b761],\n  .circle_2[data-v-45b4b761] {\n    width: 250px;\n    height: 250px;\n}\n.circle_1[data-v-45b4b761] {\n    top: 14%;\n}\n.circle_2[data-v-45b4b761] {\n    bottom: 0%;\n}\n.main_text[data-v-45b4b761] {\n    font-size: 38px;\n}\n.square_text[data-v-45b4b761]{\n    min-width: 35%;\n}\n}\n@media (max-width: 425px) {\n.square[data-v-45b4b761] {\n    width: 100%;\n}\n.square_text[data-v-45b4b761] {\n    padding-left: 25px;\n}\n.mini_square_2[data-v-45b4b761],\n  .mini_square_1[data-v-45b4b761] {\n    width: 80px;\n}\n.circle_3[data-v-45b4b761] {\n    width: 350px;\n    height: 350px;\n    top: 70%;\n    right: -45%;\n}\n.circle_1[data-v-45b4b761],\n  .circle_2[data-v-45b4b761] {\n    width: 200px;\n    height: 200px;\n    right: 5%;\n}\n.circle_1[data-v-45b4b761] {\n    top: 10%;\n}\n.circle_2[data-v-45b4b761] {\n    bottom: -2%;\n    width: 250px;\n    height: 250px;\n}\n.main_text[data-v-45b4b761] {\n    font-size: 24px;\n}\n.sec_color[data-v-45b4b761] {\n    font-size: 16px;\n}\n}\n@media (max-width: 375px) {\n.square[data-v-45b4b761] {\n    width: 100%;\n}\n.square_text[data-v-45b4b761] {\n    padding-left: 25px;\n}\n.mini_square_2[data-v-45b4b761],\n  .mini_square_1[data-v-45b4b761] {\n    width: 80px;\n}\n.circle_3[data-v-45b4b761] {\n    width: 300px;\n    height: 300px;\n    top: 70%;\n    right: -45%;\n}\n.circle_1[data-v-45b4b761],\n  .circle_2[data-v-45b4b761] {\n    width: 200px;\n    height: 200px;\n    right: 1%;\n}\n.circle_1[data-v-45b4b761] {\n    top: 10%;\n}\n.circle_2[data-v-45b4b761] {\n    bottom: -2%;\n    width: 250px;\n    height: 250px;\n}\n.main_text[data-v-45b4b761] {\n    font-size: 22px;\n}\n.sec_color[data-v-45b4b761] {\n    font-size: 16px;\n}\n}\n", ""]);
 
 // exports
 
@@ -20637,7 +21266,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.main[data-v-2ac2c897]{\r\n    position: relative;\n}\r\n", ""]);
+exports.push([module.i, "\n.main[data-v-2ac2c897]{\n    position: relative;\n}\n", ""]);
 
 // exports
 
@@ -20656,7 +21285,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-6c8c6944]{\r\n    padding-top: 60px;\r\n    padding-bottom: 45px;\n}\nform[data-v-6c8c6944]{\r\n    margin-bottom: 34px;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-6c8c6944]{\n    padding-top: 60px;\n    padding-bottom: 45px;\n}\nform[data-v-6c8c6944]{\n    margin-bottom: 34px;\n}\n", ""]);
 
 // exports
 
@@ -20675,7 +21304,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.progress[data-v-182ce9a3] {\r\n  height: 20px;\n}\n.logo[data-v-182ce9a3] {\r\n  width: 50%;\r\n  height: 120px;\r\n  padding: 5px;\n}\n.images[data-v-182ce9a3] {\r\n  display: flex;\r\n  margin-top: 15px;\n}\n.oldimg[data-v-182ce9a3] {\r\n  width: 50%;\r\n  height: 120px;\r\n  padding: 5px;\n}\n.oldimg img[data-v-182ce9a3],\r\n.logo img[data-v-182ce9a3] {\r\n  width: 100%;\r\n  height: 100%;\r\n  -o-object-fit: contain;\r\n     object-fit: contain;\n}\r\n", ""]);
+exports.push([module.i, "\n.progress[data-v-182ce9a3] {\n  height: 20px;\n}\n.logo[data-v-182ce9a3] {\n  width: 50%;\n  height: 120px;\n  padding: 5px;\n}\n.images[data-v-182ce9a3] {\n  display: flex;\n  margin-top: 15px;\n}\n.oldimg[data-v-182ce9a3] {\n  width: 50%;\n  height: 120px;\n  padding: 5px;\n}\n.oldimg img[data-v-182ce9a3],\n.logo img[data-v-182ce9a3] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: contain;\n     object-fit: contain;\n}\n", ""]);
 
 // exports
 
@@ -20694,7 +21323,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.upload-btn-wrapper[data-v-182ce9a3] {\r\n  position: relative;\r\n  overflow: hidden;\r\n  display: inline-block;\r\n  width: 100%;\n}\n.upload-btn-wrapper .btn[data-v-182ce9a3] {\r\n  border: 1px solid gray;\r\n  color: gray;\r\n  background-color: white;\r\n  padding: 8px 20px;\r\n  border-radius: 8px;\r\n  font-size: 20px;\r\n  font-weight: bold;\r\n  border-style: dashed;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  align-items: center;\n}\n.upload-btn-wrapper input[type=\"file\"][data-v-182ce9a3] {\r\n  font-size: 100px;\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0;\r\n  opacity: 0;\n}\n.centered[data-v-182ce9a3]{\r\n  display: flex;\r\n justify-content: center;\n}\n.upload-btn[data-v-182ce9a3]{\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.btn-upload[data-v-182ce9a3]{\r\n  background-color: #0A4065;\n}\r\n", ""]);
+exports.push([module.i, "\n.upload-btn-wrapper[data-v-182ce9a3] {\n  position: relative;\n  overflow: hidden;\n  display: inline-block;\n  width: 100%;\n}\n.upload-btn-wrapper .btn[data-v-182ce9a3] {\n  border: 1px solid gray;\n  color: gray;\n  background-color: white;\n  padding: 8px 20px;\n  border-radius: 8px;\n  font-size: 20px;\n  font-weight: bold;\n  border-style: dashed;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.upload-btn-wrapper input[type=\"file\"][data-v-182ce9a3] {\n  font-size: 100px;\n  position: absolute;\n  left: 0;\n  top: 0;\n  opacity: 0;\n}\n.centered[data-v-182ce9a3]{\n  display: flex;\n justify-content: center;\n}\n.upload-btn[data-v-182ce9a3]{\n  display: flex;\n  justify-content: flex-end;\n}\n.btn-upload[data-v-182ce9a3]{\n  background-color: #0A4065;\n}\n", ""]);
 
 // exports
 
@@ -20713,7 +21342,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.overlay[data-v-362a9371] {\r\n  position: absolute;\r\n  top: 0;\r\n  bottom: 0;\r\n  right: 0;\r\n  left: 0;\r\n  background: rgba(255, 255, 255, 0.7);\r\n  z-index: 99;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\n}\n.overlay_box[data-v-362a9371] {\r\n  position: relative;\r\n  width: 60%;\r\n  height: 60%;\r\n  background: #fff;\r\n  border-radius: 5px;\n}\n.overlay_text[data-v-362a9371]{\r\n  display:grid;\r\n  justify-content:center;\r\n  align-items: center;\r\n  padding:15px;\r\n  height: 100%;\n}\n.quote[data-v-362a9371]{\r\n  color:#006600;\r\n  font-size: 20px;\n}\n.get_started[data-v-362a9371]{\r\n    background: #333;\r\n    color: white !important;\r\n    margin: 0 auto;\n}\n.sub_text[data-v-362a9371]{\r\n    text-align: center;\n}\n.close[data-v-362a9371]{\r\n    position:absolute;\r\n    top:-15px;\r\n    right:-15px;\n}\n@media(max-width:425px){\n.overlay_box[data-v-362a9371] {\r\n  position: relative;\r\n  width: 90%;\r\n  height: 60%;\r\n  background: #fff;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.overlay[data-v-362a9371] {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0;\n  background: rgba(255, 255, 255, 0.7);\n  z-index: 99;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.overlay_box[data-v-362a9371] {\n  position: relative;\n  width: 60%;\n  height: 60%;\n  background: #fff;\n  border-radius: 5px;\n}\n.overlay_text[data-v-362a9371]{\n  display:grid;\n  justify-content:center;\n  align-items: center;\n  padding:15px;\n  height: 100%;\n}\n.quote[data-v-362a9371]{\n  color:#006600;\n  font-size: 20px;\n}\n.get_started[data-v-362a9371]{\n    background: #333;\n    color: white !important;\n    margin: 0 auto;\n}\n.sub_text[data-v-362a9371]{\n    text-align: center;\n}\n.close[data-v-362a9371]{\n    position:absolute;\n    top:-15px;\n    right:-15px;\n}\n@media(max-width:425px){\n.overlay_box[data-v-362a9371] {\n  position: relative;\n  width: 90%;\n  height: 60%;\n  background: #fff;\n}\n}\n", ""]);
 
 // exports
 
@@ -20732,7 +21361,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.form[data-v-2d0dcb3a] {\r\n  position: relative;\n}\n.container[data-v-2d0dcb3a] {\r\n  height: 100vh;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  position: relative;\n}\n.logo[data-v-2d0dcb3a] {\r\n  position: absolute;\r\n  top: 20px;\r\n  left: 40px;\n}\nlegend[data-v-2d0dcb3a] {\r\n  font-size: 22px;\n}\n.row[data-v-2d0dcb3a] {\r\n  width: 60%;\n}\nform[data-v-2d0dcb3a] {\r\n  font-size: 15px;\r\n  border-radius: 20px;\n}\r\n", ""]);
+exports.push([module.i, "\n.form[data-v-2d0dcb3a] {\n  position: relative;\n}\n.container[data-v-2d0dcb3a] {\n  height: 100vh;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  position: relative;\n}\n.logo[data-v-2d0dcb3a] {\n  position: absolute;\n  top: 20px;\n  left: 40px;\n}\nlegend[data-v-2d0dcb3a] {\n  font-size: 22px;\n}\n.row[data-v-2d0dcb3a] {\n  width: 60%;\n}\nform[data-v-2d0dcb3a] {\n  font-size: 15px;\n  border-radius: 20px;\n}\n", ""]);
 
 // exports
 
@@ -20751,7 +21380,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-71c18bbd] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.hiden[data-v-71c18bbd] {\r\n  opacity: 0;\n}\n.overall-tab[data-v-71c18bbd] {\r\n  padding-top: 20px;\n}\n.main-table[data-v-71c18bbd] {\r\n  margin-top: 20px ;\n}\n.student-assessment[data-v-71c18bbd] {\r\n  padding: 40px 20px;\n}\r\n", ""]);
+exports.push([module.i, "\nnav[data-v-71c18bbd] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-71c18bbd] {\n  opacity: 0;\n}\n.overall-tab[data-v-71c18bbd] {\n  padding-top: 20px;\n}\n.main-table[data-v-71c18bbd] {\n  padding-top: 20px;\n}\n.student-assessment[data-v-71c18bbd]{\n  padding:40px 20px;\n}\n\n", ""]);
 
 // exports
 
@@ -20770,7 +21399,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.btn-sm[data-v-53f902fa] {\r\n  padding: 0.1rem 0.4rem;\r\n  font-size: 0.4rem;\r\n  line-height: 1.5;\n}\n.container[data-v-53f902fa] {\r\n  width: 80%;\r\n  margin: 0 auto;\n}\n.bod[data-v-53f902fa] {\r\n  background: #f7f8fa;\n}\r\n", ""]);
+exports.push([module.i, "\n.btn-sm[data-v-53f902fa] {\n  padding: 0.1rem 0.4rem;\n  font-size: 0.4rem;\n  line-height: 1.5;\n}\n.container[data-v-53f902fa] {\n  width: 80%;\n  margin: 0 auto;\n}\n.bod[data-v-53f902fa] {\n  background: #f7f8fa;\n}\n", ""]);
 
 // exports
 
@@ -20789,7 +21418,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-b40839be] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100vh;\n}\nform[data-v-b40839be] {\r\n  width: 50%;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-b40839be] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n}\nform[data-v-b40839be] {\n  width: 50%;\n}\n", ""]);
 
 // exports
 
@@ -20808,7 +21437,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-79b5561b] {\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 100vh;\n}\nform[data-v-79b5561b]{\r\n    width:50%\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-79b5561b] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n}\nform[data-v-79b5561b]{\n    width:50%\n}\n", ""]);
 
 // exports
 
@@ -20827,7 +21456,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.view[data-v-51658877] {\r\n  background: white;\r\n  position: relative;\r\n  display: flex;\r\n  height: 92vh;\n}\n.progress[data-v-51658877] {\r\n  height: 15px;\n}\nlabel[data-v-51658877] {\r\n  margin: 0 !important;\r\n  display: block;\n}\n.message[data-v-51658877] {\r\n  font-size: 16px;\r\n  padding: 20px;\n}\n.chat-body[data-v-51658877] {\r\n  width: 80%;\r\n  height: 100%;\r\n  background: #f7f8fa;\r\n  padding: 20px 0 60px;\r\n  position: relative;\r\n  overflow: auto;\n}\n.online[data-v-51658877] {\r\n  height: 100%;\r\n  width: 20%;\n}\n.send-tab[data-v-51658877] {\r\n  position: fixed;\r\n  bottom: 0;\r\n  width: 80%;\r\n  margin: 0 auto;\r\n  padding: 10px;\r\n  background: white;\r\n  display: flex;\n}\n.emoji[data-v-51658877] {\r\n  position: absolute;\r\n  bottom: 100%;\r\n  overflow: hidden !important;\n}\n.online ul li[data-v-51658877] {\r\n  font-size: 15px;\r\n  padding: 10px 15px;\n}\n.form-group[data-v-51658877] {\r\n  position: relative;\n}\n.fa-paperclip[data-v-51658877] {\r\n  position: absolute;\r\n  font-size: 17px;\r\n  right: 10px;\r\n  top: 50%;\r\n  margin-top: -8px;\n}\n.chat-item[data-v-51658877] {\r\n  background: white;\r\n  padding: 30px 50px;\n}\r\n", ""]);
+exports.push([module.i, "\n.view[data-v-51658877] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 92vh;\n}\n.progress[data-v-51658877] {\n  height: 15px;\n}\nlabel[data-v-51658877] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-51658877] {\n  font-size: 16px;\n  padding: 20px;\n}\n.chat-body[data-v-51658877] {\n  width: 80%;\n  height: 100%;\n  background: #f7f8fa;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-51658877] {\n  height: 100%;\n  width: 20%;\n}\n.send-tab[data-v-51658877] {\n  position: fixed;\n  bottom: 0;\n  width: 80%;\n  margin: 0 auto;\n  padding: 10px;\n  background: white;\n  display: flex;\n}\n.emoji[data-v-51658877] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-51658877] {\n  font-size: 15px;\n  padding: 10px 15px;\n}\n.form-group[data-v-51658877] {\n  position: relative;\n}\n.fa-paperclip[data-v-51658877] {\n  position: absolute;\n  font-size: 17px;\n  right: 10px;\n  top: 50%;\n  margin-top: -8px;\n}\n.chat-item[data-v-51658877] {\n  background: white;\n  padding: 30px 50px;\n}\n", ""]);
 
 // exports
 
@@ -20846,7 +21475,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.my-container[data-v-bc98fdf6]{\r\n    widows: 100vw;\r\n    width: 100%;\r\n    background: rgba(255, 247, 237, 0.68);\n}\n.side[data-v-bc98fdf6]{\r\n    width: 15%;\r\n    height: 100vh;\r\n   background: #FFFFFF;\r\nbox-shadow: 0px 4px 9px rgba(128, 128, 128, 0.25);\r\nborder-radius: 0px 15px 15px 0px;\r\nposition: fixed;\n}\n.main[data-v-bc98fdf6]{\r\n    width:85%;\r\n    position: absolute;\r\n    right: 0;\r\n    background: rgba(255, 247, 237, 0.68);\r\n    height: 100vh;\r\n    overflow: auto;\n}\n.min-side[data-v-bc98fdf6]{\r\nwidth: 4% !important;\n}\n.min-main[data-v-bc98fdf6]{\r\nwidth: 96% !important;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.my-container[data-v-bc98fdf6]{\n    widows: 100vw;\n    width: 100%;\n    background: rgba(255, 247, 237, 0.68);\n}\n.side[data-v-bc98fdf6]{\n    width: 15%;\n    height: 100vh;\n   background: #FFFFFF;\nbox-shadow: 0px 4px 9px rgba(128, 128, 128, 0.25);\nborder-radius: 0px 15px 15px 0px;\nposition: fixed;\n}\n.main[data-v-bc98fdf6]{\n    width:85%;\n    position: absolute;\n    right: 0;\n    background: rgba(255, 247, 237, 0.68);\n    height: 100vh;\n    overflow: auto;\n}\n.min-side[data-v-bc98fdf6]{\nwidth: 4% !important;\n}\n.min-main[data-v-bc98fdf6]{\nwidth: 96% !important;\n}\n\n", ""]);
 
 // exports
 
@@ -20865,7 +21494,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.view[data-v-7c861bc4] {\r\n  padding: 40px 20px 60px;\n}\n.main-content[data-v-7c861bc4] {\r\n  width: 80%;\r\n  margin: 0 auto;\n}\n.title[data-v-7c861bc4]{\r\n  font-size:17px;\r\n  font-weight: bold;\r\n  margin-bottom:10px;\n}\n.desc[data-v-7c861bc4]{\r\n  height: 38px;\r\n  font-size: 15px;\r\n  overflow: hidden;\r\n  display: -webkit-box !important;\r\n  -webkit-line-clamp: 2;\r\n  -moz-line-clamp: 2;\r\n  -ms-line-clamp: 2;\r\n  -o-line-clamp: 2;\r\n  line-clamp: 2;\r\n  -webkit-box-orient: vertical;\r\n  -ms-box-orient: vertical;\r\n  -o-box-orient: vertical;\r\n  box-orient: vertical;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  white-space: normal;\r\n  margin-bottom:10px;\n}\n.top_box[data-v-7c861bc4] {\r\n  background: #f7f8fa;\n}\na[data-v-7c861bc4] {\r\n  text-decoration: none;\r\n  color: black;\n}\nul[data-v-7c861bc4],\r\nol[data-v-7c861bc4] {\r\n  list-style: none;\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before {\r\n  padding: 8px;\r\n  color: black;\r\n  content: \"/\\A0\";\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before:last-child {\r\n  content: \"\";\n}\n.filter-list[data-v-7c861bc4] {\r\n  display: flex;\r\n  justify-content: flex-start;\r\n  font-size: 14px;\r\n  border-bottom: 1px solid #ccc;\r\n  font-weight: bold;\n}\n.filter-list li[data-v-7c861bc4] {\r\n  color: rgba(0, 0, 0, 0.54);\r\n  border-bottom: 2px solid transparent;\r\n  padding: 8px 0;\n}\n.filter-list li[data-v-7c861bc4]:hover {\r\n  color: rgba(0, 0, 0, 0.84);\r\n  border-color: rgba(0, 0, 0, 0.84);\n}\n.single-content[data-v-7c861bc4] {\r\n  position: relative;\r\n  transition: 0.3s;\r\n  box-shadow: 10px 20px 20px rgba(247, 248, 250, 0.8);\n}\n.single-content .text-content[data-v-7c861bc4],\r\n.single-content[data-v-7c861bc4]::after {\r\n  position: absolute;\r\n  left: 10px;\r\n  right: 10px;\n}\n.single-content[data-v-7c861bc4]::after {\r\n  content: \"\";\r\n  display: block;\r\n  background: #13a699;\r\n  top: 20px;\r\n  bottom: 20px;\r\n  opacity: 0;\r\n  transform: rotate3d(-1, 1, 0, 100deg);\r\n  transition: 0.4s;\n}\n.single-content[data-v-7c861bc4]:hover::after {\r\n  opacity: 0.9;\r\n  transform: rotate3d(0, 0, 0, 0deg);\n}\n.single-content img[data-v-7c861bc4] {\r\n  width: 100%;\r\n  height: 100%;\n}\n.text-content[data-v-7c861bc4] {\r\n  top: 45%;\r\n  opacity: 0;\r\n  z-index: 1;\r\n  transform: translate(10%, -30%);\r\n  transition: 0.3s;\r\n  text-align: center;\r\n  color: #fff;\r\n  margin-top: 5px;\n}\n.text-content .btn[data-v-7c861bc4] {\r\n  color: #fff !important;\r\n  border: 1px solid #fff;\r\n  border-radius: 5px;\r\n  padding: 10px 20px;\n}\n.single-content:hover .text-content[data-v-7c861bc4] {\r\n  opacity: 1;\r\n  transform: translate(0, -50%);\r\n  transition-delay: 0.3s;\n}\n.explore-content[data-v-7c861bc4] {\r\n  margin-top: 15px;\n}\r\n/* .router-link-active{\r\n  border-bottom: 2px solid #ffd708;\r\n} */\ndiv[data-v-7c861bc4] {\r\n  font-family: \"Montserrat\";\n}\n.excerpt[data-v-7c861bc4] {\r\n  height: 75px;\r\n  font-size: 15px;\r\n  overflow: hidden;\r\n  display: -webkit-box !important;\r\n  -webkit-line-clamp: 4;\r\n  -moz-line-clamp: 4;\r\n  -ms-line-clamp: 4;\r\n  -o-line-clamp: 4;\r\n  line-clamp: 4;\r\n  -webkit-box-orient: vertical;\r\n  -ms-box-orient: vertical;\r\n  -o-box-orient: vertical;\r\n  box-orient: vertical;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  white-space: normal;\n}\n.update[data-v-7c861bc4] {\r\n  background: #ffd708;\r\n  padding: 2px;\r\n  border-radius: 4px;\n}\r\n", ""]);
+exports.push([module.i, "\n.view[data-v-7c861bc4] {\n  padding: 40px 20px 60px;\n}\n.main-content[data-v-7c861bc4] {\n  width: 80%;\n  margin: 0 auto;\n}\n.title[data-v-7c861bc4]{\n  font-size:17px;\n  font-weight: bold;\n  margin-bottom:10px;\n}\n.desc[data-v-7c861bc4]{\n  height: 38px;\n  font-size: 15px;\n  overflow: hidden;\n  display: -webkit-box !important;\n  -webkit-line-clamp: 2;\n  -moz-line-clamp: 2;\n  -ms-line-clamp: 2;\n  -o-line-clamp: 2;\n  line-clamp: 2;\n  -webkit-box-orient: vertical;\n  -ms-box-orient: vertical;\n  -o-box-orient: vertical;\n  box-orient: vertical;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: normal;\n  margin-bottom:10px;\n}\n.top_box[data-v-7c861bc4] {\n  background: #f7f8fa;\n}\na[data-v-7c861bc4] {\n  text-decoration: none;\n  color: black;\n}\nul[data-v-7c861bc4],\nol[data-v-7c861bc4] {\n  list-style: none;\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before {\n  padding: 8px;\n  color: black;\n  content: \"/\\A0\";\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before:last-child {\n  content: \"\";\n}\n.filter-list[data-v-7c861bc4] {\n  display: flex;\n  justify-content: flex-start;\n  font-size: 14px;\n  border-bottom: 1px solid #ccc;\n  font-weight: bold;\n}\n.filter-list li[data-v-7c861bc4] {\n  color: rgba(0, 0, 0, 0.54);\n  border-bottom: 2px solid transparent;\n  padding: 8px 0;\n}\n.filter-list li[data-v-7c861bc4]:hover {\n  color: rgba(0, 0, 0, 0.84);\n  border-color: rgba(0, 0, 0, 0.84);\n}\n.single-content[data-v-7c861bc4] {\n  position: relative;\n  transition: 0.3s;\n  box-shadow: 10px 20px 20px rgba(247, 248, 250, 0.8);\n}\n.single-content .text-content[data-v-7c861bc4],\n.single-content[data-v-7c861bc4]::after {\n  position: absolute;\n  left: 10px;\n  right: 10px;\n}\n.single-content[data-v-7c861bc4]::after {\n  content: \"\";\n  display: block;\n  background: #13a699;\n  top: 20px;\n  bottom: 20px;\n  opacity: 0;\n  transform: rotate3d(-1, 1, 0, 100deg);\n  transition: 0.4s;\n}\n.single-content[data-v-7c861bc4]:hover::after {\n  opacity: 0.9;\n  transform: rotate3d(0, 0, 0, 0deg);\n}\n.single-content img[data-v-7c861bc4] {\n  width: 100%;\n  height: 100%;\n}\n.text-content[data-v-7c861bc4] {\n  top: 45%;\n  opacity: 0;\n  z-index: 1;\n  transform: translate(10%, -30%);\n  transition: 0.3s;\n  text-align: center;\n  color: #fff;\n  margin-top: 5px;\n}\n.text-content .btn[data-v-7c861bc4] {\n  color: #fff !important;\n  border: 1px solid #fff;\n  border-radius: 5px;\n  padding: 10px 20px;\n}\n.single-content:hover .text-content[data-v-7c861bc4] {\n  opacity: 1;\n  transform: translate(0, -50%);\n  transition-delay: 0.3s;\n}\n.explore-content[data-v-7c861bc4] {\n  margin-top: 15px;\n}\n/* .router-link-active{\n  border-bottom: 2px solid #ffd708;\n} */\ndiv[data-v-7c861bc4] {\n  font-family: \"Montserrat\";\n}\n.excerpt[data-v-7c861bc4] {\n  height: 75px;\n  font-size: 15px;\n  overflow: hidden;\n  display: -webkit-box !important;\n  -webkit-line-clamp: 4;\n  -moz-line-clamp: 4;\n  -ms-line-clamp: 4;\n  -o-line-clamp: 4;\n  line-clamp: 4;\n  -webkit-box-orient: vertical;\n  -ms-box-orient: vertical;\n  -o-box-orient: vertical;\n  box-orient: vertical;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: normal;\n}\n.update[data-v-7c861bc4] {\n  background: #ffd708;\n  padding: 2px;\n  border-radius: 4px;\n}\n", ""]);
 
 // exports
 
@@ -20884,7 +21513,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nnav[data-v-7d83ab33] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.table .thead-light th[data-v-7d83ab33] {\r\n  color: white;\r\n  background-color: rgba(19, 166, 153, 0.9);\r\n  border-color: rgba(19, 166, 153, 0.9);\n}\ntd[data-v-7d83ab33] {\r\n  text-transform: capitalize;\n}\n.hiden[data-v-7d83ab33] {\r\n  opacity: 0;\n}\n.add[data-v-7d83ab33] {\r\n  background-color: #f7f8fa;\n}\ntable[data-v-7d83ab33] {\r\n  font-size: 16px;\r\n  text-align: center;\n}\n.chat[data-v-7d83ab33] {\r\n  cursor: pointer;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\nnav[data-v-7d83ab33] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.table .thead-light th[data-v-7d83ab33] {\n  color: white;\n  background-color: rgba(19, 166, 153, 0.9);\n  border-color: rgba(19, 166, 153, 0.9);\n}\ntd[data-v-7d83ab33] {\n  text-transform: capitalize;\n}\n.hiden[data-v-7d83ab33] {\n  opacity: 0;\n}\n.add[data-v-7d83ab33] {\n  background-color: #f7f8fa;\n}\ntable[data-v-7d83ab33] {\n  font-size: 16px;\n  text-align: center;\n}\n.chat[data-v-7d83ab33] {\n  cursor: pointer;\n}\n\n", ""]);
 
 // exports
 
@@ -20903,7 +21532,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-42846304] {\r\n  font-family: \"Montserrat\";\n}\n.welcome-board[data-v-42846304] {\r\n  background: rgba(19, 166, 153, 0.43);\r\n  width: 100%;\r\n  height: 200px;\r\n  border-radius: 10px;\r\n  display: flex;\r\n  position: relative;\r\n  margin-top: 2rem;\n}\n.welcome-board img[data-v-42846304] {\r\n  width: 320px;\r\n  height: 280px;\r\n  position: absolute;\r\n  transform: translateY(-28%);\n}\n.welcome-board-content[data-v-42846304] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  padding: 2.5rem;\n}\n.welcome-board-content p[data-v-42846304] {\r\n  text-align: center;\r\n  padding: 10px;\n}\n.welcome-board-content h3[data-v-42846304] {\r\n  color: #13a699;\n}\n.cards[data-v-42846304] {\r\n  margin-top: 2rem;\r\n  background: #fff;\r\n  padding: 1.5rem;\r\n  border-radius: 10px;\r\n  height: 400px;\n}\n.result-progress[data-v-42846304] {\r\n  margin-top: 10px;\n}\n.progress-top[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.progress-bar[data-v-42846304] {\r\n  width: 67% !important;\r\n  background-color: #de1515 !important;\n}\n.update-content[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.update-content p[data-v-42846304] {\r\n  font-size: 12px;\r\n  padding-left: 10px;\r\n  margin-bottom: 0;\n}\n.log-link[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.log-link a[data-v-42846304] {\r\n  color: #808080;\n}\n.log-link a[data-v-42846304]:hover {\r\n  color: #13a699;\r\n  text-decoration: underline !important;\n}\n.resources-inner[data-v-42846304] {\r\n  border-bottom: 1px solid #e4e4e4;\r\n  padding-top: 5px;\n}\n.resources-inner[data-v-42846304]:last-child {\r\n  border-bottom: none;\n}\n.class-content[data-v-42846304]{\r\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-42846304]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.class-content-top i[data-v-42846304]{\r\n  color: #008e3a;\n}\n.content-2 i[data-v-42846304]{\r\n  color: #ff0000;\n}\n.class-content-main[data-v-42846304]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.class-content-main p[data-v-42846304]{\r\n  font-size: 12px;\n}\n.notes-top[data-v-42846304]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.btn[data-v-42846304]{\r\n  background: transparent;\r\n  border: 1px solid #13A699;\r\n  border-radius: 5px;\r\n  color: #13A699;\n}\n.btn[data-v-42846304]:hover{\r\n  background: #13A699;\r\n  border-radius: 5px;\r\n  color: #fff;\n}\n.update-avatar img[data-v-42846304]{\r\n  height: 40px;\r\n  width: 40px;\n}\n.notes-content[data-v-42846304] {\r\n  border-bottom: 1px solid #e4e4e4;\n}\n.notes-content[data-v-42846304]:last-child {\r\n  border-bottom: none;\n}\n.notes-top[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  padding-bottom: 1rem;\n}\n.notes-content-top[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.notes-content-top h6[data-v-42846304] {\r\n  margin-bottom: 0;\r\n  padding-top: 5px;\n}\n.notes-content[data-v-42846304] {\r\n  padding-top: 5px;\n}\n.notes-content-main[data-v-42846304] {\r\n  padding-bottom: 5px;\n}\n.notes-content-main p[data-v-42846304] {\r\n  font-size: 12px;\r\n  margin-bottom: 0;\n}\n.notes-date[data-v-42846304] {\r\n  color: #808080;\r\n  padding-top: 5px;\r\n  padding-left: 10px;\n}\n.fa-file-o[data-v-42846304] {\r\n  color: #13A699;\r\n  background: rgba(19, 166, 153, 0.43);\r\n  border-radius: 50%;\r\n  padding: 9px;\n}\n.discussion-content[data-v-42846304]{\r\n  border-bottom:1px solid #e4e4e4;\r\n  padding-bottom: 10px;\r\n  padding-top: 5px;\n}\n.discussion-content[data-v-42846304]:last-child{\r\n  border-bottom: none;\n}\n.discussion-content p[data-v-42846304]{\r\n  font-size: 10px;\n}\n.discussion-content-top[data-v-42846304]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.discussion-content-top p[data-v-42846304]{\r\n font-size: 14px;\n}\n.discussion-content-bottom[data-v-42846304]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.discussion-content-bottom p[data-v-42846304]{\r\n  font-size: 12px;\r\n  margin-bottom: 0;\n}\n.notify-discussion p[data-v-42846304]{\r\n background: #e4e4e4;\r\n color: #808080;\r\n border-radius: 5px;\r\n font-weight: 500;\r\n padding: 5px 10px;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-42846304] {\n  font-family: \"Montserrat\";\n  padding-bottom: 50px;\n}\n.note-body[data-v-42846304]{\n  display:flex;\n  border-bottom:1px solid #ccc;\n  margin-bottom: 14px;\n}\n.m-res[data-v-42846304]{\n  height: 320px;\n  overflow: auto;\n}\n.main-note[data-v-42846304]{\n  height: 290px;\n  overflow:auto;\n}\n.welcome-board[data-v-42846304] {\n  background: rgba(19, 166, 153, 0.43);\n  width: 100%;\n  height: 200px;\n  border-radius: 10px;\n  display: flex;\n  position: relative;\n  margin-top: 2rem;\n}\n.welcome-board img[data-v-42846304] {\n  width: 320px;\n  height: 280px;\n  position: absolute;\n  transform: translateY(-28%);\n}\n.welcome-board-content[data-v-42846304] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  padding: 2.5rem;\n}\n.welcome-board-content p[data-v-42846304] {\n  text-align: center;\n  padding: 10px;\n}\n.welcome-board-content h3[data-v-42846304] {\n  color: #13a699;\n}\n.cards[data-v-42846304] {\n  margin-top: 2rem;\n  background: #fff;\n  padding: 1.5rem;\n  border-radius: 10px;\n  height: 400px;\n}\n.result-progress[data-v-42846304] {\n  margin-top: 10px;\n}\n.progress-top[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.progress-bar[data-v-42846304] {\n  width: 67% !important;\n  background-color: #de1515 !important;\n}\n.update-content[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.update-content p[data-v-42846304] {\n  font-size: 12px;\n  padding-left: 10px;\n  margin-bottom: 0;\n}\n.log-link[data-v-42846304] {\n  display: flex;\n  justify-content: flex-end;\n}\n.log-link a[data-v-42846304] {\n  color: #808080;\n}\n.log-link a[data-v-42846304]:hover {\n  color: #13a699;\n  text-decoration: underline !important;\n}\n.resources-inner[data-v-42846304] {\n  border-bottom: 1px solid #e4e4e4;\n  padding-top: 5px;\n}\n.resources-inner[data-v-42846304]:last-child {\n  border-bottom: none;\n}\n.class-content[data-v-42846304]{\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-top i[data-v-42846304]{\n  color: #008e3a;\n}\n.content-2 i[data-v-42846304]{\n  color: #ff0000;\n}\n.class-content-main[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-42846304]{\n  font-size: 12px;\n}\n.notes-top[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.btn[data-v-42846304]{\n  background: transparent;\n  border: 1px solid #13A699;\n  border-radius: 5px;\n  color: #13A699;\n  font-size: 15px;\n}\n.btn[data-v-42846304]:hover{\n  background: #13A699;\n  border-radius: 5px;\n  color: #fff;\n}\n.update-avatar img[data-v-42846304]{\n  height: 40px;\n  width: 40px;\n}\n.notes-content[data-v-42846304] {\n  border-bottom: 1px solid #e4e4e4;\n}\n.notes-content[data-v-42846304]:last-child {\n  border-bottom: none;\n}\n.notes-top[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 1rem;\n}\n.notes-content-top[data-v-42846304] {\n  display: flex;\n}\n.notes-content-top h6[data-v-42846304] {\n  margin-bottom: 0;\n}\n.notes-content[data-v-42846304] {\n}\n.notes-content-main[data-v-42846304] {\n  padding-bottom: 5px;\n}\n.notes-content-main p[data-v-42846304] {\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notes-date[data-v-42846304] {\n  color: #808080;\n  padding-top: 5px;\n}\n.fa-file-o[data-v-42846304] {\n  color: #13A699;\n  background: rgba(19, 166, 153, 0.43);\n  border-radius: 50%;\n  padding: 9px;\n}\n.discussion-content[data-v-42846304]{\n  border-bottom:1px solid #e4e4e4;\n  padding-bottom: 10px;\n  padding-top: 5px;\n}\n.discussion-content[data-v-42846304]:last-child{\n  border-bottom: none;\n}\n.discussion-content p[data-v-42846304]{\n  font-size: 10px;\n}\n.discussion-content-top[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-top p[data-v-42846304]{\n font-size: 14px;\n}\n.discussion-content-bottom[data-v-42846304]{\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-bottom p[data-v-42846304]{\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notify-discussion p[data-v-42846304]{\n background: #e4e4e4;\n color: #808080;\n border-radius: 5px;\n font-weight: 500;\n padding: 5px 10px;\n}\n.my-icon[data-v-42846304]{\n   color: #008e3a;\n}\n.check_it[data-v-42846304]{\n  color: #008e3a;\n  font-size:12px;\n}\n", ""]);
 
 // exports
 
@@ -20922,7 +21551,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.continue-reading[data-v-a2f61c28] {\r\n  background-color: #fff;\r\n  padding: 30px;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  margin: 40px;\n}\n.continue-word[data-v-a2f61c28] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  align-items: center;\n}\n.continue-word p[data-v-a2f61c28]:first-child {\r\n  font-weight: 500;\r\n  font-size: 30px;\n}\n.continue-word h6[data-v-a2f61c28] {\r\n  font-weight: bold;\r\n  font-size: 30px;\n}\n.continue-reading-icon[data-v-a2f61c28] {\r\n  display: flex;\n}\n.btn-continue[data-v-a2f61c28] {\r\n  background-color: #13a699;\r\n  border-radius: 50%;\r\n  color: #fff;\r\n  padding: 0 6px;\n}\n.btn-continue i[data-v-a2f61c28] {\r\n  font-size: 22px;\n}\n.continue-reading-icon p[data-v-a2f61c28] {\r\n  padding-left: 5px;\r\n  margin-bottom: 0;\n}\n.continue-img img[data-v-a2f61c28] {\r\n  width: 150px;\r\n  height: 150px;\n}\n.filter-view[data-v-a2f61c28] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  margin: 10px 40px;\n}\n.filter-view a[data-v-a2f61c28]{\r\n  color: #000 !important;\r\n  padding-top: 10px;\r\n  font-family: \"Montserrat\";\n}\n.filter-view a[data-v-a2f61c28]:hover{\r\n  color: #13a699 !important;\r\n  text-decoration: underline !important;\n}\n.resource-img img[data-v-a2f61c28] {\r\n  width: 200px;\r\n  height: 150px;\n}\n.col-md-3 a[data-v-a2f61c28]{\r\n  color: #000 !important;\n}\n.books[data-v-a2f61c28]{\r\n  padding-top: 10px;\n}\n.search[data-v-a2f61c28] {\r\n  width: 250px;\r\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-a2f61c28] {\r\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-a2f61c28] {\r\n  display: flex;\r\n  justify-content: flex-start;\r\n  padding-top: 10px;\n}\n.filter-btn[data-v-a2f61c28] {\r\n  background: #fff;\r\n  padding: 10px 20px;\r\n  border-radius: 5px;\n}\n.filter-btn span[data-v-a2f61c28] {\r\n  font-family: \"Montserrat\";\r\n  font-weight: bold;\n}\n.filter-btn i[data-v-a2f61c28] {\r\n  padding-left: 3px;\n}\n.sort-section[data-v-a2f61c28] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  background: #fff;\r\n  border-radius: 10px;\n}\n.bg-info[data-v-a2f61c28] {\r\n  background: #fff !important;\r\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  margin-top: 20px;\r\n  border-radius: 10px;\n}\n.nav-link[data-v-a2f61c28] {\r\n  color: #000 !important;\n}\nnav[data-v-a2f61c28] {\r\n  background: rgba(19, 166, 153, 0.9);\r\n  color: white;\n}\n.table .thead-light th[data-v-a2f61c28] {\r\n  color: white;\r\n  background-color: rgba(19, 166, 153, 0.9);\r\n  border-color: rgba(19, 166, 153, 0.9);\n}\n.bar[data-v-a2f61c28] {\r\n  position: relative;\r\n  width: 20%;\r\n  text-align: center;\r\n  font-size: 14px;\n}\n.red[data-v-a2f61c28] {\r\n  color: var(--red, red);\n}\n.search_bar[data-v-a2f61c28] {\r\n  position: relative;\n}\n.search_input[data-v-a2f61c28] {\r\n  border-color: #f7f8fa;\r\n  height: 30px;\r\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-webkit-input-placeholder {\r\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-moz-placeholder {\r\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]:-ms-input-placeholder {\r\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-ms-input-placeholder {\r\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::placeholder {\r\n  font-size: 13px;\n}\n.fa-search[data-v-a2f61c28] {\r\n  position: absolute;\r\n  font-size: 12px;\r\n  right: 14px;\r\n  top: 50%;\r\n  margin-top: -6px;\r\n  color: rgba(0, 0, 0, 0.44);\n}\n.options[data-v-a2f61c28] {\r\n  width: 15px;\n}\ntd[data-v-a2f61c28] {\r\n  text-transform: capitalize;\n}\nul[data-v-a2f61c28] {\r\n  list-style: none;\n}\n.options[data-v-a2f61c28] {\r\n  position: relative;\n}\n.option[data-v-a2f61c28] {\r\n  display: none;\r\n  position: absolute;\r\n  padding: 15px;\r\n  bottom: 80%;\r\n  width: 100px;\r\n  right: 12px;\r\n  background: white;\n}\n.options:hover .option[data-v-a2f61c28] {\r\n  display: block;\n}\n.option li[data-v-a2f61c28] {\r\n  padding: 4px 15px;\r\n  cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\n.continue-reading[data-v-a2f61c28] {\n  background-color: #fff;\n  padding: 30px;\n  display: flex;\n  justify-content: space-between;\n  margin: 40px;\n}\n.continue-word[data-v-a2f61c28] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.continue-word p[data-v-a2f61c28]:first-child {\n  font-weight: 500;\n  font-size: 30px;\n}\n.continue-word h6[data-v-a2f61c28] {\n  font-weight: bold;\n  font-size: 30px;\n}\n.continue-reading-icon[data-v-a2f61c28] {\n  display: flex;\n  align-items: center;\n}\n.btn-continue[data-v-a2f61c28] {\n  background-color: #13a699;\n  border-radius: 50%;\n  color: #fff;\n  padding: 0 6px;\n}\n.btn-continue i[data-v-a2f61c28] {\n  font-size: 22px;\n}\n.continue-reading-icon p[data-v-a2f61c28] {\n  padding-left: 5px;\n  margin-bottom: 0;\n}\n.continue-img img[data-v-a2f61c28] {\n  width: 150px;\n  height: 150px;\n}\n.filter-view[data-v-a2f61c28] {\n  display: flex;\n  justify-content: space-between;\n  margin: 10px 0px;\n}\n.filter-view a[data-v-a2f61c28] {\n  color: #000 !important;\n  padding-top: 10px;\n  font-family: \"Montserrat\";\n}\n.filter-view a[data-v-a2f61c28]:hover {\n  color: #13a699 !important;\n  text-decoration: underline !important;\n}\n.resource-img img[data-v-a2f61c28] {\n  width: 200px;\n  height: 150px;\n}\n.col-md-3 a[data-v-a2f61c28] {\n  color: #000;\n}\n.books[data-v-a2f61c28] {\n  padding: 0;\n  padding-top: 20px;\n}\n.search[data-v-a2f61c28] {\n  width: 250px;\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-a2f61c28] {\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-a2f61c28] {\n  display: flex;\n  justify-content: flex-start;\n  padding-top: 10px;\n}\n.filter-btn[data-v-a2f61c28] {\n  background: #f7f8fa;\n  padding: 5px 20px;\n  border-radius: 5px;\n}\n.filter-btn span[data-v-a2f61c28] {\n  font-family: \"Montserrat\";\n  font-weight: bold;\n}\n.filter-btn i[data-v-a2f61c28] {\n  padding-left: 3px;\n}\n.sort-section[data-v-a2f61c28] {\n  display: flex;\n  justify-content: space-between;\n  background: #fff;\n  border-radius: 10px;\n}\n.bg-info[data-v-a2f61c28] {\n  background: #fff !important;\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\n  margin-top: 20px;\n  border-radius: 10px;\n}\n.nav-link[data-v-a2f61c28] {\n  color: #000 !important;\n}\nnav[data-v-a2f61c28] {\n  background: rgba(19, 166, 153, 0.9);\n  color: white;\n}\n.table .thead-light th[data-v-a2f61c28] {\n  color: white;\n  background-color: rgba(19, 166, 153, 0.9);\n  border-color: rgba(19, 166, 153, 0.9);\n}\n.bar[data-v-a2f61c28] {\n  position: relative;\n  width: 20%;\n  text-align: center;\n  font-size: 14px;\n}\n.red[data-v-a2f61c28] {\n  color: var(--red, red);\n}\n.search_bar[data-v-a2f61c28] {\n  position: relative;\n}\n.search_input[data-v-a2f61c28] {\n  border-color: #f7f8fa;\n  height: 30px;\n  font-size: 13px;\n}\n.btn-darkgreen[data-v-a2f61c28] {\n  background: rgba(19, 166, 153, 0.9);\n  color: #fff !important;\n}\n.btn-outline-darkgreen[data-v-a2f61c28] {\n  color: rgba(19, 166, 153, 0.9) !important;\n  border: 1px solid rgba(19, 166, 153, 0.9);\n  background: transparent;\n}\n.form-control[data-v-a2f61c28]::-webkit-input-placeholder {\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-moz-placeholder {\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]:-ms-input-placeholder {\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::-ms-input-placeholder {\n  font-size: 13px;\n}\n.form-control[data-v-a2f61c28]::placeholder {\n  font-size: 13px;\n}\n.fa-search[data-v-a2f61c28] {\n  position: absolute;\n  font-size: 12px;\n  right: 14px;\n  top: 50%;\n  margin-top: -6px;\n  color: rgba(0, 0, 0, 0.44);\n}\n.options[data-v-a2f61c28] {\n  width: 15px;\n}\ntd[data-v-a2f61c28] {\n  text-transform: capitalize;\n}\nul[data-v-a2f61c28] {\n  list-style: none;\n}\n.options[data-v-a2f61c28] {\n  position: relative;\n}\n.option[data-v-a2f61c28] {\n  display: none;\n  position: absolute;\n  padding: 15px;\n  bottom: 80%;\n  width: 100px;\n  right: 12px;\n  background: white;\n}\n.options:hover .option[data-v-a2f61c28] {\n  display: block;\n}\n.option li[data-v-a2f61c28] {\n  padding: 4px 15px;\n  cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -20941,7 +21570,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.nav[data-v-09903b50]{\r\n  background: #f2f6fe;\n}\n.nav-item i[data-v-09903b50] {\r\n  color: #808080;\r\n  font-size: 24px;\n}\n#notification[data-v-09903b50] {\r\n  position: relative;\r\n  z-index: 999;\n}\n.notification-body[data-v-09903b50] {\r\n  position: absolute;\r\n  left: -240px;\r\n  width: 250px;\n}\n.main-notify[data-v-09903b50] {\r\n  max-height: 300px;\r\n  overflow: scroll;\n}\n.icon[data-v-09903b50] {\r\n  position: relative;\n}\n.badge[data-v-09903b50] {\r\n  position: absolute;\r\n  top: -10%;\r\n  left: 50%;\r\n  background: red;\r\n  color: white;\r\n  font-size: 14px;\n}\n.list-group-item[data-v-09903b50] {\r\n  font-size: 14px;\n}\r\n/* .semi-white{\r\n\r\n  padding:50px 20px;\r\n\r\n}\r\nnav {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  background:white;\r\n}\r\n\r\n.fa-bell {\r\n  font-size: 24px;\r\n  color:#ffd708;\r\n} */\n.search[data-v-09903b50] {\r\n  width: 250px;\r\n  background: transparent !important;\r\n  border-color: #808080;\n}\r\n", ""]);
+exports.push([module.i, "\n.nav[data-v-09903b50]{\n  background: #f2f6fe;\n}\n.nav-item i[data-v-09903b50] {\n  color: #808080;\n  font-size: 24px;\n}\n.anime-stop[data-v-09903b50]{\n  -webkit-animation:none;\n          animation:none;\n}\n.bell[data-v-09903b50]{\n  color: #13a699;\n}\n.bell[data-v-09903b50]:hover{\n  color:#008e3a;\n}\n#notification[data-v-09903b50] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-09903b50] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-09903b50] {\n  max-height: 300px;\n  overflow: scroll;\n}\n.icon[data-v-09903b50] {\n  position: relative;\n}\n.badge[data-v-09903b50] {\n  position: absolute;\n  top: -10%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 14px;\n}\n.list-group-item[data-v-09903b50] {\n  font-size: 14px;\n}\n/* .semi-white{\n\n  padding:50px 20px;\n\n}\nnav {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background:white;\n}\n\n.fa-bell {\n  font-size: 24px;\n  color:#ffd708;\n} */\n.search[data-v-09903b50] {\n  width: 250px;\n  \n  border-color: #ccc;\n}\n", ""]);
 
 // exports
 
@@ -20960,7 +21589,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-4519a04c] {\r\n  padding: 50px 20px 70px;\r\n  height: 100%;\n}\n.info[data-v-4519a04c] {\r\n  width: 80%;\r\n  margin: 0 auto;\n}\nli[data-v-4519a04c]{\r\n  padding:8px 0\n}\n.image[data-v-4519a04c] {\r\n  width: 140px;\r\n  height: 140px;\r\n  border-radius: 50%;\r\n  overflow: hidden;\n}\n.image img[data-v-4519a04c]{\r\n    width:100%;\r\n    height:100%;\r\n    -o-object-fit: cover;\r\n       object-fit: cover;\n}\nul[data-v-4519a04c] {\r\n  list-style: none;\n}\nli[data-v-4519a04c] {\r\n  text-transform: capitalize;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-4519a04c] {\n  padding: 50px 20px 70px;\n  height: 100%;\n}\n.info[data-v-4519a04c] {\n  width: 80%;\n  margin: 0 auto;\n}\nli[data-v-4519a04c]{\n  padding:8px 0\n}\n.image[data-v-4519a04c] {\n  width: 140px;\n  height: 140px;\n  border-radius: 50%;\n  overflow: hidden;\n}\n.image img[data-v-4519a04c]{\n    width:100%;\n    height:100%;\n    -o-object-fit: cover;\n       object-fit: cover;\n}\nul[data-v-4519a04c] {\n  list-style: none;\n}\nli[data-v-4519a04c] {\n  text-transform: capitalize;\n}\n", ""]);
 
 // exports
 
@@ -20979,7 +21608,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.bar[data-v-1d9937ed] {\r\n  position: relative;\n}\n.min-nav[data-v-1d9937ed] {\r\n  position: absolute;\r\n  text-align: center;\r\n  right: 20px;\r\n  bottom: 40px;\n}\nul[data-v-1d9937ed] {\r\n  margin: auto;\n}\nli[data-v-1d9937ed] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  align-items: center;\r\n  padding: 5px 0;\n}\nul a[data-v-1d9937ed] {\r\n  color: #565454;\r\n  font-size: 12px;\r\n  font-family: \"Montserrat\";\n}\nul li[data-v-1d9937ed] {\r\n  color: #565454;\r\n  font-size: 12px;\r\n  font-family: \"Montserrat\";\n}\nul i[data-v-1d9937ed] {\r\n  font-size: 20px;\n}\n.logo[data-v-1d9937ed] {\r\n  padding: 10px 20px;\r\n  margin-bottom: 20px;\r\n  text-align: center;\r\n  font-weight: bold;\r\n  font-family: \"Josefin Sans\";\r\n  font-size: 32px;\n}\n.logo h6[data-v-1d9937ed] {\r\n  font-weight: bold;\r\n  font-family: \"Josefin Sans\";\r\n  font-size: 24px;\r\n  text-align: center;\r\n  color: #ffd708;\r\n  margin: 0;\n}\n.router-link-exact-active li[data-v-1d9937ed] {\r\n  color: #13a699;\r\n  font-weight: bold;\n}\r\n/* .logo{\r\n    padding: 10px 20px;\r\n    margin-bottom:20px;\r\n    text-align:center;\r\n}\r\n.logo h6{\r\n    font-weight: bold;\r\n    font-family: 'Josefin Sans';\r\n    font-size: 24px;\r\n    text-align:center;\r\n    color:#ffd708;\r\n    margin:0;\r\n}\r\n.logo small{\r\n \r\n  font-size:18px;\r\n    color:hsl(50deg 100% 20%)\r\n\r\n}\r\nul{\r\n    list-style:none;\r\n}\r\nnav ul li{\r\n  padding: 10px 20px;\r\n  font-size: 15px;\r\n  cursor: pointer;\r\n  color:hsl(50deg 100% 20%);\r\n}\r\nnav{\r\n    padding-left:20px;\r\n} */\r\n\r\n", ""]);
+exports.push([module.i, "\n.bar[data-v-1d9937ed] {\n  position: relative;\n}\n.min-nav[data-v-1d9937ed] {\n  position: absolute;\n  text-align: center;\n  right: 20px;\n  bottom: 40px;\n}\nul[data-v-1d9937ed] {\n  margin: auto;\n}\nli[data-v-1d9937ed] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  padding: 5px 0;\n}\nul a[data-v-1d9937ed] {\n  color: #565454;\n  font-size: 12px;\n  font-family: \"Montserrat\";\n}\nul li[data-v-1d9937ed] {\n  color: #565454;\n  font-size: 12px;\n  font-family: \"Montserrat\";\n}\nul i[data-v-1d9937ed] {\n  font-size: 20px;\n}\n.logo[data-v-1d9937ed] {\n  padding: 10px 20px;\n  margin-bottom: 20px;\n  text-align: center;\n  font-weight: bold;\n  font-family: \"Josefin Sans\";\n  font-size: 32px;\n}\n.logo h6[data-v-1d9937ed] {\n  font-weight: bold;\n  font-family: \"Josefin Sans\";\n  font-size: 24px;\n  text-align: center;\n  color: #ffd708;\n  margin: 0;\n}\n.router-link-exact-active li[data-v-1d9937ed] {\n  color: #13a699;\n  font-weight: bold;\n}\n/* .logo{\n    padding: 10px 20px;\n    margin-bottom:20px;\n    text-align:center;\n}\n.logo h6{\n    font-weight: bold;\n    font-family: 'Josefin Sans';\n    font-size: 24px;\n    text-align:center;\n    color:#ffd708;\n    margin:0;\n}\n.logo small{\n \n  font-size:18px;\n    color:hsl(50deg 100% 20%)\n\n}\nul{\n    list-style:none;\n}\nnav ul li{\n  padding: 10px 20px;\n  font-size: 15px;\n  cursor: pointer;\n  color:hsl(50deg 100% 20%);\n}\nnav{\n    padding-left:20px;\n} */\n\n", ""]);
 
 // exports
 
@@ -20998,7 +21627,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.views[data-v-08cfd63a] {\r\n  display: flex;\r\n  height: 100%;\n}\n.main-view[data-v-08cfd63a] {\r\n  width: 70%;\r\n  height: 100%;\n}\n.side-view[data-v-08cfd63a] {\r\n  width: 30%;\r\n  background: #f7f8f8;\r\n  height: 100%;\r\n  padding: 20px;\n}\n.player[data-v-08cfd63a] {\r\n  width: 100%;\r\n  margin: 0 auto;\r\n  background: black;\n}\n.audio-player[data-v-08cfd63a] {\r\n  padding: 40px 15px;\n}\n.screen[data-v-08cfd63a] {\r\n  width: 70%;\r\n  min-height: 100vh;\r\n  padding: 15px;\r\n  position: relative;\n}\n.fullOpen[data-v-08cfd63a] {\r\n  position: absolute;\r\n  top: 0;\r\n  left: 0;\r\n  padding: 5px;\r\n  background: #f7f8fa;\n}\n.pageNum[data-v-08cfd63a] {\r\n  width: 30px;\r\n  border: none !important;\n}\n.navigate[data-v-08cfd63a] {\r\n  display: flex;\r\n  align-items: center;\n}\n.content_view[data-v-08cfd63a] {\r\n  width: 30%;\r\n  min-height: 100vh;\r\n  padding: 15px;\r\n  background: #f7f8fa;\n}\n.pdf_container[data-v-08cfd63a] {\r\n  width: 100%;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  height: 90%;\r\n  position: relative;\n}\n.loade[data-v-08cfd63a] {\r\n  position: absolute;\n}\n.mod ul[data-v-08cfd63a]{\r\n  list-style: none;\n}\n.mod ul li[data-v-08cfd63a]{\r\n  padding:10px 20px;\r\n  border-bottom:1px solid #ccc;\n}\n.pdf_about[data-v-08cfd63a] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: flex-start;\r\n  min-height: 250px;\r\n  overflow: scroll;\r\n  padding-bottom: 20px;\n}\n.pdf_title[data-v-08cfd63a] {\r\n  text-transform: capitalize;\n}\n.cover_image[data-v-08cfd63a] {\r\n  width: 100px;\r\n  height: auto;\n}\n.controls[data-v-08cfd63a] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\n}\n.view[data-v-08cfd63a] {\r\n  overflow-y: scroll;\r\n  max-height: 60vh;\n}\n.info[data-v-08cfd63a] {\r\n  padding: 0 15px;\n}\n.buttons[data-v-08cfd63a] {\r\n  padding: 0 15px;\n}\n.link-title[data-v-08cfd63a] {\r\n  cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\n.views[data-v-08cfd63a] {\n  display: flex;\n  height: 100%;\n}\n.main-view[data-v-08cfd63a] {\n  width: 70%;\n  height: 100%;\n}\n.side-view[data-v-08cfd63a] {\n  width: 30%;\n  background: #f7f8f8;\n  height: 100%;\n  padding: 20px;\n}\n.player[data-v-08cfd63a] {\n  width: 100%;\n  margin: 0 auto;\n  background: black;\n}\n.audio-player[data-v-08cfd63a] {\n  padding: 40px 15px;\n}\n.screen[data-v-08cfd63a] {\n  width: 70%;\n  min-height: 100vh;\n  padding: 15px;\n  position: relative;\n}\n.fullOpen[data-v-08cfd63a] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  padding: 5px;\n  background: #f7f8fa;\n}\n.pageNum[data-v-08cfd63a] {\n  width: 30px;\n  border: none !important;\n}\n.navigate[data-v-08cfd63a] {\n  display: flex;\n  align-items: center;\n}\n.content_view[data-v-08cfd63a] {\n  width: 30%;\n  min-height: 100vh;\n  padding: 15px;\n  background: #f7f8fa;\n}\n.pdf_container[data-v-08cfd63a] {\n  width: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 90%;\n  position: relative;\n}\n.loade[data-v-08cfd63a] {\n  position: absolute;\n}\n.mod ul[data-v-08cfd63a] {\n  list-style: none;\n}\n.mod ul li[data-v-08cfd63a] {\n  padding: 10px 20px;\n  border-bottom: 1px solid #ccc;\n}\n.pdf_about[data-v-08cfd63a] {\n  display: flex;\n  justify-content: space-between;\n  align-items: flex-start;\n  min-height: 250px;\n  overflow: scroll;\n  padding-bottom: 20px;\n}\n.pdf_title[data-v-08cfd63a] {\n  text-transform: capitalize;\n}\n.cover_image[data-v-08cfd63a] {\n  width: 100px;\n  height: auto;\n}\n.controls[data-v-08cfd63a] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.view[data-v-08cfd63a] {\n  overflow-y: scroll;\n  max-height: 60vh;\n}\n.info[data-v-08cfd63a] {\n  padding: 0 15px;\n}\n.buttons[data-v-08cfd63a] {\n  padding: 0 15px;\n}\n.link-title[data-v-08cfd63a] {\n  cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -21017,7 +21646,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-1e6387a8] {\r\n  position: relative;\n}\nform[data-v-1e6387a8] {\r\n  width: 70%;\r\n  margin:0 auto;\r\n  padding:70px 0\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-1e6387a8] {\n  position: relative;\n}\nform[data-v-1e6387a8] {\n  width: 70%;\n  margin:0 auto;\n  padding:70px 0\n}\n", ""]);
 
 // exports
 
@@ -21036,7 +21665,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.jumb[data-v-ce72931c] {\r\n  width: 100%;\r\n  position: relative;\r\n  background: transparent;\n}\n.mod ul[data-v-ce72931c]{\r\n  list-style: none;\n}\n.mod ul li[data-v-ce72931c]{\r\n  padding:10px 20px;\r\n  border-bottom:1px solid #ccc;\n}\n.top_n[data-v-ce72931c] {\r\n  position: relative;\r\n\r\n  -o-object-fit: cover;\r\n\r\n     object-fit: cover;\n}\n.excerpt[data-v-ce72931c] {\r\n  width: 60%;\n}\n.text-left[data-v-ce72931c]:focus {\r\n  outline: none !important;\n}\n.subject-description[data-v-ce72931c] {\r\n  width: 65%;\n}\n.overlay-n[data-v-ce72931c] {\r\n  top: 0px;\r\n  left: 0px;\r\n  bottom: 0px;\r\n  right: 0px;\r\n  opacity: 0.85;\r\n  background: #f7f8fa;\r\n  -webkit-backdrop-filter: blur(2px);\r\n          backdrop-filter: blur(2px);\r\n  position: absolute;\n}\n.main-bar[data-v-ce72931c] {\r\n  width: 70%;\r\n  margin-right: auto;\n}\n.floating-bar[data-v-ce72931c] {\r\n  position: fixed;\r\n  right: 5%;\r\n  top: 30%;\n}\n.view-resource-header[data-v-ce72931c] {\r\n  background-image: linear-gradient(\r\n      to bottom,\r\n      rgba(19, 166, 153, 0.65),\r\n      rgba(19, 166, 153, 0.65)\r\n    ),\r\n    url(/images/resource-bg.png);\r\n  color: #fff;\r\n  padding: 1.5rem;\r\n  margin-top: 2rem;\n}\n.view-resource-header p[data-v-ce72931c] {\r\n  margin-bottom: 0.5rem !important;\n}\n.btn[data-v-ce72931c] {\r\n  background: transparent;\r\n  border: 1px solid #fff;\r\n  color: white !important;\r\n  margin-right: 10px;\r\n  margin-bottom: 15px;\n}\n.btn[data-v-ce72931c]:hover {\r\n  background: #fff;\r\n  color: #13a699 !important;\r\n  transition: 0.3s;\r\n  border: none;\n}\n.what-you-will-learn[data-v-ce72931c] {\r\n  margin-top: 2rem;\n}\n.what-you-will-learn ul[data-v-ce72931c] {\r\n  list-style-image: url(\"/images/checked-1.png\");\r\n  padding: 15px;\n}\n.what-you-will-learn ul li[data-v-ce72931c] {\r\n  padding-top: 10px;\n}\n.sutdent-assessed ul[data-v-ce72931c] {\r\n  list-style-image: url(\"/images/checked-1.png\");\r\n  padding: 10px 15px;\n}\n.sutdent-assessed ul li[data-v-ce72931c] {\r\n  padding-bottom: 10px;\n}\n.sutdent-assessed[data-v-ce72931c] {\r\n  margin-top: 2rem;\n}\n.course-content[data-v-ce72931c] {\r\n  color: #13a699;\n}\n.featured-review-inner-top[data-v-ce72931c] {\r\n  display: flex;\r\n  padding: 15px;\n}\n.featured-review-top[data-v-ce72931c] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.featured-review-inner-top p[data-v-ce72931c] {\r\n  padding-left: 10px;\n}\n.featured-review-top img[data-v-ce72931c] {\r\n  height: 20px;\r\n  width: 100px;\n}\n.review[data-v-ce72931c] {\r\n  background-color: #fff;\r\n  border: 1px solid #808080;\r\n  border-radius: 5px;\r\n  padding: 10px;\r\n  margin-bottom: 10px;\n}\n.btn-review[data-v-ce72931c] {\r\n  background-color: #13a699;\r\n  color: #fff !important;\r\n  border: none;\r\n  padding: 10px 20px;\r\n  border-radius: 10px;\n}\n.btn-secondary[data-v-ce72931c] {\r\n  color: #fff !important;\r\n  background-color: #13a699 !important;\r\n  border-color: #13a699;\n}\n.btn-secondary[data-v-ce72931c]:hover {\r\n  color: #13a699 !important;\r\n  background-color: #fff !important;\n}\n.container[data-v-ce72931c] {\r\n  width: 60%;\r\n  margin-right: 40%;\r\n  padding: 30px;\n}\r\n", ""]);
+exports.push([module.i, "\n.d-flex-center[data-v-ce72931c] {\n  display: flex;\n  align-items: center;\n}\n.yellow-bg[data-v-ce72931c] {\n  color: gold;\n}\n.all-review[data-v-ce72931c] {\n  max-height: 500px;\n  overflow: auto;\n}\n.jumb[data-v-ce72931c] {\n  width: 100%;\n  position: relative;\n  background: transparent;\n}\n.mod ul[data-v-ce72931c] {\n  list-style: none;\n}\n.mod ul li[data-v-ce72931c] {\n  padding: 10px 20px;\n  border-bottom: 1px solid #ccc;\n}\n.top_n[data-v-ce72931c] {\n  position: relative;\n\n  -o-object-fit: cover;\n\n     object-fit: cover;\n}\n.excerpt[data-v-ce72931c] {\n  width: 60%;\n}\n.text-left[data-v-ce72931c]:focus {\n  outline: none !important;\n}\n.subject-description[data-v-ce72931c] {\n  width: 65%;\n}\n.overlay-n[data-v-ce72931c] {\n  top: 0px;\n  left: 0px;\n  bottom: 0px;\n  right: 0px;\n  opacity: 0.85;\n  background: #f7f8fa;\n  -webkit-backdrop-filter: blur(2px);\n          backdrop-filter: blur(2px);\n  position: absolute;\n}\n.main-bar[data-v-ce72931c] {\n  width: 70%;\n  margin-right: auto;\n}\n.floating-bar[data-v-ce72931c] {\n  position: fixed;\n  right: 5%;\n  top: 20%;\n}\n.view-resource-header[data-v-ce72931c] {\n  background-image: linear-gradient(\n      to bottom,\n      rgba(19, 166, 153, 0.65),\n      rgba(19, 166, 153, 0.65)\n    ),\n    url(/images/resource-bg.png);\n  color: #fff;\n  padding: 1.5rem;\n  /* margin-top: 2rem; */\n}\n.view-resource-header p[data-v-ce72931c] {\n  margin-bottom: 0.5rem !important;\n}\n.btn[data-v-ce72931c] {\n  background: transparent;\n  border: 1px solid #fff;\n  color: white !important;\n  margin-right: 10px;\n  margin-bottom: 15px;\n}\n.btn[data-v-ce72931c]:hover {\n  background: #fff;\n  color: #13a699 !important;\n  transition: 0.3s;\n  border: none;\n}\n.collapsed > span > .content-open[data-v-ce72931c],\n.not-collapsed > span > .content-close[data-v-ce72931c] {\n  display: none;\n}\n.collapsed > .content-open[data-v-ce72931c],\n.not-collapsed > .content-close[data-v-ce72931c] {\n  display: none;\n}\n.what-you-will-learn[data-v-ce72931c] {\n  margin-top: 2rem;\n  background: #f7f8fa;\n  padding: 15px;\n  border: 1px solid #ccc;\n}\n.what-you-will-learn ul[data-v-ce72931c] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 15px;\n}\n.what-you-will-learn ul li[data-v-ce72931c] {\n  padding-top: 10px;\n}\n.sutdent-assessed ul[data-v-ce72931c] {\n  list-style-image: url(\"/images/checked-1.png\");\n  padding: 10px 15px;\n}\n.sutdent-assessed ul li[data-v-ce72931c] {\n  padding-bottom: 10px;\n}\n.description[data-v-ce72931c] {\n  margin-top: 2rem;\n  background: #f7f8fa;\n  padding: 15px;\n  border: 1px solid #ccc;\n}\n.sutdent-assessed[data-v-ce72931c] {\n  margin-top: 2rem;\n  background: #f7f8fa;\n  padding: 15px;\n  border: 1px solid #ccc;\n}\n/* .course-content {\n  color: #13a699;\n} */\n.featured-review[data-v-ce72931c] {\n  background: #f7f8fa;\n}\n.featured-review-inner-top[data-v-ce72931c] {\n  display: flex;\n  padding: 15px 0;\n  align-items: center;\n}\n.featured-review-top[data-v-ce72931c] {\n  display: flex;\n  justify-content: space-between;\n}\n.featured-review-inner-top p[data-v-ce72931c] {\n  padding-left: 10px;\n}\n.featured-review-top img[data-v-ce72931c] {\n  height: 20px;\n  width: 100px;\n}\n.review[data-v-ce72931c] {\n  background-color: #fff;\n  border-radius: 5px;\n  margin-bottom: 10px;\n}\n.btn-review[data-v-ce72931c] {\n  background-color: #13a699;\n  color: #fff !important;\n  border: none;\n  padding: 10px 20px;\n  border-radius: 10px;\n}\n.btn-secondary[data-v-ce72931c] {\n  color: #fff !important;\n  background-color: #13a699 !important;\n  border-color: #13a699;\n}\n.btn-secondary[data-v-ce72931c]:hover {\n  color: #13a699 !important;\n  background-color: #fff !important;\n}\n.container[data-v-ce72931c] {\n  width: 60%;\n  margin-right: 40%;\n  padding: 20px 30px 40px;\n}\n.course-content[data-v-ce72931c] {\n  margin-top: 2rem;\n}\n.card[data-v-ce72931c] {\n  border-radius: 0;\n}\n", ""]);
 
 // exports
 
@@ -21055,7 +21684,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.main-box[data-v-b3669d42] {\r\n  padding: 20px;\r\n  background: #fff;\r\n  border-radius: 10px;\r\n  position: relative;\r\n  box-shadow: 5px 4px 11px rgba(249, 247, 240, 0.25);\n}\n.top-box[data-v-b3669d42] {\r\n  margin: 0 auto;\r\n  background: white;\r\n  height: auto;\n}\n.bottom-box[data-v-b3669d42] {\r\n  margin: 0 auto;\r\n  background: white;\n}\n.hide[data-v-b3669d42] {\r\n  height: 120px;\r\n  overflow: hidden;\n}\n.btn-sm[data-v-b3669d42] {\r\n  padding: 0.1rem 0.4rem;\r\n  font-size: 0.4rem;\r\n  line-height: 1.5;\n}\n.custom-select[data-v-b3669d42] {\r\n  display: inline-block !important;\r\n  width: 100%;\r\n  height: calc(1.5em + 0.75rem + 2px);\r\n  padding: 0.375rem 1.75rem 0.375rem 0.75rem;\r\n  font-size: 1rem;\r\n  font-weight: 400;\r\n  line-height: 1.5;\r\n  color: #495057;\r\n  vertical-align: middle;\r\n  /* background: #fff; */\r\n  border: 1px solid #ced4da;\r\n  border-radius: 0.25rem;\r\n  /* -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none; */\r\n  background: #fff url(/images/down-chevron.png) no-repeat right 0.75rem\r\n    center/8px 10px;\n}\n.right-btn[data-v-b3669d42] {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  margin-right: 25px;\r\n  margin-top: 25px;\n}\n.upload-btn-wrapper[data-v-b3669d42] {\r\n  position: relative;\r\n  overflow: hidden;\r\n  display: inline-block;\r\n  width: 100%;\n}\n.upload-btn-wrapper .btn[data-v-b3669d42] {\r\n  border: 1px solid gray;\r\n  color: gray;\r\n  background-color: white;\r\n  padding: 8px 20px;\r\n  border-radius: 8px;\r\n  font-size: 20px;\r\n  font-weight: bold;\r\n  border-style: dotted;\r\n  width: 100%;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  align-items: center;\n}\n.upload-btn-wrapper input[type=file][data-v-b3669d42] {\r\n  font-size: 100px;\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0;\r\n  opacity: 0;\n}\n.save[data-v-b3669d42]{\r\n  background: #fff;\r\n  border-radius: 10px;\r\n  display: flex;\r\n  flex-direction:column;\r\n  padding: 15px;\r\n  margin-top: 2rem;\n}\n.btn[data-v-b3669d42]{\r\n  padding: 10px 20px;\r\n  border-radius: 5px;\r\n  margin: 10px;\n}\n.btn-save[data-v-b3669d42]{\r\n  background: #0a4065;\r\n  color: #fff;\n}\n.btn-submit[data-v-b3669d42]{\r\n  background: transparent;\r\n  border: 1px solid #0a4065;\r\n  color: #0a4065;\n}\n.preview[data-v-b3669d42]{\r\n  background: #fff;\r\n  margin-top: 1.5rem;\r\n  border-radius: 10px;\r\n  padding: 10px;\n}\n.btn-trash[data-v-b3669d42]{\r\n  color: red;\n}\n.action-btn[data-v-b3669d42]{\r\n  display: flex;\n}\n.btn-preview[data-v-b3669d42]{\r\n  background: #ced4da;\r\n  border-radius: 5px;\n}\n.publish-btn[data-v-b3669d42]{\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.btn-publish[data-v-b3669d42]{\r\n background: #0a4065;\r\n  color: #fff;\n}\r\n", ""]);
+exports.push([module.i, "\n.main-box[data-v-b3669d42] {\n  padding: 20px;\n  background: #fff;\n  border-radius: 10px;\n  position: relative;\n  box-shadow: 5px 4px 11px rgba(249, 247, 240, 0.25);\n}\n.top-box[data-v-b3669d42] {\n  margin: 0 auto;\n  background: white;\n  height: auto;\n}\n.bottom-box[data-v-b3669d42] {\n  margin: 0 auto;\n  background: white;\n}\n.hide[data-v-b3669d42] {\n  height: 120px;\n  overflow: hidden;\n}\n.btn-sm[data-v-b3669d42] {\n  padding: 0.1rem 0.4rem;\n  font-size: 0.4rem;\n  line-height: 1.5;\n}\n.custom-select[data-v-b3669d42] {\n  display: inline-block !important;\n  width: 100%;\n  height: calc(1.5em + 0.75rem + 2px);\n  padding: 0.375rem 1.75rem 0.375rem 0.75rem;\n  font-size: 1rem;\n  font-weight: 400;\n  line-height: 1.5;\n  color: #495057;\n  vertical-align: middle;\n  /* background: #fff; */\n  border: 1px solid #ced4da;\n  border-radius: 0.25rem;\n  /* -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none; */\n  background: #fff url(/images/down-chevron.png) no-repeat right 0.75rem\n    center/8px 10px;\n}\n.right-btn[data-v-b3669d42] {\n  display: flex;\n  justify-content: flex-end;\n  margin-right: 25px;\n  margin-top: 25px;\n}\n.upload-btn-wrapper[data-v-b3669d42] {\n  position: relative;\n  overflow: hidden;\n  display: inline-block;\n  width: 100%;\n}\n.upload-btn-wrapper .btn[data-v-b3669d42] {\n  border: 1px solid gray;\n  color: gray;\n  background-color: white;\n  padding: 8px 20px;\n  border-radius: 8px;\n  font-size: 20px;\n  font-weight: bold;\n  border-style: dotted;\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.upload-btn-wrapper input[type=file][data-v-b3669d42] {\n  font-size: 100px;\n  position: absolute;\n  left: 0;\n  top: 0;\n  opacity: 0;\n}\n.save[data-v-b3669d42]{\n  background: #fff;\n  border-radius: 10px;\n  display: flex;\n  flex-direction:column;\n  padding: 15px;\n  margin-top: 2rem;\n}\n.btn[data-v-b3669d42]{\n  padding: 10px 20px;\n  border-radius: 5px;\n  margin: 10px;\n}\n.btn-save[data-v-b3669d42]{\n  background: #0a4065;\n  color: #fff;\n}\n.btn-submit[data-v-b3669d42]{\n  background: transparent;\n  border: 1px solid #0a4065;\n  color: #0a4065;\n}\n.preview[data-v-b3669d42]{\n  background: #fff;\n  margin-top: 1.5rem;\n  border-radius: 10px;\n  padding: 10px;\n}\n.btn-trash[data-v-b3669d42]{\n  color: red;\n}\n.action-btn[data-v-b3669d42]{\n  display: flex;\n}\n.btn-preview[data-v-b3669d42]{\n  background: #ced4da;\n  border-radius: 5px;\n}\n.publish-btn[data-v-b3669d42]{\n  display: flex;\n  justify-content: flex-end;\n}\n.btn-publish[data-v-b3669d42]{\n background: #0a4065;\n  color: #fff;\n}\n", ""]);
 
 // exports
 
@@ -21074,7 +21703,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-fa671ab4] {\r\n  font-family: \"Montserrat\";\n}\n.options[data-v-fa671ab4] {\r\n  position: relative;\n}\n.option[data-v-fa671ab4] {\r\n  display: none;\r\n  position: absolute;\r\n  padding: 15px;\r\n  bottom: 80%;\r\n  width: 100px;\r\n  right: 12px;\r\n  background: white;\n}\n.options:hover .option[data-v-fa671ab4] {\r\n  display: block;\n}\n.option li[data-v-fa671ab4] {\r\n  padding: 4px 15px;\r\n  cursor: pointer;\n}\nul[data-v-fa671ab4] {\r\n  list-style: none;\n}\n.create-btn[data-v-fa671ab4] {\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.btn[data-v-fa671ab4] {\r\n  padding: 10px 20px;\r\n  border-radius: 5px;\n}\n.btn-create[data-v-fa671ab4] {\r\n  background: #0a4065;\r\n  color: #fff;\n}\n.search[data-v-fa671ab4] {\r\n  width: 250px;\r\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-fa671ab4] {\r\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-fa671ab4] {\r\n  display: flex;\r\n  justify-content: flex-start;\r\n  padding-top: 10px;\n}\n.filter-btn[data-v-fa671ab4] {\r\n  background: #fff;\r\n  padding: 10px 20px;\r\n  border-radius: 5px;\n}\n.filter-btn span[data-v-fa671ab4] {\r\n  font-family: \"Montserrat\";\r\n  font-weight: bold;\n}\n.filter-btn i[data-v-fa671ab4] {\r\n  padding-left: 3px;\n}\n.sort-section[data-v-fa671ab4] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  background: #fff;\r\n  border-radius: 10px;\n}\n.bg-info[data-v-fa671ab4] {\r\n  background: #fff !important;\r\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  margin-top: 20px;\r\n  border-radius: 10px;\n}\n.nav-link[data-v-fa671ab4] {\r\n  color: #000 !important;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-fa671ab4] {\n  font-family: \"Montserrat\";\n}\n.options[data-v-fa671ab4] {\n  position: relative;\n}\n.option[data-v-fa671ab4] {\n  display: none;\n  position: absolute;\n  padding: 15px;\n  bottom: 80%;\n  width: 100px;\n  right: 12px;\n  background: white;\n}\n.options:hover .option[data-v-fa671ab4] {\n  display: block;\n}\n.option li[data-v-fa671ab4] {\n  padding: 4px 15px;\n  cursor: pointer;\n}\nul[data-v-fa671ab4] {\n  list-style: none;\n}\n.create-btn[data-v-fa671ab4] {\n  display: flex;\n  justify-content: flex-end;\n}\n.btn[data-v-fa671ab4] {\n  padding: 10px 20px;\n  border-radius: 5px;\n}\n.btn-create[data-v-fa671ab4] {\n  background: #0a4065;\n  color: #fff;\n}\n.search[data-v-fa671ab4] {\n  width: 250px;\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-fa671ab4] {\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-fa671ab4] {\n  display: flex;\n  justify-content: flex-start;\n  padding-top: 10px;\n}\n.filter-btn[data-v-fa671ab4] {\n  background: #fff;\n  padding: 10px 20px;\n  border-radius: 5px;\n}\n.filter-btn span[data-v-fa671ab4] {\n  font-family: \"Montserrat\";\n  font-weight: bold;\n}\n.filter-btn i[data-v-fa671ab4] {\n  padding-left: 3px;\n}\n.sort-section[data-v-fa671ab4] {\n  display: flex;\n  justify-content: space-between;\n  background: #fff;\n  border-radius: 10px;\n}\n.bg-info[data-v-fa671ab4] {\n  background: #fff !important;\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\n  margin-top: 20px;\n  border-radius: 10px;\n}\n.nav-link[data-v-fa671ab4] {\n  color: #000 !important;\n}\n", ""]);
 
 // exports
 
@@ -21093,7 +21722,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.main-box[data-v-1723e5d5] {\r\n  padding: 20px;\r\n  background: lightblue;\r\n  position: relative;\n}\n.top-box[data-v-1723e5d5] {\r\n  margin: 0 auto;\r\n  background: white;\r\n  height: auto;\n}\n.bottom-box[data-v-1723e5d5] {\r\n  margin: 0 auto;\r\n  background: white;\n}\n.hide[data-v-1723e5d5] {\r\n  height: 120px;\r\n  overflow: hidden;\n}\n.btn-sm[data-v-1723e5d5] {\r\n  padding: 0.1rem 0.4rem;\r\n  font-size: 0.4rem;\r\n  line-height: 1.5;\n}\n.custom-select[data-v-1723e5d5] {\r\n  display: inline-block !important;\r\n  width: 100%;\r\n  height: calc(1.5em + 0.75rem + 2px);\r\n  padding: 0.375rem 1.75rem 0.375rem 0.75rem;\r\n  font-size: 1rem;\r\n  font-weight: 400;\r\n  line-height: 1.5;\r\n  color: #495057;\r\n  vertical-align: middle;\r\n  /* background: #fff; */\r\n  border: 1px solid #ced4da;\r\n  border-radius: 0.25rem;\r\n  /* -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none; */\r\n  background: #fff url(/images/down-chevron.png) no-repeat right 0.75rem\r\n    center/8px 10px;\n}\n.right-btn[data-v-1723e5d5] {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  margin-right: 25px;\r\n  margin-top: 25px;\n}\n.btn[data-v-1723e5d5] {\r\n  background: transparent;\r\n  border: 1px solid #0a4065;\r\n  color: #0a4065;\r\n  font-weight: 500;\n}\n.btn[data-v-1723e5d5]:hover {\r\n  background: #0a4065;\r\n  color: white;\n}\na[data-v-1723e5d5] {\r\n  text-decoration: none !important;\n}\na[data-v-1723e5d5]:hover {\r\n  text-decoration: none !important;\n}\r\n", ""]);
+exports.push([module.i, "\n.main-box[data-v-1723e5d5] {\n  padding: 20px;\n  background: lightblue;\n  position: relative;\n}\n.top-box[data-v-1723e5d5] {\n  margin: 0 auto;\n  background: white;\n  height: auto;\n}\n.bottom-box[data-v-1723e5d5] {\n  margin: 0 auto;\n  background: white;\n}\n.hide[data-v-1723e5d5] {\n  height: 120px;\n  overflow: hidden;\n}\n.btn-sm[data-v-1723e5d5] {\n  padding: 0.1rem 0.4rem;\n  font-size: 0.4rem;\n  line-height: 1.5;\n}\n.custom-select[data-v-1723e5d5] {\n  display: inline-block !important;\n  width: 100%;\n  height: calc(1.5em + 0.75rem + 2px);\n  padding: 0.375rem 1.75rem 0.375rem 0.75rem;\n  font-size: 1rem;\n  font-weight: 400;\n  line-height: 1.5;\n  color: #495057;\n  vertical-align: middle;\n  /* background: #fff; */\n  border: 1px solid #ced4da;\n  border-radius: 0.25rem;\n  /* -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none; */\n  background: #fff url(/images/down-chevron.png) no-repeat right 0.75rem\n    center/8px 10px;\n}\n.right-btn[data-v-1723e5d5] {\n  display: flex;\n  justify-content: flex-end;\n  margin-right: 25px;\n  margin-top: 25px;\n}\n.btn[data-v-1723e5d5] {\n  background: transparent;\n  border: 1px solid #0a4065;\n  color: #0a4065;\n  font-weight: 500;\n}\n.btn[data-v-1723e5d5]:hover {\n  background: #0a4065;\n  color: white;\n}\na[data-v-1723e5d5] {\n  text-decoration: none !important;\n}\na[data-v-1723e5d5]:hover {\n  text-decoration: none !important;\n}\n", ""]);
 
 // exports
 
@@ -21112,7 +21741,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-f5ae6090] {\r\n  font-family: \"Montserrat\";\n}\n.options[data-v-f5ae6090] {\r\n  position: relative;\n}\n.option[data-v-f5ae6090] {\r\n  display: none;\r\n  position: absolute;\r\n  padding: 15px;\r\n  bottom: 80%;\r\n  width: 100px;\r\n  right: 12px;\r\n  background: white;\n}\n.options:hover .option[data-v-f5ae6090] {\r\n  display: block;\n}\n.option li[data-v-f5ae6090] {\r\n  padding: 4px 15px;\r\n  cursor: pointer;\n}\nul[data-v-f5ae6090] {\r\n  list-style: none;\n}\n.create-btn[data-v-f5ae6090] {\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.btn[data-v-f5ae6090] {\r\n  padding: 10px 20px;\r\n  border-radius: 5px;\n}\n.btn-create[data-v-f5ae6090] {\r\n  background: #0a4065;\r\n  color: #fff;\n}\n.search[data-v-f5ae6090] {\r\n  width: 250px;\r\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-f5ae6090] {\r\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-f5ae6090] {\r\n  display: flex;\r\n  justify-content: flex-start;\r\n  padding-top: 10px;\n}\n.filter-btn[data-v-f5ae6090] {\r\n  background: #fff;\r\n  padding: 10px 20px;\r\n  border-radius: 5px;\n}\n.filter-btn span[data-v-f5ae6090] {\r\n  font-family: \"Montserrat\";\r\n  font-weight: bold;\n}\n.filter-btn i[data-v-f5ae6090] {\r\n  padding-left: 3px;\n}\n.sort-section[data-v-f5ae6090] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  background: #fff;\r\n  border-radius: 10px;\n}\n.bg-info[data-v-f5ae6090] {\r\n  background: #fff !important;\r\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  margin-top: 20px;\r\n  border-radius: 10px;\n}\n.nav-link[data-v-f5ae6090] {\r\n  color: #000 !important;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-f5ae6090] {\n  font-family: \"Montserrat\";\n}\n.options[data-v-f5ae6090] {\n  position: relative;\n}\n.option[data-v-f5ae6090] {\n  display: none;\n  position: absolute;\n  padding: 15px;\n  bottom: 80%;\n  width: 100px;\n  right: 12px;\n  background: white;\n}\n.options:hover .option[data-v-f5ae6090] {\n  display: block;\n}\n.option li[data-v-f5ae6090] {\n  padding: 4px 15px;\n  cursor: pointer;\n}\nul[data-v-f5ae6090] {\n  list-style: none;\n}\n.create-btn[data-v-f5ae6090] {\n  display: flex;\n  justify-content: flex-end;\n}\n.btn[data-v-f5ae6090] {\n  padding: 10px 20px;\n  border-radius: 5px;\n}\n.btn-create[data-v-f5ae6090] {\n  background: #0a4065;\n  color: #fff;\n}\n.search[data-v-f5ae6090] {\n  width: 250px;\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-f5ae6090] {\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-f5ae6090] {\n  display: flex;\n  justify-content: flex-start;\n  padding-top: 10px;\n}\n.filter-btn[data-v-f5ae6090] {\n  background: #fff;\n  padding: 10px 20px;\n  border-radius: 5px;\n}\n.filter-btn span[data-v-f5ae6090] {\n  font-family: \"Montserrat\";\n  font-weight: bold;\n}\n.filter-btn i[data-v-f5ae6090] {\n  padding-left: 3px;\n}\n.sort-section[data-v-f5ae6090] {\n  display: flex;\n  justify-content: space-between;\n  background: #fff;\n  border-radius: 10px;\n}\n.bg-info[data-v-f5ae6090] {\n  background: #fff !important;\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\n  margin-top: 20px;\n  border-radius: 10px;\n}\n.nav-link[data-v-f5ae6090] {\n  color: #000 !important;\n}\n", ""]);
 
 // exports
 
@@ -21131,7 +21760,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container-fluid[data-v-1684a710] {\r\n  width: 100% !important;\n}\n.row[data-v-1684a710] {\r\n  margin-left: 0px !important;\n}\n.right[data-v-1684a710] {\r\n  background: #fff;\r\n  height: 100vh;\r\n  padding: 10px;\r\n  margin-top: 1rem;\n}\n.right-btn[data-v-1684a710] {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  padding-top: 2rem;\n}\n.btn[data-v-1684a710] {\r\n  background: transparent;\r\n text-decoration: underline;\r\n  color: #0a4065;\r\n  font-weight: 500;\n}\n.btn[data-v-1684a710]:hover {\r\n  color:  #118fe2;\n}\n.right h6[data-v-1684a710] {\r\n  padding-top: 1.5rem;\r\n  font-size: 14px;\n}\n.assignment-notification[data-v-1684a710] {\r\n  background: rgba(34, 202, 222, 0.2);\r\n  border-left: 5px solid #22cade;\r\n  padding: 5px 10px;\r\n  margin-bottom: 1rem;\r\n  margin-top: 1rem;\n}\n.notification-content p[data-v-1684a710] {\r\n  font-size: 12px;\r\n  margin-bottom: 0;\n}\n.notify-class[data-v-1684a710] {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  color: #0a4065;\r\n  font-weight: 500;\n}\n.assessment-table[data-v-1684a710] {\r\n  padding-left: 15px;\r\n  padding-top: 0;\n}\n.hiden[data-v-1684a710] {\r\n  opacity: 0;\n}\n.overall-assessment[data-v-1684a710]{\r\n  display: flex;\r\n  justify-content: space-between;\r\n  padding: 2px 10px;\n}\n.overall-assessment h6[data-v-1684a710]{\r\n  margin-bottom: 3px;\r\n  padding-top: 5px;\n}\n.overall-assessment p[data-v-1684a710]{\r\n  color: grey;\r\n  font-size: 14px;\n}\n.submitted[data-v-1684a710]{\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  align-items: center;\n}\n.pending[data-v-1684a710]{\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  align-items: center;\n}\n.submitted .fa-check[data-v-1684a710]{\r\n        color: #008e3a;\r\n    background: rgba(0, 142, 58, 0.25);\r\n    border-radius: 50%;\r\n    padding: 10px;\n}\n.pending .fa-ban[data-v-1684a710]{\r\n  color: #dfd291;\r\n    background: rgba(223, 210, 145, 0.25);\r\n    border-radius: 50%;\r\n    padding: 10px;\n}\r\n", ""]);
+exports.push([module.i, "\n.container-fluid[data-v-1684a710] {\n  width: 100% !important;\n}\n.row[data-v-1684a710] {\n  margin-left: 0px !important;\n}\n.right[data-v-1684a710] {\n  background: #fff;\n  height: 100vh;\n  padding: 10px;\n  margin-top: 1rem;\n}\n.right-btn[data-v-1684a710] {\n  display: flex;\n  justify-content: flex-end;\n  padding-top: 2rem;\n}\n.btn[data-v-1684a710] {\n  background: transparent;\n text-decoration: underline;\n  color: #0a4065;\n  font-weight: 500;\n}\n.btn[data-v-1684a710]:hover {\n  color:  #118fe2;\n}\n.right h6[data-v-1684a710] {\n  padding-top: 1.5rem;\n  font-size: 14px;\n}\n.assignment-notification[data-v-1684a710] {\n  background: rgba(34, 202, 222, 0.2);\n  border-left: 5px solid #22cade;\n  padding: 5px 10px;\n  margin-bottom: 1rem;\n  margin-top: 1rem;\n}\n.notification-content p[data-v-1684a710] {\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notify-class[data-v-1684a710] {\n  display: flex;\n  justify-content: flex-end;\n  color: #0a4065;\n  font-weight: 500;\n}\n.assessment-table[data-v-1684a710] {\n  padding-left: 15px;\n  padding-top: 0;\n}\n.hiden[data-v-1684a710] {\n  opacity: 0;\n}\n.overall-assessment[data-v-1684a710]{\n  display: flex;\n  justify-content: space-between;\n  padding: 2px 10px;\n}\n.overall-assessment h6[data-v-1684a710]{\n  margin-bottom: 3px;\n  padding-top: 5px;\n}\n.overall-assessment p[data-v-1684a710]{\n  color: grey;\n  font-size: 14px;\n}\n.submitted[data-v-1684a710]{\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.pending[data-v-1684a710]{\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.submitted .fa-check[data-v-1684a710]{\n        color: #008e3a;\n    background: rgba(0, 142, 58, 0.25);\n    border-radius: 50%;\n    padding: 10px;\n}\n.pending .fa-ban[data-v-1684a710]{\n  color: #dfd291;\n    background: rgba(223, 210, 145, 0.25);\n    border-radius: 50%;\n    padding: 10px;\n}\n", ""]);
 
 // exports
 
@@ -21150,7 +21779,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-593ba224] {\r\n  font-family: \"Montserrat\";\n}\n.options[data-v-593ba224] {\r\n  position: relative;\n}\n.option[data-v-593ba224] {\r\n  display: none;\r\n  position: absolute;\r\n  padding: 15px;\r\n  bottom: 80%;\r\n  width: 100px;\r\n  right: 12px;\r\n  background: white;\n}\n.options:hover .option[data-v-593ba224] {\r\n  display: block;\n}\n.option li[data-v-593ba224] {\r\n  padding: 4px 15px;\r\n  cursor: pointer;\n}\nul[data-v-593ba224] {\r\n  list-style: none;\n}\n.create-btn[data-v-593ba224] {\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.btn[data-v-593ba224] {\r\n  padding: 10px 20px;\r\n  border-radius: 5px;\n}\n.btn-create[data-v-593ba224] {\r\n  background: #0a4065;\r\n  color: #fff;\n}\n.search[data-v-593ba224] {\r\n  width: 250px;\r\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-593ba224] {\r\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-593ba224] {\r\n  display: flex;\r\n  justify-content: flex-start;\r\n  padding-top: 10px;\n}\n.filter-btn[data-v-593ba224] {\r\n  background: #fff;\r\n  padding: 10px 20px;\r\n  border-radius: 5px;\n}\n.filter-btn span[data-v-593ba224] {\r\n  font-family: \"Montserrat\";\r\n  font-weight: bold;\n}\n.filter-btn i[data-v-593ba224] {\r\n  padding-left: 3px;\n}\n.sort-section[data-v-593ba224] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  background: #fff;\r\n  border-radius: 10px;\n}\n.bg-info[data-v-593ba224] {\r\n  background: #fff !important;\r\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  margin-top: 20px;\r\n  border-radius: 10px;\n}\n.nav-link[data-v-593ba224] {\r\n  color: #000 !important;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-593ba224] {\n  font-family: \"Montserrat\";\n}\n.options[data-v-593ba224] {\n  position: relative;\n}\n.option[data-v-593ba224] {\n  display: none;\n  position: absolute;\n  padding: 15px;\n  bottom: 80%;\n  width: 100px;\n  right: 12px;\n  background: white;\n}\n.options:hover .option[data-v-593ba224] {\n  display: block;\n}\n.option li[data-v-593ba224] {\n  padding: 4px 15px;\n  cursor: pointer;\n}\nul[data-v-593ba224] {\n  list-style: none;\n}\n.create-btn[data-v-593ba224] {\n  display: flex;\n  justify-content: flex-end;\n}\n.btn[data-v-593ba224] {\n  padding: 10px 20px;\n  border-radius: 5px;\n}\n.btn-create[data-v-593ba224] {\n  background: #0a4065;\n  color: #fff;\n}\n.search[data-v-593ba224] {\n  width: 250px;\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-593ba224] {\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-593ba224] {\n  display: flex;\n  justify-content: flex-start;\n  padding-top: 10px;\n}\n.filter-btn[data-v-593ba224] {\n  background: #fff;\n  padding: 10px 20px;\n  border-radius: 5px;\n}\n.filter-btn span[data-v-593ba224] {\n  font-family: \"Montserrat\";\n  font-weight: bold;\n}\n.filter-btn i[data-v-593ba224] {\n  padding-left: 3px;\n}\n.sort-section[data-v-593ba224] {\n  display: flex;\n  justify-content: space-between;\n  background: #fff;\n  border-radius: 10px;\n}\n.bg-info[data-v-593ba224] {\n  background: #fff !important;\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\n  margin-top: 20px;\n  border-radius: 10px;\n}\n.nav-link[data-v-593ba224] {\n  color: #000 !important;\n}\n", ""]);
 
 // exports
 
@@ -21169,7 +21798,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-65442aaa] {\r\n  font-family: \"Montserrat\";\n}\n.options[data-v-65442aaa] {\r\n  position: relative;\n}\n.option[data-v-65442aaa] {\r\n  display: none;\r\n  position: absolute;\r\n  padding: 15px;\r\n  bottom: 80%;\r\n  width: 100px;\r\n  right: 12px;\r\n  background: white;\n}\n.options:hover .option[data-v-65442aaa] {\r\n  display: block;\n}\n.option li[data-v-65442aaa] {\r\n  padding: 4px 15px;\r\n  cursor: pointer;\n}\nul[data-v-65442aaa] {\r\n  list-style: none;\n}\n.create-btn[data-v-65442aaa] {\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.btn[data-v-65442aaa] {\r\n  padding: 10px 20px;\r\n  border-radius: 5px;\n}\n.btn-create[data-v-65442aaa] {\r\n  background: #0a4065;\r\n  color: #fff;\n}\n.search[data-v-65442aaa] {\r\n  width: 250px;\r\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-65442aaa] {\r\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-65442aaa] {\r\n  display: flex;\r\n  justify-content: flex-start;\r\n  padding-top: 10px;\n}\n.filter-btn[data-v-65442aaa] {\r\n  background: #fff;\r\n  padding: 10px 20px;\r\n  border-radius: 5px;\n}\n.filter-btn span[data-v-65442aaa] {\r\n  font-family: \"Montserrat\";\r\n  font-weight: bold;\n}\n.filter-btn i[data-v-65442aaa] {\r\n  padding-left: 3px;\n}\n.sort-section[data-v-65442aaa] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  background: #fff;\r\n  border-radius: 10px;\n}\n.bg-info[data-v-65442aaa] {\r\n  background: #fff !important;\r\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  margin-top: 20px;\r\n  border-radius: 10px;\n}\n.nav-link[data-v-65442aaa] {\r\n  color: #000 !important;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-65442aaa] {\n  font-family: \"Montserrat\";\n}\n.options[data-v-65442aaa] {\n  position: relative;\n}\n.option[data-v-65442aaa] {\n  display: none;\n  position: absolute;\n  padding: 15px;\n  bottom: 80%;\n  width: 100px;\n  right: 12px;\n  background: white;\n}\n.options:hover .option[data-v-65442aaa] {\n  display: block;\n}\n.option li[data-v-65442aaa] {\n  padding: 4px 15px;\n  cursor: pointer;\n}\nul[data-v-65442aaa] {\n  list-style: none;\n}\n.create-btn[data-v-65442aaa] {\n  display: flex;\n  justify-content: flex-end;\n}\n.btn[data-v-65442aaa] {\n  padding: 10px 20px;\n  border-radius: 5px;\n}\n.btn-create[data-v-65442aaa] {\n  background: #0a4065;\n  color: #fff;\n}\n.search[data-v-65442aaa] {\n  width: 250px;\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-65442aaa] {\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-65442aaa] {\n  display: flex;\n  justify-content: flex-start;\n  padding-top: 10px;\n}\n.filter-btn[data-v-65442aaa] {\n  background: #fff;\n  padding: 10px 20px;\n  border-radius: 5px;\n}\n.filter-btn span[data-v-65442aaa] {\n  font-family: \"Montserrat\";\n  font-weight: bold;\n}\n.filter-btn i[data-v-65442aaa] {\n  padding-left: 3px;\n}\n.sort-section[data-v-65442aaa] {\n  display: flex;\n  justify-content: space-between;\n  background: #fff;\n  border-radius: 10px;\n}\n.bg-info[data-v-65442aaa] {\n  background: #fff !important;\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\n  margin-top: 20px;\n  border-radius: 10px;\n}\n.nav-link[data-v-65442aaa] {\n  color: #000 !important;\n}\n", ""]);
 
 // exports
 
@@ -21188,7 +21817,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.view[data-v-f752e2c8] {\r\n  background: white;\r\n  position: relative;\r\n  display: flex;\r\n  height: 92vh;\n}\nlabel[data-v-f752e2c8]{\r\n  margin: 0 !important;\r\n  display: block;\n}\n.message[data-v-f752e2c8]{\r\n  font-size: 16px;\r\n  padding: 20px;\n}\n.chat-body[data-v-f752e2c8] {\r\n  width: 80%;\r\n  height: 100%;\r\n  background: #f7f8fa;\r\n  padding:20px 0;\r\n  position: relative;\n}\n.online[data-v-f752e2c8] {\r\n  height: 100%;\r\n  width: 20%;\n}\n.send-tab[data-v-f752e2c8] {\r\n  position: fixed;\r\n  bottom: 0;\r\n  width: 80%;\r\n  margin: 0 auto;\r\n  padding: 10px;\r\n  background: white;\r\n  display: flex;\n}\n.emoji[data-v-f752e2c8] {\r\n  position: absolute;\r\n  bottom: 100%;\r\n  overflow: hidden !important;\n}\n.online ul li[data-v-f752e2c8] {\r\n  font-size: 15px;\r\n  padding: 10px 15px;\n}\n.form-group[data-v-f752e2c8] {\r\n  position: relative;\n}\n.fa-paperclip[data-v-f752e2c8] {\r\n  position: absolute;\r\n  font-size: 17px;\r\n  right: 10px;\r\n  top: 50%;\r\n  margin-top: -8px;\n}\n.chat-item[data-v-f752e2c8]{\r\n  background: white;\r\n  padding: 30px 50px;\n}\r\n", ""]);
+exports.push([module.i, "\n.view[data-v-f752e2c8] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 92vh;\n}\nlabel[data-v-f752e2c8]{\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-f752e2c8]{\n  font-size: 16px;\n  padding: 20px;\n}\n.chat-body[data-v-f752e2c8] {\n  width: 80%;\n  height: 100%;\n  background: #f7f8fa;\n  padding:20px 0;\n  position: relative;\n}\n.online[data-v-f752e2c8] {\n  height: 100%;\n  width: 20%;\n}\n.send-tab[data-v-f752e2c8] {\n  position: fixed;\n  bottom: 0;\n  width: 80%;\n  margin: 0 auto;\n  padding: 10px;\n  background: white;\n  display: flex;\n}\n.emoji[data-v-f752e2c8] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-f752e2c8] {\n  font-size: 15px;\n  padding: 10px 15px;\n}\n.form-group[data-v-f752e2c8] {\n  position: relative;\n}\n.fa-paperclip[data-v-f752e2c8] {\n  position: absolute;\n  font-size: 17px;\n  right: 10px;\n  top: 50%;\n  margin-top: -8px;\n}\n.chat-item[data-v-f752e2c8]{\n  background: white;\n  padding: 30px 50px;\n}\n", ""]);
 
 // exports
 
@@ -21207,7 +21836,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-5e8c3cff] {\r\n  height: 100%;\n}\n.table .thead-dark th[data-v-5e8c3cff] {\r\n  background-color: #22cade;\r\n  border-color: #22cade;\n}\n.view-link[data-v-5e8c3cff] {\r\n  cursor: pointer;\n}\n.search[data-v-5e8c3cff] {\r\n  width: 250px;\r\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-5e8c3cff] {\r\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-5e8c3cff] {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  padding-top: 10px;\n}\n.filter-btn[data-v-5e8c3cff] {\r\n  background: #fff;\r\n  padding: 10px 20px;\r\n  border-radius: 5px;\n}\n.filter-btn span[data-v-5e8c3cff] {\r\n  font-family: \"Montserrat\";\r\n  font-weight: bold;\n}\n.filter-btn i[data-v-5e8c3cff] {\r\n  padding-left: 3px;\n}\n.sort-section[data-v-5e8c3cff] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  background: #fff;\r\n  border-radius: 10px;\n}\n.bg-info[data-v-5e8c3cff] {\r\n  background: #fff !important;\r\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  margin-top: 20px;\r\n  border-radius: 10px;\n}\n.nav-link[data-v-5e8c3cff] {\r\n  color: #000 !important;\n}\n.syllabus-table[data-v-5e8c3cff] {\r\n  padding-top: 20px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-5e8c3cff] {\n  height: 100%;\n}\n.table .thead-dark th[data-v-5e8c3cff] {\n  background-color: #22cade;\n  border-color: #22cade;\n}\n.view-link[data-v-5e8c3cff] {\n  cursor: pointer;\n}\n.search[data-v-5e8c3cff] {\n  width: 250px;\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-5e8c3cff] {\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-5e8c3cff] {\n  display: flex;\n  justify-content: flex-end;\n  padding-top: 10px;\n}\n.filter-btn[data-v-5e8c3cff] {\n  background: #fff;\n  padding: 10px 20px;\n  border-radius: 5px;\n}\n.filter-btn span[data-v-5e8c3cff] {\n  font-family: \"Montserrat\";\n  font-weight: bold;\n}\n.filter-btn i[data-v-5e8c3cff] {\n  padding-left: 3px;\n}\n.sort-section[data-v-5e8c3cff] {\n  display: flex;\n  justify-content: space-between;\n  background: #fff;\n  border-radius: 10px;\n}\n.bg-info[data-v-5e8c3cff] {\n  background: #fff !important;\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\n  margin-top: 20px;\n  border-radius: 10px;\n}\n.nav-link[data-v-5e8c3cff] {\n  color: #000 !important;\n}\n.syllabus-table[data-v-5e8c3cff] {\n  padding-top: 20px;\n}\n", ""]);
 
 // exports
 
@@ -21226,7 +21855,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.my-container[data-v-19998a00]{\r\n    widows: 100vw;\n}\n.side[data-v-19998a00]{\r\n    width: 15%;\r\n    height: 100vh;\r\n    background:#41cee2 ;\r\n    color:white;\r\n    position: fixed;\n}\n.main[data-v-19998a00]{\r\n    width:85%;\r\n height: 100%;\r\nposition: absolute;\r\nright: 0;\r\n/* background:#fff7ed ; */\n}\n.min-side[data-v-19998a00]{\r\nwidth: 4% !important;\n}\n.min-main[data-v-19998a00]{\r\nwidth: 96% !important;\n}\r\n\r\n \r\n", ""]);
+exports.push([module.i, "\n.my-container[data-v-19998a00]{\n    widows: 100vw;\n}\n.side[data-v-19998a00]{\n    width: 15%;\n    height: 100vh;\n    background:#41cee2 ;\n    color:white;\n    position: fixed;\n}\n.main[data-v-19998a00]{\n    width:85%;\n height: 100%;\nposition: absolute;\nright: 0;\n/* background:#fff7ed ; */\n}\n.min-side[data-v-19998a00]{\nwidth: 4% !important;\n}\n.min-main[data-v-19998a00]{\nwidth: 96% !important;\n}\n\n \n", ""]);
 
 // exports
 
@@ -21245,7 +21874,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nnav[data-v-8f6887d0] {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr 1fr 1fr;\r\n  grid-column-gap: 30px;\n}\n.names[data-v-8f6887d0] {\r\n  max-height: 400px;\r\n  overflow: hidden;\r\n  background: white;\n}\n.custom-control-input[data-v-8f6887d0] {\r\n  z-index: 1;\r\n  opacity: 1;\n}\ntd[data-v-8f6887d0] {\r\n  text-transform: capitalize;\r\n  position: relative;\n}\n.chat[data-v-8f6887d0] {\r\n  cursor: pointer;\n}\n.enter[data-v-8f6887d0] {\r\n  position: absolute;\r\n  right: 20px;\r\n  top: 50%;\r\n  margin-top: -10px;\n}\n.hiden[data-v-8f6887d0] {\r\n  opacity: 0;\n}\n.add[data-v-8f6887d0] {\r\n  background-color: #f7f8fa;\n}\n.body[data-v-8f6887d0] {\r\n  padding: 20px 20px 50px;\r\n  height: 100%;\n}\ntable[data-v-8f6887d0] {\r\n  font-size: 14.5px;\n}\r\n", ""]);
+exports.push([module.i, "\nnav[data-v-8f6887d0] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.names[data-v-8f6887d0] {\n  max-height: 400px;\n  overflow: hidden;\n  background: white;\n}\n.custom-control-input[data-v-8f6887d0] {\n  z-index: 1;\n  opacity: 1;\n}\ntd[data-v-8f6887d0] {\n  text-transform: capitalize;\n  position: relative;\n}\n.chat[data-v-8f6887d0] {\n  cursor: pointer;\n}\n.enter[data-v-8f6887d0] {\n  position: absolute;\n  right: 20px;\n  top: 50%;\n  margin-top: -10px;\n}\n.hiden[data-v-8f6887d0] {\n  opacity: 0;\n}\n.add[data-v-8f6887d0] {\n  background-color: #f7f8fa;\n}\n.body[data-v-8f6887d0] {\n  padding: 20px 20px 50px;\n  height: 100%;\n}\ntable[data-v-8f6887d0] {\n  font-size: 14.5px;\n}\n", ""]);
 
 // exports
 
@@ -21264,7 +21893,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.overview-board[data-v-11aed4a3]{\r\n  padding-top: 20px;\n}\n.assignment-overview-board[data-v-11aed4a3] {\r\n  background: #fff;\r\n  font-family: \"Montserrat\";\r\n  padding: 15px;\r\n  border-radius: 10px;\n}\n.assignment-overview-board p[data-v-11aed4a3] {\r\n  font-weight: 600;\r\n  color: #808080;\n}\n.text-center p[data-v-11aed4a3] {\r\n  font-weight: 500;\r\n  margin-bottom: 10px;\n}\n.text-center h6[data-v-11aed4a3] {\r\n  font-weight: 700;\n}\n.overview-log-1[data-v-11aed4a3] {\r\n  border-right: 1px solid #c4c4c4;\n}\n.overview-log-4[data-v-11aed4a3] {\r\n  border-right: 1px solid #c4c4c4;\n}\n.overview-log-1 i[data-v-11aed4a3] {\r\n  color: #22cade;\r\n  background: rgba(34, 202, 222, 0.25);\r\n  border-radius: 50%;\r\n  padding: 10px;\n}\n.overview-log-2 i[data-v-11aed4a3] {\r\n  color: #dfd291;\r\n  background: rgba(223, 210, 145, 0.25);\r\n  border-radius: 50%;\r\n  padding: 10px;\n}\n.overview-log-3 i[data-v-11aed4a3] {\r\n  color: #ff0000;\r\n  background: rgba(255, 0, 0, 0.25);\r\n  border-radius: 50%;\r\n  padding: 10px;\n}\n.overview-log-4 i[data-v-11aed4a3] {\r\n  color: #008e3a;\r\n  background: rgba(0, 142, 58, 0.25);\r\n  border-radius: 50%;\r\n  padding: 10px;\n}\n.log-link[data-v-11aed4a3] {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  padding-top: 1rem;\n}\n.content-cards[data-v-11aed4a3] {\r\n  padding-top: 2rem;\n}\n.cards[data-v-11aed4a3] {\r\n  background: #fff;\r\n  border-radius: 10px;\r\n  padding: 10px;\r\n  height: 450px;\n}\n.class-content[data-v-11aed4a3] {\r\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-11aed4a3] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.class-content-top i[data-v-11aed4a3] {\r\n  color: #008e3a;\n}\n.content-2 i[data-v-11aed4a3] {\r\n  color: #ff0000;\n}\n.class-content-main[data-v-11aed4a3] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.class-content-main p[data-v-11aed4a3] {\r\n  font-size: 12px;\n}\n.notes-content[data-v-11aed4a3] {\r\n  border-bottom: 1px solid #e4e4e4;\n}\n.notes-content[data-v-11aed4a3]:last-child {\r\n  border-bottom: none;\n}\n.notes-top[data-v-11aed4a3] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  padding-bottom: 1rem;\n}\n.notes-content-top[data-v-11aed4a3] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.notes-content-top h6[data-v-11aed4a3] {\r\n  margin-bottom: 0;\r\n  padding-top: 5px;\n}\n.notes-content[data-v-11aed4a3] {\r\n  padding-top: 5px;\n}\n.notes-content-main[data-v-11aed4a3] {\r\n  padding-bottom: 5px;\n}\n.notes-content-main p[data-v-11aed4a3] {\r\n  font-size: 12px;\r\n  margin-bottom: 0;\n}\n.notes-date[data-v-11aed4a3] {\r\n  color: #808080;\r\n  padding-top: 5px;\r\n  padding-left: 10px;\n}\n.fa-file-o[data-v-11aed4a3] {\r\n  color: #22cade;\r\n  background: rgba(34, 202, 222, 0.25);\r\n  border-radius: 50%;\r\n  padding: 9px;\n}\n.btn[data-v-11aed4a3] {\r\n  border: 1px solid #0a4065;\r\n  color: #0a4065;\n}\n.discussion-content[data-v-11aed4a3]{\r\n  border-bottom:1px solid #e4e4e4;\r\n  padding-bottom: 10px;\r\n  padding-top: 5px;\n}\n.discussion-content[data-v-11aed4a3]:last-child{\r\n  border-bottom: none;\n}\n.discussion-content p[data-v-11aed4a3]{\r\n  font-size: 10px;\n}\n.discussion-content-top[data-v-11aed4a3]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.discussion-content-top p[data-v-11aed4a3]{\r\n font-size: 14px;\n}\n.discussion-content-bottom[data-v-11aed4a3]{\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.discussion-content-bottom p[data-v-11aed4a3]{\r\n  font-size: 12px;\r\n  margin-bottom: 0;\n}\n.notify-discussion p[data-v-11aed4a3]{\r\n background: #e4e4e4;\r\n color: #808080;\r\n border-radius: 5px;\r\n font-weight: 500;\r\n padding: 5px 10px;\n}\r\n", ""]);
+exports.push([module.i, "\n.overview-board[data-v-11aed4a3] {\n  padding-top: 20px;\n}\n.note-body[data-v-11aed4a3]{\n  display:flex;\n  border-bottom:1px solid #ccc;\n  margin-bottom: 14px;\n}\n.m-res[data-v-11aed4a3]{\n  height: 320px;\n  overflow: auto;\n}\n.main-note[data-v-11aed4a3]{\n  height: 330px;\n  overflow:auto;\n}\n.assignment-overview-board[data-v-11aed4a3] {\n  background: #fff;\n  font-family: \"Montserrat\";\n  padding: 15px;\n  border-radius: 10px;\n}\n.assignment-overview-board p[data-v-11aed4a3] {\n  font-weight: 600;\n  color: #808080;\n}\n.text-center p[data-v-11aed4a3] {\n  font-weight: 500;\n  margin-bottom: 10px;\n}\n.text-center h6[data-v-11aed4a3] {\n  font-weight: 700;\n}\n.overview-log-1[data-v-11aed4a3] {\n  border-right: 1px solid #c4c4c4;\n}\n.overview-log-4[data-v-11aed4a3] {\n  border-right: 1px solid #c4c4c4;\n}\n.overview-log-1 i[data-v-11aed4a3] {\n  color: #22cade;\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.overview-log-2 i[data-v-11aed4a3] {\n  color: #dfd291;\n  background: rgba(223, 210, 145, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.overview-log-3 i[data-v-11aed4a3] {\n  color: #ff0000;\n  background: rgba(255, 0, 0, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.overview-log-4 i[data-v-11aed4a3] {\n  color: #008e3a;\n  background: rgba(0, 142, 58, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.log-link[data-v-11aed4a3] {\n  display: flex;\n  justify-content: flex-end;\n  padding-top: 1rem;\n}\n.content-cards[data-v-11aed4a3] {\n  padding-top: 2rem;\n}\n.cards[data-v-11aed4a3] {\n  background: #fff;\n  border-radius: 10px;\n  padding: 10px;\n  height: 450px;\n}\n.class-content[data-v-11aed4a3] {\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-top i[data-v-11aed4a3] {\n  color: #008e3a;\n}\n.content-2 i[data-v-11aed4a3] {\n  color: #ff0000;\n}\n.class-content-main[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-11aed4a3] {\n  font-size: 12px;\n}\n.notes-content[data-v-11aed4a3] {\n  border-bottom: 1px solid #e4e4e4;\n}\n.notes-content[data-v-11aed4a3]:last-child {\n  border-bottom: none;\n}\n.check_it[data-v-11aed4a3]{\n  color: #008e3a;\n  font-size:12px;\n}\n.notes-top[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 1rem;\n}\n.notes-content-top[data-v-11aed4a3] {\n  display: flex;\n}\n.notes-content-top h6[data-v-11aed4a3] {\n  margin-bottom: 0;\n}\n.notes-content[data-v-11aed4a3] {\n}\n.notes-content-main[data-v-11aed4a3] {\n  padding-bottom: 5px;\n}\n.notes-content-main p[data-v-11aed4a3] {\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notes-date[data-v-11aed4a3] {\n  color: #808080;\n  padding-top: 5px;\n}\n.fa-file-o[data-v-11aed4a3] {\n  color: #22cade;\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 50%;\n  padding: 9px;\n}\n.btn[data-v-11aed4a3] {\n  border: 1px solid #0a4065;\n  color: #0a4065;\n  font-size: 15px;\n}\n.discussion-content[data-v-11aed4a3] {\n  border-bottom: 1px solid #e4e4e4;\n  padding-bottom: 10px;\n  padding-top: 5px;\n}\n.discussion-content[data-v-11aed4a3]:last-child {\n  border-bottom: none;\n}\n.discussion-content p[data-v-11aed4a3] {\n  font-size: 10px;\n}\n.discussion-content-top[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-top p[data-v-11aed4a3] {\n  font-size: 14px;\n}\n.discussion-content-bottom[data-v-11aed4a3] {\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-bottom p[data-v-11aed4a3] {\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notify-discussion p[data-v-11aed4a3] {\n  background: #e4e4e4;\n  color: #808080;\n  border-radius: 5px;\n  font-weight: 500;\n  padding: 5px 10px;\n}\n.my-icon[data-v-11aed4a3]{\n   color: #008e3a;\n}\n", ""]);
 
 // exports
 
@@ -21283,7 +21912,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.semi-white[data-v-2e28e87d]{\r\n background: #F9F7F0;\r\n min-height: 100%;\n}\nnav[data-v-2e28e87d] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);\n}\n#notification[data-v-2e28e87d] {\r\n  position: relative;\r\n  z-index: 999;\n}\n.notification-body[data-v-2e28e87d] {\r\n  position: absolute;\r\n  left: -240px;\r\n  width: 250px;\n}\n.main-notify[data-v-2e28e87d] {\r\n  max-height: 300px;\r\n overflow: scroll;\n}\n.icon[data-v-2e28e87d] {\r\n  position: relative;\n}\n.badge[data-v-2e28e87d] {\r\n  position: absolute;\r\n  top: -10%;\r\n  left: 50%;\r\n  background: red;\r\n  color: white;\r\n  font-size: 14px;\n}\n.list-group-item[data-v-2e28e87d] {\r\n  font-size: 14px;\n}\n.fa-bell[data-v-2e28e87d] {\r\n  font-size: 24px;\r\n  color:#41cee2;\n}\n.search[data-v-2e28e87d]{\r\n  width:250px;\r\n  border-color:#41cee2\n}\r\n", ""]);
+exports.push([module.i, "\n.semi-white[data-v-2e28e87d]{\n background: #F9F7F0;\n min-height: 100%;\n}\nnav[data-v-2e28e87d] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);\n}\n#notification[data-v-2e28e87d] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-2e28e87d] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-2e28e87d] {\n  max-height: 300px;\n overflow: scroll;\n}\n.icon[data-v-2e28e87d] {\n  position: relative;\n}\n.badge[data-v-2e28e87d] {\n  position: absolute;\n  top: -10%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 14px;\n}\n.list-group-item[data-v-2e28e87d] {\n  font-size: 14px;\n}\n.fa-bell[data-v-2e28e87d] {\n  font-size: 24px;\n  color:#41cee2;\n}\n.search[data-v-2e28e87d]{\n  width:250px;\n  border-color:#41cee2\n}\n", ""]);
 
 // exports
 
@@ -21302,7 +21931,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.info[data-v-08a588d6] {\r\n  width: 80%;\r\n  margin: 0 auto;\n}\n.image[data-v-08a588d6] {\r\n  width: 140px;\r\n  height: 140px;\r\n  border-radius: 50%;\r\n  overflow: hidden;\n}\n.image img[data-v-08a588d6]{\r\n    width:100%;\r\n    height:100%;\r\n    -o-object-fit: cover;\r\n       object-fit: cover;\n}\nul[data-v-08a588d6] {\r\n  list-style: none;\n}\nli[data-v-08a588d6] {\r\n  text-transform: capitalize;\r\n  padding: 10px 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.info[data-v-08a588d6] {\n  width: 80%;\n  margin: 0 auto;\n}\n.image[data-v-08a588d6] {\n  width: 140px;\n  height: 140px;\n  border-radius: 50%;\n  overflow: hidden;\n}\n.image img[data-v-08a588d6]{\n    width:100%;\n    height:100%;\n    -o-object-fit: cover;\n       object-fit: cover;\n}\nul[data-v-08a588d6] {\n  list-style: none;\n}\nli[data-v-08a588d6] {\n  text-transform: capitalize;\n  padding: 10px 0;\n}\n", ""]);
 
 // exports
 
@@ -21321,7 +21950,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-f80a7b2c] {\r\n  padding: 40px 20px 60px;\n}\n.add-resource[data-v-f80a7b2c] {\r\n  padding: 20px 30px;\n}\n.form-container[data-v-f80a7b2c] {\r\n  background: #fff;\r\n  border: 3px solid #22cade;\r\n  border-radius: 10px;\r\n  box-shadow: 4px 4px 4px rgba(249, 247, 240, 0.25);\r\n  padding: 10px 20px;\r\n  margin-top: 10px;\n}\n.upload-resource[data-v-f80a7b2c] {\r\n  border: 1px dotted #22cade;\r\n  padding: 10px 20px;\r\n  margin-top: 10px;\n}\n.custom-select[data-v-f80a7b2c] {\r\n  display: inline-block !important;\r\n  width: 100%;\r\n  height: calc(1.5em + 0.75rem + 2px);\r\n  padding: 0.375rem 1.75rem 0.375rem 0.75rem;\r\n  font-size: 1rem;\r\n  font-weight: 400;\r\n  line-height: 1.5;\r\n  color: #495057;\r\n  vertical-align: middle;\r\n  /* background: #fff; */\r\n  border: 1px solid #ced4da;\r\n  border-radius: 0.25rem;\r\n  /* -webkit-appearance: none;\r\n    -moz-appearance: none;\r\n    appearance: none; */\r\n  background: #fff url(/images/down-chevron.png) no-repeat right 0.75rem\r\n    center/8px 10px;\n}\nlabel[data-v-f80a7b2c] {\r\n  font-family: \"Montserrat\";\r\n  font-weight: 500;\n}\n.upload-btn-wrapper[data-v-f80a7b2c] {\r\n  position: relative;\r\n  overflow: hidden;\r\n  display: inline-block;\r\n  width: 100%;\n}\n.upload-btn-wrapper .btn[data-v-f80a7b2c] {\r\n  border: 1px solid gray;\r\n  color: gray;\r\n  background-color: white;\r\n  padding: 8px 20px;\r\n  border-radius: 8px;\r\n  font-size: 20px;\r\n  font-weight: bold;\r\n  border-style: dotted;\r\n  width: 100%;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  align-items: center;\n}\n.upload-btn-wrapper input[type=\"file\"][data-v-f80a7b2c] {\r\n  font-size: 100px;\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0;\r\n  opacity: 0;\n}\n.save-btn[data-v-f80a7b2c] {\r\n  display: flex;\r\n  justify-content: center;\n}\n.btn-save[data-v-f80a7b2c] {\r\n  background-color: #0a4065;\r\n  padding: 10px 20px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-f80a7b2c] {\n  padding: 40px 20px 60px;\n}\n.add-resource[data-v-f80a7b2c] {\n  padding: 20px 30px;\n}\n.form-container[data-v-f80a7b2c] {\n  background: #fff;\n  border: 3px solid #22cade;\n  border-radius: 10px;\n  box-shadow: 4px 4px 4px rgba(249, 247, 240, 0.25);\n  padding: 10px 20px;\n  margin-top: 10px;\n}\n.upload-resource[data-v-f80a7b2c] {\n  border: 1px dotted #22cade;\n  padding: 10px 20px;\n  margin-top: 10px;\n}\n.custom-select[data-v-f80a7b2c] {\n  display: inline-block !important;\n  width: 100%;\n  height: calc(1.5em + 0.75rem + 2px);\n  padding: 0.375rem 1.75rem 0.375rem 0.75rem;\n  font-size: 1rem;\n  font-weight: 400;\n  line-height: 1.5;\n  color: #495057;\n  vertical-align: middle;\n  /* background: #fff; */\n  border: 1px solid #ced4da;\n  border-radius: 0.25rem;\n  /* -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none; */\n  background: #fff url(/images/down-chevron.png) no-repeat right 0.75rem\n    center/8px 10px;\n}\nlabel[data-v-f80a7b2c] {\n  font-family: \"Montserrat\";\n  font-weight: 500;\n}\n.upload-btn-wrapper[data-v-f80a7b2c] {\n  position: relative;\n  overflow: hidden;\n  display: inline-block;\n  width: 100%;\n}\n.upload-btn-wrapper .btn[data-v-f80a7b2c] {\n  border: 1px solid gray;\n  color: gray;\n  background-color: white;\n  padding: 8px 20px;\n  border-radius: 8px;\n  font-size: 20px;\n  font-weight: bold;\n  border-style: dotted;\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.upload-btn-wrapper input[type=\"file\"][data-v-f80a7b2c] {\n  font-size: 100px;\n  position: absolute;\n  left: 0;\n  top: 0;\n  opacity: 0;\n}\n.save-btn[data-v-f80a7b2c] {\n  display: flex;\n  justify-content: center;\n}\n.btn-save[data-v-f80a7b2c] {\n  background-color: #0a4065;\n  padding: 10px 20px;\n}\n", ""]);
 
 // exports
 
@@ -21340,7 +21969,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.body[data-v-ec56d410] {\r\n  padding: 40px 20px 60px;\n}\nform[data-v-ec56d410] {\r\n  padding: 20px;\r\n  width: 80%;\r\n  margin: 0 auto;\n}\n.custom-control-input[data-v-ec56d410] {\r\n  opacity: 1;\r\n  z-index: 1;\n}\n.custom-control[data-v-ec56d410] {\r\n  display: flex;\r\n  align-items: center;\n}\n.resource[data-v-ec56d410] {\r\n  display: grid;\r\n  grid-template-columns: 31% 31% 31%;\r\n  grid-column-gap: 2.33%;\r\n  grid-row-gap: 20px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-ec56d410] {\n  padding: 40px 20px 60px;\n}\n.add-resource[data-v-ec56d410] {\n  padding: 20px 30px;\n}\n.form-container[data-v-ec56d410] {\n  background: #fff;\n  border: 3px solid #22cade;\n  border-radius: 10px;\n  box-shadow: 4px 4px 4px rgba(249, 247, 240, 0.25);\n  padding: 10px 20px;\n  margin-top: 10px;\n}\n.upload-resource[data-v-ec56d410] {\n  border: 1px dotted #22cade;\n  padding: 10px 20px;\n  margin-top: 10px;\n}\n.custom-select[data-v-ec56d410] {\n  display: inline-block !important;\n  width: 100%;\n  height: calc(1.5em + 0.75rem + 2px);\n  padding: 0.375rem 1.75rem 0.375rem 0.75rem;\n  font-size: 1rem;\n  font-weight: 400;\n  line-height: 1.5;\n  color: #495057;\n  vertical-align: middle;\n  /* background: #fff; */\n  border: 1px solid #ced4da;\n  border-radius: 0.25rem;\n  /* -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none; */\n  background: #fff url(/images/down-chevron.png) no-repeat right 0.75rem\n    center/8px 10px;\n}\nlabel[data-v-ec56d410] {\n  font-family: \"Montserrat\";\n  font-weight: 500;\n}\n.upload-btn-wrapper[data-v-ec56d410] {\n  position: relative;\n  overflow: hidden;\n  display: inline-block;\n  width: 100%;\n}\n.upload-btn-wrapper .btn[data-v-ec56d410] {\n  border: 1px solid gray;\n  color: gray;\n  background-color: white;\n  padding: 8px 20px;\n  border-radius: 8px;\n  font-size: 20px;\n  font-weight: bold;\n  border-style: dotted;\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.upload-btn-wrapper input[type=\"file\"][data-v-ec56d410] {\n  font-size: 100px;\n  position: absolute;\n  left: 0;\n  top: 0;\n  opacity: 0;\n}\n.save-btn[data-v-ec56d410] {\n  display: flex;\n  justify-content: center;\n}\n.btn-save[data-v-ec56d410] {\n  background-color: #0a4065;\n  padding: 10px 20px;\n}\n", ""]);
 
 // exports
 
@@ -21359,7 +21988,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.resource-main[data-v-0d5caa4d] {\r\n  padding: 20px 40px;\n}\n.resource-btn[data-v-0d5caa4d] {\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.filter-container[data-v-0d5caa4d] {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  padding-top: 10px;\n}\n.filter-btn[data-v-0d5caa4d] {\r\n  background: #fff;\r\n  padding: 10px 20px;\r\n  border-radius: 5px;\n}\n.filter-btn span[data-v-0d5caa4d] {\r\n  font-family: \"Montserrat\";\r\n  font-weight: bold;\n}\n.filter-btn i[data-v-0d5caa4d] {\r\n  padding-left: 3px;\n}\n.btn-resource[data-v-0d5caa4d] {\r\n  background: #0a4065;\r\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  border-radius: 10px;\r\n  padding: 10px 20px;\r\n  color: #fff;\n}\n.sort-section[data-v-0d5caa4d] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  background: #fff;\r\n  border-radius: 10px;\n}\n.bg-info[data-v-0d5caa4d] {\r\n  background: #fff !important;\r\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  margin-top: 20px;\r\n  border-radius: 10px;\n}\n.nav-link[data-v-0d5caa4d] {\r\n  color: #000 !important;\n}\n.resource-table[data-v-0d5caa4d] {\r\n  padding-top: 20px;\n}\n.table[data-v-0d5caa4d] {\r\n  border-radius: 10px;\n}\n.table .thead-dark th[data-v-0d5caa4d] {\r\n  color: #fff;\r\n  background-color: #22cade;\r\n  border-color: #22cade;\n}\n.search[data-v-0d5caa4d] {\r\n  width: 250px;\r\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-0d5caa4d] {\r\n  border-radius: 50rem !important;\n}\n.hiden[data-v-0d5caa4d] {\r\n  opacity: 0;\n}\n.options[data-v-0d5caa4d] {\r\n  position: relative;\r\n  width: 10px;\n}\n.option-box[data-v-0d5caa4d] {\r\n  position: absolute;\r\n  bottom: 100%;\r\n  background: white;\r\n  padding: 15px;\r\n  font-size: 14px;\r\n  width: 100px;\r\n  display: none;\r\n  right: 10px;\n}\n.options:hover .option-box[data-v-0d5caa4d] {\r\n  display: block;\n}\n.option-box ul[data-v-0d5caa4d] {\r\n  text-decoration: none;\r\n  list-style: none;\n}\n.option-box ul li[data-v-0d5caa4d] {\r\n  padding: 5px 0;\r\n  cursor: pointer;\n}\n.fa-ellipsis-v[data-v-0d5caa4d] {\r\n  cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\n.resource-main[data-v-0d5caa4d] {\n  padding: 20px 40px;\n}\n.resource-btn[data-v-0d5caa4d] {\n  display: flex;\n  justify-content: flex-end;\n}\n.filter-container[data-v-0d5caa4d] {\n  display: flex;\n  justify-content: flex-end;\n  padding-top: 10px;\n}\n.filter-btn[data-v-0d5caa4d] {\n  background: #fff;\n  padding: 10px 20px;\n  border-radius: 5px;\n}\n.filter-btn span[data-v-0d5caa4d] {\n  font-family: \"Montserrat\";\n  font-weight: bold;\n}\n.filter-btn i[data-v-0d5caa4d] {\n  padding-left: 3px;\n}\n.btn-resource[data-v-0d5caa4d] {\n  background: #0a4065;\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\n  border-radius: 10px;\n  padding: 10px 20px;\n  color: #fff;\n}\n.sort-section[data-v-0d5caa4d] {\n  display: flex;\n  justify-content: space-between;\n  background: #fff;\n  border-radius: 10px;\n}\n.bg-info[data-v-0d5caa4d] {\n  background: #fff !important;\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\n  margin-top: 20px;\n  border-radius: 10px;\n}\n.nav-link[data-v-0d5caa4d] {\n  color: #000 !important;\n}\n.resource-table[data-v-0d5caa4d] {\n  padding-top: 20px;\n}\n.table[data-v-0d5caa4d] {\n  border-radius: 10px;\n}\n.table .thead-dark th[data-v-0d5caa4d] {\n  color: #fff;\n  background-color: #22cade;\n  border-color: #22cade;\n}\n.search[data-v-0d5caa4d] {\n  width: 250px;\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-0d5caa4d] {\n  border-radius: 50rem !important;\n}\n.hiden[data-v-0d5caa4d] {\n  opacity: 0;\n}\n.options[data-v-0d5caa4d] {\n  position: relative;\n  width: 10px;\n}\n.option-box[data-v-0d5caa4d] {\n  position: absolute;\n  bottom: 100%;\n  background: white;\n  padding: 15px;\n  font-size: 14px;\n  width: 100px;\n  display: none;\n  right: 10px;\n}\n.options:hover .option-box[data-v-0d5caa4d] {\n  display: block;\n}\n.option-box ul[data-v-0d5caa4d] {\n  text-decoration: none;\n  list-style: none;\n}\n.option-box ul li[data-v-0d5caa4d] {\n  padding: 5px 0;\n  cursor: pointer;\n}\n.fa-ellipsis-v[data-v-0d5caa4d] {\n  cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -21378,7 +22007,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.jumb[data-v-719e9d13] {\r\n  width: 100%;\r\n  position: relative;\r\n  background: transparent;\n}\n.mod ul[data-v-719e9d13] {\r\n  list-style: none;\n}\n.mod ul li[data-v-719e9d13] {\r\n  padding: 10px 20px;\r\n  border-bottom: 1px solid #ccc;\n}\n.top_n[data-v-719e9d13] {\r\n  position: relative;\r\n\r\n  -o-object-fit: cover;\r\n\r\n     object-fit: cover;\n}\n.overlay-n[data-v-719e9d13] {\r\n  top: 0px;\r\n  left: 0px;\r\n  bottom: 0px;\r\n  right: 0px;\r\n  opacity: 0.85;\r\n  background: #f7f8fa;\r\n  -webkit-backdrop-filter: blur(2px);\r\n          backdrop-filter: blur(2px);\r\n  position: absolute;\n}\n.main-bar[data-v-719e9d13] {\r\n  width: 70%;\r\n  margin-right: auto;\n}\n.floating-bar[data-v-719e9d13] {\r\n  position: fixed;\r\n  right: 5%;\r\n  top: 30%;\n}\n.view-resource-header[data-v-719e9d13] {\r\n  background-image: linear-gradient(\r\n      to bottom,\r\n      rgba(10, 64, 101, 0.84),\r\n      rgba(10, 64, 101, 0.84)\r\n    ),\r\n    url(/images/resource-bg.png);\r\n  color: #fff;\r\n  padding: 1.5rem;\r\n  /* margin-top: 2rem; */\r\n  position: relative;\n}\n.view-resource-header p[data-v-719e9d13] {\r\n  font-size: 14px;\r\n  margin-bottom: 0.5rem !important;\n}\n.btn[data-v-719e9d13] {\r\n  background: transparent;\r\n  border: 1px solid #fff;\r\n  color: white !important;\r\n  /* margin-right: 10px; */\r\n  /* margin-bottom: 15px; */\n}\n.btn[data-v-719e9d13]:hover {\r\n  background: #fff;\r\n  color: #0a4065 !important;\r\n  transition: 0.3s;\r\n  border: none;\n}\n.resource-content[data-v-719e9d13] {\r\n  padding: 20px;\r\n  width: 60%;\n}\n.resource-overview[data-v-719e9d13] {\r\n  padding-top: 20px;\n}\n.resource-media-frame[data-v-719e9d13] {\r\n  padding-top: 20px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  align-items: center;\n}\n.resource-media-frame img[data-v-719e9d13] {\r\n  width: 50%;\r\n  height: 300px;\n}\n.tutors-note[data-v-719e9d13] {\r\n  padding-top: 20px;\n}\n.student-reviews[data-v-719e9d13] {\r\n  padding: 20px 0;\n}\n.btn-secondary[data-v-719e9d13] {\r\n  color: #333 !important;\n}\n.btn-primary[data-v-719e9d13] {\r\n  background: #41cee2 !important;\n}\r\n", ""]);
+exports.push([module.i, "\n.jumb[data-v-719e9d13] {\n  width: 100%;\n  position: relative;\n  background: transparent;\n}\n.mod ul[data-v-719e9d13] {\n  list-style: none;\n}\n.mod ul li[data-v-719e9d13] {\n  padding: 10px 20px;\n  border-bottom: 1px solid #ccc;\n}\n.top_n[data-v-719e9d13] {\n  position: relative;\n\n  -o-object-fit: cover;\n\n     object-fit: cover;\n}\n.overlay-n[data-v-719e9d13] {\n  top: 0px;\n  left: 0px;\n  bottom: 0px;\n  right: 0px;\n  opacity: 0.85;\n  background: #f7f8fa;\n  -webkit-backdrop-filter: blur(2px);\n          backdrop-filter: blur(2px);\n  position: absolute;\n}\n.main-bar[data-v-719e9d13] {\n  width: 70%;\n  margin-right: auto;\n}\n.floating-bar[data-v-719e9d13] {\n  position: fixed;\n  right: 5%;\n  top: 20%;\n}\n.view-resource-header[data-v-719e9d13] {\n  background-image: linear-gradient(\n      to bottom,\n      rgba(10, 64, 101, 0.84),\n      rgba(10, 64, 101, 0.84)\n    ),\n    url(/images/resource-bg.png);\n  color: #fff;\n  padding: 1.5rem;\n  /* margin-top: 2rem; */\n  position: relative;\n}\n.view-resource-header p[data-v-719e9d13] {\n  font-size: 14px;\n  margin-bottom: 0.5rem !important;\n}\n.featured-review[data-v-719e9d13] {\n  background: #f7f8fa;\n}\n.featured-review-inner-top[data-v-719e9d13] {\n  display: flex;\n  padding: 15px 0;\n  align-items: center;\n}\n.featured-review-top[data-v-719e9d13] {\n  display: flex;\n  justify-content: space-between;\n}\n.featured-review-inner-top p[data-v-719e9d13] {\n  padding-left: 10px;\n}\n.featured-review-top img[data-v-719e9d13] {\n  height: 20px;\n  width: 100px;\n}\n.review[data-v-719e9d13] {\n  background-color: #fff;\n  border-radius: 5px;\n  margin-bottom: 10px;\n}\n.btn[data-v-719e9d13] {\n  background: transparent;\n  border: 1px solid #fff;\n  color: white !important;\n  /* margin-right: 10px; */\n  /* margin-bottom: 15px; */\n}\n.btn[data-v-719e9d13]:hover {\n  background: #fff;\n  color: #0a4065 !important;\n  transition: 0.3s;\n  border: none;\n}\n.resource-content[data-v-719e9d13] {\n  padding: 20px;\n  width: 60%;\n}\n.resource-overview[data-v-719e9d13] {\n  padding-top: 20px;\n}\n.resource-media-frame[data-v-719e9d13] {\n  padding-top: 20px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.resource-media-frame img[data-v-719e9d13] {\n  width: 50%;\n  height: 300px;\n}\n.tutors-note[data-v-719e9d13] {\n  padding-top: 20px;\n}\n.student-reviews[data-v-719e9d13] {\n  padding: 20px 0;\n}\n.btn-secondary[data-v-719e9d13] {\n  color: #333 !important;\n}\n.btn-primary[data-v-719e9d13] {\n  background: #41cee2 !important;\n}\n", ""]);
 
 // exports
 
@@ -21397,7 +22026,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.bar[data-v-3bd343a8]{\r\n    position: relative;\n}\n.min-nav[data-v-3bd343a8]{\r\n    position: absolute;\r\n    text-align: center;\r\n    right: 20px;\r\n    bottom: 40px;\n}\n.logo[data-v-3bd343a8]{\r\n    padding: 10px 20px;\r\n    margin-bottom:20px;\r\n    text-align:center;\n}\n.logo p[data-v-3bd343a8]{\r\n    font-weight: bold;\r\n    font-family: 'Josefin Sans';\r\n    font-size: 24px;\r\n    text-align:center;\r\n    color:#41cee2;\r\n    margin:0;\n}\n.logo small[data-v-3bd343a8]{\r\n \r\n  font-size:18px;\r\n    color:white\n}\nul[data-v-3bd343a8]{\r\n    list-style:none;\n}\nnav ul li[data-v-3bd343a8]{\r\n  padding: 10px 20px;\r\n  font-size: 15px;\r\n  cursor: pointer;\r\n  color:hsl(187deg 74% 100%);\n}\nnav[data-v-3bd343a8]{\r\n    padding-left:20px;\n}\n.router-link-exact-active li[data-v-3bd343a8]{\r\nbackground:#0a4065 ;\r\nborder-top-left-radius:10px;\r\nborder-bottom-left-radius:10px\n}\r\n", ""]);
+exports.push([module.i, "\n.bar[data-v-3bd343a8]{\n    position: relative;\n}\n.min-nav[data-v-3bd343a8]{\n    position: absolute;\n    text-align: center;\n    right: 20px;\n    bottom: 40px;\n}\n.logo[data-v-3bd343a8]{\n    padding: 10px 20px;\n    margin-bottom:20px;\n    text-align:center;\n}\n.logo p[data-v-3bd343a8]{\n    font-weight: bold;\n    font-family: 'Josefin Sans';\n    font-size: 24px;\n    text-align:center;\n    color:#41cee2;\n    margin:0;\n}\n.logo small[data-v-3bd343a8]{\n \n  font-size:18px;\n    color:white\n}\nul[data-v-3bd343a8]{\n    list-style:none;\n}\nnav ul li[data-v-3bd343a8]{\n  padding: 10px 20px;\n  font-size: 15px;\n  cursor: pointer;\n  color:hsl(187deg 74% 100%);\n}\nnav[data-v-3bd343a8]{\n    padding-left:20px;\n}\n.router-link-exact-active li[data-v-3bd343a8]{\nbackground:#0a4065 ;\nborder-top-left-radius:10px;\nborder-bottom-left-radius:10px\n}\n", ""]);
 
 // exports
 
@@ -21416,7 +22045,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-0effc4a9] {\r\n  height: 100%;\n}\n.table .thead-dark th[data-v-0effc4a9] {\r\n  background-color: #22cade;\r\n  border-color: #22cade;\n}\n.view-link[data-v-0effc4a9] {\r\n  cursor: pointer;\n}\n.view-link[data-v-0effc4a9]:hover {\r\n  color: #22cade;\n}\n.search[data-v-0effc4a9] {\r\n  width: 250px;\r\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-0effc4a9] {\r\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-0effc4a9] {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n  padding-top: 10px;\n}\n.filter-btn[data-v-0effc4a9] {\r\n  background: #fff;\r\n  padding: 10px 20px;\r\n  border-radius: 5px;\n}\n.filter-btn span[data-v-0effc4a9] {\r\n  font-family: \"Montserrat\";\r\n  font-weight: bold;\n}\n.filter-btn i[data-v-0effc4a9] {\r\n  padding-left: 3px;\n}\n.sort-section[data-v-0effc4a9] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  background: #fff;\r\n  border-radius: 10px;\n}\n.bg-info[data-v-0effc4a9] {\r\n  background: #fff !important;\r\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  margin-top: 20px;\r\n  border-radius: 10px;\n}\n.nav-link[data-v-0effc4a9] {\r\n  color: #000 !important;\n}\n.syllabus-table[data-v-0effc4a9] {\r\n  padding-top: 20px;\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-0effc4a9] {\n  height: 100%;\n}\n.table .thead-dark th[data-v-0effc4a9] {\n  background-color: #22cade;\n  border-color: #22cade;\n}\n.view-link[data-v-0effc4a9] {\n  cursor: pointer;\n}\n.view-link[data-v-0effc4a9]:hover {\n  color: #22cade;\n}\n.search[data-v-0effc4a9] {\n  width: 250px;\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-0effc4a9] {\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-0effc4a9] {\n  display: flex;\n  justify-content: flex-end;\n  padding-top: 10px;\n}\n.filter-btn[data-v-0effc4a9] {\n  background: #fff;\n  padding: 10px 20px;\n  border-radius: 5px;\n}\n.filter-btn span[data-v-0effc4a9] {\n  font-family: \"Montserrat\";\n  font-weight: bold;\n}\n.filter-btn i[data-v-0effc4a9] {\n  padding-left: 3px;\n}\n.sort-section[data-v-0effc4a9] {\n  display: flex;\n  justify-content: space-between;\n  background: #fff;\n  border-radius: 10px;\n}\n.bg-info[data-v-0effc4a9] {\n  background: #fff !important;\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\n  margin-top: 20px;\n  border-radius: 10px;\n}\n.nav-link[data-v-0effc4a9] {\n  color: #000 !important;\n}\n.syllabus-table[data-v-0effc4a9] {\n  padding-top: 20px;\n}\n", ""]);
 
 // exports
 
@@ -21435,7 +22064,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.timetable-schedule[data-v-a874f09c] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.body[data-v-a874f09c] {\r\n  position: relative;\r\n  padding: 40px 20px 50px;\r\n  height: 100%;\n}\n.overlay-content[data-v-a874f09c] {\r\n  position: absolute;\r\n  top: 0px;\r\n  left: 0px;\r\n  bottom: 0px;\r\n  right: 0px;\r\n  opacity: 0.85;\r\n  -webkit-backdrop-filter: blur(2px);\r\n          backdrop-filter: blur(2px);\r\n  height: 100vh;\r\n  width: 100%;\r\n  left: 0;\r\n  background: rgba(0, 0, 0, 0.8);\r\n  padding: 10px;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\n}\n.cancel[data-v-a874f09c] {\r\n  position: absolute;\r\n  right: 10px;\r\n  top: 10px;\n}\n.ov[data-v-a874f09c] {\r\n  width: 100%;\r\n  position: relative;\n}\n.schedule-part[data-v-a874f09c] {\r\n  background: #fff;\r\n  height: 100vh;\n}\n.schedule-inner[data-v-a874f09c] {\r\n  padding: 20px;\r\n      height: 100vh;\r\n    overflow-y: scroll;\n}\n.schedule-inner p[data-v-a874f09c] {\r\n  font-size: 14px;\n}\n.schedule-inner h6[data-v-a874f09c] {\r\n  padding-top: 20px;\n}\n.notify[data-v-a874f09c] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  padding-bottom: 15px;\n}\n.notify-i i[data-v-a874f09c] {\r\n  color: #22cade;\r\n  padding: 10px;\n}\n.notify-i[data-v-a874f09c] {\r\n  background: rgba(34, 202, 222, 0.25);\r\n  border-radius: 50%;\n}\n.noftify-word p[data-v-a874f09c]{\r\n  font-size: 12px;\n}\r\n/* width */\n[data-v-a874f09c]::-webkit-scrollbar {\r\n  width: 10px;\n}\r\n\r\n/* Track */\n[data-v-a874f09c]::-webkit-scrollbar-track {\r\n  background: none;\n}\r\n \r\n/* Handle */\n[data-v-a874f09c]::-webkit-scrollbar-thumb {\r\n  background: rgba(34, 202, 222, 0.25); \r\n  border-radius: 5px;\n}\r\n\r\n/* Handle on hover */\n[data-v-a874f09c]::-webkit-scrollbar-thumb:hover {\r\n  background: #555;\n}\n.search[data-v-a874f09c] {\r\n  width: 250px;\r\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-a874f09c] {\r\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-a874f09c] {\r\n  display: flex;\r\n  justify-content: flex-start;\r\n  padding-top: 10px;\n}\n.filter-btn[data-v-a874f09c] {\r\n  background: #fff;\r\n  padding: 10px 20px;\r\n  border-radius: 5px;\n}\n.filter-btn span[data-v-a874f09c] {\r\n  font-family: \"Montserrat\";\r\n  font-weight: bold;\n}\n.filter-btn i[data-v-a874f09c] {\r\n  padding-left: 3px;\n}\n.sort-section[data-v-a874f09c] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  background: #fff;\r\n  border-radius: 10px;\n}\n.bg-info[data-v-a874f09c] {\r\n  background: #fff !important;\r\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  margin-top: 20px;\r\n  border-radius: 10px;\n}\n.nav-link[data-v-a874f09c] {\r\n  color: #000 !important;\n}\r\n", ""]);
+exports.push([module.i, "\n.timetable-schedule[data-v-a874f09c] {\n  display: flex;\n  justify-content: space-between;\n}\n.body[data-v-a874f09c] {\n  position: relative;\n  padding: 40px 20px 50px;\n  height: 100%;\n}\n.overlay-content[data-v-a874f09c] {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  bottom: 0px;\n  right: 0px;\n  opacity: 0.85;\n  -webkit-backdrop-filter: blur(2px);\n          backdrop-filter: blur(2px);\n  height: 100vh;\n  width: 100%;\n  left: 0;\n  background: rgba(0, 0, 0, 0.8);\n  padding: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.cancel[data-v-a874f09c] {\n  position: absolute;\n  right: 10px;\n  top: 10px;\n}\n.ov[data-v-a874f09c] {\n  width: 100%;\n  position: relative;\n}\n.schedule-part[data-v-a874f09c] {\n  background: #fff;\n  height: 100vh;\n}\n.schedule-inner[data-v-a874f09c] {\n  padding: 20px;\n      height: 100vh;\n    overflow-y: scroll;\n}\n.schedule-inner p[data-v-a874f09c] {\n  font-size: 14px;\n}\n.schedule-inner h6[data-v-a874f09c] {\n  padding-top: 20px;\n}\n.notify[data-v-a874f09c] {\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 15px;\n}\n.notify-i i[data-v-a874f09c] {\n  color: #22cade;\n  padding: 10px;\n}\n.notify-i[data-v-a874f09c] {\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 50%;\n}\n.noftify-word p[data-v-a874f09c]{\n  font-size: 12px;\n}\n/* width */\n[data-v-a874f09c]::-webkit-scrollbar {\n  width: 10px;\n}\n\n/* Track */\n[data-v-a874f09c]::-webkit-scrollbar-track {\n  background: none;\n}\n \n/* Handle */\n[data-v-a874f09c]::-webkit-scrollbar-thumb {\n  background: rgba(34, 202, 222, 0.25); \n  border-radius: 5px;\n}\n\n/* Handle on hover */\n[data-v-a874f09c]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n.search[data-v-a874f09c] {\n  width: 250px;\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-a874f09c] {\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-a874f09c] {\n  display: flex;\n  justify-content: flex-start;\n  padding-top: 10px;\n}\n.filter-btn[data-v-a874f09c] {\n  background: #fff;\n  padding: 10px 20px;\n  border-radius: 5px;\n}\n.filter-btn span[data-v-a874f09c] {\n  font-family: \"Montserrat\";\n  font-weight: bold;\n}\n.filter-btn i[data-v-a874f09c] {\n  padding-left: 3px;\n}\n.sort-section[data-v-a874f09c] {\n  display: flex;\n  justify-content: space-between;\n  background: #fff;\n  border-radius: 10px;\n}\n.bg-info[data-v-a874f09c] {\n  background: #fff !important;\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\n  margin-top: 20px;\n  border-radius: 10px;\n}\n.nav-link[data-v-a874f09c] {\n  color: #000 !important;\n}\n", ""]);
 
 // exports
 
@@ -21454,7 +22083,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-592b988d] {\n}\nform[data-v-592b988d] {\r\n  width: 70%;\r\n  margin:0 auto;\r\n  padding:70px 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-592b988d] {\n}\nform[data-v-592b988d] {\n  width: 70%;\n  margin:0 auto;\n  padding:70px 0;\n}\n", ""]);
 
 // exports
 
@@ -21473,7 +22102,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-5572edf8] {\r\n  padding: 40px 30px 70px;\r\n  position: relative;\n}\n.table[data-v-5572edf8]{\r\n  border-radius: 40px;\r\n  font-size: 17px;\n}\n.popup-overlay[data-v-5572edf8] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(255, 255, 255, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\n}\n.suggestion-box[data-v-5572edf8] {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  background: white;\r\n  border-bottom-left-radius: 5px;\r\n  height: 250px;\r\n  width: 50%;\r\n  padding: 15px;\r\n  position: absolute;\r\n  bottom: 50%;\r\n  transform: translate(50%, 50%);\r\n  right: 50%;\n}\n.suggestion-box p[data-v-5572edf8] {\r\n  font-size: 24px;\r\n  font-weight: bold;\r\n  text-align: center;\n}\nlabel[data-v-5572edf8]{\r\n  color: #888888;\n}\n.close[data-v-5572edf8] {\r\n  position: absolute;\r\n  right: 5px;\r\n  top: 5px;\n}\nform[data-v-5572edf8] {\r\n  padding: 20px;\r\n  padding-bottom: 60px;\r\n  background: white;\r\n  font-size: 14px;\n}\nh5[data-v-5572edf8] {\r\n  margin-bottom: 24px;\n}\n.side-label[data-v-5572edf8] {\r\n  width: 150px;\n}\n.form-text[data-v-5572edf8] {\r\n  margin-bottom: 18px;\n}\n.underline[data-v-5572edf8] {\r\n  width: 80px;\r\n  height: 3px;\r\n  background-color: #0a4065;\n}\n.class-information[data-v-5572edf8] {\r\n  padding-top: 20px;\n}\n.class-information h5[data-v-5572edf8] {\r\n  margin-bottom: 2px !important;\n}\n.class-information-inner[data-v-5572edf8] {\r\n  display: flex;\r\n  justify-content: space-around;\r\n  padding-top: 20px;\n}\n.class-information-inner span[data-v-5572edf8] {\r\n  color: #808080;\n}\n.view-syllabus[data-v-5572edf8] {\r\n  background: #fff;\r\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  padding: 30px;\r\n  border-radius: 10px;\n}\n.subject-description[data-v-5572edf8] {\r\n  padding-top: 15px;\n}\n.contain-syllabus[data-v-5572edf8] {\r\n  padding: 30px;\n}\n.form-group[data-v-5572edf8]{\r\n  font-family: \"Montserrat\";\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-5572edf8] {\n  padding: 40px 30px 70px;\n  position: relative;\n}\n.table[data-v-5572edf8]{\n  border-radius: 40px;\n  font-size: 17px;\n}\n.popup-overlay[data-v-5572edf8] {\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  background: rgba(255, 255, 255, 0.7);\n  z-index: 1;\n  top: 0;\n  left: 0;\n}\n.suggestion-box[data-v-5572edf8] {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: center;\n  background: white;\n  border-bottom-left-radius: 5px;\n  height: 250px;\n  width: 50%;\n  padding: 15px;\n  position: absolute;\n  bottom: 50%;\n  transform: translate(50%, 50%);\n  right: 50%;\n}\n.suggestion-box p[data-v-5572edf8] {\n  font-size: 24px;\n  font-weight: bold;\n  text-align: center;\n}\nlabel[data-v-5572edf8]{\n  color: #888888;\n}\n.close[data-v-5572edf8] {\n  position: absolute;\n  right: 5px;\n  top: 5px;\n}\nform[data-v-5572edf8] {\n  padding: 20px;\n  padding-bottom: 60px;\n  background: white;\n  font-size: 14px;\n}\nh5[data-v-5572edf8] {\n  margin-bottom: 24px;\n}\n.side-label[data-v-5572edf8] {\n  width: 150px;\n}\n.form-text[data-v-5572edf8] {\n  margin-bottom: 18px;\n}\n.underline[data-v-5572edf8] {\n  width: 80px;\n  height: 3px;\n  background-color: #0a4065;\n}\n.class-information[data-v-5572edf8] {\n  padding-top: 20px;\n}\n.class-information h3[data-v-5572edf8] {\n  margin-bottom: 0 !important;\n}\n.class-information-inner[data-v-5572edf8] {\n  display: flex;\n  justify-content: space-around;\n  padding-top: 20px;\n}\n.class-information-inner span[data-v-5572edf8] {\n  color: #808080;\n}\n.view-syllabus[data-v-5572edf8] {\n  background: #fff;\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\n  padding: 30px;\n  border-bottom-radius: 10px;\n}\n.subject-description[data-v-5572edf8] {\n  padding-top: 15px;\n}\n.contain-syllabus[data-v-5572edf8] {\n  padding: 30px;\n}\ntd[data-v-5572edf8]{\n  padding:2.50rem;\n}\n", ""]);
 
 // exports
 
@@ -21492,7 +22121,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-45774dee] {\r\n  padding: 40px 30px 70px;\r\n  position: relative;\n}\n.popup-overlay[data-v-45774dee] {\r\n  position: absolute;\r\n  width: 100%;\r\n  height: 100vh;\r\n  background: rgba(255, 255, 255, 0.7);\r\n  z-index: 1;\r\n  top: 0;\r\n  left: 0;\n}\n.suggestion-box[data-v-45774dee] {\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  background: white;\r\n  border-radius: 5px;\r\n  height: 250px;\r\n  width: 50%;\r\n  padding: 15px;\r\n  position: absolute;\r\n  bottom: 50%;\r\n  transform: translate(50%, 50%);\r\n  right: 50%;\n}\n.suggestion-box p[data-v-45774dee] {\r\n  font-size: 24px;\r\n  font-weight: bold;\r\n  text-align: center;\n}\n.close[data-v-45774dee] {\r\n  position: absolute;\r\n  right: 5px;\r\n  top: 5px;\n}\nform[data-v-45774dee] {\r\n  padding: 20px;\r\n  padding-bottom: 60px;\r\n  background: white;\r\n  font-size: 14px;\n}\nh5[data-v-45774dee] {\r\n  margin-bottom: 24px;\r\n  font-size: 1.3em;\n}\n.side-label[data-v-45774dee] {\r\n  width: 150px;\n}\n.form-text[data-v-45774dee] {\r\n  margin-bottom: 18px;\n}\n.underline[data-v-45774dee] {\r\n  width: 80px;\r\n  height: 3px;\r\n  background-color: #0a4065;\n}\n.class-information[data-v-45774dee] {\r\n  padding-top: 20px;\n}\n.class-information h5[data-v-45774dee] {\r\n  margin-bottom: 0 !important;\n}\n.class-information-inner[data-v-45774dee] {\r\n  display: flex;\r\n  justify-content: space-around;\r\n  padding-top: 20px;\n}\nh5[data-v-45774dee]{\r\n  color: #808080;\n}\n.class-information-inner span[data-v-45774dee] {\r\n  color: #333333;\n}\n.view-syllabus[data-v-45774dee] {\r\n  background: #fff;\r\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\r\n  padding: 30px;\r\n  border-radius: 10px;\n}\n.subject-description[data-v-45774dee] {\r\n  padding-top: 15px;\n}\n.contain-syllabus[data-v-45774dee] {\r\n  padding: 30px;\n}\n.form-group[data-v-45774dee]{\r\n  font-family: \"Montserrat\";\n}\r\n", ""]);
+exports.push([module.i, "\n.body[data-v-45774dee] {\n  padding: 40px 30px 70px;\n  position: relative;\n}\n.popup-overlay[data-v-45774dee] {\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  background: rgba(255, 255, 255, 0.7);\n  z-index: 1;\n  top: 0;\n  left: 0;\n}\n.suggestion-box[data-v-45774dee] {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: center;\n  background: white;\n  border-radius: 5px;\n  height: 250px;\n  width: 50%;\n  padding: 15px;\n  position: absolute;\n  bottom: 50%;\n  transform: translate(50%, 50%);\n  right: 50%;\n}\n.suggestion-box p[data-v-45774dee] {\n  font-size: 24px;\n  font-weight: bold;\n  text-align: center;\n}\n.close[data-v-45774dee] {\n  position: absolute;\n  right: 5px;\n  top: 5px;\n}\nform[data-v-45774dee] {\n  padding: 20px;\n  padding-bottom: 60px;\n  background: white;\n  font-size: 14px;\n}\nstrong[data-v-45774dee] {\n  margin-bottom: 24px;\n  font-size: 1.3em;\n}\n.side-label[data-v-45774dee] {\n  width: 150px;\n}\n.form-text[data-v-45774dee] {\n  margin-bottom: 18px;\n}\n.underline[data-v-45774dee] {\n  width: 80px;\n  height: 3px;\n  background-color: #0a4065;\n}\n.class-information[data-v-45774dee] {\n  padding-top: 20px;\n}\n.class-information strong[data-v-45774dee] {\n  margin-bottom: 0 !important;\n}\n.class-information-inner[data-v-45774dee] {\n  display: flex;\n  justify-content: space-around;\n  padding-top: 20px;\n}\nh5[data-v-45774dee]{\n  color: #808080;\n}\n.class-information-inner span[data-v-45774dee] {\n  color: #333333;\n}\n.view-syllabus[data-v-45774dee] {\n  background: #fff;\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\n  padding: 30px;\n  border-radius: 10px;\n}\n.subject-description[data-v-45774dee] {\n  padding-top: 15px;\n}\n.contain-syllabus[data-v-45774dee] {\n  padding: 30px;\n}\n", ""]);
 
 // exports
 
@@ -21511,7 +22140,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.progress[data-v-15764681] {\r\n  height: 20px;\n}\n.logo[data-v-15764681] {\r\n  width: 50%;\r\n  height: 120px;\r\n  padding: 5px;\n}\n.images[data-v-15764681] {\r\n  display: flex;\r\n  margin-top: 15px;\n}\n.oldimg[data-v-15764681] {\r\n  width: 50%;\r\n  height: 120px;\r\n  padding: 5px;\n}\n.oldimg img[data-v-15764681],\r\n.logo img[data-v-15764681] {\r\n  width: 100%;\r\n  height: 100%;\r\n  -o-object-fit: contain;\r\n     object-fit: contain;\n}\r\n", ""]);
+exports.push([module.i, "\n.progress[data-v-15764681] {\n  height: 20px;\n}\n.logo[data-v-15764681] {\n  width: 50%;\n  height: 120px;\n  padding: 5px;\n}\n.images[data-v-15764681] {\n  display: flex;\n  margin-top: 15px;\n}\n.oldimg[data-v-15764681] {\n  width: 50%;\n  height: 120px;\n  padding: 5px;\n}\n.oldimg img[data-v-15764681],\n.logo img[data-v-15764681] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: contain;\n     object-fit: contain;\n}\n", ""]);
 
 // exports
 
@@ -21530,7 +22159,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.upload-btn-wrapper[data-v-15764681] {\r\n  position: relative;\r\n  overflow: hidden;\r\n  display: inline-block;\r\n  width: 100%;\n}\n.upload-btn-wrapper .btn[data-v-15764681] {\r\n  border: 1px solid gray;\r\n  color: gray;\r\n  background-color: white;\r\n  padding: 8px 20px;\r\n  border-radius: 8px;\r\n  font-size: 20px;\r\n  font-weight: bold;\r\n  border-style: dashed;\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  align-items: center;\n}\n.upload-btn-wrapper input[type=\"file\"][data-v-15764681] {\r\n  font-size: 100px;\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0;\r\n  opacity: 0;\n}\n.centered[data-v-15764681]{\r\n  display: flex;\r\n justify-content: center;\n}\n.upload-btn[data-v-15764681]{\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.btn-upload[data-v-15764681]{\r\n  background-color: #0A4065;\n}\r\n", ""]);
+exports.push([module.i, "\n.upload-btn-wrapper[data-v-15764681] {\n  position: relative;\n  overflow: hidden;\n  display: inline-block;\n  width: 100%;\n}\n.upload-btn-wrapper .btn[data-v-15764681] {\n  border: 1px solid gray;\n  color: gray;\n  background-color: white;\n  padding: 8px 20px;\n  border-radius: 8px;\n  font-size: 20px;\n  font-weight: bold;\n  border-style: dashed;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.upload-btn-wrapper input[type=\"file\"][data-v-15764681] {\n  font-size: 100px;\n  position: absolute;\n  left: 0;\n  top: 0;\n  opacity: 0;\n}\n.centered[data-v-15764681] {\n  display: flex;\n  justify-content: center;\n}\n.upload-btn[data-v-15764681] {\n  display: flex;\n  justify-content: flex-end;\n}\n.btn-upload[data-v-15764681] {\n  background-color: #0a4065;\n}\n", ""]);
 
 // exports
 
@@ -21606,6 +22235,36 @@ if(false) {}
 
 
 var content = __webpack_require__(/*! !../../../node_modules/css-loader!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../node_modules/vue-loader/lib??vue-loader-options!./paystack.vue?vue&type=style&index=0&id=930ee7aa&scoped=true&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/paystack.vue?vue&type=style&index=0&id=930ee7aa&scoped=true&lang=scss&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/starRatings.vue?vue&type=style&index=0&id=257974c9&scoped=true&lang=scss&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/starRatings.vue?vue&type=style&index=0&id=257974c9&scoped=true&lang=scss& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../node_modules/vue-loader/lib??vue-loader-options!./starRatings.vue?vue&type=style&index=0&id=257974c9&scoped=true&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/starRatings.vue?vue&type=style&index=0&id=257974c9&scoped=true&lang=scss&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -30891,7 +31550,7 @@ var render = function() {
                                 },
                                 [
                                   _c("i", { staticClass: "fas fa-eye" }),
-                                  _vm._v("View\r\n                  ")
+                                  _vm._v("View\n                  ")
                                 ]
                               )
                             ]),
@@ -30908,7 +31567,7 @@ var render = function() {
                                 },
                                 [
                                   _c("i", { staticClass: "fas fa-edit" }),
-                                  _vm._v("Edit\r\n                  ")
+                                  _vm._v("Edit\n                  ")
                                 ]
                               )
                             ]),
@@ -30929,7 +31588,7 @@ var render = function() {
                                     staticClass: "fa fa-minus-circle",
                                     attrs: { "aria-hidden": "true" }
                                   }),
-                                  _vm._v(" Drop\r\n                  ")
+                                  _vm._v(" Drop\n                  ")
                                 ]
                               )
                             ])
@@ -30997,12 +31656,12 @@ var render = function() {
                   attrs: { block: "" }
                 },
                 [
-                  _vm._v("\r\n            Students\r\n            "),
+                  _vm._v("\n            Students\n            "),
                   _c("i", {
                     staticClass: "fa fa-arrows-h mx-2",
                     attrs: { "aria-hidden": "true" }
                   }),
-                  _vm._v("\r\n            Subjects\r\n          ")
+                  _vm._v("\n            Subjects\n          ")
                 ]
               ),
               _vm._v(" "),
@@ -31020,12 +31679,12 @@ var render = function() {
                   attrs: { block: "" }
                 },
                 [
-                  _vm._v("\r\n            Students\r\n            "),
+                  _vm._v("\n            Students\n            "),
                   _c("i", {
                     staticClass: "fa fa-arrows-h mx-2",
                     attrs: { "aria-hidden": "true" }
                   }),
-                  _vm._v("\r\n            Class\r\n          ")
+                  _vm._v("\n            Class\n          ")
                 ]
               ),
               _vm._v(" "),
@@ -31819,8 +32478,25 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "body", class: { "overflow-hide": _vm.showPreview } },
+    { staticClass: "body" },
     [
+      _c(
+        "b-modal",
+        { attrs: { id: "preview", size: "lg", "hide-footer": "" } },
+        [
+          _c("Preview", {
+            attrs: { syllabus: _vm.syllabus, afterSubmit: _vm.afterSubmit },
+            on: {
+              submit: _vm.submit,
+              togglePreview: _vm.togglePreview,
+              updateComment: _vm.updateComment,
+              cancelToggle: _vm.cancelToggle
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
       _c(
         "form",
         {
@@ -32029,6 +32705,38 @@ var render = function() {
                 }
               })
             ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "form-group" },
+              [
+                _c("label", { attrs: { for: "" } }, [_vm._v("Cover Image")]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { attrs: { for: "cover" } },
+                  [
+                    _c("b-avatar", {
+                      attrs: {
+                        src: _vm.syllabus.cover,
+                        rounded: "",
+                        size: "5rem",
+                        icon: "image-fill"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("Upload", {
+                  attrs: { label: _vm.label, index: _vm.label },
+                  on: { getUploadDetails: _vm.getUploadDetails }
+                })
+              ],
+              1
+            ),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
               _c("label", { attrs: { for: "" } }, [_vm._v("Frequency")]),
@@ -32336,6 +33044,93 @@ var render = function() {
                         [_vm._v("Remove")]
                       )
                     : _vm._e()
+                ],
+                1
+              )
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "border p-3 my-4" },
+            [
+              _c("h5", [_vm._v("Requirements")]),
+              _vm._v(" "),
+              _c(
+                "small",
+                {
+                  staticClass: "form-text text-muted",
+                  attrs: { id: "helpId" }
+                },
+                [_vm._v("Subject requiremnts")]
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.syllabus.requirements, function(item, idx) {
+                return _c("span", { key: idx, staticClass: "mb-2 d-flex" }, [
+                  _c("span", { staticClass: "mr-3" }, [
+                    _vm._v(_vm._s(idx + 1) + ".")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: item.name,
+                        expression: "item.name"
+                      }
+                    ],
+                    staticClass: "form-control w-25 mb-2",
+                    attrs: {
+                      type: "text",
+                      required: "",
+                      "aria-describedby": "helpId",
+                      placeholder: ""
+                    },
+                    domProps: { value: item.name },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(item, "name", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "d-flex" },
+                [
+                  _c(
+                    "b-button",
+                    {
+                      staticClass: "mr-3",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.addNew(7)
+                        }
+                      }
+                    },
+                    [_vm._v("Add")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.remove(7)
+                        }
+                      }
+                    },
+                    [_vm._v("Remove")]
+                  )
                 ],
                 1
               )
@@ -32714,27 +33509,9 @@ var render = function() {
             1
           )
         ]
-      ),
-      _vm._v(" "),
-      _vm.showPreview
-        ? _c(
-            "div",
-            { staticClass: "popup-overlay" },
-            [
-              _c("Preview", {
-                staticClass: "preview",
-                attrs: { syllabus: _vm.syllabus, afterSubmit: _vm.afterSubmit },
-                on: {
-                  submit: _vm.submit,
-                  togglePreview: _vm.togglePreview,
-                  updateComment: _vm.updateComment
-                }
-              })
-            ],
-            1
-          )
-        : _vm._e()
-    ]
+      )
+    ],
+    1
   )
 }
 var staticRenderFns = []
@@ -33883,6 +34660,38 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "form-group" },
+              [
+                _c("label", { attrs: { for: "" } }, [_vm._v("Cover Image")]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { attrs: { for: "cover" } },
+                  [
+                    _c("b-avatar", {
+                      attrs: {
+                        src: _vm.syllabus.cover,
+                        rounded: "",
+                        size: "5rem",
+                        icon: "image-fill"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("Upload", {
+                  attrs: { label: _vm.label, index: _vm.label },
+                  on: { getUploadDetails: _vm.getUploadDetails }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
               _c("label", { attrs: { for: "" } }, [_vm._v("Frequency")]),
               _vm._v(" "),
@@ -34183,6 +34992,95 @@ var render = function() {
                           on: {
                             click: function($event) {
                               return _vm.remove(3)
+                            }
+                          }
+                        },
+                        [_vm._v("Remove")]
+                      )
+                    : _vm._e()
+                ],
+                1
+              )
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "border p-3 my-4" },
+            [
+              _c("h5", [_vm._v("Requirements")]),
+              _vm._v(" "),
+              _c(
+                "small",
+                {
+                  staticClass: "form-text text-muted",
+                  attrs: { id: "helpId" }
+                },
+                [_vm._v("Subject requiremnts")]
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.syllabus.requirements, function(item, idx) {
+                return _c("span", { key: idx, staticClass: "mb-2 d-flex" }, [
+                  _c("span", { staticClass: "mr-3" }, [
+                    _vm._v(_vm._s(idx + 1) + ".")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: item.name,
+                        expression: "item.name"
+                      }
+                    ],
+                    staticClass: "form-control w-25 mb-2",
+                    attrs: {
+                      type: "text",
+                      required: "",
+                      "aria-describedby": "helpId",
+                      placeholder: ""
+                    },
+                    domProps: { value: item.name },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(item, "name", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "d-flex" },
+                [
+                  _c(
+                    "b-button",
+                    {
+                      staticClass: "mr-3",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.addNew(7)
+                        }
+                      }
+                    },
+                    [_vm._v("Add")]
+                  ),
+                  _vm._v(" "),
+                  _vm.syllabus.requirements.length > 1
+                    ? _c(
+                        "b-button",
+                        {
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.remove(7)
                             }
                           }
                         },
@@ -41370,6 +42268,77 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/starRatings.vue?vue&type=template&id=257974c9&scoped=true&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/starRatings.vue?vue&type=template&id=257974c9&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "star-rating" },
+    _vm._l(_vm.ratings, function(rating, idx) {
+      return _c(
+        "label",
+        {
+          key: idx,
+          staticClass: "star-rating__star",
+          class: {
+            "is-selected": _vm.value >= rating && _vm.value != null,
+            "is-disabled": _vm.disabled
+          },
+          on: {
+            click: function($event) {
+              return _vm.set(rating)
+            },
+            mouseover: function($event) {
+              return _vm.star_over(rating)
+            },
+            mouseout: _vm.star_out
+          }
+        },
+        [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.value,
+                expression: "value"
+              }
+            ],
+            staticClass: "star-rating star-rating__checkbox",
+            attrs: { type: "radio", disabled: _vm.disabled },
+            domProps: { value: rating, checked: _vm._q(_vm.value, rating) },
+            on: {
+              change: function($event) {
+                _vm.value = rating
+              }
+            }
+          }),
+          _vm._v("★\n  ")
+        ]
+      )
+    }),
+    0
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/assessment/home.vue?vue&type=template&id=71c18bbd&scoped=true&":
 /*!**************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/student/assessment/home.vue?vue&type=template&id=71c18bbd&scoped=true& ***!
@@ -41390,164 +42359,200 @@ var render = function() {
     { staticClass: "student-assessment" },
     [
       _c(
-        "b-tabs",
+        "b-card",
+        { attrs: { "no-body": "" } },
         [
           _c(
-            "b-tab",
-            { attrs: { title: "Assignment", active: "" } },
+            "b-tabs",
+            { attrs: { card: "" } },
             [
-              _c("b-table", {
-                staticClass: "main-table",
-                attrs: {
-                  fields: _vm.fields,
-                  items: _vm.assignment,
-                  bordered: ""
-                },
-                scopedSlots: _vm._u([
-                  {
-                    key: "cell(Sn)",
-                    fn: function(data) {
-                      return [_vm._v(_vm._s(data.index + 1))]
-                    }
-                  },
-                  {
-                    key: "cell(title)",
-                    fn: function(data) {
-                      return [
-                        _c(
-                          "span",
+              _c(
+                "b-tab",
+                { attrs: { title: "Assignment", active: "" } },
+                [
+                  _c(
+                    "b-card-text",
+                    [
+                      _c("b-table", {
+                        attrs: {
+                          fields: _vm.fields,
+                          items: _vm.assignment,
+                          bordered: ""
+                        },
+                        scopedSlots: _vm._u([
                           {
-                            on: {
-                              click: function($event) {
-                                return _vm.view(data.item.id)
-                              }
+                            key: "cell(Sn)",
+                            fn: function(data) {
+                              return [_vm._v(_vm._s(data.index + 1))]
                             }
                           },
-                          [_vm._v(_vm._s(data.item.title))]
-                        )
-                      ]
-                    }
-                  }
-                ])
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-tab",
-            { attrs: { title: "Quiz" } },
-            [
-              _c("b-table", {
-                staticClass: "main-table",
-                attrs: { fields: _vm.fields, items: _vm.quiz, bordered: "" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "cell(Sn)",
-                    fn: function(data) {
-                      return [_vm._v(_vm._s(data.index + 1))]
-                    }
-                  },
-                  {
-                    key: "cell(title)",
-                    fn: function(data) {
-                      return [
-                        _c(
-                          "span",
                           {
-                            on: {
-                              click: function($event) {
-                                return _vm.view(data.item.id)
-                              }
+                            key: "cell(title)",
+                            fn: function(data) {
+                              return [
+                                _c(
+                                  "span",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.view(data.item.id)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(data.item.title))]
+                                )
+                              ]
+                            }
+                          }
+                        ])
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-tab",
+                { attrs: { title: "Quiz" } },
+                [
+                  _c(
+                    "b-card-text",
+                    [
+                      _c("b-table", {
+                        attrs: {
+                          fields: _vm.fields,
+                          items: _vm.quiz,
+                          bordered: ""
+                        },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "cell(Sn)",
+                            fn: function(data) {
+                              return [_vm._v(_vm._s(data.index + 1))]
                             }
                           },
-                          [_vm._v(_vm._s(data.item.title))]
-                        )
-                      ]
-                    }
-                  }
-                ])
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-tab",
-            { attrs: { title: "Test" } },
-            [
-              _c("b-table", {
-                staticClass: "main-table",
-                attrs: { fields: _vm.fields, items: _vm.test, bordered: "" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "cell(Sn)",
-                    fn: function(data) {
-                      return [_vm._v(_vm._s(data.index + 1))]
-                    }
-                  },
-                  {
-                    key: "cell(title)",
-                    fn: function(data) {
-                      return [
-                        _c(
-                          "span",
                           {
-                            on: {
-                              click: function($event) {
-                                return _vm.view(data.item.id)
-                              }
+                            key: "cell(title)",
+                            fn: function(data) {
+                              return [
+                                _c(
+                                  "span",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.view(data.item.id)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(data.item.title))]
+                                )
+                              ]
+                            }
+                          }
+                        ])
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-tab",
+                { attrs: { title: "Test" } },
+                [
+                  _c(
+                    "b-card-text",
+                    [
+                      _c("b-table", {
+                        attrs: {
+                          fields: _vm.fields,
+                          items: _vm.test,
+                          bordered: ""
+                        },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "cell(Sn)",
+                            fn: function(data) {
+                              return [_vm._v(_vm._s(data.index + 1))]
                             }
                           },
-                          [_vm._v(_vm._s(data.item.title))]
-                        )
-                      ]
-                    }
-                  }
-                ])
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-tab",
-            { attrs: { title: "Examination" } },
-            [
-              _c("b-table", {
-                staticClass: "main-table",
-                attrs: {
-                  fields: _vm.fields,
-                  items: _vm.examination,
-                  bordered: ""
-                },
-                scopedSlots: _vm._u([
-                  {
-                    key: "cell(Sn)",
-                    fn: function(data) {
-                      return [_vm._v(_vm._s(data.index + 1))]
-                    }
-                  },
-                  {
-                    key: "cell(title)",
-                    fn: function(data) {
-                      return [
-                        _c(
-                          "span",
                           {
-                            on: {
-                              click: function($event) {
-                                return _vm.view(data.item.id)
-                              }
+                            key: "cell(title)",
+                            fn: function(data) {
+                              return [
+                                _c(
+                                  "span",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.view(data.item.id)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(data.item.title))]
+                                )
+                              ]
+                            }
+                          }
+                        ])
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-tab",
+                { attrs: { title: "Examination" } },
+                [
+                  _c(
+                    "b-card-text",
+                    [
+                      _c("b-table", {
+                        attrs: {
+                          fields: _vm.fields,
+                          items: _vm.examination,
+                          bordered: ""
+                        },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "cell(Sn)",
+                            fn: function(data) {
+                              return [_vm._v(_vm._s(data.index + 1))]
                             }
                           },
-                          [_vm._v(_vm._s(data.item.title))]
-                        )
-                      ]
-                    }
-                  }
-                ])
-              })
+                          {
+                            key: "cell(title)",
+                            fn: function(data) {
+                              return [
+                                _c(
+                                  "span",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.view(data.item.id)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(data.item.title))]
+                                )
+                              ]
+                            }
+                          }
+                        ])
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
             ],
             1
           )
@@ -42633,8 +43638,7 @@ var render = function() {
       _vm._v(" "),
       _c("Main", {
         staticClass: "main",
-        class: { "min-main": _vm.sideBar },
-        attrs: { student: _vm.student }
+        attrs: { student: _vm.student, i: "" }
       })
     ],
     1
@@ -42898,7 +43902,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "welcome-board-content ml-auto" }, [
           _c("h3", [
-            _vm._v("\n        Welcome OnBoard\n        "),
+            _vm._v("\n          Welcome OnBoard\n          "),
             _c("span", [_vm._v(_vm._s(_vm.student.name))])
           ]),
           _vm._v(" "),
@@ -43001,126 +44005,61 @@ var render = function() {
                 _c("div", { staticClass: "resources-update cards" }, [
                   _c("h5", [_vm._v("Resources Update")]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "resources-inner" }, [
-                    _c(
-                      "div",
-                      { staticClass: "update-content" },
-                      [
-                        _c("b-avatar", {
-                          attrs: { src: "/images/english-lit.jpg" }
-                        }),
-                        _vm._v(" "),
-                        _c("p", [
-                          _vm._v(
-                            "Module 1.1 has been added to your english resources"
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "log-link" },
-                      [
-                        _c("router-link", { attrs: { to: "" } }, [
-                          _vm._v("View")
-                        ])
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "resources-inner" }, [
-                    _c(
-                      "div",
-                      { staticClass: "update-content" },
-                      [
-                        _c("b-avatar", {
-                          attrs: { src: "/images/english-lit.jpg" }
-                        }),
-                        _vm._v(" "),
-                        _c("p", [
-                          _vm._v(
-                            "Module 1.1 has been added to your english resources"
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "log-link" },
-                      [
-                        _c("router-link", { attrs: { to: "" } }, [
-                          _vm._v("View")
-                        ])
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "resources-inner" }, [
-                    _c(
-                      "div",
-                      { staticClass: "update-content" },
-                      [
-                        _c("b-avatar", {
-                          attrs: { src: "/images/english-lit.jpg" }
-                        }),
-                        _vm._v(" "),
-                        _c("p", [
-                          _vm._v(
-                            "Module 1.1 has been added to your english resources"
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "log-link" },
-                      [
-                        _c("router-link", { attrs: { to: "" } }, [
-                          _vm._v("View")
-                        ])
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "resources-inner" }, [
-                    _c(
-                      "div",
-                      { staticClass: "update-content" },
-                      [
-                        _c("b-avatar", {
-                          staticClass: "update-avatar",
-                          attrs: { src: "/images/english-lit.jpg" }
-                        }),
-                        _vm._v(" "),
-                        _c("p", [
-                          _vm._v(
-                            "Module 1.1 has been added to your english resources"
-                          )
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "log-link" },
-                      [
-                        _c("router-link", { attrs: { to: "" } }, [
-                          _vm._v("View")
-                        ])
-                      ],
-                      1
-                    )
-                  ])
+                  _c(
+                    "div",
+                    { staticClass: "m-res" },
+                    _vm._l(_vm.newresource, function(resource, idx) {
+                      return _c(
+                        "div",
+                        {
+                          key: idx,
+                          staticClass: "resources-inner border-bottom"
+                        },
+                        [
+                          _c("div", { staticClass: "update-content" }, [
+                            _c(
+                              "div",
+                              [
+                                _c("b-avatar", {
+                                  attrs: {
+                                    icon: "asterisk",
+                                    variant: "success",
+                                    size: "sm"
+                                  }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("p", [_vm._v(_vm._s(resource.message))])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "log-link" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "check_it cpointer",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.gotoHer(resource.resource_id)
+                                  }
+                                }
+                              },
+                              [
+                                _c("span", { staticClass: "mr-1" }, [
+                                  _vm._v("Check it")
+                                ]),
+                                _vm._v(" "),
+                                _c("b-icon", { attrs: { icon: "arrow-right" } })
+                              ],
+                              1
+                            )
+                          ])
+                        ]
+                      )
+                    }),
+                    0
+                  )
                 ])
               ]),
               _vm._v(" "),
@@ -43442,102 +44381,284 @@ var render = function() {
               _c("b-col", { attrs: { md: "6" } }, [
                 _c("div", { staticClass: "notes cards" }, [
                   _c("div", { staticClass: "notes-top" }, [
-                    _c("h5", [_vm._v("Notes")]),
+                    _c("h5", [_vm._v("My Notes")]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "btn" }, [
-                      _c("i", {
-                        staticClass: "fa fa-plus",
-                        attrs: { "aria-hidden": "true" }
-                      }),
-                      _vm._v(" "),
-                      _c("span", [_vm._v("ADD")])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "notes-content" }, [
-                    _c("div", { staticClass: "notes-content-top" }, [
-                      _c("i", {
-                        staticClass: "fa fa-file-o",
-                        attrs: { "aria-hidden": "true" }
-                      }),
-                      _vm._v(" "),
-                      _c("h6", { staticClass: "title" }, [
-                        _vm._v("Prepare for Geography test")
-                      ]),
-                      _vm._v(" "),
-                      _c("i", {
-                        staticClass: "fa fa-ellipsis-v",
-                        attrs: { "aria-hidden": "true" }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "notes-content-main" }, [
-                      _c("p", {}, [
-                        _vm._v(
-                          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure"
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "notes-date" }, [
-                        _c("p", [
-                          _vm._v(
-                            "\n                    Posted:\n                    "
-                          ),
-                          _c("strong", [_vm._v("07/07/2020")])
-                        ])
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "notes-content" }, [
-                    _c("div", { staticClass: "notes-content-top" }, [
-                      _c("i", {
-                        staticClass: "fa fa-file-o",
-                        attrs: { "aria-hidden": "true" }
-                      }),
-                      _vm._v(" "),
-                      _c("h6", { staticClass: "title" }, [
-                        _vm._v("Submit English Assignment")
-                      ]),
-                      _vm._v(" "),
-                      _c("i", {
-                        staticClass: "fa fa-ellipsis-v",
-                        attrs: { "aria-hidden": "true" }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "notes-content-main" }, [
-                      _c("p", {}, [
-                        _vm._v(
-                          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure"
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "notes-date" }, [
-                        _c("p", [
-                          _vm._v(
-                            "\n                    Posted:\n                    "
-                          ),
-                          _c("strong", [_vm._v("07/07/2020")])
-                        ])
-                      ])
-                    ])
+                    _c(
+                      "div",
+                      {
+                        directives: [
+                          {
+                            name: "b-modal",
+                            rawName: "v-b-modal.note",
+                            modifiers: { note: true }
+                          }
+                        ],
+                        staticClass: "btn"
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "fa fa-plus",
+                          attrs: { "aria-hidden": "true" }
+                        }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v("ADD")])
+                      ]
+                    )
                   ]),
                   _vm._v(" "),
                   _c(
                     "div",
-                    { staticClass: "log-link" },
-                    [
-                      _c("router-link", { attrs: { to: "" } }, [
-                        _vm._v("View All")
+                    { staticClass: "main-note" },
+                    _vm._l(_vm.notes, function(note, idx) {
+                      return _c("div", { key: idx, staticClass: "note-body" }, [
+                        _c(
+                          "div",
+                          { staticClass: "mr-2" },
+                          [
+                            _c("b-icon", {
+                              staticClass: "my-icon",
+                              attrs: { icon: "stickies-fill" }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "notes-content w-100" }, [
+                          _c("div", { staticClass: "notes-content-top" }, [
+                            _c("h6", { staticClass: "title mr-3 mb-2" }, [
+                              _vm._v(_vm._s(note.title))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "notes-content-main" }, [
+                            _c("p", {}, [_vm._v(_vm._s(note.note))]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "notes-date d-flex align-items-center justify-content-between w-100"
+                              },
+                              [
+                                _c("p", [
+                                  _vm._v(
+                                    "\n                      Posted:\n                      "
+                                  ),
+                                  _c("strong", [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("moment")(
+                                          note.created_at,
+                                          "DD/MM/YYYY"
+                                        )
+                                      )
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("b-icon", {
+                                  staticClass: "my-icon cpointer",
+                                  attrs: { icon: "trash" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.remove(note.id)
+                                    }
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          ])
+                        ])
                       ])
-                    ],
-                    1
-                  )
+                    }),
+                    0
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "log-link" }, [
+                    _c(
+                      "div",
+                      {
+                        directives: [
+                          {
+                            name: "b-modal",
+                            rawName: "v-b-modal.all-note",
+                            modifiers: { "all-note": true }
+                          }
+                        ],
+                        staticClass: "check_it"
+                      },
+                      [
+                        _vm._v("View All "),
+                        _c("b-icon", { attrs: { icon: "arrow-right" } })
+                      ],
+                      1
+                    )
+                  ])
                 ])
               ])
             ],
             1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        [
+          _c(
+            "b-modal",
+            { attrs: { id: "note", title: "New note", "hide-footer": "" } },
+            [
+              _c(
+                "b-form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.addNote($event)
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "b-form-group",
+                    { staticClass: "mb-3" },
+                    [
+                      _c("label", { attrs: { for: "" } }, [_vm._v("Title")]),
+                      _vm._v(" "),
+                      _c("b-form-input", {
+                        attrs: { required: "", placeholder: "Enter title" },
+                        model: {
+                          value: _vm.note.title,
+                          callback: function($$v) {
+                            _vm.$set(_vm.note, "title", $$v)
+                          },
+                          expression: "note.title"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-group",
+                    { staticClass: "mb-3" },
+                    [
+                      _c("label", { attrs: { for: "" } }, [_vm._v("Note")]),
+                      _vm._v(" "),
+                      _c("b-form-textarea", {
+                        attrs: {
+                          maxlength: "200",
+                          required: "",
+                          rows: "3",
+                          placeholder: "Write note here"
+                        },
+                        model: {
+                          value: _vm.note.description,
+                          callback: function($$v) {
+                            _vm.$set(_vm.note, "description", $$v)
+                          },
+                          expression: "note.description"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-group",
+                    { staticClass: "mb-3" },
+                    [
+                      _c(
+                        "b-button",
+                        { attrs: { variant: "darkgreen", type: "submit" } },
+                        [_vm._v("Add note")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-modal",
+            { attrs: { id: "all-note", title: "My notes", "hide-footer": "" } },
+            [
+              _c(
+                "div",
+                {},
+                _vm._l(_vm.notes, function(note, idx) {
+                  return _c("div", { key: idx, staticClass: "note-body" }, [
+                    _c(
+                      "div",
+                      { staticClass: "mr-2" },
+                      [
+                        _c("b-icon", {
+                          staticClass: "my-icon",
+                          attrs: { icon: "stickies-fill" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "notes-content w-100" }, [
+                      _c("div", { staticClass: "notes-content-top" }, [
+                        _c("h6", { staticClass: "title mr-3 mb-2" }, [
+                          _vm._v(_vm._s(note.title))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "notes-content-main" }, [
+                        _c("p", {}, [_vm._v(_vm._s(note.note))]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "notes-date d-flex align-items-center justify-content-between w-100"
+                          },
+                          [
+                            _c("p", [
+                              _vm._v(
+                                "\n                      Posted:\n                      "
+                              ),
+                              _c("strong", [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm._f("moment")(
+                                      note.created_at,
+                                      "DD/MM/YYYY"
+                                    )
+                                  )
+                                )
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("b-icon", {
+                              staticClass: "my-icon cpointer",
+                              attrs: { icon: "trash" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.remove(note.id)
+                                }
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ])
+                    ])
+                  ])
+                }),
+                0
+              )
+            ]
           )
         ],
         1
@@ -43553,11 +44674,11 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("p", [
       _vm._v(
-        "\n        Get quick access to your assesment and grade book on the dash board\n        "
+        "\n          Get quick access to your assesment and grade book on the dash board\n          "
       ),
       _c("br"),
       _vm._v(
-        "Gain fast knowlege add resources to your library and more\n      "
+        "Gain fast knowlege add resources to your library and more\n        "
       )
     ])
   }
@@ -43584,244 +44705,352 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "library" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "library-content container" },
-      [
-        _c("h6", [_vm._v("My Library")]),
+    _c("div", { staticClass: "continue-reading" }, [
+      _c("div", {}, [
+        _c("h5", [
+          _vm._v(
+            "You were " +
+              _vm._s(_vm.lastRead.type == "video" ? "watching" : "viewing") +
+              " " +
+              _vm._s(_vm.lastRead.title)
+          )
+        ]),
         _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "filter-view" },
-          [
+        _c("h6", { staticClass: "toCaps" }, [
+          _vm._v(_vm._s(_vm.lastRead.subject))
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "continue-reading-icon" }, [
+          _c("div", { staticClass: "continue-btn mr-1" }, [
             _c(
               "div",
-              { staticClass: "filter-table" },
-              [
-                _c("div", { staticClass: "filter-container" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "filter-btn btn",
-                      on: { click: _vm.toggleFilter }
-                    },
-                    [
-                      _c("span", [_vm._v("Filter")]),
-                      _vm._v(" "),
-                      _c("i", { staticClass: "icon-sort" })
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _vm.filterShow
-                  ? _c(
-                      "b-navbar",
-                      {
-                        attrs: {
-                          toggleable: "lg",
-                          type: "dark",
-                          variant: "info"
-                        }
-                      },
-                      [
-                        _c("b-navbar-toggle", {
-                          attrs: { target: "nav-collapse" }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "b-collapse",
-                          { attrs: { id: "nav-collapse", "is-nav": "" } },
-                          [
-                            _c(
-                              "b-navbar-nav",
-                              [
-                                _c("b-nav-item", { attrs: { href: "#" } }, [
-                                  _vm._v("Sort By:")
-                                ])
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-navbar-nav",
-                              { staticClass: "mx-auto" },
-                              [
-                                _c(
-                                  "b-form-select",
-                                  {
-                                    staticClass: "mr-3",
-                                    model: {
-                                      value: _vm.myclass,
-                                      callback: function($$v) {
-                                        _vm.myclass = $$v
-                                      },
-                                      expression: "myclass"
-                                    }
-                                  },
-                                  [
-                                    _c(
-                                      "b-form-select-option",
-                                      { attrs: { value: "", disabled: "" } },
-                                      [_vm._v("-- Class --")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "b-form-select-option",
-                                      { attrs: { value: "all" } },
-                                      [_vm._v("-- All --")]
-                                    ),
-                                    _vm._v(" "),
-                                    _vm._l(_vm.classess, function(item, idx) {
-                                      return _c(
-                                        "b-form-select-option",
-                                        {
-                                          key: idx,
-                                          attrs: { value: item.class_name }
-                                        },
-                                        [_vm._v(_vm._s(item.class_name))]
-                                      )
-                                    })
-                                  ],
-                                  2
-                                )
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "b-navbar-nav",
-                              [
-                                _c(
-                                  "b-nav-form",
-                                  { staticClass: "ml-auto" },
-                                  [
-                                    _c("b-form-input", {
-                                      staticClass:
-                                        "mr-sm-2 search rounded-pill",
-                                      attrs: {
-                                        size: "sm",
-                                        placeholder: "Search"
-                                      }
-                                    })
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  : _vm._e()
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("router-link", { attrs: { to: "" } }, [_vm._v("View all")])
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "b-container",
-          { staticClass: "books" },
-          [
-            _c(
-              "b-row",
-              [
-                _c(
-                  "b-col",
-                  { attrs: { md: "3" } },
-                  [
-                    _c("router-link", { attrs: { to: "" } }, [
-                      _c("div", { staticClass: "resource-img" }, [
-                        _c("img", {
-                          staticClass: "img-fluid",
-                          attrs: { src: "/images/text-book.png", alt: "" }
-                        }),
-                        _vm._v(" "),
-                        _c("h6", [_vm._v("English Language")]),
-                        _vm._v(" "),
-                        _c("p", [_vm._v("by: Tutor's Name")])
-                      ])
-                    ])
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "b-col",
-                  { attrs: { md: "3" } },
-                  [
-                    _c("router-link", { attrs: { to: "" } }, [
-                      _c("div", { staticClass: "resource-img" }, [
-                        _c("img", {
-                          staticClass: "img-fluid",
-                          attrs: { src: "/images/text-book.png", alt: "" }
-                        }),
-                        _vm._v(" "),
-                        _c("h6", [_vm._v("English Language")]),
-                        _vm._v(" "),
-                        _c("p", [_vm._v("by: Tutor's Name")])
-                      ])
-                    ])
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "b-col",
-                  { attrs: { md: "3" } },
-                  [
-                    _c("router-link", { attrs: { to: "" } }, [
-                      _c("div", { staticClass: "resource-img" }, [
-                        _c("img", {
-                          staticClass: "img-fluid",
-                          attrs: { src: "/images/text-book.png", alt: "" }
-                        }),
-                        _vm._v(" "),
-                        _c("h6", [_vm._v("English Language")]),
-                        _vm._v(" "),
-                        _c("p", [_vm._v("by: Tutor's Name")])
-                      ])
-                    ])
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "b-col",
-                  { attrs: { md: "3" } },
-                  [
-                    _c("router-link", { attrs: { to: "" } }, [
-                      _c("div", { staticClass: "resource-img" }, [
-                        _c("img", {
-                          staticClass: "img-fluid",
-                          attrs: { src: "/images/text-book.png", alt: "" }
-                        }),
-                        _vm._v(" "),
-                        _c("h6", [_vm._v("English Language")]),
-                        _vm._v(" "),
-                        _c("p", [_vm._v("by: Tutor's Name")])
-                      ])
-                    ])
-                  ],
-                  1
-                )
-              ],
+              {},
+              [_c("b-avatar", { attrs: { icon: "eye", size: "1.2rem" } })],
               1
             )
-          ],
-          1
-        )
-      ],
-      1
-    )
+          ]),
+          _vm._v(" "),
+          _c(
+            "p",
+            {
+              staticClass: "cpointer",
+              on: {
+                click: function($event) {
+                  return _vm.view(
+                    _vm.lastRead.id,
+                    _vm.lastRead.subject,
+                    _vm.lastRead.cover
+                  )
+                }
+              }
+            },
+            [
+              _vm._v(
+                "Continue " +
+                  _vm._s(_vm.lastRead.type == "video" ? "watching" : "viewing")
+              )
+            ]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(0)
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "library-content container bg-white p-3 py-4" }, [
+      _c("h6", [_vm._v("My Library")]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "filter-view" },
+        [
+          _c(
+            "div",
+            { staticClass: "filter-table" },
+            [
+              _c("div", { staticClass: "filter-container" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "filter-btn btn",
+                    on: { click: _vm.toggleFilter }
+                  },
+                  [
+                    _c("span", [_vm._v("Filter")]),
+                    _vm._v(" "),
+                    _c("i", { staticClass: "icon-sort" })
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _vm.filterShow
+                ? _c(
+                    "b-navbar",
+                    {
+                      attrs: { toggleable: "lg", type: "dark", variant: "info" }
+                    },
+                    [
+                      _c("b-navbar-toggle", {
+                        attrs: { target: "nav-collapse" }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "b-collapse",
+                        { attrs: { id: "nav-collapse", "is-nav": "" } },
+                        [
+                          _c(
+                            "b-navbar-nav",
+                            [
+                              _c("b-nav-item", { attrs: { href: "#" } }, [
+                                _vm._v("Sort By:")
+                              ])
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-navbar-nav",
+                            { staticClass: "mx-auto" },
+                            [
+                              _c(
+                                "b-form-select",
+                                {
+                                  staticClass: "mr-3",
+                                  model: {
+                                    value: _vm.subject,
+                                    callback: function($$v) {
+                                      _vm.subject = $$v
+                                    },
+                                    expression: "subject"
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "b-form-select-option",
+                                    { attrs: { value: "", disabled: "" } },
+                                    [_vm._v("-- Subjects --")]
+                                  ),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.subjects, function(item, idx) {
+                                    return _c(
+                                      "b-form-select-option",
+                                      {
+                                        key: idx,
+                                        attrs: { value: item.toLowerCase() }
+                                      },
+                                      [_vm._v(_vm._s(item))]
+                                    )
+                                  })
+                                ],
+                                2
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-navbar-nav",
+                            [
+                              _c(
+                                "b-nav-form",
+                                { staticClass: "ml-auto" },
+                                [
+                                  _c("b-form-input", {
+                                    staticClass: "mr-sm-2 search rounded-pill",
+                                    attrs: {
+                                      size: "sm",
+                                      placeholder: "Search"
+                                    },
+                                    model: {
+                                      value: _vm.search,
+                                      callback: function($$v) {
+                                        _vm.search = $$v
+                                      },
+                                      expression: "search"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("router-link", { attrs: { to: "" } }, [_vm._v("View all")])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "bd-table library" },
+        [
+          _c(
+            "b-tabs",
+            { attrs: { "content-class": "mt-3 " } },
+            [
+              _c(
+                "b-tab",
+                {
+                  attrs: {
+                    title: "Home View",
+                    "title-link-class": "mylibrary",
+                    active: ""
+                  }
+                },
+                [
+                  _c(
+                    "b-container",
+                    {
+                      staticClass: "books",
+                      attrs: { "title-link-class": "mylibrary" }
+                    },
+                    [
+                      _c(
+                        "b-row",
+                        _vm._l(_vm.sorted, function(item, idx) {
+                          return _c(
+                            "b-col",
+                            { key: idx, attrs: { md: "3" } },
+                            [
+                              _c(
+                                "b-card",
+                                {
+                                  staticClass: "mb-2 toCaps",
+                                  staticStyle: { "max-width": "20rem" },
+                                  attrs: {
+                                    title: item.subject,
+                                    "img-src":
+                                      "https://picsum.photos/600/300/?image=25",
+                                    "img-alt": "Image",
+                                    "img-top": "",
+                                    tag: "article"
+                                  }
+                                },
+                                [
+                                  _c("b-card-text", [
+                                    _vm._v(_vm._s(item.excerpt))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-button",
+                                    {
+                                      attrs: {
+                                        href: "#",
+                                        variant: "darkgreen",
+                                        block: ""
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.view(
+                                            item.id,
+                                            item.subject,
+                                            item.cover
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("View")]
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        }),
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-tab",
+                { staticClass: "mylibrary", attrs: { title: "Table View" } },
+                [
+                  _c("table", { staticClass: "table table-bordered table" }, [
+                    _c("thead", { staticClass: "thead-light" }, [
+                      _c("tr", [
+                        _c("th", [_vm._v("S/n")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Subject")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Excerpts")]),
+                        _vm._v(" "),
+                        _c("th")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.library, function(item, idx) {
+                        return _c("tr", { key: idx }, [
+                          _c("td", { attrs: { scope: "row" } }, [
+                            _vm._v(_vm._s(idx + 1))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(item.subject))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(_vm._s(item.excerpt ? item.excerpt : "-"))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "options" }, [
+                            _c("i", {
+                              staticClass: "fa fa-ellipsis-v",
+                              attrs: { "aria-hidden": "true" }
+                            }),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "option shadow" }, [
+                              _c("ul", [
+                                _c(
+                                  "li",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.view(
+                                          item.id,
+                                          item.subject,
+                                          item.cover
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("View")]
+                                ),
+                                _vm._v(" "),
+                                _c("li", [_vm._v("Drop")])
+                              ])
+                            ])
+                          ])
+                        ])
+                      }),
+                      0
+                    )
+                  ])
+                ]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -43829,26 +45058,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "continue-reading" }, [
-      _c("div", { staticClass: "continue-word" }, [
-        _c("p", [_vm._v("You were Reading")]),
-        _vm._v(" "),
-        _c("h6", [_vm._v("Basic Science")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "continue-reading-icon" }, [
-          _c("div", { staticClass: "continue-btn" }, [
-            _c("div", { staticClass: "btn-continue" }, [
-              _c("i", { staticClass: "icon-visibility-open" })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("p", [_vm._v("continue reading")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "continue-img" }, [
-        _c("img", { attrs: { src: "/images/text-book.png", alt: "" } })
-      ])
+    return _c("div", { staticClass: "continue-img" }, [
+      _c("img", { attrs: { src: "/images/text-book.png", alt: "" } })
     ])
   }
 ]
@@ -43901,20 +45112,29 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("b-nav-item", [
+          _c("b-nav-item", { staticClass: "py-0 px-3" }, [
             _c("div", { staticClass: "mx-3", attrs: { id: "notification" } }, [
               _c(
                 "div",
                 { staticClass: "icon", on: { click: _vm.toggleNotification } },
                 [
-                  _c("i", { staticClass: "icon-bell-1" }),
+                  _c("b-icon", {
+                    staticClass: "bell",
+                    class: { "anime-stop": _vm.count == 0 },
+                    attrs: {
+                      icon: "bell-fill",
+                      animation: "cylon",
+                      "font-scale": "2"
+                    }
+                  }),
                   _vm._v(" "),
                   _vm.count > 0
                     ? _c("div", { staticClass: "badge animated pulse" }, [
                         _vm._v(_vm._s(_vm.count))
                       ])
                     : _vm._e()
-                ]
+                ],
+                1
               ),
               _vm._v(" "),
               _vm.showNotification
@@ -43976,7 +45196,7 @@ var render = function() {
         [
           _c("router-view", {
             staticClass: "semi-white",
-            attrs: { student: _vm.student }
+            attrs: { student: _vm.student, notifications: _vm.notifications }
           })
         ],
         1
@@ -44524,9 +45744,9 @@ var render = function() {
                                                 ]
                                               ),
                                               _vm._v(
-                                                "\n                            " +
+                                                "\n                      " +
                                                   _vm._s(content.title) +
-                                                  "\n                          "
+                                                  "\n                    "
                                               )
                                             ]
                                           ),
@@ -45182,7 +46402,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("p", [
-          _vm._v("\n        Created by\n        "),
+          _vm._v("\n      Created by\n      "),
           _c("strong", [_vm._v(_vm._s(_vm.tutor.name))])
         ]),
         _vm._v(" "),
@@ -45217,7 +46437,31 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(0),
+          _c("div", { staticClass: "what-you-will-learn" }, [
+            _c("h4", [_vm._v("Requirements:")]),
+            _vm._v(" "),
+            !_vm.syllabus.requirements
+              ? _c("ul", [
+                  _c("li", [
+                    _vm._v(
+                      "You need to have completed last term topic on mathematics"
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _vm._v(
+                      "You will understand the basis of all topic attached to the subject"
+                    )
+                  ])
+                ])
+              : _c(
+                  "ul",
+                  _vm._l(_vm.syllabus.requirements, function(item, idx) {
+                    return _c("li", { key: idx }, [_vm._v(_vm._s(item.name))])
+                  }),
+                  0
+                )
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "description" }, [
             _c("h4", [_vm._v("Description")]),
@@ -45256,6 +46500,19 @@ var render = function() {
                         _vm._v("Course Content")
                       ]),
                       _vm._v(" "),
+                      _c("small", [
+                        _vm._v(
+                          _vm._s(_vm.modules.length) +
+                            " sections • " +
+                            _vm._s(
+                              _vm.totalVideos + _vm.totalDocs + _vm.totalAudio
+                            ) +
+                            " lectures • " +
+                            _vm._s(_vm._f("time")(_vm.totalMedia)) +
+                            " total length"
+                        )
+                      ]),
+                      _vm._v(" "),
                       _vm._l(_vm.modules, function(item, idx) {
                         return _c(
                           "div",
@@ -45263,12 +46520,12 @@ var render = function() {
                           [
                             _c(
                               "b-card",
-                              { staticClass: "mb-1", attrs: { "no-body": "" } },
+                              { attrs: { "no-body": "" } },
                               [
                                 _c(
                                   "b-card-header",
                                   {
-                                    staticClass: "p-1 text-left",
+                                    staticClass: "p-1 text-left d-flex",
                                     attrs: {
                                       "header-tag": "header",
                                       role: "tab"
@@ -45276,7 +46533,7 @@ var render = function() {
                                   },
                                   [
                                     _c(
-                                      "b-button",
+                                      "div",
                                       {
                                         directives: [
                                           {
@@ -45289,16 +46546,65 @@ var render = function() {
                                               "item.module.replace(/[^a-z0-9]/gi, '').replace(/\\$/g, '')"
                                           }
                                         ],
-                                        staticClass: "text-left",
+                                        staticClass:
+                                          "text-left d-flex justify-content-between align-items-center w-100",
                                         attrs: {
                                           block: "",
                                           variant: "secondary"
                                         }
                                       },
-                                      [_vm._v(_vm._s(item.module))]
+                                      [
+                                        _c(
+                                          "span",
+                                          [
+                                            _c("b-icon", {
+                                              staticClass: "mr-2 content-open",
+                                              staticStyle: {
+                                                width: "13px",
+                                                height: "13px"
+                                              },
+                                              attrs: { icon: "chevron-up" }
+                                            }),
+                                            _vm._v(" "),
+                                            _c("b-icon", {
+                                              staticClass: "mr-2 content-close",
+                                              staticStyle: {
+                                                width: "13px",
+                                                height: "13px"
+                                              },
+                                              attrs: { icon: "chevron-down" }
+                                            }),
+                                            _vm._v(
+                                              "\n                    " +
+                                                _vm._s(item.module) +
+                                                "\n                  "
+                                            )
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _vm.getModuleDuration(
+                                          JSON.parse(item.content)
+                                        ) > 0
+                                          ? _c(
+                                              "small",
+                                              { staticClass: "ml-auto" },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm._f("time")(
+                                                      _vm.getModuleDuration(
+                                                        JSON.parse(item.content)
+                                                      )
+                                                    )
+                                                  )
+                                                )
+                                              ]
+                                            )
+                                          : _vm._e()
+                                      ]
                                     )
-                                  ],
-                                  1
+                                  ]
                                 ),
                                 _vm._v(" "),
                                 _c(
@@ -45334,6 +46640,8 @@ var render = function() {
                                                       _c(
                                                         "span",
                                                         {
+                                                          staticClass:
+                                                            "d-flex justify-content-between align-items-center",
                                                           on: {
                                                             click: function(
                                                               $event
@@ -45353,77 +46661,107 @@ var render = function() {
                                                           }
                                                         },
                                                         [
-                                                          _c(
-                                                            "span",
-                                                            {
-                                                              staticClass:
-                                                                "ml-3"
-                                                            },
-                                                            [
-                                                              content.type ==
-                                                              "video"
-                                                                ? _c("i", {
-                                                                    staticClass:
-                                                                      "fa fa-play-circle",
-                                                                    attrs: {
-                                                                      "aria-hidden":
-                                                                        "true"
-                                                                    }
-                                                                  })
-                                                                : _vm._e(),
-                                                              _vm._v(" "),
-                                                              content.type ==
-                                                              "pdf"
-                                                                ? _c("i", {
-                                                                    staticClass:
-                                                                      "fa fa-file-pdf-o",
-                                                                    attrs: {
-                                                                      "aria-hidden":
-                                                                        "true"
-                                                                    }
-                                                                  })
-                                                                : _vm._e(),
-                                                              _vm._v(" "),
-                                                              content.type ==
-                                                              "audio"
-                                                                ? _c("i", {
-                                                                    staticClass:
-                                                                      "fa fa-volume-up",
-                                                                    attrs: {
-                                                                      "aria-hidden":
-                                                                        "true"
-                                                                    }
-                                                                  })
-                                                                : _vm._e(),
-                                                              _vm._v(" "),
-                                                              content.type ==
-                                                              "ppt"
-                                                                ? _c("i", {
-                                                                    staticClass:
-                                                                      "fa fa-file-powerpoint-o",
-                                                                    attrs: {
-                                                                      "aria-hidden":
-                                                                        "true"
-                                                                    }
-                                                                  })
-                                                                : _vm._e(),
-                                                              _vm._v(" "),
-                                                              content.type ==
-                                                              "csv"
-                                                                ? _c("i", {
-                                                                    staticClass:
-                                                                      "fas fa-file-csv"
-                                                                  })
-                                                                : _vm._e()
-                                                            ]
-                                                          ),
-                                                          _vm._v(
-                                                            "\n                              " +
-                                                              _vm._s(
-                                                                content.title
-                                                              ) +
-                                                              "\n                            "
-                                                          )
+                                                          _c("div", [
+                                                            _c(
+                                                              "span",
+                                                              {
+                                                                staticClass:
+                                                                  "ml-3"
+                                                              },
+                                                              [
+                                                                content.type ==
+                                                                "video"
+                                                                  ? _c("i", {
+                                                                      staticClass:
+                                                                        "fa fa-play-circle",
+                                                                      attrs: {
+                                                                        "aria-hidden":
+                                                                          "true"
+                                                                      }
+                                                                    })
+                                                                  : _vm._e(),
+                                                                _vm._v(" "),
+                                                                content.type ==
+                                                                "pdf"
+                                                                  ? _c("i", {
+                                                                      staticClass:
+                                                                        "fa fa-file-pdf-o",
+                                                                      attrs: {
+                                                                        "aria-hidden":
+                                                                          "true"
+                                                                      }
+                                                                    })
+                                                                  : _vm._e(),
+                                                                _vm._v(" "),
+                                                                content.type ==
+                                                                "audio"
+                                                                  ? _c("i", {
+                                                                      staticClass:
+                                                                        "fa fa-volume-up",
+                                                                      attrs: {
+                                                                        "aria-hidden":
+                                                                          "true"
+                                                                      }
+                                                                    })
+                                                                  : _vm._e(),
+                                                                _vm._v(" "),
+                                                                content.type ==
+                                                                "ppt"
+                                                                  ? _c("i", {
+                                                                      staticClass:
+                                                                        "fa fa-file-powerpoint-o",
+                                                                      attrs: {
+                                                                        "aria-hidden":
+                                                                          "true"
+                                                                      }
+                                                                    })
+                                                                  : _vm._e(),
+                                                                _vm._v(" "),
+                                                                content.type ==
+                                                                "csv"
+                                                                  ? _c("i", {
+                                                                      staticClass:
+                                                                        "fas fa-file-csv"
+                                                                    })
+                                                                  : _vm._e()
+                                                              ]
+                                                            ),
+                                                            _vm._v(
+                                                              "\n                              " +
+                                                                _vm._s(
+                                                                  content.title
+                                                                ) +
+                                                                "\n                            "
+                                                            )
+                                                          ]),
+                                                          _vm._v(" "),
+                                                          (content.type ==
+                                                            "video" ||
+                                                            content.type ==
+                                                              "audio") &&
+                                                          content.duration
+                                                            ? _c("small", [
+                                                                _vm._v(
+                                                                  _vm._s(
+                                                                    _vm._f(
+                                                                      "time"
+                                                                    )(
+                                                                      content.duration
+                                                                    )
+                                                                  )
+                                                                )
+                                                              ])
+                                                            : _vm._e(),
+                                                          _vm._v(" "),
+                                                          (content.type ==
+                                                            "video" ||
+                                                            content.type ==
+                                                              "audio") &&
+                                                          !content.duration
+                                                            ? _c("small", [
+                                                                _vm._v("-:-")
+                                                              ])
+                                                            : _vm._e()
                                                         ]
                                                       ),
                                                       _vm._v(" "),
@@ -45510,7 +46848,7 @@ var render = function() {
                       [
                         _c(
                           "b-card",
-                          { staticClass: "mb-1", attrs: { "no-body": "" } },
+                          { attrs: { "no-body": "" } },
                           [
                             _c(
                               "b-card-header",
@@ -45533,10 +46871,34 @@ var render = function() {
                                           "item.question.replace(/[^a-z0-9]/gi, '').replace(/\\$/g, '')"
                                       }
                                     ],
-                                    staticClass: "text-left",
+                                    staticClass: "text-left d-flex-center",
                                     attrs: { block: "", variant: "secondary" }
                                   },
-                                  [_vm._v(_vm._s(item.question))]
+                                  [
+                                    _c("b-icon", {
+                                      staticClass: "mr-2 content-open",
+                                      staticStyle: {
+                                        width: "13px",
+                                        height: "13px"
+                                      },
+                                      attrs: { icon: "chevron-up" }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("b-icon", {
+                                      staticClass: "mr-2 content-close",
+                                      staticStyle: {
+                                        width: "13px",
+                                        height: "13px"
+                                      },
+                                      attrs: { icon: "chevron-down" }
+                                    }),
+                                    _vm._v(
+                                      "\n                " +
+                                        _vm._s(item.question) +
+                                        "\n              "
+                                    )
+                                  ],
+                                  1
                                 )
                               ]
                             ),
@@ -45605,37 +46967,72 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("div", { staticClass: "review" }, [
-            _c("h4", [_vm._v("Review")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "featured-review" }, [
+            _c("div", { staticClass: "featured-review p-3" }, [
+              _c("h4", [_vm._v("Featured Review")]),
+              _vm._v(" "),
               _c("div", { staticClass: "active-review" }, [
-                _c("div", { staticClass: "featured-review-top" }, [
+                _c(
+                  "div",
+                  { staticClass: "featured-review-top" },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "featured-review-inner-top" },
+                      [
+                        _c("b-avatar", {
+                          attrs: { src: "/images/profile-img.jpg" }
+                        }),
+                        _vm._v(" "),
+                        _vm._m(0)
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("ratings", { attrs: { value: 5, disabled: true } })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _vm._m(1)
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _c(
+                "form",
+                {
+                  staticClass: "input-review p-3",
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.rate($event)
+                    }
+                  }
+                },
+                [
                   _c(
-                    "div",
-                    { staticClass: "featured-review-inner-top" },
+                    "b-form-row",
                     [
-                      _c("b-avatar", {
-                        attrs: { src: "/images/profile-img.jpg" }
-                      }),
-                      _vm._v(" "),
-                      _vm._m(1)
+                      _c(
+                        "b-col",
+                        { staticClass: "d-flex align-items-center" },
+                        [
+                          _c("p", { staticClass: "mb-2" }, [
+                            _vm._v("Ratings :")
+                          ]),
+                          _vm._v(" "),
+                          _c("ratings", {
+                            staticClass: "ml-2",
+                            attrs: { value: _vm.rating, disabled: false },
+                            on: { handleRating: _vm.handleRating }
+                          })
+                        ],
+                        1
+                      )
                     ],
                     1
                   ),
                   _vm._v(" "),
-                  _c("img", {
-                    staticClass: "img-fluid",
-                    attrs: { src: "/images/five-star.png", alt: "" }
-                  })
-                ]),
-                _vm._v(" "),
-                _vm._m(2)
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "input-review" },
-                [
                   _c(
                     "b-form-row",
                     [
@@ -45646,76 +47043,214 @@ var render = function() {
                           _c("b-form-textarea", {
                             attrs: {
                               id: "textarea-small",
-                              size: "sm",
+                              size: "md",
+                              rows: "4",
+                              required: "",
+                              maxlength: "250",
                               placeholder: "Write a Review"
+                            },
+                            model: {
+                              value: _vm.comment,
+                              callback: function($$v) {
+                                _vm.comment = $$v
+                              },
+                              expression: "comment"
                             }
                           })
                         ],
                         1
                       ),
                       _vm._v(" "),
-                      _c("b-col", { attrs: { lg: "2" } }, [
-                        _c("button", { staticClass: "btn-review" }, [
-                          _vm._v("Add")
-                        ])
-                      ])
+                      _c(
+                        "b-col",
+                        { attrs: { lg: "2" } },
+                        [
+                          _c(
+                            "b-button",
+                            { attrs: { type: "submit", variant: "secondary" } },
+                            [_vm._v("Add")]
+                          )
+                        ],
+                        1
+                      )
                     ],
                     1
                   )
                 ],
                 1
               )
-            ])
+            ]),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "p-3 all-review" },
+              [
+                _c("h5", [_vm._v("Reviews")]),
+                _vm._v(" "),
+                _vm._l(_vm.reviews, function(item, id) {
+                  return _c("div", { key: id, staticClass: "border-bottom" }, [
+                    _c("div", { staticClass: "active-review" }, [
+                      _c("div", { staticClass: "featured-review-top" }, [
+                        _c(
+                          "div",
+                          { staticClass: "featured-review-inner-top" },
+                          [
+                            _c("b-avatar", {
+                              attrs: { src: item.user.profile }
+                            }),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "mb-0" }, [
+                              _c("strong", { staticClass: "toCaps" }, [
+                                _vm._v(_vm._s(item.user.name))
+                              ])
+                            ])
+                          ],
+                          1
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "d-flex align-items-center" },
+                        [
+                          _c("ratings", {
+                            staticClass: "mr-2",
+                            attrs: { value: item.rating, disabled: true }
+                          }),
+                          _vm._v(" "),
+                          _c("small", [
+                            _vm._v(
+                              _vm._s(
+                                _vm._f("moment")(item.created_at, "MMM DD")
+                              )
+                            )
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("p", [_vm._v(_vm._s(item.comment))])
+                    ])
+                  ])
+                })
+              ],
+              2
+            )
           ])
         ],
         1
       ),
       _vm._v(" "),
-      _c(
-        "b-col",
-        { attrs: { cols: "5" } },
-        [
-          _c(
-            "b-card",
-            {
-              staticClass: "mb-2 floating-bar shadow-lg toCaps",
-              staticStyle: { width: "22rem" },
-              attrs: {
-                title: _vm.subject,
-                "img-src": _vm.cover_image,
-                "img-alt": "Image",
-                "img-top": ""
-              }
-            },
+      _vm.modules.length
+        ? _c(
+            "b-col",
+            { attrs: { cols: "5" } },
             [
-              _c("b-card-text", [_c("strong", [_vm._v("This includes:")])]),
-              _vm._v(" "),
-              _vm._l(_vm.modules, function(module, idx) {
-                return _c(
-                  "b-card-text",
-                  { key: idx, staticClass: "border-bottom" },
-                  [
-                    _vm._v(
-                      _vm._s(module.module) +
-                        " - " +
-                        _vm._s(JSON.parse(module.content).length) +
-                        " downloadable resources"
-                    )
-                  ]
-                )
-              }),
-              _vm._v(" "),
               _c(
-                "b-button",
-                { attrs: { href: "#", block: "", variant: "secondary" } },
-                [_vm._v("Views : 14")]
+                "b-card",
+                {
+                  staticClass: "mb-2 floating-bar shadow-lg toCaps",
+                  staticStyle: { width: "22rem" },
+                  attrs: {
+                    title: _vm.subject,
+                    "img-src": _vm.cover_image,
+                    "img-alt": "Image",
+                    "img-top": ""
+                  }
+                },
+                [
+                  _c("b-card-text", [_c("strong", [_vm._v("This includes:")])]),
+                  _vm._v(" "),
+                  _c(
+                    "b-card-text",
+                    { staticClass: "border-bottom" },
+                    [
+                      _c("b-icon", {
+                        staticClass: "mr-2",
+                        attrs: { icon: "folder-symlink" }
+                      }),
+                      _vm._v(
+                        "\n        " +
+                          _vm._s(
+                            _vm.totalVideos + _vm.totalDocs + _vm.totalAudio
+                          ) +
+                          " downloadable resources\n      "
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.totalVideos
+                    ? _c(
+                        "b-card-text",
+                        { staticClass: "border-bottom" },
+                        [
+                          _c("b-icon", {
+                            staticClass: "mr-2",
+                            attrs: { icon: "collection-play" }
+                          }),
+                          _vm._v(
+                            "\n        " +
+                              _vm._s(_vm.totalVideos) +
+                              " videos\n      "
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.totalAudio
+                    ? _c(
+                        "b-card-text",
+                        { staticClass: "border-bottom" },
+                        [
+                          _c("b-icon", {
+                            staticClass: "mr-2",
+                            attrs: { icon: "file-music" }
+                          }),
+                          _vm._v(
+                            "\n        " +
+                              _vm._s(_vm.totalAudio) +
+                              " audios\n      "
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.totalDocs
+                    ? _c(
+                        "b-card-text",
+                        { staticClass: "border-bottom" },
+                        [
+                          _c("b-icon", {
+                            staticClass: "mr-2",
+                            attrs: { icon: "file-earmark-arrow-down" }
+                          }),
+                          _vm._v(
+                            "\n        " +
+                              _vm._s(_vm.totalDocs) +
+                              " Documents\n      "
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    { attrs: { href: "#", block: "", variant: "secondary" } },
+                    [_vm._v("Total reviews : " + _vm._s(_vm.reviews.length))]
+                  )
+                ],
+                1
               )
             ],
-            2
+            1
           )
-        ],
-        1
-      )
+        : _vm._e()
     ],
     1
   )
@@ -45725,27 +47260,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "what-you-will-learn" }, [
-      _c("h4", [_vm._v("Requirements:")]),
-      _vm._v(" "),
-      _c("ul", [
-        _c("li", [
-          _vm._v("You need to have completed last term topic on mathematics")
-        ]),
-        _vm._v(" "),
-        _c("li", [
-          _vm._v(
-            "You will understand the basis of all topic attached to the subject"
-          )
-        ])
-      ])
+    return _c("p", { staticClass: "mb-0" }, [
+      _c("strong", [_vm._v("Nkechi Onuha")])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [_c("strong", [_vm._v("Nkechi Onuha")])])
   },
   function() {
     var _vm = this
@@ -45753,10 +47270,10 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("p", [
       _vm._v(
-        "\n              I had an easy time learning this course with the materials giving.\n              "
+        "\n            I had an easy time learning this course with the materials giving.\n            "
       ),
       _c("br"),
-      _vm._v("\nEasy to understand and grasp.\n            ")
+      _vm._v("Easy to understand and grasp.\n          ")
     ])
   }
 ]
@@ -49077,660 +50594,839 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "main" }, [
-    _c(
-      "div",
-      { staticClass: "container-fluid" },
-      [
-        _c(
-          "b-row",
-          { staticClass: "overview-board" },
-          [
-            _c("b-col", { attrs: { md: "6" } }, [
-              _c(
-                "div",
-                { staticClass: "assignment-overview-board" },
-                [
-                  _c("p", [_vm._v("Assignment Overview")]),
-                  _vm._v(" "),
-                  _c(
-                    "b-container",
-                    { staticClass: "overview-main" },
-                    [
-                      _c(
-                        "b-row",
-                        [
-                          _c(
-                            "b-col",
-                            {
-                              staticClass: "overview-log-1 text-center",
-                              attrs: { md: "6" }
-                            },
-                            [
-                              _c("h6", [_vm._v("30+")]),
-                              _vm._v(" "),
-                              _c("p", [_vm._v("Recieved")]),
-                              _vm._v(" "),
-                              _c("i", {
-                                staticClass: "fa fa-check",
-                                attrs: { "aria-hidden": "true" }
-                              })
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-col",
-                            {
-                              staticClass: "overview-log-3 text-center",
-                              attrs: { md: "6" }
-                            },
-                            [
-                              _c("h6", [_vm._v("20+")]),
-                              _vm._v(" "),
-                              _c("p", [_vm._v("Yet to Recieve")]),
-                              _vm._v(" "),
-                              _c("i", {
-                                staticClass: "fa fa-ban",
-                                attrs: { "aria-hidden": "true" }
-                              })
-                            ]
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "log-link" },
-                        [
-                          _c("router-link", { attrs: { to: "" } }, [
-                            _vm._v("View assignment log")
-                          ])
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ]),
-            _vm._v(" "),
-            _c("b-col", { attrs: { md: "6" } }, [
-              _c(
-                "div",
-                { staticClass: "assignment-overview-board" },
-                [
-                  _c("p", [_vm._v("Resource Overview")]),
-                  _vm._v(" "),
-                  _c(
-                    "b-container",
-                    { staticClass: "overview-main" },
-                    [
-                      _c(
-                        "b-row",
-                        [
-                          _c(
-                            "b-col",
-                            {
-                              staticClass: "overview-log-4 text-center",
-                              attrs: { md: "6" }
-                            },
-                            [
-                              _c("h6", [_vm._v("30+")]),
-                              _vm._v(" "),
-                              _c("p", [_vm._v("Submitted")]),
-                              _vm._v(" "),
-                              _c("i", {
-                                staticClass: "fa fa-thumbs-o-up",
-                                attrs: { "aria-hidden": "true" }
-                              })
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-col",
-                            {
-                              directives: [
-                                {
-                                  name: "b-tooltip",
-                                  rawName: "v-b-tooltip.hover",
-                                  modifiers: { hover: true }
-                                }
-                              ],
-                              staticClass: "overview-log-2 text-center",
-                              attrs: {
-                                title:
-                                  "You have over 20 resource to be submitted",
-                                md: "6"
-                              }
-                            },
-                            [
-                              _c("h6", [_vm._v("20+")]),
-                              _vm._v(" "),
-                              _c("p", [_vm._v("Pending")]),
-                              _vm._v(" "),
-                              _c("i", {
-                                staticClass: "fa fa-clock-o",
-                                attrs: { "aria-hidden": "true" }
-                              })
-                            ]
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "log-link" },
-                        [
-                          _c("router-link", { attrs: { to: "" } }, [
-                            _vm._v("View Resources")
-                          ])
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ])
-          ],
-          1
-        )
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "content-cards" },
-      [
-        _c(
-          "b-container",
-          [
-            _c(
-              "b-row",
-              [
-                _c("b-col", { attrs: { md: "4" } }, [
-                  _c("div", { staticClass: "cards" }, [
-                    _c("h5", [_vm._v("Today's Class")]),
+  return _c(
+    "div",
+    { staticClass: "main" },
+    [
+      _c(
+        "div",
+        { staticClass: "container-fluid" },
+        [
+          _c(
+            "b-row",
+            { staticClass: "overview-board" },
+            [
+              _c("b-col", { attrs: { md: "6" } }, [
+                _c(
+                  "div",
+                  { staticClass: "assignment-overview-board" },
+                  [
+                    _c("p", [_vm._v("Assignment Overview")]),
                     _vm._v(" "),
                     _c(
-                      "div",
-                      {
-                        directives: [
-                          {
-                            name: "b-tooltip",
-                            rawName: "v-b-tooltip.hover",
-                            modifiers: { hover: true }
-                          }
-                        ],
-                        staticClass: "class-content",
-                        attrs: { title: "This class is currently ongoing" }
-                      },
+                      "b-container",
+                      { staticClass: "overview-main" },
                       [
-                        _c("div", { staticClass: "class-content-top" }, [
-                          _c("h6", [_vm._v("Geography")]),
+                        _c(
+                          "b-row",
+                          [
+                            _c(
+                              "b-col",
+                              {
+                                staticClass: "overview-log-1 text-center",
+                                attrs: { md: "6" }
+                              },
+                              [
+                                _c("h6", [_vm._v("30+")]),
+                                _vm._v(" "),
+                                _c("p", [_vm._v("Recieved")]),
+                                _vm._v(" "),
+                                _c("i", {
+                                  staticClass: "fa fa-check",
+                                  attrs: { "aria-hidden": "true" }
+                                })
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-col",
+                              {
+                                staticClass: "overview-log-3 text-center",
+                                attrs: { md: "6" }
+                              },
+                              [
+                                _c("h6", [_vm._v("20+")]),
+                                _vm._v(" "),
+                                _c("p", [_vm._v("Yet to Recieve")]),
+                                _vm._v(" "),
+                                _c("i", {
+                                  staticClass: "fa fa-ban",
+                                  attrs: { "aria-hidden": "true" }
+                                })
+                              ]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "log-link" },
+                          [
+                            _c("router-link", { attrs: { to: "" } }, [
+                              _vm._v("View assignment log")
+                            ])
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("b-col", { attrs: { md: "6" } }, [
+                _c(
+                  "div",
+                  { staticClass: "assignment-overview-board" },
+                  [
+                    _c("p", [_vm._v("Resource Overview")]),
+                    _vm._v(" "),
+                    _c(
+                      "b-container",
+                      { staticClass: "overview-main" },
+                      [
+                        _c(
+                          "b-row",
+                          [
+                            _c(
+                              "b-col",
+                              {
+                                staticClass: "overview-log-4 text-center",
+                                attrs: { md: "6" }
+                              },
+                              [
+                                _c("h6", [_vm._v("30+")]),
+                                _vm._v(" "),
+                                _c("p", [_vm._v("Submitted")]),
+                                _vm._v(" "),
+                                _c("i", {
+                                  staticClass: "fa fa-thumbs-o-up",
+                                  attrs: { "aria-hidden": "true" }
+                                })
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-col",
+                              {
+                                directives: [
+                                  {
+                                    name: "b-tooltip",
+                                    rawName: "v-b-tooltip.hover",
+                                    modifiers: { hover: true }
+                                  }
+                                ],
+                                staticClass: "overview-log-2 text-center",
+                                attrs: {
+                                  title:
+                                    "You have over 20 resource to be submitted",
+                                  md: "6"
+                                }
+                              },
+                              [
+                                _c("h6", [_vm._v("20+")]),
+                                _vm._v(" "),
+                                _c("p", [_vm._v("Pending")]),
+                                _vm._v(" "),
+                                _c("i", {
+                                  staticClass: "fa fa-clock-o",
+                                  attrs: { "aria-hidden": "true" }
+                                })
+                              ]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "log-link" },
+                          [
+                            _c("router-link", { attrs: { to: "" } }, [
+                              _vm._v("View Resources")
+                            ])
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ])
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "content-cards" },
+        [
+          _c(
+            "b-container",
+            [
+              _c(
+                "b-row",
+                [
+                  _c("b-col", { attrs: { md: "4" } }, [
+                    _c("div", { staticClass: "cards" }, [
+                      _c("h5", [_vm._v("Today's Class")]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "b-tooltip",
+                              rawName: "v-b-tooltip.hover",
+                              modifiers: { hover: true }
+                            }
+                          ],
+                          staticClass: "class-content",
+                          attrs: { title: "This class is currently ongoing" }
+                        },
+                        [
+                          _c("div", { staticClass: "class-content-top" }, [
+                            _c("h6", [_vm._v("Geography")]),
+                            _vm._v(" "),
+                            _c("i", {
+                              staticClass: "fa fa-dot-circle-o",
+                              attrs: { "aria-hidden": "true" }
+                            })
+                          ]),
                           _vm._v(" "),
-                          _c("i", {
-                            staticClass: "fa fa-dot-circle-o",
-                            attrs: { "aria-hidden": "true" }
-                          })
+                          _c("div", { staticClass: "class-content-main" }, [
+                            _c("p", [
+                              _vm._v(
+                                "\n                  Primary 1,\n                  "
+                              ),
+                              _c("span", [
+                                _vm._v(
+                                  "\n                    by:\n                    "
+                                ),
+                                _c("strong", [_vm._v("Henry Annayo")])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("p", [_vm._v("Ongoing")])
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "b-tooltip",
+                              rawName: "v-b-tooltip.hover",
+                              modifiers: { hover: true }
+                            }
+                          ],
+                          staticClass: "class-content",
+                          attrs: { title: "This class starts 12pm" }
+                        },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "class-content-top content-2" },
+                            [
+                              _c("h6", [_vm._v("Geography")]),
+                              _vm._v(" "),
+                              _c("i", {
+                                staticClass: "fa fa-dot-circle-o",
+                                attrs: { "aria-hidden": "true" }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "class-content-main" }, [
+                            _c("p", [
+                              _vm._v(
+                                "\n                  SS 3,\n                  "
+                              ),
+                              _c("span", [
+                                _vm._v(
+                                  "\n                    by:\n                    "
+                                ),
+                                _c("strong", [_vm._v("Henry Annayo")])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("p", [_vm._v("Upcoming")])
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "b-tooltip",
+                              rawName: "v-b-tooltip.hover",
+                              modifiers: { hover: true }
+                            }
+                          ],
+                          staticClass: "class-content",
+                          attrs: { title: "This class starts 12pm" }
+                        },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "class-content-top content-2" },
+                            [
+                              _c("h6", [_vm._v("Geography")]),
+                              _vm._v(" "),
+                              _c("i", {
+                                staticClass: "fa fa-dot-circle-o",
+                                attrs: { "aria-hidden": "true" }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "class-content-main" }, [
+                            _c("p", [
+                              _vm._v(
+                                "\n                  JS 2,\n                  "
+                              ),
+                              _c("span", [
+                                _vm._v(
+                                  "\n                    by:\n                    "
+                                ),
+                                _c("strong", [_vm._v("Henry Annayo")])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("p", [_vm._v("Upcoming")])
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "b-tooltip",
+                              rawName: "v-b-tooltip.hover",
+                              modifiers: { hover: true }
+                            }
+                          ],
+                          staticClass: "class-content",
+                          attrs: { title: "This class starts 12pm" }
+                        },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "class-content-top content-2" },
+                            [
+                              _c("h6", [_vm._v("Geography")]),
+                              _vm._v(" "),
+                              _c("i", {
+                                staticClass: "fa fa-dot-circle-o",
+                                attrs: { "aria-hidden": "true" }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "class-content-main" }, [
+                            _c("p", [
+                              _vm._v(
+                                "\n                  Primary 3,\n                  "
+                              ),
+                              _c("span", [
+                                _vm._v(
+                                  "\n                    by:\n                    "
+                                ),
+                                _c("strong", [_vm._v("Henry Annayo")])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("p", [_vm._v("Upcoming")])
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "log-link" },
+                        [
+                          _c("router-link", { attrs: { to: "" } }, [
+                            _vm._v("View Today's Class")
+                          ])
+                        ],
+                        1
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("b-col", { attrs: { md: "4" } }, [
+                    _c("div", { staticClass: "discussion cards" }, [
+                      _c("h5", [_vm._v("Discussion")]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "discussion-content" }, [
+                        _c(
+                          "div",
+                          { staticClass: "discussion-content-top" },
+                          [
+                            _c("p", [
+                              _c("strong", [_vm._v("Up coming Exams")])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "b-avatar-group",
+                              { attrs: { size: "2.5rem" } },
+                              [
+                                _c("b-avatar"),
+                                _vm._v(" "),
+                                _c("b-avatar", {
+                                  attrs: { text: "BV", variant: "primary" }
+                                }),
+                                _vm._v(" "),
+                                _c("b-avatar", {
+                                  attrs: {
+                                    src: "https://placekitten.com/300/300",
+                                    variant: "info"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v(
+                            "the upcoming exam is coming up ................."
+                          )
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "class-content-main" }, [
-                          _c("p", [
-                            _vm._v(
-                              "\n                  Primary 1,\n                  "
-                            ),
-                            _c("span", [
-                              _vm._v(
-                                "\n                    by:\n                    "
-                              ),
-                              _c("strong", [_vm._v("Henry Annayo")])
+                        _c(
+                          "div",
+                          { staticClass: "discussion-content-bottom" },
+                          [
+                            _c("p", [_vm._v("Updated 2mins ago")]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "notify-discussion" }, [
+                              _c("p", [_vm._v("3 New Messages")])
                             ])
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [_vm._v("Ongoing")])
-                        ])
-                      ]
-                    ),
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "discussion-content" }, [
+                        _c(
+                          "div",
+                          { staticClass: "discussion-content-top" },
+                          [
+                            _c("p", [
+                              _c("strong", [_vm._v("Up coming Exams")])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "b-avatar-group",
+                              { attrs: { size: "2.5rem" } },
+                              [
+                                _c("b-avatar"),
+                                _vm._v(" "),
+                                _c("b-avatar", {
+                                  attrs: { text: "BV", variant: "primary" }
+                                }),
+                                _vm._v(" "),
+                                _c("b-avatar", {
+                                  attrs: {
+                                    src: "https://placekitten.com/300/300",
+                                    variant: "info"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v(
+                            "the upcoming exam is coming up ................."
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "discussion-content-bottom" },
+                          [
+                            _c("p", [_vm._v("Updated 2mins ago")]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "notify-discussion" }, [
+                              _c("p", [_vm._v("3 New Messages")])
+                            ])
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "discussion-content" }, [
+                        _c(
+                          "div",
+                          { staticClass: "discussion-content-top" },
+                          [
+                            _c("p", [
+                              _c("strong", [_vm._v("Up coming Exams")])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "b-avatar-group",
+                              { attrs: { size: "2.5rem" } },
+                              [
+                                _c("b-avatar"),
+                                _vm._v(" "),
+                                _c("b-avatar", {
+                                  attrs: { text: "BV", variant: "primary" }
+                                }),
+                                _vm._v(" "),
+                                _c("b-avatar", {
+                                  attrs: {
+                                    src: "https://placekitten.com/300/300",
+                                    variant: "info"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v(
+                            "the upcoming exam is coming up ................."
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "discussion-content-bottom" },
+                          [
+                            _c("p", [_vm._v("Updated 2mins ago")]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "notify-discussion" }, [
+                              _c("p", [_vm._v("3 New Messages")])
+                            ])
+                          ]
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("b-col", { attrs: { md: "4" } }, [
+                    _c("div", { staticClass: "notes cards" }, [
+                      _c("div", { staticClass: "notes-top" }, [
+                        _c("h5", [_vm._v("My Notes")]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            directives: [
+                              {
+                                name: "b-modal",
+                                rawName: "v-b-modal.note",
+                                modifiers: { note: true }
+                              }
+                            ],
+                            staticClass: "btn"
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "fa fa-plus",
+                              attrs: { "aria-hidden": "true" }
+                            }),
+                            _vm._v(" "),
+                            _c("span", [_vm._v("ADD")])
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "main-note" },
+                        _vm._l(_vm.notes, function(note, idx) {
+                          return _c(
+                            "div",
+                            { key: idx, staticClass: "note-body" },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "mr-2" },
+                                [
+                                  _c("b-icon", {
+                                    staticClass: "my-icon",
+                                    attrs: { icon: "stickies-fill" }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "notes-content w-100" },
+                                [
+                                  _c(
+                                    "div",
+                                    { staticClass: "notes-content-top" },
+                                    [
+                                      _c(
+                                        "h6",
+                                        { staticClass: "title mr-3 mb-2" },
+                                        [_vm._v(_vm._s(note.title))]
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    { staticClass: "notes-content-main" },
+                                    [
+                                      _c("p", {}, [_vm._v(_vm._s(note.note))]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "notes-date d-flex align-items-center justify-content-between w-100"
+                                        },
+                                        [
+                                          _c("p", [
+                                            _vm._v(
+                                              "\n                        Posted:\n                        "
+                                            ),
+                                            _c("strong", [
+                                              _vm._v(
+                                                _vm._s(
+                                                  _vm._f("moment")(
+                                                    note.created_at,
+                                                    "DD/MM/YYYY"
+                                                  )
+                                                )
+                                              )
+                                            ])
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("b-icon", {
+                                            staticClass: "my-icon cpointer",
+                                            attrs: { icon: "trash" },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.remove(note.id)
+                                              }
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "log-link" }, [
+                        _c(
+                          "div",
+                          {
+                            directives: [
+                              {
+                                name: "b-modal",
+                                rawName: "v-b-modal.all-note",
+                                modifiers: { "all-note": true }
+                              }
+                            ],
+                            staticClass: "check_it"
+                          },
+                          [
+                            _vm._v("View All "),
+                            _c("b-icon", { attrs: { icon: "arrow-right" } })
+                          ],
+                          1
+                        )
+                      ])
+                    ])
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        { attrs: { id: "note", title: "New note", "hide-footer": "" } },
+        [
+          _c(
+            "b-form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.addNote($event)
+                }
+              }
+            },
+            [
+              _c(
+                "b-form-group",
+                { staticClass: "mb-3" },
+                [
+                  _c("label", { attrs: { for: "" } }, [_vm._v("Title")]),
+                  _vm._v(" "),
+                  _c("b-form-input", {
+                    attrs: { required: "", placeholder: "Enter title" },
+                    model: {
+                      value: _vm.note.title,
+                      callback: function($$v) {
+                        _vm.$set(_vm.note, "title", $$v)
+                      },
+                      expression: "note.title"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                { staticClass: "mb-3" },
+                [
+                  _c("label", { attrs: { for: "" } }, [_vm._v("Note")]),
+                  _vm._v(" "),
+                  _c("b-form-textarea", {
+                    attrs: {
+                      maxlength: "200",
+                      required: "",
+                      rows: "3",
+                      placeholder: "Write note here"
+                    },
+                    model: {
+                      value: _vm.note.description,
+                      callback: function($$v) {
+                        _vm.$set(_vm.note, "description", $$v)
+                      },
+                      expression: "note.description"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                { staticClass: "mb-3" },
+                [
+                  _c(
+                    "b-button",
+                    { attrs: { variant: "darkgreen", type: "submit" } },
+                    [_vm._v("Add note")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        { attrs: { id: "all-note", title: "My notes", "hide-footer": "" } },
+        [
+          _c(
+            "div",
+            {},
+            _vm._l(_vm.notes, function(note, idx) {
+              return _c("div", { key: idx, staticClass: "note-body" }, [
+                _c(
+                  "div",
+                  { staticClass: "mr-2" },
+                  [
+                    _c("b-icon", {
+                      staticClass: "my-icon",
+                      attrs: { icon: "stickies-fill" }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "notes-content w-100" }, [
+                  _c("div", { staticClass: "notes-content-top" }, [
+                    _c("h6", { staticClass: "title mr-3 mb-2" }, [
+                      _vm._v(_vm._s(note.title))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "notes-content-main" }, [
+                    _c("p", {}, [_vm._v(_vm._s(note.note))]),
                     _vm._v(" "),
                     _c(
                       "div",
                       {
-                        directives: [
-                          {
-                            name: "b-tooltip",
-                            rawName: "v-b-tooltip.hover",
-                            modifiers: { hover: true }
-                          }
-                        ],
-                        staticClass: "class-content",
-                        attrs: { title: "This class starts 12pm" }
+                        staticClass:
+                          "notes-date d-flex align-items-center justify-content-between w-100"
                       },
                       [
-                        _c(
-                          "div",
-                          { staticClass: "class-content-top content-2" },
-                          [
-                            _c("h6", [_vm._v("Geography")]),
-                            _vm._v(" "),
-                            _c("i", {
-                              staticClass: "fa fa-dot-circle-o",
-                              attrs: { "aria-hidden": "true" }
-                            })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "class-content-main" }, [
-                          _c("p", [
+                        _c("p", [
+                          _vm._v(
+                            "\n                    Posted:\n                    "
+                          ),
+                          _c("strong", [
                             _vm._v(
-                              "\n                  SS 3,\n                  "
-                            ),
-                            _c("span", [
-                              _vm._v(
-                                "\n                    by:\n                    "
-                              ),
-                              _c("strong", [_vm._v("Henry Annayo")])
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [_vm._v("Upcoming")])
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        directives: [
-                          {
-                            name: "b-tooltip",
-                            rawName: "v-b-tooltip.hover",
-                            modifiers: { hover: true }
+                              _vm._s(
+                                _vm._f("moment")(note.created_at, "DD/MM/YYYY")
+                              )
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("b-icon", {
+                          staticClass: "my-icon cpointer",
+                          attrs: { icon: "trash" },
+                          on: {
+                            click: function($event) {
+                              return _vm.remove(note.id)
+                            }
                           }
-                        ],
-                        staticClass: "class-content",
-                        attrs: { title: "This class starts 12pm" }
-                      },
-                      [
-                        _c(
-                          "div",
-                          { staticClass: "class-content-top content-2" },
-                          [
-                            _c("h6", [_vm._v("Geography")]),
-                            _vm._v(" "),
-                            _c("i", {
-                              staticClass: "fa fa-dot-circle-o",
-                              attrs: { "aria-hidden": "true" }
-                            })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "class-content-main" }, [
-                          _c("p", [
-                            _vm._v(
-                              "\n                  JS 2,\n                  "
-                            ),
-                            _c("span", [
-                              _vm._v(
-                                "\n                    by:\n                    "
-                              ),
-                              _c("strong", [_vm._v("Henry Annayo")])
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [_vm._v("Upcoming")])
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        directives: [
-                          {
-                            name: "b-tooltip",
-                            rawName: "v-b-tooltip.hover",
-                            modifiers: { hover: true }
-                          }
-                        ],
-                        staticClass: "class-content",
-                        attrs: { title: "This class starts 12pm" }
-                      },
-                      [
-                        _c(
-                          "div",
-                          { staticClass: "class-content-top content-2" },
-                          [
-                            _c("h6", [_vm._v("Geography")]),
-                            _vm._v(" "),
-                            _c("i", {
-                              staticClass: "fa fa-dot-circle-o",
-                              attrs: { "aria-hidden": "true" }
-                            })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "class-content-main" }, [
-                          _c("p", [
-                            _vm._v(
-                              "\n                  Primary 3,\n                  "
-                            ),
-                            _c("span", [
-                              _vm._v(
-                                "\n                    by:\n                    "
-                              ),
-                              _c("strong", [_vm._v("Henry Annayo")])
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [_vm._v("Upcoming")])
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "log-link" },
-                      [
-                        _c("router-link", { attrs: { to: "" } }, [
-                          _vm._v("View Today's Class")
-                        ])
+                        })
                       ],
                       1
                     )
                   ])
-                ]),
-                _vm._v(" "),
-                _c("b-col", { attrs: { md: "4" } }, [
-                  _c("div", { staticClass: "discussion cards" }, [
-                    _c("h5", [_vm._v("Discussion")]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "discussion-content" }, [
-                      _c(
-                        "div",
-                        { staticClass: "discussion-content-top" },
-                        [
-                          _c("p", [_c("strong", [_vm._v("Up coming Exams")])]),
-                          _vm._v(" "),
-                          _c(
-                            "b-avatar-group",
-                            { attrs: { size: "2.5rem" } },
-                            [
-                              _c("b-avatar"),
-                              _vm._v(" "),
-                              _c("b-avatar", {
-                                attrs: { text: "BV", variant: "primary" }
-                              }),
-                              _vm._v(" "),
-                              _c("b-avatar", {
-                                attrs: {
-                                  src: "https://placekitten.com/300/300",
-                                  variant: "info"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("p", [
-                        _vm._v(
-                          "the upcoming exam is coming up ................."
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "discussion-content-bottom" }, [
-                        _c("p", [_vm._v("Updated 2mins ago")]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "notify-discussion" }, [
-                          _c("p", [_vm._v("3 New Messages")])
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "discussion-content" }, [
-                      _c(
-                        "div",
-                        { staticClass: "discussion-content-top" },
-                        [
-                          _c("p", [_c("strong", [_vm._v("Up coming Exams")])]),
-                          _vm._v(" "),
-                          _c(
-                            "b-avatar-group",
-                            { attrs: { size: "2.5rem" } },
-                            [
-                              _c("b-avatar"),
-                              _vm._v(" "),
-                              _c("b-avatar", {
-                                attrs: { text: "BV", variant: "primary" }
-                              }),
-                              _vm._v(" "),
-                              _c("b-avatar", {
-                                attrs: {
-                                  src: "https://placekitten.com/300/300",
-                                  variant: "info"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("p", [
-                        _vm._v(
-                          "the upcoming exam is coming up ................."
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "discussion-content-bottom" }, [
-                        _c("p", [_vm._v("Updated 2mins ago")]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "notify-discussion" }, [
-                          _c("p", [_vm._v("3 New Messages")])
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "discussion-content" }, [
-                      _c(
-                        "div",
-                        { staticClass: "discussion-content-top" },
-                        [
-                          _c("p", [_c("strong", [_vm._v("Up coming Exams")])]),
-                          _vm._v(" "),
-                          _c(
-                            "b-avatar-group",
-                            { attrs: { size: "2.5rem" } },
-                            [
-                              _c("b-avatar"),
-                              _vm._v(" "),
-                              _c("b-avatar", {
-                                attrs: { text: "BV", variant: "primary" }
-                              }),
-                              _vm._v(" "),
-                              _c("b-avatar", {
-                                attrs: {
-                                  src: "https://placekitten.com/300/300",
-                                  variant: "info"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("p", [
-                        _vm._v(
-                          "the upcoming exam is coming up ................."
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "discussion-content-bottom" }, [
-                        _c("p", [_vm._v("Updated 2mins ago")]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "notify-discussion" }, [
-                          _c("p", [_vm._v("3 New Messages")])
-                        ])
-                      ])
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("b-col", { attrs: { md: "4" } }, [
-                  _c("div", { staticClass: "notes cards" }, [
-                    _c("div", { staticClass: "notes-top" }, [
-                      _c("h5", [_vm._v("Notes")]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "btn" }, [
-                        _c("i", {
-                          staticClass: "fa fa-plus",
-                          attrs: { "aria-hidden": "true" }
-                        }),
-                        _vm._v(" "),
-                        _c("span", [_vm._v("ADD")])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "notes-content" }, [
-                      _c("div", { staticClass: "notes-content-top" }, [
-                        _c("i", {
-                          staticClass: "fa fa-file-o",
-                          attrs: { "aria-hidden": "true" }
-                        }),
-                        _vm._v(" "),
-                        _c("h6", { staticClass: "title" }, [
-                          _vm._v("Prepare Test for Primary 1")
-                        ]),
-                        _vm._v(" "),
-                        _c("i", {
-                          staticClass: "fa fa-ellipsis-v",
-                          attrs: { "aria-hidden": "true" }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "notes-content-main" }, [
-                        _c("p", {}, [
-                          _vm._v(
-                            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure"
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "notes-date" }, [
-                          _c("p", [
-                            _vm._v(
-                              "\n                    Posted:\n                    "
-                            ),
-                            _c("strong", [_vm._v("07/07/2020")])
-                          ])
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "notes-content" }, [
-                      _c("div", { staticClass: "notes-content-top" }, [
-                        _c("i", {
-                          staticClass: "fa fa-file-o",
-                          attrs: { "aria-hidden": "true" }
-                        }),
-                        _vm._v(" "),
-                        _c("h6", { staticClass: "title" }, [
-                          _vm._v("Prepare Test for JS 2")
-                        ]),
-                        _vm._v(" "),
-                        _c("i", {
-                          staticClass: "fa fa-ellipsis-v",
-                          attrs: { "aria-hidden": "true" }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "notes-content-main" }, [
-                        _c("p", {}, [
-                          _vm._v(
-                            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure"
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "notes-date" }, [
-                          _c("p", [
-                            _vm._v(
-                              "\n                    Posted:\n                    "
-                            ),
-                            _c("strong", [_vm._v("07/07/2020")])
-                          ])
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "notes-content" }, [
-                      _c("div", { staticClass: "notes-content-top" }, [
-                        _c("i", {
-                          staticClass: "fa fa-file-o",
-                          attrs: { "aria-hidden": "true" }
-                        }),
-                        _vm._v(" "),
-                        _c("h6", { staticClass: "title" }, [
-                          _vm._v("Prepare Test for SS 2")
-                        ]),
-                        _vm._v(" "),
-                        _c("i", {
-                          staticClass: "fa fa-ellipsis-v",
-                          attrs: { "aria-hidden": "true" }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "notes-content-main" }, [
-                        _c("p", {}, [
-                          _vm._v(
-                            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ut tempora iure"
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "notes-date" }, [
-                          _c("p", [
-                            _vm._v(
-                              "\n                    Posted:\n                    "
-                            ),
-                            _c("strong", [_vm._v("07/07/2020")])
-                          ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "log-link" },
-                        [
-                          _c("router-link", { attrs: { to: "" } }, [
-                            _vm._v("View All")
-                          ])
-                        ],
-                        1
-                      )
-                    ])
-                  ])
                 ])
-              ],
-              1
-            )
-          ],
-          1
-        )
-      ],
-      1
-    )
-  ])
+              ])
+            }),
+            0
+          )
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -50559,558 +52255,609 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "body" },
+    { staticClass: "add-resource" },
     [
       _c(
-        "b-form",
-        {
-          staticClass: "border rounded",
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              return _vm.submit($event)
-            }
-          }
-        },
+        "p",
         [
-          _c("legend", { staticClass: "mb-5" }, [_vm._v("New Resource")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group mb-5" }, [
-            _c("label", { attrs: { for: "" } }, [_vm._v("Choose Class")]),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.resource.level,
-                    expression: "resource.level"
-                  }
-                ],
-                staticClass: "custom-select w-25",
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.$set(
-                      _vm.resource,
-                      "level",
-                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                    )
-                  }
-                }
-              },
-              [
-                _c("option", { attrs: { selected: "", value: "" } }, [
-                  _vm._v("Select Class")
-                ]),
-                _vm._v(" "),
-                _vm._l(_vm.allClass, function(item, idx) {
-                  return _c(
-                    "option",
-                    {
-                      key: idx,
-                      staticClass: "toCaps",
-                      domProps: { value: item.class_name }
-                    },
-                    [_vm._v(_vm._s(item.class_name))]
-                  )
-                })
-              ],
-              2
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group mb-5" }, [
-            _c("label", { attrs: { for: "" } }, [_vm._v("Choose Subject")]),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.resource.subject,
-                    expression: "resource.subject"
-                  }
-                ],
-                staticClass: "custom-select w-25",
-                attrs: { disabled: _vm.resource.level == "" },
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.$set(
-                      _vm.resource,
-                      "subject",
-                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                    )
-                  }
-                }
-              },
-              [
-                _c(
-                  "option",
-                  { attrs: { selected: "", disabled: "", value: "" } },
-                  [_vm._v("Select one")]
-                ),
-                _vm._v(" "),
-                _vm._l(_vm.subjects, function(item, idx) {
-                  return _c(
-                    "option",
-                    {
-                      key: idx,
-                      staticClass: "toCaps",
-                      domProps: { value: item.name }
-                    },
-                    [_vm._v(_vm._s(item.name))]
-                  )
-                })
-              ],
-              2
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group mb-5" }, [
-            _c("label", { attrs: { for: "" } }, [
-              _vm._v("Choose Module/Topic")
-            ]),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.resource.module,
-                    expression: "resource.module"
-                  }
-                ],
-                staticClass: "custom-select w-50",
-                attrs: { disabled: _vm.resource.subject == "" },
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.$set(
-                      _vm.resource,
-                      "module",
-                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                    )
-                  }
-                }
-              },
-              [
-                _c(
-                  "option",
-                  { attrs: { selected: "", disabled: "", value: "" } },
-                  [_vm._v("Select one")]
-                ),
-                _vm._v(" "),
-                _vm._l(_vm.modules, function(item, idx) {
-                  return _c(
-                    "option",
-                    {
-                      key: idx,
-                      staticClass: "toCaps",
-                      domProps: { value: item.name }
-                    },
-                    [_vm._v(_vm._s(item.name))]
-                  )
-                })
-              ],
-              2
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group mb-5" }, [
-            _c("label", { attrs: { for: "" } }, [_vm._v("Excerpt (optional)")]),
-            _vm._v(" "),
-            _c("textarea", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.resource.excerpt,
-                  expression: "resource.excerpt"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { rows: "3" },
-              domProps: { value: _vm.resource.excerpt },
+          _c("router-link", { attrs: { to: "/tutor/resources" } }, [
+            _vm._v("Go back")
+          ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("h5", { staticClass: "text-center py-3" }, [
+        _vm._v("Update Resource")
+      ]),
+      _vm._v(" "),
+      _c(
+        "b-container",
+        { staticClass: "form-container" },
+        [
+          _c(
+            "b-form",
+            {
               on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.resource, "excerpt", $event.target.value)
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.submit($event)
                 }
               }
-            })
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "border p-3 mb-5" },
+            },
             [
-              _c("h4", [_vm._v("Resource Upload")]),
+              _c(
+                "b-form-row",
+                [
+                  _c("b-col", { attrs: { md: "4" } }, [
+                    _c("div", { staticClass: "form-group mb-3" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Select Class")
+                      ]),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.resource.level,
+                              expression: "resource.level"
+                            }
+                          ],
+                          staticClass: "custom-select",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.resource,
+                                "level",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { selected: "", value: "" } }, [
+                            _vm._v("Select Class")
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.allClass, function(item, idx) {
+                            return _c(
+                              "option",
+                              {
+                                key: idx,
+                                staticClass: "toCaps",
+                                domProps: {
+                                  value: item.class_name.toLowerCase()
+                                }
+                              },
+                              [_vm._v(_vm._s(item.class_name))]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("b-col", { attrs: { md: "4" } }, [
+                    _c("div", { staticClass: "form-group mb-3" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Select Subject")
+                      ]),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.resource.subject,
+                              expression: "resource.subject"
+                            }
+                          ],
+                          staticClass: "custom-select",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.resource,
+                                "subject",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "option",
+                            {
+                              attrs: { selected: "", disabled: "", value: "" }
+                            },
+                            [_vm._v("Select one")]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.subjects, function(item, idx) {
+                            return _c(
+                              "option",
+                              {
+                                key: idx,
+                                staticClass: "toCaps",
+                                domProps: { value: item.name.toLowerCase() }
+                              },
+                              [_vm._v(_vm._s(item.name))]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("b-col", { attrs: { md: "4" } }, [
+                    _c("div", { staticClass: "form-group mb-5" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Select Module")
+                      ]),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.resource.module,
+                              expression: "resource.module"
+                            }
+                          ],
+                          staticClass: "custom-select",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.resource,
+                                "module",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "option",
+                            {
+                              attrs: { selected: "", disabled: "", value: "" }
+                            },
+                            [_vm._v("Select one")]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.modules, function(item, idx) {
+                            return _c(
+                              "option",
+                              {
+                                key: idx,
+                                staticClass: "toCaps",
+                                domProps: { value: item.name.toLowerCase() }
+                              },
+                              [_vm._v(_vm._s(item.name))]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ])
+                  ])
+                ],
+                1
+              ),
               _vm._v(" "),
               _c("div", { staticClass: "form-group mb-5" }, [
                 _c("label", { attrs: { for: "" } }, [
-                  _vm._v("Resources Count")
+                  _vm._v("Excerpt (optional)")
                 ]),
                 _vm._v(" "),
-                _c("label", { staticClass: "custom-control custom-radio" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.resource.count,
-                        expression: "resource.count"
-                      }
-                    ],
-                    staticClass: "custom-control-input",
-                    attrs: { type: "radio", value: "single" },
-                    domProps: { checked: _vm._q(_vm.resource.count, "single") },
-                    on: {
-                      change: function($event) {
-                        return _vm.$set(_vm.resource, "count", "single")
-                      }
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.resource.excerpt,
+                      expression: "resource.excerpt"
                     }
-                  }),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "custom-control-indicator" }, [
-                    _vm._v("Single resource")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("label", { staticClass: "custom-control custom-radio" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.resource.count,
-                        expression: "resource.count"
+                  ],
+                  staticClass: "form-control",
+                  attrs: { rows: "3" },
+                  domProps: { value: _vm.resource.excerpt },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
                       }
-                    ],
-                    staticClass: "custom-control-input",
-                    attrs: { type: "radio", value: "multiple" },
-                    domProps: {
-                      checked: _vm._q(_vm.resource.count, "multiple")
-                    },
-                    on: {
-                      change: function($event) {
-                        return _vm.$set(_vm.resource, "count", "multiple")
-                      }
+                      _vm.$set(_vm.resource, "excerpt", $event.target.value)
                     }
-                  }),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "custom-control-indicator" }, [
-                    _vm._v("Multiple resources")
-                  ])
-                ])
+                  }
+                })
               ]),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                { attrs: { label: "Resource Upload Type" } },
+                [
+                  _c("b-form-radio-group", {
+                    attrs: {
+                      options: _vm.options,
+                      plain: "",
+                      name: "plain-inline"
+                    },
+                    model: {
+                      value: _vm.resource.count,
+                      callback: function($$v) {
+                        _vm.$set(_vm.resource, "count", $$v)
+                      },
+                      expression: "resource.count"
+                    }
+                  })
+                ],
+                1
+              ),
               _vm._v(" "),
               _vm.resource.count == "multiple"
                 ? _c(
-                    "b-button",
-                    { attrs: { type: "button" }, on: { click: _vm.addmore } },
-                    [_vm._v("Add more")]
+                    "b-form-row",
+                    [
+                      _c(
+                        "b-button",
+                        {
+                          staticClass: "mr-4",
+                          attrs: { type: "button" },
+                          on: { click: _vm.addmore }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fa fa-plus-circle",
+                            attrs: { "aria-hidden": "true" }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm.resource.content.length > 1
+                        ? _c(
+                            "b-button",
+                            {
+                              attrs: { type: "button" },
+                              on: { click: _vm.addmore }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fa fa-times-circle",
+                                attrs: { "aria-hidden": "true" }
+                              })
+                            ]
+                          )
+                        : _vm._e()
+                    ],
+                    1
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "resource" },
-                _vm._l(_vm.resource.content, function(item, idx) {
-                  return _c("div", { key: idx }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "form-group border bg-white p-3 text-center"
-                      },
-                      [
-                        _c("h5", [_vm._v("Upload Resource")]),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "form-group mb-3 text-center" },
-                          [
-                            _c("label", { attrs: { for: "" } }, [
-                              _vm._v("Choose Format")
-                            ]),
-                            _vm._v(" "),
-                            _c("br"),
-                            _vm._v(" "),
-                            _c(
-                              "select",
-                              {
+              _vm._l(_vm.resource.content, function(item, idx) {
+                return _c("div", { key: idx }, [
+                  _c(
+                    "div",
+                    { staticClass: "upload-resource container" },
+                    [
+                      _c("h5", [_vm._v("Upload Resource " + _vm._s(idx + 1))]),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-row",
+                        [
+                          _c("b-col", { attrs: { md: "6" } }, [
+                            _c("div", { staticClass: "form-group mb-3" }, [
+                              _c("label", { attrs: { for: "" } }, [
+                                _vm._v("Choose Format")
+                              ]),
+                              _vm._v(" "),
+                              _c("br"),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: item.type,
+                                      expression: "item.type"
+                                    }
+                                  ],
+                                  staticClass: "custom-select",
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        item,
+                                        "type",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "option",
+                                    {
+                                      attrs: {
+                                        selected: "",
+                                        disabled: "",
+                                        value: ""
+                                      }
+                                    },
+                                    [_vm._v("Select one")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "pdf" } }, [
+                                    _vm._v("PDF")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "audio" } }, [
+                                    _vm._v("Audio")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "video" } }, [
+                                    _vm._v("Video")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "ppt" } }, [
+                                    _vm._v("PPT")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("option", { attrs: { value: "csv" } }, [
+                                    _vm._v("CSV")
+                                  ])
+                                ]
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("b-col", { attrs: { md: "6" } }, [
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("label", { attrs: { for: "" } }, [
+                                _vm._v("Title")
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
                                 directives: [
                                   {
                                     name: "model",
                                     rawName: "v-model",
-                                    value: item.type,
-                                    expression: "item.type"
+                                    value: item.title,
+                                    expression: "item.title"
                                   }
                                 ],
-                                staticClass: "custom-select",
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "text",
+                                  "aria-describedby": "helpId",
+                                  placeholder: ""
+                                },
+                                domProps: { value: item.title },
                                 on: {
-                                  change: function($event) {
-                                    var $$selectedVal = Array.prototype.filter
-                                      .call($event.target.options, function(o) {
-                                        return o.selected
-                                      })
-                                      .map(function(o) {
-                                        var val =
-                                          "_value" in o ? o._value : o.value
-                                        return val
-                                      })
-                                    _vm.$set(
-                                      item,
-                                      "type",
-                                      $event.target.multiple
-                                        ? $$selectedVal
-                                        : $$selectedVal[0]
-                                    )
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(item, "title", $event.target.value)
                                   }
                                 }
-                              },
-                              [
-                                _c(
-                                  "option",
-                                  {
-                                    attrs: {
-                                      selected: "",
-                                      disabled: "",
-                                      value: ""
-                                    }
-                                  },
-                                  [_vm._v("Select one")]
-                                ),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "pdf" } }, [
-                                  _vm._v("PDF")
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "audio" } }, [
-                                  _vm._v("Audio")
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "video" } }, [
-                                  _vm._v("Video")
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "ppt" } }, [
-                                  _vm._v("PPT")
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "csv" } }, [
-                                  _vm._v("CSV")
-                                ])
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", { attrs: { for: "" } }, [
-                            _vm._v("Title")
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: item.title,
-                                expression: "item.title"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              "aria-describedby": "helpId",
-                              placeholder: ""
-                            },
-                            domProps: { value: item.title },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(item, "title", $event.target.value)
-                              }
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("h6", [_vm._v("Overview (200 characters)")]),
-                          _vm._v(" "),
-                          _c("textarea", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: item.overview,
-                                expression: "item.overview"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: { maxlength: "200", rows: "3" },
-                            domProps: { value: item.overview },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(item, "overview", $event.target.value)
-                              }
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("Upload", {
-                          attrs: { index: idx },
-                          on: { getUploadDetails: _vm.getUploadDetails }
-                        }),
-                        _vm._v(" "),
-                        item.type !== ""
-                          ? _c("p", { staticClass: "toCaps animated fadeIn" }, [
-                              _vm._v("Resource Type : " + _vm._s(item.type))
+                              })
                             ])
-                          : _vm._e(),
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("h6", [_vm._v("Overview (250 characters)")]),
                         _vm._v(" "),
-                        item.name !== ""
-                          ? _c("p", { staticClass: "toCaps animated fadeIn" }, [
-                              _vm._v("Resource Name : " + _vm._s(item.name))
-                            ])
-                          : _vm._e()
-                      ],
-                      1
-                    )
-                  ])
-                }),
-                0
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: item.overview,
+                              expression: "item.overview"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { maxlength: "250", rows: "3" },
+                          domProps: { value: item.overview },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(item, "overview", $event.target.value)
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-group",
+                        [
+                          _c("Upload", {
+                            attrs: { index: idx },
+                            on: { getUploadDetails: _vm.getUploadDetails }
+                          }),
+                          _vm._v(" "),
+                          item.type !== ""
+                            ? _c(
+                                "p",
+                                { staticClass: "toCaps animated fadeIn" },
+                                [_vm._v("Resource Type : " + _vm._s(item.type))]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          item.name !== ""
+                            ? _c(
+                                "p",
+                                { staticClass: "toCaps animated fadeIn" },
+                                [_vm._v("Resource Name : " + _vm._s(item.name))]
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ])
+              }),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                { staticClass: "my-5 w-25" },
+                [
+                  _c("h5", { staticClass: "mb-3" }, [_vm._v("Upload Cover")]),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    { attrs: { for: "cover" } },
+                    [
+                      _c("b-avatar", {
+                        attrs: {
+                          src: _vm.resource.cover_image,
+                          rounded: "",
+                          size: "7rem",
+                          icon: "image-fill"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("MiniUpload", {
+                    attrs: { label: _vm.label, index: _vm.cover },
+                    on: { getUploadDetails: _vm.getUploadDetails }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  attrs: { label: "Would You Like to Include Worksheet/Quiz" }
+                },
+                [
+                  _c("b-form-radio-group", {
+                    attrs: {
+                      options: _vm.worksheet,
+                      plain: "",
+                      name: "plain-inline"
+                    },
+                    model: {
+                      value: _vm.resource.worksheet,
+                      callback: function($$v) {
+                        _vm.$set(_vm.resource, "worksheet", $$v)
+                      },
+                      expression: "resource.worksheet"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group mb-5" }, [
+                _c("label", { attrs: { for: "" } }, [_vm._v("Tutors Note")]),
+                _vm._v(" "),
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.resource.note,
+                      expression: "resource.note"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { rows: "3" },
+                  domProps: { value: _vm.resource.note },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.resource, "note", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "save-btn" },
+                [
+                  _c(
+                    "b-button",
+                    { staticClass: "btn-save", attrs: { type: "submit" } },
+                    [_vm._v("ADD RESOURCE")]
+                  )
+                ],
+                1
               )
             ],
-            1
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group mb-5" }, [
-            _c("label", { attrs: { for: "" } }, [
-              _vm._v("Would you like to include a Worksheet/Quiz?")
-            ]),
-            _vm._v(" "),
-            _c("label", { staticClass: "custom-control custom-radio" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.resource.worksheet,
-                    expression: "resource.worksheet"
-                  }
-                ],
-                staticClass: "custom-control-input",
-                attrs: { type: "radio", value: "yes" },
-                domProps: { checked: _vm._q(_vm.resource.worksheet, "yes") },
-                on: {
-                  change: function($event) {
-                    return _vm.$set(_vm.resource, "worksheet", "yes")
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("span", { staticClass: "custom-control-indicator" }, [
-                _vm._v("Yes")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("label", { staticClass: "custom-control custom-radio" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.resource.worksheet,
-                    expression: "resource.worksheet"
-                  }
-                ],
-                staticClass: "custom-control-input",
-                attrs: { type: "radio", value: "no" },
-                domProps: { checked: _vm._q(_vm.resource.worksheet, "no") },
-                on: {
-                  change: function($event) {
-                    return _vm.$set(_vm.resource, "worksheet", "no")
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("span", { staticClass: "custom-control-indicator" }, [
-                _vm._v("No")
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group mb-5" }, [
-            _c("label", { attrs: { for: "" } }, [_vm._v("Tutors Note")]),
-            _vm._v(" "),
-            _c("textarea", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.resource.note,
-                  expression: "resource.note"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { rows: "3" },
-              domProps: { value: _vm.resource.note },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.resource, "note", $event.target.value)
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("b-button", { attrs: { type: "submit" } }, [_vm._v("Submit")])
+            2
+          )
         ],
         1
       )
@@ -51156,7 +52903,7 @@ var render = function() {
       1
     ),
     _vm._v(" "),
-    _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "container p-0" }, [
       _c(
         "div",
         { staticClass: "filter-table" },
@@ -51164,7 +52911,10 @@ var render = function() {
           _c("div", { staticClass: "filter-container" }, [
             _c(
               "div",
-              { staticClass: "filter-btn", on: { click: _vm.toggleFilter } },
+              {
+                staticClass: "filter-btn mr-auto",
+                on: { click: _vm.toggleFilter }
+              },
               [
                 _c("span", [_vm._v("Filter")]),
                 _vm._v(" "),
@@ -51893,90 +53643,197 @@ var render = function() {
           _vm._v(" "),
           _vm._m(0),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "student-reviews" },
-            [
-              _c(
-                "b-row",
-                { staticClass: "mb-5" },
-                [
-                  _c(
-                    "b-col",
-                    [
-                      _c("h4", [_vm._v("Student Feedback")]),
+          _c("div", { staticClass: "student-feedback review" }, [
+            _c("div", { staticClass: "featured-review p-3" }, [
+              _c("h4", [_vm._v("Featured Review")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "active-review" }, [
+                _c(
+                  "div",
+                  { staticClass: "featured-review-top" },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "featured-review-inner-top" },
+                      [
+                        _c("b-avatar", {
+                          attrs: { src: "/images/profile-img.jpg" }
+                        }),
+                        _vm._v(" "),
+                        _vm._m(1)
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("ratings", { attrs: { value: 5, disabled: true } })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _vm._m(2)
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "p-3 all-review" },
+              [
+                _c("h5", [_vm._v("Reviews")]),
+                _vm._v(" "),
+                _vm._l(_vm.reviews, function(item, id) {
+                  return _c("div", { key: id, staticClass: " border-bottom" }, [
+                    _c("div", { staticClass: "active-review" }, [
+                      _c("div", { staticClass: "featured-review-top" }, [
+                        _c(
+                          "div",
+                          { staticClass: "featured-review-inner-top" },
+                          [
+                            _c("b-avatar", {
+                              attrs: { src: item.user.profile }
+                            }),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "mb-0" }, [
+                              _c("strong", { staticClass: "toCaps" }, [
+                                _vm._v(_vm._s(item.user.name))
+                              ])
+                            ])
+                          ],
+                          1
+                        )
+                      ]),
                       _vm._v(" "),
                       _c(
-                        "b-list-group",
+                        "div",
+                        { staticClass: "d-flex align-items-center" },
                         [
-                          _c(
-                            "b-list-group-item",
-                            [
-                              _c(
-                                "b-row",
-                                [
-                                  _c(
-                                    "b-col",
-                                    {
-                                      staticClass: "text-right",
-                                      attrs: { cols: "2" }
-                                    },
-                                    [_c("b-avatar")],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c("b-col", { attrs: { cols: "10" } }, [
-                                    _c("strong", [_vm._v("John Enugu")]),
-                                    _vm._v(" "),
-                                    _c("p", [
-                                      _vm._v(
-                                        "\n                    Very good info and easy to understand.\n                    Practical and insightful advice you can use in many situations even as an employee.\n                    Obviously Chris likes to help people succeed and knows some of the barriers to success from his own experience.\n                  "
-                                      )
-                                    ])
-                                  ])
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          ),
+                          _c("ratings", {
+                            staticClass: "mr-2",
+                            attrs: { value: item.rating, disabled: true }
+                          }),
                           _vm._v(" "),
-                          _c(
-                            "b-list-group-item",
-                            [
-                              _c(
-                                "b-row",
-                                [
-                                  _c(
-                                    "b-col",
-                                    {
-                                      staticClass: "text-right",
-                                      attrs: { cols: "2" }
-                                    },
-                                    [_c("b-avatar")],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c("b-col", { attrs: { cols: "10" } }, [
-                                    _c("strong", [_vm._v("Ada Nkechi")]),
-                                    _vm._v(" "),
-                                    _c("p", [
-                                      _vm._v(
-                                        'Incredible, Amazing, Awesome. If you are this, I want to say "Thank you so much from all my heart & spirit." To love this course would be an understatement, I really learned a lot, bought this one years ago & never gone through this until recently when I took learning seriously and finished this course.'
-                                      )
-                                    ])
-                                  ])
-                                ],
-                                1
+                          _c("small", [
+                            _vm._v(
+                              _vm._s(
+                                _vm._f("moment")(item.created_at, "MMM DD")
                               )
-                            ],
-                            1
+                            )
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("p", [_vm._v(_vm._s(item.comment))])
+                    ])
+                  ])
+                })
+              ],
+              2
+            )
+          ])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _vm.modules.length
+        ? _c(
+            "b-col",
+            { attrs: { cols: "5" } },
+            [
+              _c(
+                "b-card",
+                {
+                  staticClass: "mb-2 floating-bar shadow-lg toCaps",
+                  staticStyle: { width: "22rem" },
+                  attrs: {
+                    title: _vm.subject,
+                    "img-src": _vm.cover_image,
+                    "img-alt": "Image",
+                    "img-top": ""
+                  }
+                },
+                [
+                  _c("b-card-text", [_c("strong", [_vm._v("This includes:")])]),
+                  _vm._v(" "),
+                  _c(
+                    "b-card-text",
+                    { staticClass: "border-bottom" },
+                    [
+                      _c("b-icon", {
+                        staticClass: "mr-2",
+                        attrs: { icon: "folder-symlink" }
+                      }),
+                      _vm._v(
+                        "\n        " +
+                          _vm._s(
+                            _vm.totalVideos + _vm.totalDocs + _vm.totalAudio
+                          ) +
+                          " downloadable resources\n      "
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.totalVideos
+                    ? _c(
+                        "b-card-text",
+                        { staticClass: "border-bottom" },
+                        [
+                          _c("b-icon", {
+                            staticClass: "mr-2",
+                            attrs: { icon: "collection-play" }
+                          }),
+                          _vm._v(
+                            "\n        " +
+                              _vm._s(_vm.totalVideos) +
+                              " videos\n      "
                           )
                         ],
                         1
                       )
-                    ],
-                    1
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.totalAudio
+                    ? _c(
+                        "b-card-text",
+                        { staticClass: "border-bottom" },
+                        [
+                          _c("b-icon", {
+                            staticClass: "mr-2",
+                            attrs: { icon: "file-music" }
+                          }),
+                          _vm._v(
+                            "\n        " +
+                              _vm._s(_vm.totalAudio) +
+                              " audios\n      "
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.totalDocs
+                    ? _c(
+                        "b-card-text",
+                        { staticClass: "border-bottom" },
+                        [
+                          _c("b-icon", {
+                            staticClass: "mr-2",
+                            attrs: { icon: "file-earmark-arrow-down" }
+                          }),
+                          _vm._v(
+                            "\n        " +
+                              _vm._s(_vm.totalDocs) +
+                              " Documents\n      "
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    { attrs: { href: "#", block: "", variant: "secondary" } },
+                    [_vm._v("Views : 14")]
                   )
                 ],
                 1
@@ -51984,55 +53841,7 @@ var render = function() {
             ],
             1
           )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-col",
-        { attrs: { cols: "5" } },
-        [
-          _c(
-            "b-card",
-            {
-              staticClass: "mb-2 floating-bar shadow-lg toCaps",
-              staticStyle: { width: "22rem" },
-              attrs: {
-                title: _vm.subject,
-                "img-src": _vm.cover_image,
-                "img-alt": "Image",
-                "img-top": ""
-              }
-            },
-            [
-              _c("b-card-text", [_c("strong", [_vm._v("This includes:")])]),
-              _vm._v(" "),
-              _vm._l(_vm.modules, function(module, idx) {
-                return _c(
-                  "b-card-text",
-                  { key: idx, staticClass: "border-bottom" },
-                  [
-                    _vm._v(
-                      _vm._s(module.module) +
-                        " - " +
-                        _vm._s(JSON.parse(module.content).length) +
-                        " downloadable resources"
-                    )
-                  ]
-                )
-              }),
-              _vm._v(" "),
-              _c(
-                "b-button",
-                { attrs: { href: "#", block: "", variant: "primary" } },
-                [_vm._v("Views : 24")]
-              )
-            ],
-            2
-          )
-        ],
-        1
-      )
+        : _vm._e()
     ],
     1
   )
@@ -52046,6 +53855,26 @@ var staticRenderFns = [
       _c("h5", [_vm._v("Tutors Note")]),
       _vm._v(" "),
       _c("p", [_vm._v("You included no notes to this resource")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "mb-0" }, [
+      _c("strong", [_vm._v("Nkechi Onuha")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _vm._v(
+        "\n            I had an easy time learning this course with the materials giving.\n            "
+      ),
+      _c("br"),
+      _vm._v("Easy to understand and grasp.\n          ")
     ])
   }
 ]
@@ -53382,93 +55211,108 @@ var render = function() {
     _vm.curriculum
       ? _c("div", { staticClass: "form-group mx-0" }, [
           _c("h4", { staticClass: "toCaps" }, [
-            _vm._v("\n      Grade Level :\n      "),
-            _c("span", {}, [_vm._v(_vm._s(_vm.curriculum.grade_level))])
+            _c("span", { staticClass: "text-muted" }, [
+              _vm._v("Grade Level :")
+            ]),
+            _vm._v("\n      " + _vm._s(_vm.curriculum.grade_level) + "\n    ")
           ])
         ])
       : _vm._e(),
     _vm._v(" "),
-    _c("div", { staticClass: "contain-syllabus" }, [
-      _c("div", { staticClass: "view-syllabus" }, [
-        _vm.curriculum.profile
-          ? _c(
-              "div",
-              { staticClass: "class-information" },
+    _c("table", { staticClass: "table table-borderless bg-white" }, [
+      _vm.curriculum.profile
+        ? _c("tr", { staticClass: "border-bottom p-3 my-4" }, [
+            _c(
+              "td",
               [
                 _c("h5", [_vm._v("Student Profile")]),
                 _vm._v(" "),
-                _c("div", { staticClass: "underline" }),
-                _vm._v(" "),
-                _c("b-col", { attrs: { cols: "6" } }, [
-                  _c("div", { staticClass: "form-group d-flex" }, [
-                    _c(
-                      "label",
-                      { staticClass: "mr-3 side-label", attrs: { for: "" } },
-                      [_vm._v("Target Age :")]
-                    ),
-                    _vm._v(
-                      "\n          " +
-                        _vm._s(_vm.curriculum.profile.age) +
-                        "\n        "
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("b-col", { attrs: { cols: "6" } }, [
-                  _c("div", { staticClass: "form-group d-flex" }, [
-                    _c(
-                      "label",
-                      { staticClass: "mr-3 side-label", attrs: { for: "" } },
-                      [_vm._v("Interests :")]
-                    ),
-                    _vm._v(
-                      "\n          " +
-                        _vm._s(_vm.curriculum.profile.interests) +
-                        "\n        "
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("b-col", { attrs: { cols: "6" } }, [
-                  _c("div", { staticClass: "form-group d-flex" }, [
-                    _c(
-                      "label",
-                      { staticClass: "mr-3 side-label", attrs: { for: "" } },
-                      [_vm._v("Learning Abilities :")]
-                    ),
-                    _vm._v(
-                      "\n          " +
-                        _vm._s(_vm.curriculum.profile.abilities) +
-                        "\n        "
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("b-col", { attrs: { cols: "6" } }, [
-                  _c("div", { staticClass: "form-group d-flex" }, [
-                    _c(
-                      "label",
-                      { staticClass: "mr-3 side-label", attrs: { for: "" } },
-                      [_vm._v("Other Pecularities :")]
-                    ),
-                    _vm._v(
-                      "\n          " +
-                        _vm._s(_vm.curriculum.profile.others) +
-                        "\n        "
-                    )
-                  ])
-                ])
+                _c(
+                  "b-row",
+                  [
+                    _c("b-col", { attrs: { cols: "6" } }, [
+                      _c("div", { staticClass: "form-group d-flex" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "mr-3 side-label",
+                            attrs: { for: "" }
+                          },
+                          [_vm._v("Target Age :")]
+                        ),
+                        _vm._v(
+                          "\n          " +
+                            _vm._s(_vm.curriculum.profile.age) +
+                            "\n        "
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("b-col", { attrs: { cols: "6" } }, [
+                      _c("div", { staticClass: "form-group d-flex" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "mr-3 side-label",
+                            attrs: { for: "" }
+                          },
+                          [_vm._v("Interests :")]
+                        ),
+                        _vm._v(
+                          "\n          " +
+                            _vm._s(_vm.curriculum.profile.interests) +
+                            "\n        "
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("b-col", { attrs: { cols: "6" } }, [
+                      _c("div", { staticClass: "form-group d-flex" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "mr-3 side-label",
+                            attrs: { for: "" }
+                          },
+                          [_vm._v("Learning Abilities :")]
+                        ),
+                        _vm._v(
+                          "\n          " +
+                            _vm._s(_vm.curriculum.profile.abilities) +
+                            "\n        "
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("b-col", { attrs: { cols: "6" } }, [
+                      _c("div", { staticClass: "form-group d-flex" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "mr-3 side-label",
+                            attrs: { for: "" }
+                          },
+                          [_vm._v("Other Pecularities :")]
+                        ),
+                        _vm._v(
+                          "\n          " +
+                            _vm._s(_vm.curriculum.profile.others) +
+                            "\n        "
+                        )
+                      ])
+                    ])
+                  ],
+                  1
+                )
               ],
               1
             )
-          : _vm._e(),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("div", { staticClass: "class-information" }, [
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c("tr", { staticClass: "border-bottom p-3 my-4" }, [
+        _c("td", [
           _c("h5", [_vm._v("Overarching Learner Outcome")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "underline" }),
           _vm._v(" "),
           _c(
             "div",
@@ -53483,17 +55327,14 @@ var render = function() {
             }),
             0
           )
-        ]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
+        ])
+      ]),
+      _vm._v(" "),
+      _c("tr", { staticClass: "border-bottom p-3 my-4" }, [
         _c(
-          "div",
-          { staticClass: "class-information" },
+          "td",
           [
             _c("h5", [_vm._v("Target skills to be learned")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "underline" }),
             _vm._v(" "),
             _vm._l(_vm.curriculum.target_skills, function(item, idx) {
               return _c("span", { key: idx, staticClass: "mb-2 d-flex" }, [
@@ -53505,137 +55346,170 @@ var render = function() {
             })
           ],
           2
-        ),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("div", { staticClass: "class-information" }, [
-          _c("h5", [_vm._v("Required subjects")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "underline" }),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "form-group" },
+        )
+      ]),
+      _vm._v(" "),
+      _c("tr", { staticClass: "border-bottom p-3 my-4" }, [
+        _c(
+          "td",
+          [
+            _c("h5", [_vm._v("Required subjects")]),
+            _vm._v(" "),
             _vm._l(_vm.curriculum.prerequisite, function(item, idx) {
               return _c("span", { key: idx, staticClass: "mb-2 d-flex" }, [
                 _c("span", { staticClass: "mr-3" }, [
                   _vm._v(_vm._s(idx + 1) + ".")
                 ]),
-                _vm._v("\n            " + _vm._s(item.name) + "\n          ")
+                _vm._v("\n          " + _vm._s(item.name) + "\n        ")
               ])
-            }),
-            0
-          )
-        ]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("div", { staticClass: "class-information" }, [
-          _c("h5", [_vm._v("Delivery Methods")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "underline" }),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "form-group" },
+            })
+          ],
+          2
+        )
+      ]),
+      _vm._v(" "),
+      _c("tr", { staticClass: "border-bottom p-3 my-4" }, [
+        _c(
+          "td",
+          [
+            _c("h5", [_vm._v("Delivery Methods")]),
+            _vm._v(" "),
             _vm._l(_vm.curriculum.delivery_methods, function(item, idx) {
               return _c("span", { key: idx, staticClass: "mb-2 d-flex" }, [
                 _c("span", { staticClass: "mr-3" }, [
                   _vm._v(_vm._s(idx + 1) + ".")
                 ]),
-                _vm._v("\n            " + _vm._s(item.name) + "\n          ")
+                _vm._v("\n          " + _vm._s(item.name) + "\n        ")
               ])
-            }),
-            0
-          )
-        ]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("div", { staticClass: "class-information" }, [
-          _c("h5", [_vm._v("Assessment")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "underline" }),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "form-group" },
+            })
+          ],
+          2
+        )
+      ]),
+      _vm._v(" "),
+      _c("tr", { staticClass: "border-bottom p-3 my-4" }, [
+        _c(
+          "td",
+          [
+            _c("h5", [_vm._v("Assessment")]),
+            _vm._v(" "),
             _vm._l(_vm.curriculum.assessments, function(item, idx) {
               return _c("span", { key: idx, staticClass: "mb-2 d-flex" }, [
                 _c("span", { staticClass: "mr-3" }, [
                   _vm._v(_vm._s(idx + 1) + ".")
                 ]),
-                _vm._v("\n            " + _vm._s(item.name) + "\n          ")
-              ])
-            }),
-            0
-          )
-        ]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "class-information" },
-          [
-            _c("h5", [_vm._v("FAQs (Optional)")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "underline" }),
-            _vm._v(" "),
-            _vm._l(_vm.curriculum.faqs, function(item, idx) {
-              return _c("div", { key: idx, staticClass: "mb-3" }, [
-                _c("span", { staticClass: "d-flex mb-2" }, [
-                  _c(
-                    "label",
-                    { staticClass: "side-label", attrs: { for: "Question" } },
-                    [_vm._v("Question")]
-                  ),
-                  _vm._v(
-                    "\n            " + _vm._s(item.question) + "\n          "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "d-flex" }, [
-                  _c(
-                    "label",
-                    { staticClass: "side-label", attrs: { for: "" } },
-                    [_vm._v("Answer")]
-                  ),
-                  _vm._v(
-                    "\n            " + _vm._s(item.answer) + "\n          "
-                  )
-                ]),
-                _vm._v(" "),
-                _vm.curriculum.faqs.length > 1 ? _c("hr") : _vm._e()
+                _vm._v("\n          " + _vm._s(item.name) + "\n        ")
               ])
             })
           ],
           2
-        ),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("div", { staticClass: "class-information" }, [
+        )
+      ]),
+      _vm._v(" "),
+      _c("tr", [
+        _c(
+          "td",
+          [
+            _c("h5", [_vm._v("Frequently Asked Questions")]),
+            _vm._v(" "),
+            _c(
+              "b-row",
+              {},
+              [
+                _c(
+                  "b-col",
+                  _vm._l(_vm.curriculum.faqs, function(item, idx) {
+                    return _c(
+                      "div",
+                      { key: idx, attrs: { role: "tablist" } },
+                      [
+                        _c(
+                          "b-card",
+                          { staticClass: "mb-1", attrs: { "no-body": "" } },
+                          [
+                            _c(
+                              "b-card-header",
+                              {
+                                staticClass: "p-2",
+                                attrs: { "header-tag": "header", role: "tab" }
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "b-toggle",
+                                        rawName: "v-b-toggle",
+                                        value: item.question
+                                          .replace(/[^a-z0-9]/gi, "")
+                                          .replace(/\$/g, ""),
+                                        expression:
+                                          "item.question.replace(/[^a-z0-9]/gi, '').replace(/\\$/g, '')"
+                                      }
+                                    ],
+                                    staticClass: "text-left",
+                                    attrs: { block: "", variant: "secondary" }
+                                  },
+                                  [_vm._v(_vm._s(item.question))]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-collapse",
+                              {
+                                attrs: {
+                                  id: item.question
+                                    .replace(/[^a-z0-9]/gi, "")
+                                    .replace(/\$/g, ""),
+                                  accordion: "my-accordion",
+                                  role: "tabpanel"
+                                }
+                              },
+                              [
+                                _c(
+                                  "b-card-body",
+                                  [
+                                    _c("b-card-text", [
+                                      _vm._v(_vm._s(item.answer))
+                                    ])
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  }),
+                  0
+                )
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("tr", { staticClass: "border-bottom p-3 my-4" }, [
+        _c("td", [
           _c("h5", [_vm._v("Course Availability")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "underline" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("p", [_vm._v(_vm._s(_vm.curriculum.availability))])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("div", { staticClass: "class-information" }, [
+          _vm._v(
+            "\n        " + _vm._s(_vm.curriculum.availability) + "\n      "
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("tr", { staticClass: "border-bottom p-3 my-4" }, [
+        _c("td", [
           _c("h5", [_vm._v("Comments")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "underline" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("p", [_vm._v(_vm._s(_vm.curriculum.comments))])
-          ])
+          _vm._v("\n        " + _vm._s(_vm.curriculum.comments) + "\n      ")
         ])
       ])
     ])
@@ -53668,187 +55542,341 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "contain-syllabus" }, [
       _c("div", { staticClass: "view-syllabus" }, [
-        _c("div", { staticClass: "class-information" }, [
-          _c("h5", [_vm._v("Class Information")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "underline" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "class-information-inner" }, [
-            _c("h5", [
-              _vm._v("\n            TERM:\n            "),
-              _c("span", [_vm._v(_vm._s(_vm.syllabus.term))])
-            ]),
-            _vm._v(" "),
-            _c("h5", [
-              _vm._v("\n            Class:\n            "),
-              _c("span", [_vm._v(_vm._s(_vm.syllabus.grade_level))])
-            ])
-          ]),
+        _c("div", { staticClass: "border rounded p-2" }, [
+          _c(
+            "div",
+            { staticClass: "class-information" },
+            [
+              _c("strong", { staticClass: "mb-3" }, [
+                _vm._v("Class Information")
+              ]),
+              _vm._v(" "),
+              _c(
+                "b-row",
+                { staticClass: "class-information-inner p-2 px-sm-4" },
+                [
+                  _c("b-col", [
+                    _c("h5", [
+                      _vm._v("\n            Term:\n            "),
+                      _c("span", [_vm._v(_vm._s(_vm.syllabus.term))])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("b-col", [
+                    _c("h5", [
+                      _vm._v("\n            Class:\n            "),
+                      _c("span", [_vm._v(_vm._s(_vm.syllabus.grade_level))])
+                    ])
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          ),
           _vm._v(" "),
           _c("hr"),
           _vm._v(" "),
-          _c("div", { staticClass: "class-information" }, [
-            _c("h5", [_vm._v("Subject Information")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "underline" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "class-information-inner" }, [
-              _c("h6", [
-                _vm._v("\n            SUBJECT:\n            "),
-                _c("span", [_vm._v(_vm._s(_vm.syllabus.subject))])
+          _c(
+            "div",
+            { staticClass: "class-information " },
+            [
+              _c("strong", { staticClass: "mb-3" }, [
+                _vm._v("Subject Information")
               ]),
               _vm._v(" "),
-              _c("h6", [
-                _vm._v("\n            FREQUENCY:\n            "),
-                _c("span", [_vm._v(_vm._s(_vm.syllabus.frequency))])
-              ])
+              _c(
+                "b-row",
+                { staticClass: "class-information-inner p-2 px-sm-4" },
+                [
+                  _c("b-col", { attrs: { cols: "6" } }, [
+                    _c("h5", [
+                      _vm._v("\n            Subject:\n            "),
+                      _c("span", { staticClass: "toCaps" }, [
+                        _vm._v(_vm._s(_vm.syllabus.subject))
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("b-col", { attrs: { cols: "6" } }, [
+                    _c("h5", [
+                      _vm._v("\n            Frequency:\n            "),
+                      _c("span", [_vm._v(_vm._s(_vm.syllabus.frequency))])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("b-col", { attrs: { cols: "12" } }, [
+                    _c("div", { staticClass: "subject-description" }, [
+                      _c("h5", [_vm._v("Subject Description")]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v(_vm._s(_vm.syllabus.description))])
+                    ])
+                  ])
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "class-information" },
+          [
+            _c("strong", { staticClass: "mb-3" }, [
+              _vm._v("Overarching Learner Outcome")
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "subject-description" }, [
-              _c("h6", [_vm._v("Subject Description")]),
-              _vm._v(" "),
-              _c("p", [_vm._v(_vm._s(_vm.syllabus.description))])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "class-information" }, [
-          _c("h5", [_vm._v("Overarching Learner Outcome")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "underline" }),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "form-group" },
-            _vm._l(_vm.syllabus.learner_outcome, function(item, idx) {
-              return _c("span", { key: idx, staticClass: "mb-2 d-flex" }, [
-                _c("span", { staticClass: "mr-3" }, [
-                  _vm._v(_vm._s(idx + 1) + ".")
-                ]),
-                _vm._v("\n            " + _vm._s(item.name) + "\n          ")
-              ])
-            }),
-            0
-          )
-        ]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("div", { staticClass: "class-information" }, [
-          _c("h5", [_vm._v("Target skills to be learned")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "underline" }),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "form-group" },
-            _vm._l(_vm.syllabus.target_skills, function(item, idx) {
-              return _c("span", { key: idx, staticClass: "mb-2 d-flex" }, [
-                _c("span", { staticClass: "mr-3" }, [
-                  _vm._v(_vm._s(idx + 1) + ".")
-                ]),
-                _vm._v("\n            " + _vm._s(item.name) + "\n          ")
-              ])
-            }),
-            0
-          )
-        ]),
+            _c(
+              "b-row",
+              { staticClass: " p-2 px-sm-4" },
+              [
+                _c("b-col", [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    _vm._l(_vm.syllabus.learner_outcome, function(item, idx) {
+                      return _c(
+                        "span",
+                        { key: idx, staticClass: "mb-2 d-flex" },
+                        [
+                          _c("span", { staticClass: "mr-3" }, [
+                            _vm._v(_vm._s(idx + 1) + ".")
+                          ]),
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(item.name) +
+                              "\n          "
+                          )
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                ])
+              ],
+              1
+            )
+          ],
+          1
+        ),
         _vm._v(" "),
         _c("hr"),
         _vm._v(" "),
-        _c("div", { staticClass: "class-information" }, [
-          _c("h5", [_vm._v("Required Modules")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "underline" }),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "form-group" },
-            _vm._l(_vm.syllabus.modules, function(item, idx) {
-              return _c("span", { key: idx, staticClass: "mb-2 d-flex" }, [
-                _c("span", { staticClass: "mr-3" }, [
-                  _vm._v(_vm._s(idx + 1) + ".")
-                ]),
-                _vm._v("\n            " + _vm._s(item.name) + "\n          ")
-              ])
-            }),
-            0
-          )
-        ]),
+        _c(
+          "div",
+          { staticClass: "class-information" },
+          [
+            _c("strong", { staticClass: "mb-3" }, [
+              _vm._v("Target skills to be learned")
+            ]),
+            _vm._v(" "),
+            _c(
+              "b-row",
+              [
+                _c("b-col", [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    _vm._l(_vm.syllabus.target_skills, function(item, idx) {
+                      return _c(
+                        "span",
+                        { key: idx, staticClass: "mb-2 d-flex" },
+                        [
+                          _c("span", { staticClass: "mr-3" }, [
+                            _vm._v(_vm._s(idx + 1) + ".")
+                          ]),
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(item.name) +
+                              "\n          "
+                          )
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                ])
+              ],
+              1
+            )
+          ],
+          1
+        ),
         _vm._v(" "),
         _c("hr"),
         _vm._v(" "),
-        _c("div", { staticClass: "class-information" }, [
-          _c("h5", [_vm._v("Delivery Methods")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "underline" }),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "form-group" },
-            _vm._l(_vm.syllabus.delivery_methods, function(item, idx) {
-              return _c("span", { key: idx, staticClass: "mb-2 d-flex" }, [
-                _c("span", { staticClass: "mr-3" }, [
-                  _vm._v(_vm._s(idx + 1) + ".")
-                ]),
-                _vm._v("\n            " + _vm._s(item.name) + "\n          ")
-              ])
-            }),
-            0
-          )
-        ]),
+        _c(
+          "div",
+          { staticClass: "class-information" },
+          [
+            _c("strong", { staticClass: "mb-3" }, [_vm._v("Required Modules")]),
+            _vm._v(" "),
+            _c(
+              "b-row",
+              [
+                _c("b-col", [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    _vm._l(_vm.syllabus.modules, function(item, idx) {
+                      return _c(
+                        "span",
+                        { key: idx, staticClass: "mb-2 d-flex" },
+                        [
+                          _c("span", { staticClass: "mr-3" }, [
+                            _vm._v(_vm._s(idx + 1) + ".")
+                          ]),
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(item.name) +
+                              "\n          "
+                          )
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                ])
+              ],
+              1
+            )
+          ],
+          1
+        ),
         _vm._v(" "),
         _c("hr"),
         _vm._v(" "),
-        _c("div", { staticClass: "class-information" }, [
-          _c("h5", [_vm._v("Assessment")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "underline" }),
-          _vm._v(" "),
-          _c(
-            "small",
-            { staticClass: "form-text text-muted", attrs: { id: "helpId" } },
-            [_vm._v("How will the students be assessed?")]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "form-group" },
-            _vm._l(_vm.syllabus.assessments, function(item, idx) {
-              return _c("span", { key: idx, staticClass: "mb-2 d-flex" }, [
-                _c("span", { staticClass: "mr-3" }, [
-                  _vm._v(_vm._s(idx + 1) + ".")
-                ]),
-                _vm._v("\n            " + _vm._s(item.name) + "\n          ")
-              ])
-            }),
-            0
-          )
-        ]),
+        _c(
+          "div",
+          { staticClass: "class-information" },
+          [
+            _c("strong", { staticClass: "mb-3" }, [_vm._v("Delivery Methods")]),
+            _vm._v(" "),
+            _c(
+              "b-row",
+              [
+                _c("b-col", [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    _vm._l(_vm.syllabus.delivery_methods, function(item, idx) {
+                      return _c(
+                        "span",
+                        { key: idx, staticClass: "mb-2 d-flex" },
+                        [
+                          _c("span", { staticClass: "mr-3" }, [
+                            _vm._v(_vm._s(idx + 1) + ".")
+                          ]),
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(item.name) +
+                              "\n          "
+                          )
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                ])
+              ],
+              1
+            )
+          ],
+          1
+        ),
         _vm._v(" "),
         _c("hr"),
         _vm._v(" "),
-        _c("div", { staticClass: "class-information" }, [
-          _c("h5", [_vm._v("Course Availability")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "underline" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _vm._v(_vm._s(_vm.syllabus.availability))
-          ])
-        ]),
+        _c(
+          "div",
+          { staticClass: "class-information" },
+          [
+            _c("strong", { staticClass: "mb-3" }, [
+              _vm._v("Assessment(How the students be assessed)")
+            ]),
+            _vm._v(" "),
+            _c(
+              "b-row",
+              [
+                _c("b-col", [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    _vm._l(_vm.syllabus.assessments, function(item, idx) {
+                      return _c(
+                        "span",
+                        { key: idx, staticClass: "mb-2 d-flex" },
+                        [
+                          _c("span", { staticClass: "mr-3" }, [
+                            _vm._v(_vm._s(idx + 1) + ".")
+                          ]),
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(item.name) +
+                              "\n          "
+                          )
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                ])
+              ],
+              1
+            )
+          ],
+          1
+        ),
         _vm._v(" "),
         _c("hr"),
         _vm._v(" "),
-        _c("div", { staticClass: "class-information" }, [
-          _c("h5", [_vm._v("Comments")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "underline" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _vm._v(_vm._s(_vm.syllabus.comments))
-          ])
-        ])
+        _c(
+          "div",
+          { staticClass: "class-information" },
+          [
+            _c("strong", { staticClass: "mb-3" }, [
+              _vm._v("Course Availability")
+            ]),
+            _vm._v(" "),
+            _c(
+              "b-row",
+              [
+                _c("b-col", [
+                  _c("div", { staticClass: "form-group" }, [
+                    _vm._v(_vm._s(_vm.syllabus.availability))
+                  ])
+                ])
+              ],
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "class-information" },
+          [
+            _c("strong", { staticClass: "mb-3" }, [_vm._v("Comments")]),
+            _vm._v(" "),
+            _c(
+              "b-row",
+              [
+                _c("b-col", [
+                  _c("div", { staticClass: "form-group" }, [
+                    _vm._v(_vm._s(_vm.syllabus.comments))
+                  ])
+                ])
+              ],
+              1
+            )
+          ],
+          1
+        )
       ])
     ])
   ])
@@ -58527,6 +60555,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_subscribe_vue_vue_type_template_id_2d0dcb3a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_subscribe_vue_vue_type_template_id_2d0dcb3a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/starRatings.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/starRatings.vue ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _starRatings_vue_vue_type_template_id_257974c9_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./starRatings.vue?vue&type=template&id=257974c9&scoped=true& */ "./resources/js/components/starRatings.vue?vue&type=template&id=257974c9&scoped=true&");
+/* harmony import */ var _starRatings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./starRatings.vue?vue&type=script&lang=js& */ "./resources/js/components/starRatings.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _starRatings_vue_vue_type_style_index_0_id_257974c9_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./starRatings.vue?vue&type=style&index=0&id=257974c9&scoped=true&lang=scss& */ "./resources/js/components/starRatings.vue?vue&type=style&index=0&id=257974c9&scoped=true&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _starRatings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _starRatings_vue_vue_type_template_id_257974c9_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _starRatings_vue_vue_type_template_id_257974c9_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "257974c9",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/starRatings.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/starRatings.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/starRatings.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_starRatings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./starRatings.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/starRatings.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_starRatings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/starRatings.vue?vue&type=style&index=0&id=257974c9&scoped=true&lang=scss&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/components/starRatings.vue?vue&type=style&index=0&id=257974c9&scoped=true&lang=scss& ***!
+  \***********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_starRatings_vue_vue_type_style_index_0_id_257974c9_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../node_modules/vue-loader/lib??vue-loader-options!./starRatings.vue?vue&type=style&index=0&id=257974c9&scoped=true&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/starRatings.vue?vue&type=style&index=0&id=257974c9&scoped=true&lang=scss&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_starRatings_vue_vue_type_style_index_0_id_257974c9_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_starRatings_vue_vue_type_style_index_0_id_257974c9_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_starRatings_vue_vue_type_style_index_0_id_257974c9_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_starRatings_vue_vue_type_style_index_0_id_257974c9_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_starRatings_vue_vue_type_style_index_0_id_257974c9_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/starRatings.vue?vue&type=template&id=257974c9&scoped=true&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/starRatings.vue?vue&type=template&id=257974c9&scoped=true& ***!
+  \********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_starRatings_vue_vue_type_template_id_257974c9_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./starRatings.vue?vue&type=template&id=257974c9&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/starRatings.vue?vue&type=template&id=257974c9&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_starRatings_vue_vue_type_template_id_257974c9_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_starRatings_vue_vue_type_template_id_257974c9_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

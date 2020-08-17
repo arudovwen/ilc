@@ -43,7 +43,7 @@ export default {
 }
 .main {
   width: 85%;
-  height: 100%;
+  min-height: 100%;
   position: absolute;
   right: 0;
    background: #f7f8fa;

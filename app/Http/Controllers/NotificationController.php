@@ -40,6 +40,7 @@ class NotificationController extends Controller
             'school_id'=>$school_id,
             'receiver_id'=>$$request->receiver_id,
             'message'=>$request->message,
+            'type'=>$request->type,
         ]);
     }
 

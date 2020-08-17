@@ -19,7 +19,7 @@ class AdminController extends Controller
     public function index()
     {
         $admin = auth('admin')->user();
-        return Admin::where('school_id',$admin->school_id)->get();
+        return Admin::where('school_id', $admin->school_id)->get();
     }
     public function adminDetail()
     {
@@ -50,7 +50,7 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-       $school= auth('admin')->user();
+        $school= auth('admin')->user();
         $password = new PasswordGenerator();
         $admin = Admin::create([
                   
@@ -62,10 +62,10 @@ class AdminController extends Controller
                     'password'=> Hash::make($password->random_strings(8)),
                     
                 ]);
-                $school = School::find($school->school_id);
-                $admin->pass =  $password->random_strings(8);
-                $admin->notify(new NewAdmin($school,$admin));
-                return $admin;
+        $school = School::find($school->school_id);
+        $admin->pass =  $password->random_strings(8);
+        $admin->notify(new NewAdmin($school, $admin));
+        return $admin;
     }
 
     /**
@@ -99,7 +99,6 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-      
         $admin = Admin::find($id);
         $admin->name = $request->name;
         $admin->school_id = $request->school_id;

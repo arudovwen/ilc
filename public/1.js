@@ -239,7 +239,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nlabel[data-v-6aa0b866] {\r\n  position: relative;\r\n  margin-bottom: 0;\r\n  vertical-align: top;\r\n  font-size: 1.25rem;\r\n  line-height: 1.5;\n}\n.text-muted[data-v-6aa0b866] {\r\n  color: rgba(0, 0, 0, 0.4) !important;\n}\r\n", ""]);
+exports.push([module.i, "\nlabel[data-v-6aa0b866] {\n  position: relative;\n  margin-bottom: 0;\n  vertical-align: top;\n  font-size: 1.25rem;\n  line-height: 1.5;\n}\n.text-muted[data-v-6aa0b866] {\n  color: rgba(0, 0, 0, 0.4) !important;\n}\n", ""]);
 
 // exports
 
@@ -321,7 +321,7 @@ var render = function() {
                       [
                         _c(
                           "b-tabs",
-                          { attrs: { "content-class": "mt-3" } },
+                          { attrs: { "content-class": "mt-3", justified: "" } },
                           [
                             _c(
                               "b-tab",
@@ -463,14 +463,14 @@ var render = function() {
                                       "b-form-group",
                                       {
                                         attrs: {
-                                          id: "input-group-1",
+                                          id: "input-group-3",
                                           label: "Email"
                                         }
                                       },
                                       [
                                         _c("b-form-input", {
                                           attrs: {
-                                            id: "input-1",
+                                            id: "input-3",
                                             type: "email",
                                             required: ""
                                           },
@@ -490,14 +490,14 @@ var render = function() {
                                       "b-form-group",
                                       {
                                         attrs: {
-                                          id: "input-group-2",
+                                          id: "input-group-4",
                                           label: "Password"
                                         }
                                       },
                                       [
                                         _c("b-form-input", {
                                           attrs: {
-                                            id: "input-2",
+                                            id: "input-4",
                                             type: "password",
                                             required: ""
                                           },

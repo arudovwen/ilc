@@ -21,6 +21,7 @@ class CreateNotificationsTable extends Migration
             $table->string('message');
             $table->boolean('status');
             $table->string('role');
+            $table->string('type')->nullable();
             $table->timestamps();
             $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
         });

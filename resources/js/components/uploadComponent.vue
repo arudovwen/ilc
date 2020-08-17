@@ -81,14 +81,45 @@ export default {
       },
       progress: 0,
       start: false,
+      duration: "",
     };
   },
 
   computed: {},
   methods: {
+    getDuration(file) {
+      window.URL = window.URL || window.webkitURL;
+
+      let video = document.createElement("video");
+     var that =this
+      video.preload = "metadata";
+      video.src = URL.createObjectURL(file);
+      video.onloadedmetadata = function () {
+        window.URL.revokeObjectURL(video.src);
+       let duration = video.duration;
+       that.duration = duration
+
+        
+      };
+    },
+    getAudioDuration(file) {
+      window.URL = window.URL || window.webkitURL;
+      let audio = document.createElement("audio");
+      audio.preload = "metadata";
+      audio.src = URL.createObjectURL(file);
+
+      audio.onloadedmetadata = function () {
+        window.URL.revokeObjectURL(audio.src);
+        let duration = audio.duration;
+
+        console.log("audio.onloadedmetadata -> duration", duration)
+        return duration;
+      };
+    },
     handleFileChange(event) {
       this.file = event.target.files[0];
-
+       this.getDuration(event.target.files[0])
+    
       this.filesSelectedLength = event.target.files.length;
 
       this.loadFile();
@@ -132,6 +163,7 @@ export default {
           setTimeout(() => {}, 1000);
           var response = JSON.parse(xhr.response);
           this.uploadedFileUrl = response.secure_url; // https address of uploaded file
+          response.duration = this.duration
           this.$emit("getUploadDetails", this.$props.index, response);
         } else {
           this.start = false;
@@ -174,15 +206,15 @@ export default {
   top: 0;
   opacity: 0;
 }
-.centered{
+.centered {
   display: flex;
- justify-content: center;
+  justify-content: center;
 }
-.upload-btn{
+.upload-btn {
   display: flex;
   justify-content: flex-end;
 }
-.btn-upload{
-  background-color: #0A4065;
+.btn-upload {
+  background-color: #0a4065;
 }
 </style>

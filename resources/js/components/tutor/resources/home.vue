@@ -10,10 +10,10 @@
       </router-link>
     </div>
 
-    <div class="container">
+    <div class="container p-0">
       <div class="filter-table">
           <div class="filter-container">
-            <div class="filter-btn" @click="toggleFilter">
+            <div class="filter-btn mr-auto" @click="toggleFilter">
               <span>Filter</span>
               <i class="icon-sort"></i>
             </div>

@@ -362,6 +362,7 @@ export default {
         excerpt: "",
         count: "single",
         cover_image: "",
+        type:"new resource",
         content: [
           {
             type: "",
@@ -369,6 +370,7 @@ export default {
             name: "",
             title: "",
             overview: "",
+            duration:''
           },
         ],
         worksheet: "",
@@ -442,13 +444,14 @@ export default {
       this.resource.content.pop();
     },
     getUploadDetails(id, res) {
-      console.log("getUploadDetails -> id", id);
+     
 
       if (id == "cover") {
         this.resource.cover_image = res.secure_url;
       } else {
         this.resource.content[id].file = res.secure_url;
         this.resource.content[id].name = res.original_filename;
+         this.resource.content[id].duration = res.duration;
       }
     },
     getModules() {

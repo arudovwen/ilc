@@ -3,16 +3,16 @@
     <h3 class="text-center my-3">Curriculum</h3>
     <div class="form-group mx-0" v-if="curriculum">
       <h4 class="toCaps">
-        Grade Level :
-        <span class>{{curriculum.grade_level}}</span>
+        <span class="text-muted">Grade Level :</span>
+        {{curriculum.grade_level}}
       </h4>
     </div>
-    <div class="contain-syllabus">
-      <div class="view-syllabus">
-        <div class="class-information" v-if="curriculum.profile">
+    <table class="table table-borderless bg-white">
+      <tr class="border-bottom p-3 my-4"  v-if="curriculum.profile">
+        <td>
           <h5>Student Profile</h5>
-          <div class="underline"></div>
-         <b-col cols="6"> <div class="form-group d-flex">
+           <b-row>
+             <b-col  cols="6">  <div class="form-group d-flex">
             <label for class="mr-3 side-label">Target Age :</label>
             {{curriculum.profile.age}}
           </div></b-col>
@@ -28,95 +28,115 @@
             <label for class="mr-3 side-label">Other Pecularities :</label>
             {{curriculum.profile.others}}
           </div></b-col>
-        </div>
-        <hr />
-        <div class="class-information">
+           </b-row>
+        
+         
+         
+         
+        </td>
+      </tr>
+
+      <tr class="border-bottom p-3 my-4">
+        <td>
           <h5>Overarching Learner Outcome</h5>
-          <div class="underline"></div>
+
           <div class="form-group">
             <span v-for="(item,idx) in curriculum.learner_outcome" :key="idx" class="mb-2 d-flex">
               <span class="mr-3">{{idx+1}}.</span>
               {{item.name}}
             </span>
           </div>
-        </div>
-        <hr />
-        <div class="class-information">
+        </td>
+      </tr>
+      <tr class="border-bottom p-3 my-4">
+        <td>
           <h5>Target skills to be learned</h5>
-          <div class="underline"></div>
+
           <span v-for="(item,idx) in curriculum.target_skills" :key="idx" class="mb-2 d-flex">
             <span class="mr-3">{{idx+1}}.</span>
             {{item.name}}
           </span>
-        </div>
-        <hr />
-        <div class="class-information">
+        </td>
+      </tr>
+      <tr class="border-bottom p-3 my-4">
+        <td>
           <h5>Required subjects</h5>
-          <div class="underline"></div>
-          <div class="form-group">
-            <span v-for="(item,idx) in curriculum.prerequisite" :key="idx" class="mb-2 d-flex">
-              <span class="mr-3">{{idx+1}}.</span>
-              {{item.name}}
-            </span>
-          </div>
-        </div>
-        <hr />
-        <div class="class-information">
+
+          <span v-for="(item,idx) in curriculum.prerequisite" :key="idx" class="mb-2 d-flex">
+            <span class="mr-3">{{idx+1}}.</span>
+            {{item.name}}
+          </span>
+        </td>
+      </tr>
+      <tr class="border-bottom p-3 my-4">
+        <td>
           <h5>Delivery Methods</h5>
-          <div class="underline"></div>
-          <div class="form-group">
-            <span v-for="(item,idx) in curriculum.delivery_methods" :key="idx" class="mb-2 d-flex">
-              <span class="mr-3">{{idx+1}}.</span>
-              {{item.name}}
-            </span>
-          </div>
-        </div>
-        <hr />
-        <div class="class-information">
+
+          <span v-for="(item,idx) in curriculum.delivery_methods" :key="idx" class="mb-2 d-flex">
+            <span class="mr-3">{{idx+1}}.</span>
+            {{item.name}}
+          </span>
+        </td>
+      </tr>
+      <tr class="border-bottom p-3 my-4">
+        <td>
           <h5>Assessment</h5>
-          <div class="underline"></div>
-          <div class="form-group">
-            <span v-for="(item,idx) in curriculum.assessments" :key="idx" class="mb-2 d-flex">
-              <span class="mr-3">{{idx+1}}.</span>
-              {{item.name}}
-            </span>
+
+          <span v-for="(item,idx) in curriculum.assessments" :key="idx" class="mb-2 d-flex">
+            <span class="mr-3">{{idx+1}}.</span>
+            {{item.name}}
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h5>Frequently Asked Questions</h5>
+        <b-row class="">
+        <b-col>
+         
+          <div role="tablist" v-for="(item,idx) in curriculum.faqs" :key="idx">
+            <b-card no-body class="mb-1">
+              <b-card-header header-tag="header" class="p-2" role="tab">
+                <div
+                  block
+                  v-b-toggle="item.question.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
+                  variant="secondary"
+                  class="text-left"
+                >{{item.question}}</div>
+              </b-card-header>
+              <b-collapse
+                :id="item.question.replace(/[^a-z0-9]/gi, '').replace(/\$/g, '')"
+                accordion="my-accordion"
+                role="tabpanel"
+              >
+                <b-card-body>
+                  <b-card-text>{{item.answer}}</b-card-text>
+                </b-card-body>
+              </b-collapse>
+            </b-card>
           </div>
-        </div>
-        <hr />
-        <div class="class-information">
-          <h5>FAQs (Optional)</h5>
-          <div class="underline"></div>
-          <div v-for="(item,idx) in curriculum.faqs" :key="idx" class="mb-3">
-            <span class="d-flex mb-2">
-              <label for="Question" class="side-label">Question</label>
-              {{item.question}}
-            </span>
-            <span class="d-flex">
-              <label for class="side-label">Answer</label>
-              {{item.answer}}
-            </span>
-            <hr v-if="curriculum.faqs.length > 1" />
-          </div>
-        </div>
-        <hr />
-        <div class="class-information">
+        </b-col>
+      </b-row>
+         
+        </td>
+      </tr>
+      <tr class="border-bottom p-3 my-4">
+        <td>
           <h5>Course Availability</h5>
-          <div class="underline"></div>
-          <div class="form-group">
-            <p>{{curriculum.availability}}</p>
-          </div>
-        </div>
-        <hr />
-        <div class="class-information">
+          {{curriculum.availability}}
+        </td>
+      </tr>
+
+      <tr class="border-bottom p-3 my-4">
+        <td>
           <h5>Comments</h5>
-          <div class="underline"></div>
-          <div class="form-group">
-            <p>{{curriculum.comments}}</p>
-          </div>
-        </div>
-      </div>
-    </div>
+          {{curriculum.comments}}
+        </td>
+      </tr>
+    </table>
+  
   </div>
+
 </template>
 
 <script>
@@ -124,7 +144,7 @@ export default {
   props: ["tutor"],
   data() {
     return {
-      curriculum: {},
+      curriculum: {}
     };
   },
   mounted() {
@@ -135,16 +155,16 @@ export default {
       axios
         .get(`/api/tutor-curriculum/${this.$route.params.id}`, {
           headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`,
-          },
+            Authorization: `Bearer ${this.$props.tutor.access_token}`
+          }
         })
-        .then((res) => {
+        .then(res => {
           if (res.status == 200) {
             this.curriculum = JSON.parse(res.data.curriculum);
           }
         });
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -217,8 +237,8 @@ h5 {
 .class-information {
   padding-top: 20px;
 }
-.class-information h5 {
-  margin-bottom: 2px !important;
+.class-information h3 {
+  margin-bottom: 0 !important;
 }
 .class-information-inner {
   display: flex;
@@ -232,7 +252,7 @@ h5 {
   background: #fff;
   box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);
   padding: 30px;
-  border-radius: 10px;
+  border-bottom-radius: 10px;
 }
 .subject-description {
   padding-top: 15px;
@@ -240,7 +260,7 @@ h5 {
 .contain-syllabus {
   padding: 30px;
 }
-.form-group{
-  font-family: "Montserrat";
+td{
+  padding:2.50rem;
 }
 </style>

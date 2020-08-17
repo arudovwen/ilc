@@ -359,6 +359,17 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 
 
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter('time', function (num) {
+  var secs = String(Math.floor(num % 60)).padStart(2, "0");
+  var mins = String(Math.floor(num / 60)).padStart(2, "0");
+  var hours = String(Math.floor(num / 3600)).padStart(2, "0");
+
+  if (hours === "00") {
+    return mins + 'm' + " : " + secs + 's';
+  } else {
+    return hours + 'hr' + " :" + mins + 'm' + " : " + secs + 's';
+  }
+});
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_chat_scroll__WEBPACK_IMPORTED_MODULE_9___default.a);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_waves_button__WEBPACK_IMPORTED_MODULE_5___default.a, {
   name: 'waves',
@@ -1571,8 +1582,8 @@ var routes = [{
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\User\Documents\coeur\ilc\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\User\Documents\coeur\ilc\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/ARUDOVWEN/Desktop/biztest/ilc/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/ARUDOVWEN/Desktop/biztest/ilc/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

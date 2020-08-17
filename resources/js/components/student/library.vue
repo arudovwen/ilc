@@ -1,99 +1,26 @@
 <template>
-  <!-- <div class="body">
-   <div class="bd-table mb-3"> 
-   <nav class="form-control d-flex justify-content-between align-items-center ">
-      <div class="bar border-right">
-        <i
-          class="fa fa-angle-double-left pr-2"
-          @click="firstPage"
-          aria-hidden="true"
-          v-if="first_page"
-        ></i>
-        <i class="fas fa-angle-left pr-2" @click="prev" v-if="prev_page"></i>
-        <input type="number" class="row_numb pl-2" readonly v-model="current_page" />
-        <i class="fas fa-angle-right pl-2" @click="next" aria-hidden="true" v-if="next_page"></i>
-        <i
-          class="fa fa-angle-double-right pl-2"
-          @click="lastPage"
-          aria-hidden="true"
-          v-if="last_page"
-        ></i>
-      </div>
-      <div class="bar border-right" @click="getAll">
-        <span class="mr-3">
-          <input type="checkbox" v-model="all" /> Show all
-        </span>
-        <button v-if="item" class="button-red" @click="multiDrop">Multi drop</button>
-      </div>
-      <div class="bar border-right">Number of rows {{row_number}}</div>
-      <div class="bar border-right">Total library {{total_library}}</div>
-
-      <div class="bar">
-        <div class="form-group search_bar">
-          <input
-            type="text"
-            class="form-control search_input rounded-pill"
-            v-model="search"
-            aria-describedby="helpId"
-            placeholder="Search row"
-          />
-          <i class="fa fa-search" aria-hidden="true"></i>
-        </div>
-      </div>
-    </nav>
-   </div>
-
-    <div class="bd-table">
-   <table class="table table-bordered table">
-        <thead class="thead-light">
-            <tr>
-                <th>S/n</th>
-                <th>Subject</th>
-                <th>Title</th>
-                <th>Excerpts</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-          
-            <tr v-for="(item,idx) in library" :key="idx">
-                <td scope="row">{{idx+1}}</td>
-                <td>{{item.subject}}</td>
-                <td>{{item.title}}</td>
-                <td>{{item.excerpt ? item.excerpt:'-'}}</td>
-                <td class="options"><i class="fa fa-ellipsis-v" aria-hidden="true"></i> 
-                  <div class="option shadow">
-                      <ul>
-                          <li @click="view(item.id)">View</li>
-                          <li>Drop</li>
-                      </ul>
-                  </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    </div>
-  </div> -->
  
   <div class="library">
     <div class="continue-reading">
-      <div class="continue-word">
-        <p>You were Reading</p>
-        <h6>Basic Science</h6>
+      <div class="">
+        <h5>You were {{lastRead.type == 'video'?'watching':'viewing'}} {{lastRead.title}}</h5>
+        <h6 class="toCaps">{{lastRead.subject}}</h6>
+      
         <div class="continue-reading-icon">
-          <div class="continue-btn">
-            <div class="btn-continue">
-              <i class="icon-visibility-open"></i>
+          <div class="continue-btn mr-1">
+            <div class="">
+             <b-avatar icon="eye" size="1.2rem"></b-avatar>
             </div>
           </div>
-          <p>continue reading</p>
+          <p class="cpointer" @click="view(lastRead.id,lastRead.subject,lastRead.cover)">Continue {{lastRead.type == 'video'?'watching':'viewing'}}</p>
         </div>
       </div>
       <div class="continue-img">
         <img src="/images/text-book.png" alt />
       </div>
     </div>
-    <div class="library-content container">
+
+    <div class="library-content container bg-white p-3 py-4">
       <h6>My Library</h6>
       <div class="filter-view">
         <div class="filter-table">
@@ -113,19 +40,24 @@
 
            
               <b-navbar-nav class="mx-auto">
-                <b-form-select class="mr-3" v-model="myclass">
-                  <b-form-select-option value disabled>-- Class --</b-form-select-option>
-                  <b-form-select-option value="all">-- All --</b-form-select-option>
+                <b-form-select class="mr-3" v-model="subject">
+                  <b-form-select-option value disabled>-- Subjects --</b-form-select-option>
+                  <!-- <b-form-select-option value="all">-- All --</b-form-select-option> -->
                   <b-form-select-option
-                    :value="item.class_name"
-                    v-for="(item,idx) in classess"
+                    :value="item.toLowerCase()"
+                    v-for="(item,idx) in subjects"
                     :key="idx"
-                  >{{item.class_name}}</b-form-select-option>
+                  >{{item}}</b-form-select-option>
                 </b-form-select>
               </b-navbar-nav>
               <b-navbar-nav>
                 <b-nav-form class="ml-auto">
-                  <b-form-input size="sm" class="mr-sm-2 search rounded-pill" placeholder="Search"></b-form-input>
+                  <b-form-input
+                    size="sm"
+                    v-model="search"
+                    class="mr-sm-2 search rounded-pill"
+                    placeholder="Search"
+                  ></b-form-input>
                 </b-nav-form>
               </b-navbar-nav>
             </b-collapse>
@@ -133,46 +65,62 @@
         </div>
         <router-link to>View all</router-link>
       </div>
-    <b-container class="books">
-        <b-row>
-        <b-col md="3">
-          <router-link to>
-            <div class="resource-img">
-              <img src="/images/text-book.png" alt class="img-fluid"/>
-               <h6>English Language</h6>
-              <p>by: Tutor's Name</p>
-            </div>
-          </router-link>
-        </b-col>
-        <b-col md="3">
-          <router-link to>
-            <div class="resource-img">
-              <img src="/images/text-book.png" alt class="img-fluid"/>
-               <h6>English Language</h6>
-              <p>by: Tutor's Name</p>
-            </div>
-          </router-link>
-        </b-col>
-        <b-col md="3">
-          <router-link to>
-            <div class="resource-img">
-              <img src="/images/text-book.png" alt class="img-fluid"/>
-               <h6>English Language</h6>
-              <p>by: Tutor's Name</p>
-            </div>
-          </router-link>
-        </b-col>
-        <b-col md="3">
-          <router-link to>
-            <div class="resource-img">
-              <img src="/images/text-book.png" alt class="img-fluid" />
-              <h6>English Language</h6>
-              <p>by: Tutor's Name</p>
-            </div>
-          </router-link>
-        </b-col>
-      </b-row>
-    </b-container>
+
+    <div class="bd-table library">
+        <b-tabs content-class="mt-3 ">
+        <b-tab title="Home View" title-link-class="mylibrary"  active>
+          <b-container class="books" title-link-class="mylibrary">
+            <b-row>
+              <b-col md="3" v-for="(item,idx) in sorted" :key="idx">
+                <b-card
+                  :title="item.subject"
+                  img-src="https://picsum.photos/600/300/?image=25"
+                  img-alt="Image"
+                  img-top
+                  tag="article"
+                  style="max-width: 20rem;"
+                  class="mb-2 toCaps"
+                >
+                  <b-card-text>{{item.excerpt}}</b-card-text>
+
+                  <b-button href="#" variant="darkgreen" block @click="view(item.id,item.subject,item.cover)">View</b-button>
+                </b-card>
+              </b-col>
+            </b-row>
+          </b-container>
+        </b-tab>
+        <b-tab title="Table View"  class="mylibrary">
+         <table class="table table-bordered table">
+        <thead class="thead-light">
+            <tr>
+                <th>S/n</th>
+                <th>Subject</th>
+                <!-- <th>Title</th> -->
+                <th>Excerpts</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+          
+            <tr v-for="(item,idx) in library" :key="idx">
+                <td scope="row">{{idx+1}}</td>
+                <td>{{item.subject}}</td>
+                <!-- <td>{{item.title}}</td> -->
+                <td>{{item.excerpt ? item.excerpt:'-'}}</td>
+                <td class="options"><i class="fa fa-ellipsis-v" aria-hidden="true"></i> 
+                  <div class="option shadow">
+                      <ul>
+                          <li @click="view(item.id,item.subject,item.cover)">View</li>
+                          <li>Drop</li>
+                      </ul>
+                  </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+        </b-tab>
+      </b-tabs>
+    </div>
     </div>
   </div>
 </template>
@@ -195,15 +143,33 @@ export default {
       current_page: 1,
       all: false,
       filterShow: false,
+      subjects: [],
+      subject: "",
+      lastRead:{}
     };
   },
   mounted() {
     this.getLibrary();
+    this.getLastRead()
   },
   watch: {
     all: "getAll",
   },
+  computed: {
+    sorted() {
+      return this.library.filter((item) => {
+        if (this.subject !== "") {
+          return (item.subject = this.subject);
+        } else {
+          return item;
+        }
+      });
+    },
+  },
   methods: {
+    getLastRead(){
+      this.lastRead = JSON.parse(localStorage.getItem('lastRead'))
+    },
     toggleFilter() {
       this.filterShow = !this.filterShow;
     },
@@ -222,6 +188,12 @@ export default {
             this.row_number = res.data.per_page;
             this.total_library = res.data.total;
             this.library = res.data.data;
+
+            res.data.data.forEach((item) => {
+              if (!this.subjects.includes(item.subject)) {
+                this.subjects.push(item.subject);
+              }
+            });
           }
         });
     },
@@ -303,7 +275,13 @@ export default {
           });
       }
     },
-    view(id) {
+    view(id,subject,cover) {
+      let read = {
+        id:id,
+        cover:cover,
+        subject:subject
+      }
+      localStorage.setItem('lastRead', JSON.stringify(read))
       this.$router.push(`/student/study/${id}`);
     },
   },
@@ -334,6 +312,7 @@ export default {
 }
 .continue-reading-icon {
   display: flex;
+  align-items: center;
 }
 .btn-continue {
   background-color: #13a699;
@@ -344,6 +323,7 @@ export default {
 .btn-continue i {
   font-size: 22px;
 }
+
 .continue-reading-icon p {
   padding-left: 5px;
   margin-bottom: 0;
@@ -355,14 +335,14 @@ export default {
 .filter-view {
   display: flex;
   justify-content: space-between;
-  margin: 10px 40px;
+  margin: 10px 0px;
 }
-.filter-view a{
+.filter-view a {
   color: #000 !important;
   padding-top: 10px;
   font-family: "Montserrat";
 }
-.filter-view a:hover{
+.filter-view a:hover {
   color: #13a699 !important;
   text-decoration: underline !important;
 }
@@ -370,11 +350,12 @@ export default {
   width: 200px;
   height: 150px;
 }
-.col-md-3 a{
-  color: #000 !important;
+.col-md-3 a {
+  color: #000;
 }
-.books{
-  padding-top: 10px;
+.books {
+  padding: 0;
+  padding-top: 20px;
 }
 .search {
   width: 250px;
@@ -390,8 +371,8 @@ export default {
   padding-top: 10px;
 }
 .filter-btn {
-  background: #fff;
-  padding: 10px 20px;
+  background: #f7f8fa;
+  padding: 5px 20px;
   border-radius: 5px;
 }
 .filter-btn span {
@@ -401,6 +382,7 @@ export default {
 .filter-btn i {
   padding-left: 3px;
 }
+
 .sort-section {
   display: flex;
   justify-content: space-between;
@@ -442,6 +424,15 @@ nav {
   border-color: #f7f8fa;
   height: 30px;
   font-size: 13px;
+}
+.btn-darkgreen {
+  background: rgba(19, 166, 153, 0.9);
+  color: #fff !important;
+}
+.btn-outline-darkgreen {
+  color: rgba(19, 166, 153, 0.9) !important;
+  border: 1px solid rgba(19, 166, 153, 0.9);
+  background: transparent;
 }
 .form-control::placeholder {
   font-size: 13px;

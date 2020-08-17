@@ -73,8 +73,8 @@
         </tbody>
     </table>
     </div>
-  </div>
-  -->
+  </div> -->
+ 
   <div class="library">
     <div class="continue-reading">
       <div class="continue-word">
@@ -111,7 +111,7 @@
                 <b-nav-item href="#">Sort By:</b-nav-item>
               </b-navbar-nav>
 
-              <!-- Right aligned nav items -->
+           
               <b-navbar-nav class="mx-auto">
                 <b-form-select class="mr-3" v-model="myclass">
                   <b-form-select-option value disabled>-- Class --</b-form-select-option>

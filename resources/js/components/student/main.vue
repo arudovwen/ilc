@@ -12,7 +12,7 @@
       
           <div id="notification" class="mx-3">
           <div class="icon" @click="toggleNotification">
-            <b-icon icon="bell-fill" class="bell" animation="cylon" :class="{'anime-stop': count == 0}" font-scale="2"></b-icon>
+           <i class="icon-bell-1"></i>
             <div class="badge animated pulse" v-if="count>0">{{count}}</div>
           </div>
           <div
@@ -20,8 +20,10 @@
             v-if="showNotification"
           >
             <ul class="list-group">
-              <li class="list-group-item">
+              <li class="list-group-item d-flex justify-content-between">
                 <h6>Notifications</h6>
+                <b-icon   icon="x-circle"  @click="toggleNotification"></b-icon>
+               
               </li>
 
               <div class="main-notify">
@@ -183,11 +185,11 @@ export default {
   left: 50%;
   background: red;
   color: white;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .list-group-item {
-  font-size: 14px;
+  font-size: 12px;
 }
 /* .semi-white{
 

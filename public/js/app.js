@@ -370,6 +370,29 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter('time', function (num) {
     return hours + 'hr' + " :" + mins + 'm' + " : " + secs + 's';
   }
 });
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter('format', function (time) {
+  // Check correct time format and split into components
+  time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+  if (time.length > 1) {
+    // If time format correct
+    time = time.slice(1); // Remove full string match value
+
+    time[3] = ' ';
+    time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
+
+    time[0] = +time[0] % 12 || 12; // Adjust hours
+  }
+
+  return time.join(''); // return adjusted time or original string
+});
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter('seconds', function (hms) {
+  var a = hms.split(':'); // split it at the colons
+  // minutes are worth 60 seconds. Hours are worth 60 minutes.
+
+  var seconds = +a[0] * 60 * 60 + +a[1] * 60 + +a[2];
+  return seconds;
+});
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_chat_scroll__WEBPACK_IMPORTED_MODULE_9___default.a);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_waves_button__WEBPACK_IMPORTED_MODULE_5___default.a, {
   name: 'waves',

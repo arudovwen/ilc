@@ -122,6 +122,7 @@ __webpack_require__.r(__webpack_exports__);
               typeStudent.school = res.data.school;
               typeStudent.abbreviation = res.data.abbreviation;
               typeStudent.profile = res.data.profile;
+              typeStudent.sub_class = res.data.sub_class;
               typeStudent.student_level = res.data.student_level;
               localStorage.setItem("typeStudent", JSON.stringify(typeStudent));
 

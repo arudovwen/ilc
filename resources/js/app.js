@@ -42,6 +42,34 @@ Vue.filter('time',function(num){
   
 })
 
+Vue.filter('format',function(time){
+ 
+   // Check correct time format and split into components
+   time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+   if (time.length > 1) { // If time format correct
+    
+   time = time.slice (1);  // Remove full string match value
+   time[3] = ' '
+     time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
+     time[0] = +time[0] % 12 || 12; // Adjust hours
+   } 
+ 
+   return time.join (''); // return adjusted time or original string
+
+})
+
+Vue.filter('seconds',function(hms){
+ 
+
+  var a = hms.split(':'); // split it at the colons
+  
+  // minutes are worth 60 seconds. Hours are worth 60 minutes.
+  var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]); 
+  return seconds
+})
+
+
 Vue.use(VueChatScroll)
 
 Vue.use(VueWaves, {

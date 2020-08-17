@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\TimesTable;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class TimesTableController extends Controller
     public function index()
     {
         $school_id = auth('admin')->user()->school_id;
-        return TimesTable::where('school_id',$school_id)->get();
+        return TimesTable::where('school_id', $school_id)->get();
     }
     public function indexTutor()
     {
@@ -48,13 +49,13 @@ class TimesTableController extends Controller
     {
         $times = TimesTable::where('myclass', $request->myclass)->first();
         $school_id = auth('admin')->user()->school_id;
-       if (is_null($times)) {
-        return TimesTable::create([
+        if (is_null($times)) {
+            return TimesTable::create([
             'school_id'=>  $school_id,
             'myclass'=> $request->myclass,
             'table' => json_encode($request->table)
         ]);
-       }
+        }
     }
 
     /**
@@ -63,7 +64,7 @@ class TimesTableController extends Controller
      * @param  \App\TimesTable  $timesTable
      * @return \Illuminate\Http\Response
      */
-    public function show( $id)
+    public function show($id)
     {
         return TimesTable::find($id);
     }
@@ -74,9 +75,8 @@ class TimesTableController extends Controller
      * @param  \App\TimesTable  $timesTable
      * @return \Illuminate\Http\Response
      */
-    public function edit($id )
+    public function edit($id)
     {
-        
     }
 
     /**
@@ -86,6 +86,22 @@ class TimesTableController extends Controller
      * @param  \App\TimesTable  $timesTable
      * @return \Illuminate\Http\Response
      */
+
+    public function getCurrentTimesTable($class)
+    {
+       $user = auth('api')->user();
+       $time = TimesTable::where('myclass',$class)->firstOrFail();
+        json_decode($time->table);
+       $today = strtolower(Carbon::now()->englishDayOfWeek);
+       $arr = [];
+       foreach (json_decode($time->table) as $value) {
+          if ($value->day == $today) {
+             array_push($arr,$value);
+             }
+           
+       }
+       return  $arr;
+    }
     public function update(Request $request, $id)
     {
         $s = TimesTable::find($id);
@@ -108,8 +124,7 @@ class TimesTableController extends Controller
     {
         foreach ($request as $id) {
             $find = TimesTable::find($id);
-             $find->delete();
-           
+            $find->delete();
         }
      
         return response()->json([

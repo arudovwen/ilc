@@ -66,6 +66,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('student-times-table/{id}', 'TimesTableController@getTimesTablePerClass');
     Route::resource('rating', 'CourseReviewController');
     Route::resource('note', 'NoteController');
+    Route::get('todays-class/{class}','TimesTableController@getCurrentTimesTable');
 });
 
 Route::middleware('auth:tutor')->group(function () {

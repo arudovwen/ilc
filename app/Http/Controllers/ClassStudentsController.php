@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\ClassStudent;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class ClassStudentsController extends Controller
     public function index()
     {
         $school_id = auth('admin')->user()->school_id;
-        return Classes::where('school_id',$school_id)->get();
+        return Classes::where('school_id', $school_id)->get();
     }
 
     /**
@@ -36,17 +37,20 @@ class ClassStudentsController extends Controller
      */
     public function store(Request $request)
     {
-      
         $school_id = auth('admin')->user()->school_id;
+     
+        $users = User::where('student_level', $request->level)->get();
+        foreach ($users as $user) {
+            $user->sub_class = $request->subclass;
+            $user->save();
+        }
         foreach ($request->data as $value) {
-           
             ClassStudent::create([
                 'school_id'=>  $school_id,
                 'my_class'=>  $value['my_class'],
                 'students' => json_encode($value['students'])
             ]);
         }
-      
     }
 
     /**
@@ -55,10 +59,10 @@ class ClassStudentsController extends Controller
      * @param  \App\ClassStudent  $classStudent
      * @return \Illuminate\Http\Response
      */
-    public function show( $id)
+    public function show($id)
     {
         return  ClassStudent::find($id);
-        }
+    }
 
     /**
      * Show the form for editing the specified resource.

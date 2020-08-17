@@ -9,7 +9,7 @@
         <div class="continue-reading-icon">
           <div class="continue-btn mr-1">
             <div class="">
-             <b-avatar icon="eye" size="1.2rem"></b-avatar>
+             <b-avatar icon="eye" variant="success" size="1.2rem"></b-avatar>
             </div>
           </div>
           <p class="cpointer" @click="view(lastRead.id,lastRead.subject,lastRead.cover)">Continue {{lastRead.type == 'video'?'watching':'viewing'}}</p>

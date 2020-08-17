@@ -44,12 +44,12 @@
                   <div class="w-50">
                     <label for>Start</label>
 
-                    <b-form-timepicker size="sm" v-model="item.start" locale="en"></b-form-timepicker>
+                    <b-form-timepicker size="sm" :hour12="true" v-model="item.start" locale="en"></b-form-timepicker>
                   </div>
                   <div class="w-50">
                     <label for>End</label>
 
-                    <b-form-timepicker size="sm" v-model="item.end" locale="en"></b-form-timepicker>
+                    <b-form-timepicker size="sm"  :hour12="true" v-model="item.end" locale="en"></b-form-timepicker>
                   </div>
                 </span>
 

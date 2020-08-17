@@ -54,273 +54,314 @@
         <b-col md="4">
           <div class="resources-update cards">
             <h5>Resources Update</h5>
-           <div class="m-res">
-              <div class="resources-inner border-bottom" v-for="(resource,idx) in newresource"  :key="idx">
-              <div class="update-content">
-               <div> <b-avatar icon="asterisk" variant="success" size="sm"></b-avatar></div>
-                <p>{{resource.message}}</p>
-              </div>
-              <div class="log-link">
-                 <div class="check_it cpointer" @click="gotoHer(resource.resource_id)"><span class="mr-1">Check it</span> <b-icon icon="arrow-right"></b-icon> </div>
+            <div class="m-res">
+              <div
+                class="resources-inner border-bottom"
+                v-for="(resource,idx) in newresource"
+                :key="idx"
+              >
+                <div class="update-content">
+                  <div>
+                    <b-avatar icon="asterisk" variant="success" size="sm"></b-avatar>
+                  </div>
+                  <p>{{resource.message}}</p>
+                </div>
+                <div class="log-link">
+                  <div class="check_it cpointer" @click="gotoHer(resource.resource_id)">
+                    <span class="mr-1">Check it</span>
+                    <b-icon icon="arrow-right"></b-icon>
+                  </div>
+                </div>
               </div>
             </div>
-           </div>
-          
-            
-            
           </div>
         </b-col>
-        
-         <b-col md="4">
-            <div class="cards">
-              <h5>Today's Class</h5>
-              <div v-b-tooltip.hover title="This class is currently ongoing" class="class-content">
+
+        <b-col md="4">
+          <div class="cards">
+            <h5>Today's Class</h5>
+            <div class="class_section">
+              <div
+                v-b-tooltip.hover
+                title="This class is currently ongoing"
+                class="class-content border-bottom p-2"
+                v-for="(item,idx) in todaysClass"
+                :key="idx"
+              >
                 <div class="class-content-top">
-                  <h6>Geography</h6>
-                  <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
+                  <h6 class="toCaps">{{item.subject}}</h6>
+                  <i
+                    class="fa fa-play-circle-o green"
+                    v-if="(getSecond(today)  > getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
+                    aria-hidden="true"
+                  ></i>
+
+                  <i
+                    class="fa fa-dot-circle-o text-dark"
+                    v-else-if="(getSecond(today)  <  getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
+                    aria-hidden="true"
+                  ></i>
+                  
+                  <i
+                    class="fa  fa-stop-circle-o red"
+                    v-else-if="(getSecond(today)   >  getSecond(item.start)) && (getSecond(today) >getSecond(item.end))"
+                    aria-hidden="true"
+                  ></i>
                 </div>
+                <small>{{item.start | format}} to {{item.end | format}}</small>
                 <div class="class-content-main">
-                 <p>c  <span>by: <strong>Henry Annayo</strong></span></p>
-                 <p>Ongoing</p>
+                  <p>
+                    <span>
+                      by:
+                      <strong class="toCaps">{{item.tutor}}</strong>
+                    </span>
+                  </p>
+
+                  <p
+                    v-if="(getSecond(today)  > getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
+                  >Ongoing</p>
+                  <p
+                    v-else-if="(getSecond(today)  <  getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
+                  >Upcoming</p>
+
+                  <p
+                    v-else-if="(getSecond(today)   >  getSecond(item.start)) && (getSecond(today) >getSecond(item.end))"
+                  >Finished</p>
                 </div>
-              </div>
-               <div v-b-tooltip.hover title="This class starts 12pm" class="class-content">
-                <div class="class-content-top content-2">
-                  <h6>Geography</h6>
-                  <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
-                </div>
-                <div class="class-content-main">
-                 <p> <span>by: <strong>Henry Annayo</strong></span></p>
-                 <p>Upcoming</p>
-                </div>
-              </div>
-              <div v-b-tooltip.hover title="This class starts 12pm" class="class-content">
-                <div class="class-content-top content-2">
-                  <h6>Geography</h6>
-                  <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
-                </div>
-                <div class="class-content-main">
-                 <p> <span>by: <strong>Henry Annayo</strong></span></p>
-                 <p>Upcoming</p>
-                </div>
-              </div>
-              <div v-b-tooltip.hover title="This class starts 12pm" class="class-content">
-                <div class="class-content-top content-2">
-                  <h6>Geography</h6>
-                  <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
-                </div>
-                <div class="class-content-main">
-                 <p> <span>by: <strong>Henry Annayo</strong></span></p>
-                 <p>Upcoming</p>
-                </div>
-              </div>
-               <div class="log-link">
-                <router-link to>View Today's Class</router-link>
               </div>
             </div>
-          </b-col>
+
+            <div class="log-link">
+              <router-link to>View Today's Class</router-link>
+            </div>
+          </div>
+        </b-col>
       </b-row>
       <b-row>
         <b-col md="6">
           <div class="discussion cards">
-              <h5>Discussion Board</h5>
-              <div class="discussion-content">
-                <div class="discussion-content-top">
-                  <p>
-                    <strong>Up coming Exams</strong>
-                  </p>
-                  <b-avatar-group size="2.5rem">
-                    <b-avatar></b-avatar>
-                    <b-avatar text="BV" variant="primary"></b-avatar>
-                    <b-avatar src="https://placekitten.com/300/300" variant="info"></b-avatar>
-                  </b-avatar-group>
-                </div>
-                <p>the upcoming exam is coming up .................</p>
-                <div class="discussion-content-bottom">
-                  <p>Updated 2mins ago</p>
-                  <div class="notify-discussion">
-                    <p>3 New Messages</p>
-                  </div>
-                </div>
+            <h5>Discussion Board</h5>
+            <div class="discussion-content">
+              <div class="discussion-content-top">
+                <p>
+                  <strong>Up coming Exams</strong>
+                </p>
+                <b-avatar-group size="2.5rem">
+                  <b-avatar></b-avatar>
+                  <b-avatar text="BV" variant="primary"></b-avatar>
+                  <b-avatar src="https://placekitten.com/300/300" variant="info"></b-avatar>
+                </b-avatar-group>
               </div>
-              <div class="discussion-content">
-                <div class="discussion-content-top">
-                  <p>
-                    <strong>Up coming Exams</strong>
-                  </p>
-                  <b-avatar-group size="2.5rem">
-                    <b-avatar></b-avatar>
-                    <b-avatar text="BV" variant="primary"></b-avatar>
-                    <b-avatar src="https://placekitten.com/300/300" variant="info"></b-avatar>
-                  </b-avatar-group>
-                </div>
-                <p>the upcoming exam is coming up .................</p>
-                <div class="discussion-content-bottom">
-                  <p>Updated 2mins ago</p>
-                  <div class="notify-discussion">
-                    <p>3 New Messages</p>
-                  </div>
-                </div>
-              </div>
-              <div class="discussion-content">
-                <div class="discussion-content-top">
-                  <p>
-                    <strong>Up coming Exams</strong>
-                  </p>
-                  <b-avatar-group size="2.5rem">
-                    <b-avatar></b-avatar>
-                    <b-avatar text="BV" variant="primary"></b-avatar>
-                    <b-avatar src="https://placekitten.com/300/300" variant="info"></b-avatar>
-                  </b-avatar-group>
-                </div>
-                <p>the upcoming exam is coming up .................</p>
-                <div class="discussion-content-bottom">
-                  <p>Updated 2mins ago</p>
-                  <div class="notify-discussion">
-                    <p>3 New Messages</p>
-                  </div>
+              <p>the upcoming exam is coming up .................</p>
+              <div class="discussion-content-bottom">
+                <p>Updated 2mins ago</p>
+                <div class="notify-discussion">
+                  <p>3 New Messages</p>
                 </div>
               </div>
             </div>
+            <div class="discussion-content">
+              <div class="discussion-content-top">
+                <p>
+                  <strong>Up coming Exams</strong>
+                </p>
+                <b-avatar-group size="2.5rem">
+                  <b-avatar></b-avatar>
+                  <b-avatar text="BV" variant="primary"></b-avatar>
+                  <b-avatar src="https://placekitten.com/300/300" variant="info"></b-avatar>
+                </b-avatar-group>
+              </div>
+              <p>the upcoming exam is coming up .................</p>
+              <div class="discussion-content-bottom">
+                <p>Updated 2mins ago</p>
+                <div class="notify-discussion">
+                  <p>3 New Messages</p>
+                </div>
+              </div>
+            </div>
+            <div class="discussion-content">
+              <div class="discussion-content-top">
+                <p>
+                  <strong>Up coming Exams</strong>
+                </p>
+                <b-avatar-group size="2.5rem">
+                  <b-avatar></b-avatar>
+                  <b-avatar text="BV" variant="primary"></b-avatar>
+                  <b-avatar src="https://placekitten.com/300/300" variant="info"></b-avatar>
+                </b-avatar-group>
+              </div>
+              <p>the upcoming exam is coming up .................</p>
+              <div class="discussion-content-bottom">
+                <p>Updated 2mins ago</p>
+                <div class="notify-discussion">
+                  <p>3 New Messages</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </b-col>
         <b-col md="6">
-         <div class="notes cards">
-              <div class="notes-top">
-                <h5>My Notes</h5>
-                <div class="btn" v-b-modal.note>
-                  <i class="fa fa-plus" aria-hidden="true"></i>
-                  <span>ADD</span>
-                </div>
+          <div class="notes cards">
+            <div class="notes-top">
+              <h5>My Notes</h5>
+              <div class="btn" v-b-modal.note>
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                <span>ADD</span>
               </div>
-              <div class="main-note">
-                <div class="note-body" v-for="(note,idx) in notes" :key="idx">
+            </div>
+            <div class="main-note">
+              <div class="note-body" v-for="(note,idx) in notes" :key="idx">
                 <div class="mr-2">
-                 <b-icon icon="stickies-fill" class="my-icon"></b-icon>
+                  <b-icon icon="stickies-fill" class="my-icon"></b-icon>
                 </div>
-                <div class="notes-content w-100" >
-                <div class="notes-content-top">
-                  <h6 class="title mr-3 mb-2">{{note.title}}</h6>
-                
-                </div>
-                <div class="notes-content-main">
-                  <p
-                    class
-                  >{{note.note}}</p>
-                   <div class="notes-date d-flex align-items-center justify-content-between w-100">
-                    <p>
-                      Posted:
-                      <strong>{{note.created_at |  moment('DD/MM/YYYY')}}</strong>
-                    </p>
+                <div class="notes-content w-100">
+                  <div class="notes-content-top">
+                    <h6 class="title mr-3 mb-2">{{note.title}}</h6>
+                  </div>
+                  <div class="notes-content-main">
+                    <p class>{{note.note}}</p>
+                    <div class="notes-date d-flex align-items-center justify-content-between w-100">
+                      <p>
+                        Posted:
+                        <strong>{{note.created_at | moment('DD/MM/YYYY')}}</strong>
+                      </p>
 
-                   <b-icon icon="trash" class="my-icon cpointer" @click="remove(note.id)"></b-icon>
+                      <b-icon icon="trash" class="my-icon cpointer" @click="remove(note.id)"></b-icon>
+                    </div>
                   </div>
                 </div>
               </div>
-              </div>
-              </div>
-            
-               <div class="log-link"> 
-                   <div v-b-modal.all-note class="check_it">View All <b-icon icon="arrow-right"></b-icon> </div>
-                </div>
             </div>
+
+            <div class="log-link">
+              <div v-b-modal.all-note class="check_it">
+                View All
+                <b-icon icon="arrow-right"></b-icon>
+              </div>
+            </div>
+          </div>
         </b-col>
       </b-row>
     </b-container>
     <div>
- 
-
-  <b-modal id="note" title="New note" hide-footer>
-     <b-form @submit.prevent="addNote">
-       <b-form-group class="mb-3">
-         <label for="">Title</label>
-         <b-form-input required v-model="note.title" placeholder="Enter title"></b-form-input>
-       </b-form-group>
-       <b-form-group  class="mb-3">
-         <label for="">Note</label>
-         <b-form-textarea maxlength="200" required v-model="note.description" rows="3" placeholder="Write note here">
-
-         </b-form-textarea>
-       </b-form-group>
-       <b-form-group  class="mb-3">
-         <b-button  variant="darkgreen" type="submit">Add note</b-button>
-       </b-form-group>
-     </b-form>
-  </b-modal>
-  <b-modal id="all-note" title="My notes" hide-footer>
-     <div class="">
-                <div class="note-body" v-for="(note,idx) in notes" :key="idx">
-                <div class="mr-2">
-                   <b-icon icon="stickies-fill" class="my-icon"></b-icon>
-                </div>
-                <div class="notes-content w-100" >
-                <div class="notes-content-top">
-                  <h6 class="title mr-3 mb-2">{{note.title}}</h6>
-                
-                </div>
-                <div class="notes-content-main">
-                  <p
-                    class
-                  >{{note.note}}</p>
-                  <div class="notes-date d-flex align-items-center justify-content-between w-100">
-                    <p>
-                      Posted:
-                      <strong>{{note.created_at |  moment('DD/MM/YYYY')}}</strong>
-                    </p>
-                    <b-icon icon="trash" class="my-icon cpointer" @click="remove(note.id)"></b-icon>
-                  
-                  </div>
+      <b-modal id="note" title="New note" hide-footer>
+        <b-form @submit.prevent="addNote">
+          <b-form-group class="mb-3">
+            <label for>Title</label>
+            <b-form-input required v-model="note.title" placeholder="Enter title"></b-form-input>
+          </b-form-group>
+          <b-form-group class="mb-3">
+            <label for>Note</label>
+            <b-form-textarea
+              maxlength="200"
+              required
+              v-model="note.description"
+              rows="3"
+              placeholder="Write note here"
+            ></b-form-textarea>
+          </b-form-group>
+          <b-form-group class="mb-3">
+            <b-button variant="darkgreen" type="submit">Add note</b-button>
+          </b-form-group>
+        </b-form>
+      </b-modal>
+      <b-modal id="all-note" title="My notes" hide-footer>
+        <div class>
+          <div class="note-body" v-for="(note,idx) in notes" :key="idx">
+            <div class="mr-2">
+              <b-icon icon="stickies-fill" class="my-icon"></b-icon>
+            </div>
+            <div class="notes-content w-100">
+              <div class="notes-content-top">
+                <h6 class="title mr-3 mb-2">{{note.title}}</h6>
+              </div>
+              <div class="notes-content-main">
+                <p class>{{note.note}}</p>
+                <div class="notes-date d-flex align-items-center justify-content-between w-100">
+                  <p>
+                    Posted:
+                    <strong>{{note.created_at | moment('DD/MM/YYYY')}}</strong>
+                  </p>
+                  <b-icon icon="trash" class="my-icon cpointer" @click="remove(note.id)"></b-icon>
                 </div>
               </div>
-              </div>
-              </div>
-  </b-modal>
-</div>
+            </div>
+          </div>
+        </div>
+      </b-modal>
+    </div>
   </div>
 </template>
 
 
 <script>
 export default {
-  props: ["student","notifications"],
+  props: ["student", "notifications"],
   data() {
     return {
       tutors: [],
-      new_resource:[],
+      new_resource: [],
       students: [],
       classes: [],
       syllabus: [],
       curriculum: [],
       fields: ["class", "subject"],
       field: ["class"],
-      value:null,
-      max:null,
-      note:{
-        title:'',
-        description:''
+      value: null,
+      max: null,
+      note: {
+        title: "",
+        description: "",
       },
-      notes:[]
+      notes: [],
+      todaysClass: {},
+      today:
+        new Date().getHours() +
+        ":" +
+        new Date().getMinutes() +
+        ":" +
+        new Date().getSeconds(),
     };
   },
   mounted() {
-    this.getNotes()
+    this.getNotes();
+    this.getTodayClass();
   },
-  computed:{
-    newresource(){
-     return this.$props.notifications.filter(item=>{
-        return item.type== 'new resource'
-      })
-    }
+  computed: {
+    newresource() {
+      return this.$props.notifications.filter((item) => {
+        return item.type == "new resource";
+      });
+    },
   },
   methods: {
-     gotoHer(id) {
+    getSecond(hms) {
+      var a = hms.split(":"); // split it at the colons
+
+      // minutes are worth 60 seconds. Hours are worth 60 minutes.
+      var seconds = +a[0] * 60 * 60 + +a[1] * 60 + +a[2];
+      return seconds;
+    },
+    getTodayClass() {
+      axios
+        .get(`/api/todays-class/${this.$props.student.sub_class}`, {
+          headers: {
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.todaysClass = res.data[0].courses;
+          }
+        });
+    },
+    gotoHer(id) {
       this.$router.push(`/student/resource/view/${id}`);
     },
-  addNote(){
- 
+    addNote() {
       let data = {
         title: this.note.title,
         description: this.note.description,
-       
       };
       axios
         .post("/api/note", data, {
@@ -331,16 +372,15 @@ export default {
         .then((res) => {
           if (res.status == 201) {
             this.note.description = "";
-             this.note.title = "";
+            this.note.title = "";
             this.getNotes();
             this.$toasted.success("Note created");
-            this.$bvModal.hide('note')
+            this.$bvModal.hide("note");
           }
         })
         .catch();
-    
-  },
-     getNotes() {
+    },
+    getNotes() {
       axios
         .get(`/api/note`, {
           headers: {
@@ -353,7 +393,7 @@ export default {
           }
         });
     },
-     remove(id) {
+    remove(id) {
       let del = confirm("Are you sure?");
       if (del) {
         axios
@@ -364,14 +404,12 @@ export default {
           })
           .then((res) => {
             if (res.status == 200) {
-               this.$toasted.info("Note removed");
+              this.$toasted.info("Note removed");
               this.getNotes();
             }
           });
       }
     },
-   
-  
   },
 };
 </script>
@@ -381,19 +419,18 @@ export default {
   font-family: "Montserrat";
   padding-bottom: 50px;
 }
-.note-body{
-  display:flex;
-  border-bottom:1px solid #ccc;
+.note-body {
+  display: flex;
+  border-bottom: 1px solid #ccc;
   margin-bottom: 14px;
-
 }
-.m-res{
+.m-res {
   height: 320px;
   overflow: auto;
 }
-.main-note{
+.main-note {
   height: 290px;
-  overflow:auto;
+  overflow: auto;
 }
 .welcome-board {
   background: rgba(19, 166, 153, 0.43);
@@ -432,7 +469,10 @@ export default {
   border-radius: 10px;
   height: 400px;
 }
-
+.class_section {
+  height: 300px;
+  overflow: auto;
+}
 .result-progress {
   margin-top: 10px;
 }
@@ -472,43 +512,44 @@ export default {
 .resources-inner:last-child {
   border-bottom: none;
 }
-.class-content{
+.class-content {
   padding-bottom: 10px;
 }
-.class-content-top{
+.class-content-top {
   display: flex;
   justify-content: space-between;
 }
-.class-content-top i{
-  color: #008e3a;
+
+.red{
+   color: #ff0000;
 }
-.content-2 i{
-  color: #ff0000;
+.green{
+   color:green;
 }
-.class-content-main{
+.class-content-main {
   display: flex;
   justify-content: space-between;
 }
-.class-content-main p{
+.class-content-main p {
   font-size: 12px;
 }
-.notes-top{
+.notes-top {
   display: flex;
   justify-content: space-between;
 }
-.btn{
+.btn {
   background: transparent;
-  border: 1px solid #13A699;
+  border: 1px solid #13a699;
   border-radius: 5px;
-  color: #13A699;
+  color: #13a699;
   font-size: 15px;
 }
-.btn:hover{
-  background: #13A699;
+.btn:hover {
+  background: #13a699;
   border-radius: 5px;
   color: #fff;
 }
-.update-avatar img{
+.update-avatar img {
   height: 40px;
   width: 40px;
 }
@@ -525,14 +566,11 @@ export default {
 }
 .notes-content-top {
   display: flex;
-
 }
 .notes-content-top h6 {
   margin-bottom: 0;
-
 }
 .notes-content {
-
 }
 .notes-content-main {
   padding-bottom: 5px;
@@ -546,49 +584,49 @@ export default {
   padding-top: 5px;
 }
 .fa-file-o {
-  color: #13A699;
+  color: #13a699;
   background: rgba(19, 166, 153, 0.43);
   border-radius: 50%;
   padding: 9px;
 }
-.discussion-content{
-  border-bottom:1px solid #e4e4e4;
+.discussion-content {
+  border-bottom: 1px solid #e4e4e4;
   padding-bottom: 10px;
   padding-top: 5px;
 }
-.discussion-content:last-child{
+.discussion-content:last-child {
   border-bottom: none;
 }
-.discussion-content p{
+.discussion-content p {
   font-size: 10px;
 }
-.discussion-content-top{
+.discussion-content-top {
   display: flex;
   justify-content: space-between;
 }
-.discussion-content-top p{
- font-size: 14px;
+.discussion-content-top p {
+  font-size: 14px;
 }
-.discussion-content-bottom{
+.discussion-content-bottom {
   display: flex;
   justify-content: space-between;
 }
-.discussion-content-bottom p{
+.discussion-content-bottom p {
   font-size: 12px;
   margin-bottom: 0;
 }
-.notify-discussion p{
- background: #e4e4e4;
- color: #808080;
- border-radius: 5px;
- font-weight: 500;
- padding: 5px 10px;
+.notify-discussion p {
+  background: #e4e4e4;
+  color: #808080;
+  border-radius: 5px;
+  font-weight: 500;
+  padding: 5px 10px;
 }
-.my-icon{
-   color: #008e3a;
-}
-.check_it{
+.my-icon {
   color: #008e3a;
-  font-size:12px;
+}
+.check_it {
+  color: #008e3a;
+  font-size: 12px;
 }
 </style>

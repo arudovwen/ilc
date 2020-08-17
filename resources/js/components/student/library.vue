@@ -2,7 +2,7 @@
  
   <div class="library">
     <div class="continue-reading">
-      <div class="">
+      <div class="continue-word">
         <h5>You were {{lastRead.type == 'video'?'watching':'viewing'}} {{lastRead.title}}</h5>
         <h6 class="toCaps">{{lastRead.subject}}</h6>
       
@@ -38,7 +38,7 @@
                 <b-nav-item href="#">Sort By:</b-nav-item>
               </b-navbar-nav>
 
-              <!-- Right aligned nav items -->
+           
               <b-navbar-nav class="mx-auto">
                 <b-form-select class="mr-3" v-model="subject">
                   <b-form-select-option value disabled>-- Subjects --</b-form-select-option>
@@ -300,7 +300,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+
 }
 .continue-word p:first-child {
   font-weight: 500;

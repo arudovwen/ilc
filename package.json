@@ -53,6 +53,7 @@
         "vue-single-date-picker": "^0.5.11",
         "vue-toasted": "^1.1.28",
         "vue-waves-button": "^1.0.4",
+        "vue2-circle-progress": "^1.2.3",
         "vueisotope": "^3.1.2",
         "vuejs-datetimepicker": "^1.1.13"
     }

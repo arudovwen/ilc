@@ -474,20 +474,25 @@ form .reg-btn{
     /* student-dashboard */
  .student-assessment .nav-tabs {
     border-bottom: none;
-    justify-content: space-around !important;
+    justify-content: space-around !important; 
    
 }
-/* .student-assessment .nav-tabs .nav-link.active {
-    color: #ffd708 !important;
-    background-color: rgba(255, 215, 8, 0.18) !important;
-    border-radius: 20px !important;
+.student-assessment .nav-tabs:hover{
+    outline: none !important;
+}
+.student-assessment .nav-tabs .nav-link.active {
+    color:  #13A699 !important;
+     background: rgba(19, 166, 153, 0.15) !important;
+    border-radius: 10px !important;
+    border: none !important;
     padding: 10px 20px !important;
+    outline: none !important;
     
-} */
-
+}
+/* 
 .student-assessment > .card > .tabs > .card-header{
     background-color:rgba(19, 166, 153, 0.9) !important;
-  }
+  } */
 
 
 /* admin dashboard  */

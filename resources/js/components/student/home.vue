@@ -23,9 +23,6 @@
                 <div class="col-md-6">
                   <h6>Latest Result</h6>
                 </div>
-                <div class="col-md-6">
-                  <b-form-datepicker id="example-datepicker" v-model="value" class></b-form-datepicker>
-                </div>
               </div>
               <div class="result-progress">
                 <div class="progress-top">

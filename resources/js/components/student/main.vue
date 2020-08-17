@@ -1,7 +1,7 @@
 <template>
   
   <div>
-    <b-nav align="right" class="py-2 shadow nav">
+    <b-nav align="right" class="py-2 ">
       <b-nav-item>
         <b-avatar to="/student/profile" :src="student.profile"></b-avatar>
       </b-nav-item>
@@ -147,7 +147,8 @@ export default {
 </script>
 <style scoped>
 .nav{
-  background: #f2f6fe;
+background: rgba(255, 247, 237, 0.68);
+ 
 }
 .nav-item i {
   color: #808080;

@@ -1,8 +1,8 @@
 <template>
   <div class="body">
-    <router-link to="/tutor/assessment/create/assignment">
+    <router-link to="/tutor/assessment/create/quiz">
       <div class="create-btn">
-        <div class="btn btn-create">Create Assignment</div>
+        <div class="btn btn-create">Create Quiz</div>
       </div>
     </router-link>
     <b-container>

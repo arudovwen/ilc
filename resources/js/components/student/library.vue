@@ -2,14 +2,14 @@
  
   <div class="library">
     <div class="continue-reading">
-      <div class="">
+      <div class="continue-word">
         <h5>You were {{lastRead.type == 'video'?'watching':'viewing'}} {{lastRead.title}}</h5>
         <h6 class="toCaps">{{lastRead.subject}}</h6>
       
         <div class="continue-reading-icon">
           <div class="continue-btn mr-1">
-            <div class="">
-             <b-avatar icon="eye" size="1.2rem"></b-avatar>
+            <div class="btn-continue">
+               <i class="icon-visibility-open"></i>
             </div>
           </div>
           <p class="cpointer" @click="view(lastRead.id,lastRead.subject,lastRead.cover)">Continue {{lastRead.type == 'video'?'watching':'viewing'}}</p>

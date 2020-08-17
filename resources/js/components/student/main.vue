@@ -145,7 +145,8 @@ export default {
 </script>
 <style scoped>
 .nav{
-  background: #f2f6fe;
+background: rgba(255, 247, 237, 0.68);
+ 
 }
 .nav-item i {
   color: #808080;

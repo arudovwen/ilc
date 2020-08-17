@@ -49,9 +49,9 @@ position: fixed;
 .main{
     width:85%;
     position: absolute;
-    right: 0;
     background: rgba(255, 247, 237, 0.68);
-    height: 100vh;
+    right: 0;
+    height: 100%;
     overflow: auto;
    
 }

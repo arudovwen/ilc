@@ -474,9 +474,11 @@ form .reg-btn{
     /* student-dashboard */
  .student-assessment .nav-tabs {
     border-bottom: none;
-    justify-content: space-around !important;
+    justify-content: space-around !important; 
    
-   
+}
+.student-assessment .nav-tabs:hover{
+    outline: none !important;
 }
 .student-assessment .nav-tabs .nav-link.active {
     color:  #13A699 !important;

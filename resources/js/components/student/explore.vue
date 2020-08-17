@@ -16,23 +16,48 @@
     <div class="container-fluid explore-content">
       <div class="row" v-if="filteredSubjects.length">
         <div class="col-md-3 col-sm-6" v-for="(item,idx) in filteredSubjects" :key="idx">
-          <div class="shadow">
+          <div class="hover-shadow">
             <div class="single-content">
               <img :src="item.cover_image" alt />
               <div class="text-content">
                 <p class="excerpt">{{JSON.parse(item.syllabus.syllabus).description}}</p>
-                <b-button variant="outline-success" @click="gotoHer(item.id)">Visit resource</b-button>
+               
               </div>
             </div>
             <div class="bg-white p-2">
-              <p class="toCaps cpointer title" @click="gotoHer(item.id)">
-               {{item.subject}}
-              </p>
-              <p class="toCaps cpointer desc">{{JSON.parse(item.syllabus.syllabus).description}}</p> 
-             
-              <span class="toCaps cpointer">{{item.syllabus.myclass}}</span>
-              <br />
-              <small class="update">Last update {{item.created_at | moment('MMMM D')}}</small>
+           <div class="align-bg">
+                <div class="card-inner">
+                <p class="toCaps cpointer title" @click="gotoHer(item.id)">{{item.subject}}</p>
+                <!-- <p class="toCaps cpointer desc">{{JSON.parse(item.syllabus.syllabus).description}}</p> -->
+
+                <span class="toCaps cpointer">{{item.syllabus.myclass}}</span>
+                <br />
+               
+              </div>
+              <div class="progress-resource">
+                <vue-circle
+                  :progress="50"
+                  :size="100"
+                  :reverse="false"
+                  line-cap="round"
+                  :fill="fill"
+                  empty-fill="rgba(0, 0, 0, .1)"
+                  :animation-start-value="0.0"
+                  :start-angle="0"
+                  insert-mode="append"
+                  :thickness="5"
+                  :show-percent="true"
+                  @vue-circle-progress="progress"
+                  @vue-circle-end="progress_end"
+                >
+                  <p>Complete</p>
+                </vue-circle>
+              </div>
+           </div>
+            <small class="update">Last update {{item.created_at | moment('MMMM D')}}</small>
+            <div class="resource-btn">
+              <b-button  @click="gotoHer(item.id)">Visit resource</b-button>
+            </div>
             </div>
           </div>
         </div>
@@ -43,7 +68,11 @@
 </template>
 
 <script>
+import VueCircle from "vue2-circle-progress";
 export default {
+  components: {
+    VueCircle,
+  },
   props: ["student"],
   data() {
     return {
@@ -52,23 +81,24 @@ export default {
       current: "",
       subjects: [],
       filter: "all",
+      fill: { gradient: ["red", "green", "blue"] },
     };
   },
   mounted() {
     this.getResources();
     this.getSubjects();
   },
-  computed:{
-  filteredSubjects(){
-    return this.resources.filter(item=>{
-       if (item.subject == this.filter) {
-         return item;
-       }
-       if (this.filter == 'all') {
-         return item;
-       }
-    })
-  }
+  computed: {
+    filteredSubjects() {
+      return this.resources.filter((item) => {
+        if (item.subject == this.filter) {
+          return item;
+        }
+        if (this.filter == "all") {
+          return item;
+        }
+      });
+    },
   },
   methods: {
     selectFilter(name) {
@@ -109,30 +139,28 @@ export default {
         });
     },
     checkDuplicateInObject(propertyName, inputArray) {
-    
-      var  testObject = {}     
-    var newArr = []
-     inputArray.map(function (item) {
+      var testObject = {};
+      var newArr = [];
+      inputArray.map(function (item) {
         var itemPropertyName = item[propertyName];
-       
+
         if (Object.values(testObject).includes(itemPropertyName)) {
-            
-           
         } else {
-          testObject = item  
+          testObject = item;
           newArr.push(item);
         }
-       });
+      });
       return newArr;
     },
     getResources() {
       axios.get(`/api/get-modules/${this.$props.student.level}`).then((res) => {
         if (res.status == 200) {
-            console.log("getResources -> res.data.data", res.data.data)
-        this.resources =  this.checkDuplicateInObject("subject", res.data.data);
-        console.log("getResources -> res.data.data", res.data.data)
-         
-          
+          console.log("getResources -> res.data.data", res.data.data);
+          this.resources = this.checkDuplicateInObject(
+            "subject",
+            res.data.data
+          );
+          console.log("getResources -> res.data.data", res.data.data);
         }
       });
     },
@@ -171,12 +199,16 @@ export default {
   width: 80%;
   margin: 0 auto;
 }
-.title{
-  font-size:17px;
+.title {
+  font-size: 17px;
   font-weight: bold;
-  margin-bottom:10px;
+  margin-bottom: 10px;
 }
-.desc{
+.align-bg {
+  display: flex;
+  justify-content: space-between;
+}
+.desc {
   height: 38px;
   font-size: 15px;
   overflow: hidden;
@@ -194,7 +226,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
-  margin-bottom:10px;
+  margin-bottom: 10px;
 }
 .top_box {
   background: #f7f8fa;
@@ -232,6 +264,9 @@ ul.breadcrumb li + li:before:last-child {
   color: rgba(0, 0, 0, 0.84);
   border-color: rgba(0, 0, 0, 0.84);
 }
+.hover-shadow:hover{
+ box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
 .single-content {
   position: relative;
   transition: 0.3s;
@@ -254,7 +289,17 @@ ul.breadcrumb li + li:before:last-child {
   transform: rotate3d(-1, 1, 0, 100deg);
   transition: 0.4s;
 }
-
+.resource-btn{
+  display: flex;
+  justify-content: center;
+  font-family: "Montserrat";
+  padding-top: 10px;
+}
+.resource-btn .btn{
+  background: #13a699 ;
+  color: #fff;
+  border: none;
+}
 .single-content:hover::after {
   opacity: 0.9;
   transform: rotate3d(0, 0, 0, 0deg);
@@ -314,8 +359,8 @@ div {
   white-space: normal;
 }
 .update {
-  background: #ffd708;
-  padding: 2px;
-  border-radius: 4px;
+  background:rgba(196, 196, 196, 0.15);
+  padding: 5px;
+  border-radius: 5px;
 }
 </style>

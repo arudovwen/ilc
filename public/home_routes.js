@@ -11138,6 +11138,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue2_circle_progress__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue2-circle-progress */ "./node_modules/vue2-circle-progress/dist/vue-circle-progress.js");
+/* harmony import */ var vue2_circle_progress__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue2_circle_progress__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -11182,7 +11184,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    VueCircle: vue2_circle_progress__WEBPACK_IMPORTED_MODULE_0___default.a
+  },
   props: ["student"],
   data: function data() {
     return {
@@ -11190,7 +11221,10 @@ __webpack_require__.r(__webpack_exports__);
       opened: [],
       current: "",
       subjects: [],
-      filter: "all"
+      filter: "all",
+      fill: {
+        gradient: ["red", "green", "blue"]
+      }
     };
   },
   mounted: function mounted() {
@@ -11206,7 +11240,7 @@ __webpack_require__.r(__webpack_exports__);
           return item;
         }
 
-        if (_this.filter == 'all') {
+        if (_this.filter == "all") {
           return item;
         }
       });
@@ -21487,7 +21521,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.view[data-v-7c861bc4] {\r\n  padding: 40px 20px 60px;\n}\n.main-content[data-v-7c861bc4] {\r\n  width: 80%;\r\n  margin: 0 auto;\n}\n.title[data-v-7c861bc4]{\r\n  font-size:17px;\r\n  font-weight: bold;\r\n  margin-bottom:10px;\n}\n.desc[data-v-7c861bc4]{\r\n  height: 38px;\r\n  font-size: 15px;\r\n  overflow: hidden;\r\n  display: -webkit-box !important;\r\n  -webkit-line-clamp: 2;\r\n  -moz-line-clamp: 2;\r\n  -ms-line-clamp: 2;\r\n  -o-line-clamp: 2;\r\n  line-clamp: 2;\r\n  -webkit-box-orient: vertical;\r\n  -ms-box-orient: vertical;\r\n  -o-box-orient: vertical;\r\n  box-orient: vertical;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  white-space: normal;\r\n  margin-bottom:10px;\n}\n.top_box[data-v-7c861bc4] {\r\n  background: #f7f8fa;\n}\na[data-v-7c861bc4] {\r\n  text-decoration: none;\r\n  color: black;\n}\nul[data-v-7c861bc4],\r\nol[data-v-7c861bc4] {\r\n  list-style: none;\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before {\r\n  padding: 8px;\r\n  color: black;\r\n  content: \"/\\A0\";\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before:last-child {\r\n  content: \"\";\n}\n.filter-list[data-v-7c861bc4] {\r\n  display: flex;\r\n  justify-content: flex-start;\r\n  font-size: 14px;\r\n  border-bottom: 1px solid #ccc;\r\n  font-weight: bold;\n}\n.filter-list li[data-v-7c861bc4] {\r\n  color: rgba(0, 0, 0, 0.54);\r\n  border-bottom: 2px solid transparent;\r\n  padding: 8px 0;\n}\n.filter-list li[data-v-7c861bc4]:hover {\r\n  color: rgba(0, 0, 0, 0.84);\r\n  border-color: rgba(0, 0, 0, 0.84);\n}\n.single-content[data-v-7c861bc4] {\r\n  position: relative;\r\n  transition: 0.3s;\r\n  box-shadow: 10px 20px 20px rgba(247, 248, 250, 0.8);\n}\n.single-content .text-content[data-v-7c861bc4],\r\n.single-content[data-v-7c861bc4]::after {\r\n  position: absolute;\r\n  left: 10px;\r\n  right: 10px;\n}\n.single-content[data-v-7c861bc4]::after {\r\n  content: \"\";\r\n  display: block;\r\n  background: #13a699;\r\n  top: 20px;\r\n  bottom: 20px;\r\n  opacity: 0;\r\n  transform: rotate3d(-1, 1, 0, 100deg);\r\n  transition: 0.4s;\n}\n.single-content[data-v-7c861bc4]:hover::after {\r\n  opacity: 0.9;\r\n  transform: rotate3d(0, 0, 0, 0deg);\n}\n.single-content img[data-v-7c861bc4] {\r\n  width: 100%;\r\n  height: 100%;\n}\n.text-content[data-v-7c861bc4] {\r\n  top: 45%;\r\n  opacity: 0;\r\n  z-index: 1;\r\n  transform: translate(10%, -30%);\r\n  transition: 0.3s;\r\n  text-align: center;\r\n  color: #fff;\r\n  margin-top: 5px;\n}\n.text-content .btn[data-v-7c861bc4] {\r\n  color: #fff !important;\r\n  border: 1px solid #fff;\r\n  border-radius: 5px;\r\n  padding: 10px 20px;\n}\n.single-content:hover .text-content[data-v-7c861bc4] {\r\n  opacity: 1;\r\n  transform: translate(0, -50%);\r\n  transition-delay: 0.3s;\n}\n.explore-content[data-v-7c861bc4] {\r\n  margin-top: 15px;\n}\r\n/* .router-link-active{\r\n  border-bottom: 2px solid #ffd708;\r\n} */\ndiv[data-v-7c861bc4] {\r\n  font-family: \"Montserrat\";\n}\n.excerpt[data-v-7c861bc4] {\r\n  height: 75px;\r\n  font-size: 15px;\r\n  overflow: hidden;\r\n  display: -webkit-box !important;\r\n  -webkit-line-clamp: 4;\r\n  -moz-line-clamp: 4;\r\n  -ms-line-clamp: 4;\r\n  -o-line-clamp: 4;\r\n  line-clamp: 4;\r\n  -webkit-box-orient: vertical;\r\n  -ms-box-orient: vertical;\r\n  -o-box-orient: vertical;\r\n  box-orient: vertical;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  white-space: normal;\n}\n.update[data-v-7c861bc4] {\r\n  background: #ffd708;\r\n  padding: 2px;\r\n  border-radius: 4px;\n}\r\n", ""]);
+exports.push([module.i, "\n.view[data-v-7c861bc4] {\r\n  padding: 40px 20px 60px;\n}\n.main-content[data-v-7c861bc4] {\r\n  width: 80%;\r\n  margin: 0 auto;\n}\n.title[data-v-7c861bc4] {\r\n  font-size: 17px;\r\n  font-weight: bold;\r\n  margin-bottom: 10px;\n}\n.align-bg[data-v-7c861bc4] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.desc[data-v-7c861bc4] {\r\n  height: 38px;\r\n  font-size: 15px;\r\n  overflow: hidden;\r\n  display: -webkit-box !important;\r\n  -webkit-line-clamp: 2;\r\n  -moz-line-clamp: 2;\r\n  -ms-line-clamp: 2;\r\n  -o-line-clamp: 2;\r\n  line-clamp: 2;\r\n  -webkit-box-orient: vertical;\r\n  -ms-box-orient: vertical;\r\n  -o-box-orient: vertical;\r\n  box-orient: vertical;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  white-space: normal;\r\n  margin-bottom: 10px;\n}\n.top_box[data-v-7c861bc4] {\r\n  background: #f7f8fa;\n}\na[data-v-7c861bc4] {\r\n  text-decoration: none;\r\n  color: black;\n}\nul[data-v-7c861bc4],\r\nol[data-v-7c861bc4] {\r\n  list-style: none;\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before {\r\n  padding: 8px;\r\n  color: black;\r\n  content: \"/\\A0\";\n}\nul.breadcrumb li + li[data-v-7c861bc4]:before:last-child {\r\n  content: \"\";\n}\n.filter-list[data-v-7c861bc4] {\r\n  display: flex;\r\n  justify-content: flex-start;\r\n  font-size: 14px;\r\n  border-bottom: 1px solid #ccc;\r\n  font-weight: bold;\n}\n.filter-list li[data-v-7c861bc4] {\r\n  color: rgba(0, 0, 0, 0.54);\r\n  border-bottom: 2px solid transparent;\r\n  padding: 8px 0;\n}\n.filter-list li[data-v-7c861bc4]:hover {\r\n  color: rgba(0, 0, 0, 0.84);\r\n  border-color: rgba(0, 0, 0, 0.84);\n}\n.hover-shadow[data-v-7c861bc4]:hover{\r\n box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;\n}\n.single-content[data-v-7c861bc4] {\r\n  position: relative;\r\n  transition: 0.3s;\r\n  box-shadow: 10px 20px 20px rgba(247, 248, 250, 0.8);\n}\n.single-content .text-content[data-v-7c861bc4],\r\n.single-content[data-v-7c861bc4]::after {\r\n  position: absolute;\r\n  left: 10px;\r\n  right: 10px;\n}\n.single-content[data-v-7c861bc4]::after {\r\n  content: \"\";\r\n  display: block;\r\n  background: #13a699;\r\n  top: 20px;\r\n  bottom: 20px;\r\n  opacity: 0;\r\n  transform: rotate3d(-1, 1, 0, 100deg);\r\n  transition: 0.4s;\n}\n.resource-btn[data-v-7c861bc4]{\r\n  display: flex;\r\n  justify-content: center;\r\n  font-family: \"Montserrat\";\r\n  padding-top: 10px;\n}\n.resource-btn .btn[data-v-7c861bc4]{\r\n  background: #13a699 ;\r\n  color: #fff;\r\n  border: none;\n}\n.single-content[data-v-7c861bc4]:hover::after {\r\n  opacity: 0.9;\r\n  transform: rotate3d(0, 0, 0, 0deg);\n}\n.single-content img[data-v-7c861bc4] {\r\n  width: 100%;\r\n  height: 100%;\n}\n.text-content[data-v-7c861bc4] {\r\n  top: 45%;\r\n  opacity: 0;\r\n  z-index: 1;\r\n  transform: translate(10%, -30%);\r\n  transition: 0.3s;\r\n  text-align: center;\r\n  color: #fff;\r\n  margin-top: 5px;\n}\n.text-content .btn[data-v-7c861bc4] {\r\n  color: #fff !important;\r\n  border: 1px solid #fff;\r\n  border-radius: 5px;\r\n  padding: 10px 20px;\n}\n.single-content:hover .text-content[data-v-7c861bc4] {\r\n  opacity: 1;\r\n  transform: translate(0, -50%);\r\n  transition-delay: 0.3s;\n}\n.explore-content[data-v-7c861bc4] {\r\n  margin-top: 15px;\n}\r\n/* .router-link-active{\r\n  border-bottom: 2px solid #ffd708;\r\n} */\ndiv[data-v-7c861bc4] {\r\n  font-family: \"Montserrat\";\n}\n.excerpt[data-v-7c861bc4] {\r\n  height: 75px;\r\n  font-size: 15px;\r\n  overflow: hidden;\r\n  display: -webkit-box !important;\r\n  -webkit-line-clamp: 4;\r\n  -moz-line-clamp: 4;\r\n  -ms-line-clamp: 4;\r\n  -o-line-clamp: 4;\r\n  line-clamp: 4;\r\n  -webkit-box-orient: vertical;\r\n  -ms-box-orient: vertical;\r\n  -o-box-orient: vertical;\r\n  box-orient: vertical;\r\n  overflow: hidden;\r\n  text-overflow: ellipsis;\r\n  white-space: normal;\n}\n.update[data-v-7c861bc4] {\r\n  background:rgba(196, 196, 196, 0.15);\r\n  padding: 5px;\r\n  border-radius: 5px;\n}\r\n", ""]);
 
 // exports
 
@@ -43667,26 +43701,88 @@ var render = function() {
             { staticClass: "row" },
             _vm._l(_vm.filteredSubjects, function(item, idx) {
               return _c("div", { key: idx, staticClass: "col-md-3 col-sm-6" }, [
-                _c("div", { staticClass: "shadow" }, [
+                _c("div", { staticClass: "hover-shadow" }, [
                   _c("div", { staticClass: "single-content" }, [
                     _c("img", { attrs: { src: item.cover_image, alt: "" } }),
                     _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "text-content" },
-                      [
-                        _c("p", { staticClass: "excerpt" }, [
-                          _vm._v(
-                            _vm._s(
-                              JSON.parse(item.syllabus.syllabus).description
-                            )
-                          )
+                    _c("div", { staticClass: "text-content" }, [
+                      _c("p", { staticClass: "excerpt" }, [
+                        _vm._v(
+                          _vm._s(JSON.parse(item.syllabus.syllabus).description)
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "bg-white p-2" }, [
+                    _c("div", { staticClass: "align-bg" }, [
+                      _c("div", { staticClass: "card-inner" }, [
+                        _c(
+                          "p",
+                          {
+                            staticClass: "toCaps cpointer title",
+                            on: {
+                              click: function($event) {
+                                return _vm.gotoHer(item.id)
+                              }
+                            }
+                          },
+                          [_vm._v(_vm._s(item.subject))]
+                        ),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "toCaps cpointer" }, [
+                          _vm._v(_vm._s(item.syllabus.myclass))
                         ]),
                         _vm._v(" "),
+                        _c("br")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "progress-resource" },
+                        [
+                          _c(
+                            "vue-circle",
+                            {
+                              attrs: {
+                                progress: 50,
+                                size: 100,
+                                reverse: false,
+                                "line-cap": "round",
+                                fill: _vm.fill,
+                                "empty-fill": "rgba(0, 0, 0, .1)",
+                                "animation-start-value": 0.0,
+                                "start-angle": 0,
+                                "insert-mode": "append",
+                                thickness: 5,
+                                "show-percent": true
+                              },
+                              on: {
+                                "vue-circle-progress": _vm.progress,
+                                "vue-circle-end": _vm.progress_end
+                              }
+                            },
+                            [_c("p", [_vm._v("Complete")])]
+                          )
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("small", { staticClass: "update" }, [
+                      _vm._v(
+                        "Last update " +
+                          _vm._s(_vm._f("moment")(item.created_at, "MMMM D"))
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "resource-btn" },
+                      [
                         _c(
                           "b-button",
                           {
-                            attrs: { variant: "outline-success" },
                             on: {
                               click: function($event) {
                                 return _vm.gotoHer(item.id)
@@ -43698,46 +43794,6 @@ var render = function() {
                       ],
                       1
                     )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "bg-white p-2" }, [
-                    _c(
-                      "p",
-                      {
-                        staticClass: "toCaps cpointer title",
-                        on: {
-                          click: function($event) {
-                            return _vm.gotoHer(item.id)
-                          }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n             " +
-                            _vm._s(item.subject) +
-                            "\n            "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "toCaps cpointer desc" }, [
-                      _vm._v(
-                        _vm._s(JSON.parse(item.syllabus.syllabus).description)
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "toCaps cpointer" }, [
-                      _vm._v(_vm._s(item.syllabus.myclass))
-                    ]),
-                    _vm._v(" "),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("small", { staticClass: "update" }, [
-                      _vm._v(
-                        "Last update " +
-                          _vm._s(_vm._f("moment")(item.created_at, "MMMM D"))
-                      )
-                    ])
                   ])
                 ])
               ])

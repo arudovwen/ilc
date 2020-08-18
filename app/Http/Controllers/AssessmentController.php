@@ -49,7 +49,7 @@ class AssessmentController extends Controller
         return Assessment::create([
             'school_id'=>$school_id,
             'tutor_id'=>$tutor_id,
-            'title'=>'Equlibrium',
+            'title'=>$request->title,
             'session'=>$request->session,
             'subject'=> $request->subject,
             'type'=>$request->type,
@@ -60,6 +60,7 @@ class AssessmentController extends Controller
             'start'=>$request->start,
             'end'=>$request->end,
             'assessment'=>\json_encode($request->assessment),
+            'publish_status'=>false
         ]);
     }
 
@@ -70,7 +71,7 @@ class AssessmentController extends Controller
         return Assessment::create([
             'school_id'=>$school_id,
             'tutor_id'=>$tutor_id,
-            'title'=>'Equlibrium',
+            'title'=>$request->title,
             'session'=>$request->session,
             'subject'=> $request->subject,
             'type'=>$request->type,
@@ -81,6 +82,7 @@ class AssessmentController extends Controller
             'start'=>$request->start,
             'end'=>$request->end,
             'assessment'=>\json_encode($request->assessment),
+            'publish_status'=>false
         ]);
     }
 
@@ -90,20 +92,28 @@ class AssessmentController extends Controller
        
         return Assessment::where('school_id', $admin->school_id)->where('status','!=', 'draft')->get();
     }
-    public function verifyAssessment($id)
+    public function verifyAssessment(Request $request, $id)
     {
         $admin = auth('admin')->user();
         $find =  Assessment::find($id);
        
-        if ($find->status == 'pending') {
-          
-            $find->status = 'active';
+      
+            $find->status = $request->status;
             $find->save();
-        }
-     else {
-            $find->status = 'pending';
+        
+        return response()->json([
+        'status' => 'updated'
+    ]);
+    }
+    public function publish(Request $request, $id)
+    {
+        $admin = auth('admin')->user();
+        $find =  Assessment::find($id);
+       
+      
+            $find->status = $request->publish;
             $find->save();
-        }
+        
         return response()->json([
         'status' => 'updated'
     ]);

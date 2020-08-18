@@ -47,6 +47,7 @@ class LibraryController extends Controller
             'school_id'=> $user->school_id,
             'subject'=> $request->subject,
             'title'=> $request->title,
+            'level'=> $request->level,
             'excerpt'=> $request->excerpt,
             'content'=> \json_encode($request->content),
             'worksheet_id'=> $request->worksheet_id,

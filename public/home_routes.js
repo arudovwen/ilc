@@ -12152,6 +12152,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -13621,7 +13628,8 @@ __webpack_require__.r(__webpack_exports__);
         title: this.title,
         content: this.content,
         excerpt: this.excerpt,
-        worksheet_id: 0
+        worksheet_id: 0,
+        level: this.syllabus.grade_level
       };
       axios.post("/api/library", data, {
         headers: {
@@ -45167,61 +45175,67 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "library" }, [
-    _c("div", { staticClass: "continue-reading" }, [
-      _c("div", { staticClass: "continue-word" }, [
-        _c("h5", [
-          _vm._v(
-            "You were " +
-              _vm._s(_vm.lastRead.type == "video" ? "watching" : "viewing") +
-              " " +
-              _vm._s(_vm.lastRead.title)
-          )
-        ]),
-        _vm._v(" "),
-        _c("h6", { staticClass: "toCaps" }, [
-          _vm._v(_vm._s(_vm.lastRead.subject))
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "continue-reading-icon" }, [
-          _c("div", { staticClass: "continue-btn mr-1" }, [
-            _c(
-              "div",
-              {},
-              [
-                _c("b-avatar", {
-                  attrs: { icon: "eye", variant: "success", size: "1.2rem" }
-                })
-              ],
-              1
-            )
+    _vm.lastRead
+      ? _c("div", { staticClass: "continue-reading" }, [
+          _c("div", { staticClass: "continue-word" }, [
+            _c("h5", [
+              _vm._v(
+                "You were " +
+                  _vm._s(
+                    _vm.lastRead.type == "video" ? "watching" : "viewing"
+                  ) +
+                  " " +
+                  _vm._s(_vm.lastRead.title)
+              )
+            ]),
+            _vm._v(" "),
+            _c("h6", { staticClass: "toCaps" }, [
+              _vm._v(_vm._s(_vm.lastRead.subject))
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "continue-reading-icon" }, [
+              _c("div", { staticClass: "continue-btn mr-1" }, [
+                _c(
+                  "div",
+                  {},
+                  [
+                    _c("b-avatar", {
+                      attrs: { icon: "eye", variant: "success", size: "1.2rem" }
+                    })
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "p",
+                {
+                  staticClass: "cpointer",
+                  on: {
+                    click: function($event) {
+                      return _vm.view(
+                        _vm.lastRead.id,
+                        _vm.lastRead.subject,
+                        _vm.lastRead.cover
+                      )
+                    }
+                  }
+                },
+                [
+                  _vm._v(
+                    "Continue " +
+                      _vm._s(
+                        _vm.lastRead.type == "video" ? "watching" : "viewing"
+                      )
+                  )
+                ]
+              )
+            ])
           ]),
           _vm._v(" "),
-          _c(
-            "p",
-            {
-              staticClass: "cpointer",
-              on: {
-                click: function($event) {
-                  return _vm.view(
-                    _vm.lastRead.id,
-                    _vm.lastRead.subject,
-                    _vm.lastRead.cover
-                  )
-                }
-              }
-            },
-            [
-              _vm._v(
-                "Continue " +
-                  _vm._s(_vm.lastRead.type == "video" ? "watching" : "viewing")
-              )
-            ]
-          )
+          _vm._m(0)
         ])
-      ]),
-      _vm._v(" "),
-      _vm._m(0)
-    ]),
+      : _c("div", { staticClass: "continue-reading" }, [_vm._m(1)]),
     _vm._v(" "),
     _c("div", { staticClass: "library-content container bg-white p-3 py-4" }, [
       _c("h6", [_vm._v("My Library")]),
@@ -45528,6 +45542,16 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "continue-img" }, [
       _c("img", { attrs: { src: "/images/text-book.png", alt: "" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "continue-word" }, [
+      _c("h5", [
+        _vm._v("You haven't started any subject yet, Start onre now !")
+      ])
     ])
   }
 ]

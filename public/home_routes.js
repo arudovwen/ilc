@@ -16106,6 +16106,42 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -16149,14 +16185,138 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
+    var _ref;
+
     return {
+      selected: null,
       items: [],
       classes: [],
       subjects: [],
       subject: '',
       name: '',
       field1: ['class_name'],
-      field2: ['name']
+      field2: ['name'],
+      tableitems: [(_ref = {
+        name: 'sucess ahon',
+        assignment: '20',
+        quiz: '35',
+        test: 40,
+        examination: 70,
+        module1: 30,
+        module2: 40,
+        module3: 10,
+        module4: 15,
+        module5: 30
+      }, _defineProperty(_ref, "module5", 40), _defineProperty(_ref, "modlue7", 30), _defineProperty(_ref, "module8", 22), _defineProperty(_ref, "module9", 40), _defineProperty(_ref, "module10", 20), _defineProperty(_ref, "module11", 50), _defineProperty(_ref, "module12", 12), _defineProperty(_ref, "module13", 50), _defineProperty(_ref, "module14", 40), _defineProperty(_ref, "module15", 1), _defineProperty(_ref, "module16", 2), _defineProperty(_ref, "module17", 17), _defineProperty(_ref, "module18", 18), _defineProperty(_ref, "module19", 19), _ref), {
+        name: 'sucess ahon',
+        assignment: '20',
+        quiz: '35',
+        test: 40,
+        examination: 70
+      }, {
+        name: 'sucess ahon',
+        assignment: '20',
+        quiz: '35',
+        test: 40,
+        examination: 70
+      }, {
+        name: 'sucess ahon',
+        assignment: '20',
+        quiz: '35',
+        test: 40,
+        examination: 70
+      }, {
+        name: 'sucess ahon',
+        assignment: '20',
+        quiz: '35',
+        test: 40,
+        examination: 70
+      }, {
+        name: 'sucess ahon',
+        assignment: '20',
+        quiz: '35',
+        test: 40,
+        examination: 70
+      }, {
+        name: 'sucess ahon',
+        assignment: '20',
+        quiz: '35',
+        test: 40,
+        examination: 70
+      }, {
+        name: 'sucess ahon',
+        assignment: '20',
+        quiz: '35',
+        test: 40,
+        examination: 70
+      }, {
+        name: 'sucess ahon',
+        assignment: '20',
+        quiz: '35',
+        test: 40,
+        examination: 70
+      }],
+      assessmentType: [{
+        value: null,
+        text: ' Select Assessment'
+      }, {
+        value: 'a',
+        text: 'Assignment'
+      }, {
+        value: 'b',
+        text: 'Quiz'
+      }, {
+        value: 'c',
+        text: 'Test'
+      }, {
+        value: 'd',
+        text: 'Examination'
+      }],
+      assessmentClass: [{
+        value: null,
+        text: 'Select Class'
+      }, {
+        value: 'a',
+        text: 'Assignment'
+      }, {
+        value: 'b',
+        text: 'Quiz'
+      }, {
+        value: 'c',
+        text: 'Test'
+      }, {
+        value: 'd',
+        text: 'Examination'
+      }],
+      assessmentSubject: [{
+        value: null,
+        text: 'Select Subject'
+      }, {
+        value: 'a',
+        text: 'Assignment'
+      }, {
+        value: 'b',
+        text: 'Quiz'
+      }, {
+        value: 'c',
+        text: 'Test'
+      }, {
+        value: 'd',
+        text: 'Examination'
+      }],
+      assessmentTerm: [{
+        value: null,
+        text: 'Select Term'
+      }, {
+        value: 'a',
+        text: 'First'
+      }, {
+        value: 'b',
+        text: 'Second'
+      }, {
+        value: 'c',
+        text: 'Third'
+      }]
     };
   },
   mounted: function mounted() {
@@ -22037,6 +22197,25 @@ exports.push([module.i, "\n.my-container[data-v-19998a00]{\r\n    widows: 100vw;
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/gradebook/home.vue?vue&type=style&index=0&id=7ff33f92&scoped=true&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/gradebook/home.vue?vue&type=style&index=0&id=7ff33f92&scoped=true&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.gradebook-table[data-v-7ff33f92]{\r\n  font-family: \"Montserrat\";\n}\n.grade-book[data-v-7ff33f92]{\r\n  background: #fff;\r\n  padding: 15px;\n}\n.outer-grade-book[data-v-7ff33f92]{\r\n  padding-top: 20px;\n}\n.search[data-v-7ff33f92]{\r\n  /* width:250px; */\r\n  border-color:#41cee2\n}\n.sort-table p[data-v-7ff33f92]{\r\n  font-size: 14px;\n}\r\n/* width */\n[data-v-7ff33f92]::-webkit-scrollbar {\r\n  width: 5px;\n}\r\n\r\n/* Track */\n[data-v-7ff33f92]::-webkit-scrollbar-track {\r\n  background: none;\n}\r\n \r\n/* Handle */\n[data-v-7ff33f92]::-webkit-scrollbar-thumb {\r\n  background: rgba(34, 202, 222, 0.25); \r\n  border-radius: 5px;\n}\r\n\r\n/* Handle on hover */\n[data-v-7ff33f92]::-webkit-scrollbar-thumb:hover {\r\n  background: #555;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/groups.vue?vue&type=style&index=0&id=8f6887d0&scoped=true&lang=css&":
 /*!******************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/groups.vue?vue&type=style&index=0&id=8f6887d0&scoped=true&lang=css& ***!
@@ -24584,6 +24763,36 @@ options.transform = transform
 options.insertInto = undefined;
 
 var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/gradebook/home.vue?vue&type=style&index=0&id=7ff33f92&scoped=true&lang=css&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/gradebook/home.vue?vue&type=style&index=0&id=7ff33f92&scoped=true&lang=css& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./home.vue?vue&type=style&index=0&id=7ff33f92&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/gradebook/home.vue?vue&type=style&index=0&id=7ff33f92&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -50211,7 +50420,155 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", [
+    _c("div", { staticClass: "outer-grade-book container" }, [
+      _c("div", { staticClass: "grade-book" }, [
+        _c(
+          "div",
+          { staticClass: "sort-table" },
+          [
+            _c(
+              "b-container",
+              [
+                _c(
+                  "b-row",
+                  [
+                    _c("b-col", { attrs: { md: "2" } }, [
+                      _c("p", [_c("strong", [_vm._v("Assignment Grades")])])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "b-col",
+                      { attrs: { md: "8" } },
+                      [
+                        _c(
+                          "b-container",
+                          [
+                            _c(
+                              "b-row",
+                              [
+                                _c(
+                                  "b-col",
+                                  { attrs: { md: "3" } },
+                                  [
+                                    _c("b-form-select", {
+                                      attrs: { options: _vm.assessmentType },
+                                      model: {
+                                        value: _vm.selected,
+                                        callback: function($$v) {
+                                          _vm.selected = $$v
+                                        },
+                                        expression: "selected"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "b-col",
+                                  { attrs: { md: "3" } },
+                                  [
+                                    _c("b-form-select", {
+                                      attrs: { options: _vm.assessmentClass },
+                                      model: {
+                                        value: _vm.selected,
+                                        callback: function($$v) {
+                                          _vm.selected = $$v
+                                        },
+                                        expression: "selected"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "b-col",
+                                  { attrs: { md: "3" } },
+                                  [
+                                    _c("b-form-select", {
+                                      attrs: { options: _vm.assessmentSubject },
+                                      model: {
+                                        value: _vm.selected,
+                                        callback: function($$v) {
+                                          _vm.selected = $$v
+                                        },
+                                        expression: "selected"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "b-col",
+                                  { attrs: { md: "3" } },
+                                  [
+                                    _c("b-form-select", {
+                                      attrs: { options: _vm.assessmentTerm },
+                                      model: {
+                                        value: _vm.selected,
+                                        callback: function($$v) {
+                                          _vm.selected = $$v
+                                        },
+                                        expression: "selected"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "b-col",
+                      { attrs: { md: "2" } },
+                      [
+                        _c("b-form-input", {
+                          staticClass: "search rounded-pill",
+                          attrs: { placeholder: "Search Student " }
+                        })
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "gradebook-table" },
+          [
+            _c("b-table", {
+              attrs: {
+                striped: "",
+                hover: "",
+                bordered: "",
+                items: _vm.tableitems
+              }
+            })
+          ],
+          1
+        )
+      ])
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -63762,7 +64119,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _home_vue_vue_type_template_id_7ff33f92_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./home.vue?vue&type=template&id=7ff33f92&scoped=true& */ "./resources/js/components/tutor/gradebook/home.vue?vue&type=template&id=7ff33f92&scoped=true&");
 /* harmony import */ var _home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./home.vue?vue&type=script&lang=js& */ "./resources/js/components/tutor/gradebook/home.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _home_vue_vue_type_style_index_0_id_7ff33f92_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./home.vue?vue&type=style&index=0&id=7ff33f92&scoped=true&lang=css& */ "./resources/js/components/tutor/gradebook/home.vue?vue&type=style&index=0&id=7ff33f92&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -63770,7 +64129,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _home_vue_vue_type_template_id_7ff33f92_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
   _home_vue_vue_type_template_id_7ff33f92_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -63799,6 +64158,22 @@ component.options.__file = "resources/js/components/tutor/gradebook/home.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./home.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/gradebook/home.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/tutor/gradebook/home.vue?vue&type=style&index=0&id=7ff33f92&scoped=true&lang=css&":
+/*!*******************************************************************************************************************!*\
+  !*** ./resources/js/components/tutor/gradebook/home.vue?vue&type=style&index=0&id=7ff33f92&scoped=true&lang=css& ***!
+  \*******************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_style_index_0_id_7ff33f92_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./home.vue?vue&type=style&index=0&id=7ff33f92&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/gradebook/home.vue?vue&type=style&index=0&id=7ff33f92&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_style_index_0_id_7ff33f92_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_style_index_0_id_7ff33f92_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_style_index_0_id_7ff33f92_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_style_index_0_id_7ff33f92_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_style_index_0_id_7ff33f92_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 

@@ -382,7 +382,22 @@ form .reg-btn{
     /* padding: 10px 20px !important; */
     
 }
-
+.gradebook-table{
+    overflow: scroll;
+}
+.gradebook-table .table{
+    width: 90vw;
+    height: 90vh;
+    overflow: scroll;
+  }
+.gradebook-table .table thead th div{
+    writing-mode: vertical-rl;
+    /* text-orientation: upright; */
+    transform: rotate(180deg);
+    }
+    .gradebook-table .table-bordered thead th:first-child{
+        width: 35%;
+    }
 .nav-tabs .nav-link {
     /* border: none !important;
     border-top-left-radius: 0 !important;

@@ -50,6 +50,12 @@ h1, h2, h3, h4, h5, h6{
 p{
     font-family: "Montserrat" !important;
 }
+ul,
+ol,
+dl {
+   margin-left:1rem;
+   
+}
 
 a{
     text-decoration: none !important;
@@ -489,10 +495,20 @@ form .reg-btn{
     outline: none !important;
     
 }
-/* 
-.student-assessment > .card > .tabs > .card-header{
+
+.assess .nav-tabs .nav-link {
+    color:  #fff !important;
+      
+}
+.assess .nav-tabs .nav-link.active {
+    color:  #13A699 !important;
+      
+}
+
+.assess > .tabs > .card-header{
     background-color:rgba(19, 166, 153, 0.9) !important;
-  } */
+    color:white !important;
+  }
 
 
 /* admin dashboard  */
@@ -901,13 +917,6 @@ cite {
    
 }
 
-ul,
-ol,
-dl {
-    list-style: none;
-    font-size: 1.2em;
-   
-}
 
 li,
 dd,

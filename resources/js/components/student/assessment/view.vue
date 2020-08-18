@@ -1,26 +1,34 @@
 <template>
   <div class="body">
-    <b-container class>
-      <b-row class="justify-content-center">
-        <h3 class="toCaps text-center mb-3">{{subject}}</h3>
+    <b-container fluid class="bg-white">
+      <b-row class="justify-content-center  mb-4">
+       <b-col> <h3 class="toCaps text-center ">{{subject}}</h3></b-col>
       </b-row>
-      <b-row class="justify-content-between align-items-center">
-        <h6 class="toCaps" v-if="session">
+      <b-row class="justify-content-between align-items-center mb-3">
+       <b-col>
+          <h6 class="toCaps" v-if="session">
           <span class="text-muted">Term :</span>
           {{session}}
         </h6>
-        <h6 class="toCaps" v-if="myclass">
+       </b-col>
+       <b-col>
+          <h6 class="toCaps" v-if="myclass">
           <span class="text-muted">Level :</span>
           {{myclass}}
         </h6>
-        <h6 class="toCaps" v-if="title">
+       </b-col>
+       <b-col>
+          <h6 class="toCaps" v-if="title">
           <span class="text-muted">Title :</span>
           {{title}}
         </h6>
-        <strong class="mb-4" v-if="duration.time">
+       </b-col>
+      <b-col>
+          <strong class="mb-4" v-if="duration.time">
           <span class="text-muted">Duration :</span>
           {{duration.time}}{{duration.type}}
         </strong>
+      </b-col>
       </b-row>
 
       <b-row>
@@ -178,7 +186,7 @@ export default {
             this.subject = res.data.subject;
             this.session = res.data.session;
             this.title = res.data.title;
-             this.tutor_id = res.data.tutor_id;
+            this.tutor_id = res.data.tutor_id;
             this.myclass = res.data.level;
 
             this.duration = JSON.parse(res.data.duration);
@@ -187,14 +195,13 @@ export default {
         .catch();
     },
     calcAnswer() {
-       this.total_score = 0
+      this.total_score = 0;
       this.assessment.forEach((element) => {
         if (element.answer_type == "single") {
           if (
             element.answer.toLowerCase() == element.student_answer.toLowerCase()
           ) {
             this.total_score = this.total_score + element.score;
-          
           } else {
             element.answers.forEach((ele) => {
               element.student_answers.forEach((ele1) => {
@@ -207,8 +214,8 @@ export default {
           }
         }
       });
-      
-     this.storeRecord()
+
+      this.storeRecord();
     },
     storeRecord() {
       let student = JSON.parse(localStorage.getItem("typeStudent"));
@@ -216,7 +223,7 @@ export default {
         subject: this.subject,
         type: this.type,
         title: this.title,
-         tutor_id: this.tutor_id,
+        tutor_id: this.tutor_id,
         total_score: this.total_score,
         record: this.assessment,
       };
@@ -226,10 +233,10 @@ export default {
         })
         .then((res) => {
           if (res.status == 201) {
-             this.$router.push("/student/assessment");
+            this.$router.push("/student/assessment");
           }
           if (res.status == 200) {
-             this.$router.push("/student/assessment");
+            this.$router.push("/student/assessment");
           }
         });
     },
@@ -243,9 +250,12 @@ export default {
   font-size: 0.4rem;
   line-height: 1.5;
 }
-.container {
-  width: 80%;
+.container-fluid {
+  padding: 20px;
   margin: 0 auto;
+  height: 100%;
+}
+form {
 }
 .bod {
   background: #f7f8fa;

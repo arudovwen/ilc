@@ -1,6 +1,6 @@
 <template>
   <div>
-  <nav class="shadow-sm p-3 bg-white">
+  <nav class="shadow-sm p-3 py-1 shadow-sm">
       <b-form-input placeholder="Search... " class="search rounded-pill"></b-form-input>
        <b-row class="align-items-center">
       
@@ -35,7 +35,7 @@
         
      
      <div  class="mx-3">
-         <b-avatar to="/tutor/profile" src="" ></b-avatar> <span class="toCaps mx-2">{{tutor.name}}</span>   <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+         <b-avatar to="/tutor/profile" size="sm" :src="tutor.profile" ></b-avatar> <span class="toCaps mx-2">{{tutor.name}}</span>   <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
      </div>
     
       
@@ -144,6 +144,10 @@ nav {
   justify-content: space-between;
   align-items: center;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  position: sticky;
+  top:0;
+  background:#fff;
+  z-index: 999;
 }
 #notification {
   position: relative;

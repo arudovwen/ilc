@@ -1,29 +1,23 @@
 <template>
-  
   <div>
-    <b-nav align="right" class="py-2 ">
+    <b-nav align="right" class="py-1 shadow-sm">
       <b-nav-item>
-        <b-avatar to="/student/profile" :src="student.profile"></b-avatar>
+        <b-avatar to="/student/profile" size="sm" :src="student.profile"></b-avatar>
       </b-nav-item>
       <b-nav-item>
-        <b-form-input placeholder="Search... " class="search rounded-pill"></b-form-input>
+        <b-form-input placeholder="Search... " size="sm" class="search rounded-pill"></b-form-input>
       </b-nav-item>
-      <b-nav-item class="py-0 px-3">
-      
-          <div id="notification" class="mx-3">
+      <b-nav-item class="py-0 px-2">
+        <div id="notification" class="mx-3">
           <div class="icon" @click="toggleNotification">
-           <i class="icon-bell-1"></i>
+            <i class="icon-bell-1"></i>
             <div class="badge animated pulse" v-if="count>0">{{count}}</div>
           </div>
-          <div
-            class="notification-body animated fadeIn shadow-sm bg-white"
-            v-if="showNotification"
-          >
+          <div class="notification-body animated fadeIn shadow-sm bg-white" v-if="showNotification">
             <ul class="list-group">
               <li class="list-group-item d-flex justify-content-between">
                 <h6>Notifications</h6>
-                <b-icon   icon="x-circle"  @click="toggleNotification"></b-icon>
-               
+                <b-icon icon="x-circle" @click="toggleNotification"></b-icon>
               </li>
 
               <div class="main-notify">
@@ -36,7 +30,6 @@
                 <small>View all</small>
               </li>
             </ul>
-            
           </div>
         </div>
       </b-nav-item>
@@ -146,23 +139,25 @@ export default {
 };
 </script>
 <style scoped>
-.nav{
-background: rgba(255, 247, 237, 0.68);
- 
+.nav {
+  background: #f7f8fa;
+  position:sticky;
+  top:0;
+  z-index: 9;
 }
 .nav-item i {
   color: #808080;
   font-size: 24px;
 }
-.anime-stop{
-  animation:none;
+.anime-stop {
+  animation: none;
 }
 
-.bell{
+.bell {
   color: #13a699;
 }
-.bell:hover{
-  color:#008e3a;
+.bell:hover {
+  color: #008e3a;
 }
 #notification {
   position: relative;
@@ -176,6 +171,9 @@ background: rgba(255, 247, 237, 0.68);
 .main-notify {
   max-height: 300px;
   overflow: scroll;
+}
+ul{
+  margin: 0;
 }
 .icon {
   position: relative;
@@ -210,7 +208,7 @@ nav {
 } */
 .search {
   width: 250px;
-  
+
   border-color: #ccc;
 }
 </style>

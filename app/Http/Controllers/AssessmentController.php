@@ -17,7 +17,14 @@ class AssessmentController extends Controller
     {
         $school_id = auth('tutor')->user()->school_id;
         $tutor_id = auth('tutor')->user()->id;
-        return Assessment::where('type', $id)->where('school_id', $school_id)->where('tutor_id', $tutor_id)->get();
+        return Assessment::where('type', $id)->where('school_id', $school_id)->where('tutor_id', $tutor_id)->where('status','!=', 'draft')->get();
+    }
+
+    public function getDraft($id)
+    {
+        $school_id = auth('tutor')->user()->school_id;
+        $tutor_id = auth('tutor')->user()->id;
+        return Assessment::where('type', $id)->where('school_id', $school_id)->where('tutor_id', $tutor_id)->where('status','=', 'draft')->get();
     }
     public function getSingleAssessment($id)
     {
@@ -42,7 +49,7 @@ class AssessmentController extends Controller
         return Assessment::create([
             'school_id'=>$school_id,
             'tutor_id'=>$tutor_id,
-            'title'=>$request->title,
+            'title'=>'Equlibrium',
             'session'=>$request->session,
             'subject'=> $request->subject,
             'type'=>$request->type,
@@ -50,8 +57,29 @@ class AssessmentController extends Controller
             'status'=>'pending',
             'level'=>$request->level,
             'total_score'=>$request->total_score,
-            // 'start'=>$request->start,
-            // 'end'=>$request->end,
+            'start'=>$request->start,
+            'end'=>$request->end,
+            'assessment'=>\json_encode($request->assessment),
+        ]);
+    }
+
+    public function saveDraft(Request $request)
+    {
+        $school_id = auth('tutor')->user()->school_id;
+        $tutor_id = auth('tutor')->user()->id;
+        return Assessment::create([
+            'school_id'=>$school_id,
+            'tutor_id'=>$tutor_id,
+            'title'=>'Equlibrium',
+            'session'=>$request->session,
+            'subject'=> $request->subject,
+            'type'=>$request->type,
+            'duration'=>$request->duration,
+            'status'=>'draft',
+            'level'=>$request->level,
+            'total_score'=>$request->total_score,
+            'start'=>$request->start,
+            'end'=>$request->end,
             'assessment'=>\json_encode($request->assessment),
         ]);
     }
@@ -60,7 +88,7 @@ class AssessmentController extends Controller
     {
         $admin = auth('admin')->user();
        
-        return Assessment::where('school_id', $admin->school_id)->get();
+        return Assessment::where('school_id', $admin->school_id)->where('status','!=', 'draft')->get();
     }
     public function verifyAssessment($id)
     {

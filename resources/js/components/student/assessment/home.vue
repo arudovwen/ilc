@@ -1,48 +1,52 @@
 <template>
  
-  <div class="student-assessment">
-   
-      <b-tabs>
+  <b-container>
+    <b-card no-body class="assess">
+      <b-tabs card justified>
         <b-tab title="Assignment" active>
-            <b-table :fields="fields" :items="assignment" bordered class="main-table">
+          <b-card-text>
+            <b-table :fields="fields" :items="assignment" bordered>
               <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
               <template v-slot:cell(title)="data">
                 <span @click="view(data.item.id)">{{data.item.title}}</span>
               </template>
             </b-table>
-        
+          </b-card-text>
         </b-tab>
          <b-tab title="Quiz" >
-            <b-table :fields="fields" :items="quiz" bordered class="main-table">
+          <b-card-text>
+            <b-table :fields="fields" :items="quiz" bordered>
               <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
               <template v-slot:cell(title)="data">
                 <span @click="view(data.item.id)">{{data.item.title}}</span>
               </template>
             </b-table>
-        
+          </b-card-text>
         </b-tab>
          <b-tab title="Test" >
-            <b-table :fields="fields" :items="test" bordered class="main-table">
+          <b-card-text>
+            <b-table :fields="fields" :items="test" bordered>
               <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
               <template v-slot:cell(title)="data">
                 <span @click="view(data.item.id)">{{data.item.title}}</span>
               </template>
             </b-table>
-        
+          </b-card-text>
         </b-tab>
          <b-tab title="Examination" >
-            <b-table :fields="fields" :items="examination" bordered class="main-table" >
+          <b-card-text>
+            <b-table :fields="fields" :items="examination" bordered>
               <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
               <template v-slot:cell(title)="data">
                 <span @click="view(data.item.id)">{{data.item.title}}</span>
               </template>
             </b-table>
-        
+          </b-card-text>
         </b-tab>
       </b-tabs>
-  
+    </b-card>
 
-  </div>
+  </b-container>
 </template>
 
 
@@ -166,6 +170,10 @@ export default {
 </script>
 
 <style scoped>
+.container{
+  padding-top: 50px;
+  padding-bottom:70px;
+}
 nav {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -178,10 +186,13 @@ nav {
   padding-top: 20px;
 }
 .main-table {
-  margin-top: 20px;
+  padding-top: 20px;
 }
 .student-assessment{
   padding:40px 20px;
+}
+.card-header{
+  background-color: green;
 }
 
 </style>

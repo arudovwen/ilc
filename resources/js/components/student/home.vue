@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="welcome-board">
-      <img src="/images/clip-99.png" alt />
+      <img src="/images/clip-99.png" alt  style="z-index:10"/>
       <div class="welcome-board-content ml-auto">
         <h3>
           Welcome OnBoard
@@ -77,7 +77,7 @@
         <b-col md="4">
           <div class="cards">
             <h5>Today's Class</h5>
-            <div class="class_section">
+            <div class="class_section" v-if="todaysClass.length">
               <div
 
                 class="class-content border-bottom p-2"
@@ -141,6 +141,9 @@
                   >Finished</p>
                 </div>
               </div>
+            </div>
+            <div class="class_section mt-5">
+              <div class="form-control text-align"> No Class Available</div>
             </div>
 
             <div class="log-link">
@@ -363,7 +366,9 @@ export default {
         })
         .then((res) => {
           if (res.status == 200) {
-            this.todaysClass = res.data[0].courses;
+          if (res.data.length) {
+              this.todaysClass = res.data[0].courses;
+          }
           }
         });
     },

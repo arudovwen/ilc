@@ -10295,6 +10295,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -10423,6 +10427,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -11185,8 +11197,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue2_circle_progress__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-circle-progress */ "./node_modules/vue2-circle-progress/dist/vue-circle-progress.js");
-/* harmony import */ var vue2_circle_progress__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue2_circle_progress__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue2_circle_progress__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue2-circle-progress */ "./node_modules/vue2-circle-progress/dist/vue-circle-progress.js");
+/* harmony import */ var vue2_circle_progress__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue2_circle_progress__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -11259,7 +11271,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    VueCircle: vue2_circle_progress__WEBPACK_IMPORTED_MODULE_1___default.a
+    VueCircle: vue2_circle_progress__WEBPACK_IMPORTED_MODULE_0___default.a
   },
   props: ["student"],
   data: function data() {
@@ -11880,6 +11892,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student", "notifications"],
   data: function data() {
@@ -11931,7 +11946,9 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this.todaysClass = res.data[0].courses;
+          if (res.data.length) {
+            _this.todaysClass = res.data[0].courses;
+          }
         }
       });
     },
@@ -12308,13 +12325,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -13826,6 +13836,140 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-datetimepicker */ "./node_modules/vuejs-datetimepicker/src/datetime_picker.vue");
+/* harmony import */ var _tinymce_tinymce_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @tinymce/tinymce-vue */ "./node_modules/@tinymce/tinymce-vue/lib/es2015/main/ts/index.js");
+/* harmony import */ var _preview__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./preview */ "./resources/js/components/tutor/assessment/preview.vue");
+var _methods;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -14065,42 +14209,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["option"],
   components: {
-    datetime: vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__["default"]
+    datetime: vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__["default"],
+    "app-editor": _tinymce_tinymce_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Preview: _preview__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
-      type: "",
-      session: "",
-      title: "",
-      myclass: null,
-      duration: {
-        time: "",
-        type: null
-      },
       total_score: 0,
       subject: null,
-      assessment: [{
-        note: "",
-        question: "",
-        student_answer: "",
-        student_answers: [],
-        answer: "",
-        answers: [{
-          answer: ""
-        }],
-        type: null,
-        answer_type: "single",
-        score: null,
-        values: [{
-          value: ""
-        }, {
-          value: ""
+      obj: {},
+      field: "",
+      busy: true,
+      opened: [],
+      openedQuestion: [],
+      form: [{
+        title: "",
+        description: "",
+        deadline: "",
+        term: "",
+        question: [{
+          title: "",
+          guide: "",
+          answer_format: "",
+          answer: "",
+          real_answer: "",
+          real_answers: [{
+            answer: ""
+          }],
+          answers: [{
+            answer: ""
+          }],
+          limit: "",
+          score: "",
+          placeholder: "",
+          options: [{
+            name: ""
+          }],
+          tools: [],
+          tools_description: "",
+          fields: [],
+          items: [],
+          documents: [{
+            name: "",
+            file: ""
+          }]
         }]
       }],
-      options: [{
-        value: null,
+      scoreOptions: [{
+        value: "",
         text: "Please select score",
         disabled: true
       }, {
@@ -14134,44 +14295,17 @@ __webpack_require__.r(__webpack_exports__);
         value: 10,
         text: "10"
       }],
-      typeOptions: [{
-        value: null,
-        text: "Please select type",
-        disabled: true
-      }, {
-        value: "multi-choice",
-        text: "Multi Choice"
-      }, {
-        value: "theory",
-        text: "Theory"
-      }, {
-        value: "True/False",
-        text: "True/False"
-      }],
-      opened: [],
       subjects: [],
-      allClass: [],
-      times: [{
-        value: null,
-        text: "Select Duration"
-      }, {
-        value: "seconds",
-        text: "seconds"
-      }, {
-        value: "minutes",
-        text: "minutes"
-      }, {
-        value: "hours",
-        text: "hours"
-      }]
+      allClass: []
     };
   },
   mounted: function mounted() {
     this.type = this.$route.params.type;
     this.getSubjects();
     this.getCLasses();
+    this.form.term = this.$props.option.term;
   },
-  methods: {
+  methods: (_methods = {
     getCLasses: function getCLasses() {
       var _this = this;
 
@@ -14208,43 +14342,11 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["catch"]();
     },
-    cancel: function cancel(id) {
-      this.assessment.splice(id, 1);
-
-      if (this.opened.includes(id)) {
-        var ele = this.opened.indexOf(id);
-        this.opened.splice(ele);
-      }
-    },
-    hideNow: function hideNow(id) {
-      this.opened.push(id);
-    },
     cancelOption: function cancelOption(id) {
       this.assessment[id].values.pop();
     },
     cancelAnswer: function cancelAnswer(id) {
       this.assessment[id].answers.pop();
-    },
-    addNew: function addNew(id) {
-      this.opened.push(id);
-      this.assessment.push({
-        note: "",
-        question: "",
-        student_answer: "",
-        student_answers: [],
-        answer: "",
-        answers: [{
-          answer: ""
-        }],
-        type: null,
-        answer_type: "single",
-        score: null,
-        values: [{
-          value: ""
-        }, {
-          value: ""
-        }]
-      });
     },
     addAns: function addAns(id) {
       this.assessment[id].answers.push({
@@ -14256,27 +14358,123 @@ __webpack_require__.r(__webpack_exports__);
         value: ""
       });
     },
-    show: function show(id) {
-      if (this.opened.includes(id)) {
-        var ele = this.opened.indexOf(id);
-        this.opened.splice(ele);
-      }
-    },
-    saveAssessment: function saveAssessment() {
+    processUpload: function processUpload(file) {
       var _this3 = this;
+
+      var that = this;
+      this.start = true;
+      var formData = new FormData();
+      var xhr = new XMLHttpRequest();
+      var cloudName = this.cloudinary.cloudName;
+      var upload_preset = this.cloudinary.uploadPreset;
+      formData.append("file", file);
+      formData.append("resource_type", "auto");
+      formData.append("upload_preset", upload_preset); // REQUIRED
+
+      xhr.open("POST", "https://api.cloudinary.com/v1_1/" + cloudName + "/upload");
+
+      xhr.upload.onprogress = function (e) {
+        if (e.lengthComputable) {
+          that.progress = Math.round(e.loaded / e.total * 100) + "%";
+        }
+      };
+
+      xhr.upload.onloadstart = function (e) {
+        this.progress = "Starting...";
+      };
+
+      xhr.upload.onloadend = function (e) {
+        this.progress = "Completing..";
+      };
+
+      xhr.onload = function (progressEvent) {
+        if (xhr.status === 200) {
+          // Success! You probably want to save the URL somewhere
+          _this3.progress = "Completed";
+          setTimeout(function () {
+            _this3.start = false;
+          }, 1000);
+          var response = JSON.parse(xhr.response);
+          _this3.uploadedFileUrl = response.secure_url; // https address of uploaded file
+
+          _this3.post.coverImage = response.secure_url;
+        } else {
+          _this3.start = false;
+          alert("Upload failed. Please try again.");
+        }
+      };
+
+      xhr.send(formData);
+    },
+    upload_handler: function upload_handler(blobInfo, success, failure) {
+      var xhr, formData;
+      xhr = new XMLHttpRequest();
+      xhr.withCredentials = false;
+      xhr.open("POST", "/api/image-upload");
+
+      xhr.onload = function () {
+        var json;
+
+        if (xhr.status != 200) {
+          failure("HTTP Error: " + xhr.status);
+          return;
+        }
+
+        json = JSON.parse(xhr.responseText);
+
+        if (!json || typeof json.location != "string") {
+          failure("Invalid JSON: " + xhr.responseText);
+          return;
+        }
+
+        success(json.location);
+      };
+
+      formData = new FormData();
+      formData.append("file", blobInfo.blob());
+      xhr.send(formData);
+    },
+    loadFile: function loadFile(cb, value, mt) {
+      var input = document.createElement("input");
+      input.setAttribute("type", "file");
+      input.setAttribute("accept", "image/*");
+
+      input.onchange = function () {
+        var file = this.files[0];
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.onload = function () {
+          var id = "blobid" + new Date().getTime();
+          var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+          var base64 = reader.result.split(",")[1];
+          var blobInfo = blobCache.create(id, file, base64);
+          blobCache.add(blobInfo);
+          cb(blobInfo.blobUri(), {
+            title: file.name
+          });
+        };
+      };
+
+      input.click();
+    },
+    submit: function submit() {
+      var _this4 = this;
 
       var ask = confirm("Are you done?");
 
       if (ask) {
         var tutor = JSON.parse(localStorage.getItem("typeTutor"));
         var data = {
-          subject: this.subject,
-          session: this.session,
-          title: this.title,
-          type: this.type,
-          level: this.myclass,
-          duration: JSON.stringify(this.duration),
-          assessment: this.assessment,
+          subject: this.$props.option.subject,
+          session: this.$props.option.session,
+          title: this.$props.option.title,
+          type: this.$props.option.type,
+          level: this.$props.option.myclass,
+          duration: JSON.stringify(this.$props.option.duration),
+          start: this.$props.option.duration.start_time,
+          end: this.$props.option.duration.end_time,
+          assessment: this.form,
           total_score: this.total_score
         };
         axios.post("/api/assessment", data, {
@@ -14285,14 +14483,152 @@ __webpack_require__.r(__webpack_exports__);
           }
         }).then(function (res) {
           if (res.status == 201) {
-            _this3.$toasted.success("Created successfully");
+            _this4.$toasted.success("Created successfully");
 
-            _this3.$router.go(-1);
+            _this4.$router.go(-1);
           }
         })["catch"]();
       }
+    },
+    saveDraft: function saveDraft() {
+      var _this5 = this;
+
+      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      var data = {
+        subject: this.$props.option.subject,
+        session: this.$props.option.session,
+        title: this.$props.option.title,
+        type: this.$props.option.type,
+        level: this.$props.option.myclass,
+        duration: JSON.stringify(this.$props.option.duration),
+        assessment: this.form,
+        start: this.$props.option.duration.start_time,
+        end: this.$props.option.duration.end_time,
+        total_score: this.total_score
+      };
+      axios.post("/api/draft-assessment", data, {
+        headers: {
+          Authorization: "Bearer ".concat(tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 201) {
+          _this5.$toasted.success("Saved to draft");
+        }
+      })["catch"]();
+    },
+    addSection: function addSection() {
+      this.form.push({
+        title: "",
+        description: "",
+        question: [{
+          title: "",
+          guide: "",
+          answer_format: "",
+          answer: "",
+          answers: [{
+            answer: ""
+          }],
+          limit: "",
+          placeholder: "",
+          score: "",
+          options: [{
+            name: ""
+          }],
+          tools: [],
+          tools_description: "",
+          fields: [],
+          items: [{
+            key: ""
+          }],
+          documents: [{
+            name: "",
+            file: ""
+          }]
+        }]
+      }); // this.opened.push(this.form.length - 1);
+    },
+    removeSection: function removeSection(index) {
+      this.form.splice(index, 1);
+      var ele = this.opened.indexOf(index);
+      this.opened.splice(ele, 1);
+    },
+    hideSection: function hideSection(id) {
+      if (this.opened.includes(id)) {
+        var ele = this.opened.indexOf(id);
+        this.opened.splice(ele, 1);
+      } else {
+        this.opened.push(id);
+      }
+    },
+    toggleQuestion: function toggleQuestion(id) {
+      if (this.openedQuestion.includes(id)) {
+        this.openedQuestion.splice(this.openedQuestion.indexOf(id), 1);
+      } else {
+        this.openedQuestion.push(id);
+      }
+    },
+    addQuestion: function addQuestion(index) {
+      // this.openedQuestion.push(index);
+      this.form[index].question.push({
+        title: "",
+        guide: "",
+        answer_format: "",
+        answer: "",
+        answers: [{
+          answer: ""
+        }],
+        limit: "",
+        placeholder: "",
+        options: [{
+          name: ""
+        }],
+        tools: [],
+        tools_description: "",
+        fields: [],
+        items: [{
+          key: ""
+        }],
+        documents: [{
+          name: "",
+          file: ""
+        }]
+      });
+    },
+    removeQuestion: function removeQuestion(index) {
+      this.form[index].question.pop();
     }
-  }
+  }, _defineProperty(_methods, "addOption", function addOption(index, id) {
+    this.form[index].question[id].options.push({
+      name: ""
+    });
+  }), _defineProperty(_methods, "removeOption", function removeOption(index, id) {
+    this.form[index].question[id].options.pop();
+  }), _defineProperty(_methods, "removeAns", function removeAns(index, id) {
+    this.form[index].question[id].real_answers.pop();
+  }), _defineProperty(_methods, "addField", function addField(e, index, id) {
+    if (this.field !== "") {
+      this.form[index].question[id].fields.push(e);
+      this.field = "";
+    } else {
+      this.$toasted.error("Field empty");
+    }
+  }), _defineProperty(_methods, "addAns", function addAns(index, id) {
+    this.form[index].question[id].real_answers.push({
+      answer: ""
+    });
+  }), _defineProperty(_methods, "handleTable", function handleTable(index, id) {
+    var _this6 = this;
+
+    this.obj = {};
+    this.form[index].question[id].items = [];
+    this.form[index].question[id].fields.forEach(function (item) {
+      _this6.obj[item] = "";
+    });
+    this.form[index].question[id].items.push(this.obj);
+    this.$toasted.info("Table fields created");
+  }), _defineProperty(_methods, "removeField", function removeField(index, id, i) {
+    this.form[index].question[id].fields.splice(i, 1);
+  }), _methods)
 });
 
 /***/ }),
@@ -14443,234 +14779,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-datetimepicker */ "./node_modules/vuejs-datetimepicker/src/datetime_picker.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var _assessmentform__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./assessmentform */ "./resources/js/components/tutor/assessment/assessmentform.vue");
 //
 //
 //
@@ -14751,113 +14860,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    datetime: vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__["default"]
+    datetime: vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__["default"],
+    assess: _assessmentform__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
-      type: "",
-      session: "",
-      title: "",
-      myclass: null,
-      duration: {
-        time: "",
-        type: null
+      quest: false,
+      option: {
+        type: "",
+        session: "",
+        title: "",
+        myclass: null,
+        subject: null,
+        duration: {
+          start_time: "",
+          end_time: ""
+        }
       },
-      total_score: 0,
-      subject: null,
-      assessment: [{
-        note: "",
-        question: "",
-        student_answer: "",
-        student_answers: [],
-        answer: "",
-        answers: [{
-          answer: ""
-        }],
-        type: null,
-        answer_type: "single",
-        score: null,
-        values: [{
-          value: ""
-        }, {
-          value: ""
-        }]
-      }],
-      options: [{
-        value: null,
-        text: "Please select score",
-        disabled: true
-      }, {
-        value: 1,
-        text: "1"
-      }, {
-        value: 2,
-        text: "2"
-      }, {
-        value: 3,
-        text: "3"
-      }, {
-        value: 4,
-        text: "4"
-      }, {
-        value: 5,
-        text: "5"
-      }, {
-        value: 6,
-        text: "6"
-      }, {
-        value: 7,
-        text: "7"
-      }, {
-        value: 8,
-        text: "8"
-      }, {
-        value: 9,
-        text: "9"
-      }, {
-        value: 10,
-        text: "10"
-      }],
-      typeOptions: [{
-        value: null,
-        text: "Please select type",
-        disabled: true
-      }, {
-        value: "multi-choice",
-        text: "Multi Choice"
-      }, {
-        value: "theory",
-        text: "Theory"
-      }, {
-        value: "True/False",
-        text: "True/False"
-      }],
-      opened: [],
       subjects: [],
-      allClass: [],
-      times: [{
-        value: null,
-        text: "Select Duration"
-      }, {
-        value: "seconds",
-        text: "seconds"
-      }, {
-        value: "minutes",
-        text: "minutes"
-      }, {
-        value: "hours",
-        text: "hours"
-      }]
+      allClass: []
     };
   },
   mounted: function mounted() {
-    this.type = this.$route.params.type;
+    this.option.type = this.$route.params.type;
     this.getSubjects();
     this.getCLasses();
   },
   methods: {
+    switchQuest: function switchQuest() {
+      this.quest = !this.quest;
+    },
     getCLasses: function getCLasses() {
       var _this = this;
 
@@ -15476,6 +15511,184 @@ __webpack_require__.r(__webpack_exports__);
     },
     view: function view(id) {
       this.$router.push("/admin/tutor/view/".concat(id));
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/assessment/preview.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/assessment/preview.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _miniupload__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../miniupload */ "./resources/js/components/miniupload.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["form", "options"],
+  data: function data() {
+    return {
+      lgas: [],
+      num: 0,
+      show: false
+    };
+  },
+  components: {
+    Upload: _miniupload__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  mounted: function mounted() {},
+  methods: {
+    handleShow: function handleShow() {
+      this.show = !this.show;
+    },
+    next: function next() {
+      this.num++;
+    },
+    prev: function prev() {
+      if (this.num !== 0) {
+        this.num--;
+      }
     }
   }
 });
@@ -21558,7 +21771,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nnav[data-v-71c18bbd] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-71c18bbd] {\n  opacity: 0;\n}\n.overall-tab[data-v-71c18bbd] {\n  padding-top: 20px;\n}\n.main-table[data-v-71c18bbd] {\n  margin-top: 20px;\n}\n.student-assessment[data-v-71c18bbd]{\n  padding:40px 20px;\n}\n\n", ""]);
+exports.push([module.i, "\n.container[data-v-71c18bbd]{\n  padding-top: 50px;\n  padding-bottom:70px;\n}\nnav[data-v-71c18bbd] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-71c18bbd] {\n  opacity: 0;\n}\n.overall-tab[data-v-71c18bbd] {\n  padding-top: 20px;\n}\n.main-table[data-v-71c18bbd] {\n  padding-top: 20px;\n}\n.student-assessment[data-v-71c18bbd]{\n  padding:40px 20px;\n}\n.card-header[data-v-71c18bbd]{\n  background-color: green;\n}\n\n", ""]);
 
 // exports
 
@@ -21577,7 +21790,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.btn-sm[data-v-53f902fa] {\n  padding: 0.1rem 0.4rem;\n  font-size: 0.4rem;\n  line-height: 1.5;\n}\n.container[data-v-53f902fa] {\n  width: 80%;\n  margin: 0 auto;\n}\n.bod[data-v-53f902fa] {\n  background: #f7f8fa;\n}\n", ""]);
+exports.push([module.i, "\n.btn-sm[data-v-53f902fa] {\n  padding: 0.1rem 0.4rem;\n  font-size: 0.4rem;\n  line-height: 1.5;\n}\n.container-fluid[data-v-53f902fa] {\n  padding: 20px;\n  margin: 0 auto;\n  height: 100%;\n}\nform[data-v-53f902fa] {\n}\n.bod[data-v-53f902fa] {\n  background: #f7f8fa;\n}\n", ""]);
 
 // exports
 
@@ -21748,7 +21961,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.nav[data-v-09903b50]{\nbackground: rgba(255, 247, 237, 0.68);\n}\n.nav-item i[data-v-09903b50] {\n  color: #808080;\n  font-size: 24px;\n}\n.anime-stop[data-v-09903b50]{\n  -webkit-animation:none;\n          animation:none;\n}\n.bell[data-v-09903b50]{\n  color: #13a699;\n}\n.bell[data-v-09903b50]:hover{\n  color:#008e3a;\n}\n#notification[data-v-09903b50] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-09903b50] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-09903b50] {\n  max-height: 300px;\n  overflow: scroll;\n}\n.icon[data-v-09903b50] {\n  position: relative;\n}\n.badge[data-v-09903b50] {\n  position: absolute;\n  top: -10%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 13px;\n}\n.list-group-item[data-v-09903b50] {\n  font-size: 12px;\n}\n/* .semi-white{\n\n  padding:50px 20px;\n\n}\nnav {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background:white;\n}\n\n.fa-bell {\n  font-size: 24px;\n  color:#ffd708;\n} */\n.search[data-v-09903b50] {\n  width: 250px;\n  \n  border-color: #ccc;\n}\n", ""]);
+exports.push([module.i, "\n.nav[data-v-09903b50] {\n  background: #f7f8fa;\n  position:-webkit-sticky;\n  position:sticky;\n  top:0;\n  z-index: 9;\n}\n.nav-item i[data-v-09903b50] {\n  color: #808080;\n  font-size: 24px;\n}\n.anime-stop[data-v-09903b50] {\n  -webkit-animation: none;\n          animation: none;\n}\n.bell[data-v-09903b50] {\n  color: #13a699;\n}\n.bell[data-v-09903b50]:hover {\n  color: #008e3a;\n}\n#notification[data-v-09903b50] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-09903b50] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-09903b50] {\n  max-height: 300px;\n  overflow: scroll;\n}\nul[data-v-09903b50]{\n  margin: 0;\n}\n.icon[data-v-09903b50] {\n  position: relative;\n}\n.badge[data-v-09903b50] {\n  position: absolute;\n  top: -10%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 13px;\n}\n.list-group-item[data-v-09903b50] {\n  font-size: 12px;\n}\n/* .semi-white{\n\n  padding:50px 20px;\n\n}\nnav {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background:white;\n}\n\n.fa-bell {\n  font-size: 24px;\n  color:#ffd708;\n} */\n.search[data-v-09903b50] {\n  width: 250px;\n\n  border-color: #ccc;\n}\n", ""]);
 
 // exports
 
@@ -21862,7 +22075,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.main-box[data-v-b3669d42] {\n  padding: 20px;\n  background: #fff;\n  border-radius: 10px;\n  position: relative;\n  box-shadow: 5px 4px 11px rgba(249, 247, 240, 0.25);\n}\n.top-box[data-v-b3669d42] {\n  margin: 0 auto;\n  background: white;\n  height: auto;\n}\n.bottom-box[data-v-b3669d42] {\n  margin: 0 auto;\n  background: white;\n}\n.hide[data-v-b3669d42] {\n  height: 120px;\n  overflow: hidden;\n}\n.btn-sm[data-v-b3669d42] {\n  padding: 0.1rem 0.4rem;\n  font-size: 0.4rem;\n  line-height: 1.5;\n}\n.custom-select[data-v-b3669d42] {\n  display: inline-block !important;\n  width: 100%;\n  height: calc(1.5em + 0.75rem + 2px);\n  padding: 0.375rem 1.75rem 0.375rem 0.75rem;\n  font-size: 1rem;\n  font-weight: 400;\n  line-height: 1.5;\n  color: #495057;\n  vertical-align: middle;\n  /* background: #fff; */\n  border: 1px solid #ced4da;\n  border-radius: 0.25rem;\n  /* -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none; */\n  background: #fff url(/images/down-chevron.png) no-repeat right 0.75rem\n    center/8px 10px;\n}\n.right-btn[data-v-b3669d42] {\n  display: flex;\n  justify-content: flex-end;\n  margin-right: 25px;\n  margin-top: 25px;\n}\n.upload-btn-wrapper[data-v-b3669d42] {\n  position: relative;\n  overflow: hidden;\n  display: inline-block;\n  width: 100%;\n}\n.upload-btn-wrapper .btn[data-v-b3669d42] {\n  border: 1px solid gray;\n  color: gray;\n  background-color: white;\n  padding: 8px 20px;\n  border-radius: 8px;\n  font-size: 20px;\n  font-weight: bold;\n  border-style: dotted;\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.upload-btn-wrapper input[type=file][data-v-b3669d42] {\n  font-size: 100px;\n  position: absolute;\n  left: 0;\n  top: 0;\n  opacity: 0;\n}\n.save[data-v-b3669d42]{\n  background: #fff;\n  border-radius: 10px;\n  display: flex;\n  flex-direction:column;\n  padding: 15px;\n  margin-top: 2rem;\n}\n.btn[data-v-b3669d42]{\n  padding: 10px 20px;\n  border-radius: 5px;\n  margin: 10px;\n}\n.btn-save[data-v-b3669d42]{\n  background: #0a4065;\n  color: #fff;\n}\n.btn-submit[data-v-b3669d42]{\n  background: transparent;\n  border: 1px solid #0a4065;\n  color: #0a4065;\n}\n.preview[data-v-b3669d42]{\n  background: #fff;\n  margin-top: 1.5rem;\n  border-radius: 10px;\n  padding: 10px;\n}\n.btn-trash[data-v-b3669d42]{\n  color: red;\n}\n.action-btn[data-v-b3669d42]{\n  display: flex;\n}\n.btn-preview[data-v-b3669d42]{\n  background: #ced4da;\n  border-radius: 5px;\n}\n.publish-btn[data-v-b3669d42]{\n  display: flex;\n  justify-content: flex-end;\n}\n.btn-publish[data-v-b3669d42]{\n background: #0a4065;\n  color: #fff;\n}\n", ""]);
+exports.push([module.i, "\n.container-fluid[data-v-b3669d42] {\n  width: 97%;\n}\n.main-box[data-v-b3669d42] {\n  padding: 20px;\n  background: #fff;\n  border-radius: 10px;\n  position: relative;\n  box-shadow: 5px 4px 11px rgba(249, 247, 240, 0.25);\n}\n.top-box[data-v-b3669d42] {\n  margin: 0 auto;\n  background: white;\n  height: auto;\n}\n.right-bar[data-v-b3669d42] {\n  margin-top: 2rem;\n}\n.bottom-box[data-v-b3669d42] {\n  margin: 0 auto;\n  background: white;\n}\n.form-group[data-v-b3669d42] {\n  margin: 0;\n  margin-bottom: 1rem;\n}\n.hide[data-v-b3669d42] {\n  height: 120px;\n  overflow: hidden;\n}\n.custom-select[data-v-b3669d42] {\n  display: inline-block !important;\n  width: 100%;\n  height: calc(1.5em + 0.75rem + 2px);\n  padding: 0.375rem 1.75rem 0.375rem 0.75rem;\n  font-size: 1rem;\n  font-weight: 400;\n  line-height: 1.5;\n  color: #495057;\n  vertical-align: middle;\n  /* background: #fff; */\n  border: 1px solid #ced4da;\n  border-radius: 0.25rem;\n  /* -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none; */\n  background: #fff url(/images/down-chevron.png) no-repeat right 0.75rem\n    center/8px 10px;\n}\n.right-btn[data-v-b3669d42] {\n  display: flex;\n  justify-content: flex-end;\n  margin-right: 25px;\n  margin-top: 25px;\n}\n.upload-btn-wrapper[data-v-b3669d42] {\n  position: relative;\n  overflow: hidden;\n  display: inline-block;\n  width: 100%;\n}\n.upload-btn-wrapper .btn[data-v-b3669d42] {\n  border: 1px solid gray;\n  color: gray;\n  background-color: white;\n  padding: 8px 20px;\n  border-radius: 8px;\n  font-size: 20px;\n  font-weight: bold;\n  border-style: dotted;\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.upload-btn-wrapper input[type=\"file\"][data-v-b3669d42] {\n  font-size: 100px;\n  position: absolute;\n  left: 0;\n  top: 0;\n  opacity: 0;\n}\n.save[data-v-b3669d42] {\n  background: #fff;\n  border-radius: 10px;\n  display: flex;\n  flex-direction: column;\n  padding: 15px;\n  margin-top: 2rem;\n}\n.btn-save[data-v-b3669d42] {\n  background: #0a4065;\n  color: #fff;\n}\n.btn-submit[data-v-b3669d42] {\n  background: transparent;\n  border: 1px solid #0a4065;\n  color: #0a4065;\n}\n.preview[data-v-b3669d42] {\n  background: #fff;\n  margin-top: 1.5rem;\n  border-radius: 10px;\n  padding: 10px;\n}\n.btn-trash[data-v-b3669d42] {\n  color: red;\n}\n.action-btn[data-v-b3669d42] {\n}\n.btn-preview[data-v-b3669d42] {\n  background: #ced4da;\n  border-radius: 5px;\n}\n.publish-btn[data-v-b3669d42] {\n  display: flex;\n  justify-content: flex-end;\n}\n.btn-publish[data-v-b3669d42] {\n  background: #0a4065;\n  color: #fff;\n}\n.main-box[data-v-b3669d42] {\n  padding: 20px;\n  background: #f7f8fa;\n  position: relative;\n}\nsection[data-v-b3669d42] {\n  background: #fff;\n}\n.top-box[data-v-b3669d42] {\n  margin: 0 auto;\n  background: white;\n  height: auto;\n}\n.bottom-box[data-v-b3669d42] {\n  margin: 0 auto;\n  background: white;\n}\n.hide[data-v-b3669d42] {\n  height: 120px;\n  overflow: hidden;\n}\n", ""]);
 
 // exports
 
@@ -22090,7 +22303,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.semi-white[data-v-2e28e87d]{\n background: #F9F7F0;\n min-height: 100%;\n}\nnav[data-v-2e28e87d] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);\n}\n#notification[data-v-2e28e87d] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-2e28e87d] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-2e28e87d] {\n  max-height: 300px;\n overflow: scroll;\n}\n.icon[data-v-2e28e87d] {\n  position: relative;\n}\n.badge[data-v-2e28e87d] {\n  position: absolute;\n  top: -10%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 14px;\n}\n.list-group-item[data-v-2e28e87d] {\n  font-size: 14px;\n}\n.fa-bell[data-v-2e28e87d] {\n  font-size: 24px;\n  color:#41cee2;\n}\n.search[data-v-2e28e87d]{\n  width:250px;\n  border-color:#41cee2\n}\n", ""]);
+exports.push([module.i, "\n.semi-white[data-v-2e28e87d]{\n background: #F9F7F0;\n min-height: 100%;\n}\nnav[data-v-2e28e87d] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);\n  position: -webkit-sticky;\n  position: sticky;\n  top:0;\n  background:#fff;\n  z-index: 999;\n}\n#notification[data-v-2e28e87d] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-2e28e87d] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-2e28e87d] {\n  max-height: 300px;\n overflow: scroll;\n}\n.icon[data-v-2e28e87d] {\n  position: relative;\n}\n.badge[data-v-2e28e87d] {\n  position: absolute;\n  top: -10%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 14px;\n}\n.list-group-item[data-v-2e28e87d] {\n  font-size: 14px;\n}\n.fa-bell[data-v-2e28e87d] {\n  font-size: 24px;\n  color:#41cee2;\n}\n.search[data-v-2e28e87d]{\n  width:250px;\n  border-color:#41cee2\n}\n", ""]);
 
 // exports
 
@@ -42597,168 +42810,203 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
-    { staticClass: "student-assessment" },
+    "b-container",
     [
       _c(
-        "b-tabs",
+        "b-card",
+        { staticClass: "assess", attrs: { "no-body": "" } },
         [
           _c(
-            "b-tab",
-            { attrs: { title: "Assignment", active: "" } },
+            "b-tabs",
+            { attrs: { card: "", justified: "" } },
             [
-              _c("b-table", {
-                staticClass: "main-table",
-                attrs: {
-                  fields: _vm.fields,
-                  items: _vm.assignment,
-                  bordered: ""
-                },
-                scopedSlots: _vm._u([
-                  {
-                    key: "cell(Sn)",
-                    fn: function(data) {
-                      return [_vm._v(_vm._s(data.index + 1))]
-                    }
-                  },
-                  {
-                    key: "cell(title)",
-                    fn: function(data) {
-                      return [
-                        _c(
-                          "span",
+              _c(
+                "b-tab",
+                { attrs: { title: "Assignment", active: "" } },
+                [
+                  _c(
+                    "b-card-text",
+                    [
+                      _c("b-table", {
+                        attrs: {
+                          fields: _vm.fields,
+                          items: _vm.assignment,
+                          bordered: ""
+                        },
+                        scopedSlots: _vm._u([
                           {
-                            on: {
-                              click: function($event) {
-                                return _vm.view(data.item.id)
-                              }
+                            key: "cell(Sn)",
+                            fn: function(data) {
+                              return [_vm._v(_vm._s(data.index + 1))]
                             }
                           },
-                          [_vm._v(_vm._s(data.item.title))]
-                        )
-                      ]
-                    }
-                  }
-                ])
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-tab",
-            { attrs: { title: "Quiz" } },
-            [
-              _c("b-table", {
-                staticClass: "main-table",
-                attrs: { fields: _vm.fields, items: _vm.quiz, bordered: "" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "cell(Sn)",
-                    fn: function(data) {
-                      return [_vm._v(_vm._s(data.index + 1))]
-                    }
-                  },
-                  {
-                    key: "cell(title)",
-                    fn: function(data) {
-                      return [
-                        _c(
-                          "span",
                           {
-                            on: {
-                              click: function($event) {
-                                return _vm.view(data.item.id)
-                              }
+                            key: "cell(title)",
+                            fn: function(data) {
+                              return [
+                                _c(
+                                  "span",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.view(data.item.id)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(data.item.title))]
+                                )
+                              ]
+                            }
+                          }
+                        ])
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-tab",
+                { attrs: { title: "Quiz" } },
+                [
+                  _c(
+                    "b-card-text",
+                    [
+                      _c("b-table", {
+                        attrs: {
+                          fields: _vm.fields,
+                          items: _vm.quiz,
+                          bordered: ""
+                        },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "cell(Sn)",
+                            fn: function(data) {
+                              return [_vm._v(_vm._s(data.index + 1))]
                             }
                           },
-                          [_vm._v(_vm._s(data.item.title))]
-                        )
-                      ]
-                    }
-                  }
-                ])
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-tab",
-            { attrs: { title: "Test" } },
-            [
-              _c("b-table", {
-                staticClass: "main-table",
-                attrs: { fields: _vm.fields, items: _vm.test, bordered: "" },
-                scopedSlots: _vm._u([
-                  {
-                    key: "cell(Sn)",
-                    fn: function(data) {
-                      return [_vm._v(_vm._s(data.index + 1))]
-                    }
-                  },
-                  {
-                    key: "cell(title)",
-                    fn: function(data) {
-                      return [
-                        _c(
-                          "span",
                           {
-                            on: {
-                              click: function($event) {
-                                return _vm.view(data.item.id)
-                              }
+                            key: "cell(title)",
+                            fn: function(data) {
+                              return [
+                                _c(
+                                  "span",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.view(data.item.id)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(data.item.title))]
+                                )
+                              ]
+                            }
+                          }
+                        ])
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-tab",
+                { attrs: { title: "Test" } },
+                [
+                  _c(
+                    "b-card-text",
+                    [
+                      _c("b-table", {
+                        attrs: {
+                          fields: _vm.fields,
+                          items: _vm.test,
+                          bordered: ""
+                        },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "cell(Sn)",
+                            fn: function(data) {
+                              return [_vm._v(_vm._s(data.index + 1))]
                             }
                           },
-                          [_vm._v(_vm._s(data.item.title))]
-                        )
-                      ]
-                    }
-                  }
-                ])
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-tab",
-            { attrs: { title: "Examination" } },
-            [
-              _c("b-table", {
-                staticClass: "main-table",
-                attrs: {
-                  fields: _vm.fields,
-                  items: _vm.examination,
-                  bordered: ""
-                },
-                scopedSlots: _vm._u([
-                  {
-                    key: "cell(Sn)",
-                    fn: function(data) {
-                      return [_vm._v(_vm._s(data.index + 1))]
-                    }
-                  },
-                  {
-                    key: "cell(title)",
-                    fn: function(data) {
-                      return [
-                        _c(
-                          "span",
                           {
-                            on: {
-                              click: function($event) {
-                                return _vm.view(data.item.id)
-                              }
+                            key: "cell(title)",
+                            fn: function(data) {
+                              return [
+                                _c(
+                                  "span",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.view(data.item.id)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(data.item.title))]
+                                )
+                              ]
+                            }
+                          }
+                        ])
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-tab",
+                { attrs: { title: "Examination" } },
+                [
+                  _c(
+                    "b-card-text",
+                    [
+                      _c("b-table", {
+                        attrs: {
+                          fields: _vm.fields,
+                          items: _vm.examination,
+                          bordered: ""
+                        },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "cell(Sn)",
+                            fn: function(data) {
+                              return [_vm._v(_vm._s(data.index + 1))]
                             }
                           },
-                          [_vm._v(_vm._s(data.item.title))]
-                        )
-                      ]
-                    }
-                  }
-                ])
-              })
+                          {
+                            key: "cell(title)",
+                            fn: function(data) {
+                              return [
+                                _c(
+                                  "span",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.view(data.item.id)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(data.item.title))]
+                                )
+                              ]
+                            }
+                          }
+                        ])
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
             ],
             1
           )
@@ -42797,59 +43045,75 @@ var render = function() {
     [
       _c(
         "b-container",
-        {},
+        { staticClass: "bg-white", attrs: { fluid: "" } },
         [
-          _c("b-row", { staticClass: "justify-content-center" }, [
-            _c("h3", { staticClass: "toCaps text-center mb-3" }, [
-              _vm._v(_vm._s(_vm.subject))
-            ])
-          ]),
+          _c(
+            "b-row",
+            { staticClass: "justify-content-center  mb-4" },
+            [
+              _c("b-col", [
+                _c("h3", { staticClass: "toCaps text-center " }, [
+                  _vm._v(_vm._s(_vm.subject))
+                ])
+              ])
+            ],
+            1
+          ),
           _vm._v(" "),
           _c(
             "b-row",
-            { staticClass: "justify-content-between align-items-center" },
+            { staticClass: "justify-content-between align-items-center mb-3" },
             [
-              _vm.session
-                ? _c("h6", { staticClass: "toCaps" }, [
-                    _c("span", { staticClass: "text-muted" }, [
-                      _vm._v("Term :")
-                    ]),
-                    _vm._v("\n        " + _vm._s(_vm.session) + "\n      ")
-                  ])
-                : _vm._e(),
+              _c("b-col", [
+                _vm.session
+                  ? _c("h6", { staticClass: "toCaps" }, [
+                      _c("span", { staticClass: "text-muted" }, [
+                        _vm._v("Term :")
+                      ]),
+                      _vm._v("\n        " + _vm._s(_vm.session) + "\n      ")
+                    ])
+                  : _vm._e()
+              ]),
               _vm._v(" "),
-              _vm.myclass
-                ? _c("h6", { staticClass: "toCaps" }, [
-                    _c("span", { staticClass: "text-muted" }, [
-                      _vm._v("Level :")
-                    ]),
-                    _vm._v("\n        " + _vm._s(_vm.myclass) + "\n      ")
-                  ])
-                : _vm._e(),
+              _c("b-col", [
+                _vm.myclass
+                  ? _c("h6", { staticClass: "toCaps" }, [
+                      _c("span", { staticClass: "text-muted" }, [
+                        _vm._v("Level :")
+                      ]),
+                      _vm._v("\n        " + _vm._s(_vm.myclass) + "\n      ")
+                    ])
+                  : _vm._e()
+              ]),
               _vm._v(" "),
-              _vm.title
-                ? _c("h6", { staticClass: "toCaps" }, [
-                    _c("span", { staticClass: "text-muted" }, [
-                      _vm._v("Title :")
-                    ]),
-                    _vm._v("\n        " + _vm._s(_vm.title) + "\n      ")
-                  ])
-                : _vm._e(),
+              _c("b-col", [
+                _vm.title
+                  ? _c("h6", { staticClass: "toCaps" }, [
+                      _c("span", { staticClass: "text-muted" }, [
+                        _vm._v("Title :")
+                      ]),
+                      _vm._v("\n        " + _vm._s(_vm.title) + "\n      ")
+                    ])
+                  : _vm._e()
+              ]),
               _vm._v(" "),
-              _vm.duration.time
-                ? _c("strong", { staticClass: "mb-4" }, [
-                    _c("span", { staticClass: "text-muted" }, [
-                      _vm._v("Duration :")
-                    ]),
-                    _vm._v(
-                      "\n        " +
-                        _vm._s(_vm.duration.time) +
-                        _vm._s(_vm.duration.type) +
-                        "\n      "
-                    )
-                  ])
-                : _vm._e()
-            ]
+              _c("b-col", [
+                _vm.duration.time
+                  ? _c("strong", { staticClass: "mb-4" }, [
+                      _c("span", { staticClass: "text-muted" }, [
+                        _vm._v("Duration :")
+                      ]),
+                      _vm._v(
+                        "\n        " +
+                          _vm._s(_vm.duration.time) +
+                          _vm._s(_vm.duration.type) +
+                          "\n      "
+                      )
+                    ])
+                  : _vm._e()
+              ])
+            ],
+            1
           ),
           _vm._v(" "),
           _c(
@@ -44126,7 +44390,10 @@ var render = function() {
     { staticClass: "container" },
     [
       _c("div", { staticClass: "welcome-board" }, [
-        _c("img", { attrs: { src: "/images/clip-99.png", alt: "" } }),
+        _c("img", {
+          staticStyle: { "z-index": "10" },
+          attrs: { src: "/images/clip-99.png", alt: "" }
+        }),
         _vm._v(" "),
         _c("div", { staticClass: "welcome-board-content ml-auto" }, [
           _c("h3", [
@@ -44277,133 +44544,147 @@ var render = function() {
                 _c("div", { staticClass: "cards" }, [
                   _c("h5", [_vm._v("Today's Class")]),
                   _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "class_section" },
-                    _vm._l(_vm.todaysClass, function(item, idx) {
-                      return _c(
+                  _vm.todaysClass.length
+                    ? _c(
                         "div",
-                        {
-                          key: idx,
-                          staticClass: "class-content border-bottom p-2"
-                        },
-                        [
-                          _c(
+                        { staticClass: "class_section" },
+                        _vm._l(_vm.todaysClass, function(item, idx) {
+                          return _c(
                             "div",
-                            { staticClass: "class-content-top" },
+                            {
+                              key: idx,
+                              staticClass: "class-content border-bottom p-2"
+                            },
                             [
-                              _c("h6", { staticClass: "toCaps" }, [
-                                _vm._v(_vm._s(item.subject))
-                              ]),
-                              _vm._v(" "),
-                              _vm.getSecond(_vm.today) >
-                                _vm.getSecond(item.start) &&
-                              _vm.getSecond(_vm.today) < _vm.getSecond(item.end)
-                                ? _c("i", {
-                                    staticClass: "fa fa-play-circle-o green",
-                                    attrs: { "aria-hidden": "true" }
-                                  })
-                                : _vm.getSecond(_vm.today) <
-                                    _vm.getSecond(item.start) &&
-                                  _vm.getSecond(_vm.today) <
-                                    _vm.getSecond(item.end)
-                                ? _c("i", {
-                                    staticClass: "fa fa-dot-circle-o text-dark",
-                                    attrs: { "aria-hidden": "true" }
-                                  })
-                                : _vm.getSecond(_vm.today) >
-                                    _vm.getSecond(item.start) &&
-                                  _vm.getSecond(_vm.today) >
-                                    _vm.getSecond(item.end)
-                                ? _c("i", {
-                                    staticClass: "fa fa-stop-circle-o red",
-                                    attrs: {
-                                      id: idx.toString(),
-                                      "aria-hidden": "true"
-                                    }
-                                  })
-                                : _vm._e(),
-                              _vm._v(" "),
                               _c(
-                                "b-tooltip",
-                                {
-                                  ref: "tooltip",
-                                  refInFor: true,
-                                  attrs: { target: idx.toString() }
-                                },
+                                "div",
+                                { staticClass: "class-content-top" },
                                 [
+                                  _c("h6", { staticClass: "toCaps" }, [
+                                    _vm._v(_vm._s(item.subject))
+                                  ]),
+                                  _vm._v(" "),
                                   _vm.getSecond(_vm.today) >
                                     _vm.getSecond(item.start) &&
                                   _vm.getSecond(_vm.today) <
                                     _vm.getSecond(item.end)
-                                    ? _c("p", { staticClass: "m-0" }, [
-                                        _vm._v("This class is ongoing")
-                                      ])
+                                    ? _c("i", {
+                                        staticClass:
+                                          "fa fa-play-circle-o green",
+                                        attrs: { "aria-hidden": "true" }
+                                      })
                                     : _vm.getSecond(_vm.today) <
                                         _vm.getSecond(item.start) &&
                                       _vm.getSecond(_vm.today) <
                                         _vm.getSecond(item.end)
-                                    ? _c("p", { staticClass: "m-0" }, [
-                                        _vm._v(
-                                          "This class begins by " +
-                                            _vm._s(_vm._f("format")(item.start))
-                                        )
-                                      ])
+                                    ? _c("i", {
+                                        staticClass:
+                                          "fa fa-dot-circle-o text-dark",
+                                        attrs: { "aria-hidden": "true" }
+                                      })
                                     : _vm.getSecond(_vm.today) >
                                         _vm.getSecond(item.start) &&
                                       _vm.getSecond(_vm.today) >
                                         _vm.getSecond(item.end)
-                                    ? _c("p", { staticClass: "m-0" }, [
-                                        _vm._v("This class has ended")
-                                      ])
-                                    : _vm._e()
-                                ]
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("small", [
-                            _vm._v(
-                              _vm._s(_vm._f("format")(item.start)) +
-                                " to " +
-                                _vm._s(_vm._f("format")(item.end))
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "class-content-main" }, [
-                            _c("p", [
-                              _c("span", [
+                                    ? _c("i", {
+                                        staticClass: "fa fa-stop-circle-o red",
+                                        attrs: {
+                                          id: idx.toString(),
+                                          "aria-hidden": "true"
+                                        }
+                                      })
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-tooltip",
+                                    {
+                                      ref: "tooltip",
+                                      refInFor: true,
+                                      attrs: { target: idx.toString() }
+                                    },
+                                    [
+                                      _vm.getSecond(_vm.today) >
+                                        _vm.getSecond(item.start) &&
+                                      _vm.getSecond(_vm.today) <
+                                        _vm.getSecond(item.end)
+                                        ? _c("p", { staticClass: "m-0" }, [
+                                            _vm._v("This class is ongoing")
+                                          ])
+                                        : _vm.getSecond(_vm.today) <
+                                            _vm.getSecond(item.start) &&
+                                          _vm.getSecond(_vm.today) <
+                                            _vm.getSecond(item.end)
+                                        ? _c("p", { staticClass: "m-0" }, [
+                                            _vm._v(
+                                              "This class begins by " +
+                                                _vm._s(
+                                                  _vm._f("format")(item.start)
+                                                )
+                                            )
+                                          ])
+                                        : _vm.getSecond(_vm.today) >
+                                            _vm.getSecond(item.start) &&
+                                          _vm.getSecond(_vm.today) >
+                                            _vm.getSecond(item.end)
+                                        ? _c("p", { staticClass: "m-0" }, [
+                                            _vm._v("This class has ended")
+                                          ])
+                                        : _vm._e()
+                                    ]
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c("small", [
                                 _vm._v(
-                                  "\n                    by:\n                    "
-                                ),
-                                _c("strong", { staticClass: "toCaps" }, [
-                                  _vm._v(_vm._s(item.tutor))
-                                ])
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _vm.getSecond(_vm.today) >
-                              _vm.getSecond(item.start) &&
-                            _vm.getSecond(_vm.today) < _vm.getSecond(item.end)
-                              ? _c("p", [_vm._v("Ongoing")])
-                              : _vm.getSecond(_vm.today) <
+                                  _vm._s(_vm._f("format")(item.start)) +
+                                    " to " +
+                                    _vm._s(_vm._f("format")(item.end))
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "class-content-main" }, [
+                                _c("p", [
+                                  _c("span", [
+                                    _vm._v(
+                                      "\n                    by:\n                    "
+                                    ),
+                                    _c("strong", { staticClass: "toCaps" }, [
+                                      _vm._v(_vm._s(item.tutor))
+                                    ])
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _vm.getSecond(_vm.today) >
                                   _vm.getSecond(item.start) &&
                                 _vm.getSecond(_vm.today) <
                                   _vm.getSecond(item.end)
-                              ? _c("p", [_vm._v("Upcoming")])
-                              : _vm.getSecond(_vm.today) >
-                                  _vm.getSecond(item.start) &&
-                                _vm.getSecond(_vm.today) >
-                                  _vm.getSecond(item.end)
-                              ? _c("p", [_vm._v("Finished")])
-                              : _vm._e()
-                          ])
-                        ]
+                                  ? _c("p", [_vm._v("Ongoing")])
+                                  : _vm.getSecond(_vm.today) <
+                                      _vm.getSecond(item.start) &&
+                                    _vm.getSecond(_vm.today) <
+                                      _vm.getSecond(item.end)
+                                  ? _c("p", [_vm._v("Upcoming")])
+                                  : _vm.getSecond(_vm.today) >
+                                      _vm.getSecond(item.start) &&
+                                    _vm.getSecond(_vm.today) >
+                                      _vm.getSecond(item.end)
+                                  ? _c("p", [_vm._v("Finished")])
+                                  : _vm._e()
+                              ])
+                            ]
+                          )
+                        }),
+                        0
                       )
-                    }),
-                    0
-                  ),
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "class_section mt-5" }, [
+                    _c("div", { staticClass: "form-control text-align" }, [
+                      _vm._v(" No Class Available")
+                    ])
+                  ]),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -45274,13 +45555,17 @@ var render = function() {
     [
       _c(
         "b-nav",
-        { staticClass: "py-2 ", attrs: { align: "right" } },
+        { staticClass: "py-1 shadow-sm", attrs: { align: "right" } },
         [
           _c(
             "b-nav-item",
             [
               _c("b-avatar", {
-                attrs: { to: "/student/profile", src: _vm.student.profile }
+                attrs: {
+                  to: "/student/profile",
+                  size: "sm",
+                  src: _vm.student.profile
+                }
               })
             ],
             1
@@ -45291,13 +45576,13 @@ var render = function() {
             [
               _c("b-form-input", {
                 staticClass: "search rounded-pill",
-                attrs: { placeholder: "Search... " }
+                attrs: { placeholder: "Search... ", size: "sm" }
               })
             ],
             1
           ),
           _vm._v(" "),
-          _c("b-nav-item", { staticClass: "py-0 px-3" }, [
+          _c("b-nav-item", { staticClass: "py-0 px-2" }, [
             _c("div", { staticClass: "mx-3", attrs: { id: "notification" } }, [
               _c(
                 "div",
@@ -47596,410 +47881,1813 @@ var render = function() {
     [
       _c(
         "b-container",
+        { attrs: { fluid: "" } },
         [
           _c(
             "b-row",
             [
+              _c("b-col", { staticClass: "text-center" }, [
+                _c("h6", { staticClass: "text-center" }, [
+                  _vm._v(_vm._s(_vm.option.title))
+                ])
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-row",
+            { staticClass: "pt-3" },
+            [
               _c(
                 "b-col",
-                { attrs: { md: "8" } },
+                { staticClass: "bg-white right-bar", attrs: { md: "9" } },
                 [
-                  _c("h5", { staticClass: "text-center" }, [
-                    _vm._v("Question")
-                  ]),
-                  _vm._v(" "),
-                  _vm._l(_vm.assessment, function(item, idx) {
-                    return _c(
-                      "div",
-                      {
-                        key: idx,
-                        staticClass: "main-box mb-4",
-                        class: { hide: _vm.opened.includes(idx) }
-                      },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "top-buttons d-flex justify-content-between"
-                          },
-                          [
-                            _c("div", [
-                              _vm.opened.includes(idx)
-                                ? _c("i", {
-                                    staticClass: "fas fa-plus-circle",
-                                    attrs: { "aria-hidden": "true" },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.show(idx)
-                                      }
-                                    }
-                                  })
-                                : _c("i", {
-                                    staticClass: "fas fa-minus-circle",
-                                    attrs: { "aria-hidden": "true" },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.hideNow(idx)
-                                      }
-                                    }
-                                  })
-                            ]),
-                            _vm._v(" "),
-                            _c("div", [
-                              _vm.assessment.length > 1
-                                ? _c("i", {
-                                    staticClass: "fas fa-times-circle",
-                                    attrs: { "aria-hidden": "true" },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.cancel(idx)
-                                      }
-                                    }
-                                  })
-                                : _vm._e()
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "b-row",
-                          { staticClass: "mb-3" },
-                          [
-                            _c(
-                              "b-col",
-                              [
-                                _c(
-                                  "b-form-group",
-                                  { attrs: { label: "Select Question Type" } },
-                                  [
-                                    _c("b-form-select", {
-                                      attrs: { options: _vm.typeOptions },
-                                      model: {
-                                        value: item.type,
-                                        callback: function($$v) {
-                                          _vm.$set(item, "type", $$v)
-                                        },
-                                        expression: "item.type"
-                                      }
-                                    })
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "top-box mb-3" },
-                          [
-                            _c("b-form-textarea", {
-                              attrs: {
-                                disabled: item.type == null,
-                                placeholder: "Write your question ",
-                                rows: "3"
-                              },
-                              model: {
-                                value: item.question,
-                                callback: function($$v) {
-                                  _vm.$set(item, "question", $$v)
+                  _c(
+                    "b-form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.submit($event)
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "b-container",
+                        { attrs: { fluid: "" } },
+                        [
+                          _c(
+                            "b-row",
+                            { staticClass: "py-3" },
+                            [
+                              _c(
+                                "b-button",
+                                {
+                                  staticClass: "m-0",
+                                  attrs: { size: "sm" },
+                                  on: { click: _vm.addSection }
                                 },
-                                expression: "item.question"
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("b-form-input", {
-                              attrs: {
-                                placeholder: "Enter note",
-                                disabled: item.type == null
-                              },
-                              model: {
-                                value: item.note,
-                                callback: function($$v) {
-                                  _vm.$set(item, "note", $$v)
+                                [
+                                  _vm._v(
+                                    "\n                Section\n                "
+                                  ),
+                                  _c("i", {
+                                    staticClass: "fa fa-plus-circle",
+                                    attrs: { "aria-hidden": "true" }
+                                  })
+                                ]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-row",
+                            _vm._l(_vm.form, function(section, index) {
+                              return _c(
+                                "section",
+                                {
+                                  key: index,
+                                  staticClass: "border p-2 mb-2 w-100"
                                 },
-                                expression: "item.note"
-                              }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        item.type == "multi-choice"
-                          ? _c(
-                              "b-row",
-                              { staticClass: "middle-box mb-3" },
-                              [
-                                _c(
-                                  "b-col",
-                                  { staticClass: "text-center" },
-                                  [
-                                    _c(
-                                      "b-form-radio",
-                                      {
-                                        attrs: {
-                                          label: "Single answer",
-                                          value: "single",
-                                          disabled: item.type == null
-                                        },
-                                        model: {
-                                          value: item.answer_type,
-                                          callback: function($$v) {
-                                            _vm.$set(item, "answer_type", $$v)
-                                          },
-                                          expression: "item.answer_type"
-                                        }
-                                      },
-                                      [_vm._v("Single answer")]
-                                    )
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "b-col",
-                                  { staticClass: "text-center" },
-                                  [
-                                    _c(
-                                      "b-form-radio",
-                                      {
-                                        attrs: {
-                                          label: "Multi answer",
-                                          value: "multi",
-                                          disabled: item.type == null
-                                        },
-                                        model: {
-                                          value: item.answer_type,
-                                          callback: function($$v) {
-                                            _vm.$set(item, "answer_type", $$v)
-                                          },
-                                          expression: "item.answer_type"
-                                        }
-                                      },
-                                      [_vm._v("Multi answer")]
-                                    )
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        item.type == "multi-choice"
-                          ? _c(
-                              "div",
-                              { staticClass: "bottom-box mb-3" },
-                              [
-                                _vm._l(item.values, function(value, i) {
-                                  return _c(
-                                    "b-form-group",
-                                    { key: i, staticClass: "p-0 m-0" },
-                                    [
-                                      _c("b-form-input", {
-                                        attrs: {
-                                          disabled: item.type == null,
-                                          placeholder: "Option " + (i + 1)
-                                        },
-                                        model: {
-                                          value: value.value,
-                                          callback: function($$v) {
-                                            _vm.$set(value, "value", $$v)
-                                          },
-                                          expression: "value.value"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  )
-                                }),
-                                _vm._v(" "),
-                                _c(
-                                  "b-button",
-                                  {
-                                    staticClass: "mx-auto my-2",
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.addOption(idx)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("Add")]
-                                )
-                              ],
-                              2
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        (item.type == "multi-choice" ||
-                          item.type == "True/False") &&
-                        item.answer_type == "single"
-                          ? _c(
-                              "div",
-                              { staticClass: "mb-3" },
-                              [
-                                _c(
-                                  "b-form-group",
-                                  { staticClass: "p-0 m-0" },
-                                  [
-                                    _c("b-form-input", {
-                                      attrs: {
-                                        disabled: item.type == null,
-                                        placeholder: "Answer"
-                                      },
-                                      model: {
-                                        value: item.answer,
-                                        callback: function($$v) {
-                                          _vm.$set(item, "answer", $$v)
-                                        },
-                                        expression: "item.answer"
-                                      }
-                                    })
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        item.type == "multi-choice" &&
-                        item.answer_type == "multi"
-                          ? _c(
-                              "div",
-                              { staticClass: "bottom-box mb-3" },
-                              [
-                                _vm._l(item.answers, function(value, i) {
-                                  return _c(
-                                    "b-form-group",
-                                    { key: i, staticClass: "p-0 m-0" },
-                                    [
-                                      _c("b-form-input", {
-                                        attrs: {
-                                          disabled: item.type == null,
-                                          placeholder: "Answer " + (i + 1)
-                                        },
-                                        model: {
-                                          value: value.answer,
-                                          callback: function($$v) {
-                                            _vm.$set(value, "answer", $$v)
-                                          },
-                                          expression: "value.answer"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  )
-                                }),
-                                _vm._v(" "),
-                                _c(
-                                  "b-button",
-                                  {
-                                    staticClass: "mx-auto my-2",
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.addAns(idx)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("Add")]
-                                )
-                              ],
-                              2
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "upload-btn-wrapper text-center" },
-                          [
-                            _c("button", { staticClass: "btn" }, [
-                              _c("i", { staticClass: "fa fa-upload" }),
-                              _vm._v(" "),
-                              _c("span", [_vm._v("Upload a File")])
-                            ]),
-                            _vm._v(" "),
-                            _c("input", {
-                              attrs: { type: "file", name: "myfile" }
-                            })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "score-box mb-3" },
-                          [
-                            _c(
-                              "b-form-group",
-                              { attrs: { label: "Select Score" } },
-                              [
-                                _c("b-form-select", {
-                                  attrs: {
-                                    disabled: item.type == null,
-                                    options: _vm.options
-                                  },
-                                  model: {
-                                    value: item.score,
-                                    callback: function($$v) {
-                                      _vm.$set(item, "score", $$v)
+                                [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "py-2 d-flex justify-content-between"
                                     },
-                                    expression: "item.score"
-                                  }
-                                })
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "button-box text-center" },
-                          [
-                            idx + 1 == _vm.assessment.length
-                              ? _c(
-                                  "b-button",
-                                  {
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.addNew(idx)
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("i", {
-                                      staticClass: "fas fa-plus-circle",
-                                      attrs: { "aria-hidden": "true" }
-                                    })
-                                  ]
-                                )
-                              : _vm._e()
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  })
+                                    [
+                                      _c("h5", [
+                                        _vm._v(
+                                          _vm._s(
+                                            section.title == ""
+                                              ? "Section"
+                                              : section.title
+                                          )
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("div", [
+                                        _c(
+                                          "span",
+                                          {
+                                            staticClass: "mr-2 cpointer",
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.hideSection(index)
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.opened.includes(index)
+                                                  ? "Hide"
+                                                  : "Show"
+                                              )
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "span",
+                                          {
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.removeSection(index)
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass:
+                                                "fa fa-times-circle cpointer",
+                                              attrs: { "aria-hidden": "true" }
+                                            })
+                                          ]
+                                        )
+                                      ])
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _vm.opened.includes(index)
+                                    ? _c(
+                                        "div",
+                                        { staticClass: "m-3" },
+                                        [
+                                          _c(
+                                            "b-row",
+                                            {
+                                              staticClass: "mb-3 border-bottom"
+                                            },
+                                            [
+                                              _c(
+                                                "b-col",
+                                                { attrs: { cols: "12" } },
+                                                [
+                                                  _c(
+                                                    "b-form-group",
+                                                    [
+                                                      _c(
+                                                        "label",
+                                                        {
+                                                          attrs: {
+                                                            for: "section"
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "Section Title"
+                                                          )
+                                                        ]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c("b-form-input", {
+                                                        attrs: {
+                                                          label: "section",
+                                                          placeholder:
+                                                            "Enter title"
+                                                        },
+                                                        model: {
+                                                          value: section.title,
+                                                          callback: function(
+                                                            $$v
+                                                          ) {
+                                                            _vm.$set(
+                                                              section,
+                                                              "title",
+                                                              $$v
+                                                            )
+                                                          },
+                                                          expression:
+                                                            "section.title"
+                                                        }
+                                                      })
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "b-form-group",
+                                                    [
+                                                      _c(
+                                                        "label",
+                                                        {
+                                                          attrs: {
+                                                            for: "section"
+                                                          }
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "Section Description"
+                                                          )
+                                                        ]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _c("app-editor", {
+                                                        staticClass:
+                                                          "form-control",
+                                                        attrs: {
+                                                          apiKey:
+                                                            "a0iyq87xxk4jqc1rf2kj55kr8pu9pol61qt32jccfldibgd7",
+                                                          init: {
+                                                            selector:
+                                                              "textarea",
+                                                            toolbar_mode:
+                                                              "floating",
+                                                            plugins:
+                                                              "advlist autolink lists link image imagetools charmap print preview anchor insertdatetime media table paste code help wordcount  autolink lists media    table  ",
+                                                            toolbar:
+                                                              "undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat |image help | a11ycheck addcomment showcomments casechange checklist code formatpainter  table",
+                                                            image_title: true,
+                                                            height: 150,
+                                                            file_picker_types:
+                                                              "image",
+                                                            automatic_uploads: false,
+                                                            relative_urls: false,
+                                                            convert_urls: false,
+                                                            images_upload_handler: function(
+                                                              blobInfo,
+                                                              success,
+                                                              failure
+                                                            ) {
+                                                              _vm.upload_handler(
+                                                                blobInfo,
+                                                                success,
+                                                                failure
+                                                              )
+                                                            },
+                                                            file_picker_callback: function(
+                                                              callback,
+                                                              value,
+                                                              meta
+                                                            ) {
+                                                              _vm.loadFile(
+                                                                callback,
+                                                                value,
+                                                                meta
+                                                              )
+                                                            },
+                                                            images_dataimg_filter: function(
+                                                              img
+                                                            ) {
+                                                              return img.hasAttribute(
+                                                                "internal-blob"
+                                                              )
+                                                            }
+                                                          }
+                                                        },
+                                                        model: {
+                                                          value:
+                                                            section.description,
+                                                          callback: function(
+                                                            $$v
+                                                          ) {
+                                                            _vm.$set(
+                                                              section,
+                                                              "description",
+                                                              $$v
+                                                            )
+                                                          },
+                                                          expression:
+                                                            "section.description"
+                                                        }
+                                                      })
+                                                    ],
+                                                    1
+                                                  )
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "b-row",
+                                            [
+                                              _c(
+                                                "b-col",
+                                                {
+                                                  staticClass: "p-0",
+                                                  attrs: { cols: "12" }
+                                                },
+                                                [
+                                                  _c("h5", [
+                                                    _vm._v("Questions")
+                                                  ])
+                                                ]
+                                              )
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "b-row",
+                                            { staticClass: "py-3" },
+                                            [
+                                              _c(
+                                                "b-button",
+                                                {
+                                                  staticClass: "mr-3",
+                                                  attrs: { size: "sm" },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.addQuestion(
+                                                        index
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _c("i", {
+                                                    staticClass:
+                                                      "fas fa-plus-circle",
+                                                    attrs: {
+                                                      "aria-hidden": "true"
+                                                    }
+                                                  })
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-button",
+                                                {
+                                                  attrs: { size: "sm" },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.removeQuestion(
+                                                        index
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _c("i", {
+                                                    staticClass:
+                                                      "fas fa-times-circle",
+                                                    attrs: {
+                                                      "aria-hidden": "true"
+                                                    }
+                                                  })
+                                                ]
+                                              )
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _vm._l(section.question, function(
+                                            question,
+                                            idx
+                                          ) {
+                                            return _c(
+                                              "b-row",
+                                              {
+                                                key: idx,
+                                                staticClass: "border p-2"
+                                              },
+                                              [
+                                                _c(
+                                                  "b-col",
+                                                  {
+                                                    staticClass:
+                                                      "d-flex justify-content-between",
+                                                    attrs: { cols: "12" }
+                                                  },
+                                                  [
+                                                    !_vm.openedQuestion.includes(
+                                                      idx
+                                                    )
+                                                      ? _c("div", [
+                                                          _vm._v(
+                                                            _vm._s(idx + 1) +
+                                                              " " +
+                                                              _vm._s(
+                                                                question.title
+                                                              )
+                                                          )
+                                                        ])
+                                                      : _vm._e(),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "div",
+                                                      {
+                                                        staticClass: "ml-auto",
+                                                        on: {
+                                                          click: function(
+                                                            $event
+                                                          ) {
+                                                            return _vm.toggleQuestion(
+                                                              idx
+                                                            )
+                                                          }
+                                                        }
+                                                      },
+                                                      [
+                                                        _c("i", {
+                                                          staticClass:
+                                                            "fa fa-minus-circle",
+                                                          attrs: {
+                                                            "aria-hidden":
+                                                              "true"
+                                                          }
+                                                        })
+                                                      ]
+                                                    )
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _vm.openedQuestion.includes(idx)
+                                                  ? _c(
+                                                      "div",
+                                                      {
+                                                        staticClass:
+                                                          "d-flex w-100"
+                                                      },
+                                                      [
+                                                        _c(
+                                                          "b-col",
+                                                          {
+                                                            attrs: { cols: "3" }
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "b-form-row",
+                                                              [
+                                                                _c(
+                                                                  "b-col",
+                                                                  {
+                                                                    attrs: {
+                                                                      cols: "12"
+                                                                    }
+                                                                  },
+                                                                  [
+                                                                    _c(
+                                                                      "b-form-group",
+                                                                      [
+                                                                        _c(
+                                                                          "label",
+                                                                          {
+                                                                            attrs: {
+                                                                              for:
+                                                                                ""
+                                                                            }
+                                                                          },
+                                                                          [
+                                                                            _vm._v(
+                                                                              "Type Question"
+                                                                            )
+                                                                          ]
+                                                                        ),
+                                                                        _vm._v(
+                                                                          " "
+                                                                        ),
+                                                                        _c(
+                                                                          "b-textarea",
+                                                                          {
+                                                                            attrs: {
+                                                                              placeholder:
+                                                                                "Question"
+                                                                            },
+                                                                            model: {
+                                                                              value:
+                                                                                question.title,
+                                                                              callback: function(
+                                                                                $$v
+                                                                              ) {
+                                                                                _vm.$set(
+                                                                                  question,
+                                                                                  "title",
+                                                                                  $$v
+                                                                                )
+                                                                              },
+                                                                              expression:
+                                                                                "question.title"
+                                                                            }
+                                                                          }
+                                                                        )
+                                                                      ],
+                                                                      1
+                                                                    )
+                                                                  ],
+                                                                  1
+                                                                ),
+                                                                _vm._v(" "),
+                                                                _c(
+                                                                  "b-col",
+                                                                  [
+                                                                    _c(
+                                                                      "b-form-group",
+                                                                      [
+                                                                        _c(
+                                                                          "label",
+                                                                          {
+                                                                            attrs: {
+                                                                              for:
+                                                                                ""
+                                                                            }
+                                                                          },
+                                                                          [
+                                                                            _vm._v(
+                                                                              "Question guide (Optional)"
+                                                                            )
+                                                                          ]
+                                                                        ),
+                                                                        _vm._v(
+                                                                          " "
+                                                                        ),
+                                                                        _c(
+                                                                          "b-form-input",
+                                                                          {
+                                                                            attrs: {
+                                                                              placeholder:
+                                                                                "Question guide"
+                                                                            },
+                                                                            model: {
+                                                                              value:
+                                                                                question.guide,
+                                                                              callback: function(
+                                                                                $$v
+                                                                              ) {
+                                                                                _vm.$set(
+                                                                                  question,
+                                                                                  "guide",
+                                                                                  $$v
+                                                                                )
+                                                                              },
+                                                                              expression:
+                                                                                "question.guide"
+                                                                            }
+                                                                          }
+                                                                        )
+                                                                      ],
+                                                                      1
+                                                                    )
+                                                                  ],
+                                                                  1
+                                                                )
+                                                              ],
+                                                              1
+                                                            )
+                                                          ],
+                                                          1
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "b-col",
+                                                          {
+                                                            attrs: { cols: "3" }
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "b-form-group",
+                                                              [
+                                                                _c(
+                                                                  "label",
+                                                                  {
+                                                                    attrs: {
+                                                                      for: ""
+                                                                    }
+                                                                  },
+                                                                  [
+                                                                    _vm._v(
+                                                                      "Answer Format"
+                                                                    )
+                                                                  ]
+                                                                ),
+                                                                _vm._v(" "),
+                                                                _c(
+                                                                  "b-form-select",
+                                                                  {
+                                                                    model: {
+                                                                      value:
+                                                                        question.answer_format,
+                                                                      callback: function(
+                                                                        $$v
+                                                                      ) {
+                                                                        _vm.$set(
+                                                                          question,
+                                                                          "answer_format",
+                                                                          $$v
+                                                                        )
+                                                                      },
+                                                                      expression:
+                                                                        "question.answer_format"
+                                                                    }
+                                                                  },
+                                                                  [
+                                                                    _c(
+                                                                      "b-form-select-option",
+                                                                      {
+                                                                        attrs: {
+                                                                          value:
+                                                                            ""
+                                                                        }
+                                                                      },
+                                                                      [
+                                                                        _vm._v(
+                                                                          "Select Format"
+                                                                        )
+                                                                      ]
+                                                                    ),
+                                                                    _vm._v(" "),
+                                                                    _c(
+                                                                      "b-form-select-option",
+                                                                      {
+                                                                        attrs: {
+                                                                          value:
+                                                                            "multi choice"
+                                                                        }
+                                                                      },
+                                                                      [
+                                                                        _vm._v(
+                                                                          "Multi Choice"
+                                                                        )
+                                                                      ]
+                                                                    ),
+                                                                    _vm._v(" "),
+                                                                    _c(
+                                                                      "b-form-select-option",
+                                                                      {
+                                                                        attrs: {
+                                                                          value:
+                                                                            "single choice"
+                                                                        }
+                                                                      },
+                                                                      [
+                                                                        _vm._v(
+                                                                          "Single Choice"
+                                                                        )
+                                                                      ]
+                                                                    ),
+                                                                    _vm._v(" "),
+                                                                    _c(
+                                                                      "b-form-select-option",
+                                                                      {
+                                                                        attrs: {
+                                                                          value:
+                                                                            "text box"
+                                                                        }
+                                                                      },
+                                                                      [
+                                                                        _vm._v(
+                                                                          "Text box"
+                                                                        )
+                                                                      ]
+                                                                    ),
+                                                                    _vm._v(" "),
+                                                                    _c(
+                                                                      "b-form-select-option",
+                                                                      {
+                                                                        attrs: {
+                                                                          value:
+                                                                            "long text"
+                                                                        }
+                                                                      },
+                                                                      [
+                                                                        _vm._v(
+                                                                          "Long Text"
+                                                                        )
+                                                                      ]
+                                                                    ),
+                                                                    _vm._v(" "),
+                                                                    _c(
+                                                                      "b-form-select-option",
+                                                                      {
+                                                                        attrs: {
+                                                                          value:
+                                                                            "number"
+                                                                        }
+                                                                      },
+                                                                      [
+                                                                        _vm._v(
+                                                                          "Number"
+                                                                        )
+                                                                      ]
+                                                                    ),
+                                                                    _vm._v(" "),
+                                                                    _c(
+                                                                      "b-form-select-option",
+                                                                      {
+                                                                        attrs: {
+                                                                          value:
+                                                                            "multi text"
+                                                                        }
+                                                                      },
+                                                                      [
+                                                                        _vm._v(
+                                                                          "Multi Text"
+                                                                        )
+                                                                      ]
+                                                                    ),
+                                                                    _vm._v(" "),
+                                                                    _c(
+                                                                      "b-form-select-option",
+                                                                      {
+                                                                        attrs: {
+                                                                          value:
+                                                                            "date"
+                                                                        }
+                                                                      },
+                                                                      [
+                                                                        _vm._v(
+                                                                          "Date"
+                                                                        )
+                                                                      ]
+                                                                    ),
+                                                                    _vm._v(" "),
+                                                                    _c(
+                                                                      "b-form-select-option",
+                                                                      {
+                                                                        attrs: {
+                                                                          value:
+                                                                            "time"
+                                                                        }
+                                                                      },
+                                                                      [
+                                                                        _vm._v(
+                                                                          "Time"
+                                                                        )
+                                                                      ]
+                                                                    ),
+                                                                    _vm._v(" "),
+                                                                    _c(
+                                                                      "b-form-select-option",
+                                                                      {
+                                                                        attrs: {
+                                                                          value:
+                                                                            "email"
+                                                                        }
+                                                                      },
+                                                                      [
+                                                                        _vm._v(
+                                                                          "Email"
+                                                                        )
+                                                                      ]
+                                                                    )
+                                                                  ],
+                                                                  1
+                                                                )
+                                                              ],
+                                                              1
+                                                            ),
+                                                            _vm._v(" "),
+                                                            question.answer_format ==
+                                                              "text box" ||
+                                                            question.answer_format ==
+                                                              "number"
+                                                              ? _c(
+                                                                  "b-form-group",
+                                                                  [
+                                                                    _c(
+                                                                      "label",
+                                                                      {
+                                                                        attrs: {
+                                                                          for:
+                                                                            ""
+                                                                        }
+                                                                      },
+                                                                      [
+                                                                        _vm._v(
+                                                                          "Placeholder value"
+                                                                        )
+                                                                      ]
+                                                                    ),
+                                                                    _vm._v(" "),
+                                                                    _c(
+                                                                      "b-form-input",
+                                                                      {
+                                                                        attrs: {
+                                                                          placeholder:
+                                                                            "Placeholder value"
+                                                                        },
+                                                                        model: {
+                                                                          value:
+                                                                            question.placeholder,
+                                                                          callback: function(
+                                                                            $$v
+                                                                          ) {
+                                                                            _vm.$set(
+                                                                              question,
+                                                                              "placeholder",
+                                                                              $$v
+                                                                            )
+                                                                          },
+                                                                          expression:
+                                                                            "question.placeholder"
+                                                                        }
+                                                                      }
+                                                                    )
+                                                                  ],
+                                                                  1
+                                                                )
+                                                              : _vm._e(),
+                                                            _vm._v(" "),
+                                                            question.answer_format ==
+                                                              "text box" ||
+                                                            question.answer_format ==
+                                                              "number"
+                                                              ? _c(
+                                                                  "div",
+                                                                  [
+                                                                    _c(
+                                                                      "b-form-input",
+                                                                      {
+                                                                        attrs: {
+                                                                          type:
+                                                                            "number",
+                                                                          placeholder:
+                                                                            "Character limit"
+                                                                        },
+                                                                        model: {
+                                                                          value:
+                                                                            question.limit,
+                                                                          callback: function(
+                                                                            $$v
+                                                                          ) {
+                                                                            _vm.$set(
+                                                                              question,
+                                                                              "limit",
+                                                                              $$v
+                                                                            )
+                                                                          },
+                                                                          expression:
+                                                                            "question.limit"
+                                                                        }
+                                                                      }
+                                                                    )
+                                                                  ],
+                                                                  1
+                                                                )
+                                                              : _vm._e(),
+                                                            _vm._v(" "),
+                                                            question.answer_format ==
+                                                              "multi choice" ||
+                                                            question.answer_format ==
+                                                              "single choice"
+                                                              ? _c(
+                                                                  "div",
+                                                                  [
+                                                                    _vm._l(
+                                                                      question.options,
+                                                                      function(
+                                                                        option,
+                                                                        idxx
+                                                                      ) {
+                                                                        return _c(
+                                                                          "div",
+                                                                          {
+                                                                            key: idxx
+                                                                          },
+                                                                          [
+                                                                            _c(
+                                                                              "b-form-input",
+                                                                              {
+                                                                                attrs: {
+                                                                                  placeholder:
+                                                                                    "Options"
+                                                                                },
+                                                                                model: {
+                                                                                  value:
+                                                                                    option.name,
+                                                                                  callback: function(
+                                                                                    $$v
+                                                                                  ) {
+                                                                                    _vm.$set(
+                                                                                      option,
+                                                                                      "name",
+                                                                                      $$v
+                                                                                    )
+                                                                                  },
+                                                                                  expression:
+                                                                                    "option.name"
+                                                                                }
+                                                                              }
+                                                                            )
+                                                                          ],
+                                                                          1
+                                                                        )
+                                                                      }
+                                                                    ),
+                                                                    _vm._v(" "),
+                                                                    _c(
+                                                                      "b-row",
+                                                                      {
+                                                                        staticClass:
+                                                                          "p-3"
+                                                                      },
+                                                                      [
+                                                                        _c(
+                                                                          "b-button",
+                                                                          {
+                                                                            staticClass:
+                                                                              "mr-3",
+                                                                            attrs: {
+                                                                              size:
+                                                                                "sm"
+                                                                            },
+                                                                            on: {
+                                                                              click: function(
+                                                                                $event
+                                                                              ) {
+                                                                                return _vm.addOption(
+                                                                                  index,
+                                                                                  idx
+                                                                                )
+                                                                              }
+                                                                            }
+                                                                          },
+                                                                          [
+                                                                            _c(
+                                                                              "i",
+                                                                              {
+                                                                                staticClass:
+                                                                                  "fa fa-plus-circle",
+                                                                                attrs: {
+                                                                                  "aria-hidden":
+                                                                                    "true"
+                                                                                }
+                                                                              }
+                                                                            )
+                                                                          ]
+                                                                        ),
+                                                                        _vm._v(
+                                                                          " "
+                                                                        ),
+                                                                        _c(
+                                                                          "b-button",
+                                                                          {
+                                                                            attrs: {
+                                                                              size:
+                                                                                "sm"
+                                                                            },
+                                                                            on: {
+                                                                              click: function(
+                                                                                $event
+                                                                              ) {
+                                                                                return _vm.removeOption(
+                                                                                  index,
+                                                                                  idx
+                                                                                )
+                                                                              }
+                                                                            }
+                                                                          },
+                                                                          [
+                                                                            _c(
+                                                                              "i",
+                                                                              {
+                                                                                staticClass:
+                                                                                  "fa fa-times-circle",
+                                                                                attrs: {
+                                                                                  "aria-hidden":
+                                                                                    "true"
+                                                                                }
+                                                                              }
+                                                                            )
+                                                                          ]
+                                                                        )
+                                                                      ],
+                                                                      1
+                                                                    )
+                                                                  ],
+                                                                  2
+                                                                )
+                                                              : _vm._e()
+                                                          ],
+                                                          1
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "b-col",
+                                                          {
+                                                            attrs: { cols: "6" }
+                                                          },
+                                                          [
+                                                            _c("label", [
+                                                              _vm._v(
+                                                                "Select Tool"
+                                                              )
+                                                            ]),
+                                                            _vm._v(" "),
+                                                            _c(
+                                                              "div",
+                                                              {
+                                                                attrs: {
+                                                                  role:
+                                                                    "tablist"
+                                                                }
+                                                              },
+                                                              [
+                                                                _c(
+                                                                  "b-card",
+                                                                  {
+                                                                    staticClass:
+                                                                      "mb-1",
+                                                                    attrs: {
+                                                                      "no-body":
+                                                                        ""
+                                                                    }
+                                                                  },
+                                                                  [
+                                                                    _c(
+                                                                      "b-card-header",
+                                                                      {
+                                                                        staticClass:
+                                                                          "p-1",
+                                                                        attrs: {
+                                                                          "header-tag":
+                                                                            "header",
+                                                                          role:
+                                                                            "tab"
+                                                                        }
+                                                                      },
+                                                                      [
+                                                                        _c(
+                                                                          "b-button",
+                                                                          {
+                                                                            directives: [
+                                                                              {
+                                                                                name:
+                                                                                  "b-toggle",
+                                                                                rawName:
+                                                                                  "v-b-toggle",
+                                                                                value: idx.toString(),
+                                                                                expression:
+                                                                                  "idx.toString()"
+                                                                              }
+                                                                            ],
+                                                                            attrs: {
+                                                                              size:
+                                                                                "sm",
+                                                                              block:
+                                                                                "",
+                                                                              variant:
+                                                                                "info"
+                                                                            }
+                                                                          },
+                                                                          [
+                                                                            _vm._v(
+                                                                              "Tools"
+                                                                            )
+                                                                          ]
+                                                                        )
+                                                                      ],
+                                                                      1
+                                                                    ),
+                                                                    _vm._v(" "),
+                                                                    _c(
+                                                                      "b-collapse",
+                                                                      {
+                                                                        attrs: {
+                                                                          id: idx.toString(),
+                                                                          accordion:
+                                                                            "my-accordion",
+                                                                          role:
+                                                                            "tabpanel"
+                                                                        }
+                                                                      },
+                                                                      [
+                                                                        _c(
+                                                                          "b-card-body",
+                                                                          [
+                                                                            _c(
+                                                                              "b-row",
+                                                                              [
+                                                                                _c(
+                                                                                  "b-col",
+                                                                                  {
+                                                                                    attrs: {
+                                                                                      cols:
+                                                                                        "12"
+                                                                                    }
+                                                                                  },
+                                                                                  [
+                                                                                    _c(
+                                                                                      "b-form-row",
+                                                                                      [
+                                                                                        _c(
+                                                                                          "b-col",
+                                                                                          [
+                                                                                            _c(
+                                                                                              "b-form-checkbox",
+                                                                                              {
+                                                                                                attrs: {
+                                                                                                  value:
+                                                                                                    "table"
+                                                                                                },
+                                                                                                model: {
+                                                                                                  value:
+                                                                                                    question.tools,
+                                                                                                  callback: function(
+                                                                                                    $$v
+                                                                                                  ) {
+                                                                                                    _vm.$set(
+                                                                                                      question,
+                                                                                                      "tools",
+                                                                                                      $$v
+                                                                                                    )
+                                                                                                  },
+                                                                                                  expression:
+                                                                                                    "question.tools"
+                                                                                                }
+                                                                                              },
+                                                                                              [
+                                                                                                _vm._v(
+                                                                                                  "Table"
+                                                                                                )
+                                                                                              ]
+                                                                                            )
+                                                                                          ],
+                                                                                          1
+                                                                                        ),
+                                                                                        _vm._v(
+                                                                                          " "
+                                                                                        ),
+                                                                                        _c(
+                                                                                          "b-col",
+                                                                                          [
+                                                                                            _c(
+                                                                                              "b-form-checkbox",
+                                                                                              {
+                                                                                                attrs: {
+                                                                                                  value:
+                                                                                                    "docs"
+                                                                                                },
+                                                                                                model: {
+                                                                                                  value:
+                                                                                                    question.tools,
+                                                                                                  callback: function(
+                                                                                                    $$v
+                                                                                                  ) {
+                                                                                                    _vm.$set(
+                                                                                                      question,
+                                                                                                      "tools",
+                                                                                                      $$v
+                                                                                                    )
+                                                                                                  },
+                                                                                                  expression:
+                                                                                                    "question.tools"
+                                                                                                }
+                                                                                              },
+                                                                                              [
+                                                                                                _vm._v(
+                                                                                                  "Document"
+                                                                                                )
+                                                                                              ]
+                                                                                            )
+                                                                                          ],
+                                                                                          1
+                                                                                        ),
+                                                                                        _vm._v(
+                                                                                          " "
+                                                                                        ),
+                                                                                        _c(
+                                                                                          "b-col",
+                                                                                          [
+                                                                                            _c(
+                                                                                              "b-form-checkbox",
+                                                                                              {
+                                                                                                attrs: {
+                                                                                                  value:
+                                                                                                    " media"
+                                                                                                },
+                                                                                                model: {
+                                                                                                  value:
+                                                                                                    question.tools,
+                                                                                                  callback: function(
+                                                                                                    $$v
+                                                                                                  ) {
+                                                                                                    _vm.$set(
+                                                                                                      question,
+                                                                                                      "tools",
+                                                                                                      $$v
+                                                                                                    )
+                                                                                                  },
+                                                                                                  expression:
+                                                                                                    "question.tools"
+                                                                                                }
+                                                                                              },
+                                                                                              [
+                                                                                                _vm._v(
+                                                                                                  "Media"
+                                                                                                )
+                                                                                              ]
+                                                                                            )
+                                                                                          ],
+                                                                                          1
+                                                                                        )
+                                                                                      ],
+                                                                                      1
+                                                                                    ),
+                                                                                    _vm._v(
+                                                                                      " "
+                                                                                    ),
+                                                                                    question.tools.includes(
+                                                                                      "table"
+                                                                                    )
+                                                                                      ? _c(
+                                                                                          "div",
+                                                                                          [
+                                                                                            _c(
+                                                                                              "b-input-group",
+                                                                                              [
+                                                                                                _c(
+                                                                                                  "b-form-input",
+                                                                                                  {
+                                                                                                    attrs: {
+                                                                                                      placeholder:
+                                                                                                        "Table field"
+                                                                                                    },
+                                                                                                    model: {
+                                                                                                      value:
+                                                                                                        _vm.field,
+                                                                                                      callback: function(
+                                                                                                        $$v
+                                                                                                      ) {
+                                                                                                        _vm.field = $$v
+                                                                                                      },
+                                                                                                      expression:
+                                                                                                        "field"
+                                                                                                    }
+                                                                                                  }
+                                                                                                ),
+                                                                                                _vm._v(
+                                                                                                  " "
+                                                                                                ),
+                                                                                                _c(
+                                                                                                  "b-input-group-append",
+                                                                                                  [
+                                                                                                    _c(
+                                                                                                      "b-button",
+                                                                                                      {
+                                                                                                        staticClass:
+                                                                                                          "mr-3",
+                                                                                                        attrs: {
+                                                                                                          size:
+                                                                                                            "sm"
+                                                                                                        },
+                                                                                                        on: {
+                                                                                                          click: function(
+                                                                                                            $event
+                                                                                                          ) {
+                                                                                                            return _vm.addField(
+                                                                                                              _vm.field,
+                                                                                                              index,
+                                                                                                              idx
+                                                                                                            )
+                                                                                                          }
+                                                                                                        }
+                                                                                                      },
+                                                                                                      [
+                                                                                                        _c(
+                                                                                                          "i",
+                                                                                                          {
+                                                                                                            staticClass:
+                                                                                                              "fa fa-plus-circle",
+                                                                                                            attrs: {
+                                                                                                              "aria-hidden":
+                                                                                                                "true"
+                                                                                                            }
+                                                                                                          }
+                                                                                                        )
+                                                                                                      ]
+                                                                                                    )
+                                                                                                  ],
+                                                                                                  1
+                                                                                                )
+                                                                                              ],
+                                                                                              1
+                                                                                            ),
+                                                                                            _vm._v(
+                                                                                              " "
+                                                                                            ),
+                                                                                            _c(
+                                                                                              "b-form-group",
+                                                                                              {
+                                                                                                staticClass:
+                                                                                                  "p-2 py-3"
+                                                                                              },
+                                                                                              [
+                                                                                                _c(
+                                                                                                  "b-row",
+                                                                                                  _vm._l(
+                                                                                                    question.fields,
+                                                                                                    function(
+                                                                                                      field,
+                                                                                                      idxxx
+                                                                                                    ) {
+                                                                                                      return _c(
+                                                                                                        "b-col",
+                                                                                                        {
+                                                                                                          key: idxxx,
+                                                                                                          staticClass:
+                                                                                                            "border text-center",
+                                                                                                          attrs: {
+                                                                                                            cols:
+                                                                                                              "3"
+                                                                                                          }
+                                                                                                        },
+                                                                                                        [
+                                                                                                          _vm._v(
+                                                                                                            "\n                                            " +
+                                                                                                              _vm._s(
+                                                                                                                field
+                                                                                                              ) +
+                                                                                                              "\n                                            "
+                                                                                                          ),
+                                                                                                          _c(
+                                                                                                            "i",
+                                                                                                            {
+                                                                                                              staticClass:
+                                                                                                                "fa fa-times-circle",
+                                                                                                              attrs: {
+                                                                                                                "aria-hidden":
+                                                                                                                  "true"
+                                                                                                              },
+                                                                                                              on: {
+                                                                                                                click: function(
+                                                                                                                  $event
+                                                                                                                ) {
+                                                                                                                  return _vm.removeField(
+                                                                                                                    index,
+                                                                                                                    idx,
+                                                                                                                    idxxx
+                                                                                                                  )
+                                                                                                                }
+                                                                                                              }
+                                                                                                            }
+                                                                                                          )
+                                                                                                        ]
+                                                                                                      )
+                                                                                                    }
+                                                                                                  ),
+                                                                                                  1
+                                                                                                )
+                                                                                              ],
+                                                                                              1
+                                                                                            ),
+                                                                                            _vm._v(
+                                                                                              " "
+                                                                                            ),
+                                                                                            _c(
+                                                                                              "b-row",
+                                                                                              {
+                                                                                                staticClass:
+                                                                                                  "p-2"
+                                                                                              },
+                                                                                              [
+                                                                                                _c(
+                                                                                                  "b-button",
+                                                                                                  {
+                                                                                                    attrs: {
+                                                                                                      size:
+                                                                                                        "sm"
+                                                                                                    },
+                                                                                                    on: {
+                                                                                                      click: function(
+                                                                                                        $event
+                                                                                                      ) {
+                                                                                                        return _vm.handleTable(
+                                                                                                          index,
+                                                                                                          idx
+                                                                                                        )
+                                                                                                      }
+                                                                                                    }
+                                                                                                  },
+                                                                                                  [
+                                                                                                    _vm._v(
+                                                                                                      "Submit fields"
+                                                                                                    )
+                                                                                                  ]
+                                                                                                )
+                                                                                              ],
+                                                                                              1
+                                                                                            )
+                                                                                          ],
+                                                                                          1
+                                                                                        )
+                                                                                      : _vm._e()
+                                                                                  ],
+                                                                                  1
+                                                                                ),
+                                                                                _vm._v(
+                                                                                  " "
+                                                                                ),
+                                                                                _c(
+                                                                                  "b-col",
+                                                                                  {
+                                                                                    attrs: {
+                                                                                      cols:
+                                                                                        "12"
+                                                                                    }
+                                                                                  },
+                                                                                  [
+                                                                                    _c(
+                                                                                      "b-form-group",
+                                                                                      [
+                                                                                        _c(
+                                                                                          "label",
+                                                                                          {
+                                                                                            attrs: {
+                                                                                              for:
+                                                                                                ""
+                                                                                            }
+                                                                                          },
+                                                                                          [
+                                                                                            _vm._v(
+                                                                                              "Tool Description"
+                                                                                            )
+                                                                                          ]
+                                                                                        ),
+                                                                                        _vm._v(
+                                                                                          " "
+                                                                                        ),
+                                                                                        _c(
+                                                                                          "app-editor",
+                                                                                          {
+                                                                                            staticClass:
+                                                                                              "form-control",
+                                                                                            attrs: {
+                                                                                              apiKey:
+                                                                                                "a0iyq87xxk4jqc1rf2kj55kr8pu9pol61qt32jccfldibgd7",
+                                                                                              init: {
+                                                                                                selector:
+                                                                                                  "textarea",
+                                                                                                toolbar_mode:
+                                                                                                  "floating",
+                                                                                                plugins:
+                                                                                                  "advlist autolink lists link image imagetools charmap print preview anchor insertdatetime media table paste code help wordcount  autolink lists media    table  ",
+                                                                                                toolbar:
+                                                                                                  "undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat |image help | a11ycheck addcomment showcomments casechange checklist code formatpainter  table",
+                                                                                                image_title: true,
+                                                                                                height: 200,
+                                                                                                file_picker_types:
+                                                                                                  "image",
+                                                                                                automatic_uploads: false,
+                                                                                                relative_urls: false,
+                                                                                                convert_urls: false,
+                                                                                                images_upload_handler: function(
+                                                                                                  blobInfo,
+                                                                                                  success,
+                                                                                                  failure
+                                                                                                ) {
+                                                                                                  _vm.upload_handler(
+                                                                                                    blobInfo,
+                                                                                                    success,
+                                                                                                    failure
+                                                                                                  )
+                                                                                                },
+                                                                                                file_picker_callback: function(
+                                                                                                  callback,
+                                                                                                  value,
+                                                                                                  meta
+                                                                                                ) {
+                                                                                                  _vm.loadFile(
+                                                                                                    callback,
+                                                                                                    value,
+                                                                                                    meta
+                                                                                                  )
+                                                                                                },
+                                                                                                images_dataimg_filter: function(
+                                                                                                  img
+                                                                                                ) {
+                                                                                                  return img.hasAttribute(
+                                                                                                    "internal-blob"
+                                                                                                  )
+                                                                                                }
+                                                                                              }
+                                                                                            },
+                                                                                            model: {
+                                                                                              value:
+                                                                                                question.tools_description,
+                                                                                              callback: function(
+                                                                                                $$v
+                                                                                              ) {
+                                                                                                _vm.$set(
+                                                                                                  question,
+                                                                                                  "tools_description",
+                                                                                                  $$v
+                                                                                                )
+                                                                                              },
+                                                                                              expression:
+                                                                                                "question.tools_description"
+                                                                                            }
+                                                                                          }
+                                                                                        )
+                                                                                      ],
+                                                                                      1
+                                                                                    )
+                                                                                  ],
+                                                                                  1
+                                                                                )
+                                                                              ],
+                                                                              1
+                                                                            )
+                                                                          ],
+                                                                          1
+                                                                        )
+                                                                      ],
+                                                                      1
+                                                                    )
+                                                                  ],
+                                                                  1
+                                                                )
+                                                              ],
+                                                              1
+                                                            )
+                                                          ]
+                                                        )
+                                                      ],
+                                                      1
+                                                    )
+                                                  : _vm._e(),
+                                                _vm._v(" "),
+                                                _c("hr"),
+                                                _vm._v(" "),
+                                                _vm.openedQuestion.includes(idx)
+                                                  ? _c(
+                                                      "b-col",
+                                                      { attrs: { cols: "6" } },
+                                                      [
+                                                        question.answer_format ==
+                                                        "multi choice"
+                                                          ? _c(
+                                                              "div",
+                                                              {
+                                                                staticClass:
+                                                                  "bottom-box mb-3"
+                                                              },
+                                                              [
+                                                                _vm._v("\\ "),
+                                                                _c(
+                                                                  "h6",
+                                                                  {
+                                                                    staticClass:
+                                                                      "text-center"
+                                                                  },
+                                                                  [
+                                                                    _vm._v(
+                                                                      "Answer"
+                                                                    )
+                                                                  ]
+                                                                ),
+                                                                _vm._v(" "),
+                                                                _vm._l(
+                                                                  question.real_answers,
+                                                                  function(
+                                                                    value,
+                                                                    i
+                                                                  ) {
+                                                                    return _c(
+                                                                      "div",
+                                                                      {
+                                                                        key: i,
+                                                                        staticClass:
+                                                                          "p-0 m-0",
+                                                                        attrs: {
+                                                                          label:
+                                                                            "Answer"
+                                                                        }
+                                                                      },
+                                                                      [
+                                                                        _c(
+                                                                          "b-form-input",
+                                                                          {
+                                                                            attrs: {
+                                                                              placeholder:
+                                                                                "Answer " +
+                                                                                (i +
+                                                                                  1)
+                                                                            },
+                                                                            model: {
+                                                                              value:
+                                                                                value.answer,
+                                                                              callback: function(
+                                                                                $$v
+                                                                              ) {
+                                                                                _vm.$set(
+                                                                                  value,
+                                                                                  "answer",
+                                                                                  $$v
+                                                                                )
+                                                                              },
+                                                                              expression:
+                                                                                "value.answer"
+                                                                            }
+                                                                          }
+                                                                        )
+                                                                      ],
+                                                                      1
+                                                                    )
+                                                                  }
+                                                                ),
+                                                                _vm._v(" "),
+                                                                _c(
+                                                                  "b-button",
+                                                                  {
+                                                                    staticClass:
+                                                                      "mx-auto my-2",
+                                                                    attrs: {
+                                                                      size: "sm"
+                                                                    },
+                                                                    on: {
+                                                                      click: function(
+                                                                        $event
+                                                                      ) {
+                                                                        return _vm.addAns(
+                                                                          index,
+                                                                          idx
+                                                                        )
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  [
+                                                                    _vm._v(
+                                                                      "Add"
+                                                                    )
+                                                                  ]
+                                                                ),
+                                                                _vm._v(" "),
+                                                                _c(
+                                                                  "b-button",
+                                                                  {
+                                                                    staticClass:
+                                                                      "mx-auto my-2",
+                                                                    attrs: {
+                                                                      size: "sm"
+                                                                    },
+                                                                    on: {
+                                                                      click: function(
+                                                                        $event
+                                                                      ) {
+                                                                        return _vm.removeAns(
+                                                                          index,
+                                                                          idx
+                                                                        )
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  [
+                                                                    _vm._v(
+                                                                      "Remove"
+                                                                    )
+                                                                  ]
+                                                                )
+                                                              ],
+                                                              2
+                                                            )
+                                                          : _c(
+                                                              "div",
+                                                              {
+                                                                staticClass:
+                                                                  "mb-3"
+                                                              },
+                                                              [
+                                                                _c(
+                                                                  "h6",
+                                                                  {
+                                                                    staticClass:
+                                                                      "text-center"
+                                                                  },
+                                                                  [
+                                                                    _vm._v(
+                                                                      "Answer"
+                                                                    )
+                                                                  ]
+                                                                ),
+                                                                _vm._v(" "),
+                                                                _c(
+                                                                  "b-form-input",
+                                                                  {
+                                                                    attrs: {
+                                                                      placeholder:
+                                                                        "Answer"
+                                                                    },
+                                                                    model: {
+                                                                      value:
+                                                                        question.real_answer,
+                                                                      callback: function(
+                                                                        $$v
+                                                                      ) {
+                                                                        _vm.$set(
+                                                                          question,
+                                                                          "real_answer",
+                                                                          $$v
+                                                                        )
+                                                                      },
+                                                                      expression:
+                                                                        "question.real_answer"
+                                                                    }
+                                                                  }
+                                                                )
+                                                              ],
+                                                              1
+                                                            )
+                                                      ]
+                                                    )
+                                                  : _vm._e(),
+                                                _vm._v(" "),
+                                                _vm.openedQuestion.includes(idx)
+                                                  ? _c(
+                                                      "b-col",
+                                                      { attrs: { cols: "6" } },
+                                                      [
+                                                        _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "score-box mb-3"
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "h6",
+                                                              {
+                                                                staticClass:
+                                                                  "text-center"
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  "Select score"
+                                                                )
+                                                              ]
+                                                            ),
+                                                            _vm._v(" "),
+                                                            _c(
+                                                              "b-form-select",
+                                                              {
+                                                                attrs: {
+                                                                  options:
+                                                                    _vm.scoreOptions
+                                                                },
+                                                                model: {
+                                                                  value:
+                                                                    question.score,
+                                                                  callback: function(
+                                                                    $$v
+                                                                  ) {
+                                                                    _vm.$set(
+                                                                      question,
+                                                                      "score",
+                                                                      $$v
+                                                                    )
+                                                                  },
+                                                                  expression:
+                                                                    "question.score"
+                                                                }
+                                                              }
+                                                            )
+                                                          ],
+                                                          1
+                                                        )
+                                                      ]
+                                                    )
+                                                  : _vm._e()
+                                              ],
+                                              1
+                                            )
+                                          })
+                                        ],
+                                        2
+                                      )
+                                    : _vm._e()
+                                ]
+                              )
+                            }),
+                            0
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
                 ],
-                2
+                1
               ),
               _vm._v(" "),
-              _c("b-col", { attrs: { md: "4" } }, [
+              _c("b-col", { attrs: { md: "3" } }, [
                 _c("div", { staticClass: "action-side" }, [
                   _c("div", { staticClass: "save" }, [
-                    _c("div", { staticClass: "btn btn-save" }, [
-                      _vm._v("SAVE TO DRAFT")
-                    ]),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "btn btn-save mb-2",
+                        on: { click: _vm.saveDraft }
+                      },
+                      [_vm._v("Save Draft")]
+                    ),
                     _vm._v(" "),
-                    _c("div", { staticClass: "btn btn-submit" }, [
-                      _vm._v("SUBMIT")
-                    ])
+                    _c(
+                      "div",
+                      {
+                        staticClass: "btn btn-submit",
+                        on: { click: _vm.submit }
+                      },
+                      [_vm._v("Submit")]
+                    )
                   ])
                 ]),
                 _vm._v(" "),
@@ -48021,32 +49709,47 @@ var render = function() {
                             placeholder: "Select Date"
                           },
                           model: {
-                            value: _vm.val,
+                            value: _vm.form.deadline,
                             callback: function($$v) {
-                              _vm.val = $$v
+                              _vm.$set(_vm.form, "deadline", $$v)
                             },
-                            expression: "val"
+                            expression: "form.deadline"
                           }
                         })
                       ],
                       1
                     ),
                     _vm._v(" "),
-                    _c("div", { staticClass: "action-btn" }, [
+                    _c("div", { staticClass: "action-btn text-center" }, [
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "b-modal",
+                              rawName: "v-b-modal.modal-1",
+                              modifiers: { "modal-1": true }
+                            }
+                          ],
+                          staticClass: "btn btn-preview"
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fa fa-eye",
+                            attrs: { "aria-hidden": "true" }
+                          }),
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Preview")])
+                        ]
+                      ),
+                      _vm._v(" "),
                       _c("div", { staticClass: "btn btn-trash" }, [
                         _c("i", {
                           staticClass: "fa fa-trash-o",
                           attrs: { "aria-hidden": "true" }
                         }),
+                        _vm._v(" "),
                         _c("span", [_vm._v("Move to Trash")])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "btn btn-preview" }, [
-                        _c("i", {
-                          staticClass: "fa fa-eye",
-                          attrs: { "aria-hidden": "true" }
-                        }),
-                        _c("span", [_vm._v("Preview")])
                       ])
                     ]),
                     _vm._v(" "),
@@ -48062,6 +49765,26 @@ var render = function() {
                 )
               ])
             ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        [
+          _c(
+            "b-modal",
+            {
+              attrs: {
+                id: "modal-1",
+                title: "Preview",
+                size: "lg",
+                "hide-footer": ""
+              }
+            },
+            [_c("Preview", { attrs: { options: _vm.option, form: _vm.form } })],
             1
           )
         ],
@@ -48337,44 +50060,131 @@ var render = function() {
     "div",
     { staticClass: "body" },
     [
-      _c(
-        "b-container",
-        [
-          _c("h3", { staticClass: "toCaps" }, [
-            _vm._v(_vm._s(_vm.$route.params.type))
-          ]),
-          _vm._v(" "),
-          _c(
-            "b-form",
+      !_vm.quest
+        ? _c(
+            "b-container",
             [
-              _c(
-                "b-form-group",
-                { attrs: { label: "Enter Title " } },
-                [_c("b-form-input", { attrs: { required: "" } })],
-                1
-              ),
+              _c("h3", { staticClass: "toCaps" }, [
+                _vm._v(_vm._s(_vm.$route.params.type))
+              ]),
               _vm._v(" "),
               _c(
-                "b-form-row",
+                "b-form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.switchQuest($event)
+                    }
+                  }
+                },
                 [
                   _c(
-                    "b-col",
-                    { attrs: { md: "6" } },
+                    "b-form-group",
+                    { attrs: { label: "Enter Title " } },
+                    [
+                      _c("b-form-input", {
+                        attrs: { required: "" },
+                        model: {
+                          value: _vm.option.title,
+                          callback: function($$v) {
+                            _vm.$set(_vm.option, "title", $$v)
+                          },
+                          expression: "option.title"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-row",
                     [
                       _c(
-                        "b-form-group",
-                        { attrs: { label: "Select Class" } },
+                        "b-col",
+                        { attrs: { md: "6" } },
                         [
-                          _c("b-form-select", {
-                            attrs: { options: _vm.allClass, required: "" },
-                            model: {
-                              value: _vm.selected,
-                              callback: function($$v) {
-                                _vm.selected = $$v
-                              },
-                              expression: "selected"
-                            }
-                          })
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Select Class" } },
+                            [
+                              _c(
+                                "b-form-select",
+                                {
+                                  model: {
+                                    value: _vm.option.myclass,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.option, "myclass", $$v)
+                                    },
+                                    expression: "option.myclass"
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "b-form-select-option",
+                                    { attrs: { value: null } },
+                                    [_vm._v("Select")]
+                                  ),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.allClass, function(item, index) {
+                                    return _c(
+                                      "b-form-select-option",
+                                      { key: index, attrs: { value: item } },
+                                      [_vm._v(_vm._s(item))]
+                                    )
+                                  })
+                                ],
+                                2
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        { attrs: { md: "6" } },
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Select Subject" } },
+                            [
+                              _c(
+                                "b-form-select",
+                                {
+                                  model: {
+                                    value: _vm.option.subject,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.option, "subject", $$v)
+                                    },
+                                    expression: "option.subject"
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "b-form-select-option",
+                                    { attrs: { value: null } },
+                                    [_vm._v("Select")]
+                                  ),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.subjects, function(item, index) {
+                                    return _c(
+                                      "b-form-select-option",
+                                      {
+                                        key: index,
+                                        attrs: { value: item.name }
+                                      },
+                                      [_vm._v(_vm._s(item.name))]
+                                    )
+                                  })
+                                ],
+                                2
+                              )
+                            ],
+                            1
+                          )
                         ],
                         1
                       )
@@ -48383,110 +50193,58 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c(
-                    "b-col",
-                    { attrs: { md: "6" } },
+                    "b-form-row",
                     [
                       _c(
-                        "b-form-group",
-                        { attrs: { label: "Select Subject" } },
+                        "b-col",
+                        { attrs: { md: "6" } },
                         [
-                          _c("b-form-select", {
-                            attrs: { options: _vm.subjects, required: "" },
-                            model: {
-                              value: _vm.selected,
-                              callback: function($$v) {
-                                _vm.selected = $$v
-                              },
-                              expression: "selected"
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-form-row",
-                [
-                  _c(
-                    "b-col",
-                    { attrs: { md: "6" } },
-                    [
-                      _c(
-                        "b-form-group",
-                        { attrs: { label: "Select Module" } },
-                        [
-                          _c("b-form-select", {
-                            attrs: { options: _vm.allmodule, required: "" },
-                            model: {
-                              value: _vm.selected,
-                              callback: function($$v) {
-                                _vm.selected = $$v
-                              },
-                              expression: "selected"
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { attrs: { md: "6" } },
-                    [
-                      _c(
-                        "b-form-group",
-                        { attrs: { label: "Select Term" } },
-                        [
-                          _c("b-form-select", {
-                            attrs: { options: _vm.term, required: "" },
-                            model: {
-                              value: _vm.selected,
-                              callback: function($$v) {
-                                _vm.selected = $$v
-                              },
-                              expression: "selected"
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-form-row",
-                [
-                  _c(
-                    "b-col",
-                    { attrs: { md: "6" } },
-                    [
-                      _c(
-                        "b-form-group",
-                        { attrs: { label: "Start Time" } },
-                        [
-                          _c("datetime", {
-                            attrs: { format: " h:i:s (12h)" },
-                            model: {
-                              value: _vm.val,
-                              callback: function($$v) {
-                                _vm.val = $$v
-                              },
-                              expression: "val"
-                            }
-                          })
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Select Term" } },
+                            [
+                              _c(
+                                "b-form-select",
+                                {
+                                  attrs: { required: "" },
+                                  model: {
+                                    value: _vm.option.session,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.option, "session", $$v)
+                                    },
+                                    expression: "option.session"
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "b-form-select-option",
+                                    { attrs: { value: "" } },
+                                    [_vm._v("Select term")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-form-select-option",
+                                    { attrs: { value: "first" } },
+                                    [_vm._v("First")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-form-select-option",
+                                    { attrs: { value: "second" } },
+                                    [_vm._v("Second")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-form-select-option",
+                                    { attrs: { value: "third" } },
+                                    [_vm._v("Third")]
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
                         ],
                         1
                       )
@@ -48495,51 +50253,93 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c(
-                    "b-col",
-                    { attrs: { md: "6" } },
+                    "b-form-row",
                     [
                       _c(
-                        "b-form-group",
-                        { attrs: { label: "End Time" } },
+                        "b-col",
+                        { attrs: { md: "6" } },
                         [
-                          _c("datetime", {
-                            attrs: { format: "h:i:s (12h)" },
-                            model: {
-                              value: _vm.val,
-                              callback: function($$v) {
-                                _vm.val = $$v
-                              },
-                              expression: "val"
-                            }
-                          })
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Start Time" } },
+                            [
+                              _c("datetime", {
+                                model: {
+                                  value: _vm.option.duration.start_time,
+                                  callback: function($$v) {
+                                    _vm.$set(
+                                      _vm.option.duration,
+                                      "start_time",
+                                      $$v
+                                    )
+                                  },
+                                  expression: "option.duration.start_time"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        { attrs: { md: "6" } },
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "End Time" } },
+                            [
+                              _c("datetime", {
+                                model: {
+                                  value: _vm.option.duration.end_time,
+                                  callback: function($$v) {
+                                    _vm.$set(
+                                      _vm.option.duration,
+                                      "end_time",
+                                      $$v
+                                    )
+                                  },
+                                  expression: "option.duration.end_time"
+                                }
+                              })
+                            ],
+                            1
+                          )
                         ],
                         1
                       )
                     ],
                     1
-                  )
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "right-btn" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn text-center",
+                        attrs: { type: "submit" }
+                      },
+                      [
+                        _c("span", [_vm._v("NEXT PAGE")]),
+                        _vm._v(" "),
+                        _c("i", {
+                          staticClass: "fa fa-arrow-right",
+                          attrs: { "aria-hidden": "true" }
+                        })
+                      ]
+                    )
+                  ])
                 ],
                 1
               )
             ],
             1
-          ),
-          _vm._v(" "),
-          _c("router-link", { attrs: { to: "/tutor/assessmentform" } }, [
-            _c("div", { staticClass: "right-btn" }, [
-              _c("div", { staticClass: "btn text-center" }, [
-                _c("span", [_vm._v("NEXT PAGE")]),
-                _vm._v(" "),
-                _c("i", {
-                  staticClass: "fa fa-arrow-right",
-                  attrs: { "aria-hidden": "true" }
-                })
-              ])
-            ])
-          ])
-        ],
-        1
-      )
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.quest ? _c("assess", { attrs: { option: _vm.option } }) : _vm._e()
     ],
     1
   )
@@ -49281,6 +51081,565 @@ var render = function() {
         ],
         1
       )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/assessment/preview.vue?vue&type=template&id=bf23eb82&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/assessment/preview.vue?vue&type=template&id=bf23eb82&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _vm.form
+        ? _c(
+            "b-container",
+            [
+              _c(
+                "b-form",
+                [
+                  _c("legend", { staticClass: "text-center mb-5" }, [
+                    _vm._v(_vm._s(_vm.options.title))
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c("b-col", { attrs: { sm: "6" } }, [
+                        _c("strong", { staticClass: "toCaps" }, [
+                          _vm._v(_vm._s(_vm.options.session) + " Term")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("b-col", { attrs: { sm: "6" } }, [
+                        _c("strong", { staticClass: "toCaps" }, [
+                          _vm._v("Level : " + _vm._s(_vm.options.myclass))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("b-col", { attrs: { sm: "6" } }, [
+                        _c("strong", { staticClass: "toCaps" }, [
+                          _vm._v("Subject : " + _vm._s(_vm.options.subject))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("b-col", { attrs: { sm: "6" } }, [
+                        _c("strong", { staticClass: "toCaps" }, [
+                          _vm._v(
+                            "Start : " +
+                              _vm._s(_vm.options.duration.start_time) +
+                              " "
+                          ),
+                          _c("br"),
+                          _vm._v(
+                            " End : " + _vm._s(_vm.options.duration.end_time)
+                          )
+                        ])
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.num < _vm.form.length
+                    ? _c(
+                        "section",
+                        [
+                          _c(
+                            "b-form-row",
+                            [
+                              _c("b-col", { attrs: { cols: "12" } }, [
+                                _c("h5", [
+                                  _vm._v(_vm._s(_vm.form[_vm.num].title))
+                                ]),
+                                _vm._v(" "),
+                                _c("p", {
+                                  domProps: {
+                                    innerHTML: _vm._s(
+                                      _vm.form[_vm.num].description
+                                    )
+                                  }
+                                })
+                              ])
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.form[_vm.num].question, function(
+                            question,
+                            idx
+                          ) {
+                            return _c(
+                              "b-form-row",
+                              { key: idx },
+                              [
+                                _c(
+                                  "b-col",
+                                  { attrs: { cols: "12" } },
+                                  [
+                                    question.answer_format == "text box"
+                                      ? _c(
+                                          "b-form-group",
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("b-form-input", {
+                                              attrs: {
+                                                type: "text",
+                                                placeholder:
+                                                  question.placeholder,
+                                                max: question.limit
+                                              },
+                                              model: {
+                                                value: question.answer,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    question,
+                                                    "answer",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "question.answer"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    question.answer_format == "email"
+                                      ? _c(
+                                          "b-form-group",
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("b-form-input", {
+                                              attrs: {
+                                                type: "email",
+                                                placeholder:
+                                                  question.placeholder
+                                              },
+                                              model: {
+                                                value: question.answer,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    question,
+                                                    "answer",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "question.answer"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    question.answer_format == "number"
+                                      ? _c(
+                                          "b-form-group",
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("b-form-input", {
+                                              attrs: {
+                                                type: "number",
+                                                placeholder:
+                                                  question.placeholder,
+                                                max: question.limit
+                                              },
+                                              model: {
+                                                value: question.answer,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    question,
+                                                    "answer",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "question.answer"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    question.answer_format == "long text"
+                                      ? _c(
+                                          "b-form-group",
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("b-form-textarea", {
+                                              attrs: {
+                                                placeholder:
+                                                  question.placeholder
+                                              },
+                                              model: {
+                                                value: question.answer,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    question,
+                                                    "answer",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "question.answer"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    question.answer_format == "multi choice"
+                                      ? _c(
+                                          "b-form-group",
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _vm._l(question.options, function(
+                                              opt,
+                                              id
+                                            ) {
+                                              return _c(
+                                                "b-form-checkbox",
+                                                {
+                                                  key: id,
+                                                  attrs: { value: opt.name },
+                                                  model: {
+                                                    value: question.answers,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        question,
+                                                        "answers",
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression:
+                                                      "question.answers"
+                                                  }
+                                                },
+                                                [_vm._v(_vm._s(opt.name))]
+                                              )
+                                            })
+                                          ],
+                                          2
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    question.answer_format == "single choice"
+                                      ? _c(
+                                          "b-form-group",
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _vm._l(question.options, function(
+                                              opt,
+                                              id
+                                            ) {
+                                              return _c(
+                                                "b-form-radio",
+                                                {
+                                                  key: id,
+                                                  attrs: { value: opt.name },
+                                                  model: {
+                                                    value: question.answer,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        question,
+                                                        "answer",
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression:
+                                                      "question.answer"
+                                                  }
+                                                },
+                                                [_vm._v(_vm._s(opt.name))]
+                                              )
+                                            })
+                                          ],
+                                          2
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    question.answer_format == "date"
+                                      ? _c(
+                                          "b-form-group",
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("br"),
+                                            _vm._v(" "),
+                                            _c("b-form-datepicker", {
+                                              model: {
+                                                value: question.answer,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    question,
+                                                    "answer",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "question.answer"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    question.answer_format == "time"
+                                      ? _c(
+                                          "b-form-group",
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("br"),
+                                            _vm._v(" "),
+                                            _c("b-form-timepicker", {
+                                              model: {
+                                                value: question.answer,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    question,
+                                                    "answer",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "question.answer"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    question.answer_format == "multi text"
+                                      ? _c(
+                                          "b-form-group",
+                                          _vm._l(question.answers, function(
+                                            item,
+                                            i
+                                          ) {
+                                            return _c(
+                                              "div",
+                                              { key: i },
+                                              [
+                                                _c("b-form-input", {
+                                                  model: {
+                                                    value: item.answer,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        item,
+                                                        "answer",
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression: "item.answer"
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            )
+                                          }),
+                                          0
+                                        )
+                                      : _vm._e()
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c("b-col", [
+                                  question.tools.length
+                                    ? _c(
+                                        "div",
+                                        [
+                                          question.tools.includes("table")
+                                            ? _c(
+                                                "b-form-row",
+                                                [
+                                                  _c(
+                                                    "b-col",
+                                                    { attrs: { cols: "12" } },
+                                                    [
+                                                      _c("b-table", {
+                                                        attrs: {
+                                                          fields:
+                                                            question.fields,
+                                                          items: question.items
+                                                        }
+                                                      })
+                                                    ],
+                                                    1
+                                                  )
+                                                ],
+                                                1
+                                              )
+                                            : _vm._e(),
+                                          _vm._v(" "),
+                                          question.tools.includes("docs") ||
+                                          question.tools.includes("media")
+                                            ? _c(
+                                                "b-form-row",
+                                                [
+                                                  _c(
+                                                    "b-col",
+                                                    { attrs: { cols: "12" } },
+                                                    [
+                                                      _c(
+                                                        "b-form-row",
+                                                        _vm._l(
+                                                          question.documents,
+                                                          function(doc, idx) {
+                                                            return _c(
+                                                              "b-col",
+                                                              {
+                                                                key: idx,
+                                                                staticClass:
+                                                                  "border p-2",
+                                                                attrs: {
+                                                                  cols: "3"
+                                                                }
+                                                              },
+                                                              [
+                                                                _c(
+                                                                  "div",
+                                                                  [
+                                                                    _c(
+                                                                      "b-form-input",
+                                                                      {
+                                                                        attrs: {
+                                                                          type:
+                                                                            "text",
+                                                                          placeholder:
+                                                                            "File name"
+                                                                        },
+                                                                        model: {
+                                                                          value:
+                                                                            doc.name,
+                                                                          callback: function(
+                                                                            $$v
+                                                                          ) {
+                                                                            _vm.$set(
+                                                                              doc,
+                                                                              "name",
+                                                                              $$v
+                                                                            )
+                                                                          },
+                                                                          expression:
+                                                                            "doc.name"
+                                                                        }
+                                                                      }
+                                                                    ),
+                                                                    _vm._v(" "),
+                                                                    _c("Upload")
+                                                                  ],
+                                                                  1
+                                                                )
+                                                              ]
+                                                            )
+                                                          }
+                                                        ),
+                                                        1
+                                                      )
+                                                    ],
+                                                    1
+                                                  )
+                                                ],
+                                                1
+                                              )
+                                            : _vm._e()
+                                        ],
+                                        1
+                                      )
+                                    : _vm._e()
+                                ])
+                              ],
+                              1
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    { staticClass: "justify-content-between my-3" },
+                    [
+                      _c("b-button", { on: { click: _vm.prev } }, [
+                        _vm._v("Previous")
+                      ]),
+                      _vm._v(" "),
+                      _vm.num < _vm.form.length + 1
+                        ? _c("b-button", { on: { click: _vm.next } }, [
+                            _vm._v("Next")
+                          ])
+                        : _vm._e()
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        : _vm._e()
     ],
     1
   )
@@ -51581,7 +53940,7 @@ var render = function() {
     [
       _c(
         "nav",
-        { staticClass: "shadow-sm p-3 bg-white" },
+        { staticClass: "shadow-sm p-3 py-1 shadow-sm" },
         [
           _c("b-form-input", {
             staticClass: "search rounded-pill",
@@ -51657,7 +54016,13 @@ var render = function() {
               "div",
               { staticClass: "mx-3" },
               [
-                _c("b-avatar", { attrs: { to: "/tutor/profile", src: "" } }),
+                _c("b-avatar", {
+                  attrs: {
+                    to: "/tutor/profile",
+                    size: "sm",
+                    src: _vm.tutor.profile
+                  }
+                }),
                 _vm._v(" "),
                 _c("span", { staticClass: "toCaps mx-2" }, [
                   _vm._v(_vm._s(_vm.tutor.name))
@@ -62879,6 +65244,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_template_id_1684a710_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_template_id_1684a710_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/tutor/assessment/preview.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/components/tutor/assessment/preview.vue ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _preview_vue_vue_type_template_id_bf23eb82_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./preview.vue?vue&type=template&id=bf23eb82&scoped=true& */ "./resources/js/components/tutor/assessment/preview.vue?vue&type=template&id=bf23eb82&scoped=true&");
+/* harmony import */ var _preview_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./preview.vue?vue&type=script&lang=js& */ "./resources/js/components/tutor/assessment/preview.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _preview_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _preview_vue_vue_type_template_id_bf23eb82_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _preview_vue_vue_type_template_id_bf23eb82_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "bf23eb82",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/tutor/assessment/preview.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/tutor/assessment/preview.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/tutor/assessment/preview.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_preview_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./preview.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/assessment/preview.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_preview_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/tutor/assessment/preview.vue?vue&type=template&id=bf23eb82&scoped=true&":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/components/tutor/assessment/preview.vue?vue&type=template&id=bf23eb82&scoped=true& ***!
+  \*********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_preview_vue_vue_type_template_id_bf23eb82_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./preview.vue?vue&type=template&id=bf23eb82&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/assessment/preview.vue?vue&type=template&id=bf23eb82&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_preview_vue_vue_type_template_id_bf23eb82_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_preview_vue_vue_type_template_id_bf23eb82_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

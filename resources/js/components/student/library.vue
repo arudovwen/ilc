@@ -19,6 +19,13 @@
         <img src="/images/text-book.png" alt />
       </div>
     </div>
+     <div class="continue-reading" v-else>
+      <div class="continue-word">
+        <h5>You haven't started any subject yet, Start onre now !</h5>
+       
+      </div>
+   
+    </div>
 
     <div class="library-content container bg-white p-3 py-4">
       <h6>My Library</h6>

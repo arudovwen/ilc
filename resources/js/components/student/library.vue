@@ -81,7 +81,7 @@
                   style="max-width: 20rem;"
                   class="mb-2 toCaps"
                 >
-                  <b-card-text>{{item.excerpt}}</b-card-text>
+                  <b-card-text class="excerpt">{{item.excerpt}}</b-card-text>
 
                   <b-button href="#" variant="darkgreen" block @click="view(item.id,item.subject,item.cover)">View</b-button>
                 </b-card>
@@ -472,5 +472,24 @@ ul {
 .option li {
   padding: 4px 15px;
   cursor: pointer;
+}
+.excerpt {
+  height: 45px;
+  font-size: 15px;
+  overflow: hidden;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2;
+  -moz-line-clamp: 2;
+  -ms-line-clamp: 2;
+  -o-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -ms-box-orient: vertical;
+  -o-box-orient: vertical;
+  box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
 }
 </style>

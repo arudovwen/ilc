@@ -142,7 +142,7 @@
                 </div>
               </div>
             </div>
-            <div class="class_section mt-5">
+            <div class="class_section phert-5">
               <div class="form-control text-align"> No Class Available</div>
             </div>
 

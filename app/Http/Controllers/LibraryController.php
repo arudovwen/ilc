@@ -37,7 +37,7 @@ class LibraryController extends Controller
     public function store(Request $request)
     {
         $user = auth('api')->user();
-    
+   
      $library =  Library::where('student_id',$user->id)->where('school_id',$user->school_id)->where('course_id',$request->id)->first();
  
       if (is_null($library)) {
@@ -51,8 +51,20 @@ class LibraryController extends Controller
             'content'=> \json_encode($request->content),
             'worksheet_id'=> $request->worksheet_id,
         ]);
+      }else{
+        Library::find($library->id)->delete();
+        return Library::create([
+            'course_id'=> $request->id,
+            'student_id'=> $user->id,
+            'school_id'=> $user->school_id,
+            'subject'=> $request->subject,
+            'title'=> $request->title,
+            'excerpt'=> $request->excerpt,
+            'content'=> \json_encode($request->content),
+            'worksheet_id'=> $request->worksheet_id,
+        ]);
       }
-      return;
+     
     }
 
     /**

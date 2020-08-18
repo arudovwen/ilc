@@ -50,20 +50,155 @@
         </div>
       </div>
     </div>
-  </div> -->
+  </div>-->
   <div class="profile-page">
-    <div class="tutor-profile"></div>
-
+    <div class="profile container">
+      <div class="tutor-profile">
+        <div class="avatar-profile">
+          <b-avatar variant="secondary" size="6rem"></b-avatar>
+        </div>
+        <div class="profile-inner">
+          <h6>Personal Information</h6>
+          <div class="personal-form">
+            <b-form>
+              <b-form-row>
+                <b-col>
+                  <b-form-group label="Name">
+                    <b-form-input placeholder></b-form-input>
+                  </b-form-group>
+                </b-col>
+                <b-col>
+                  <b-form-group label="Email">
+                    <b-form-input placeholder></b-form-input>
+                  </b-form-group>
+                </b-col>
+              </b-form-row>
+              <b-form-row>
+                <b-col>
+                  <b-form-group label="Date of Birth">
+                    <b-form-datepicker id="example-datepicker"></b-form-datepicker>
+                  </b-form-group>
+                </b-col>
+                <b-col>
+                  <b-form-group label="Address">
+                    <b-form-input placeholder></b-form-input>
+                  </b-form-group>
+                </b-col>
+              </b-form-row>
+              <b-form-group label="Gender">
+                <b-form-select v-model="selected" :options="gender"></b-form-select>
+              </b-form-group>
+              <b-form-row>
+                <b-col>
+                  <b-form-group label="State">
+                    <b-form-input placeholder></b-form-input>
+                  </b-form-group>
+                </b-col>
+                <b-col>
+                  <b-form-group label="Local Goverment Area">
+                    <b-form-input placeholder></b-form-input>
+                  </b-form-group>
+                </b-col>
+              </b-form-row>
+            </b-form>
+          </div>
+        </div>
+        <div class="profile-inner">
+          <h6>School Information</h6>
+          <div class="personal-form">
+            <b-form>
+              <b-form-row>
+                <b-col>
+                  <b-form-group label="Qualification">
+                    <b-form-input placeholder></b-form-input>
+                  </b-form-group>
+                </b-col>
+                <b-col>
+                  <b-form-group label="Area of Specialization">
+                    <b-form-input placeholder></b-form-input>
+                  </b-form-group>
+                </b-col>
+              </b-form-row>
+              <b-form-row>
+                <b-col>
+                  <b-form-group label="Date of Entry">
+                    <b-form-datepicker id="example-datepicker"></b-form-datepicker>
+                  </b-form-group>
+                </b-col>
+                <b-col>
+                  <b-form-group label="Faculty">
+                    <b-form-input placeholder></b-form-input>
+                  </b-form-group>
+                </b-col>
+              </b-form-row>
+              <b-form-group label="Department">
+                <b-form-input placeholder></b-form-input>
+              </b-form-group>
+              <b-form-row>
+                <b-col>
+                  <b-form-group label="Current Grade Level">
+                    <b-form-select v-model="selected" :options="gradelevel"></b-form-select>
+                  </b-form-group>
+                </b-col>
+                <b-col>
+                  <b-form-group label="File No">
+                    <b-form-input placeholder></b-form-input>
+                  </b-form-group>
+                </b-col>
+              </b-form-row>
+            </b-form>
+          </div>
+        </div>
+        <div class="profile-inner">
+          <h6>Bank Information</h6>
+          <div class="personal-form">
+            <b-form>
+              <b-form-row>
+                <b-col>
+                  <b-form-group label="Bank Name">
+                    <b-form-input placeholder></b-form-input>
+                  </b-form-group>
+                </b-col>
+                <b-col>
+                  <b-form-group label="Account Number">
+                    <b-form-input placeholder></b-form-input>
+                  </b-form-group>
+                </b-col>
+              </b-form-row>
+            
+              <b-form-group label="BVN">
+                <b-form-input placeholder></b-form-input>
+              </b-form-group>
+             
+            </b-form>
+          </div>
+        </div>
+        <div class="save-btn">
+          <div class="btn btn-save">Save</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-
 export default {
   props: ["tutor"],
   data() {
     return {
-      details: {}
+      details: {},
+      selected: null,
+      gender: [
+        { value: null, text: "Please select gender" },
+        { value: "a", text: "Female" },
+        { value: "b", text: "Male" },
+      ],
+      gradelevel: [
+        { value: null, text: "Please select grade level" },
+        { value: "a", text: "Level 1" },
+        { value: "b", text: "Level 2" },
+        { value: "c", text: "Level 3" },
+      ],
     };
   },
   mounted() {
@@ -74,10 +209,10 @@ export default {
       axios
         .get("/api/tutorDetails", {
           headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.details = res.data;
           }
@@ -85,13 +220,12 @@ export default {
     },
     update() {
       this.$router.push(`/tutor/update/${this.details.id}`);
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
-
 .info {
   width: 80%;
   margin: 0 auto;
@@ -102,10 +236,10 @@ export default {
   border-radius: 50%;
   overflow: hidden;
 }
-.image img{
-    width:100%;
-    height:100%;
-    object-fit: cover;
+.image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 ul {
   list-style: none;
@@ -113,5 +247,37 @@ ul {
 li {
   text-transform: capitalize;
   padding: 10px 0;
+}
+.profile {
+  /* display: flex;
+  justify-content: center; */
+  padding-top: 50px;
+}
+.avatar-profile {
+  position: absolute;
+  left: calc(50% - 35px);
+transform: translateY(-65%);
+}
+.tutor-profile {
+  background: #fff;
+  position: relative;
+  padding: 30px;
+}
+.personal-form {
+  border: 1px solid #c4c4c4;
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+.save-btn{
+  display: flex;
+  justify-content: center;
+  font-family: "Montserrat";
+}
+.btn-save{
+  background: #0A4065;
+  color: #fff;
+  padding: 9px 16px;
+  font-size: 16px;
+  font-weight: 500;
 }
 </style>

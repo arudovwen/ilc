@@ -17261,11 +17261,159 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tutor"],
   data: function data() {
     return {
-      details: {}
+      details: {},
+      selected: null,
+      gender: [{
+        value: null,
+        text: "Please select gender"
+      }, {
+        value: "a",
+        text: "Female"
+      }, {
+        value: "b",
+        text: "Male"
+      }],
+      gradelevel: [{
+        value: null,
+        text: "Please select grade level"
+      }, {
+        value: "a",
+        text: "Level 1"
+      }, {
+        value: "b",
+        text: "Level 2"
+      }, {
+        value: "c",
+        text: "Level 3"
+      }]
     };
   },
   mounted: function mounted() {
@@ -21958,7 +22106,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.info[data-v-08a588d6] {\r\n  width: 80%;\r\n  margin: 0 auto;\n}\n.image[data-v-08a588d6] {\r\n  width: 140px;\r\n  height: 140px;\r\n  border-radius: 50%;\r\n  overflow: hidden;\n}\n.image img[data-v-08a588d6]{\r\n    width:100%;\r\n    height:100%;\r\n    -o-object-fit: cover;\r\n       object-fit: cover;\n}\nul[data-v-08a588d6] {\r\n  list-style: none;\n}\nli[data-v-08a588d6] {\r\n  text-transform: capitalize;\r\n  padding: 10px 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.info[data-v-08a588d6] {\r\n  width: 80%;\r\n  margin: 0 auto;\n}\n.image[data-v-08a588d6] {\r\n  width: 140px;\r\n  height: 140px;\r\n  border-radius: 50%;\r\n  overflow: hidden;\n}\n.image img[data-v-08a588d6] {\r\n  width: 100%;\r\n  height: 100%;\r\n  -o-object-fit: cover;\r\n     object-fit: cover;\n}\nul[data-v-08a588d6] {\r\n  list-style: none;\n}\nli[data-v-08a588d6] {\r\n  text-transform: capitalize;\r\n  padding: 10px 0;\n}\n.profile[data-v-08a588d6] {\r\n  /* display: flex;\r\n  justify-content: center; */\r\n  padding-top: 50px;\n}\n.avatar-profile[data-v-08a588d6] {\r\n  position: absolute;\r\n  left: calc(50% - 35px);\r\ntransform: translateY(-65%);\n}\n.tutor-profile[data-v-08a588d6] {\r\n  background: #fff;\r\n  position: relative;\r\n  padding: 30px;\n}\n.personal-form[data-v-08a588d6] {\r\n  border: 1px solid #c4c4c4;\r\n  margin-bottom: 30px;\r\n  margin-top: 20px;\n}\n.save-btn[data-v-08a588d6]{\r\n  display: flex;\r\n  justify-content: center;\r\n  font-family: \"Montserrat\";\n}\n.btn-save[data-v-08a588d6]{\r\n  background: #0A4065;\r\n  color: #fff;\r\n  padding: 9px 16px;\r\n  font-size: 16px;\r\n  font-weight: 500;\n}\r\n", ""]);
 
 // exports
 
@@ -51566,15 +51714,376 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "profile-page" }, [
+    _c("div", { staticClass: "profile container" }, [
+      _c("div", { staticClass: "tutor-profile" }, [
+        _c(
+          "div",
+          { staticClass: "avatar-profile" },
+          [_c("b-avatar", { attrs: { variant: "secondary", size: "6rem" } })],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "profile-inner" }, [
+          _c("h6", [_vm._v("Personal Information")]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "personal-form" },
+            [
+              _c(
+                "b-form",
+                [
+                  _c(
+                    "b-form-row",
+                    [
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Name" } },
+                            [
+                              _c("b-form-input", { attrs: { placeholder: "" } })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Email" } },
+                            [
+                              _c("b-form-input", { attrs: { placeholder: "" } })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-row",
+                    [
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Date of Birth" } },
+                            [
+                              _c("b-form-datepicker", {
+                                attrs: { id: "example-datepicker" }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Address" } },
+                            [
+                              _c("b-form-input", { attrs: { placeholder: "" } })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-group",
+                    { attrs: { label: "Gender" } },
+                    [
+                      _c("b-form-select", {
+                        attrs: { options: _vm.gender },
+                        model: {
+                          value: _vm.selected,
+                          callback: function($$v) {
+                            _vm.selected = $$v
+                          },
+                          expression: "selected"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-row",
+                    [
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "State" } },
+                            [
+                              _c("b-form-input", { attrs: { placeholder: "" } })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Local Goverment Area" } },
+                            [
+                              _c("b-form-input", { attrs: { placeholder: "" } })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "profile-inner" }, [
+          _c("h6", [_vm._v("School Information")]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "personal-form" },
+            [
+              _c(
+                "b-form",
+                [
+                  _c(
+                    "b-form-row",
+                    [
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Qualification" } },
+                            [
+                              _c("b-form-input", { attrs: { placeholder: "" } })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Area of Specialization" } },
+                            [
+                              _c("b-form-input", { attrs: { placeholder: "" } })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-row",
+                    [
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Date of Entry" } },
+                            [
+                              _c("b-form-datepicker", {
+                                attrs: { id: "example-datepicker" }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Faculty" } },
+                            [
+                              _c("b-form-input", { attrs: { placeholder: "" } })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-group",
+                    { attrs: { label: "Department" } },
+                    [_c("b-form-input", { attrs: { placeholder: "" } })],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-row",
+                    [
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Current Grade Level" } },
+                            [
+                              _c("b-form-select", {
+                                attrs: { options: _vm.gradelevel },
+                                model: {
+                                  value: _vm.selected,
+                                  callback: function($$v) {
+                                    _vm.selected = $$v
+                                  },
+                                  expression: "selected"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "File No" } },
+                            [
+                              _c("b-form-input", { attrs: { placeholder: "" } })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "profile-inner" }, [
+          _c("h6", [_vm._v("Bank Information")]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "personal-form" },
+            [
+              _c(
+                "b-form",
+                [
+                  _c(
+                    "b-form-row",
+                    [
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Bank Name" } },
+                            [
+                              _c("b-form-input", { attrs: { placeholder: "" } })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Account Number" } },
+                            [
+                              _c("b-form-input", { attrs: { placeholder: "" } })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-group",
+                    { attrs: { label: "BVN" } },
+                    [_c("b-form-input", { attrs: { placeholder: "" } })],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _vm._m(0)
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "profile-page" }, [
-      _c("div", { staticClass: "tutor-profile" })
+    return _c("div", { staticClass: "save-btn" }, [
+      _c("div", { staticClass: "btn btn-save" }, [_vm._v("Save")])
     ])
   }
 ]

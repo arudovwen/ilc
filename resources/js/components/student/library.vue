@@ -1,7 +1,7 @@
 <template>
  
   <div class="library">
-    <div class="continue-reading">
+    <div class="continue-reading" v-if="lastRead">
       <div class="continue-word">
         <h5>You were {{lastRead.type == 'video'?'watching':'viewing'}} {{lastRead.title}}</h5>
         <h6 class="toCaps">{{lastRead.subject}}</h6>

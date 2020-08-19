@@ -12517,6 +12517,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -12558,6 +12559,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -22011,7 +22018,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.profile[data-v-4519a04c] {\r\n  /* display: flex;\r\n  justify-content: center; */\r\n  padding-top: 50px;\n}\n.avatar-profile[data-v-4519a04c] {\r\n  position: absolute;\r\n  left: calc(50% - 35px);\r\n  transform: translateY(-65%);\n}\n.tutor-profile[data-v-4519a04c] {\r\n  background: #fff;\r\n  position: relative;\r\n  padding: 30px;\n}\n.personal-form[data-v-4519a04c] {\r\n  border: 1px solid #c4c4c4;\r\n  margin-bottom: 30px;\r\n  margin-top: 20px;\n}\n.form-group[data-v-4519a04c]{\r\n  position: relative;\n}\n.form-group[data-v-4519a04c]:hover::before{\r\n  content: \"\\F040\";\r\n  font-family: \"FontAwesome\";\r\n  font-weight: 500;\r\n  position: absolute;\r\n  right: 0;\r\n  top: 0;\n}\n.save-btn[data-v-4519a04c] {\r\n  display: flex;\r\n  justify-content: center;\r\n  font-family: \"Montserrat\";\n}\n.btn-save[data-v-4519a04c] {\r\n  background: #13a699;\r\n  color: #fff;\r\n  padding: 9px 16px;\r\n  font-size: 16px;\r\n  font-weight: 500;\n}\r\n", ""]);
+exports.push([module.i, "\n.profile[data-v-4519a04c] {\r\n  /* display: flex;\r\n  justify-content: center; */\r\n  padding-top: 50px;\n}\n.avatar-profile[data-v-4519a04c] {\r\n  position: absolute;\r\n  left: calc(50% - 35px);\r\n  transform: translateY(-65%);\n}\n.tutor-profile[data-v-4519a04c] {\r\n  background: #fff;\r\n  position: relative;\r\n  padding: 30px;\n}\n.personal-form[data-v-4519a04c] {\r\n  border: 1px solid #c4c4c4;\r\n  margin-bottom: 30px;\r\n  margin-top: 20px;\n}\n.form-group[data-v-4519a04c]{\r\n  position: relative;\n}\n.after-edit[data-v-4519a04c]:hover::before{\r\n  content: \"\\F040\";\r\n  font-family: \"FontAwesome\";\r\n  font-weight: 500;\r\n  position: absolute;\r\n  right: 0;\r\n  top: 0;\r\n  transform: translateY(10px);\n}\n.save-btn[data-v-4519a04c] {\r\n  display: flex;\r\n  justify-content: center;\r\n  font-family: \"Montserrat\";\n}\n.btn-save[data-v-4519a04c] {\r\n  background: #13a699;\r\n  color: #fff;\r\n  padding: 9px 16px;\r\n  font-size: 16px;\r\n  font-weight: 500;\n}\r\n", ""]);
 
 // exports
 
@@ -42838,11 +42845,7 @@ var render = function() {
             [
               _c("b-table", {
                 staticClass: "main-table",
-                attrs: {
-                  fields: _vm.fields,
-                  items: _vm.assignment,
-                  bordered: ""
-                },
+                attrs: { fields: _vm.fields, items: _vm.assignment },
                 scopedSlots: _vm._u([
                   {
                     key: "cell(Sn)",
@@ -42880,7 +42883,7 @@ var render = function() {
             [
               _c("b-table", {
                 staticClass: "main-table",
-                attrs: { fields: _vm.fields, items: _vm.quiz, bordered: "" },
+                attrs: { fields: _vm.fields, items: _vm.quiz },
                 scopedSlots: _vm._u([
                   {
                     key: "cell(Sn)",
@@ -42918,7 +42921,7 @@ var render = function() {
             [
               _c("b-table", {
                 staticClass: "main-table",
-                attrs: { fields: _vm.fields, items: _vm.test, bordered: "" },
+                attrs: { fields: _vm.fields, items: _vm.test },
                 scopedSlots: _vm._u([
                   {
                     key: "cell(Sn)",
@@ -42956,11 +42959,7 @@ var render = function() {
             [
               _c("b-table", {
                 staticClass: "main-table",
-                attrs: {
-                  fields: _vm.fields,
-                  items: _vm.examination,
-                  bordered: ""
-                },
+                attrs: { fields: _vm.fields, items: _vm.examination },
                 scopedSlots: _vm._u([
                   {
                     key: "cell(Sn)",
@@ -45695,14 +45694,18 @@ var render = function() {
                       _c(
                         "b-col",
                         [
-                          _c(
-                            "b-form-group",
-                            { attrs: { label: "Name" } },
-                            [
-                              _c("b-form-input", { attrs: { placeholder: "" } })
-                            ],
-                            1
-                          )
+                          _c("b-form-group", { attrs: { label: "Name" } }, [
+                            _c(
+                              "div",
+                              { staticClass: "after-edit" },
+                              [
+                                _c("b-form-input", {
+                                  attrs: { placeholder: "" }
+                                })
+                              ],
+                              1
+                            )
+                          ])
                         ],
                         1
                       ),
@@ -45710,14 +45713,18 @@ var render = function() {
                       _c(
                         "b-col",
                         [
-                          _c(
-                            "b-form-group",
-                            { attrs: { label: "Email" } },
-                            [
-                              _c("b-form-input", { attrs: { placeholder: "" } })
-                            ],
-                            1
-                          )
+                          _c("b-form-group", { attrs: { label: "Email" } }, [
+                            _c(
+                              "div",
+                              { staticClass: "after-edit" },
+                              [
+                                _c("b-form-input", {
+                                  attrs: { placeholder: "" }
+                                })
+                              ],
+                              1
+                            )
+                          ])
                         ],
                         1
                       )
@@ -45735,11 +45742,17 @@ var render = function() {
                             "b-form-group",
                             { attrs: { label: "Date of Birth" } },
                             [
-                              _c("b-form-datepicker", {
-                                attrs: { id: "example-datepicker" }
-                              })
-                            ],
-                            1
+                              _c(
+                                "div",
+                                { staticClass: "after-edit" },
+                                [
+                                  _c("b-form-datepicker", {
+                                    attrs: { id: "example-datepicker" }
+                                  })
+                                ],
+                                1
+                              )
+                            ]
                           )
                         ],
                         1
@@ -45748,14 +45761,18 @@ var render = function() {
                       _c(
                         "b-col",
                         [
-                          _c(
-                            "b-form-group",
-                            { attrs: { label: "Address" } },
-                            [
-                              _c("b-form-input", { attrs: { placeholder: "" } })
-                            ],
-                            1
-                          )
+                          _c("b-form-group", { attrs: { label: "Address" } }, [
+                            _c(
+                              "div",
+                              { staticClass: "after-edit" },
+                              [
+                                _c("b-form-input", {
+                                  attrs: { placeholder: "" }
+                                })
+                              ],
+                              1
+                            )
+                          ])
                         ],
                         1
                       )
@@ -45763,23 +45780,25 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _c(
-                    "b-form-group",
-                    { attrs: { label: "Gender" } },
-                    [
-                      _c("b-form-select", {
-                        attrs: { options: _vm.gender },
-                        model: {
-                          value: _vm.selected,
-                          callback: function($$v) {
-                            _vm.selected = $$v
-                          },
-                          expression: "selected"
-                        }
-                      })
-                    ],
-                    1
-                  ),
+                  _c("b-form-group", { attrs: { label: "Gender" } }, [
+                    _c(
+                      "div",
+                      { staticClass: "after-edit" },
+                      [
+                        _c("b-form-select", {
+                          attrs: { options: _vm.gender },
+                          model: {
+                            value: _vm.selected,
+                            callback: function($$v) {
+                              _vm.selected = $$v
+                            },
+                            expression: "selected"
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ]),
                   _vm._v(" "),
                   _c(
                     "b-form-row",
@@ -45787,14 +45806,18 @@ var render = function() {
                       _c(
                         "b-col",
                         [
-                          _c(
-                            "b-form-group",
-                            { attrs: { label: "State" } },
-                            [
-                              _c("b-form-input", { attrs: { placeholder: "" } })
-                            ],
-                            1
-                          )
+                          _c("b-form-group", { attrs: { label: "State" } }, [
+                            _c(
+                              "div",
+                              { staticClass: "after-edit" },
+                              [
+                                _c("b-form-input", {
+                                  attrs: { placeholder: "" }
+                                })
+                              ],
+                              1
+                            )
+                          ])
                         ],
                         1
                       ),
@@ -45806,9 +45829,17 @@ var render = function() {
                             "b-form-group",
                             { attrs: { label: "Local Goverment Area" } },
                             [
-                              _c("b-form-input", { attrs: { placeholder: "" } })
-                            ],
-                            1
+                              _c(
+                                "div",
+                                { staticClass: "after-edit" },
+                                [
+                                  _c("b-form-input", {
+                                    attrs: { placeholder: "" }
+                                  })
+                                ],
+                                1
+                              )
+                            ]
                           )
                         ],
                         1
@@ -45823,14 +45854,18 @@ var render = function() {
                       _c(
                         "b-col",
                         [
-                          _c(
-                            "b-form-group",
-                            { attrs: { label: "Guardian" } },
-                            [
-                              _c("b-form-input", { attrs: { placeholder: "" } })
-                            ],
-                            1
-                          )
+                          _c("b-form-group", { attrs: { label: "Guardian" } }, [
+                            _c(
+                              "div",
+                              { staticClass: "after-edit" },
+                              [
+                                _c("b-form-input", {
+                                  attrs: { placeholder: "" }
+                                })
+                              ],
+                              1
+                            )
+                          ])
                         ],
                         1
                       ),
@@ -45842,9 +45877,17 @@ var render = function() {
                             "b-form-group",
                             { attrs: { label: "Guardian Phone" } },
                             [
-                              _c("b-form-input", { attrs: { placeholder: "" } })
-                            ],
-                            1
+                              _c(
+                                "div",
+                                { staticClass: "after-edit" },
+                                [
+                                  _c("b-form-input", {
+                                    attrs: { placeholder: "" }
+                                  })
+                                ],
+                                1
+                              )
+                            ]
                           )
                         ],
                         1
@@ -45863,9 +45906,17 @@ var render = function() {
                             "b-form-group",
                             { attrs: { label: "Next of Kin" } },
                             [
-                              _c("b-form-input", { attrs: { placeholder: "" } })
-                            ],
-                            1
+                              _c(
+                                "div",
+                                { staticClass: "after-edit" },
+                                [
+                                  _c("b-form-input", {
+                                    attrs: { placeholder: "" }
+                                  })
+                                ],
+                                1
+                              )
+                            ]
                           )
                         ],
                         1
@@ -45878,9 +45929,17 @@ var render = function() {
                             "b-form-group",
                             { attrs: { label: "Next of Kin Phone" } },
                             [
-                              _c("b-form-input", { attrs: { placeholder: "" } })
-                            ],
-                            1
+                              _c(
+                                "div",
+                                { staticClass: "after-edit" },
+                                [
+                                  _c("b-form-input", {
+                                    attrs: { placeholder: "" }
+                                  })
+                                ],
+                                1
+                              )
+                            ]
                           )
                         ],
                         1
@@ -46022,6 +46081,17 @@ var render = function() {
               }),
               _vm._v(" "),
               !_vm.sideBar ? _c("span", [_vm._v("Home")]) : _vm._e()
+            ])
+          ]),
+          _vm._v(" "),
+          _c("router-link", { attrs: { to: "/student/profile" } }, [
+            _c("li", [
+              _c("i", {
+                staticClass: "icon-group",
+                attrs: { "aria-hidden": "true" }
+              }),
+              _vm._v(" "),
+              !_vm.sideBar ? _c("span", [_vm._v("Profile")]) : _vm._e()
             ])
           ]),
           _vm._v(" "),

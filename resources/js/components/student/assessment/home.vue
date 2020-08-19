@@ -4,7 +4,7 @@
    
       <b-tabs>
         <b-tab title="Assignment" active>
-            <b-table :fields="fields" :items="assignment" bordered class="main-table">
+            <b-table :fields="fields" :items="assignment" class="main-table">
               <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
               <template v-slot:cell(title)="data">
                 <span @click="view(data.item.id)">{{data.item.title}}</span>
@@ -13,7 +13,7 @@
         
         </b-tab>
          <b-tab title="Quiz" >
-            <b-table :fields="fields" :items="quiz" bordered class="main-table">
+            <b-table :fields="fields" :items="quiz" class="main-table">
               <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
               <template v-slot:cell(title)="data">
                 <span @click="view(data.item.id)">{{data.item.title}}</span>
@@ -22,7 +22,7 @@
         
         </b-tab>
          <b-tab title="Test" >
-            <b-table :fields="fields" :items="test" bordered class="main-table">
+            <b-table :fields="fields" :items="test" class="main-table">
               <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
               <template v-slot:cell(title)="data">
                 <span @click="view(data.item.id)">{{data.item.title}}</span>
@@ -31,7 +31,7 @@
         
         </b-tab>
          <b-tab title="Examination" >
-            <b-table :fields="fields" :items="examination" bordered class="main-table" >
+            <b-table :fields="fields" :items="examination" class="main-table" >
               <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
               <template v-slot:cell(title)="data">
                 <span @click="view(data.item.id)">{{data.item.title}}</span>

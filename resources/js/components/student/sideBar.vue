@@ -11,6 +11,12 @@
             <span v-if="!sideBar">Home</span>
           </li>
         </router-link>
+          <router-link to="/student/profile">
+          <li>
+            <i class="icon-group" aria-hidden="true"></i>
+            <span v-if="!sideBar">Profile</span>
+          </li>
+        </router-link>
         <router-link to="/student/explore">
           <li>
             <i class="icon-refresh" aria-hidden="true"></i>

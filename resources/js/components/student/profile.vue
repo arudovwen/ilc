@@ -60,63 +60,64 @@
               <b-form-row>
                 <b-col>
                   <b-form-group label="Name">
-                    <b-form-input placeholder></b-form-input>
+                  
+                   <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
                   </b-form-group>
                 </b-col>
                 <b-col>
                   <b-form-group label="Email">
-                    <b-form-input placeholder></b-form-input>
+                   <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
                   </b-form-group>
                 </b-col>
               </b-form-row>
               <b-form-row>
                 <b-col>
                   <b-form-group label="Date of Birth">
-                    <b-form-datepicker id="example-datepicker"></b-form-datepicker>
+                   <div class="after-edit"> <b-form-datepicker id="example-datepicker"></b-form-datepicker></div>
                   </b-form-group>
                 </b-col>
                 <b-col>
                   <b-form-group label="Address">
-                    <b-form-input placeholder></b-form-input>
+                    <div class="after-edit"><b-form-input placeholder></b-form-input></div>
                   </b-form-group>
                 </b-col>
               </b-form-row>
               <b-form-group label="Gender">
-                <b-form-select v-model="selected" :options="gender"></b-form-select>
+               <div class="after-edit"> <b-form-select v-model="selected" :options="gender"></b-form-select></div>
               </b-form-group>
               <b-form-row>
                 <b-col>
                   <b-form-group label="State">
-                    <b-form-input placeholder></b-form-input>
+                    <div class="after-edit"><b-form-input placeholder></b-form-input></div>
                   </b-form-group>
                 </b-col>
                 <b-col>
                   <b-form-group label="Local Goverment Area">
-                    <b-form-input placeholder></b-form-input>
+                    <div class="after-edit"><b-form-input placeholder></b-form-input></div>
                   </b-form-group>
                 </b-col>
               </b-form-row>
               <b-form-row>
                 <b-col>
                   <b-form-group label="Guardian">
-                    <b-form-input placeholder></b-form-input>
+                    <div class="after-edit"><b-form-input placeholder></b-form-input></div>
                   </b-form-group>
                 </b-col>
                 <b-col>
                   <b-form-group label="Guardian Phone">
-                    <b-form-input placeholder></b-form-input>
+                   <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
                   </b-form-group>
                 </b-col>
               </b-form-row>
               <b-form-row>
                 <b-col>
                   <b-form-group label="Next of Kin">
-                    <b-form-input placeholder></b-form-input>
+                   <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
                   </b-form-group>
                 </b-col>
                 <b-col>
                   <b-form-group label="Next of Kin Phone">
-                    <b-form-input placeholder></b-form-input>
+                    <div class="after-edit"><b-form-input placeholder></b-form-input></div>
                   </b-form-group>
                 </b-col>
               </b-form-row>
@@ -212,13 +213,14 @@ export default {
 .form-group{
   position: relative;
 }
-.form-group:hover::before{
+.after-edit:hover::before{
   content: "\f040";
   font-family: "FontAwesome";
   font-weight: 500;
   position: absolute;
   right: 0;
   top: 0;
+  transform: translateY(10px);
 }
 .save-btn {
   display: flex;

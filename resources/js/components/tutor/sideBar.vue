@@ -9,12 +9,13 @@
         <nav :class="{'pl-0':sideBar}">
         <ul>
             <router-link to="/tutor"> <li><i class="icon-dashboard pr-2" aria-hidden="true"></i> <span v-if="!sideBar">Dashboard</span></li></router-link>
+             <router-link to="/tutor/profile"> <li><i class="icon-group pr-2" aria-hidden="true"></i> <span v-if="!sideBar">Profile</span></li></router-link>
              <router-link to="#"> <li><i class="icon-market  pr-2" aria-hidden="true"></i> <span v-if="!sideBar">Activities</span ></li></router-link>
               <router-link to="#"> <li><i class="icon-edit   pr-2  "></i> <span v-if="!sideBar">Attendance</span></li></router-link>
             <router-link to="/tutor/resources"> <li><i class="icon-open-book pr-2"></i> <span v-if="!sideBar">Resources</span></li></router-link>
             <router-link to="/tutor/assessment"> <li><i class="icon-hour  pr-2" aria-hidden="true"></i> <span v-if="!sideBar">Assessments</span></li></router-link>
              <router-link to="/tutor/gradebook"> <li><i class="icon-score  pr-2" aria-hidden="true"></i> <span v-if="!sideBar">Grade Book</span></li></router-link>
-               <router-link to="/tutor/groups"> <li><i class="icon-group  pr-2" aria-hidden="true"></i> <span v-if="!sideBar">Live Chat</span></li></router-link>
+               <router-link to="/tutor/groups"> <li><i class="icon-group-1  pr-2" aria-hidden="true"></i> <span v-if="!sideBar">Live Chat</span></li></router-link>
                 <router-link to="#"> <li><i class="icon-teacher pr-2  "></i> <span v-if="!sideBar">Virtual Class</span></li></router-link>
                   <router-link to="/tutor/times-table"> <li><i class="icon-calendar  pr-2" aria-hidden="true"></i> <span v-if="!sideBar">TimesTable</span></li></router-link>
             <router-link to="/tutor/syllabus"> <li><i class="icon-business-class pr-2   "></i> <span v-if="!sideBar">Syllabus</span></li></router-link>

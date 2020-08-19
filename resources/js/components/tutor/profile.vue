@@ -64,39 +64,51 @@
               <b-form-row>
                 <b-col>
                   <b-form-group label="Name">
-                    <b-form-input placeholder></b-form-input>
+                  <div class="after-edit">
+                      <b-form-input placeholder></b-form-input>
+                  </div>
                   </b-form-group>
                 </b-col>
                 <b-col>
                   <b-form-group label="Email">
-                    <b-form-input placeholder></b-form-input>
+                  <div class="after-edit">
+                      <b-form-input placeholder></b-form-input>
+                  </div>
                   </b-form-group>
                 </b-col>
               </b-form-row>
               <b-form-row>
                 <b-col>
                   <b-form-group label="Date of Birth">
-                    <b-form-datepicker id="example-datepicker"></b-form-datepicker>
+                   <div class="after-edit">
+                      <b-form-datepicker id="example-datepicker"></b-form-datepicker>
+                   </div>
                   </b-form-group>
                 </b-col>
                 <b-col>
                   <b-form-group label="Address">
-                    <b-form-input placeholder></b-form-input>
+                   <div class="after-edit">
+                      <b-form-input placeholder></b-form-input>
+                   </div>
                   </b-form-group>
                 </b-col>
               </b-form-row>
               <b-form-group label="Gender">
-                <b-form-select v-model="selected" :options="gender"></b-form-select>
+               <div class="after-edit">
+                  <b-form-select v-model="selected" :options="gender"></b-form-select>
+               </div>
               </b-form-group>
               <b-form-row>
                 <b-col>
                   <b-form-group label="State">
-                    <b-form-input placeholder></b-form-input>
+                  <div class="after-edit">
+                      <b-form-input placeholder></b-form-input>
+                  </div>
                   </b-form-group>
                 </b-col>
                 <b-col>
                   <b-form-group label="Local Goverment Area">
-                    <b-form-input placeholder></b-form-input>
+                   <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
                   </b-form-group>
                 </b-col>
               </b-form-row>
@@ -110,39 +122,39 @@
               <b-form-row>
                 <b-col>
                   <b-form-group label="Qualification">
-                    <b-form-input placeholder></b-form-input>
+                   <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
                   </b-form-group>
                 </b-col>
                 <b-col>
                   <b-form-group label="Area of Specialization">
-                    <b-form-input placeholder></b-form-input>
+                   <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
                   </b-form-group>
                 </b-col>
               </b-form-row>
               <b-form-row>
                 <b-col>
                   <b-form-group label="Date of Entry">
-                    <b-form-datepicker id="example-datepicker"></b-form-datepicker>
+                    ,<after-edit><b-form-datepicker id="example-datepicker"></b-form-datepicker></after-edit>
                   </b-form-group>
                 </b-col>
                 <b-col>
                   <b-form-group label="Faculty">
-                    <b-form-input placeholder></b-form-input>
+                  <div class="after-edit">  <b-form-input placeholder></b-form-input></div>
                   </b-form-group>
                 </b-col>
               </b-form-row>
               <b-form-group label="Department">
-                <b-form-input placeholder></b-form-input>
+               <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
               </b-form-group>
               <b-form-row>
                 <b-col>
                   <b-form-group label="Current Grade Level">
-                    <b-form-select v-model="selected" :options="gradelevel"></b-form-select>
+                    <div class="after-edit"><b-form-select v-model="selected" :options="gradelevel"></b-form-select></div>
                   </b-form-group>
                 </b-col>
                 <b-col>
                   <b-form-group label="File No">
-                    <b-form-input placeholder></b-form-input>
+                   <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
                   </b-form-group>
                 </b-col>
               </b-form-row>
@@ -156,18 +168,18 @@
               <b-form-row>
                 <b-col>
                   <b-form-group label="Bank Name">
-                    <b-form-input placeholder></b-form-input>
+                   <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
                   </b-form-group>
                 </b-col>
                 <b-col>
                   <b-form-group label="Account Number">
-                    <b-form-input placeholder></b-form-input>
+                   <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
                   </b-form-group>
                 </b-col>
               </b-form-row>
             
               <b-form-group label="BVN">
-                <b-form-input placeholder></b-form-input>
+               <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
               </b-form-group>
              
             </b-form>
@@ -279,5 +291,17 @@ transform: translateY(-65%);
   padding: 9px 16px;
   font-size: 16px;
   font-weight: 500;
+}
+.form-group{
+  position: relative;
+}
+.after-edit:hover::before{
+  content: "\f040";
+  font-family: "FontAwesome";
+  font-weight: 500;
+  position: absolute;
+  right: 0;
+  top:0 ;
+  transform: translateY(10px);
 }
 </style>

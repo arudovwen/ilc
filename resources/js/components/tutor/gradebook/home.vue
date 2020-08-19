@@ -64,7 +64,7 @@
      </div>
      <hr>
       <div class="gradebook-table">
-      <b-table striped hover bordered :items="tableitems"></b-table>
+      <b-table striped hover  :items="tableitems"></b-table>
     </div>
    </div>
         

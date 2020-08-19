@@ -335,6 +335,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_waves_button_waves_css__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(vue_waves_button_waves_css__WEBPACK_IMPORTED_MODULE_14__);
 /* harmony import */ var _sass_app_scss__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../sass/app.scss */ "./resources/sass/app.scss");
 /* harmony import */ var _sass_app_scss__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_sass_app_scss__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var vuejs_countdown_timer__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! vuejs-countdown-timer */ "./node_modules/vuejs-countdown-timer/dist/vuejs-countdown-timer.min.js");
+/* harmony import */ var vuejs_countdown_timer__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(vuejs_countdown_timer__WEBPACK_IMPORTED_MODULE_16__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -359,18 +361,28 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter('time', function (num) {
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter("time", function (num) {
   var secs = String(Math.floor(num % 60)).padStart(2, "0");
   var mins = String(Math.floor(num / 60)).padStart(2, "0");
   var hours = String(Math.floor(num / 3600)).padStart(2, "0");
 
   if (hours === "00") {
-    return mins + 'm' + " : " + secs + 's';
+    return mins + "m" + " : " + secs + "s";
   } else {
-    return hours + 'hr' + " :" + mins + 'm' + " : " + secs + 's';
+    return hours + "hr" + " :" + mins + "m" + " : " + secs + "s";
   }
 });
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter('format', function (time) {
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter("timeStatus", function (num) {
+  var today = Date.parse(new Date());
+  var d = Date.parse(num);
+
+  if (d < today) {
+    return "Expired";
+  } else {
+    return "Ongoing";
+  }
+});
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter("format", function (time) {
   // Check correct time format and split into components
   time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
 
@@ -378,32 +390,34 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter('format', function (time) {
     // If time format correct
     time = time.slice(1); // Remove full string match value
 
-    time[3] = ' ';
-    time[5] = +time[0] < 12 ? 'AM' : 'PM'; // Set AM/PM
+    time[3] = " ";
+    time[5] = +time[0] < 12 ? "AM" : "PM"; // Set AM/PM
 
     time[0] = +time[0] % 12 || 12; // Adjust hours
   }
 
-  return time.join(''); // return adjusted time or original string
+  return time.join(""); // return adjusted time or original string
 });
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter('seconds', function (hms) {
-  var a = hms.split(':'); // split it at the colons
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter("seconds", function (hms) {
+  var a = hms.split(":"); // split it at the colons
   // minutes are worth 60 seconds. Hours are worth 60 minutes.
 
   var seconds = +a[0] * 60 * 60 + +a[1] * 60 + +a[2];
   return seconds;
 });
+
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuejs_countdown_timer__WEBPACK_IMPORTED_MODULE_16___default.a);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_chat_scroll__WEBPACK_IMPORTED_MODULE_9___default.a);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_waves_button__WEBPACK_IMPORTED_MODULE_5___default.a, {
-  name: 'waves',
+  name: "waves",
   duration: 500,
   delay: 200
 });
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_toasted__WEBPACK_IMPORTED_MODULE_6___default.a, {
   duration: 3500,
-  iconPack: 'fontawesome',
+  iconPack: "fontawesome",
   action: {
-    text: 'Cancel',
+    text: "Cancel",
     onClick: function onClick(e, toastObject) {
       toastObject.goAway(0);
     }
@@ -418,7 +432,7 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_awesome_swiper__WEBPACK_IMPOR
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(__webpack_require__(/*! vue-moment */ "./node_modules/vue-moment/dist/vue-moment.js"));
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_chartkick__WEBPACK_IMPORTED_MODULE_7__["default"].use(chart_js__WEBPACK_IMPORTED_MODULE_8___default.a));
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(v_calendar__WEBPACK_IMPORTED_MODULE_10___default.a, {
-  componentPrefix: 'vc' // Use <vc-calendar /> instead of <v-calendar />
+  componentPrefix: "vc" // Use <vc-calendar /> instead of <v-calendar />
   // ...other defaults
 
 }); // Vue.component('calendar', Calendar)
@@ -447,7 +461,7 @@ router.beforeEach(function (to, from, next) {
 
     if (admin == null) {
       next({
-        path: '/admin/auth/login',
+        path: "/admin/auth/login",
         query: {
           redirect: to.fullPath
         }
@@ -468,7 +482,7 @@ router.beforeEach(function (to, from, next) {
 
     if (admin == null) {
       next({
-        path: '/auth',
+        path: "/auth",
         query: {
           redirect: to.fullPath
         }
@@ -489,7 +503,7 @@ router.beforeEach(function (to, from, next) {
 
     if (admin == null) {
       next({
-        path: '/auth',
+        path: "/auth",
         query: {
           redirect: to.fullPath
         }

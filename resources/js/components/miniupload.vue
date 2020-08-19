@@ -54,7 +54,7 @@
 <script>
 export default {
   name: "CloudinaryUpload",
-  props: ["index", "label"],
+  props: ["index", "label",'id'],
   data() {
     return {
       filesSelectedLength: 0,
@@ -121,7 +121,7 @@ export default {
           setTimeout(() => {}, 1000);
           var response = JSON.parse(xhr.response);
           this.uploadedFileUrl = response.secure_url; // https address of uploaded file
-          this.$emit("getUploadDetails", this.$props.index, response);
+          this.$emit("getUploadDetails", this.$props.index, response,this.$props.id);
         } else {
           this.start = false;
           this.progress = 0;

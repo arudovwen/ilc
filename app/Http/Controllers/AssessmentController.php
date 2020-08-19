@@ -34,13 +34,13 @@ class AssessmentController extends Controller
     {
         $user = auth('api')->user();
        
-        return Assessment::where('school_id', $user->school_id)->where('level', $user->student_level)->where('status','active')->get();
+        return Assessment::where('school_id', $user->school_id)->where('level', $user->student_level)->where('status','approved')->get();
     }
     public function getAssessmentsType($id)
     {
         $user = auth('api')->user();
        
-        return Assessment::where('type', $id)->where('school_id', $user->school_id)->where('level', $user->student_level)->where('status','active')->get();
+        return Assessment::where('type', $id)->where('school_id', $user->school_id)->where('level', $user->student_level)->where('status','approved')->get();
     }
     public function store(Request $request)
     {
@@ -59,6 +59,10 @@ class AssessmentController extends Controller
             'total_score'=>$request->total_score,
             'start'=>$request->start,
             'end'=>$request->end,
+            'description'=>$request->description,
+            'questions'=>$request->questions,
+            'feedback'=>$request->feedback,
+            'deadline'=>$request->deadline,
             'assessment'=>\json_encode($request->assessment),
             'publish_status'=>false
         ]);

@@ -443,15 +443,15 @@ export default {
     remove() {
       this.resource.content.pop();
     },
-    getUploadDetails(id, res) {
+    getUploadDetails(index, res,id) {
      
 
-      if (id == "cover") {
+      if (index == "cover") {
         this.resource.cover_image = res.secure_url;
       } else {
-        this.resource.content[id].file = res.secure_url;
-        this.resource.content[id].name = res.original_filename;
-         this.resource.content[id].duration = res.duration;
+        this.resource.content[index].file = res.secure_url;
+        this.resource.content[index].name = res.original_filename;
+         this.resource.content[index].duration = res.duration;
       }
     },
     getModules() {

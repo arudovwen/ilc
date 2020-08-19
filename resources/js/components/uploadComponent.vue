@@ -10,11 +10,15 @@
             placeholder
             @change="handleFileChange($event)"
         />-->
+          
         <div class="upload-btn-wrapper">
-          <div class="centered">
+           <div v-if="uploadedFile"><img :src="uploadedFile" alt="" srcset="" width="60px"></div>
+          <div v-else class="centered">
             <button class="btn">
               <i class="fa fa-upload"></i>
+             
               <span>Upload a File</span>
+              
             </button>
             <b-form-file :id="label" class="mt-3" plain @change="handleFileChange($event)"></b-form-file>
           </div>
@@ -66,13 +70,13 @@
 <script>
 export default {
   name: "CloudinaryUpload",
-  props: ["index", "label"],
+  props: ["index", "label",'id'],
   data() {
     return {
       filesSelectedLength: 0,
       file: null,
       filetype: "",
-      uploadedFile: this.oldimage,
+      uploadedFile: null,
       uploadedFileUrl: "",
       cloudinary: {
         uploadPreset: "wo4qwffs",
@@ -164,7 +168,7 @@ export default {
           var response = JSON.parse(xhr.response);
           this.uploadedFileUrl = response.secure_url; // https address of uploaded file
           response.duration = this.duration
-          this.$emit("getUploadDetails", this.$props.index, response);
+          this.$emit("getUploadDetails", this.$props.index, response, this.$props.id);
         } else {
           this.start = false;
           this.progress = 0;

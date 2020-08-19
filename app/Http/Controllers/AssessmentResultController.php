@@ -35,10 +35,27 @@ class AssessmentResultController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function checkAssessment(Request $request){
+        $user = auth('api')->user();
+        $assessment = AssessmentResult::where('school_id', $user->school_id)->where('user_id', $user->id)->where('level', $user->student_level)->where('subject', $request->subject)->where('type',$request->type)->where('title',$request->title)->first();
+
+        if (is_null($assessment)) {
+            return response()->json([
+                'status'=>'begin'
+            ]);
+        }else{
+            return response()->json([
+                'status'=>'ended'
+            ]);
+        }
+
+    }
     public function store(Request $request)
     {
         $user = auth('api')->user();
-        $assessment = AssessmentResult::where('school_id', $user->school_id)->where('level', $user->student_level)->where('subject', $request->subject)->where('type',$request->type)->where('title',$request->title)->first();
+        $assessment = AssessmentResult::where('school_id', $user->school_id)->where('user_id', $user->id)->where('level', $user->student_level)->where('subject', $request->subject)->where('type',$request->type)->where('title',$request->title)->first();
+
+
         $grade = GradeBook::where('school_id', $user->school_id)->where('user_id', $user->id)->where('subject', $request->subject)->where('level', $user->student_level)->first();
        
         if (is_null($assessment)) {

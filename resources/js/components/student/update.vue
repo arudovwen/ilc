@@ -234,8 +234,8 @@ export default {
     Upload
   },
   methods: {
-     getUploadDetails(id,res){
-       console.log("getUploadDetails -> res", res)
+     getUploadDetails(index,res,id){
+    
        this.student.profile = res.secure_url
      },
     register() {

@@ -350,7 +350,7 @@ export default {
     this.getclasses();
   },
   methods: {
-    getUploadDetails(id, res) {
+    getUploadDetails(index, res,id) {
       this.syllabus.cover = res.secure_url;
     },
     cancelToggle() {

@@ -1,124 +1,77 @@
 <template>
   <div class="body">
     <b-container fluid class="bg-white">
-      <b-row class="justify-content-center  mb-4">
-       <b-col> <h3 class="toCaps text-center ">{{subject}}</h3></b-col>
+      <b-row class="justify-content-center mb-4">
+        <b-col>
+          <h3 class="toCaps text-center">{{subject}}</h3>
+        </b-col>
       </b-row>
       <b-row class="justify-content-between align-items-center mb-3">
-       <b-col>
+        <b-col>
           <h6 class="toCaps" v-if="session">
-          <span class="text-muted">Term :</span>
-          {{session}}
-        </h6>
-       </b-col>
-       <b-col>
+            <span class="text-muted">Term :</span>
+            {{session}}
+          </h6>
+        </b-col>
+        <b-col>
           <h6 class="toCaps" v-if="myclass">
-          <span class="text-muted">Level :</span>
-          {{myclass}}
-        </h6>
-       </b-col>
-       <b-col>
+            <span class="text-muted">Level :</span>
+            {{myclass}}
+          </h6>
+        </b-col>
+        <b-col>
           <h6 class="toCaps" v-if="title">
-          <span class="text-muted">Title :</span>
-          {{title}}
-        </h6>
-       </b-col>
-      <b-col>
-          <strong class="mb-4" v-if="duration.time">
-          <span class="text-muted">Duration :</span>
-          {{duration.time}}{{duration.type}}
-        </strong>
-      </b-col>
+            <span class="text-muted">Title :</span>
+            {{title}}
+          </h6>
+        </b-col>
+        <b-col>
+          <strong class="mb-4">
+            <span class="text-muted"></span>
+            Start : {{duration.start_time | moment('hh:mm A')}}
+            <br />
+            End : {{duration.end_time | moment('hh:mm A')}}
+          </strong>
+        </b-col>
       </b-row>
 
-      <b-row>
-        <b-col>
-          <b-form @submit.prevent="calcAnswer" v-if="assessment.length" class="form">
-            <ol>
-              <li v-for="(item,idx) in assessment" :key="idx" class="mb-3">
-                <b-row v-if="item.question !==''">
-                  <b-col>
-                    <b-form-group v-if="item.type == 'multi-choice'">
-                      <label>
-                        {{item.question}}
-                        <b-button
-                          v-if="item.note"
-                          size="sm"
-                          variant="outline-secondary"
-                          pill
-                          v-b-tooltip.hover
-                          :title="item.note"
-                        >
-                          <i class="fa fa-info" aria-hidden="true"></i>
-                        </b-button>
-                      </label>
-                      <div v-if="item.answer_type == 'single'">
-                        <b-form-radio
-                          v-for="(value,i) in item.values"
-                          :value="value.value"
-                          v-model="item.student_answer"
-                          :key="i"
-                        >{{value.value}}</b-form-radio>
-                      </div>
-                      <div v-if="item.answer_type == 'multi'">
-                        <b-form-checkbox
-                          v-for="(value,i) in item.values"
-                          :value="value.value"
-                          v-model="item.student_answers"
-                          :key="i"
-                        >{{value.value}}</b-form-checkbox>
-                      </div>
-                    </b-form-group>
+      <b-row class="my-3">
+        <b-col cols="12 text-center">{{description}}</b-col>
+      </b-row>
+      <!-- <b-row class="my-1">
+        <b-col cols="12 text-right">
+          <vue-countdown-timer
+            @start_callback="startCallBack()"
+            @end_callback="endCallBack()"
+            :start-time="duration.start_time"
+            :end-time="duration.end_time"
+            :interval="1000"
+            :start-label="'Until start:'"
+            :end-label="'Until end:'"
+            label-position="begin"
+            :end-text="'Event ended!'"
+            :day-txt="''"
+            :hour-txt="'hrs'"
+            :minutes-txt="'mins'"
+            :seconds-txt="'secs'"
+          ></vue-countdown-timer>
+        </b-col>
+      </b-row> -->
 
-                    <b-form-group v-if="item.type == 'True/False'">
-                      <label>
-                        {{item.question}}
-                        <b-button
-                          v-if="item.note"
-                          size="sm"
-                          variant="outline-secondary"
-                          pill
-                          v-b-tooltip.hover
-                          :title="item.note"
-                        >
-                          <i class="fa fa-info" aria-hidden="true"></i>
-                        </b-button>
-                      </label>
-                      <div>
-                        <b-form-radio value="true" v-model="item.student_answer">True</b-form-radio>
-                        <b-form-radio value="false" v-model="item.student_answer">False</b-form-radio>
-                      </div>
-                    </b-form-group>
-
-                    <b-form-group v-if="item.type == 'theory'">
-                      <label>
-                        {{item.question}}
-                        <b-button
-                          v-if="item.note"
-                          size="sm"
-                          variant="outline-secondary"
-                          pill
-                          v-b-tooltip.hover
-                          :title="item.note"
-                        >
-                          <i class="fa fa-info" aria-hidden="true"></i>
-                        </b-button>
-                      </label>
-                      <div>
-                        <b-form-textarea v-model="item.student_answer" rows="3"></b-form-textarea>
-                      </div>
-                    </b-form-group>
-                  </b-col>
-                </b-row>
-              </li>
-            </ol>
-
-            <b-row>
-              <b-col>
-                <b-button type="submit">Submit</b-button>
-              </b-col>
-            </b-row>
-          </b-form>
+      <b-row class="W-100">
+        <b-col cols="12">
+          <Others
+            :template="assessment"
+            :total="total_score"
+            :details="details"
+            v-if="type !== 'quiz'"
+          />
+          <quiz
+            :template="assessment"
+            :total="total_score"
+            :details="details"
+            v-if="type == 'quiz'"
+          />
         </b-col>
       </b-row>
     </b-container>
@@ -126,51 +79,38 @@
 </template>
 
 <script>
+import quiz from "./quizView";
+import Others from "./viewOthers";
+
 export default {
   data() {
     return {
-      score: 0,
+      total_score: 0,
       type: "",
       session: "",
       title: "",
-      total_score: 0,
+      description: "",
+
       myclass: null,
       duration: {
         time: "",
         type: null,
       },
       subject: null,
-      assessment: [
-        {
-          note: "",
-          question: "",
-          student_answer: "",
-          student_answers: [],
-          answer: "",
-          answers: [
-            {
-              answer: "",
-            },
-          ],
-          type: null,
-          answer_type: "single",
-          score: null,
-          values: [
-            {
-              value: "",
-            },
-            {
-              value: "",
-            },
-          ],
-        },
-      ],
+      assessment: [],
+      details: [],
     };
   },
-  mounted() {
+  components: {
+    Others,
+    quiz,
+ 
+  },
+  created() {
     this.getAssessment();
   },
   methods: {
+   
     getAssessment() {
       let student = JSON.parse(localStorage.getItem("typeStudent"));
       axios
@@ -181,6 +121,7 @@ export default {
         })
         .then((res) => {
           if (res.status == 200) {
+            this.details = res.data;
             this.assessment = JSON.parse(res.data.assessment);
             this.type = res.data.type;
             this.subject = res.data.subject;
@@ -188,11 +129,29 @@ export default {
             this.title = res.data.title;
             this.tutor_id = res.data.tutor_id;
             this.myclass = res.data.level;
+            this.description = res.data.description;
 
             this.duration = JSON.parse(res.data.duration);
+            this.totalScore(this.assessment);
           }
         })
         .catch();
+    },
+    totalScore(arr) {
+      var score = [];
+      var newArr = [];
+      arr.forEach((item) => {
+        item.question.forEach((ite) => {
+          newArr.push(ite);
+        });
+      });
+      newArr.forEach((item) => {
+        score.push(item.score);
+      });
+
+      this.total_score = score.reduce((a, b) => {
+        return a + b;
+      }, 0);
     },
     calcAnswer() {
       this.total_score = 0;

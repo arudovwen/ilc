@@ -60,6 +60,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('student-assessments/{id}', 'AssessmentController@getAssessments');
     Route::get('student-assessment/{id}', 'AssessmentController@getSingleAssessment');
     Route::get('student-assessment-type/{id}', 'AssessmentController@getAssessmentType');
+    Route::post('check-assessment', 'AssessmentResultController@checkAssessment');
     Route::resource('student-grade-book', 'GradeBookController');
     Route::post('student-assessment-result', 'AssessmentResultController@store');
     Route::get('student-all-subjects', 'SubjectsController@getAllSubjectsForStudent');
@@ -93,7 +94,8 @@ Route::middleware('auth:tutor')->group(function () {
     Route::get('tutor-times-table', 'TimesTableController@indexTutor');
     Route::resource('assessment', 'AssessmentController');
     Route::post('draft-assessment', 'AssessmentController@saveDraft');
-    Route::get('draft-assessment', 'AssessmentController@sgetDraft');
+    Route::get('draft-assessment', 'AssessmentController@getDraft');
+    Route::put('publish-assessment', 'AssessmentController@publish');
     Route::resource('assessment-result', 'AssessmentResultController');
     Route::post('tutor-grade-book', 'GradeBookController@getBooks');
     Route::get('tutor-grade-books', 'GradeBookController@index');
@@ -131,7 +133,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::put('update-user/{id}', 'UserController@store');
     Route::resource('students-course', 'CourseStudentsController');
     Route::get('admin-assessments', 'AssessmentController@getAdminAssessments');
-    Route::get('admin-verify-assessment/{id}', 'AssessmentController@verifyAssessment');
+    Route::put('admin-verify-assessment/{id}', 'AssessmentController@verifyAssessment');
     Route::delete('admin-drop-assessment/{id}', 'AssessmentController@destroy');
    
 });

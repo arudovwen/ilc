@@ -232,8 +232,8 @@ export default {
     this.getTutor()
   },
    methods: {
-     getUploadDetails(id,res){
-       console.log("getUploadDetails -> res", res)
+     getUploadDetails(index,res,id){
+    
        this.tutor.profile = res.secure_url
      },
     register() {

@@ -1,11 +1,32 @@
 <template>
   <div class="body">
-    <b-container  v-if="!quest">
-      <h3 class="toCaps">{{$route.params.type}}</h3>
+    <b-container v-if="!quest">
+      <h3 class="toCaps mb-5">{{$route.params.type}}</h3>
       <b-form @submit.prevent="switchQuest">
-        <b-form-group label="Enter Title ">
-          <b-form-input required v-model="option.title"></b-form-input>
-        </b-form-group>
+        <b-form-row>
+          <b-col cols="6">
+            <b-form-group label="Enter Title ">
+              <b-form-input required v-model="option.title"></b-form-input>
+            </b-form-group>
+          </b-col>
+          <b-col cols="6">
+            <b-form-group label="Number of questions ">
+              <b-form-input required v-model="option.questions" type="number"></b-form-input>
+            </b-form-group>
+          </b-col>
+        </b-form-row>
+       <b-form-row>
+          <b-col cols="6">
+          <b-form-group label="Enter Description ">
+            <b-textarea placeholder="Give a description" v-model="option.description"></b-textarea>
+          </b-form-group>
+        </b-col>
+        <b-col cols="6">
+          <b-form-group label="Enter Feedback ">
+            <b-textarea placeholder="Write a feedback" v-model="option.feedback"></b-textarea>
+          </b-form-group>
+        </b-col>
+       </b-form-row>
         <b-form-row>
           <b-col md="6">
             <b-form-group label="Select Class">
@@ -33,11 +54,19 @@
           </b-col>
         </b-form-row>
         <b-form-row>
-          <!-- <b-col md="6">
-            <b-form-group label="Select Module">
-              <b-form-select required></b-form-select>
+          <b-col md="6">
+            <b-form-group label="Select Module(choose a class and subject first)">
+              <b-form-select required v-model="option.module">
+                <b-form-select-option :value="null">Select</b-form-select-option>
+                <b-form-select-option
+                  :value="item.name"
+                  v-for="(item,idx) in modules"
+                  class="toCaps"
+                  :key="idx"
+                >{{item.name}}</b-form-select-option>
+              </b-form-select>
             </b-form-group>
-          </b-col> -->
+          </b-col>
           <b-col md="6">
             <b-form-group label="Select Term">
               <b-form-select v-model="option.session" required>
@@ -61,16 +90,13 @@
             </b-form-group>
           </b-col>
         </b-form-row>
-         <div class="right-btn" >
+        <div class="right-btn">
           <button class="btn text-center" type="submit">
             <span>NEXT PAGE</span>
             <i class="fa fa-arrow-right" aria-hidden="true"></i>
           </button>
         </div>
       </b-form>
-    
-       
-    
     </b-container>
 
     <assess v-if="quest" :option="option"></assess>
@@ -79,24 +105,28 @@
 
 <script>
 import datetime from "vuejs-datetimepicker";
-import assess from './assessmentform'
+import assess from "./assessmentform";
 export default {
-  components: { datetime ,assess},
+  components: { datetime, assess },
   data() {
     return {
-      quest:false,
+      quest: false,
       option: {
         type: "",
         session: "",
+        description: "",
+        questions:0,
+        feedback:'',
         title: "",
         myclass: null,
+        module: null,
         subject: null,
-       duration:{
+        duration: {
           start_time: "",
-        end_time: "",
-       }
+          end_time: "",
+        },
       },
-
+      modules: [],
       subjects: [],
       allClass: [],
     };
@@ -105,11 +135,30 @@ export default {
     this.option.type = this.$route.params.type;
     this.getSubjects();
     this.getCLasses();
-    
+  },
+  watch: {
+    "option.subject": "getModules",
   },
   methods: {
-    switchQuest(){
-    this.quest=!this.quest
+    getModules() {
+      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios
+        .get(
+          `/api/tutor-module/${this.option.myclass}/${this.option.subject}`,
+          {
+            headers: {
+              Authorization: `Bearer ${tutor.access_token}`,
+            },
+          }
+        )
+        .then((res) => {
+          if (res.status == 200) {
+            this.modules = res.data;
+          }
+        });
+    },
+    switchQuest() {
+      this.quest = !this.quest;
     },
     getCLasses() {
       let tutor = JSON.parse(localStorage.getItem("typeTutor"));

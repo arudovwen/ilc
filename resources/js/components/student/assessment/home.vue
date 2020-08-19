@@ -1,5 +1,4 @@
 <template>
- 
   <b-container>
     <b-card no-body class="assess">
       <b-tabs card justified>
@@ -7,45 +6,69 @@
           <b-card-text>
             <b-table :fields="fields" :items="assignment" bordered>
               <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
-              <template v-slot:cell(title)="data">
-                <span @click="view(data.item.id)">{{data.item.title}}</span>
+              <template v-slot:cell(action)="data">
+                <span @click="view(data.item.id, data.item.end)">{{checkPresence(data.item)}}</span>
+              </template>
+              <template v-slot:cell(deadline)="data">
+                <span>{{data.item.end | moment('DD MM, hh:mm A')}}</span>
+              </template>
+              <template v-slot:cell(status)="data">
+                <span>{{data.item.end |timeStatus}}</span>
               </template>
             </b-table>
           </b-card-text>
         </b-tab>
-         <b-tab title="Quiz" >
+        <b-tab title="Quiz">
           <b-card-text>
             <b-table :fields="fields" :items="quiz" bordered>
               <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
-              <template v-slot:cell(title)="data">
-                <span @click="view(data.item.id)">{{data.item.title}}</span>
+              <template v-slot:cell(action)="data">
+                <span @click="view(data.item.id, data.item.end)">{{checkPresence(data.item)}}</span>
+              </template>
+              <template v-slot:cell(deadline)="data">
+                <span>{{data.item.end | moment('DD MMMM, hh:mm A')}}</span>
+              </template>
+              <template v-slot:cell(status)="data">
+                <span>{{data.item.end |timeStatus}}</span>
               </template>
             </b-table>
           </b-card-text>
         </b-tab>
-         <b-tab title="Test" >
+        <b-tab title="Test">
           <b-card-text>
             <b-table :fields="fields" :items="test" bordered>
               <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
-              <template v-slot:cell(title)="data">
-                <span @click="view(data.item.id)">{{data.item.title}}</span>
+              <template v-slot:cell(action)="data">
+                <span @click="view(data.item.id, data.item.end)">{{checkPresence(data.item)}}</span>
+              </template>
+              <template v-slot:cell(deadline)="data">
+                <span>{{data.item.end | moment('DD MM, hh:mm A')}}</span>
+              </template>
+              <template v-slot:cell(status)="data">
+                <span>{{data.item.end |timeStatus}}</span>
               </template>
             </b-table>
           </b-card-text>
         </b-tab>
-         <b-tab title="Examination" >
+        <b-tab title="Examination">
           <b-card-text>
             <b-table :fields="fields" :items="examination" bordered>
               <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
-              <template v-slot:cell(title)="data">
-                <span @click="view(data.item.id)">{{data.item.title}}</span>
+              <template v-slot:cell(action)="data">
+                <span @click="view(data.item.id,data.item.end)">{{checkPresence(data.item)}}</span>
+              </template>
+
+              <template v-slot:cell(deadline)="data">
+                <span>{{data.item.end | moment('DD MM, hh:mm A')}}</span>
+              </template>
+              <template v-slot:cell(status)="data">
+                <span>{{data.item.end |timeStatus}}</span>
               </template>
             </b-table>
           </b-card-text>
         </b-tab>
       </b-tabs>
     </b-card>
-
   </b-container>
 </template>
 
@@ -70,7 +93,9 @@ export default {
           key: "title",
           sortable: true,
         },
-        "status"
+        "deadline",
+        "status",
+        "action",
       ],
     };
   },
@@ -162,17 +187,43 @@ export default {
     edit(id) {
       this.$router.push(`/student/tutor/update/${id}`);
     },
-    view(id) {
-      this.$router.push(`/student/assessment/view/${id}`);
+    checkPresence(info) {
+      let data = {
+        subject: info.subject,
+        type: info.type,
+        title: info.title,
+      };
+       var result = []
+       axios
+        .post("/api/check-assessment", data, {
+          headers: {
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+             result.push(res.data.status)
+          }
+        });
+      return result;
+    },
+    view(id, num) {
+      let today = Date.parse(new Date());
+      let d = Date.parse(num);
+      if (d < today) {
+        this.$toasted.error("Assessment deadline reached");
+      } else {
+        this.$router.push(`/student/assessment/view/${id}`);
+      }
     },
   },
 };
 </script>
 
 <style scoped>
-.container{
+.container {
   padding-top: 50px;
-  padding-bottom:70px;
+  padding-bottom: 70px;
 }
 nav {
   display: grid;
@@ -188,11 +239,10 @@ nav {
 .main-table {
   padding-top: 20px;
 }
-.student-assessment{
-  padding:40px 20px;
+.student-assessment {
+  padding: 40px 20px;
 }
-.card-header{
+.card-header {
   background-color: green;
 }
-
 </style>

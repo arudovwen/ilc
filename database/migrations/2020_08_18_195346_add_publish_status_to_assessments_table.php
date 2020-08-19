@@ -14,6 +14,10 @@ class AddPublishStatusToAssessmentsTable extends Migration
     public function up()
     {
         Schema::table('assessments', function (Blueprint $table) {
+            $table->string('description')->nullable();
+            $table->string('questions')->nullable();
+            $table->string('feedback')->nullable();
+            $table->string('deadline')->nullable();
             $table->boolean('publish_status')->default(false);
         });
     }
@@ -27,6 +31,11 @@ class AddPublishStatusToAssessmentsTable extends Migration
     {
         Schema::table('assessments', function (Blueprint $table) {
             $table->dropColumn('publish_status');
+            $table->dropColumn('questions');
+            $table->dropColumn('feedback');
+            $table->dropColumn('description');
+            $table->dropColumn('deadline');
+
         });
     }
 }

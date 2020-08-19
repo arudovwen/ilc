@@ -124,9 +124,9 @@
                               <b-form-select-option value="long text">Long Text</b-form-select-option>
                               <b-form-select-option value="number">Number</b-form-select-option>
                               <b-form-select-option value="multi text">Multi Text</b-form-select-option>
-                              <b-form-select-option value="date">Date</b-form-select-option>
+                              <!-- <b-form-select-option value="date">Date</b-form-select-option>
                               <b-form-select-option value="time">Time</b-form-select-option>
-                              <b-form-select-option value="email">Email</b-form-select-option>
+                              <b-form-select-option value="email">Email</b-form-select-option>-->
                               <!-- <b-form-select-option value="lga">Lga</b-form-select-option> -->
                             </b-form-select>
                           </b-form-group>
@@ -165,135 +165,20 @@
                             </b-row>
                           </div>
                         </b-col>
-                        <b-col cols="6">
-                          <label>Select Tool</label>
-                          <div role="tablist">
-                            <b-card no-body class="mb-1">
-                              <b-card-header header-tag="header" class="p-1" role="tab">
-                                <b-button
-                                  size="sm"
-                                  block
-                                  v-b-toggle="idx.toString()"
-                                  variant="info"
-                                >Tools</b-button>
-                              </b-card-header>
-                              <b-collapse
-                                :id="idx.toString()"
-                                accordion="my-accordion"
-                                role="tabpanel"
-                              >
-                                <b-card-body>
-                                  <b-row>
-                                    <b-col cols="12">
-                                      <b-form-row>
-                                        <b-col>
-                                          <b-form-checkbox
-                                            v-model="question.tools"
-                                            value="table"
-                                          >Table</b-form-checkbox>
-                                        </b-col>
-                                        <b-col>
-                                          <b-form-checkbox
-                                            v-model="question.tools"
-                                            value="docs"
-                                          >Document</b-form-checkbox>
-                                        </b-col>
-                                        <b-col>
-                                          <b-form-checkbox
-                                            v-model="question.tools"
-                                            value=" media"
-                                          >Media</b-form-checkbox>
-                                        </b-col>
-                                      </b-form-row>
-                                      <div v-if="question.tools.includes('table')">
-                                        <b-input-group>
-                                          <b-form-input placeholder="Table field" v-model="field"></b-form-input>
-
-                                          <b-input-group-append>
-                                            <b-button
-                                              size="sm"
-                                              @click="addField(field,index,idx)"
-                                              class="mr-3"
-                                            >
-                                              <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                            </b-button>
-                                          </b-input-group-append>
-                                        </b-input-group>
-
-                                        <b-form-group class="p-2 py-3">
-                                          <b-row>
-                                            <b-col
-                                              cols="3"
-                                              class="border text-center"
-                                              v-for="(field,idxxx) in question.fields"
-                                              :key="idxxx"
-                                            >
-                                              {{field}}
-                                              <i
-                                                class="fa fa-times-circle"
-                                                @click="removeField(index,idx,idxxx)"
-                                                aria-hidden="true"
-                                              ></i>
-                                            </b-col>
-                                          </b-row>
-                                        </b-form-group>
-
-                                        <b-row class="p-2">
-                                          <b-button
-                                            size="sm"
-                                            class
-                                            @click="handleTable(index,idx)"
-                                          >Submit fields</b-button>
-                                        </b-row>
-                                      </div>
-                                    </b-col>
-
-                                    <b-col cols="12">
-                                      <b-form-group>
-                                        <label for>Tool Description</label>
-                                        <app-editor
-                                          v-model="question.tools_description"
-                                          apiKey="a0iyq87xxk4jqc1rf2kj55kr8pu9pol61qt32jccfldibgd7"
-                                          :init="{
-                             selector: 'textarea',
-                            toolbar_mode: 'floating',
-                            plugins: 'advlist autolink lists link image imagetools charmap print preview anchor insertdatetime media table paste code help wordcount  autolink lists media    table  ',
-                            toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat |image help | a11ycheck addcomment showcomments casechange checklist code formatpainter  table',
-                            image_title: true,
-                            height: 200,
-                            file_picker_types: 'image',
-                            automatic_uploads:false,
-                            relative_urls:false,
-                           convert_urls:false,
-                           images_upload_handler: function (blobInfo, success, failure) {
-                                 upload_handler( blobInfo, success, failure)
-                           },
-                            file_picker_callback:function(callback, value, meta) {
-                                  loadFile(callback, value,meta)
-
-                        },
-                        images_dataimg_filter: function(img) {
-                            return img.hasAttribute('internal-blob');
-                            }
-                      }"
-                                          class="form-control"
-                                        ></app-editor>
-                                      </b-form-group>
-                                    </b-col>
-                                  </b-row>
-                                </b-card-body>
-                              </b-collapse>
-                            </b-card>
-                          </div>
+                        <b-col cols="6" class="text-center">
+                          <label>Description Image</label>
+                          <Media :index="index" :id="idx" @getUploadDetails="getUploadDetails" />
                         </b-col>
                       </div>
-                      <hr>
+                      <hr />
                       <b-col cols="6" v-if="openedQuestion.includes(idx)">
                         <div
                           class="bottom-box mb-3"
                           v-if="question.answer_format == 'multi choice'"
-                        >\ <h6 class="text-center">Answer</h6>
-                          <div label="Answer"
+                        >
+                          <h6 class="text-center">Answer</h6>
+                          <div
+                            label="Answer"
                             v-for="(value,i) in question.real_answers"
                             :key="i"
                             class="p-0 m-0"
@@ -308,9 +193,8 @@
                           >Remove</b-button>
                         </div>
                         <div class="mb-3" v-else>
-                         <h6 class="text-center">Answer</h6>
-                            <b-form-input v-model="question.real_answer" placeholder="Answer"></b-form-input>
-                          
+                          <h6 class="text-center">Answer</h6>
+                          <b-form-input v-model="question.real_answer" placeholder="Answer"></b-form-input>
                         </div>
                       </b-col>
                       <b-col cols="6" v-if="openedQuestion.includes(idx)">
@@ -337,7 +221,7 @@
             <h6 class>Publish</h6>
             <hr />
             <b-form-group label="Deadline for Submission">
-              <datetime format=" DD-MM-YYYY" v-model="form.deadline" placeholder="Select Date"></datetime>
+              <datetime format=" DD-MM-YYYY" v-model="deadline" placeholder="Select Date"></datetime>
             </b-form-group>
             <div class="action-btn text-center">
               <div class="btn btn-preview" v-b-modal.modal-1>
@@ -350,9 +234,9 @@
               </div>
             </div>
             <hr />
-            <div class="publish-btn">
-              <div class="btn btn-publish">PUBLISH</div>
-            </div>
+            <!-- <div class="publish-btn">
+              <div class="btn btn-publish" >PUBLISH</div>
+            </div> -->
           </div>
         </b-col>
       </b-row>
@@ -368,9 +252,10 @@
 import datetime from "vuejs-datetimepicker";
 import Editor from "@tinymce/tinymce-vue";
 import Preview from "./preview";
+import Media from "../../uploadComponent";
 export default {
   props: ["option"],
-  components: { datetime, "app-editor": Editor, Preview },
+  components: { datetime, "app-editor": Editor, Preview, Media },
   data() {
     return {
       total_score: 0,
@@ -380,11 +265,12 @@ export default {
       busy: true,
       opened: [],
       openedQuestion: [],
+      deadline: "",
       form: [
         {
           title: "",
           description: "",
-          deadline: "",
+
           term: "",
 
           question: [
@@ -413,12 +299,7 @@ export default {
               tools_description: "",
               fields: [],
               items: [],
-              documents: [
-                {
-                  name: "",
-                  file: "",
-                },
-              ],
+              media: "",
             },
           ],
         },
@@ -448,6 +329,26 @@ export default {
     this.form.term = this.$props.option.term;
   },
   methods: {
+    publish(name){
+      let data = {
+        stat:name
+      }
+       axios
+        .put("/api/publish-assessment", data, {
+          headers: {
+            Authorization: `Bearer ${tutor.access_token}`,
+          },
+        }).then(res=>{
+          if (res.status == 200) {
+            
+          }
+        })
+    },
+    getUploadDetails(index, res, id) {
+     
+      this.form[index].question[id].media = res.secure_url;
+    },
+
     getCLasses() {
       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios
@@ -596,6 +497,10 @@ export default {
           subject: this.$props.option.subject,
           session: this.$props.option.session,
           title: this.$props.option.title,
+          description: this.$props.option.description,
+          feedback: this.$props.option.feedback,
+          questions: this.$props.option.questions,
+          deadline: this.deadline,
           type: this.$props.option.type,
           level: this.$props.option.myclass,
           duration: JSON.stringify(this.$props.option.duration),
@@ -625,6 +530,10 @@ export default {
         subject: this.$props.option.subject,
         session: this.$props.option.session,
         title: this.$props.option.title,
+        description: this.$props.option.description,
+        feedback: this.$props.option.feedback,
+        questions: this.$props.option.questions,
+        deadline: this.deadline,
         type: this.$props.option.type,
         level: this.$props.option.myclass,
         duration: JSON.stringify(this.$props.option.duration),
@@ -656,6 +565,12 @@ export default {
             title: "",
             guide: "",
             answer_format: "",
+            real_answer: "",
+            real_answers: [
+              {
+                answer: "",
+              },
+            ],
             answer: "",
             answers: [{ answer: "" }],
             limit: "",
@@ -675,7 +590,8 @@ export default {
                 key: "",
               },
             ],
-            documents: [
+
+            media: [
               {
                 name: "",
                 file: "",
@@ -748,10 +664,10 @@ export default {
         name: "",
       });
     },
-    removeOption(index,id) {
+    removeOption(index, id) {
       this.form[index].question[id].options.pop();
     },
-    removeAns(index,id) {
+    removeAns(index, id) {
       this.form[index].question[id].real_answers.pop();
     },
     addField(e, index, id) {

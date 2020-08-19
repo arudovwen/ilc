@@ -13,7 +13,11 @@
                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                 <div class="option shadow">
                   <ul>
-                    <li @click="verify(data.item.id)">{{data.item.status=='pending'?'Verify':'Unverify'}}</li>
+                    <li >
+
+                    <span  @click="verify(data.item.id,'approved')" v-if="data.item.status=='pending'">Approve</span>
+                      <span  @click="verify(data.item.id,'declined')" v-if="data.item.status=='pending'">Decline</span>
+                    </li>
                      <li @click="drop(data.item.id)">Drop</li>
                   </ul>
                 </div>
@@ -82,12 +86,15 @@ export default {
           });
       }
     },
-     verify(id) {
+     verify(id,name) {
       let admin = JSON.parse(localStorage.getItem("typeAdmin"));
       let del = confirm("Are you sure?");
       if (del) {
+        let data={
+          status :name
+        }
         axios
-          .get(`/api/admin-verify-assessment/${id}`, {
+          .put(`/api/admin-verify-assessment/${id}`, data,{
             headers: {
               Authorization: `Bearer ${admin.access_token}`,
             },

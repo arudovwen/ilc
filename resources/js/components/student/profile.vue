@@ -1,5 +1,5 @@
 <template>
-  <div class="body">
+  <!-- <div class="body">
     <div class="text-right">
       <b-button type="button" @click="update">Update</b-button>
     </div>
@@ -46,69 +46,192 @@
         </div>
       </div>
     </div>
+  </div>-->
+  <div class="profile-page">
+    <div class="profile container">
+      <div class="tutor-profile">
+        <div class="avatar-profile">
+          <b-avatar variant="secondary" size="6rem"></b-avatar>
+        </div>
+        <div class="profile-inner">
+          <h6>Personal Information</h6>
+          <div class="personal-form">
+            <b-form>
+              <b-form-row>
+                <b-col>
+                  <b-form-group label="Name">
+                  
+                   <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
+                  </b-form-group>
+                </b-col>
+                <b-col>
+                  <b-form-group label="Email">
+                   <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
+                  </b-form-group>
+                </b-col>
+              </b-form-row>
+              <b-form-row>
+                <b-col>
+                  <b-form-group label="Date of Birth">
+                   <div class="after-edit"> <b-form-datepicker id="example-datepicker"></b-form-datepicker></div>
+                  </b-form-group>
+                </b-col>
+                <b-col>
+                  <b-form-group label="Address">
+                    <div class="after-edit"><b-form-input placeholder></b-form-input></div>
+                  </b-form-group>
+                </b-col>
+              </b-form-row>
+              <b-form-group label="Gender">
+               <div class="after-edit"> <b-form-select v-model="selected" :options="gender"></b-form-select></div>
+              </b-form-group>
+              <b-form-row>
+                <b-col>
+                  <b-form-group label="State">
+                    <div class="after-edit"><b-form-input placeholder></b-form-input></div>
+                  </b-form-group>
+                </b-col>
+                <b-col>
+                  <b-form-group label="Local Goverment Area">
+                    <div class="after-edit"><b-form-input placeholder></b-form-input></div>
+                  </b-form-group>
+                </b-col>
+              </b-form-row>
+              <b-form-row>
+                <b-col>
+                  <b-form-group label="Guardian">
+                    <div class="after-edit"><b-form-input placeholder></b-form-input></div>
+                  </b-form-group>
+                </b-col>
+                <b-col>
+                  <b-form-group label="Guardian Phone">
+                   <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
+                  </b-form-group>
+                </b-col>
+              </b-form-row>
+              <b-form-row>
+                <b-col>
+                  <b-form-group label="Next of Kin">
+                   <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
+                  </b-form-group>
+                </b-col>
+                <b-col>
+                  <b-form-group label="Next of Kin Phone">
+                    <div class="after-edit"><b-form-input placeholder></b-form-input></div>
+                  </b-form-group>
+                </b-col>
+              </b-form-row>
+            </b-form>
+          </div>
+        </div>
+        <div class="profile-inner">
+          <h6>School Information</h6>
+          <div class="personal-form">
+            <b-form>
+              <b-form-row>
+                <b-col>
+                  <b-form-group label="Class">
+                    <b-form-select v-model="selected" :options="gradelevel"></b-form-select>
+                  </b-form-group>
+                </b-col>
+                <b-col>
+                  <b-form-group label="File No">
+                    <b-form-input placeholder></b-form-input>
+                  </b-form-group>
+                </b-col>
+              </b-form-row>
+              <b-form-group label="Date of Entry">
+                <b-form-datepicker id="example-datepicker"></b-form-datepicker>
+              </b-form-group>
+            </b-form>
+          </div>
+        </div>
+
+        <div class="save-btn">
+          <div class="btn btn-save">Save</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 
 
-<style scoped>
-.body {
-  padding: 50px 20px 70px;
-  height: 100%;
-}
-.info {
-  width: 80%;
-  margin: 0 auto;
-}
-li{
-  padding:8px 0
-}
-.image {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  overflow: hidden;
-}
-.image img{
-    width:100%;
-    height:100%;
-    object-fit: cover;
-}
-ul {
-  list-style: none;
-}
-li {
-  text-transform: capitalize;
-}
-</style>
-
 
 <script>
 export default {
-     props:['student'],
-    data() {
-        return {
-            detail:{}
-        }
-    },
-    mounted() {
-        this.getInfo()
-    },
-    methods: {
-        getInfo(){
-            axios.get(`/api/user`, {
+  props: ["student"],
+  data() {
+    return {
+      detail: {},
+    };
+  },
+  mounted() {
+    this.getInfo();
+  },
+  methods: {
+    getInfo() {
+      axios
+        .get(`/api/user`, {
           headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`
-          }
-        }).then(res=>{
-            if (res.status == 200) {
-                this.detail = res.data
-            }
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
         })
-        },
-        update(){
-            this.$router.push(`/detail/update`)
-        }
+        .then((res) => {
+          if (res.status == 200) {
+            this.detail = res.data;
+          }
+        });
     },
-}
+    update() {
+      this.$router.push(`/detail/update`);
+    },
+  },
+};
 </script>
+<style scoped>
+.profile {
+  /* display: flex;
+  justify-content: center; */
+  padding-top: 50px;
+}
+.avatar-profile {
+  position: absolute;
+  left: calc(50% - 35px);
+  transform: translateY(-65%);
+}
+.tutor-profile {
+  background: #fff;
+  position: relative;
+  padding: 30px;
+}
+.personal-form {
+  border: 1px solid #c4c4c4;
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+.form-group{
+  position: relative;
+}
+.after-edit:hover::before{
+  content: "\f040";
+  font-family: "FontAwesome";
+  font-weight: 500;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translateY(10px);
+}
+.save-btn {
+  display: flex;
+  justify-content: center;
+  font-family: "Montserrat";
+}
+.btn-save {
+  background: #13a699;
+  color: #fff;
+  padding: 9px 16px;
+  font-size: 16px;
+  font-weight: 500;
+}
+</style>

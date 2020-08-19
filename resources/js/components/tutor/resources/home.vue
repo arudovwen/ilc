@@ -66,7 +66,7 @@
         </div>
     </div>
     <div class="resource-table container bd-table">
-      <table class="table table-hover table-bordered">
+      <table class="table table-hover ">
         <thead class="thead-darkblue">
           <tr>
             <th>S/N</th>
@@ -306,11 +306,7 @@ export default {
 .table {
   border-radius: 10px;
 }
-.table .thead-dark th {
-  color: #fff;
-  background-color: #22cade;
-  border-color: #22cade;
-}
+
 .search {
   width: 250px;
   border-color: #41cee2;

@@ -74,7 +74,7 @@
   <div class="chat">
     <div class="card tutor-chat">
       <b-row>
-        <b-col md="8" class="chat-area">
+        <b-col md="8" class="chat-area ">
           <div @submit.prevent="submit" class="send-tab" >
            <div class="btn btn-emoji"  @click="openEmoji"><i class="fa fa-smile-o" aria-hidden="true"></i></div>
           <VEmojiPicker @select="selectEmoji" v-if="showEmoji" class="emoji" />

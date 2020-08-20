@@ -5,13 +5,14 @@
     
       <b-card no-body class="group-chat">
      
-        <b-tabs pills card vertical end>
+        <!-- <b-tabs pills card vertical end>
           <b-tab title-item-class="group" :title="item.name" active v-for="(item,idx) in groups" :key="idx">
             <b-card-text>
-              <Chat :student="student" :id="item.id" />
+             
             </b-card-text>
           </b-tab>
-        </b-tabs>
+        </b-tabs> -->
+         <Chat :student="student" :id="item.id" />
       </b-card>
     </div>
   </div>

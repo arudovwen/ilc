@@ -1,18 +1,17 @@
 <template>
   <div class="body">
-    <nav class="mb-1">
+    <!-- <nav class="mb-1">
       <b-button class="shadow-sm" @click="multiDrop">Multi-Drop</b-button>
       <b-button class="shadow-sm " v-b-modal.group>Create Group</b-button>
-
-     
-    </nav>
+    </nav> -->
      <b-card no-body class="group-chat">
-    <b-tabs pills card vertical end>
+    <!-- <b-tabs pills card vertical end>
       <b-tab :title="item.name+'('+item.class_name+')'"  v-for="(item,idx) in groups" :key="idx"><b-card-text>
         <Chat :id="item.id"  :tutor="tutor"/>
         </b-card-text></b-tab>
      
-    </b-tabs>
+    </b-tabs> -->
+    <Chat :id="item.id"  :tutor="tutor"/>
   </b-card>
 
     <!-- <div class="d-flex justify-content-between">

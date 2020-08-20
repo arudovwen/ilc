@@ -17715,9 +17715,51 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["tutor", 'id'],
+  props: ["tutor", "id"],
   data: function data() {
     return {
       messages: [],
@@ -18524,7 +18566,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chat */ "./resources/js/components/tutor/chat.vue");
-//
 //
 //
 //
@@ -24402,7 +24443,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.view[data-v-f752e2c8] {\r\n  background: white;\r\n  position: relative;\r\n  display: flex;\r\n  height: 75vh;\n}\n.progress[data-v-f752e2c8] {\r\n  height: 15px;\n}\nlabel[data-v-f752e2c8] {\r\n  margin: 0 !important;\r\n  display: block;\n}\n.message[data-v-f752e2c8] {\r\n  font-size: 14px;\r\n  padding: 20px;\n}\n.chat-body[data-v-f752e2c8] {\r\n  width: 80%;\r\n  height: 100%;\r\n  background: #f7f8fa;\r\n  padding: 20px 0 60px;\r\n  position: relative;\r\n  overflow: auto;\n}\n.online[data-v-f752e2c8] {\r\n  height: 100%;\r\n  width: 20%;\n}\n.send-tab[data-v-f752e2c8] {\r\n  position: absolute;\r\n  bottom: 0;\r\n  width: 93%;\r\n  margin: 0 auto;\r\n  padding: 4px 0;\r\n  background: white;\n}\n.emoji[data-v-f752e2c8] {\r\n  position: absolute;\r\n  bottom: 100%;\r\n  overflow: hidden !important;\n}\n.online ul li[data-v-f752e2c8] {\r\n  font-size: 15px;\r\n  padding: 10px 5px;\n}\n.form-group[data-v-f752e2c8] {\r\n  position: relative;\n}\n.fa-paperclip[data-v-f752e2c8] {\r\n  position: absolute;\r\n  font-size: 17px;\r\n  right: 10px;\r\n  top: 50%;\r\n  margin-top: -8px;\n}\nul[data-v-f752e2c8],\r\nol[data-v-f752e2c8] {\r\n  list-style: none;\n}\n.chat-item[data-v-f752e2c8] {\r\n  background: white;\r\n  padding: 30px 50px;\n}\r\n", ""]);
+exports.push([module.i, "\n.view[data-v-f752e2c8] {\r\n  background: white;\r\n  position: relative;\r\n  display: flex;\r\n  height: 75vh;\n}\n.tutor-chat[data-v-f752e2c8] {\r\n  height: 85vh;\n}\n.online-presence[data-v-f752e2c8] {\r\n  background: #f5f4f4;\r\n  height: 85vh;\n}\n.online-presence-top[data-v-f752e2c8] {\r\n  display: flex;\n}\n.online-presence-top .fa[data-v-f752e2c8] {\r\n  padding-left: 10px;\r\n  padding-top: 10px;\n}\n.inner-single[data-v-f752e2c8] {\r\n  display: flex;\n}\n.message-info[data-v-f752e2c8] {\r\n  display: flex;\r\n  padding-left: 20px;\r\n  align-items: center;\n}\n.message-info h6[data-v-f752e2c8] {\r\n  margin-bottom: 0;\r\n  line-height: 0;\n}\n.file-attachement[data-v-f752e2c8]{\r\n  display: flex;\r\n  width: 100%;\r\n  position: relative;\n}\n.file-attachement span[data-v-f752e2c8]{\r\n      position: absolute;\r\n    right: 0;\r\n    transform: translate(-7px);\r\n    padding-top: 5px;\n}\n.progress[data-v-f752e2c8] {\r\n  height: 15px;\n}\nlabel[data-v-f752e2c8] {\r\n  margin: 0 !important;\r\n  display: block;\n}\n.message[data-v-f752e2c8] {\r\n  font-size: 14px;\r\n  padding: 20px;\n}\n.chat-body[data-v-f752e2c8] {\r\n  width: 80%;\r\n  height: 100%;\r\n  background: #f7f8fa;\r\n  padding: 20px 0 60px;\r\n  position: relative;\r\n  overflow: auto;\n}\n.online[data-v-f752e2c8] {\r\n  height: 100%;\r\n  width: 20%;\n}\n.chat-area[data-v-f752e2c8]{\r\n  position: relative;\n}\n.send-tab[data-v-f752e2c8] {\r\n  position: absolute;\r\n  bottom: 0;\r\n  background: #cec9c9;\r\n display: flex;\r\n    width: 100%;\r\n    padding: 10px;\n}\n.emoji[data-v-f752e2c8] {\r\n  position: absolute;\r\n  bottom: 100%;\r\n  overflow: hidden !important;\n}\n.online ul li[data-v-f752e2c8] {\r\n  font-size: 15px;\r\n  padding: 10px 5px;\n}\n.form-group[data-v-f752e2c8] {\r\n  position: relative;\n}\nul[data-v-f752e2c8],\r\nol[data-v-f752e2c8] {\r\n  list-style: none;\n}\n.chat-item[data-v-f752e2c8] {\r\n  background: white;\r\n  padding: 30px 50px;\n}\r\n", ""]);
 
 // exports
 
@@ -57159,122 +57200,31 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "view" },
-    [
-      _c(
-        "div",
-        {
-          directives: [{ name: "chat-scroll", rawName: "v-chat-scroll" }],
-          staticClass: "chat-body"
-        },
-        [
-          _c("div", { staticClass: "message-body" }, [
-            _c(
-              "ul",
-              [
-                _vm._l(_vm.messages, function(item, idx) {
-                  return _c(
-                    "li",
-                    {
-                      key: idx,
-                      staticClass: "message mb-4",
-                      class: { "text-right": item.sender_id == _vm.tutor.id }
-                    },
-                    [
-                      _c(
-                        "span",
-                        { staticClass: "shadow rounded-pill chat-item" },
-                        [
-                          item.message
-                            ? _c("span", { staticClass: "mr-3" }, [
-                                _vm._v(_vm._s(item.message))
-                              ])
-                            : _c(
-                                "a",
-                                {
-                                  staticClass: "mr-3",
-                                  attrs: { href: item.attachment, download: "" }
-                                },
-                                [
-                                  _c("b-img", {
-                                    attrs: {
-                                      src: item.attachment,
-                                      fluid: "",
-                                      width: "60"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                          _vm._v(" "),
-                          _c("small", { staticClass: "text-muted" }, [
-                            _vm._v(
-                              _vm._s(_vm._f("moment")(item.created_at, "h:m a"))
-                            )
-                          ])
-                        ]
-                      )
-                    ]
-                  )
-                }),
-                _vm._v(" "),
-                _vm.start
-                  ? _c(
-                      "div",
-                      { staticClass: "progress mt-2 w-25 ml-auto text-right" },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "progress-bar progress-bar-striped ",
-                            class: { active: _vm.progress != "Completed" },
-                            style: { width: _vm.progress },
-                            attrs: {
-                              role: "progressbar",
-                              "aria-valuenow": "0",
-                              "aria-valuemin": "0",
-                              "aria-valuemax": "100"
-                            }
-                          },
-                          [_vm._v(_vm._s(_vm.progress))]
-                        ),
-                        _vm._v(" "),
-                        _c("b-img", { attrs: { src: _vm.file, width: "20" } })
-                      ],
-                      1
-                    )
-                  : _vm._e()
-              ],
-              2
-            )
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "b-form",
-        {
-          staticClass: "send-tab",
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              return _vm.submit($event)
-            }
-          }
-        },
-        [
-          _c(
-            "b-input-group",
-            [
+  return _c("div", { staticClass: "chat" }, [
+    _c(
+      "div",
+      { staticClass: "card tutor-chat" },
+      [
+        _c(
+          "b-row",
+          [
+            _c("b-col", { staticClass: "chat-area", attrs: { md: "8" } }, [
               _c(
-                "b-input-group-prepend",
+                "div",
+                {
+                  staticClass: "send-tab",
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.submit($event)
+                    }
+                  }
+                },
                 [
                   _c(
-                    "b-button",
+                    "div",
                     {
-                      staticClass: "button px-2",
+                      staticClass: "btn btn-emoji",
                       on: { click: _vm.openEmoji }
                     },
                     [
@@ -57290,105 +57240,102 @@ var render = function() {
                         staticClass: "emoji",
                         on: { select: _vm.selectEmoji }
                       })
-                    : _vm._e()
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group w-75 m-0" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.message,
-                      expression: "message"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    "aria-describedby": "helpId",
-                    placeholder: "",
-                    required: ""
-                  },
-                  domProps: { value: _vm.message },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.message = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("label", { attrs: { for: "attachment" } }, [
-                  _c("i", {
-                    staticClass: "fa fa-paperclip",
-                    attrs: { "aria-hidden": "true" }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control-file",
-                attrs: {
-                  type: "file",
-                  hidden: "",
-                  name: "attachment",
-                  id: "attachment",
-                  "aria-describedby": "fileHelpId"
-                },
-                on: {
-                  change: function($event) {
-                    return _vm.handleFileChange($event)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "b-input-group-append",
-                [
+                    : _vm._e(),
+                  _vm._v(" "),
                   _c(
-                    "b-button",
-                    { attrs: { variant: "secondary", type: "submit" } },
-                    [_vm._v("Send")]
+                    "div",
+                    { staticClass: "file-attachement" },
+                    [
+                      _c("b-input", {
+                        attrs: { placeholder: "Write message......." }
+                      }),
+                      _c("span", [
+                        _c("i", {
+                          staticClass: "fa fa-paperclip",
+                          attrs: { "aria-hidden": "true" }
+                        })
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "send-btn btn", attrs: { type: "submit" } },
+                    [
+                      _c("i", {
+                        staticClass: "fa fa-paper-plane",
+                        attrs: { "aria-hidden": "true" }
+                      })
+                    ]
                   )
                 ],
                 1
               )
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "online" }, [
-        _c("div", { staticClass: "form-control thead-dark" }, [
-          _vm._v("Online")
-        ]),
-        _vm._v(" "),
-        _c(
-          "ul",
-          _vm._l(_vm.users, function(user, idx) {
-            return _c(
-              "li",
-              { key: idx },
+            ]),
+            _vm._v(" "),
+            _c(
+              "b-col",
+              { attrs: { md: "4" } },
               [
-                _c("b-avatar", { attrs: { size: "sm", src: user.profile } }),
-                _vm._v(" " + _vm._s(user.name))
+                _c("b-card", { staticClass: "online-presence" }, [
+                  _c(
+                    "div",
+                    { staticClass: "online-presence-top" },
+                    [
+                      _c("b-form-input", {
+                        attrs: { placeholder: "Search to start chat" }
+                      }),
+                      _vm._v(" "),
+                      _c("i", {
+                        staticClass: "fa fa-ellipsis-v",
+                        attrs: { "aria-hidden": "true" }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "online-tag" }, [
+                    _c("div", { staticClass: "single-online-tag" }, [
+                      _c("div", { staticClass: "inner-single" }, [
+                        _c(
+                          "div",
+                          { staticClass: "avatar" },
+                          [_c("b-avatar")],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "message-info" }, [
+                          _c("h6", [_vm._v("Group name")]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            [
+                              _c("b-badge", { attrs: { variant: "success" } }, [
+                                _vm._v("3")
+                              ])
+                            ],
+                            1
+                          )
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("hr")
+                  ])
+                ])
               ],
               1
             )
-          }),
-          0
+          ],
+          1
         )
-      ])
-    ],
-    1
-  )
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -58058,60 +58005,9 @@ var render = function() {
     { staticClass: "body" },
     [
       _c(
-        "nav",
-        { staticClass: "mb-1" },
-        [
-          _c(
-            "b-button",
-            { staticClass: "shadow-sm", on: { click: _vm.multiDrop } },
-            [_vm._v("Multi-Drop")]
-          ),
-          _vm._v(" "),
-          _c(
-            "b-button",
-            {
-              directives: [
-                {
-                  name: "b-modal",
-                  rawName: "v-b-modal.group",
-                  modifiers: { group: true }
-                }
-              ],
-              staticClass: "shadow-sm "
-            },
-            [_vm._v("Create Group")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
         "b-card",
         { staticClass: "group-chat", attrs: { "no-body": "" } },
-        [
-          _c(
-            "b-tabs",
-            { attrs: { pills: "", card: "", vertical: "", end: "" } },
-            _vm._l(_vm.groups, function(item, idx) {
-              return _c(
-                "b-tab",
-                {
-                  key: idx,
-                  attrs: { title: item.name + "(" + item.class_name + ")" }
-                },
-                [
-                  _c(
-                    "b-card-text",
-                    [_c("Chat", { attrs: { id: item.id, tutor: _vm.tutor } })],
-                    1
-                  )
-                ],
-                1
-              )
-            }),
-            1
-          )
-        ],
+        [_c("Chat", { attrs: { id: _vm.item.id, tutor: _vm.tutor } })],
         1
       ),
       _vm._v(" "),

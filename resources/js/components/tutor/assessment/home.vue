@@ -53,8 +53,22 @@
           <b-row>
             <b-col md="8" class="assessment-table">
              <div class="bd-table">
-                <b-table :fields="fields"  :items="assignment" head-variant="darkblue" >
+                <b-table :fields="fields"  :items="assignment"  >
                 <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
+                  <template v-slot:cell(publish_status)="data">
+                   <span  v-if="data.item.publish_status== true">Published</span>
+                     <span v-else>Unpublished</span>
+                 </template>
+                   <template v-slot:cell(title)="data">
+                <div class="main-title">
+                  <div class="title">{{data.item.title}}</div>
+                 <div class="text-muted">{{data.item.description}}</div>
+                </div>
+              </template>
+                 <template v-slot:cell(action)="data">
+                   <span @click="publish(true,data.item.id)" v-if="data.item.publish_status== false">Publish</span>
+                     <span @click="publish(false,data.item.id)" v-else>Unpublish</span>
+                 </template>
               </b-table>
              </div>
             </b-col>
@@ -76,7 +90,7 @@
                   <div class="pending">
                     <i class="fa fa-ban"></i>
                     <h6>10</h6>
-                    <p>submitted</p>
+                    <p>pending</p>
                   </div>
                 </div>
                 <h6 class="notify">Assignment Notification</h6>
@@ -98,8 +112,23 @@
           <b-row>
             <b-col md="8" class="assessment-table">
               <div class="bd-table">
-                <b-table :fields="fields"  :items="quiz" hover head-variant="darkblue" >
+                <b-table :fields="fields"  :items="quiz" hover  >
                 <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
+                  <template v-slot:cell(publish_status)="data">
+                   <span  v-if="data.item.publish_status== true">Published</span>
+                     <span v-else>Unpublished</span>
+                 </template>
+                 
+                   <template v-slot:cell(title)="data">
+                <div class="main-title">
+                  <div class="title">{{data.item.title}}</div>
+                 <div class="text-muted">{{data.item.description}}</div>
+                </div>
+              </template>
+                 <template v-slot:cell(action)="data">
+                   <span @click="publish(true,data.item.id)" v-if="data.item.publish_status== false">Publish</span>
+                     <span @click="publish(false,data.item.id)" v-else>Unpublish</span>
+                 </template>
               </b-table>
               </div>
             </b-col>
@@ -121,7 +150,7 @@
                   <div class="pending">
                     <i class="fa fa-ban"></i>
                     <h6>10</h6>
-                    <p>submitted</p>
+                    <p>pending</p>
                   </div>
                 </div>
                 <h6 class="notify">Quiz Notification</h6>
@@ -143,8 +172,22 @@
           <b-row>
             <b-col md="8" class="assessment-table">
              <div class="bd-table">
-                <b-table :fields="fields"  :items="test" head-variant="darkblue" hover>
+                <b-table :fields="fields"  :items="test"  hover>
                 <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
+                 <template v-slot:cell(action)="data">
+                   <span @click="publish(true,data.item.id)" v-if="data.item.publish_status== false">Publish</span>
+                     <span @click="publish(false,data.item.id)" v-else>Unpublish</span>
+                 </template>
+                   <template v-slot:cell(title)="data">
+                <div class="main-title">
+                  <div class="title">{{data.item.title}}</div>
+                 <div class="text-muted">{{data.item.description}}</div>
+                </div>
+              </template>
+                   <template v-slot:cell(publish_status)="data">
+                   <span  v-if="data.item.publish_status== true">Published</span>
+                     <span v-else>Unpublished</span>
+                 </template>
               </b-table>
              </div>
             </b-col>
@@ -166,7 +209,7 @@
                   <div class="pending">
                     <i class="fa fa-ban"></i>
                     <h6>10</h6>
-                    <p>submitted</p>
+                    <p>pending</p>
                   </div>
                 </div>
                 <h6 class="notify">Test Notification</h6>
@@ -188,8 +231,23 @@
           <b-row>
             <b-col md="8" class="assessment-table">
               <div class="bd-table">
-                <b-table :fields="fields"  :items="examination" head-variant="darkblue"  hover>
+                <b-table :fields="fields"  :items="examination"  hover>
                 <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
+                 <template v-slot:cell(action)="data">
+                   <span @click="publish(true,data.item.id)" v-if="data.item.publish_status== false">Publish</span>
+                     <span @click="publish(false,data.item.id)" v-else>Unpublish</span>
+                 </template>
+                 
+                   <template v-slot:cell(title)="data">
+                <div class="main-title">
+                  <div class="title">{{data.item.title}}</div>
+                 <div class="text-muted">{{data.item.description}}</div>
+                </div>
+              </template>
+                   <template v-slot:cell(publish_status)="data">
+                   <span  v-if="data.item.publish_status== true">Published</span>
+                     <span v-else>Unpublished</span>
+                 </template>
               </b-table>
               </div>
             </b-col>
@@ -211,7 +269,7 @@
                   <div class="pending">
                     <i class="fa fa-ban"></i>
                     <h6>10</h6>
-                    <p>submitted</p>
+                    <p>pending</p>
                   </div>
                 </div>
                 <h6 class="notify">Exam Notification</h6>
@@ -235,7 +293,7 @@
 
 <script>
 export default {
-  props: ["admin"],
+  props: ["tutor"],
   data() {
     return {
       tutors: [],
@@ -247,12 +305,15 @@ export default {
       assignment: [],
       examination: [],
       fields: [
-        "Sn",
         {
           key: "title",
           sortable: true,
         },
+        "level",
+       
         "status",
+        "publish_status",
+        "action"
       ],
     };
   },
@@ -263,8 +324,29 @@ export default {
     this.getData();
   },
   methods: {
+    publish(name,id){
+       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      let data = {
+        stat:name
+      }
+       axios
+        .put(`/api/publish-assessment/${id}`, data, {
+          headers: {
+            Authorization: `Bearer ${tutor.access_token}`,
+          },
+        }).then(res=>{
+          if (res.status == 200) {
+            this.getData()
+          }
+        })
+    },
     getData() {
       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      this.quiz=[]
+        this.test=[]
+          this.assignment=[]
+            this.examination=[]
+
       axios
         .get(`/api/assessment`, {
           headers: {
@@ -354,6 +436,13 @@ export default {
 <style scoped>
 .container-fluid {
   width: 100% !important;
+}
+.main-title{
+  width: 350px;
+}
+.title{
+  font-weight: bold;
+  color:#56cee3;
 }
 .row {
   margin-left: 0px !important;

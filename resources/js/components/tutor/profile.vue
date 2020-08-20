@@ -1,62 +1,27 @@
 <template>
-  <!-- <div class="body">
-    <div class="text-right">
-      <b-button type="button" @click="update">Update</b-button>
-    </div>
 
-    <div class="info">
-      <h4>Tutor Information</h4>
-
-        <div class=" my-5">
-      
-        <b-avatar :src="details.profile" size="8em"></b-avatar>
-      </div>
-      <div class="d-flex">
-        <div class="personal w-50">
-          <h5>Personal Information</h5>
-          <ul>
-            <li>Name : {{details.name}}</li>
-            <li>Email : {{details.email}}</li>
-            <li>DOB : {{details.dob}}</li>
-            <li>Address : {{details.address}}</li>
-            <li>Gender {{details.gender}}</li>
-            <li>State : {{details.state}}</li>
-            <li>LGA : {{details.lga}}</li>
-          </ul>
-        </div>
-
-        <div class="w-50">
-          <div class="official">
-            <h5>School Information</h5>
-            <ul>
-              <li>Qualification : {{details.subjects}}</li>
-              <li>Area of Specialization : {{details.area_of_specialization}}</li>
-              <li>Faculty : {{details.faculty}}</li>
-              <li>Department : {{details.department}}</li>
-              <li>CGL : {{details.cgl}}</li>
-              <li>DOE : {{details.doe}}</li>
-              <li>File No {{details.file_no}}</li>
-            </ul>
-          </div>
-
-          <div class="bank">
-            <h5>Bank Information</h5>
-            <ul>
-              <li>Bank Name : {{details.bank_name}}</li>
-              <li>Account No : {{details.bank_no}}</li>
-              <li>BVN : {{details.bvn}}</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>-->
   <div class="profile-page">
-    <div class="profile container">
+    <b-form @submit.prevent="submit">
+<div class="profile container">
       <div class="tutor-profile">
-        <div class="avatar-profile">
-          <b-avatar variant="secondary" size="6rem"></b-avatar>
-        </div>
+         <div class="avatar-profile">
+            <b-avatar variant="secondary" :src="details.profile" class="profile-img" size="7rem">
+                <template v-slot:badge><label for="up" class="m-0"><b-icon icon="pencil" size="1rem"></b-icon></label>
+               
+                <b-form-file
+                id="up"
+                 hidden
+                  accept="image/*"
+                  plain
+                  @change="handleFileChange($event)"
+                ></b-form-file>
+         
+                </template>
+
+            </b-avatar>
+              
+           
+          </div>
         <div class="profile-inner">
           <h6>Personal Information</h6>
           <div class="personal-form">
@@ -65,14 +30,14 @@
                 <b-col>
                   <b-form-group label="Name">
                   <div class="after-edit">
-                      <b-form-input placeholder></b-form-input>
+                      <b-form-input placeholder v-model="details.name"></b-form-input>
                   </div>
                   </b-form-group>
                 </b-col>
                 <b-col>
                   <b-form-group label="Email">
                   <div class="after-edit">
-                      <b-form-input placeholder></b-form-input>
+                      <b-form-input placeholder v-model="details.email"></b-form-input>
                   </div>
                   </b-form-group>
                 </b-col>
@@ -81,34 +46,43 @@
                 <b-col>
                   <b-form-group label="Date of Birth">
                    <div class="after-edit">
-                      <b-form-datepicker id="example-datepicker"></b-form-datepicker>
+                      <b-form-datepicker id="example-datepicker" v-model="details.dob"></b-form-datepicker>
                    </div>
                   </b-form-group>
                 </b-col>
                 <b-col>
                   <b-form-group label="Address">
                    <div class="after-edit">
-                      <b-form-input placeholder></b-form-input>
+                      <b-form-input placeholder v-model="details.address"></b-form-input>
                    </div>
                   </b-form-group>
                 </b-col>
               </b-form-row>
-              <b-form-group label="Gender">
+              <b-form-row>
+                <b-col>
+                  <b-form-group label="Gender">
                <div class="after-edit">
-                  <b-form-select v-model="selected" :options="gender"></b-form-select>
+                  <b-form-select v-model="details.gender" :options="gender"></b-form-select>
                </div>
               </b-form-group>
+                </b-col>
+                <b-col>
+                <b-form-group>
+                    <b-form-input v-model="details.phons"></b-form-input>
+                </b-form-group>
+                </b-col>
+              </b-form-row>
               <b-form-row>
                 <b-col>
                   <b-form-group label="State">
                   <div class="after-edit">
-                      <b-form-input placeholder></b-form-input>
+                      <b-form-input placeholder v-model="details.state"></b-form-input>
                   </div>
                   </b-form-group>
                 </b-col>
                 <b-col>
                   <b-form-group label="Local Goverment Area">
-                   <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
+                   <div class="after-edit"> <b-form-input placeholder v-model="details.lga"></b-form-input></div>
                   </b-form-group>
                 </b-col>
               </b-form-row>
@@ -122,39 +96,41 @@
               <b-form-row>
                 <b-col>
                   <b-form-group label="Qualification">
-                   <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
+                   <div class="after-edit"> <b-form-input placeholder v-model="details.subjects"></b-form-input></div>
                   </b-form-group>
                 </b-col>
                 <b-col>
                   <b-form-group label="Area of Specialization">
-                   <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
+                   <div class="after-edit"> <b-form-input placeholder v-model="details.area_of_specialization"></b-form-input></div>
                   </b-form-group>
                 </b-col>
               </b-form-row>
               <b-form-row>
                 <b-col>
                   <b-form-group label="Date of Entry">
-                    ,<after-edit><b-form-datepicker id="example-datepicker"></b-form-datepicker></after-edit>
+                   <b-form-datepicker id="example-datepicker" v-model="details.doe"></b-form-datepicker>
                   </b-form-group>
                 </b-col>
                 <b-col>
                   <b-form-group label="Faculty">
-                  <div class="after-edit">  <b-form-input placeholder></b-form-input></div>
+                  <div class="after-edit">  <b-form-input placeholder v-model="details.faculty"></b-form-input></div>
                   </b-form-group>
                 </b-col>
               </b-form-row>
               <b-form-group label="Department">
-               <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
+               <div class="after-edit"> <b-form-input placeholder v-model="details.department"></b-form-input></div>
               </b-form-group>
               <b-form-row>
                 <b-col>
                   <b-form-group label="Current Grade Level">
-                    <div class="after-edit"><b-form-select v-model="selected" :options="gradelevel"></b-form-select></div>
+                    <div class="after-edit">
+                      <b-form-input v-model="details.cgl" ></b-form-input>
+                      </div>
                   </b-form-group>
                 </b-col>
                 <b-col>
                   <b-form-group label="File No">
-                   <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
+                   <div class="after-edit"> <b-form-input placeholder v-model="details.file_no"></b-form-input></div>
                   </b-form-group>
                 </b-col>
               </b-form-row>
@@ -168,28 +144,29 @@
               <b-form-row>
                 <b-col>
                   <b-form-group label="Bank Name">
-                   <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
+                   <div class="after-edit"> <b-form-input placeholder v-model="details.bank_name"></b-form-input></div>
                   </b-form-group>
                 </b-col>
                 <b-col>
                   <b-form-group label="Account Number">
-                   <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
+                   <div class="after-edit"> <b-form-input placeholder v-model="details.account_no"></b-form-input></div>
                   </b-form-group>
                 </b-col>
               </b-form-row>
             
               <b-form-group label="BVN">
-               <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
+               <div class="after-edit"> <b-form-input placeholder v-model="details.bvn"></b-form-input></div>
               </b-form-group>
              
             </b-form>
           </div>
         </div>
         <div class="save-btn">
-          <div class="btn btn-save">Save</div>
+          <button class="btn btn-save" type="submit">Save</button>
         </div>
       </div>
     </div>
+    </b-form>
   </div>
 </template>
 
@@ -211,12 +188,86 @@ export default {
         { value: "b", text: "Level 2" },
         { value: "c", text: "Level 3" },
       ],
+       cloudinary: {
+        uploadPreset: "wo4qwffs",
+        apiKey: "754134295584927",
+        cloudName: "imostate",
+      },
+      progress: 0,
+      start: false,
     };
   },
   mounted() {
     this.getDetails();
   },
   methods: {
+    submit() {
+        let tutor = JSON.parse(localStorage.getItem('typeTutor'))
+      axios.put(`/api/tutors/${tutor.id}`, this.details,{headers:{
+          Authorization: `Bearer ${tutor.access_token}`
+      }}).then(res => {
+        if (res.status == 200) {
+          this.$toasted.info("Successful");
+          this.$router.push("/tutor/profile");
+        }
+      });
+    },
+     handleFileChange(event) {
+      this.file = event.target.files[0];
+
+      this.filesSelectedLength = event.target.files.length;
+
+      this.loadFile();
+    },
+    loadFile() {
+      let reader = new FileReader();
+      reader.onload = (event) => {
+        this.uploadedFile = event.target.result;
+      };
+      reader.readAsDataURL(this.file);
+      this.processUpload();
+    },
+    processUpload() {
+      let that = this;
+      this.start = true;
+      var formData = new FormData();
+      var xhr = new XMLHttpRequest();
+      var cloudName = this.cloudinary.cloudName;
+      var upload_preset = this.cloudinary.uploadPreset;
+      formData.append("file", this.file);
+      formData.append("resource_type", "auto");
+      formData.append("upload_preset", upload_preset); // REQUIRED
+      xhr.open(
+        "POST",
+        "https://api.cloudinary.com/v1_1/" + cloudName + "/upload"
+      );
+      xhr.upload.onprogress = function (e) {
+        if (e.lengthComputable) {
+          that.progress = Math.round((e.loaded / e.total) * 100) + "%";
+        }
+      };
+      xhr.upload.onloadstart = function (e) {
+        this.progress = "Starting...";
+      };
+      xhr.upload.onloadend = function (e) {
+        this.progress = "Completing..";
+      };
+      xhr.onload = (progressEvent) => {
+        if (xhr.status === 200) {
+          // Success! You probably want to save the URL somewhere
+          this.progress = "Completed";
+          setTimeout(() => {}, 1000);
+          var response = JSON.parse(xhr.response);
+          this.$toasted.info("Profile picture changed");
+          this.details.profile = response.secure_url; // https address of uploaded file
+        } else {
+          this.start = false;
+          this.progress = 0;
+          alert("Upload failed. Please try again.");
+        }
+      };
+      xhr.send(formData);
+    },
     getDetails() {
       axios
         .get("/api/tutorDetails", {

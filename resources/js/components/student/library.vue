@@ -1,34 +1,46 @@
 <template>
- 
   <div class="library">
     <div class="continue-reading" v-if="lastRead">
       <div class="continue-word">
         <h5>You were {{lastRead.type == 'video'?'watching':'viewing'}} {{lastRead.title}}</h5>
         <h6 class="toCaps">{{lastRead.subject}}</h6>
-      
+
         <div class="continue-reading-icon">
           <div class="continue-btn mr-1">
-            <div class="">
-             <b-avatar icon="eye" variant="success" size="1.2rem"></b-avatar>
+            <div class>
+              <b-avatar icon="eye" variant="success" size="1.2rem"></b-avatar>
             </div>
           </div>
-          <p class="cpointer" @click="view(lastRead.id,lastRead.subject,lastRead.cover)">Continue {{lastRead.type == 'video'?'watching':'viewing'}}</p>
+          <p
+            class="cpointer"
+            @click="view(lastRead.id,lastRead.subject,lastRead.cover)"
+          >Continue {{lastRead.type == 'video'?'watching':'viewing'}}</p>
         </div>
       </div>
       <div class="continue-img">
         <img src="/images/text-book.png" alt />
       </div>
     </div>
-     <div class="continue-reading" v-else>
+    <div class="continue-reading" v-else>
       <div class="continue-word">
         <h5>You haven't started any subject yet, Start onre now !</h5>
-       
       </div>
-   
     </div>
 
     <div class="library-content container bg-white p-3 py-4">
-      <h6>My Library</h6>
+      <h4>My Library</h4>
+      <b-row class="justify-content-end my-5">
+        <b-col cols="4">
+          <b-input-group>
+            <b-form-input v-model="search" placeholder="Search quiz title"></b-form-input>
+            <b-input-group-append>
+              <div class="create-btn">
+                <div class="btn btn-create">Search</div>
+              </div>
+            </b-input-group-append>
+          </b-input-group>
+        </b-col>
+      </b-row>
       <div class="filter-view">
         <div class="filter-table">
           <div class="filter-container">
@@ -45,11 +57,10 @@
                 <b-nav-item href="#">Sort By:</b-nav-item>
               </b-navbar-nav>
 
-           
               <b-navbar-nav class="mx-auto">
                 <b-form-select class="mr-3" v-model="subject">
                   <b-form-select-option value disabled>-- Subjects --</b-form-select-option>
-                  <!-- <b-form-select-option value="all">-- All --</b-form-select-option> -->
+                  <b-form-select-option value="">-- All --</b-form-select-option>
                   <b-form-select-option
                     :value="item.toLowerCase()"
                     v-for="(item,idx) in subjects"
@@ -57,82 +68,95 @@
                   >{{item}}</b-form-select-option>
                 </b-form-select>
               </b-navbar-nav>
-              <b-navbar-nav>
-                <b-nav-form class="ml-auto">
-                  <b-form-input
-                    size="sm"
-                    v-model="search"
-                    class="mr-sm-2 search rounded-pill"
-                    placeholder="Search"
-                  ></b-form-input>
-                </b-nav-form>
-              </b-navbar-nav>
             </b-collapse>
           </b-navbar>
         </div>
         <router-link to>View all</router-link>
       </div>
 
-    <div class="bd-table library">
+      <div class="bd-table library">
         <b-tabs content-class="mt-3 ">
-        <b-tab title="Home View" title-link-class="mylibrary"  active>
-          <b-container class="books" title-link-class="mylibrary">
-            <b-row>
-              <b-col md="3" v-for="(item,idx) in sorted" :key="idx">
-                <b-card
-                  :title="item.subject"
-                  img-src="https://picsum.photos/600/300/?image=25"
-                  img-alt="Image"
-                  img-top
-                  tag="article"
-                  style="max-width: 20rem;"
-                  class="mb-2 toCaps"
-                >
-                  <b-card-text class="excerpt">{{item.excerpt}}</b-card-text>
-
-                  <b-button href="#" variant="darkgreen" block @click="view(item.id,item.subject,item.cover)">View</b-button>
-                </b-card>
-              </b-col>
-            </b-row>
-          </b-container>
-        </b-tab>
-        <b-tab title="Table View"  class="mylibrary">
-         <table class="table table-bordered table">
-        <thead class="thead-light">
-            <tr>
-                <th>S/n</th>
-                <th>Subject</th>
-                <!-- <th>Title</th> -->
-                <th>Excerpts</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-          
-            <tr v-for="(item,idx) in library" :key="idx">
-                <td scope="row">{{idx+1}}</td>
-                <td>{{item.subject}}</td>
-                <!-- <td>{{item.title}}</td> -->
-                <td>{{item.excerpt ? item.excerpt:'-'}}</td>
-                <td class="options"><i class="fa fa-ellipsis-v" aria-hidden="true"></i> 
-                  <div class="option shadow">
+          <b-tab title="Home View" title-link-class="mylibrary" active>
+            <b-container class="books" title-link-class="mylibrary">
+              <b-row>
+                <b-col md="3" v-for="(item,idx) in sorted" :key="idx">
+                  <b-card
+                    :title="item.subject"
+                    img-src="https://picsum.photos/600/300/?image=25"
+                    img-alt="Image"
+                    img-top
+                    tag="article"
+                    style="max-width: 20rem;"
+                    class="mb-2 toCaps"
+                  >
+                    <b-card-text class="excerpt">{{item.excerpt}}</b-card-text>
+                    <div class="progress-resource text-center">
+                      <vue-circle
+                        :progress="Number(item.progress)"
+                        :size="100"
+                        :reverse="false"
+                        line-cap="round"
+                        empty-fill="rgba(0, 0, 0, .1)"
+                        :animation-start-value="0.0"
+                        :start-angle="0"
+                        insert-mode="append"
+                        :thickness="5"
+                        :show-percent="true"
+                        @vue-circle-progress="progress"
+                        @vue-circle-end="progress_end"
+                      >
+                        <p>Complete</p>
+                      </vue-circle>
+                    </div>
+                    <b-button
+                      href="#"
+                      variant="darkgreen"
+                      block
+                      @click="view(item.id,item.subject,item.cover)"
+                    >View</b-button>
+                  </b-card>
+                </b-col>
+              </b-row>
+            </b-container>
+          </b-tab>
+          <b-tab title="Table View" class="mylibrary">
+            <table class="table table-bordered table">
+              <thead class="thead-light">
+                <tr>
+                  <th>S/n</th>
+                  <th>Subject</th>
+                  <!-- <th>Title</th> -->
+                  <th>Excerpts</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(item,idx) in library" :key="idx">
+                  <td scope="row">{{idx+1}}</td>
+                  <td>{{item.subject}}</td>
+                  <!-- <td>{{item.title}}</td> -->
+                  <td>{{item.excerpt ? item.excerpt:'-'}}</td>
+                  <td class="options">
+                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                    <div class="option shadow">
                       <ul>
-                          <li @click="view(item.id,item.subject,item.cover)">View</li>
-                          <li>Drop</li>
+                        <li @click="view(item.id,item.subject,item.cover)">View</li>
+                        <li>Drop</li>
                       </ul>
-                  </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-        </b-tab>
-      </b-tabs>
-    </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </b-tab>
+        </b-tabs>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import VueCircle from "vue2-circle-progress";
 export default {
   props: ["student"],
   data() {
@@ -152,12 +176,15 @@ export default {
       filterShow: false,
       subjects: [],
       subject: "",
-      lastRead:{}
+      lastRead: {},
     };
+  },
+  components: {
+    VueCircle,
   },
   mounted() {
     this.getLibrary();
-    this.getLastRead()
+    this.getLastRead();
   },
   watch: {
     all: "getAll",
@@ -167,15 +194,19 @@ export default {
       return this.library.filter((item) => {
         if (this.subject !== "") {
           return (item.subject = this.subject);
-        } else {
-          return item;
         }
+        if (this.search !== "") {
+          return item.subject.toLowerCase().includes(this.search.toLowerCase());
+        }
+        return item;
       });
     },
   },
   methods: {
-    getLastRead(){
-      this.lastRead = JSON.parse(localStorage.getItem('lastRead'))
+    progress(event, progress, stepValue) {},
+    progress_end(event) {},
+    getLastRead() {
+      this.lastRead = JSON.parse(localStorage.getItem("lastRead"));
     },
     toggleFilter() {
       this.filterShow = !this.filterShow;
@@ -282,13 +313,13 @@ export default {
           });
       }
     },
-    view(id,subject,cover) {
+    view(id, subject, cover) {
       let read = {
-        id:id,
-        cover:cover,
-        subject:subject
-      }
-      localStorage.setItem('lastRead', JSON.stringify(read))
+        id: id,
+        cover: cover,
+        subject: subject,
+      };
+      localStorage.setItem("lastRead", JSON.stringify(read));
       this.$router.push(`/student/study/${id}`);
     },
   },
@@ -307,7 +338,6 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-
 }
 .continue-word p:first-child {
   font-weight: 500;
@@ -409,6 +439,10 @@ export default {
 nav {
   background: rgba(19, 166, 153, 0.9);
   color: white;
+}
+.btn-create {
+  background: rgba(19, 166, 153, 0.9) !important;
+  color: #fff;
 }
 .table .thead-light th {
   color: white;

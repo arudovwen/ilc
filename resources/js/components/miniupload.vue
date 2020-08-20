@@ -2,15 +2,17 @@
   <div>
     <form @submit.prevent="processUpload" class>
       <div>
-       
         <div class="upload-btn-wrapper">
           <div class="centered">
-           
+            <button class="btn">
+              <i class="fa fa-upload"></i>
+
+              <span>Upload a File</span>
+            </button>
             <b-form-file :id="label" class="mt-3" plain @change="handleFileChange($event)"></b-form-file>
           </div>
         </div>
 
-      
         <div class="progress mt-2" v-if="start">
           <div
             class="progress-bar progress-bar-striped"
@@ -54,7 +56,7 @@
 <script>
 export default {
   name: "CloudinaryUpload",
-  props: ["index", "label",'id'],
+  props: ["index", "label", "id"],
   data() {
     return {
       filesSelectedLength: 0,
@@ -87,7 +89,7 @@ export default {
         this.uploadedFile = event.target.result;
       };
       reader.readAsDataURL(this.file);
-      this.processUpload()
+      this.processUpload();
     },
     processUpload() {
       let that = this;
@@ -121,7 +123,12 @@ export default {
           setTimeout(() => {}, 1000);
           var response = JSON.parse(xhr.response);
           this.uploadedFileUrl = response.secure_url; // https address of uploaded file
-          this.$emit("getUploadDetails", this.$props.index, response,this.$props.id);
+          this.$emit(
+            "getUploadDetails",
+            this.$props.index,
+            response,
+            this.$props.id
+          );
         } else {
           this.start = false;
           this.progress = 0;
@@ -163,15 +170,15 @@ export default {
   top: 0;
   opacity: 0;
 }
-.centered{
+.centered {
   display: flex;
- justify-content: center;
+  justify-content: center;
 }
-.upload-btn{
+.upload-btn {
   display: flex;
   justify-content: flex-end;
 }
-.btn-upload{
-  background-color: #0A4065;
+.btn-upload {
+  background-color: #0a4065;
 }
 </style>

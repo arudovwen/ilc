@@ -1,35 +1,26 @@
 <template>
-  <div class="body">
-    <h5 class="mb-3">Groups</h5>
-    <div class="px-5">
-      <table class="table table-hover table-bordered">
-        <thead class="thead-light">
-          <tr>
-            <th>Group Name</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(item,idx) in groups" :key="idx">
-            <td class="toCaps chat">
-              {{item.name}}
-              <i class="fa fa-comment-o" aria-hidden="true"></i>
-            </td>
-            <td>
-              <span @click="gotoGroup(item.id)">
-                Enter
-                <i class="fas fa-sign-in-alt"></i>
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <div class>
+   
+    <div class="p-3">
+    
+      <b-card no-body class="group-chat">
+     
+        <b-tabs pills card vertical end>
+          <b-tab title-item-class="group" :title="item.name" active v-for="(item,idx) in groups" :key="idx">
+            <b-card-text>
+              <Chat :student="student" :id="item.id" />
+            </b-card-text>
+          </b-tab>
+        </b-tabs>
+      </b-card>
     </div>
   </div>
 </template>
 
 
+
 <script>
+import Chat from "./chat";
 export default {
   props: ["student"],
   data() {
@@ -41,6 +32,9 @@ export default {
       item: false,
       update: false,
     };
+  },
+  components: {
+    Chat,
   },
   watch: {
     item: "selectAll",
@@ -194,5 +188,10 @@ table {
 .chat {
   cursor: pointer;
 }
-
+.card-header{
+  padding: 0;
+}
+li{
+  width: 150px;
+}
 </style>

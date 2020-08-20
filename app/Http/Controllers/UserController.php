@@ -96,10 +96,10 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $user = User::where('id',$id)->first();
         $user->name = $request['name'];
         //$user->email = $request->email;
-        $user->password = Hash::make($request['password']);
         $user->phone = $request['phone'];
         $user->gender = $request['gender'];
         $user->address = $request['address'];
@@ -115,9 +115,7 @@ class UserController extends Controller
         $user->student_level = $request['student_level'];
         $user->study_course = $request['study_course'];
         $user->save();
-        return response()->json([
-            'status'=>'updated'
-        ]);
+        return $user;
     }
 
     /**

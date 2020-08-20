@@ -38,7 +38,7 @@
         <router-link to="/student/groups">
           <li>
             <i class="icon-group-1" aria-hidden="true"></i>
-            <span v-if="!sideBar">Groups</span>
+            <span v-if="!sideBar">Live Chat</span>
           </li>
         </router-link>
         <router-link to="/student/groups">

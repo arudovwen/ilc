@@ -83,7 +83,7 @@
                     </b-row>
                     <b-row class="py-3">
                       <b-button size="sm" @click="addQuestion(index)" class="mr-3">
-                        <i class="fas fa-plus-circle" aria-hidden="true"></i>
+                        <i class="fas fa-plus-circle" aria-hidden="true"></i> New Question
                       </b-button>
                       <b-button size="sm" @click="removeQuestion(index)">
                         <i class="fas fa-times-circle" aria-hidden="true"></i>

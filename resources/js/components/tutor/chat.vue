@@ -1,8 +1,8 @@
 <template>
   <div class="view">
-    <div class="chat-body">
-      <div class="message-body">
-        <ul v-chat-scroll>
+    <div class="chat-body"  v-chat-scroll>
+      <div class="message-body" >
+        <ul>
           <li class="message mb-4" v-for="(item,idx) in messages" :key="idx"  :class="{'text-right':item.sender_id == tutor.id}" >
         <span class="shadow rounded-pill chat-item">
               <span v-if="item.message" class="mr-3">{{item.message}}</span> 
@@ -24,11 +24,17 @@
           </div>
         </ul>
       </div>
-      <div class="send-tab">
-        <b-button class="button px-2" @click="openEmoji">
-          <i class="fa fa-smile-o" aria-hidden="true"></i>
-        </b-button>
-        <VEmojiPicker @select="selectEmoji" v-if="showEmoji" class="emoji" />
+     
+    </div>
+     <b-form @submit.prevent="submit" class="send-tab">
+      <b-input-group>
+        <b-input-group-prepend>
+          <b-button class="button px-2" @click="openEmoji">
+            <i class="fa fa-smile-o" aria-hidden="true"></i>
+          </b-button>
+          <VEmojiPicker @select="selectEmoji" v-if="showEmoji" class="emoji" />
+        </b-input-group-prepend>
+
         <div class="form-group w-75 m-0">
           <input
             type="text"
@@ -36,15 +42,28 @@
             v-model="message"
             aria-describedby="helpId"
             placeholder
+            required
           />
-         <label for="attachment"> <i class="fa fa-paperclip" aria-hidden="true"></i></label>
+          <label for="attachment">
+            <i class="fa fa-paperclip" aria-hidden="true"></i>
+          </label>
         </div>
-      
-          <input type="file" hidden class="form-control-file"  @change="handleFileChange($event)" name="attachment" id="attachment" aria-describedby="fileHelpId">
-        
-        <b-button class="button" @click="submit">Send</b-button>
-      </div>
-    </div>
+
+        <input
+          type="file"
+          hidden
+          class="form-control-file"
+          @change="handleFileChange($event)"
+          name="attachment"
+          id="attachment"
+          aria-describedby="fileHelpId"
+        />
+
+        <b-input-group-append>
+          <b-button variant="secondary" type="submit">Send</b-button>
+        </b-input-group-append>
+      </b-input-group>
+    </b-form>
     <div class="online">
       <div class="form-control thead-dark">Online</div>
       <ul>
@@ -57,7 +76,7 @@
 <script>
 import VEmojiPicker from "v-emoji-picker";
 export default {
-  props: ["tutor"],
+  props: ["tutor",'id'],
   data() {
     return {
       messages: [],
@@ -85,14 +104,14 @@ export default {
   created() {
     this.getMessages();
     axios
-      .get(`/api/group/${this.$route.params.id}`, {
+      .get(`/api/group/${this.$props.id}`, {
         headers: {
           Authorization: `Bearer ${this.$props.tutor.access_token}`
         }
       })
       .then(res => {
         if (res.status == 200) {
-          Echo.join(res.data.name + this.$route.params.id + this.$props.tutor.id
+          Echo.join(res.data.name + this.$props.id + this.$props.tutor.id
           )
             .here(users => {
               this.users = users;
@@ -179,7 +198,7 @@ export default {
         this.showEmoji = false
       let data = {
         message: this.message,
-        group_id: this.$route.params.id
+        group_id: this.$props.id
       };
       axios
         .post("/api/send-message", data, {
@@ -196,7 +215,7 @@ export default {
     },
     getMessages() {
       axios
-        .get(`/api/get-messages/${this.$route.params.id}`, {
+        .get(`/api/get-messages/${this.$props.id}`, {
           headers: {
             Authorization: `Bearer ${this.$props.tutor.access_token}`
           }
@@ -215,36 +234,38 @@ export default {
   background: white;
   position: relative;
   display: flex;
-  height: 92vh;
+  height: 75vh;
 }
-
-label{
+.progress {
+  height: 15px;
+}
+label {
   margin: 0 !important;
   display: block;
 }
-.message{
-  font-size: 16px;
+.message {
+  font-size: 14px;
   padding: 20px;
 }
 .chat-body {
   width: 80%;
   height: 100%;
   background: #f7f8fa;
-  padding:20px 0;
+  padding: 20px 0 60px;
   position: relative;
+  overflow: auto;
 }
 .online {
   height: 100%;
   width: 20%;
 }
 .send-tab {
-  position: fixed;
+  position: absolute;
   bottom: 0;
-  width: 80%;
+  width: 93%;
   margin: 0 auto;
-  padding: 10px;
+  padding: 4px 0;
   background: white;
-  display: flex;
 }
 .emoji {
   position: absolute;
@@ -253,7 +274,7 @@ label{
 }
 .online ul li {
   font-size: 15px;
-  padding: 10px 15px;
+  padding: 10px 5px;
 }
 .form-group {
   position: relative;
@@ -265,7 +286,11 @@ label{
   top: 50%;
   margin-top: -8px;
 }
-.chat-item{
+ul,
+ol {
+  list-style: none;
+}
+.chat-item {
   background: white;
   padding: 30px 50px;
 }

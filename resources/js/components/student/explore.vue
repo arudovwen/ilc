@@ -21,43 +21,21 @@
               <img :src="item.cover_image" alt />
               <div class="text-content">
                 <p class="excerpt">{{JSON.parse(item.syllabus.syllabus).description}}</p>
-               
               </div>
             </div>
             <div class="bg-white p-2">
-           <div class="align-bg">
+              <div class="align-bg">
                 <div class="card-inner">
-                <p class="toCaps cpointer title" @click="gotoHer(item.id)">{{item.subject}}</p>
-                <!-- <p class="toCaps cpointer desc">{{JSON.parse(item.syllabus.syllabus).description}}</p> -->
+                  <p class="toCaps cpointer title" @click="gotoHer(item.id)">{{item.subject}}</p>
+                  <!-- <p class="toCaps cpointer desc">{{JSON.parse(item.syllabus.syllabus).description}}</p> -->
 
-                <span class="toCaps cpointer">{{item.syllabus.myclass}}</span>
-                <br />
-               
+                  <span class="toCaps cpointer">{{item.syllabus.myclass}}</span>
+                </div>
               </div>
-              <div class="progress-resource">
-                <vue-circle
-                  :progress="50"
-                  :size="100"
-                  :reverse="false"
-                  line-cap="round"
-                  :fill="fill"
-                  empty-fill="rgba(0, 0, 0, .1)"
-                  :animation-start-value="0.0"
-                  :start-angle="0"
-                  insert-mode="append"
-                  :thickness="5"
-                  :show-percent="true"
-                  @vue-circle-progress="progress"
-                  @vue-circle-end="progress_end"
-                >
-                  <p>Complete</p>
-                </vue-circle>
+              <small class="update">Last update {{item.created_at | moment('MMMM D')}}</small>
+              <div class="resource-btn">
+                <b-button @click="gotoHer(item.id)">Visit resource</b-button>
               </div>
-           </div>
-            <small class="update">Last update {{item.created_at | moment('MMMM D')}}</small>
-            <div class="resource-btn">
-              <b-button  @click="gotoHer(item.id)">Visit resource</b-button>
-            </div>
             </div>
           </div>
         </div>
@@ -68,11 +46,7 @@
 </template>
 
 <script>
-import VueCircle from "vue2-circle-progress";
 export default {
-  components: {
-    VueCircle,
-  },
   props: ["student"],
   data() {
     return {
@@ -264,8 +238,8 @@ ul.breadcrumb li + li:before:last-child {
   color: rgba(0, 0, 0, 0.84);
   border-color: rgba(0, 0, 0, 0.84);
 }
-.hover-shadow:hover{
- box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+.hover-shadow:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 .single-content {
   position: relative;
@@ -289,14 +263,14 @@ ul.breadcrumb li + li:before:last-child {
   transform: rotate3d(-1, 1, 0, 100deg);
   transition: 0.4s;
 }
-.resource-btn{
+.resource-btn {
   display: flex;
   justify-content: center;
   font-family: "Montserrat";
   padding-top: 10px;
 }
-.resource-btn .btn{
-  background: #13a699 ;
+.resource-btn .btn {
+  background: #13a699;
   color: #fff;
   border: none;
 }
@@ -359,7 +333,7 @@ div {
   white-space: normal;
 }
 .update {
-  background:rgba(196, 196, 196, 0.15);
+  background: rgba(196, 196, 196, 0.15);
   padding: 5px;
   border-radius: 5px;
 }

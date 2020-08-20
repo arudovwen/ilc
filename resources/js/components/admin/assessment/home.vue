@@ -13,11 +13,11 @@
                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                 <div class="option shadow">
                   <ul>
-                    <li >
-
+                    <li>
                     <span  @click="verify(data.item.id,'approved')" v-if="data.item.status=='pending'">Approve</span>
                       <span  @click="verify(data.item.id,'declined')" v-if="data.item.status=='pending'">Decline</span>
-                    </li>
+                     </li>
+                      <li @click="view(data.item.id)">View</li>
                      <li @click="drop(data.item.id)">Drop</li>
                   </ul>
                 </div>
@@ -29,13 +29,19 @@
         </b-col>
       </b-row>
     </b-container>
+     <b-modal id="preview" size="lg" hide-footer>
+      <Preview :id="id"/>
+    </b-modal>
   </div>
+
 </template>
 
 <script>
+import Preview from './view'
 export default {
   data() {
     return {
+      id:null,
       fields: [
         "Sn",
         "session",
@@ -49,6 +55,9 @@ export default {
       ],
       items: [],
     };
+  },
+  components:{
+ Preview
   },
   mounted() {
     this.getData();
@@ -106,6 +115,10 @@ export default {
           });
       }
     },
+    view(id){
+      this.id = id
+     this.$bvModal.show('preview')
+    }
   },
 };
 </script>

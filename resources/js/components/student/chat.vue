@@ -1,8 +1,8 @@
 <template>
   <div class="view">
-    <div class="chat-body">
-      <div class="message-body">
-        <ul v-chat-scroll>
+    <div class="chat-body"  v-chat-scroll>
+      <div class="message-body" >
+        <ul>
           <li
             class="message mb-4"
             v-for="(item,idx) in messages"
@@ -10,30 +10,37 @@
             :class="{'text-right':item.sender_id == student.id}"
           >
             <span class="shadow rounded-pill chat-item">
-              <span v-if="item.message"  class="mr-3">{{item.message}}</span> 
-           <a v-else :href="item.attachment" download  class="mr-3"> <b-img :src="item.attachment" fluid width="60"></b-img></a>
+              <span v-if="item.message" class="mr-3">{{item.message}}</span>
+              <a v-else :href="item.attachment" download class="mr-3">
+                <b-img :src="item.attachment" fluid width="60"></b-img>
+              </a>
               <small class="text-muted">{{item.created_at | moment('h:m a')}}</small>
             </span>
           </li>
-            <div class="progress mt-2 w-25 ml-auto text-right"  v-if="start">
+          <div class="progress mt-2 w-25 ml-auto text-right" v-if="start">
             <div
-              class="progress-bar progress-bar-striped "
-                :class="{active: progress !='Completed'}"
+              class="progress-bar progress-bar-striped"
+              :class="{active: progress !='Completed'}"
               role="progressbar"
               aria-valuenow="0"
               aria-valuemin="0"
               aria-valuemax="100"
               v-bind:style="{width:progress}"
             >{{progress}}</div>
-              <b-img :src="file" width="20"></b-img>
+            <b-img :src="file" width="20"></b-img>
           </div>
         </ul>
       </div>
-      <div class="send-tab">
-        <b-button class="button px-2" @click="openEmoji">
-          <i class="fa fa-smile-o" aria-hidden="true"></i>
-        </b-button>
-        <VEmojiPicker @select="selectEmoji" v-if="showEmoji" class="emoji" />
+    </div>
+    <b-form @submit.prevent="submit" class="send-tab">
+      <b-input-group>
+        <b-input-group-prepend>
+          <b-button class="button px-2" @click="openEmoji">
+            <i class="fa fa-smile-o" aria-hidden="true"></i>
+          </b-button>
+          <VEmojiPicker @select="selectEmoji" v-if="showEmoji" class="emoji" />
+        </b-input-group-prepend>
+
         <div class="form-group w-75 m-0">
           <input
             type="text"
@@ -41,15 +48,28 @@
             v-model="message"
             aria-describedby="helpId"
             placeholder
-            
+            required
           />
-        <label for="attachment"> <i class="fa fa-paperclip" aria-hidden="true"></i></label>
+          <label for="attachment">
+            <i class="fa fa-paperclip" aria-hidden="true"></i>
+          </label>
         </div>
-      
-          <input type="file" hidden class="form-control-file"  @change="handleFileChange($event)" name="attachment" id="attachment" aria-describedby="fileHelpId">
-        <b-button class="button" @click="submit">Send</b-button>
-      </div>
-    </div>
+
+        <input
+          type="file"
+          hidden
+          class="form-control-file"
+          @change="handleFileChange($event)"
+          name="attachment"
+          id="attachment"
+          aria-describedby="fileHelpId"
+        />
+
+        <b-input-group-append>
+          <b-button variant="secondary" type="submit">Send</b-button>
+        </b-input-group-append>
+      </b-input-group>
+    </b-form>
     <div class="online">
       <div class="form-control thead-dark">Online</div>
       <ul>
@@ -65,7 +85,7 @@
 <script>
 import VEmojiPicker from "v-emoji-picker";
 export default {
-  props: ["student"],
+  props: ["student", "id"],
   data() {
     return {
       messages: [],
@@ -82,36 +102,36 @@ export default {
       cloudinary: {
         uploadPreset: "wo4qwffs",
         apiKey: "754134295584927",
-        cloudName: "imostate"
+        cloudName: "imostate",
       },
       progress: 0,
-      start: false
+      start: false,
     };
   },
   components: {
-    VEmojiPicker
+    VEmojiPicker,
   },
   created() {
     this.getMessages();
     axios
-      .get(`/api/student-group/${this.$route.params.id}`, {
+      .get(`/api/student-group/${this.$props.id}`, {
         headers: {
-          Authorization: `Bearer ${this.$props.student.access_token}`
-        }
+          Authorization: `Bearer ${this.$props.student.access_token}`,
+        },
       })
-      .then(res => {
+      .then((res) => {
         if (res.status == 200) {
-          Echo.join(res.data.name + this.$route.params.id + res.data.tutor_id)
-            .here(users => {
+          Echo.join(res.data.name + this.$props.id + res.data.tutor_id)
+            .here((users) => {
               this.users = users;
             })
-            .joining(user => {
+            .joining((user) => {
               this.users.push(user);
             })
-            .listen("GroupMessageSent", e => {
+            .listen("GroupMessageSent", (e) => {
               this.messages.push(e.message);
             })
-            .leaving(user => {
+            .leaving((user) => {
               console.log(user.name);
             });
         }
@@ -127,11 +147,11 @@ export default {
     },
     loadFile() {
       let reader = new FileReader();
-      reader.onload = event => {
+      reader.onload = (event) => {
         this.uploadedFile = event.target.result;
       };
       reader.readAsDataURL(this.file);
-      this.processUpload()
+      this.processUpload();
     },
     processUpload() {
       let that = this;
@@ -147,18 +167,18 @@ export default {
         "POST",
         "https://api.cloudinary.com/v1_1/" + cloudName + "/upload"
       );
-      xhr.upload.onprogress = function(e) {
+      xhr.upload.onprogress = function (e) {
         if (e.lengthComputable) {
           that.progress = Math.round((e.loaded / e.total) * 100) + "%";
         }
       };
-      xhr.upload.onloadstart = function(e) {
+      xhr.upload.onloadstart = function (e) {
         this.progress = "Starting...";
       };
-      xhr.upload.onloadend = function(e) {
+      xhr.upload.onloadend = function (e) {
         this.progress = "Completing..";
       };
-      xhr.onload = progressEvent => {
+      xhr.onload = (progressEvent) => {
         if (xhr.status === 200) {
           // Success! You probably want to save the URL somewhere
           this.progress = "Completed";
@@ -184,36 +204,36 @@ export default {
       this.showEmoji = false;
       let data = {
         message: this.message,
-        group_id: this.$route.params.id,
-        attachment:this.attachment
+        group_id: this.$props.id,
+        attachment: this.attachment,
       };
       axios
         .post("/api/send-student-message", data, {
           headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.message = "";
-            this.start = false
+            this.start = false;
           }
         });
     },
     getMessages() {
       axios
-        .get(`/api/get-student-messages/${this.$route.params.id}`, {
+        .get(`/api/get-student-messages/${this.$props.id}`, {
           headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.messages = res.data;
           }
         });
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
@@ -221,7 +241,7 @@ export default {
   background: white;
   position: relative;
   display: flex;
-  height: 92vh;
+  height: 84vh;
 }
 .progress {
   height: 15px;
@@ -231,7 +251,7 @@ label {
   display: block;
 }
 .message {
-  font-size: 16px;
+  font-size: 14px;
   padding: 20px;
 }
 .chat-body {
@@ -247,13 +267,12 @@ label {
   width: 20%;
 }
 .send-tab {
-  position: fixed;
+  position: absolute;
   bottom: 0;
-  width: 80%;
+  width: 93%;
   margin: 0 auto;
-  padding: 10px;
+  padding: 4px 0;
   background: white;
-  display: flex;
 }
 .emoji {
   position: absolute;
@@ -262,7 +281,7 @@ label {
 }
 .online ul li {
   font-size: 15px;
-  padding: 10px 15px;
+  padding: 10px 5px;
 }
 .form-group {
   position: relative;
@@ -273,6 +292,10 @@ label {
   right: 10px;
   top: 50%;
   margin-top: -8px;
+}
+ul,
+ol {
+  list-style: none;
 }
 .chat-item {
   background: white;

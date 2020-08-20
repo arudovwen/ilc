@@ -1,15 +1,21 @@
 <template>
   <div class="body">
-    <nav class="mb-5">
+    <nav class="mb-1">
       <b-button class="shadow-sm" @click="multiDrop">Multi-Drop</b-button>
-      <b-button class="shadow-sm hiden">Create Group</b-button>
+      <b-button class="shadow-sm " v-b-modal.group>Create Group</b-button>
 
-      <b-button class="shadow-sm hiden">Assign Course</b-button>
-
-      <b-button class="shadow-sm hiden">Assign Level</b-button>
+     
     </nav>
+     <b-card no-body class="group-chat">
+    <b-tabs pills card vertical end>
+      <b-tab :title="item.name+'('+item.class_name+')'"  v-for="(item,idx) in groups" :key="idx"><b-card-text>
+        <Chat :id="item.id"  :tutor="tutor"/>
+        </b-card-text></b-tab>
+     
+    </b-tabs>
+  </b-card>
 
-    <div class="d-flex justify-content-between">
+    <!-- <div class="d-flex justify-content-between">
       <table class="table table-bordered mr-4 w-75">
         <thead class="thead-darkblue">
           <tr>
@@ -42,8 +48,12 @@
           </tr>
         </tbody>
       </table>
-      <div class="bg-white shadow-sm p-2 w-25">
-        <form @submit.prevent="addClass" class="mb-5">
+    
+    </div> -->
+    
+
+  <b-modal id="group" title="New Group" hide-footer>
+     <form @submit.prevent="addClass" class="mb-5">
           <div class="form-group">
             <label for>Group name</label>
             <input
@@ -83,7 +93,7 @@
             </label>
           </div>
 
-         <div class="form-group">
+         <div class="form-group my-4">
             <b-button v-if="!update" type="submit" class="btn btn-primary">Create</b-button>
           <div v-else class="d-flex justify-content-between">
             <b-button type="button" class="btn btn-primary" @click="updateN">Update</b-button>
@@ -91,13 +101,13 @@
           </div>
          </div>
         </form>
-      </div>
-    </div>
+  </b-modal>
   </div>
 </template>
 
 
 <script>
+import Chat from './chat'
 export default {
   props: ["tutor"],
   data() {
@@ -119,6 +129,9 @@ export default {
     item: "selectAll",
     name_class: "getStudents",
     class_name: "reset",
+  },
+  components:{
+ Chat
   },
   mounted() {
     this.getgroups();

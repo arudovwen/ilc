@@ -3,14 +3,34 @@
     <b-card no-body class="assess">
       <b-tabs card justified>
         <b-tab title="Assignment" active>
+          <b-row class="justify-content-end my-5">
+            <b-col cols="4">
+              <b-input-group>
+                <b-form-input  v-model="search" placeholder="Search title"></b-form-input>
+                <b-input-group-append>
+                
+                    <div class="create-btn">
+                      <div class="btn btn-create">Search</div>
+                    </div>
+                  
+                </b-input-group-append>
+              </b-input-group>
+            </b-col>
+          </b-row>
           <b-card-text>
-            <b-table :fields="fields" :items="assignment" bordered>
+            <b-table :fields="fields" :items="sortedAss" >
               <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
               <template v-slot:cell(action)="data">
-                <span @click="view(data.item.id, data.item.end)">{{checkPresence(data.item)}}</span>
+                <span @click="checkPresence(data.item)">View</span>
+              </template>
+                <template v-slot:cell(title)="data">
+                <div class="main-title">
+                  <div class="title">{{data.item.title}}</div>
+                 <div class="text-muted">{{data.item.description}}</div>
+                </div>
               </template>
               <template v-slot:cell(deadline)="data">
-                <span>{{data.item.end | moment('DD MM, hh:mm A')}}</span>
+                <span>{{data.item.end | moment('DD MMM, hh:mm A')}}</span>
               </template>
               <template v-slot:cell(status)="data">
                 <span>{{data.item.end |timeStatus}}</span>
@@ -19,14 +39,34 @@
           </b-card-text>
         </b-tab>
         <b-tab title="Quiz">
+            <b-row class="justify-content-end my-5">
+            <b-col cols="4">
+              <b-input-group>
+                <b-form-input  v-model="search" placeholder="Search quiz title"></b-form-input>
+                <b-input-group-append>
+                
+                    <div class="create-btn">
+                      <div class="btn btn-create">Search</div>
+                    </div>
+                  
+                </b-input-group-append>
+              </b-input-group>
+            </b-col>
+          </b-row>
           <b-card-text>
-            <b-table :fields="fields" :items="quiz" bordered>
+            <b-table :fields="fields" :items="sortedQuiz" >
               <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
               <template v-slot:cell(action)="data">
-                <span @click="view(data.item.id, data.item.end)">{{checkPresence(data.item)}}</span>
+                <span @click="checkPresence(data.item)">View</span>
+              </template>
+                <template v-slot:cell(title)="data">
+                <div class="main-title">
+                  <div class="title">{{data.item.title}}</div>
+                 <div class="text-muted">{{data.item.description}}</div>
+                </div>
               </template>
               <template v-slot:cell(deadline)="data">
-                <span>{{data.item.end | moment('DD MMMM, hh:mm A')}}</span>
+                <span>{{data.item.end | moment('DD MMM, hh:mm A')}}</span>
               </template>
               <template v-slot:cell(status)="data">
                 <span>{{data.item.end |timeStatus}}</span>
@@ -35,14 +75,34 @@
           </b-card-text>
         </b-tab>
         <b-tab title="Test">
+           <b-row class="justify-content-end my-5">
+            <b-col cols="4">
+              <b-input-group>
+                <b-form-input  v-model="search" placeholder="Search Test title"></b-form-input>
+                <b-input-group-append>
+                
+                    <div class="create-btn">
+                      <div class="btn btn-create">Search</div>
+                    </div>
+                  
+                </b-input-group-append>
+              </b-input-group>
+            </b-col>
+          </b-row>
           <b-card-text>
-            <b-table :fields="fields" :items="test" bordered>
+            <b-table :fields="fields" :items="sortedTest" >
               <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
               <template v-slot:cell(action)="data">
-                <span @click="view(data.item.id, data.item.end)">{{checkPresence(data.item)}}</span>
+                <span @click="checkPresence(data.item)">View</span>
               </template>
               <template v-slot:cell(deadline)="data">
-                <span>{{data.item.end | moment('DD MM, hh:mm A')}}</span>
+                <span>{{data.item.end | moment('DD MMM, hh:mm A')}}</span>
+              </template>
+                <template v-slot:cell(title)="data">
+                <div class="main-title">
+                  <div class="title">{{data.item.title}}</div>
+                 <div class="text-muted">{{data.item.description}}</div>
+                </div>
               </template>
               <template v-slot:cell(status)="data">
                 <span>{{data.item.end |timeStatus}}</span>
@@ -51,15 +111,34 @@
           </b-card-text>
         </b-tab>
         <b-tab title="Examination">
+           <b-row class="justify-content-end my-5">
+            <b-col cols="4">
+              <b-input-group>
+                <b-form-input v-model="search" placeholder="Search title"></b-form-input>
+                <b-input-group-append>
+                
+                    <div class="create-btn">
+                      <div class="btn btn-create">Search</div>
+                    </div>
+                  
+                </b-input-group-append>
+              </b-input-group>
+            </b-col>
+          </b-row>
           <b-card-text>
-            <b-table :fields="fields" :items="examination" bordered>
+            <b-table :fields="fields" :items="sortedExam" >
               <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
               <template v-slot:cell(action)="data">
-                <span @click="view(data.item.id,data.item.end)">{{checkPresence(data.item)}}</span>
+                <span @click="checkPresence(data.item)">View</span>
               </template>
-
+       <template v-slot:cell(title)="data">
+                <div class="main-title">
+                  <div class="title">{{data.item.title}}</div>
+                 <div class="text-muted">{{data.item.description}}</div>
+                </div>
+              </template>
               <template v-slot:cell(deadline)="data">
-                <span>{{data.item.end | moment('DD MM, hh:mm A')}}</span>
+                <span>{{data.item.end | moment('DD MMM, hh:mm A')}}</span>
               </template>
               <template v-slot:cell(status)="data">
                 <span>{{data.item.end |timeStatus}}</span>
@@ -78,6 +157,7 @@ export default {
   props: ["student"],
   data() {
     return {
+      search:'',
       tutors: [],
       busy: true,
       items: [],
@@ -87,7 +167,10 @@ export default {
       assignment: [],
       examination: [],
       fields: [
-        "Sn",
+       {
+          key: "title",
+          sortable: true,
+        },
         "subject",
         {
           key: "title",
@@ -101,6 +184,33 @@ export default {
   },
   watch: {
     item: "selectAll",
+  },
+   computed: {
+    sortedExam(){
+      return this.examination.filter(i=>{
+        return i.title.toLowerCase().includes(this.search.toLowerCase())
+      
+      })
+    },
+    sortedTest(){
+      return this.test.filter(i=>{
+        return i.title.toLowerCase().includes(this.search.toLowerCase())
+      
+      })
+    },
+    sortedAss(){
+      return this.assignment.filter(i=>{
+        return i.title.toLowerCase().includes(this.search.toLowerCase())
+      
+      })
+    },
+    sortedQuiz(){
+      return this.quiz.filter(i=>{
+        return i.title.toLowerCase().includes(this.search.toLowerCase())
+      
+      })
+    },
+
   },
   mounted() {
     this.getData();
@@ -133,7 +243,10 @@ export default {
             });
           }
         })
-        .catch();
+        .catch((err) => {
+          err.response.data;
+          console.log(" err.response.data", err.response.data);
+        });
     },
     selectAll() {
       if (this.item) {
@@ -180,7 +293,7 @@ export default {
             }
           })
           .catch((err) => {
-            console.log("del -> err", err);
+            console.log("del -> err", err.response.data);
           });
       }
     },
@@ -193,8 +306,8 @@ export default {
         type: info.type,
         title: info.title,
       };
-       var result = []
-       axios
+
+      axios
         .post("/api/check-assessment", data, {
           headers: {
             Authorization: `Bearer ${this.$props.student.access_token}`,
@@ -202,10 +315,13 @@ export default {
         })
         .then((res) => {
           if (res.status == 200) {
-             result.push(res.data.status)
+            if (res.data.status == "begin") {
+              this.view(info.id, info.end);
+            } else {
+              this.$toasted.error("Assessment already submitted");
+            }
           }
         });
-      return result;
     },
     view(id, num) {
       let today = Date.parse(new Date());
@@ -230,6 +346,7 @@ nav {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-column-gap: 30px;
 }
+
 .hiden {
   opacity: 0;
 }
@@ -244,5 +361,13 @@ nav {
 }
 .card-header {
   background-color: green;
+}
+.btn-create {
+  background: rgba(19, 166, 153, 0.9) !important;
+  color: #fff;
+}
+.title{
+  color: rgba(19, 166, 153, 0.9) ;
+  font-weight:bold;
 }
 </style>

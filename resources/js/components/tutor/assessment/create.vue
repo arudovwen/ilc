@@ -15,23 +15,23 @@
             </b-form-group>
           </b-col>
         </b-form-row>
-       <b-form-row>
+        <b-form-row>
           <b-col cols="6">
-          <b-form-group label="Enter Description ">
-            <b-textarea placeholder="Give a description" v-model="option.description"></b-textarea>
-          </b-form-group>
-        </b-col>
-        <b-col cols="6">
-          <b-form-group label="Enter Feedback ">
-            <b-textarea placeholder="Write a feedback" v-model="option.feedback"></b-textarea>
-          </b-form-group>
-        </b-col>
-       </b-form-row>
+            <b-form-group label="Enter Description ">
+              <b-textarea placeholder="Give a description" v-model="option.description"></b-textarea>
+            </b-form-group>
+          </b-col>
+          <b-col cols="6">
+            <b-form-group label="Enter Feedback ">
+              <b-textarea placeholder="Write a feedback" v-model="option.feedback"></b-textarea>
+            </b-form-group>
+          </b-col>
+        </b-form-row>
         <b-form-row>
           <b-col md="6">
             <b-form-group label="Select Class">
               <b-form-select v-model="option.myclass">
-                <b-form-select-option :value="null">Select</b-form-select-option>
+                <b-form-select-option :value="null" disabled>Select</b-form-select-option>
                 <b-form-select-option
                   :value="item"
                   v-for="(item,index) in allClass"
@@ -43,7 +43,7 @@
           <b-col md="6">
             <b-form-group label="Select Subject">
               <b-form-select v-model="option.subject">
-                <b-form-select-option :value="null">Select</b-form-select-option>
+                <b-form-select-option :value="null" disabled>Select</b-form-select-option>
                 <b-form-select-option
                   :value="item.name"
                   v-for="(item,index) in subjects"
@@ -56,8 +56,12 @@
         <b-form-row>
           <b-col md="6">
             <b-form-group label="Select Module(choose a class and subject first)">
-              <b-form-select required v-model="option.module">
-                <b-form-select-option :value="null">Select</b-form-select-option>
+              <b-form-select
+                required
+                v-model="option.module"
+                :disabled="(option.myclass==null && option.subject==null)"
+              >
+                <b-form-select-option :value="null" disabled>Select</b-form-select-option>
                 <b-form-select-option
                   :value="item.name"
                   v-for="(item,idx) in modules"
@@ -70,7 +74,7 @@
           <b-col md="6">
             <b-form-group label="Select Term">
               <b-form-select v-model="option.session" required>
-                <b-form-select-option value>Select term</b-form-select-option>
+                <b-form-select-option value disabled>Select term</b-form-select-option>
                 <b-form-select-option value="first">First</b-form-select-option>
                 <b-form-select-option value="second">Second</b-form-select-option>
                 <b-form-select-option value="third">Third</b-form-select-option>
@@ -115,8 +119,8 @@ export default {
         type: "",
         session: "",
         description: "",
-        questions:0,
-        feedback:'',
+        questions: 0,
+        feedback: "",
         title: "",
         myclass: null,
         module: null,

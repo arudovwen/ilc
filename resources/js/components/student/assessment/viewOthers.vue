@@ -231,8 +231,9 @@ export default {
        
     },
     endCallBack() {
+       
      this.$bvModal.show('ended')
-      this.$router.push('/student/assessment')
+      // this.$router.push('/student/assessment')
     },
     submit() {
       if (!this.showScores) {

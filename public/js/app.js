@@ -963,6 +963,10 @@ var ViewGradeBook = function ViewGradeBook() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/gradebook/view.vue */ "./resources/js/components/tutor/gradebook/view.vue"));
 };
 
+var Administrative = function Administrative() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/administrative/home.vue */ "./resources/js/components/tutor/administrative/home.vue"));
+};
+
 var routes = [{
   path: "*",
   redirect: "/"
@@ -1315,6 +1319,13 @@ var routes = [{
     path: "",
     component: TutorHome,
     name: "TutorHome",
+    meta: {
+      typeTutor: true
+    }
+  }, {
+    path: "administrative",
+    component: Administrative,
+    name: 'Administrative',
     meta: {
       typeTutor: true
     }

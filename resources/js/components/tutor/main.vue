@@ -6,7 +6,7 @@
       
           <div id="notification" class="mx-3">
           <div class="icon" @click="toggleNotification">
-            <i class="fa fa-bell"></i>
+             <i class="icon-bell-1"></i>
             <div class="badge animated pulse" v-if="count>0">{{count}}</div>
           </div>
           <div
@@ -164,6 +164,7 @@ nav {
 }
 .icon {
   position: relative;
+  font-size: 22px;
 }
 .badge {
   position: absolute;

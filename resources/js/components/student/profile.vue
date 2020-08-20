@@ -1,157 +1,147 @@
 <template>
-  <!-- <div class="body">
-    <div class="text-right">
-      <b-button type="button" @click="update">Update</b-button>
-    </div>
-
-    <div class="info">
-      <h4>Student Information</h4>
-
-      <div class=" my-5">
-      
-        <b-avatar :src="detail.profile" size="8em"></b-avatar>
-      </div>
-      <div class="d-flex">
-        <div class="personal w-50">
-          <h5>Personal Information</h5>
-          <ul>
-            <li>Name : {{detail.name}}</li>
-            <li>Email : {{detail.email}}</li>
-            <li>DOB : {{detail.dob}}</li>
-            <li>Address : {{detail.address}}</li>
-            <li>Gender : {{detail.gender}}</li>
-            <li>State : {{detail.state}}</li>
-            <li>LGA : {{detail.lga}}</li>
-            <li>Guardian : {{detail.guardian}}</li>
-            <li>Guardian Phone{{detail.guardian_phone}} </li>
-            <li>Next of Kin : {{detail.next_of_kin}}</li>
-            <li>Next of Kin Phone : {{detail.next_of_kin_phone}}</li>
-          </ul>
-        </div>
-
-        <div class="w-50">
-          <div class="official">
-            <h5>School Information</h5>
-            <ul>
-                <li>Mat No : {{detail.mat_no}}</li>
-              <li>Study Course : {{detail.study_course}}</li>
-              <li>Level : {{detail.detail_level}}</li>
-              <li>Faculty : {{detail.faculty}}</li>
-              <li>Department : {{detail.department}}</li>
-           
-            </ul>
-          </div>
-
-    
-        </div>
-      </div>
-    </div>
-  </div>-->
   <div class="profile-page">
-    <div class="profile container">
-      <div class="tutor-profile">
-        <div class="avatar-profile">
-          <b-avatar variant="secondary" size="6rem"></b-avatar>
-        </div>
-        <div class="profile-inner">
-          <h6>Personal Information</h6>
-          <div class="personal-form">
-            <b-form>
-              <b-form-row>
-                <b-col>
-                  <b-form-group label="Name">
-                  
-                   <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
-                  </b-form-group>
-                </b-col>
-                <b-col>
-                  <b-form-group label="Email">
-                   <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
-                  </b-form-group>
-                </b-col>
-              </b-form-row>
-              <b-form-row>
-                <b-col>
-                  <b-form-group label="Date of Birth">
-                   <div class="after-edit"> <b-form-datepicker id="example-datepicker"></b-form-datepicker></div>
-                  </b-form-group>
-                </b-col>
-                <b-col>
-                  <b-form-group label="Address">
-                    <div class="after-edit"><b-form-input placeholder></b-form-input></div>
-                  </b-form-group>
-                </b-col>
-              </b-form-row>
-              <b-form-group label="Gender">
-               <div class="after-edit"> <b-form-select v-model="selected" :options="gender"></b-form-select></div>
-              </b-form-group>
-              <b-form-row>
-                <b-col>
-                  <b-form-group label="State">
-                    <div class="after-edit"><b-form-input placeholder></b-form-input></div>
-                  </b-form-group>
-                </b-col>
-                <b-col>
-                  <b-form-group label="Local Goverment Area">
-                    <div class="after-edit"><b-form-input placeholder></b-form-input></div>
-                  </b-form-group>
-                </b-col>
-              </b-form-row>
-              <b-form-row>
-                <b-col>
-                  <b-form-group label="Guardian">
-                    <div class="after-edit"><b-form-input placeholder></b-form-input></div>
-                  </b-form-group>
-                </b-col>
-                <b-col>
-                  <b-form-group label="Guardian Phone">
-                   <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
-                  </b-form-group>
-                </b-col>
-              </b-form-row>
-              <b-form-row>
-                <b-col>
-                  <b-form-group label="Next of Kin">
-                   <div class="after-edit"> <b-form-input placeholder></b-form-input></div>
-                  </b-form-group>
-                </b-col>
-                <b-col>
-                  <b-form-group label="Next of Kin Phone">
-                    <div class="after-edit"><b-form-input placeholder></b-form-input></div>
-                  </b-form-group>
-                </b-col>
-              </b-form-row>
-            </b-form>
-          </div>
-        </div>
-        <div class="profile-inner">
-          <h6>School Information</h6>
-          <div class="personal-form">
-            <b-form>
-              <b-form-row>
-                <b-col>
-                  <b-form-group label="Class">
-                    <b-form-select v-model="selected" :options="gradelevel"></b-form-select>
-                  </b-form-group>
-                </b-col>
-                <b-col>
-                  <b-form-group label="File No">
-                    <b-form-input placeholder></b-form-input>
-                  </b-form-group>
-                </b-col>
-              </b-form-row>
-              <b-form-group label="Date of Entry">
-                <b-form-datepicker id="example-datepicker"></b-form-datepicker>
-              </b-form-group>
-            </b-form>
-          </div>
-        </div>
+    <b-form @submit.prevent="submit">
+      <div class="profile container">
+        <div class="tutor-profile">
+          <div class="avatar-profile">
+            <b-avatar variant="secondary" :src="detail.profile" class="profile-img" size="7rem">
+                <template v-slot:badge><label for="up" class="m-0"><b-icon icon="pencil" size="1rem"></b-icon></label>
+               
+                <b-form-file
+                id="up"
+                 hidden
+                  accept="image/*"
+                  plain
+                  @change="handleFileChange($event)"
+                ></b-form-file>
+         
+                </template>
 
-        <div class="save-btn">
-          <div class="btn btn-save">Save</div>
+            </b-avatar>
+              
+           
+          </div>
+          <div class="profile-inner">
+            <h6>Personal Information</h6>
+            <div class="personal-form">
+              <b-form>
+                <b-form-row>
+                  <b-col>
+                    <b-form-group label="Name">
+                      <div class="after-edit">
+                        <b-form-input placeholder v-model="detail.name"></b-form-input>
+                      </div>
+                    </b-form-group>
+                  </b-col>
+                  <b-col>
+                    <b-form-group label="Email">
+                      <div class="after-edit">
+                        <b-form-input v-model="detail.email" placeholder></b-form-input>
+                      </div>
+                    </b-form-group>
+                  </b-col>
+                </b-form-row>
+                <b-form-row>
+                  <b-col>
+                    <b-form-group label="Date of Birth">
+                      <div class="after-edit">
+                        <b-form-datepicker v-model="detail.dob" id="example-datepicker"></b-form-datepicker>
+                      </div>
+                    </b-form-group>
+                  </b-col>
+                  <b-col>
+                    <b-form-group label="Address">
+                      <div class="after-edit">
+                        <b-form-input v-model="detail.address" placeholder></b-form-input>
+                      </div>
+                    </b-form-group>
+                  </b-col>
+                </b-form-row>
+                <b-form-group label="Gender">
+                  <div class="after-edit">
+                    <b-form-select v-model="detail.gender" :options="gender"></b-form-select>
+                  </div>
+                </b-form-group>
+                <b-form-row>
+                  <b-col>
+                    <b-form-group label="State">
+                      <div class="after-edit">
+                        <b-form-input v-model="detail.state" placeholder></b-form-input>
+                      </div>
+                    </b-form-group>
+                  </b-col>
+                  <b-col>
+                    <b-form-group label="Local Goverment Area">
+                      <div class="after-edit">
+                        <b-form-input v-model="detail.lga" placeholder></b-form-input>
+                      </div>
+                    </b-form-group>
+                  </b-col>
+                </b-form-row>
+                <b-form-row>
+                  <b-col>
+                    <b-form-group label="Guardian">
+                      <div class="after-edit">
+                        <b-form-input v-model="detail.guardian" placeholder></b-form-input>
+                      </div>
+                    </b-form-group>
+                  </b-col>
+                  <b-col>
+                    <b-form-group label="Guardian Phone">
+                      <div class="after-edit">
+                        <b-form-input v-model="detail.guardian_phone" placeholder></b-form-input>
+                      </div>
+                    </b-form-group>
+                  </b-col>
+                </b-form-row>
+                <b-form-row>
+                  <b-col>
+                    <b-form-group label="Next of Kin">
+                      <div class="after-edit">
+                        <b-form-input v-model="detail.next_of_kin" placeholder></b-form-input>
+                      </div>
+                    </b-form-group>
+                  </b-col>
+                  <b-col>
+                    <b-form-group label="Next of Kin Phone">
+                      <div class="after-edit">
+                        <b-form-input v-model="detail.next_of_kin_phone" placeholder></b-form-input>
+                      </div>
+                    </b-form-group>
+                  </b-col>
+                </b-form-row>
+              </b-form>
+            </div>
+          </div>
+          <div class="profile-inner">
+            <h6>School Information</h6>
+            <div class="personal-form">
+              <b-form>
+                <b-form-row>
+                  <b-col>
+                    <b-form-group label="Class">
+                      <b-form-input placeholder disabled v-model="detail.student_level"></b-form-input>
+                    </b-form-group>
+                  </b-col>
+                  <b-col>
+                    <b-form-group label="File No">
+                      <b-form-input disabled placeholder v-model="detail.name"></b-form-input>
+                    </b-form-group>
+                  </b-col>
+                </b-form-row>
+                <b-form-group label="Student Id">
+                  <b-form-input disabled placeholder v-model="detail.student_id"></b-form-input>
+                </b-form-group>
+              </b-form>
+            </div>
+          </div>
+
+          <div class="save-btn"  >
+            <button class="btn btn-save" type="submit">Save</button>
+          </div>
         </div>
       </div>
-    </div>
+    </b-form>
   </div>
 </template>
 
@@ -159,17 +149,51 @@
 
 
 <script>
+
 export default {
   props: ["student"],
   data() {
     return {
       detail: {},
+      gender: [
+        {
+          value: "male",
+          text: "Male",
+        },
+        { value: "female", text: "Female" },
+      ],
+      cloudinary: {
+        uploadPreset: "wo4qwffs",
+        apiKey: "754134295584927",
+        cloudName: "imostate",
+      },
+      progress: 0,
+      start: false,
     };
   },
   mounted() {
     this.getInfo();
   },
+ 
   methods: {
+    getUploadDetails(index, res, id) {
+      this.student.profile = res.secure_url;
+    },
+    submit() {
+      let user = JSON.parse(localStorage.getItem("typeStudent"));
+      axios
+        .put(`/api/user/${user.id}`, this.detail, {
+          headers: {
+            Authorization: `Bearer ${user.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.$toasted.info("Successful");
+         
+          }
+        });
+    },
     getInfo() {
       axios
         .get(`/api/user`, {
@@ -186,6 +210,62 @@ export default {
     update() {
       this.$router.push(`/detail/update`);
     },
+    handleFileChange(event) {
+      this.file = event.target.files[0];
+
+      this.filesSelectedLength = event.target.files.length;
+
+      this.loadFile();
+    },
+    loadFile() {
+      let reader = new FileReader();
+      reader.onload = (event) => {
+        this.uploadedFile = event.target.result;
+      };
+      reader.readAsDataURL(this.file);
+      this.processUpload();
+    },
+    processUpload() {
+      let that = this;
+      this.start = true;
+      var formData = new FormData();
+      var xhr = new XMLHttpRequest();
+      var cloudName = this.cloudinary.cloudName;
+      var upload_preset = this.cloudinary.uploadPreset;
+      formData.append("file", this.file);
+      formData.append("resource_type", "auto");
+      formData.append("upload_preset", upload_preset); // REQUIRED
+      xhr.open(
+        "POST",
+        "https://api.cloudinary.com/v1_1/" + cloudName + "/upload"
+      );
+      xhr.upload.onprogress = function (e) {
+        if (e.lengthComputable) {
+          that.progress = Math.round((e.loaded / e.total) * 100) + "%";
+        }
+      };
+      xhr.upload.onloadstart = function (e) {
+        this.progress = "Starting...";
+      };
+      xhr.upload.onloadend = function (e) {
+        this.progress = "Completing..";
+      };
+      xhr.onload = (progressEvent) => {
+        if (xhr.status === 200) {
+          // Success! You probably want to save the URL somewhere
+          this.progress = "Completed";
+          setTimeout(() => {}, 1000);
+          var response = JSON.parse(xhr.response);
+          this.$toasted.info("Profile picture changed");
+          this.detail.profile = response.secure_url; // https address of uploaded file
+        } else {
+          this.start = false;
+          this.progress = 0;
+          alert("Upload failed. Please try again.");
+        }
+      };
+      xhr.send(formData);
+    },
   },
 };
 </script>
@@ -193,7 +273,16 @@ export default {
 .profile {
   /* display: flex;
   justify-content: center; */
-  padding-top: 50px;
+  padding-top: 70px;
+    padding-bottom: 80px;
+}
+.centered {
+  position: absolute;
+  right: -100%;
+  top: 70%;
+}
+.upload {
+  opacity: 0;
 }
 .avatar-profile {
   position: absolute;
@@ -210,10 +299,10 @@ export default {
   margin-bottom: 30px;
   margin-top: 20px;
 }
-.form-group{
+.form-group {
   position: relative;
 }
-.after-edit:hover::before{
+.after-edit:hover::before {
   content: "\f040";
   font-family: "FontAwesome";
   font-weight: 500;
@@ -234,4 +323,5 @@ export default {
   font-size: 16px;
   font-weight: 500;
 }
+
 </style>

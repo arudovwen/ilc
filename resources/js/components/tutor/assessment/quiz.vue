@@ -1,10 +1,24 @@
 <template>
   <div class="body">
-    <router-link to="/tutor/assessment/create/quiz">
-      <div class="create-btn">
-        <div class="btn btn-create">Create Quiz</div>
-      </div>
-    </router-link>
+    <b-row>
+      <b-col>
+        <h3>Quizzes</h3>
+      </b-col>
+    </b-row>
+   <b-row class="justify-content-end">
+      <b-col cols="4">
+        <b-input-group>
+          <b-form-input placeholder="Search quiz title"></b-form-input>
+          <b-input-group-append>
+            <router-link to="/tutor/assessment/create/exam">
+              <div class="create-btn">
+                <div class="btn btn-create">New Quiz</div>
+              </div>
+            </router-link>
+          </b-input-group-append>
+        </b-input-group>
+      </b-col>
+    </b-row>
     <b-container>
       <div class="filter-table">
         <div class="filter-container">
@@ -44,17 +58,32 @@
       <b-row>
         <b-col>
           <div class="bd-table">
-            <b-table :fields="fields" :items="items" head-variant="darkblue">
+            <b-table :fields="fields" :items="sorted">
               <template v-slot:cell(action)="data">
                 <div class="options">
                   <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                   <div class="option shadow">
                     <ul>
+                       <li>
+                          <span @click="publish(true,data.item.id)" v-if="data.item.publish_status== false">Publish</span>
+                     <span @click="publish(false,data.item.id)" v-else>Unpublish</span>
+                      </li>
                       <li @click="drop(data.item.id)">Drop</li>
                     </ul>
                   </div>
                 </div>
               </template>
+                <template v-slot:cell(title)="data">
+                <div class="main-title">
+                  <div class="title">{{data.item.title}}</div>
+                 <div class="text-muted">{{data.item.description}}</div>
+                </div>
+              </template>
+               <template v-slot:cell(publish_status)="data">
+                   <span  v-if="data.item.publish_status== true">Published</span>
+                     <span v-else>Unpublished</span>
+                 </template>
+                 
               <template
                 v-slot:cell(created_at)="data"
               >{{data.item.created_at | moment('MMM D YYYY')}}</template>
@@ -72,13 +101,14 @@ export default {
   data() {
     return {
       fields: [
-        "Sn",
+        { key: "title", sortable: true },
         "session",
         { key: "subject", sortable: true },
-        { key: "title", sortable: true },
+    
 
         "level",
-        "created_at",
+        "publish_status",
+        "status",
         "action",
       ],
       items: [],
@@ -88,7 +118,32 @@ export default {
   mounted() {
     this.getData();
   },
+ 
+  computed: {
+    sorted(){
+      return this.items.filter(i=>{
+        return i.title.toLowerCase().includes(this.search.toLowerCase())
+      
+      })
+    }
+  },
   methods: {
+      publish(name,id){
+       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      let data = {
+        stat:name
+      }
+       axios
+        .put(`/api/publish-assessment/${id}`, data, {
+          headers: {
+            Authorization: `Bearer ${tutor.access_token}`,
+          },
+        }).then(res=>{
+          if (res.status == 200) {
+            this.getData()
+          }
+        })
+    },
     getData() {
       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios
@@ -135,12 +190,21 @@ export default {
 .options {
   position: relative;
 }
+.main-title{
+  width: 350px;
+}
+.title{
+  font-weight: bold;
+  color:#56cee3;
+}
+ul{
+  margin: 0;
+}
 .option {
   display: none;
   position: absolute;
-  padding: 15px;
+  padding: 10px;
   bottom: 80%;
-  width: 100px;
   right: 12px;
   background: white;
 }
@@ -158,12 +222,12 @@ ul {
   display: flex;
   justify-content: flex-end;
 }
-.btn {
+/* .btn {
   padding: 10px 20px;
   border-radius: 5px;
-}
+} */
 .btn-create {
-  background: #0a4065;
+  background: #56cee3;
   color: #fff;
 }
 .search {

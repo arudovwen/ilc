@@ -329,6 +329,9 @@ const TimesTableTutor = () =>
     const ViewGradeBook  = () =>
     import(/* webpackChunkName: "home_routes" */ "./components/tutor/gradebook/view.vue");
     
+    const Administrative  = () =>
+    import(/* webpackChunkName: "home_routes" */ "./components/tutor/administrative/home.vue");
+    
 
 export const routes = [
     { path: "*", redirect: "/" },
@@ -706,6 +709,14 @@ export const routes = [
                 path: "",
                 component: TutorHome,
                 name: "TutorHome",
+                meta: {
+                    typeTutor: true
+                }
+            },
+            {
+                path:"administrative",
+                component:Administrative,
+                name:'Administrative',
                 meta: {
                     typeTutor: true
                 }

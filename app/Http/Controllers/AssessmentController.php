@@ -17,14 +17,19 @@ class AssessmentController extends Controller
     {
         $school_id = auth('tutor')->user()->school_id;
         $tutor_id = auth('tutor')->user()->id;
-        return Assessment::where('type', $id)->where('school_id', $school_id)->where('tutor_id', $tutor_id)->where('status','!=', 'draft')->get();
+        return Assessment::where('type', $id)->where('school_id', $school_id)->where('tutor_id', $tutor_id)->where('status', '!=', 'draft')->get();
     }
 
     public function getDraft($id)
     {
         $school_id = auth('tutor')->user()->school_id;
         $tutor_id = auth('tutor')->user()->id;
-        return Assessment::where('type', $id)->where('school_id', $school_id)->where('tutor_id', $tutor_id)->where('status','=', 'draft')->get();
+        return Assessment::where('type', $id)->where('school_id', $school_id)->where('tutor_id', $tutor_id)->where('status', '=', 'draft')->get();
+    }
+    public function getAdminAssessment($id)
+    {  
+       
+        return Assessment::find($id);
     }
     public function getSingleAssessment($id)
     {
@@ -34,13 +39,13 @@ class AssessmentController extends Controller
     {
         $user = auth('api')->user();
        
-        return Assessment::where('school_id', $user->school_id)->where('level', $user->student_level)->where('status','approved')->get();
+        return Assessment::where('school_id', $user->school_id)->where('level', $user->student_level)->where('status', 'approved')->where('publish_status', 1)->get();
     }
     public function getAssessmentsType($id)
     {
         $user = auth('api')->user();
        
-        return Assessment::where('type', $id)->where('school_id', $user->school_id)->where('level', $user->student_level)->where('status','approved')->get();
+        return Assessment::where('type', $id)->where('school_id', $user->school_id)->where('level', $user->student_level)->where('status', 'approved')->where('publish_status', 1)->get();
     }
     public function store(Request $request)
     {
@@ -94,7 +99,7 @@ class AssessmentController extends Controller
     {
         $admin = auth('admin')->user();
        
-        return Assessment::where('school_id', $admin->school_id)->where('status','!=', 'draft')->get();
+        return Assessment::where('school_id', $admin->school_id)->where('status', '!=', 'draft')->get();
     }
     public function verifyAssessment(Request $request, $id)
     {
@@ -102,8 +107,8 @@ class AssessmentController extends Controller
         $find =  Assessment::find($id);
        
       
-            $find->status = $request->status;
-            $find->save();
+        $find->status = $request->status;
+        $find->save();
         
         return response()->json([
         'status' => 'updated'
@@ -115,8 +120,8 @@ class AssessmentController extends Controller
         $find =  Assessment::find($id);
        
       
-            $find->status = $request->publish;
-            $find->save();
+        $find->publish_status = $request->stat;
+        $find->save();
         
         return response()->json([
         'status' => 'updated'

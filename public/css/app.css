@@ -23,17 +23,17 @@ version history: [location of file]
 -----------------------------------------------------------------------------*/
 *,
 *::before,
-*::after{
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
 
-:root{
+:root {
     --main-font: 'Montserrat';
-    --primary-font-color:#DFD291;
-    --secondary-font-color: #002A06  ;
+    --primary-font-color: #DFD291;
+    --secondary-font-color: #002A06;
     --primary-btn: #008E3A;
     --body-font-color: #515151;
     --admin-body-color: #F0F1F1;
@@ -41,130 +41,147 @@ version history: [location of file]
 
 
 
-body{
+body {
     overflow-x: hidden;
 }
-h1, h2, h3, h4, h5, h6{
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: "Montserrat" !important;
 }
-p{
+
+p {
     font-family: "Montserrat" !important;
 }
+
 ul,
 ol,
 dl {
-   margin-left:1rem;
-   
+    margin-left: 1rem;
+
 }
 
-a{
+a {
     text-decoration: none !important;
 }
 
-a:hover{
+a:hover {
     text-decoration: none !important;
 }
 
-.nav-link{
+.nav-link {
     font-weight: 500;
     font-family: var(--main-font);
 }
 
-.mx-auto .nav-item{
+.mx-auto .nav-item {
     padding: 0 1rem;
 }
 
 
-.ml-auto .nav-item{
+.ml-auto .nav-item {
     margin: 0 1rem;
 }
-.login-btn{
+
+.login-btn {
     background: transparent;
     padding: 0 1rem;
     border: 1px solid #002A06;
     border-radius: 5px;
 }
 
-.reg-btn{
+.reg-btn {
     background-color: var(--primary-btn) !important;
     border: none !important;
     padding: 10px 30px !important;
     border-radius: 5px !important;
     color: #fff !important;
 }
-.reg-btn.nav-link{
+
+.reg-btn.nav-link {
     color: #fff !important;
 }
-.btn-darkgreen{
-    background:rgba(19, 166, 153, 0.9);
-    color:#fff;
+
+.btn-darkgreen {
+    background: rgba(19, 166, 153, 0.9);
+    color: #fff;
 }
-.btn-outline-darkgreen{
-  color:rgba(19, 166, 153, 0.9);
-  border:1px solid rgba(19, 166, 153, 0.9);
-  background:transparent;
+
+.btn-outline-darkgreen {
+    color: rgba(19, 166, 153, 0.9);
+    border: 1px solid rgba(19, 166, 153, 0.9);
+    background: transparent;
 }
-.overlay{
-    width: 100%; 
-    height: 100%; 
-    position: absolute; 
-    background-color: var(--secondary-font-color); 
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: var(--secondary-font-color);
     opacity: 0.5;
 }
-.carousel-control{
+
+.carousel-control {
     width: 100%;
     bottom: 0;
     position: absolute;
     padding: 10px 20px;
 }
-.carousel-control a{
+
+.carousel-control a {
     width: auto;
     height: auto;
     z-index: 2;
     position: relative;
     padding: 10px;
-    
+
 }
 
 
-.carousel-txt{
-   position: absolute;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
-  
-   
+.carousel-txt {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
 }
-.carousel-txt h1{
-    color: var(--primary-font-color) ;
+
+.carousel-txt h1 {
+    color: var(--primary-font-color);
     text-align: center;
     padding-bottom: 1rem;
 }
 
-.carousel-txt .reg-btn{
+.carousel-txt .reg-btn {
     color: #fff !important;
     padding: 1rem 1.5rem;
     font-weight: 600;
 }
 
-.mid-section{
+.mid-section {
     margin-top: 5rem;
     margin-bottom: 3.5rem;
-    
+
 }
-.mid-section-text h2{
+
+.mid-section-text h2 {
     font-family: 'Montserrat';
     font-weight: 700;
     text-align: center;
 }
 
 
-.mid-section-text p{
+.mid-section-text p {
     font-family: 'Montserrat';
     line-height: 2.5rem;
     letter-spacing: 3px;
@@ -174,20 +191,22 @@ a:hover{
     font-size: 18px;
 }
 
-.who-can-section{
+.who-can-section {
     margin-top: 6rem;
     margin-bottom: 5rem;
 }
-.who-can-section h2{
+
+.who-can-section h2 {
     font-weight: 700;
 }
-.who-card{
+
+.who-card {
     position: relative;
     box-shadow: 0px 4px 4px rgba(128, 128, 128, 0.25);
     margin-top: 3.5rem;
 }
 
-.who-card img{
+.who-card img {
     width: 70px;
     background-color: var(--primary-btn);
     border-radius: 50%;
@@ -198,30 +217,33 @@ a:hover{
     transform: translateY(-50%)
 }
 
-.who-card-inner{
+.who-card-inner {
     padding: 40px 30px 30px 20px;
 }
-.who-card-inner h3{
+
+.who-card-inner h3 {
     padding-top: 1.5rem;
 }
 
-.who-card-inner p{
+.who-card-inner p {
     line-height: 2rem;
     text-align: justify;
     padding-top: 1rem;
 }
-.who-card-inner a{
+
+.who-card-inner a {
     color: var(--primary-btn);
     font-size: 20px;
     display: flex;
     justify-content: center;
 }
-.who-card-inner a:hover{
+
+.who-card-inner a:hover {
     text-decoration: none;
     color: var(--primary-font-color);
 }
 
-.video-section{
+.video-section {
     background: url(/images/youtube-img.png) no-repeat;
     margin: 2.5rem auto;
     height: 500px;
@@ -230,60 +252,68 @@ a:hover{
     align-items: center;
 }
 
-.sponsors{
+.sponsors {
     margin-top: 2rem;
     margin-bottom: 4rem;
 }
 
-.sponsors h2{
+.sponsors h2 {
     font-weight: 700;
     margin-bottom: 1.5rem;
 }
-.pricing h2{
+
+.pricing h2 {
     font-weight: 700;
     margin-top: 5rem;
 }
-.pricing-header .pricing-amount{
+
+.pricing-header .pricing-amount {
     font-weight: 600;
     font-size: 36px;
     color: var(--primary-btn);
 }
-.footer{
+
+.footer {
     margin-top: 2rem;
     background: url(/images/footer-img-1.png) no-repeat;
     width: 100%;
     padding: 30px;
 }
-.footer-inner{
-  color: var(--primary-font-color);
+
+.footer-inner {
+    color: var(--primary-font-color);
 }
-.footer-end{
+
+.footer-end {
     display: flex;
     justify-content: space-between;
 }
-.footer-end-right{
+
+.footer-end-right {
     display: flex;
     justify-content: space-evenly;
 }
-.footer-end-right img{
+
+.footer-end-right img {
     width: 30px;
     height: 30px;
 }
-.footer-end-right p{
+
+.footer-end-right p {
     padding-left: 15px;
 }
 
 /* registration page */
 
-.register-section{
-  display: flex;
-  width: 100%;
-  max-width: 100%;
-  overflow: hidden;
+.register-section {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
 
 }
 
-.img-side{
+.img-side {
     background-image: linear-gradient(to bottom, rgba(0, 42, 6, 0.76), rgba(0, 42, 6, 0.76)), url(/images/register-image-1.png);
     background-size: cover;
     background-position: center;
@@ -295,58 +325,65 @@ a:hover{
     align-items: center;
     color: var(--primary-font-color);
 }
-.header-logo{
+
+.header-logo {
     margin-top: 1.5rem;
 }
-.img-side h2{
+
+.img-side h2 {
     font-family: "Montserrat";
     letter-spacing: 2px;
     font-size: 2.5rem !important;
 }
 
-.form-side{
+.form-side {
     width: 50%;
     height: 100vh;
-    
+
 }
-.form-side h2{
+
+.form-side h2 {
     font-family: 'Montserrat';
     margin-top: 2.5rem;
 }
-.form-side form{
+
+.form-side form {
     margin-top: 2.5rem;
 }
 
-.form-side label{
+.form-side label {
     font-family: "Montserrat";
     font-weight: 500;
 }
-.form-group{
+
+.form-group {
     margin: 15px 20px;
 }
 
 
-.form-side .form-control{
+.form-side .form-control {
     padding: 20px 15px !important;
     border: 1px solid #c4c4c4 !important;
 }
 
-.custom-control{
+.custom-control {
     padding-left: 2.7rem !important;
 }
-form .reg-btn{
+
+form .reg-btn {
     margin-left: 1.2rem;
     margin-top: 1rem;
     font-weight: 600;
     padding: 10px 40px;
 }
-.form-txt{
+
+.form-txt {
     margin-left: 1.2rem;
 }
 
 /* main-login */
 
-.main-login{
+.main-login {
     background-image: linear-gradient(to bottom, rgba(0, 42, 6, 0.76), rgba(0, 42, 6, 0.76)), url(/images/login-bg.png);
     background-size: cover;
     background-position: center;
@@ -354,302 +391,368 @@ form .reg-btn{
     height: 100vh;
     padding-top: 1.5rem;
 }
-.main-login h2{
+
+.main-login h2 {
     color: var(--primary-font-color);
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.login-card{
+
+.login-card {
     height: 90vh;
 }
 
-.login-tabs .nav-tabs{
+.login-tabs .nav-tabs {
     justify-content: space-evenly !important;
     border-bottom: 1px solid #c4c4c4 !important;
 
 }
+
 .login-tabs .nav-tabs .nav-link.active {
     /* color: #495057; */
     color: #008E3A !important;
     background-color: #fff !important;
     border-bottom: 2px solid !important;
-    
+
 }
+
 .assessment .nav-tabs {
     border-bottom: 1px solid #dee2e6 !important;
     justify-content: space-around !important;
     padding-top: 15px !important;
 }
+
 .assessment .nav-tabs .nav-link.active {
     color: #0A4065 !important;
     background-color: rgba(34, 202, 222, 0.20) !important;
     border-radius: 20px !important;
     /* padding: 10px 20px !important; */
-    
+
 }
-.gradebook-table{
+
+.gradebook-table {
     overflow: scroll;
 }
-.gradebook-table .table{
+
+.gradebook-table .table {
     width: 90vw;
     height: 90vh;
     overflow: scroll;
-  }
-.gradebook-table .table thead th div{
+}
+
+.gradebook-table .table thead th div {
     writing-mode: vertical-rl;
     /* text-orientation: upright; */
     transform: rotate(180deg);
-    }
-    .gradebook-table .table-bordered thead th:first-child{
-        width: 35%;
-    }
+}
+
+.gradebook-table .table-bordered thead th:first-child {
+    width: 35%;
+}
+
 .nav-tabs .nav-link {
     /* border: none !important;
     border-top-left-radius: 0 !important;
     border-top-right-radius: 0 !important; */
-    color:  rgba(0, 0, 0, 0.7) ;
-   
+    color: rgba(0, 0, 0, 0.7);
+
 }
+
 .nav-tabs .nav-link:focus {
     outline: none;
 }
+
 /* .mylibrary{
     border: 1px solid transparent !important;
     border-top-left-radius: 0.25rem !important;
     border-top-right-radius: 0.25rem !important;
     color:  rgba(0, 0, 0, 0.7) ;
 } */
-.login-form .form-group >legend{
+.login-form .form-group>legend {
     font-family: "Montserrat";
     font-weight: 500;
 }
 
-.login-form .form-control{
+.login-form .form-control {
     padding: 25px 15px !important;
     border: 1px solid #c4c4c4 !important;
 }
 
-.login-form .reg-btn{
+.login-form .reg-btn {
     margin-left: 0;
     margin-top: 3rem;
     width: 100%;
 }
 
-.login-form .reg-btn:focus{
+.login-form .reg-btn:focus {
     outline: none;
 }
-.login-form a{
+
+.login-form a {
     display: flex;
     justify-content: center;
 }
-.login-form .form-group{
+
+.login-form .form-group {
     margin-top: 2rem;
 }
+
 /* Dont touch */
 
-.back{
+.back {
     position: absolute;
-    top:20px;
+    top: 20px;
     left: 15px;
 }
+
 .slide-fade-enter-active {
     transition: all .3s ease;
-  }
-  .slide-fade-leave-active {
+}
+
+.slide-fade-leave-active {
     transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-  }
-  .slide-fade-enter, .slide-fade-leave-to
-   {
+}
+
+.slide-fade-enter,
+.slide-fade-leave-to {
     transform: translateX(10px);
     opacity: 0;
-  }
-  .fade-enter-active, .fade-leave-active {
+}
+
+.fade-enter-active,
+.fade-leave-active {
     transition: opacity .5s;
-  }
-  .fade-enter, .fade-leave-to  {
+}
+
+.fade-enter,
+.fade-leave-to {
     opacity: 0;
-  }
+}
 
-  .toCaps{
-      text-transform: capitalize;
-  }
-  
-  .w-70{
+.toCaps {
+    text-transform: capitalize;
+}
+
+.w-70 {
     width: 70% !important;
-    }
-    .w-30{
-    width: 30% !important;
-    }
+}
 
-    .body{
-        padding:50px 20px 70px;
-        position: relative;
-        min-height: 100%;
-      
-    }
-    
+.w-30 {
+    width: 30% !important;
+}
+
+.body {
+    padding: 50px 20px 70px;
+    position: relative;
+    min-height: 100%;
+
+}
+
 /* student-dashboard */
 /* .student-assessment .nav-tabs {
 
     /* student-dashboard */
- .student-assessment .nav-tabs {
+.student-assessment .nav-tabs {
     border-bottom: none;
-    justify-content: space-around !important; 
-   
+    justify-content: space-around !important;
+
 }
-.student-assessment .nav-tabs:hover{
+
+.student-assessment .nav-tabs:hover {
     outline: none !important;
 }
+
 .student-assessment .nav-tabs .nav-link.active {
-    color:  #13A699 !important;
-     background: rgba(19, 166, 153, 0.15) !important;
+    color: #13A699 !important;
+    background: rgba(19, 166, 153, 0.15) !important;
     border-radius: 10px !important;
     border: none !important;
     padding: 10px 20px !important;
     outline: none !important;
-    
+
 }
 
 .assess .nav-tabs .nav-link {
-    color:  #fff !important;
-      
-}
-.assess .nav-tabs .nav-link.active {
-    color:  #13A699 !important;
-      
+    color: #fff !important;
+
 }
 
-.assess > .tabs > .card-header{
-    background-color:rgba(19, 166, 153, 0.9) !important;
-    color:white !important;
-  }
+.assess .nav-tabs .nav-link.active {
+    color: #13A699 !important;
+
+}
+
+/* .assess>.tabs>.card-header {
+    background-color: rgba(19, 166, 153, 0.9) !important;
+    color: white !important;
+} */
+
+.group-chat>.tabs>.tab-content >.card-body {
+    padding-right: 0;
+}
+
+
+
+.group-chat>.tabs>.col-auto>.card-header>li {
+    width: 200px;
+  
+}
+
+
+.group-chat>.tabs>.col-auto>.card-header>li>.nav-link {
+    color: rgba(19, 166, 153, 0.9) ;
+    border-bottom: 1px solid #ccc;
+    border-radius: unset;
+    text-transform: capitalize;
+}
+.group-chat>.tabs>.col-auto>.card-header>li>.nav-link.active {
+    background-color: rgba(19, 166, 153, 0.9) !important;
+     color:#fff;
+}
 
 
 /* admin dashboard  */
 
 
-.admin-dashboard-logo{
-    background-color: var(--primary-btn) ;
+.admin-dashboard-logo {
+    background-color: var(--primary-btn);
     font-family: "Montserrat";
     color: #fff;
 }
 
-.dashboard-brand h3{
+.dashboard-brand h3 {
     margin-bottom: 0;
 }
-.dashboard-brand p{
+
+.dashboard-brand p {
     margin-bottom: 0;
 }
-.admin-dashboard-nav{
+
+.admin-dashboard-nav {
     margin-top: 3rem;
 }
-.admin-dashboard-nav a{
+
+.admin-dashboard-nav a {
     display: flex;
-    color: #f7f8fa ;
+    color: #f7f8fa;
     font-family: "Montserrat";
     padding: .2rem;
-    padding-left: 1rem;  
-    
+    padding-left: 1rem;
+
 }
+
 /* .admin-dashboard-nav .router-link-active{
   color: var(--primary-btn) !important;
   border-right: 1px solid var(--primary-btn);
    
     
 } */
-.admin-dashboard-nav span{
+.admin-dashboard-nav span {
     font-size: 22px;
 }
-.admin-dashboard-nav li{
+
+.admin-dashboard-nav li {
     list-style: none;
     padding-top: .5rem;
     padding-left: 1rem;
 }
 
-.dashboard-top-nav .bg-info{
+.dashboard-top-nav .bg-info {
     background-color: var(--primary-btn) !important;
 }
-.dashboard-top-nav img{
+
+.dashboard-top-nav img {
     width: 20px;
     height: 20px;
     padding-top: 2px;
 
 }
 
-.dashboard-top-nav .form-control{
-  background-color: rgba(128, 128, 128, 0.44);
+.dashboard-top-nav .form-control {
+    background-color: rgba(128, 128, 128, 0.44);
     border: none !important;
 }
-.dashboard-top-nav .form-control::placeholder{
-    color: #fff ;
+
+.dashboard-top-nav .form-control::placeholder {
+    color: #fff;
     font-family: "Montserrat";
     padding: 10px;
 }
-.dashboard-top-nav .ml-auto .nav-item{
+
+.dashboard-top-nav .ml-auto .nav-item {
     margin: 0;
 }
 
-.dashboard-top-nav .ml-auto{
+.dashboard-top-nav .ml-auto {
     padding-right: 20px;
 }
 
-.user-name h6{
+.user-name h6 {
     color: #fff;
     padding-top: 7px;
     padding-right: 5px;
 }
-.admin-dashboard-top-cards .card{
+
+.admin-dashboard-top-cards .card {
     box-shadow: 0px 4px 4px rgba(240, 241, 241, 0.25);
     border-radius: 15px;
     border: none;
     padding: 10px;
     margin: 10px 0;
 }
-.inner-top-cards{
+
+.inner-top-cards {
     display: flex;
 }
-.inner-top-cards img{
+
+.inner-top-cards img {
     width: 50px;
     height: 50px;
-    background-color: rgba(0, 142, 58, 0.4); 
+    background-color: rgba(0, 142, 58, 0.4);
     border-radius: 50%;
     padding: 10px;
 }
-.inner-top-cards-text p{
+
+.inner-top-cards-text p {
     margin-bottom: 0;
 }
-.chart{
-margin: 1rem 0;
-background: #FFFFFF;
-box-shadow: 0px 4px 4px rgba(240, 241, 241, 0.25);
-border-radius: 15px;
-padding: 15px;
+
+.chart {
+    margin: 1rem 0;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(240, 241, 241, 0.25);
+    border-radius: 15px;
+    padding: 15px;
 }
 
-.dashboard-bottom-cards .card{
+.dashboard-bottom-cards .card {
     box-shadow: 0px 4px 4px rgba(240, 241, 241, 0.25);
     border-radius: 15px;
     height: 300px;
 }
 
-.bottom-card-details{
+.bottom-card-details {
     display: flex;
     border-bottom: 1px solid #808080;
     padding: 10px 2px
 }
-.bottom-card-details:last-child{
+
+.bottom-card-details:last-child {
     border-bottom: none;
 }
-.bottom-cards-text{
+
+.bottom-cards-text {
     padding-left: 10px;
     font-family: "Montserrat";
 }
-.bottom-cards-text p{
+
+.bottom-cards-text p {
     margin-bottom: 0;
     font-weight: 600;
 }
-.bottom-cards-text span{
+
+.bottom-cards-text span {
     font-size: 8px;
     background-color: rgba(128, 128, 128, 0.44);
     padding: 5px 10px;
@@ -659,46 +762,54 @@ padding: 15px;
     margin-right: 16px;
     font-weight: normal;
 }
-.bottom-card-link{
+
+.bottom-card-link {
     cursor: pointer;
 }
 
-.note-card-top{
+.note-card-top {
     display: flex;
     justify-content: space-between;
 }
+
 .note-card-top .btn-outline-primary {
     color: var(--primary-btn);
     border-color: var(--primary-btn);
 }
-.note-card-top .btn-outline-primary:hover{
+
+.note-card-top .btn-outline-primary:hover {
     background-color: var(--primary-btn) !important;
     color: #fff;
     border-color: var(--primary-btn);
 }
-.notification-side{
+
+.notification-side {
     background-color: #fff;
     height: 100vh;
     position: fixed !important;
     right: 0;
 }
-.dashboard-content-side{
+
+.dashboard-content-side {
     padding-right: 1.5rem !important;
     padding-left: 0 !important;
     padding-top: 15px;
 }
-.table-side{
+
+.table-side {
     padding-top: 50px;
     padding-right: 1rem;
 }
 
-.notify-side{
+.notify-side {
     padding-top: 20px;
 }
-.modal-footer{
+
+.modal-footer {
     justify-content: center !important;
 }
-.modal-footer .btn-secondary{
+
+.modal-footer .btn-secondary {
     background: none !important;
     border: 1px solid var(--secondary-font-color) !important;
     padding: 5px 20px !important;
@@ -706,22 +817,32 @@ padding: 15px;
     font-family: "Montserrat";
 }
 
-.modal-footer .btn-primary{
+.modal-footer .btn-primary {
     background-color: var(--primary-btn);
     padding: 5px 20px !important;
     font-family: "Montserrat";
     border: none;
-    
-}
-table{
-    font-size:15px;
-    background:white;
+
 }
 
-.modal-body .form-group{
+table {
+    font-size: 15px;
+    background: white;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: none !important;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.modal-body .form-group {
     margin: 0;
 }
-.sort-section{
+
+.sort-section {
     width: 100%;
     background-color: #fff;
     display: flex;
@@ -729,78 +850,99 @@ table{
     padding: 1rem;
     margin-right: 10px;
 }
+
 /* teacher dashboard  */
-.year-month-wrapper, .nav-l, .nav-r{
+.year-month-wrapper,
+.nav-l,
+.nav-r {
     background-color: #0A4065 !important;
 }
-.okButton{
-    color: #0A4065 !important ;
+
+.okButton {
+    color: #0A4065 !important;
 }
-.days, .port:hover{
+
+.days,
+.port:hover {
     color: #22CADE !important;
 }
-.activePort, .activePort:hover{
+
+.activePort,
+.activePort:hover {
     background-color: #22CADE !important;
     color: white;
 }
-.port{
+
+.port {
     border-radius: 50% !important;
 }
-.calender-div{
+
+.calender-div {
     border-radius: 10px;
 }
-#tj-datetime-input{
+
+#tj-datetime-input {
     display: inline-block !important;
-      width: 100%;
-      height: calc(1.5em + 0.75rem + 2px);
-      padding: 0.375rem 1.75rem 0.375rem 0.75rem;
-      font-size: 1rem;
-      font-weight: 400;
-      line-height: 1.5;
-      color: #495057;
-      vertical-align: middle;
-      background: #fff;
-      border: 1px solid #ced4da;
-      border-radius: 0.25rem;
-  }
-legend{
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    vertical-align: middle;
+    background: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+
+legend {
     font-family: "Montserrat";
     font-weight: 500;
 }
 
-.cpointer{
+.cpointer {
     cursor: pointer;
+}
+
+.profile-img .b-avatar-img img {
+    object-fit: cover;
 }
 
 .options {
     position: relative;
-     list-style: none;
-  }
-  .option {
+    list-style: none;
+}
+
+.option {
     display: none;
     position: absolute;
 
     bottom: 80%;
-    width: 100px;
+    width: auto;
     right: 60px;
     background: white;
-  }
-  .options:hover .option {
+}
+
+.options:hover .option {
     display: block;
-  }
-  .option li {
+}
+
+.option li {
     padding: 4px 15px;
     cursor: pointer;
     font-size: 14px;
-  }
-  .option ul{
-      list-style: none;
-  }
-  /* .nav-link {
+}
+
+.option ul {
+    list-style: none;
+}
+
+/* .nav-link {
     color: #000 !important;
   } */
 
-  .bd-table {
+.bd-table {
     position: relative;
     padding: 1rem;
     margin: 1rem -15px 0;
@@ -808,25 +950,29 @@ legend{
     border-width: .2rem 0 0;
     background-color: #fff;
 }
-.thead-darkgreen{
+
+.thead-darkgreen {
     color: white;
     background-color: rgba(19, 166, 153, 0.9);
     border-color: rgba(19, 166, 153, 0.9);
 }
-.badge-darkgreen{
+
+.badge-darkgreen {
     color: white;
-background-color: rgba(19, 166, 153, 0.9);
+    background-color: rgba(19, 166, 153, 0.9);
 }
 
-.thead-darkblue{
+.thead-darkblue {
     color: white;
-    background-color:#0a4065;
+    background-color: #0a4065;
     border-color: #0a4065;
 }
-   .dropdown a{
+
+.dropdown a {
     color: black !important;
-  }
-  .dropdown-toggle::after {
+}
+
+.dropdown-toggle::after {
     display: inline-block;
     font-family: "FontAwesome";
     /* font-weight: 500; */
@@ -840,7 +986,8 @@ background-color: rgba(19, 166, 153, 0.9);
     padding-left: 5px;
     padding-top: 2px;
 }
-  /*
+
+/*
   .navbar-dark .navbar-nav{
       color: black !important;
   } */
@@ -1150,16 +1297,16 @@ td {
   
   [class^="icon-"], [class*=" icon-"] {
     /* use !important to prevent issues with browser extensions that change fonts */
-    /* font-family: 'icomoon' !important;
+/* font-family: 'icomoon' !important;
     speak: never;
     font-style: normal;
     font-weight: normal;
     font-variant: normal;
     text-transform: none; */
-    
-  
-    /* Better Font Rendering =========== */
-    /* -webkit-font-smoothing: antialiased;
+
+
+/* Better Font Rendering =========== */
+/* -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
   
@@ -1201,20 +1348,21 @@ td {
   }
   .icon-visibility-open:before {
     content: "\e90c";
-  } */ 
-  @font-face {
+  } */
+@font-face {
     font-family: 'icomoon';
-    src:  url('../fonts/icomoon.eot');
-    src:  url('../fonts/icomoon.eot') format('embedded-opentype'),
-      url('../fonts/icomoon.ttf') format('truetype'),
-      url('../fonts/icomoon.woff') format('woff'),
-      url('../fonts/icomoon.svg') format('svg');
+    src: url('../fonts/icomoon.eot');
+    src: url('../fonts/icomoon.eot') format('embedded-opentype'),
+        url('../fonts/icomoon.ttf') format('truetype'),
+        url('../fonts/icomoon.woff') format('woff'),
+        url('../fonts/icomoon.svg') format('svg');
     font-weight: normal;
     font-style: normal;
     font-display: block;
-  }
-  
-  [class^="icon-"], [class*=" icon-"] {
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
     /* use !important to prevent issues with browser extensions that change fonts */
     font-family: 'icomoon' !important;
     speak: never;
@@ -1222,105 +1370,130 @@ td {
     font-weight: normal;
     font-variant: normal;
     text-transform: none;
-   
-  
+
+
     /* Better Font Rendering =========== */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
-  
-  .icon-admin:before {
+}
+
+.icon-admin:before {
     content: "\e90d";
-    
-  }
-  .icon-calendar:before {
+
+}
+
+.icon-calendar:before {
     content: "\e90e";
 
-  }
-  .icon-cancel:before {
+}
+
+.icon-cancel:before {
     content: "\e90f";
-    
-  }
-  .icon-dashboard1:before {
+
+}
+
+.icon-dashboard1:before {
     content: "\e910";
-    
-  }
-  .icon-down-chevron:before {
+
+}
+
+.icon-down-chevron:before {
     content: "\e911";
-    
-  }
-  .icon-edit:before {
+
+}
+
+.icon-edit:before {
     content: "\e912";
-    
-  }
-  .icon-education:before {
+
+}
+
+.icon-education:before {
     content: "\e913";
-    
-  }
-  .icon-logout:before {
+
+}
+
+.icon-logout:before {
     content: "\e914";
-    
-  }
-  .icon-sort:before {
+
+}
+
+.icon-sort:before {
     content: "\e915";
-    
-  }
-  .icon-students:before {
+
+}
+
+.icon-students:before {
     content: "\e916";
-    
-  }
-  .icon-teacher:before {
+
+}
+
+.icon-teacher:before {
     content: "\e917";
-    
-  }
-  .icon-visibility:before {
+
+}
+
+.icon-visibility:before {
     content: "\e918";
-    
-  }
-  .icon-visibility-open:before {
+
+}
+
+.icon-visibility-open:before {
     content: "\e919";
-    
-  }
-  .icon-business-class:before {
+
+}
+
+.icon-business-class:before {
     content: "\e900";
-  }
-  .icon-market:before {
+}
+
+.icon-market:before {
     content: "\e901";
-  }
-  .icon-score:before {
+}
+
+.icon-score:before {
     content: "\e902";
-  }
-  .icon-group-2:before {
+}
+
+.icon-group-2:before {
     content: "\e903";
-  }
-  .icon-clock:before {
+}
+
+.icon-clock:before {
     content: "\e904";
-  }
-  .icon-group-1:before {
+}
+
+.icon-group-1:before {
     content: "\e905";
-  }
-  .icon-group:before {
+}
+
+.icon-group:before {
     content: "\e906";
-  }
-  .icon-bell-1:before {
+}
+
+.icon-bell-1:before {
     content: "\e907";
-  }
-  .icon-open-book:before {
+}
+
+.icon-open-book:before {
     content: "\e908";
-  }
-  .icon-hour:before {
+}
+
+.icon-hour:before {
     content: "\e909";
-  }
-  .icon-refresh:before {
+}
+
+.icon-refresh:before {
     content: "\e90a";
-  }
-  .icon-home-1:before {
+}
+
+.icon-home-1:before {
     content: "\e90b";
-  }
-  .icon-dashboard:before {
+}
+
+.icon-dashboard:before {
     content: "\e90c";
-  }
-  
+}
+
 /*!
  * Hamburgers
  * @description Tasty CSS-animated hamburgers

@@ -95,7 +95,7 @@ Route::middleware('auth:tutor')->group(function () {
     Route::resource('assessment', 'AssessmentController');
     Route::post('draft-assessment', 'AssessmentController@saveDraft');
     Route::get('draft-assessment', 'AssessmentController@getDraft');
-    Route::put('publish-assessment', 'AssessmentController@publish');
+    Route::put('publish-assessment/{id}', 'AssessmentController@publish');
     Route::resource('assessment-result', 'AssessmentResultController');
     Route::post('tutor-grade-book', 'GradeBookController@getBooks');
     Route::get('tutor-grade-books', 'GradeBookController@index');
@@ -133,6 +133,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::put('update-user/{id}', 'UserController@store');
     Route::resource('students-course', 'CourseStudentsController');
     Route::get('admin-assessments', 'AssessmentController@getAdminAssessments');
+    Route::get('admin-get-assessment/{id}', 'AssessmentController@getAdminAssessment');
     Route::put('admin-verify-assessment/{id}', 'AssessmentController@verifyAssessment');
     Route::delete('admin-drop-assessment/{id}', 'AssessmentController@destroy');
    

@@ -38,8 +38,7 @@ class LibraryController extends Controller
     {
         $user = auth('api')->user();
    
-     $library =  Library::where('student_id',$user->id)->where('school_id',$user->school_id)->where('course_id',$request->id)->first();
- 
+     $library =  Library::where('student_id',$user->id)->where('school_id',$user->school_id)->where('level', $user->student_level)->where('subject',$request->subject)->first();
       if (is_null($library)) {
         return Library::create([
             'course_id'=> $request->id,
@@ -47,19 +46,8 @@ class LibraryController extends Controller
             'school_id'=> $user->school_id,
             'subject'=> $request->subject,
             'title'=> $request->title,
-            'level'=> $request->level,
-            'excerpt'=> $request->excerpt,
-            'content'=> \json_encode($request->content),
-            'worksheet_id'=> $request->worksheet_id,
-        ]);
-      }else{
-        Library::find($library->id)->delete();
-        return Library::create([
-            'course_id'=> $request->id,
-            'student_id'=> $user->id,
-            'school_id'=> $user->school_id,
-            'subject'=> $request->subject,
-            'title'=> $request->title,
+            'level'=>$user->student_level,
+            'progress'=> 0,
             'excerpt'=> $request->excerpt,
             'content'=> \json_encode($request->content),
             'worksheet_id'=> $request->worksheet_id,
@@ -97,9 +85,13 @@ class LibraryController extends Controller
      * @param  \App\Library  $library
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Library $library)
+    public function update(Request $request, $id)
     {
-        //
+        $user = auth('api')->user();
+        $find = Library::where('student_id', $user->id)->where('subject',$request->subject)->where('level', $user->student_level)->first();
+        $find->progress = $request->progress;
+        $find->save();
+        return $find;
     }
 
     /**

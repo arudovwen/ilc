@@ -122,7 +122,6 @@ class TutorController extends Controller
         $tutor = Tutor::find($id);
         $tutor['name'] = $request['name'];
         $tutor['email'] = $request['email'];
-        $tutor['password'] = Hash::make($request['password']);
         $tutor['phone'] = $request['phone'];
         $tutor['gender'] = $request['gender'];
         $tutor['level_of_edu'] = $request['level_of_edu'];
@@ -145,9 +144,7 @@ class TutorController extends Controller
         $tutor['area_of_specialization']  = $request['area_of_specialization'];
      
         $tutor->save();
-        return response()->json([
-            'status' => 'Updated'
-        ]);
+        return $tutor;
     }
 
     /**

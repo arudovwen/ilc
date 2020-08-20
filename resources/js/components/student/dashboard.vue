@@ -1,7 +1,7 @@
 <template>
     <div class="my-container d-flex">
        <Side  class="side" :student ='student'  :sideBar='sideBar' @minimise="minimise" :class="{'min-side':sideBar}"/> 
-       <Main class="main" :student ='student' i/>
+       <Main class="main" :student ='student' :class="{'min-main':sideBar}"/>
     </div>
 </template>
 

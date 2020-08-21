@@ -430,6 +430,11 @@ form .reg-btn {
     /* padding: 10px 20px !important; */
 
 }
+.overallgradebook-table .table thead th div {
+    writing-mode: vertical-rl;
+    /* text-orientation: upright; */
+    transform: rotate(180deg);
+}
 
 .gradebook-table {
     overflow: scroll;

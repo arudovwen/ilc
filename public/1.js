@@ -242,7 +242,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nlabel[data-v-6aa0b866] {\n  position: relative;\n  margin-bottom: 0;\n  vertical-align: top;\n  font-size: 1.25rem;\n  line-height: 1.5;\n}\n.text-muted[data-v-6aa0b866] {\n  color: rgba(0, 0, 0, 0.4) !important;\n}\n", ""]);
+exports.push([module.i, "\nlabel[data-v-6aa0b866] {\r\n  position: relative;\r\n  margin-bottom: 0;\r\n  vertical-align: top;\r\n  font-size: 1.25rem;\r\n  line-height: 1.5;\n}\n.text-muted[data-v-6aa0b866] {\r\n  color: rgba(0, 0, 0, 0.4) !important;\n}\r\n", ""]);
 
 // exports
 

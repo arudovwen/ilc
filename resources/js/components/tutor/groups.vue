@@ -1,19 +1,18 @@
 <template>
   <div class="body">
-    <nav class="mb-1">
+    <!-- <nav class="mb-1">
       <b-button class="shadow-sm" @click="multiDrop">Multi-Drop</b-button>
       <b-button class="shadow-sm " v-b-modal.group>Create Group</b-button>
-
-     
-    </nav>
-     <b-card no-body class="group-chat">
-    <b-tabs pills card vertical end>
+    </nav>-->
+    <b-card no-body class="group-chat">
+      <!-- <b-tabs pills card vertical end>
       <b-tab :title="item.name+'('+item.class_name+')'"  v-for="(item,idx) in groups" :key="idx"><b-card-text>
         <Chat :id="item.id"  :tutor="tutor"/>
         </b-card-text></b-tab>
      
-    </b-tabs>
-  </b-card>
+      </b-tabs>-->
+      <Chat :id="item.id" :tutor="tutor" />
+    </b-card>
 
     <!-- <div class="d-flex justify-content-between">
       <table class="table table-bordered mr-4 w-75">
@@ -49,65 +48,64 @@
         </tbody>
       </table>
     
-    </div> -->
-    
+    </div>-->
 
-  <b-modal id="group" title="New Group" hide-footer>
-     <form @submit.prevent="addClass" class="mb-5">
-          <div class="form-group">
-            <label for>Group name</label>
+    <b-modal id="group" title="New Group" hide-footer>
+      <form @submit.prevent="addClass" class="mb-5">
+        <div class="form-group">
+          <label for>Group name</label>
+          <input
+            type="text"
+            class="form-control"
+            v-model="name"
+            aria-describedby="helpId"
+            placeholder="Pearl"
+          />
+        </div>
+        <div class="form-group">
+          <label for>Add Class</label>
+          <select class="custom-select" v-model="class_name">
+            <option selected value>Select Class</option>
+            <option :value="item" v-for="(item,idx) in allClass" :key="idx">{{item}}</option>
+          </select>
+        </div>
+
+        <p class="text-center">or</p>
+        <div class="form-group">
+          <label for>Add Students</label>
+          <select class="custom-select" v-model="name_class">
+            <option selected value>Select Class</option>
+            <option :value="item" v-for="(item,idx) in allClass" :key="idx">{{item}}</option>
+          </select>
+        </div>
+
+        <div class="names form-group" v-if="names.length">
+          <label class="custom-control custom-checkbox" v-for="(item,idx) in names" :key="idx">
             <input
-              type="text"
-              class="form-control"
-              v-model="name"
-              aria-describedby="helpId"
-              placeholder="Pearl"
+              type="checkbox"
+              :value="item.id"
+              class="custom-control-input"
+              v-model="added_names"
             />
-          </div>
-          <div class="form-group">
-            <label for>Add Class</label>
-            <select class="custom-select" v-model="class_name">
-              <option selected value>Select Class</option>
-              <option :value="item" v-for="(item,idx) in allClass" :key="idx">{{item}}</option>
-            </select>
-          </div>
+            <span class="custom-control-indicator">{{item.name}}</span>
+          </label>
+        </div>
 
-          <p class="text-center">or</p>
-          <div class="form-group">
-            <label for>Add Students</label>
-            <select class="custom-select" v-model="name_class">
-              <option selected value>Select Class</option>
-              <option :value="item" v-for="(item,idx) in allClass" :key="idx">{{item}}</option>
-            </select>
-          </div>
-
-          <div class="names form-group" v-if="names.length">
-            <label class="custom-control custom-checkbox" v-for="(item,idx) in names" :key="idx">
-              <input
-                type="checkbox"
-                :value="item.id"
-                class="custom-control-input"
-                v-model="added_names"
-              />
-              <span class="custom-control-indicator">{{item.name}}</span>
-            </label>
-          </div>
-
-         <div class="form-group my-4">
-            <b-button v-if="!update" type="submit" class="btn btn-primary">Create</b-button>
+        <div class="form-group my-4">
+          <b-button v-if="!update" type="submit" class="btn btn-primary">Create</b-button>
           <div v-else class="d-flex justify-content-between">
             <b-button type="button" class="btn btn-primary" @click="updateN">Update</b-button>
             <b-button type="button" class="btn btn-primary" @click="cancel">Cancel</b-button>
           </div>
-         </div>
-        </form>
-  </b-modal>
+        </div>
+      </form>
+    </b-modal>
   </div>
 </template>
 
 
 <script>
-import Chat from './chat'
+import Chat from "./chat";
 export default {
   props: ["tutor"],
   data() {
@@ -130,8 +128,8 @@ export default {
     name_class: "getStudents",
     class_name: "reset",
   },
-  components:{
- Chat
+  components: {
+    Chat,
   },
   mounted() {
     this.getgroups();

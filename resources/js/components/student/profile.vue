@@ -4,7 +4,7 @@
       <div class="profile container">
         <div class="tutor-profile">
           <div class="avatar-profile">
-            <b-avatar variant="secondary" :src="detail.profile" class="profile-img" size="7rem">
+            <b-avatar variant="secondary" :src="detail.profile" class="profile-img" size="6rem">
                 <template v-slot:badge><label for="up" class="m-0"><b-icon icon="pencil" size="1rem"></b-icon></label>
                
                 <b-form-file

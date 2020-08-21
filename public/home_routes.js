@@ -12164,6 +12164,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student", "id"],
@@ -12571,6 +12614,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chat */ "./resources/js/components/student/chat.vue");
 /* harmony import */ var _privateChat__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./privateChat */ "./resources/js/components/student/privateChat.vue");
+//
+//
 //
 //
 //
@@ -18028,6 +18073,54 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tutor", "id"],
@@ -18081,6 +18174,12 @@ __webpack_require__.r(__webpack_exports__);
           _this.users = _this.users.filter(function (u) {
             return u.id != user.id;
           });
+
+          _this.users.push(user);
+        }).listen("GroupMessageSent", function (e) {
+          _this.messages.push(e.message);
+        }).leaving(function (user) {
+          console.log(user.name);
         });
       }
     });
@@ -18160,8 +18259,8 @@ __webpack_require__.r(__webpack_exports__);
 
       this.showEmoji = false;
       this.messages.push({
-        'message': this.message,
-        'tutor': this.$props.tutor
+        message: this.message,
+        tutor: this.$props.tutor
       });
       var data = {
         message: this.message,
@@ -18475,141 +18574,222 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    var _ref;
+    var _ref, _ref2;
 
-    return {
+    return _ref2 = {
       selected: null,
       items: [],
       classes: [],
       subjects: [],
-      subject: '',
-      name: '',
-      field1: ['class_name'],
-      field2: ['name'],
-      tableitems: [(_ref = {
-        name: 'sucess ahon',
-        assignment: '20',
-        quiz: '35',
-        test: 40,
-        examination: 70,
-        module1: 30,
-        module2: 40,
-        module3: 10,
-        module4: 15,
-        module5: 30
-      }, _defineProperty(_ref, "module5", 40), _defineProperty(_ref, "modlue7", 30), _defineProperty(_ref, "module8", 22), _defineProperty(_ref, "module9", 40), _defineProperty(_ref, "module10", 20), _defineProperty(_ref, "module11", 50), _defineProperty(_ref, "module12", 12), _defineProperty(_ref, "module13", 50), _defineProperty(_ref, "module14", 40), _defineProperty(_ref, "module15", 1), _defineProperty(_ref, "module16", 2), _defineProperty(_ref, "module17", 17), _defineProperty(_ref, "module18", 18), _defineProperty(_ref, "module19", 19), _ref), {
-        name: 'sucess ahon',
-        assignment: '20',
-        quiz: '35',
-        test: 40,
-        examination: 70
-      }, {
-        name: 'sucess ahon',
-        assignment: '20',
-        quiz: '35',
-        test: 40,
-        examination: 70
-      }, {
-        name: 'sucess ahon',
-        assignment: '20',
-        quiz: '35',
-        test: 40,
-        examination: 70
-      }, {
-        name: 'sucess ahon',
-        assignment: '20',
-        quiz: '35',
-        test: 40,
-        examination: 70
-      }, {
-        name: 'sucess ahon',
-        assignment: '20',
-        quiz: '35',
-        test: 40,
-        examination: 70
-      }, {
-        name: 'sucess ahon',
-        assignment: '20',
-        quiz: '35',
-        test: 40,
-        examination: 70
-      }, {
-        name: 'sucess ahon',
-        assignment: '20',
-        quiz: '35',
-        test: 40,
-        examination: 70
-      }, {
-        name: 'sucess ahon',
-        assignment: '20',
-        quiz: '35',
-        test: 40,
-        examination: 70
-      }],
-      assessmentType: [{
-        value: null,
-        text: ' Select Assessment'
-      }, {
-        value: 'a',
-        text: 'Assignment'
-      }, {
-        value: 'b',
-        text: 'Quiz'
-      }, {
-        value: 'c',
-        text: 'Test'
-      }, {
-        value: 'd',
-        text: 'Examination'
-      }],
-      assessmentClass: [{
-        value: null,
-        text: 'Select Class'
-      }, {
-        value: 'a',
-        text: 'Assignment'
-      }, {
-        value: 'b',
-        text: 'Quiz'
-      }, {
-        value: 'c',
-        text: 'Test'
-      }, {
-        value: 'd',
-        text: 'Examination'
-      }],
-      assessmentSubject: [{
-        value: null,
-        text: 'Select Subject'
-      }, {
-        value: 'a',
-        text: 'Assignment'
-      }, {
-        value: 'b',
-        text: 'Quiz'
-      }, {
-        value: 'c',
-        text: 'Test'
-      }, {
-        value: 'd',
-        text: 'Examination'
-      }],
-      assessmentTerm: [{
-        value: null,
-        text: 'Select Term'
-      }, {
-        value: 'a',
-        text: 'First'
-      }, {
-        value: 'b',
-        text: 'Second'
-      }, {
-        value: 'c',
-        text: 'Third'
-      }]
-    };
+      subject: "",
+      name: "",
+      field1: ["class_name"],
+      fields: {
+        Participation: "participate",
+        Attendance: "attendance"
+      }
+    }, _defineProperty(_ref2, "items", [{
+      participate: "Joe",
+      attendance: 33
+    }, {
+      participate: "Sue",
+      attendance: 77
+    }]), _defineProperty(_ref2, "field2", ["name"]), _defineProperty(_ref2, "overalltableitems", [{
+      name: "success ahon",
+      participation: 20,
+      attendance: 10,
+      quiz: 20,
+      assignment: 20,
+      test: 20,
+      examination: 60,
+      total: 80
+    }, {
+      name: "success ahon",
+      participation: 20,
+      attendance: 10,
+      quiz: 20,
+      assignment: 20,
+      test: 20,
+      examination: 60,
+      total: 80
+    }]), _defineProperty(_ref2, "tableitems", [(_ref = {
+      name: "sucess ahon",
+      assignment: "20",
+      quiz: "35",
+      test: 40,
+      examination: 70,
+      module1: 30,
+      module2: 40,
+      module3: 10,
+      module4: 15,
+      module5: 30
+    }, _defineProperty(_ref, "module5", 40), _defineProperty(_ref, "modlue7", 30), _defineProperty(_ref, "module8", 22), _defineProperty(_ref, "module9", 40), _defineProperty(_ref, "module10", 20), _defineProperty(_ref, "module11", 50), _defineProperty(_ref, "module12", 12), _defineProperty(_ref, "module13", 50), _defineProperty(_ref, "module14", 40), _defineProperty(_ref, "module15", 1), _defineProperty(_ref, "module16", 2), _defineProperty(_ref, "module17", 17), _defineProperty(_ref, "module18", 18), _defineProperty(_ref, "module19", 19), _ref), {
+      name: "sucess ahon",
+      assignment: "20",
+      quiz: "35",
+      test: 40,
+      examination: 70
+    }, {
+      name: "sucess ahon",
+      assignment: "20",
+      quiz: "35",
+      test: 40,
+      examination: 70
+    }, {
+      name: "sucess ahon",
+      assignment: "20",
+      quiz: "35",
+      test: 40,
+      examination: 70
+    }, {
+      name: "sucess ahon",
+      assignment: "20",
+      quiz: "35",
+      test: 40,
+      examination: 70
+    }, {
+      name: "sucess ahon",
+      assignment: "20",
+      quiz: "35",
+      test: 40,
+      examination: 70
+    }, {
+      name: "sucess ahon",
+      assignment: "20",
+      quiz: "35",
+      test: 40,
+      examination: 70
+    }, {
+      name: "sucess ahon",
+      assignment: "20",
+      quiz: "35",
+      test: 40,
+      examination: 70
+    }, {
+      name: "sucess ahon",
+      assignment: "20",
+      quiz: "35",
+      test: 40,
+      examination: 70
+    }]), _defineProperty(_ref2, "assessmentType", [{
+      value: null,
+      text: " Select Assessment"
+    }, {
+      value: "a",
+      text: "Assignment"
+    }, {
+      value: "b",
+      text: "Quiz"
+    }, {
+      value: "c",
+      text: "Test"
+    }, {
+      value: "d",
+      text: "Examination"
+    }]), _defineProperty(_ref2, "assessmentClass", [{
+      value: null,
+      text: "Select Class"
+    }, {
+      value: "a",
+      text: "Assignment"
+    }, {
+      value: "b",
+      text: "Quiz"
+    }, {
+      value: "c",
+      text: "Test"
+    }, {
+      value: "d",
+      text: "Examination"
+    }]), _defineProperty(_ref2, "assessmentSubject", [{
+      value: null,
+      text: "Select Subject"
+    }, {
+      value: "a",
+      text: "Assignment"
+    }, {
+      value: "b",
+      text: "Quiz"
+    }, {
+      value: "c",
+      text: "Test"
+    }, {
+      value: "d",
+      text: "Examination"
+    }]), _defineProperty(_ref2, "assessmentTerm", [{
+      value: null,
+      text: "Select Term"
+    }, {
+      value: "a",
+      text: "First"
+    }, {
+      value: "b",
+      text: "Second"
+    }, {
+      value: "c",
+      text: "Third"
+    }]), _ref2;
   },
   mounted: function mounted() {
     this.getData();
@@ -18673,7 +18853,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.subject = name;
     },
     viewBook: function viewBook() {
-      this.$router.push("/tutor/gradebook/view/".concat(this.subject.replace(/ /g, '-'), "/").concat(this.name.replace(/ /g, '-')));
+      this.$router.push("/tutor/gradebook/view/".concat(this.subject.replace(/ /g, "-"), "/").concat(this.name.replace(/ /g, "-")));
     }
   }
 });
@@ -18768,8 +18948,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chat */ "./resources/js/components/tutor/chat.vue");
-//
-//
 //
 //
 //
@@ -24266,7 +24444,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.view[data-v-51658877] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.progress[data-v-51658877] {\n  height: 15px;\n}\nlabel[data-v-51658877] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-51658877] {\n  font-size: 14px;\n  padding: 20px;\n}\n.chat-body[data-v-51658877] {\n  width: 80%;\n  height: 100%;\n  background: #f7f8fa;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-51658877] {\n  height: 100%;\n  width: 20%;\n}\n.send-tab[data-v-51658877] {\n  position: absolute;\n  bottom: 0;\n  width: 93%;\n  margin: 0 auto;\n  padding: 4px 0;\n  background: white;\n}\n.emoji[data-v-51658877] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-51658877] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-51658877] {\n  position: relative;\n}\n.fa-paperclip[data-v-51658877] {\n  position: absolute;\n  font-size: 17px;\n  right: 10px;\n  top: 50%;\n  margin-top: -8px;\n}\nul[data-v-51658877],\nol[data-v-51658877] {\n  list-style: none;\n}\n.chat-message[data-v-51658877] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
+exports.push([module.i, "\n.view[data-v-51658877] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.online-presence[data-v-51658877] {\n  background: #f5f4f4;\n  height: 85vh;\n}\n.online-presence-top[data-v-51658877] {\n  display: flex;\n}\n.online-presence-top .fa[data-v-51658877] {\n  padding-left: 10px;\n  padding-top: 10px;\n}\n.inner-single[data-v-51658877] {\n  display: flex;\n}\n.message-info[data-v-51658877] {\n  display: flex;\n  padding-left: 20px;\n  align-items: center;\n}\n.message-info h6[data-v-51658877] {\n  margin-bottom: 0;\n  line-height: 0;\n}\n.file-attachement[data-v-51658877]{\n  display: flex;\n  width: 100%;\n  position: relative;\n}\n.file-attachement span[data-v-51658877]{\n      position: absolute;\n    right: 0;\n    transform: translate(-7px);\n    padding-top: 5px;\n}\n.progress[data-v-51658877] {\n  height: 15px;\n}\nlabel[data-v-51658877] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-51658877] {\n  font-size: 14px;\n  padding: 20px;\n}\n.chat-body[data-v-51658877] {\n  width: 80%;\n  height: 100%;\n  background: #f7f8fa;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-51658877] {\n  height: 100%;\n  width: 20%;\n}\n.chat-area[data-v-51658877]{\n  position: relative;\n}\n.send-tab[data-v-51658877] {\n  position: absolute;\n  bottom: 0;\n  background: #cec9c9;\n display: flex;\n    width: 100%;\n    padding: 10px;\n}\n.emoji[data-v-51658877] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-51658877] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-51658877] {\n  position: relative;\n}\nul[data-v-51658877],\nol[data-v-51658877] {\n  list-style: none;\n}\n.chat-message[data-v-51658877] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -24665,7 +24843,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.view[data-v-f752e2c8] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 75vh;\n}\n.progress[data-v-f752e2c8] {\n  height: 15px;\n}\nlabel[data-v-f752e2c8] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-f752e2c8] {\n  font-size: 14px;\n  padding: 20px;\n}\n.chat-body[data-v-f752e2c8] {\n  width: 80%;\n  height: 100%;\n  background: #f7f8fa;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-f752e2c8] {\n  height: 100%;\n  width: 20%;\n}\n.send-tab[data-v-f752e2c8] {\n  position: absolute;\n  bottom: 0;\n  width: 93%;\n  margin: 0 auto;\n  padding: 4px 0;\n  background: white;\n}\n.emoji[data-v-f752e2c8] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-f752e2c8] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-f752e2c8] {\n  position: relative;\n}\n.fa-paperclip[data-v-f752e2c8] {\n  position: absolute;\n  font-size: 17px;\n  right: 10px;\n  top: 50%;\n  margin-top: -8px;\n}\nul[data-v-f752e2c8],\nol[data-v-f752e2c8] {\n  list-style: none;\n}\n.chat-message[data-v-f752e2c8] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n      max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
+exports.push([module.i, "\n.view[data-v-f752e2c8] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 75vh;\n}\n.tutor-chat[data-v-f752e2c8] {\n  height: 85vh;\n}\n.online-presence[data-v-f752e2c8] {\n  background: #f5f4f4;\n  height: 85vh;\n}\n.online-presence-top[data-v-f752e2c8] {\n  display: flex;\n}\n.online-presence-top .fa[data-v-f752e2c8] {\n  padding-left: 10px;\n  padding-top: 10px;\n}\n.inner-single[data-v-f752e2c8] {\n  display: flex;\n}\n.message-info[data-v-f752e2c8] {\n  display: flex;\n  padding-left: 20px;\n  align-items: center;\n}\n.message-info h6[data-v-f752e2c8] {\n  margin-bottom: 0;\n  line-height: 0;\n}\n.file-attachement[data-v-f752e2c8] {\n  display: flex;\n  width: 100%;\n  position: relative;\n}\n.file-attachement span[data-v-f752e2c8] {\n  position: absolute;\n  right: 0;\n  transform: translate(-7px);\n  padding-top: 5px;\n}\n.progress[data-v-f752e2c8] {\n  height: 15px;\n}\nlabel[data-v-f752e2c8] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-f752e2c8] {\n  font-size: 14px;\n  padding: 20px;\n}\n.chat-body[data-v-f752e2c8] {\n  width: 80%;\n  height: 100%;\n  background: #f7f8fa;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-f752e2c8] {\n  height: 100%;\n  width: 20%;\n}\n.chat-area[data-v-f752e2c8] {\n  position: relative;\n}\n.send-tab[data-v-f752e2c8] {\n  position: absolute;\n  bottom: 0;\n  background: #cec9c9;\n  display: flex;\n  width: 100%;\n  padding: 10px;\n}\n.emoji[data-v-f752e2c8] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-f752e2c8] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-f752e2c8] {\n  position: relative;\n}\nul[data-v-f752e2c8],\nol[data-v-f752e2c8] {\n  list-style: none;\n}\n.chat-message[data-v-f752e2c8] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -24722,7 +24900,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.gradebook-table[data-v-7ff33f92]{\n  font-family: \"Montserrat\";\n}\n.grade-book[data-v-7ff33f92]{\n  background: #fff;\n  padding: 15px;\n}\n.outer-grade-book[data-v-7ff33f92]{\n  padding-top: 20px;\n}\n.search[data-v-7ff33f92]{\n  /* width:250px; */\n  border-color:#41cee2\n}\n.sort-table p[data-v-7ff33f92]{\n  font-size: 14px;\n}\n/* width */\n[data-v-7ff33f92]::-webkit-scrollbar {\n  width: 5px;\n}\n\n/* Track */\n[data-v-7ff33f92]::-webkit-scrollbar-track {\n  background: none;\n}\n \n/* Handle */\n[data-v-7ff33f92]::-webkit-scrollbar-thumb {\n  background: rgba(34, 202, 222, 0.25); \n  border-radius: 5px;\n}\n\n/* Handle on hover */\n[data-v-7ff33f92]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n", ""]);
+exports.push([module.i, "\n.overallgradebook-table[data-v-7ff33f92] {\n  font-family: \"Montserrat\";\n}\n.gradebook-table[data-v-7ff33f92] {\n  font-family: \"Montserrat\";\n}\n.grade-book[data-v-7ff33f92] {\n  background: #fff;\n  padding: 15px;\n}\n.overall[data-v-7ff33f92]{\n  background: #fff;\n}\n.outer-grade-book[data-v-7ff33f92] {\n  padding-top: 20px;\n}\n.search[data-v-7ff33f92] {\n  /* width:250px; */\n  border-color: #41cee2;\n}\n.sort-table p[data-v-7ff33f92] {\n  font-size: 14px;\n}\n.btn-export[data-v-7ff33f92]{\n  border: 1px solid #c4c4c4;\n}\n.b-table-sticky-header[data-v-7ff33f92] {\n  max-height: 80vh;\n}\n/* width */\n[data-v-7ff33f92]::-webkit-scrollbar {\n  width: 5px;\n}\n\n/* Track */\n[data-v-7ff33f92]::-webkit-scrollbar-track {\n  background: none;\n}\n\n/* Handle */\n[data-v-7ff33f92]::-webkit-scrollbar-thumb {\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 5px;\n}\n\n/* Handle on hover */\n[data-v-7ff33f92]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n", ""]);
 
 // exports
 
@@ -48258,179 +48436,31 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "view" },
-    [
-      _c(
-        "div",
-        {
-          directives: [{ name: "chat-scroll", rawName: "v-chat-scroll" }],
-          staticClass: "chat-body"
-        },
-        [
-          _c("div", { staticClass: "message-body" }, [
-            _c(
-              "ul",
-              [
-                _vm._l(_vm.messages, function(message, idx) {
-                  return _c("li", { key: idx, staticClass: "message mb-4" }, [
-                    message.user
-                      ? _c(
-                          "div",
-                          {
-                            staticClass: "shadow rounded-pill chat-message",
-                            class: {
-                              "ml-auto": message.user.id == _vm.student.id
-                            }
-                          },
-                          [
-                            _c("strong", { staticClass: "text-muted" }, [
-                              _vm._v(_vm._s(message.user.name))
-                            ]),
-                            _vm._v(" "),
-                            _c("br"),
-                            _vm._v(" "),
-                            message.message
-                              ? _c("span", { staticClass: "mr-3" }, [
-                                  _vm._v(_vm._s(message.message))
-                                ])
-                              : _c(
-                                  "a",
-                                  {
-                                    staticClass: "mr-3",
-                                    attrs: {
-                                      href: message.attachment,
-                                      download: ""
-                                    }
-                                  },
-                                  [
-                                    _c("b-img", {
-                                      attrs: {
-                                        src: message.attachment,
-                                        fluid: "",
-                                        width: "60"
-                                      }
-                                    })
-                                  ],
-                                  1
-                                ),
-                            _vm._v(" "),
-                            _c("small", { staticClass: "text-muted" }, [
-                              _vm._v(
-                                _vm._s(
-                                  _vm._f("moment")(message.created_at, "h:mm a")
-                                )
-                              )
-                            ])
-                          ]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    message.tutor
-                      ? _c(
-                          "div",
-                          { staticClass: "shadow rounded-pill chat-message" },
-                          [
-                            _c("strong", { staticClass: "text-muted" }, [
-                              _vm._v(_vm._s(message.tutor.name))
-                            ]),
-                            _vm._v(" "),
-                            _c("br"),
-                            _vm._v(" "),
-                            message.message
-                              ? _c("span", { staticClass: "mr-3" }, [
-                                  _vm._v(_vm._s(message.message))
-                                ])
-                              : _c(
-                                  "a",
-                                  {
-                                    staticClass: "mr-3",
-                                    attrs: {
-                                      href: message.attachment,
-                                      download: ""
-                                    }
-                                  },
-                                  [
-                                    _c("b-img", {
-                                      attrs: {
-                                        src: message.attachment,
-                                        fluid: "",
-                                        width: "60"
-                                      }
-                                    })
-                                  ],
-                                  1
-                                ),
-                            _vm._v(" "),
-                            _c("small", { staticClass: "text-muted" }, [
-                              _vm._v(
-                                _vm._s(
-                                  _vm._f("moment")(message.created_at, "h:mm a")
-                                )
-                              )
-                            ])
-                          ]
-                        )
-                      : _vm._e()
-                  ])
-                }),
-                _vm._v(" "),
-                _vm.start
-                  ? _c(
-                      "div",
-                      { staticClass: "progress mt-2 w-25 ml-auto text-right" },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "progress-bar progress-bar-striped",
-                            class: { active: _vm.progress != "Completed" },
-                            style: { width: _vm.progress },
-                            attrs: {
-                              role: "progressbar",
-                              "aria-valuenow": "0",
-                              "aria-valuemin": "0",
-                              "aria-valuemax": "100"
-                            }
-                          },
-                          [_vm._v(_vm._s(_vm.progress))]
-                        ),
-                        _vm._v(" "),
-                        _c("b-img", { attrs: { src: _vm.file, width: "20" } })
-                      ],
-                      1
-                    )
-                  : _vm._e()
-              ],
-              2
-            )
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "b-form",
-        {
-          staticClass: "send-tab",
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              return _vm.submit($event)
-            }
-          }
-        },
-        [
-          _c(
-            "b-input-group",
-            [
+  return _c("div", { staticClass: "chat" }, [
+    _c(
+      "div",
+      { staticClass: "card tutor-chat" },
+      [
+        _c(
+          "b-row",
+          [
+            _c("b-col", { staticClass: "chat-area ", attrs: { md: "8" } }, [
               _c(
-                "b-input-group-prepend",
+                "div",
+                {
+                  staticClass: "send-tab",
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.submit($event)
+                    }
+                  }
+                },
                 [
                   _c(
-                    "b-button",
+                    "div",
                     {
-                      staticClass: "button px-2",
+                      staticClass: "btn btn-emoji",
                       on: { click: _vm.openEmoji }
                     },
                     [
@@ -48446,105 +48476,97 @@ var render = function() {
                         staticClass: "emoji",
                         on: { select: _vm.selectEmoji }
                       })
-                    : _vm._e()
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group w-75 m-0" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.message,
-                      expression: "message"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    "aria-describedby": "helpId",
-                    placeholder: "",
-                    required: ""
-                  },
-                  domProps: { value: _vm.message },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.message = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("label", { attrs: { for: "attachment" } }, [
-                  _c("i", {
-                    staticClass: "fa fa-paperclip",
-                    attrs: { "aria-hidden": "true" }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control-file",
-                attrs: {
-                  type: "file",
-                  hidden: "",
-                  name: "attachment",
-                  id: "attachment",
-                  "aria-describedby": "fileHelpId"
-                },
-                on: {
-                  change: function($event) {
-                    return _vm.handleFileChange($event)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "b-input-group-append",
-                [
+                    : _vm._e(),
+                  _vm._v(" "),
                   _c(
-                    "b-button",
-                    { attrs: { variant: "secondary", type: "submit" } },
-                    [_vm._v("Send")]
+                    "div",
+                    { staticClass: "file-attachement" },
+                    [
+                      _c("b-input", {
+                        attrs: { placeholder: "Write message......." }
+                      }),
+                      _c("span", [
+                        _c("i", {
+                          staticClass: "fa fa-paperclip",
+                          attrs: { "aria-hidden": "true" }
+                        })
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "send-btn btn", attrs: { type: "submit" } },
+                    [
+                      _c("i", {
+                        staticClass: "fa fa-paper-plane",
+                        attrs: { "aria-hidden": "true" }
+                      })
+                    ]
                   )
                 ],
                 1
               )
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "online" }, [
-        _c("div", { staticClass: "form-control thead-dark" }, [
-          _vm._v("Online")
-        ]),
-        _vm._v(" "),
-        _c(
-          "ul",
-          _vm._l(_vm.users, function(user, idx) {
-            return _c(
-              "li",
-              { key: idx },
+            ]),
+            _vm._v(" "),
+            _c(
+              "b-col",
+              { attrs: { md: "4" } },
               [
-                _c("b-avatar", { attrs: { size: "sm", src: user.profile } }),
-                _vm._v("\n        " + _vm._s(user.name) + "\n      ")
+                _c("b-card", { staticClass: "online-presence" }, [
+                  _c(
+                    "div",
+                    { staticClass: "online-presence-top" },
+                    [
+                      _c("b-form-input", {
+                        attrs: { placeholder: "Search to start chat" }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "online-tag" }, [
+                    _c("div", { staticClass: "single-online-tag" }, [
+                      _c("div", { staticClass: "inner-single" }, [
+                        _c(
+                          "div",
+                          { staticClass: "avatar" },
+                          [_c("b-avatar")],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "message-info" }, [
+                          _c("h6", [_vm._v("Group name")]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            [
+                              _c("b-badge", { attrs: { variant: "success" } }, [
+                                _vm._v("3")
+                              ])
+                            ],
+                            1
+                          )
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("hr")
+                  ])
+                ])
               ],
               1
             )
-          }),
-          0
+          ],
+          1
         )
-      ])
-    ],
-    1
-  )
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -48756,49 +48778,7 @@ var render = function() {
         _c(
           "b-card",
           { staticClass: "group-chat", attrs: { "no-body": "" } },
-          [
-            _c(
-              "b-tabs",
-              { attrs: { pills: "", card: "", vertical: "", end: "" } },
-              [
-                _vm._l(_vm.groups, function(item, idx) {
-                  return _c(
-                    "b-tab",
-                    {
-                      key: idx,
-                      attrs: { "title-item-class": "group", title: item.name }
-                    },
-                    [
-                      _c(
-                        "b-card-text",
-                        [
-                          _c("Chat", {
-                            attrs: { student: _vm.student, id: item.id }
-                          })
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                }),
-                _vm._v(" "),
-                _c(
-                  "b-tab",
-                  { attrs: { "title-item-class": "group", title: "Chat" } },
-                  [
-                    _c(
-                      "b-card-text",
-                      [_c("PrivateChat", { attrs: { student: _vm.student } })],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ],
-              2
-            )
-          ],
+          [_c("Chat", { attrs: { student: _vm.student, id: _vm.item.id } })],
           1
         )
       ],
@@ -50485,7 +50465,7 @@ var render = function() {
                     attrs: {
                       variant: "secondary",
                       src: _vm.detail.profile,
-                      size: "7rem"
+                      size: "6rem"
                     },
                     scopedSlots: _vm._u([
                       {
@@ -57781,144 +57761,31 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "view" },
-    [
-      _c(
-        "div",
-        {
-          directives: [{ name: "chat-scroll", rawName: "v-chat-scroll" }],
-          staticClass: "chat-body"
-        },
-        [
-          _c("div", { staticClass: "message-body" }, [
-            _c(
-              "ul",
-              [
-                _vm._l(_vm.messages, function(message, idx) {
-                  return _c(
-                    "li",
-                    {
-                      key: idx,
-                      staticClass: "message mb-4",
-                      class: { "text-right": message.user_id == _vm.tutor.id }
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "shadow rounded-pill chat-message",
-                          class: { "ml-auto": message.tutor }
-                        },
-                        [
-                          message.tutor
-                            ? _c("strong", { staticClass: "text-muted" }, [
-                                _vm._v(_vm._s(message.tutor.name))
-                              ])
-                            : _vm._e(),
-                          _vm._v(" "),
-                          message.user
-                            ? _c("strong", { staticClass: "text-muted" }, [
-                                _vm._v(_vm._s(message.user.name))
-                              ])
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _c("br"),
-                          _vm._v(" "),
-                          message.message
-                            ? _c("span", { staticClass: "mr-3" }, [
-                                _vm._v(_vm._s(message.message))
-                              ])
-                            : _c(
-                                "a",
-                                {
-                                  staticClass: "mr-3",
-                                  attrs: {
-                                    href: message.attachment,
-                                    download: ""
-                                  }
-                                },
-                                [
-                                  _c("b-img", {
-                                    attrs: {
-                                      src: message.attachment,
-                                      fluid: "",
-                                      width: "60"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                          _vm._v(" "),
-                          _c("small", { staticClass: "text-muted" }, [
-                            _vm._v(
-                              _vm._s(
-                                _vm._f("moment")(message.created_at, "h:mm a")
-                              )
-                            )
-                          ])
-                        ]
-                      )
-                    ]
-                  )
-                }),
-                _vm._v(" "),
-                _vm.start
-                  ? _c(
-                      "div",
-                      { staticClass: "progress mt-2 w-25 ml-auto text-right" },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "progress-bar progress-bar-striped",
-                            class: { active: _vm.progress != "Completed" },
-                            style: { width: _vm.progress },
-                            attrs: {
-                              role: "progressbar",
-                              "aria-valuenow": "0",
-                              "aria-valuemin": "0",
-                              "aria-valuemax": "100"
-                            }
-                          },
-                          [_vm._v(_vm._s(_vm.progress))]
-                        ),
-                        _vm._v(" "),
-                        _c("b-img", { attrs: { src: _vm.file, width: "20" } })
-                      ],
-                      1
-                    )
-                  : _vm._e()
-              ],
-              2
-            )
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "b-form",
-        {
-          staticClass: "send-tab",
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              return _vm.submit($event)
-            }
-          }
-        },
-        [
-          _c(
-            "b-input-group",
-            [
+  return _c("div", { staticClass: "chat" }, [
+    _c(
+      "div",
+      { staticClass: "card tutor-chat" },
+      [
+        _c(
+          "b-row",
+          [
+            _c("b-col", { staticClass: "chat-area", attrs: { md: "8" } }, [
               _c(
-                "b-input-group-prepend",
+                "div",
+                {
+                  staticClass: "send-tab",
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.submit($event)
+                    }
+                  }
+                },
                 [
                   _c(
-                    "b-button",
+                    "div",
                     {
-                      staticClass: "button px-2",
+                      staticClass: "btn btn-emoji",
                       on: { click: _vm.openEmoji }
                     },
                     [
@@ -57934,105 +57801,103 @@ var render = function() {
                         staticClass: "emoji",
                         on: { select: _vm.selectEmoji }
                       })
-                    : _vm._e()
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group w-75 m-0" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.message,
-                      expression: "message"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    "aria-describedby": "helpId",
-                    placeholder: "",
-                    required: ""
-                  },
-                  domProps: { value: _vm.message },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.message = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("label", { attrs: { for: "attachment" } }, [
-                  _c("i", {
-                    staticClass: "fa fa-paperclip",
-                    attrs: { "aria-hidden": "true" }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control-file",
-                attrs: {
-                  type: "file",
-                  hidden: "",
-                  name: "attachment",
-                  id: "attachment",
-                  "aria-describedby": "fileHelpId"
-                },
-                on: {
-                  change: function($event) {
-                    return _vm.handleFileChange($event)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "b-input-group-append",
-                [
+                    : _vm._e(),
+                  _vm._v(" "),
                   _c(
-                    "b-button",
-                    { attrs: { variant: "secondary", type: "submit" } },
-                    [_vm._v("Send")]
+                    "div",
+                    { staticClass: "file-attachement" },
+                    [
+                      _c("b-input", {
+                        attrs: { placeholder: "Write message......." }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [
+                        _c("i", {
+                          staticClass: "fa fa-paperclip",
+                          attrs: { "aria-hidden": "true" }
+                        })
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "send-btn btn", attrs: { type: "submit" } },
+                    [
+                      _c("i", {
+                        staticClass: "fa fa-paper-plane",
+                        attrs: { "aria-hidden": "true" }
+                      })
+                    ]
                   )
                 ],
                 1
               )
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "online" }, [
-        _c("div", { staticClass: "form-control thead-dark" }, [
-          _vm._v("Online")
-        ]),
-        _vm._v(" "),
-        _c(
-          "ul",
-          _vm._l(_vm.users, function(user, idx) {
-            return _c(
-              "li",
-              { key: idx },
+            ]),
+            _vm._v(" "),
+            _c(
+              "b-col",
+              { attrs: { md: "4" } },
               [
-                _c("b-avatar", { attrs: { size: "sm", src: user.profile } }),
-                _vm._v("\n        " + _vm._s(user.name) + "\n      ")
+                _c("b-card", { staticClass: "online-presence" }, [
+                  _c(
+                    "div",
+                    { staticClass: "online-presence-top" },
+                    [
+                      _c("b-form-input", {
+                        attrs: { placeholder: "Search to start chat" }
+                      }),
+                      _vm._v(" "),
+                      _c("i", {
+                        staticClass: "fa fa-ellipsis-v",
+                        attrs: { "aria-hidden": "true" }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "online-tag" }, [
+                    _c("div", { staticClass: "single-online-tag" }, [
+                      _c("div", { staticClass: "inner-single" }, [
+                        _c(
+                          "div",
+                          { staticClass: "avatar" },
+                          [_c("b-avatar")],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "message-info" }, [
+                          _c("h6", [_vm._v("Group name")]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            [
+                              _c("b-badge", { attrs: { variant: "success" } }, [
+                                _vm._v("3")
+                              ])
+                            ],
+                            1
+                          )
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("hr")
+                  ])
+                ])
               ],
               1
             )
-          }),
-          0
+          ],
+          1
         )
-      ])
-    ],
-    1
-  )
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -58299,103 +58164,318 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "outer-grade-book container" }, [
-      _c("div", { staticClass: "grade-book" }, [
+    _c(
+      "div",
+      { staticClass: "outer-grade-book container" },
+      [
         _c(
-          "div",
-          { staticClass: "sort-table" },
+          "b-tabs",
           [
             _c(
-              "b-container",
+              "b-tab",
+              { staticClass: "overall", attrs: { title: "Overall Grades" } },
               [
+                _c("div", { staticClass: "grade-book" }, [
+                  _c(
+                    "div",
+                    { staticClass: "sort-table" },
+                    [
+                      _c(
+                        "b-container",
+                        [
+                          _c(
+                            "b-row",
+                            [
+                              _c("b-col", { attrs: { md: "2" } }, [
+                                _c("p", [
+                                  _c("strong", [_vm._v("Overall Grades")])
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "b-col",
+                                { attrs: { md: "6" } },
+                                [
+                                  _c(
+                                    "b-container",
+                                    [
+                                      _c(
+                                        "b-row",
+                                        [
+                                          _c(
+                                            "b-col",
+                                            { attrs: { md: "4" } },
+                                            [
+                                              _c("b-form-select", {
+                                                attrs: { options: _vm.Class },
+                                                model: {
+                                                  value: _vm.selected,
+                                                  callback: function($$v) {
+                                                    _vm.selected = $$v
+                                                  },
+                                                  expression: "selected"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "b-col",
+                                            { attrs: { md: "4" } },
+                                            [
+                                              _c("b-form-select", {
+                                                attrs: { options: _vm.subject },
+                                                model: {
+                                                  value: _vm.selected,
+                                                  callback: function($$v) {
+                                                    _vm.selected = $$v
+                                                  },
+                                                  expression: "selected"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "b-col",
+                                            { attrs: { md: "4" } },
+                                            [
+                                              _c("b-form-select", {
+                                                attrs: { options: _vm.term },
+                                                model: {
+                                                  value: _vm.selected,
+                                                  callback: function($$v) {
+                                                    _vm.selected = $$v
+                                                  },
+                                                  expression: "selected"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-col",
+                                { attrs: { md: "4" } },
+                                [
+                                  _c(
+                                    "b-container",
+                                    [
+                                      _c(
+                                        "b-row",
+                                        [
+                                          _c(
+                                            "b-col",
+                                            { attrs: { md: "6" } },
+                                            [
+                                              _c("b-form-input", {
+                                                staticClass:
+                                                  "search rounded-pill",
+                                                attrs: {
+                                                  placeholder: "Search Student "
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c("b-col", { attrs: { md: "6" } }, [
+                                            _c(
+                                              "div",
+                                              { staticClass: "export" },
+                                              [
+                                                _c(
+                                                  "div",
+                                                  {
+                                                    staticClass:
+                                                      "btn btn-export"
+                                                  },
+                                                  [
+                                                    _vm._v("Export "),
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "fa fa-external-link"
+                                                    })
+                                                  ]
+                                                )
+                                              ]
+                                            )
+                                          ])
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
                 _c(
-                  "b-row",
+                  "div",
+                  { staticClass: "overallgradebook-table" },
                   [
-                    _c("b-col", { attrs: { md: "2" } }, [
-                      _c("p", [_c("strong", [_vm._v("Assignment Grades")])])
-                    ]),
-                    _vm._v(" "),
+                    _c("b-table", {
+                      attrs: {
+                        striped: "",
+                        hover: "",
+                        items: _vm.overalltableitems
+                      }
+                    })
+                  ],
+                  1
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("b-tab", { attrs: { title: "Assessment Grades" } }, [
+              _c("div", { staticClass: "grade-book" }, [
+                _c(
+                  "div",
+                  { staticClass: "sort-table" },
+                  [
                     _c(
-                      "b-col",
-                      { attrs: { md: "8" } },
+                      "b-container",
                       [
                         _c(
-                          "b-container",
+                          "b-row",
                           [
+                            _c("b-col", { attrs: { md: "2" } }, [
+                              _c("p", [
+                                _c("strong", [_vm._v("Assignment Grades")])
+                              ])
+                            ]),
+                            _vm._v(" "),
                             _c(
-                              "b-row",
+                              "b-col",
+                              { attrs: { md: "8" } },
                               [
                                 _c(
-                                  "b-col",
-                                  { attrs: { md: "3" } },
+                                  "b-container",
                                   [
-                                    _c("b-form-select", {
-                                      attrs: { options: _vm.assessmentType },
-                                      model: {
-                                        value: _vm.selected,
-                                        callback: function($$v) {
-                                          _vm.selected = $$v
-                                        },
-                                        expression: "selected"
-                                      }
-                                    })
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "b-col",
-                                  { attrs: { md: "3" } },
-                                  [
-                                    _c("b-form-select", {
-                                      attrs: { options: _vm.assessmentClass },
-                                      model: {
-                                        value: _vm.selected,
-                                        callback: function($$v) {
-                                          _vm.selected = $$v
-                                        },
-                                        expression: "selected"
-                                      }
-                                    })
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "b-col",
-                                  { attrs: { md: "3" } },
-                                  [
-                                    _c("b-form-select", {
-                                      attrs: { options: _vm.assessmentSubject },
-                                      model: {
-                                        value: _vm.selected,
-                                        callback: function($$v) {
-                                          _vm.selected = $$v
-                                        },
-                                        expression: "selected"
-                                      }
-                                    })
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "b-col",
-                                  { attrs: { md: "3" } },
-                                  [
-                                    _c("b-form-select", {
-                                      attrs: { options: _vm.assessmentTerm },
-                                      model: {
-                                        value: _vm.selected,
-                                        callback: function($$v) {
-                                          _vm.selected = $$v
-                                        },
-                                        expression: "selected"
-                                      }
-                                    })
+                                    _c(
+                                      "b-row",
+                                      [
+                                        _c(
+                                          "b-col",
+                                          { attrs: { md: "3" } },
+                                          [
+                                            _c("b-form-select", {
+                                              attrs: {
+                                                options: _vm.assessmentType
+                                              },
+                                              model: {
+                                                value: _vm.selected,
+                                                callback: function($$v) {
+                                                  _vm.selected = $$v
+                                                },
+                                                expression: "selected"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-col",
+                                          { attrs: { md: "3" } },
+                                          [
+                                            _c("b-form-select", {
+                                              attrs: {
+                                                options: _vm.assessmentClass
+                                              },
+                                              model: {
+                                                value: _vm.selected,
+                                                callback: function($$v) {
+                                                  _vm.selected = $$v
+                                                },
+                                                expression: "selected"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-col",
+                                          { attrs: { md: "3" } },
+                                          [
+                                            _c("b-form-select", {
+                                              attrs: {
+                                                options: _vm.assessmentSubject
+                                              },
+                                              model: {
+                                                value: _vm.selected,
+                                                callback: function($$v) {
+                                                  _vm.selected = $$v
+                                                },
+                                                expression: "selected"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-col",
+                                          { attrs: { md: "3" } },
+                                          [
+                                            _c("b-form-select", {
+                                              attrs: {
+                                                options: _vm.assessmentTerm
+                                              },
+                                              model: {
+                                                value: _vm.selected,
+                                                callback: function($$v) {
+                                                  _vm.selected = $$v
+                                                },
+                                                expression: "selected"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    )
                                   ],
                                   1
                                 )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-col",
+                              { attrs: { md: "2" } },
+                              [
+                                _c("b-form-input", {
+                                  staticClass: "search rounded-pill",
+                                  attrs: { placeholder: "Search Student " }
+                                })
                               ],
                               1
                             )
@@ -58404,43 +58484,36 @@ var render = function() {
                         )
                       ],
                       1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "b-col",
-                      { attrs: { md: "2" } },
-                      [
-                        _c("b-form-input", {
-                          staticClass: "search rounded-pill",
-                          attrs: { placeholder: "Search Student " }
-                        })
-                      ],
-                      1
                     )
                   ],
                   1
+                ),
+                _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "gradebook-table" },
+                  [
+                    _c("b-table", {
+                      attrs: {
+                        striped: "",
+                        hover: "",
+                        "sticky-header": "",
+                        items: _vm.tableitems
+                      }
+                    })
+                  ],
+                  1
                 )
-              ],
-              1
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "gradebook-table" },
-          [
-            _c("b-table", {
-              attrs: { striped: "", hover: "", items: _vm.tableitems }
-            })
+              ])
+            ])
           ],
           1
         )
-      ])
-    ])
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = []
@@ -58494,60 +58567,9 @@ var render = function() {
     { staticClass: "body" },
     [
       _c(
-        "nav",
-        { staticClass: "mb-1" },
-        [
-          _c(
-            "b-button",
-            { staticClass: "shadow-sm", on: { click: _vm.multiDrop } },
-            [_vm._v("Multi-Drop")]
-          ),
-          _vm._v(" "),
-          _c(
-            "b-button",
-            {
-              directives: [
-                {
-                  name: "b-modal",
-                  rawName: "v-b-modal.group",
-                  modifiers: { group: true }
-                }
-              ],
-              staticClass: "shadow-sm "
-            },
-            [_vm._v("Create Group")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
         "b-card",
         { staticClass: "group-chat", attrs: { "no-body": "" } },
-        [
-          _c(
-            "b-tabs",
-            { attrs: { pills: "", card: "", vertical: "", end: "" } },
-            _vm._l(_vm.groups, function(item, idx) {
-              return _c(
-                "b-tab",
-                {
-                  key: idx,
-                  attrs: { title: item.name + "(" + item.class_name + ")" }
-                },
-                [
-                  _c(
-                    "b-card-text",
-                    [_c("Chat", { attrs: { id: item.id, tutor: _vm.tutor } })],
-                    1
-                  )
-                ],
-                1
-              )
-            }),
-            1
-          )
-        ],
+        [_c("Chat", { attrs: { id: _vm.item.id, tutor: _vm.tutor } })],
         1
       ),
       _vm._v(" "),

@@ -146,6 +146,7 @@ export default {
         });
     },
     joinGroup(name, id,tutor) {
+       this.group_id = id
       axios
         .get(`/api/student-group/${id}`, {
           headers: {
@@ -166,10 +167,12 @@ export default {
               .listen("GroupMessageSent", (e) => {
                
                 this.messages.push({
+               
                   message: e.message.message,
                   user: e.user,
                   tutor: e.tutor,
                 });
+               
               })
               .leaving((user) => {
                 this.users = this.users.filter((u) => u.id != user.id);

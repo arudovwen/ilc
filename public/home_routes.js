@@ -8430,6 +8430,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -8507,7 +8509,7 @@ __webpack_require__.r(__webpack_exports__);
           setTimeout(function () {}, 1000);
           var response = JSON.parse(xhr.response);
 
-          _this2.$emit('attach', response.secure_url); // https address of uploaded file
+          _this2.$emit("attach", response.secure_url); // https address of uploaded file
 
 
           _this2.start = false;
@@ -12425,6 +12427,7 @@ __webpack_require__.r(__webpack_exports__);
     joinGroup: function joinGroup(name, id, tutor) {
       var _this4 = this;
 
+      this.group_id = id;
       axios.get("/api/student-group/".concat(id), {
         headers: {
           Authorization: "Bearer ".concat(this.$props.student.access_token)
@@ -18048,46 +18051,8 @@ var Login = function Login() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var v_emoji_picker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! v-emoji-picker */ "./node_modules/v-emoji-picker/lib/v-emoji-picker.esm.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var _chatBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chatBar */ "./resources/js/components/chatBar.vue");
+/* harmony import */ var _chatMenu__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../chatMenu */ "./resources/js/components/chatMenu.vue");
 //
 //
 //
@@ -18184,149 +18149,68 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["tutor", "id"],
+  props: ["tutor"],
   data: function data() {
     return {
+      group_id: null,
+      groups: [],
       messages: [],
       message: "",
+      attachment: "",
       users: [],
-      myText: "",
-      showEmoji: false,
-      filesSelectedLength: 0,
-      file: [],
-      filetype: "",
-      uploadedFile: this.oldimage,
-      uploadedFileUrl: "",
-      cloudinary: {
-        uploadPreset: "wo4qwffs",
-        apiKey: "754134295584927",
-        cloudName: "imostate"
-      },
-      progress: 0,
-      start: false
+      myText: ""
     };
   },
   components: {
-    VEmojiPicker: v_emoji_picker__WEBPACK_IMPORTED_MODULE_0__["default"]
+    ChatBar: _chatBar__WEBPACK_IMPORTED_MODULE_0__["default"],
+    ChatMenu: _chatMenu__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   created: function created() {
-    var _this = this;
-
-    this.getMessages();
-    axios.get("/api/group/".concat(this.$props.id), {
-      headers: {
-        Authorization: "Bearer ".concat(this.$props.tutor.access_token)
-      }
-    }).then(function (res) {
-      if (res.status == 200) {
-        Echo.join(res.data.name + _this.$props.id + _this.$props.tutor.id).here(function (users) {
-          _this.users = users;
-        }).joining(function (user) {
-          if (!_this.users.includes(user)) {
-            _this.users.push(user);
-          }
-        }).listen("GroupMessageSent", function (e) {
-          _this.messages.push({
-            message: e.message.message,
-            user: e.user,
-            tutor: e.tutor
-          });
-        }).leaving(function (user) {
-          _this.users = _this.users.filter(function (u) {
-            return u.id != user.id;
-          });
-
-          _this.users.push(user);
-        }).listen("GroupMessageSent", function (e) {
-          _this.messages.push(e.message);
-        }).leaving(function (user) {
-          console.log(user.name);
-        });
-      }
-    });
+    this.getgroups();
   },
+  mounted: function mounted() {},
   methods: {
-    handleFileChange: function handleFileChange(event) {
-      this.file = event.target.files[0];
-      this.filesSelectedLength = event.target.files.length;
-      this.loadFile();
+    online: function online() {
+      this.$bvModal.show("online");
     },
-    loadFile: function loadFile() {
+    attach: function attach(val) {
+      this.attachment = val;
+      this.submit(null);
+    },
+    getgroups: function getgroups() {
+      var _this = this;
+
+      axios.get("/api/group", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this.groups = res.data;
+
+          _this.getMessages(_this.groups[0].id);
+
+          _this.joinGroup(_this.groups[0].name, _this.groups[0].id, _this.groups[0].tutor_id);
+
+          _this.group_id = _this.groups[0].id;
+        }
+      });
+    },
+    submit: function submit(message) {
       var _this2 = this;
-
-      var reader = new FileReader();
-
-      reader.onload = function (event) {
-        _this2.uploadedFile = event.target.result;
-      };
-
-      reader.readAsDataURL(this.file);
-      this.processUpload();
-    },
-    processUpload: function processUpload() {
-      var _this3 = this;
-
-      var that = this;
-      this.start = true;
-      var formData = new FormData();
-      var xhr = new XMLHttpRequest();
-      var cloudName = this.cloudinary.cloudName;
-      var upload_preset = this.cloudinary.uploadPreset;
-      formData.append("file", this.file);
-      formData.append("resource_type", "auto");
-      formData.append("upload_preset", upload_preset); // REQUIRED
-
-      xhr.open("POST", "https://api.cloudinary.com/v1_1/" + cloudName + "/upload");
-
-      xhr.upload.onprogress = function (e) {
-        if (e.lengthComputable) {
-          that.progress = Math.round(e.loaded / e.total * 100) + "%";
-        }
-      };
-
-      xhr.upload.onloadstart = function (e) {
-        this.progress = "Starting...";
-      };
-
-      xhr.upload.onloadend = function (e) {
-        this.progress = "Completing..";
-      };
-
-      xhr.onload = function (progressEvent) {
-        if (xhr.status === 200) {
-          // Success! You probably want to save the URL somewhere
-          _this3.progress = "Completed";
-          setTimeout(function () {}, 1000);
-          var response = JSON.parse(xhr.response);
-          _this3.attachment = response.secure_url; // https address of uploaded file
-        } else {
-          _this3.start = false;
-          _this3.progress = 0;
-          alert("Upload failed. Please try again.");
-        }
-      };
-
-      xhr.send(formData);
-    },
-    openEmoji: function openEmoji() {
-      this.showEmoji = !this.showEmoji;
-    },
-    selectEmoji: function selectEmoji(emoji) {
-      this.message = this.message + emoji.data;
-      this.showEmoji = false;
-    },
-    submit: function submit() {
-      var _this4 = this;
 
       this.showEmoji = false;
       this.messages.push({
-        message: this.message,
-        tutor: this.$props.tutor
+        message: message,
+        tutor: this.$props.tutor,
+        attachment: this.attachment
       });
       var data = {
-        message: this.message,
-        group_id: this.$props.id
+        message: message,
+        group_id: this.group_id,
+        attachment: this.attachment
       };
       axios.post("/api/send-message", data, {
         headers: {
@@ -18334,21 +18218,50 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this4.message = "";
-          _this4.start = false;
+          _this2.message = "";
         }
       });
     },
-    getMessages: function getMessages() {
-      var _this5 = this;
+    getMessages: function getMessages(id) {
+      var _this3 = this;
 
-      axios.get("/api/get-messages/".concat(this.$props.id), {
+      axios.get("/api/get-messages/".concat(id), {
         headers: {
           Authorization: "Bearer ".concat(this.$props.tutor.access_token)
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this5.messages = res.data;
+          _this3.messages = res.data;
+        }
+      });
+    },
+    joinGroup: function joinGroup(name, id, tutor) {
+      var _this4 = this;
+
+      this.group_id = id;
+      axios.get("/api/student-group/".concat(id), {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          Echo.join(name + id + tutor).here(function (users) {
+            _this4.users = users;
+          }).joining(function (user) {
+            if (!_this4.users.includes(user)) {
+              _this4.users.push(user);
+            }
+          }).listen("GroupMessageSent", function (e) {
+            _this4.messages.push({
+              message: e.message.message,
+              user: e.user,
+              tutor: e.tutor
+            });
+          }).leaving(function (user) {
+            _this4.users = _this4.users.filter(function (u) {
+              return u.id != user.id;
+            });
+          });
         }
       });
     }
@@ -24221,7 +24134,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.view[data-v-54be64c0] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.online-presence[data-v-54be64c0] {\n  background: #f5f4f4;\n  height: 85vh;\n}\n.online-presence-top[data-v-54be64c0] {\n  display: flex;\n}\n.online-presence-top .fa[data-v-54be64c0] {\n  padding-left: 10px;\n  padding-top: 10px;\n}\n.inner-single[data-v-54be64c0] {\n  display: flex;\n}\n.message-info[data-v-54be64c0] {\n  display: flex;\n  padding-left: 20px;\n  align-items: center;\n}\n.message-info h6[data-v-54be64c0] {\n  margin-bottom: 0;\n  line-height: 0;\n}\n.file-attachement[data-v-54be64c0] {\n  display: flex;\n  width: 100%;\n  position: relative;\n}\n.file-attachement span[data-v-54be64c0] {\n  position: absolute;\n  right: 0;\n  transform: translate(-7px);\n  padding-top: 5px;\n}\n.progress[data-v-54be64c0] {\n    height: 10px;\n    position: absolute;\n    bottom: 60px;\n    right: 50px;\n    width: 100px;\n}\nlabel[data-v-54be64c0] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-54be64c0] {\n  font-size: 14px;\n  padding: 20px;\n}\n.chat-body[data-v-54be64c0] {\n  width: 80%;\n  height: 100%;\n  background: #f7f8fa;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-54be64c0] {\n  height: 100%;\n  width: 20%;\n}\n.chat-area[data-v-54be64c0] {\n  position: relative;\n}\n.send-tab[data-v-54be64c0] {\n  position: absolute;\n  bottom: 0;\n  background: #cec9c9;\n  display: flex;\n  width: 100%;\n  padding: 10px;\n}\n.emoji[data-v-54be64c0] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-54be64c0] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-54be64c0] {\n  position: relative;\n}\nul[data-v-54be64c0],\nol[data-v-54be64c0] {\n  list-style: none;\n}\n.chat-message[data-v-54be64c0] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
+exports.push([module.i, "\n.view[data-v-54be64c0] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.online-presence[data-v-54be64c0] {\n  background: #f5f4f4;\n  height: 85vh;\n}\n.online-presence-top[data-v-54be64c0] {\n  display: flex;\n}\n.online-presence-top .fa[data-v-54be64c0] {\n  padding-left: 10px;\n  padding-top: 10px;\n}\n.inner-single[data-v-54be64c0] {\n  display: flex;\n}\n.message-info[data-v-54be64c0] {\n  display: flex;\n  padding-left: 20px;\n  align-items: center;\n}\n.message-info h6[data-v-54be64c0] {\n  margin-bottom: 0;\n  line-height: 0;\n}\n.file-attachement[data-v-54be64c0] {\n  display: flex;\n  width: 100%;\n  position: relative;\n}\n.file-attachement span[data-v-54be64c0] {\n  position: absolute;\n  right: 0;\n  transform: translate(-7px);\n  padding-top: 5px;\n}\n.progress[data-v-54be64c0] {\n  height: 10px;\n  position: absolute;\n  bottom: 60px;\n  right: 50px;\n  width: 100px;\n}\nlabel[data-v-54be64c0] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-54be64c0] {\n  font-size: 14px;\n  padding: 20px;\n}\n.chat-body[data-v-54be64c0] {\n  width: 80%;\n  height: 100%;\n  background: #f7f8fa;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-54be64c0] {\n  height: 100%;\n  width: 20%;\n}\n.chat-area[data-v-54be64c0] {\n  position: relative;\n}\n.send-tab[data-v-54be64c0] {\n  position: absolute;\n  bottom: 0;\n  background: #cec9c9;\n  display: flex;\n  width: 100%;\n  padding: 10px;\n}\n.emoji[data-v-54be64c0] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-54be64c0] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-54be64c0] {\n  position: relative;\n}\nul[data-v-54be64c0],\nol[data-v-54be64c0] {\n  list-style: none;\n}\n.chat-message[data-v-54be64c0] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -24943,7 +24856,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.view[data-v-f752e2c8] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 75vh;\n}\n.tutor-chat[data-v-f752e2c8] {\n  height: 85vh;\n}\n.online-presence[data-v-f752e2c8] {\n  background: #f5f4f4;\n  height: 85vh;\n}\n.online-presence-top[data-v-f752e2c8] {\n  display: flex;\n}\n.online-presence-top .fa[data-v-f752e2c8] {\n  padding-left: 10px;\n  padding-top: 10px;\n}\n.inner-single[data-v-f752e2c8] {\n  display: flex;\n}\n.message-info[data-v-f752e2c8] {\n  display: flex;\n  padding-left: 20px;\n  align-items: center;\n}\n.message-info h6[data-v-f752e2c8] {\n  margin-bottom: 0;\n  line-height: 0;\n}\n.file-attachement[data-v-f752e2c8] {\n  display: flex;\n  width: 100%;\n  position: relative;\n}\n.file-attachement span[data-v-f752e2c8] {\n  position: absolute;\n  right: 0;\n  transform: translate(-7px);\n  padding-top: 5px;\n}\n.progress[data-v-f752e2c8] {\n  height: 15px;\n}\nlabel[data-v-f752e2c8] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-f752e2c8] {\n  font-size: 14px;\n  padding: 20px;\n}\n.chat-body[data-v-f752e2c8] {\n  width: 80%;\n  height: 100%;\n  background: #f7f8fa;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-f752e2c8] {\n  height: 100%;\n  width: 20%;\n}\n.chat-area[data-v-f752e2c8] {\n  position: relative;\n}\n.send-tab[data-v-f752e2c8] {\n  position: absolute;\n  bottom: 0;\n  background: #cec9c9;\n  display: flex;\n  width: 100%;\n  padding: 10px;\n}\n.emoji[data-v-f752e2c8] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-f752e2c8] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-f752e2c8] {\n  position: relative;\n}\nul[data-v-f752e2c8],\nol[data-v-f752e2c8] {\n  list-style: none;\n}\n.chat-message[data-v-f752e2c8] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
+exports.push([module.i, "\n.view[data-v-f752e2c8] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.online-presence[data-v-f752e2c8] {\n  background: #f5f4f4;\n  height: 85vh;\n}\n.online-presence-top[data-v-f752e2c8] {\n  display: flex;\n}\n.online-presence-top .fa[data-v-f752e2c8] {\n  padding-left: 10px;\n  padding-top: 10px;\n}\n.inner-single[data-v-f752e2c8] {\n  display: flex;\n}\n.message-info[data-v-f752e2c8] {\n  display: flex;\n  padding-left: 20px;\n  align-items: center;\n}\n.message-info h6[data-v-f752e2c8] {\n  margin-bottom: 0;\n  line-height: 0;\n}\n.file-attachement[data-v-f752e2c8] {\n  display: flex;\n  width: 100%;\n  position: relative;\n}\n.file-attachement span[data-v-f752e2c8] {\n  position: absolute;\n  right: 0;\n  transform: translate(-7px);\n  padding-top: 5px;\n}\n.progress[data-v-f752e2c8] {\n  height: 15px;\n}\n.attach[data-v-f752e2c8] {\n  border-radius: 6px;\n  padding: 10px;\n}\nlabel[data-v-f752e2c8] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-f752e2c8] {\n  font-size: 14px;\n  padding: 0 20px;\n}\n.chat-body[data-v-f752e2c8] {\n  width: 100%;\n  height: 85vh;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-f752e2c8] {\n  height: 100%;\n  width: 20%;\n}\n.chat-area[data-v-f752e2c8] {\n  position: relative;\n}\n.send-tab[data-v-f752e2c8] {\n  position: absolute;\n  bottom: 0;\n  background: #cec9c9;\n  display: flex;\n  width: 100%;\n  padding: 10px;\n}\n.emoji[data-v-f752e2c8] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-f752e2c8] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-f752e2c8] {\n  position: relative;\n}\nul[data-v-f752e2c8],\nol[data-v-f752e2c8] {\n  list-style: none;\n}\n.chat-message[data-v-f752e2c8] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -42234,7 +42147,7 @@ var render = function() {
     _vm.start
       ? _c(
           "div",
-          { staticClass: "progress mt-2  ml-auto text-right" },
+          { staticClass: "progress mt-2 ml-auto text-right" },
           [
             _c(
               "div",
@@ -58249,143 +58162,162 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "chat" }, [
-    _c(
-      "div",
-      { staticClass: "card tutor-chat" },
-      [
-        _c(
-          "b-row",
-          [
-            _c("b-col", { staticClass: "chat-area", attrs: { md: "8" } }, [
+  return _c(
+    "div",
+    { staticClass: "chat" },
+    [
+      _c(
+        "div",
+        { staticClass: "card tutor-chat" },
+        [
+          _c(
+            "b-row",
+            [
               _c(
-                "div",
-                {
-                  staticClass: "send-tab",
-                  on: {
-                    submit: function($event) {
-                      $event.preventDefault()
-                      return _vm.submit($event)
-                    }
-                  }
-                },
+                "b-col",
+                { staticClass: "chat-area", attrs: { md: "8" } },
                 [
                   _c(
                     "div",
                     {
-                      staticClass: "btn btn-emoji",
-                      on: { click: _vm.openEmoji }
+                      directives: [
+                        { name: "chat-scroll", rawName: "v-chat-scroll" }
+                      ],
+                      staticClass: "chat-body"
                     },
                     [
-                      _c("i", {
-                        staticClass: "fa fa-smile-o",
-                        attrs: { "aria-hidden": "true" }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm.showEmoji
-                    ? _c("VEmojiPicker", {
-                        staticClass: "emoji",
-                        on: { select: _vm.selectEmoji }
-                      })
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "file-attachement" },
-                    [
-                      _c("b-input", {
-                        attrs: { placeholder: "Write message......." }
-                      }),
-                      _vm._v(" "),
-                      _c("span", [
-                        _c("i", {
-                          staticClass: "fa fa-paperclip",
-                          attrs: { "aria-hidden": "true" }
-                        })
+                      _c("div", { staticClass: "message-body" }, [
+                        _c(
+                          "ul",
+                          _vm._l(_vm.messages, function(message, idx) {
+                            return _c(
+                              "li",
+                              {
+                                key: idx,
+                                staticClass: "message mb-4",
+                                class: {
+                                  "text-right": message.user_id == _vm.tutor.id
+                                }
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "shadow rounded-pill chat-message",
+                                    class: { "ml-auto": message.tutor }
+                                  },
+                                  [
+                                    message.tutor
+                                      ? _c(
+                                          "strong",
+                                          { staticClass: "text-muted" },
+                                          [_vm._v(_vm._s(message.tutor.name))]
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    message.user
+                                      ? _c(
+                                          "strong",
+                                          { staticClass: "text-muted" },
+                                          [_vm._v(_vm._s(message.user.name))]
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _c("br"),
+                                    _vm._v(" "),
+                                    message.message
+                                      ? _c("span", { staticClass: "mr-3" }, [
+                                          _vm._v(_vm._s(message.message))
+                                        ])
+                                      : _c(
+                                          "a",
+                                          {
+                                            staticClass: "mr-3",
+                                            attrs: {
+                                              href: message.attachment,
+                                              download: ""
+                                            }
+                                          },
+                                          [
+                                            _c("b-img", {
+                                              attrs: {
+                                                src: message.attachment,
+                                                fluid: "",
+                                                width: "60"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        ),
+                                    _vm._v(" "),
+                                    _c("small", { staticClass: "text-muted" }, [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("moment")(
+                                            message.created_at,
+                                            "h:mm a"
+                                          )
+                                        )
+                                      )
+                                    ])
+                                  ]
+                                )
+                              ]
+                            )
+                          }),
+                          0
+                        )
                       ])
-                    ],
-                    1
+                    ]
                   ),
                   _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "send-btn btn", attrs: { type: "submit" } },
-                    [
-                      _c("i", {
-                        staticClass: "fa fa-paper-plane",
-                        attrs: { "aria-hidden": "true" }
-                      })
-                    ]
-                  )
+                  _c("ChatBar", {
+                    on: { submit: _vm.submit, attach: _vm.attach }
+                  })
                 ],
                 1
+              ),
+              _vm._v(" "),
+              _c("ChatMenu", {
+                attrs: { groups: _vm.groups },
+                on: { joinGroup: _vm.joinGroup, online: _vm.online }
+              })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        { attrs: { id: "online", title: "Online Users", "hide-footer": "" } },
+        [
+          _c(
+            "div",
+            { staticClass: "text-center" },
+            [
+              _c(
+                "b-list-group",
+                { staticClass: "text-center" },
+                _vm._l(_vm.users, function(user, id) {
+                  return _c(
+                    "b-list-group-item",
+                    { key: id, staticClass: "toCaps" },
+                    [_vm._v(_vm._s(user.name))]
+                  )
+                }),
+                1
               )
-            ]),
-            _vm._v(" "),
-            _c(
-              "b-col",
-              { attrs: { md: "4" } },
-              [
-                _c("b-card", { staticClass: "online-presence" }, [
-                  _c(
-                    "div",
-                    { staticClass: "online-presence-top" },
-                    [
-                      _c("b-form-input", {
-                        attrs: { placeholder: "Search to start chat" }
-                      }),
-                      _vm._v(" "),
-                      _c("i", {
-                        staticClass: "fa fa-ellipsis-v",
-                        attrs: { "aria-hidden": "true" }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "online-tag" }, [
-                    _c("div", { staticClass: "single-online-tag" }, [
-                      _c("div", { staticClass: "inner-single" }, [
-                        _c(
-                          "div",
-                          { staticClass: "avatar" },
-                          [_c("b-avatar")],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "message-info" }, [
-                          _c("h6", [_vm._v("Group name")]),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            [
-                              _c("b-badge", { attrs: { variant: "success" } }, [
-                                _vm._v("3")
-                              ])
-                            ],
-                            1
-                          )
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("hr")
-                  ])
-                ])
-              ],
-              1
-            )
-          ],
-          1
-        )
-      ],
-      1
-    )
-  ])
+            ],
+            1
+          )
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

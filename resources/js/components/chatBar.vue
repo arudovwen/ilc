@@ -1,42 +1,44 @@
 <template>
-<div>
- <div class="progress mt-2  ml-auto text-right" v-if="start">
-                  <div
-                    class="progress-bar progress-bar-striped"
-                    :class="{active: progress !='Completed'}"
-                    role="progressbar"
-                    aria-valuenow="0"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    v-bind:style="{width:progress}"
-                  >{{progress}}</div>
-                  <b-img :src="file" width="20"></b-img>
-                </div>
-  <div class="send-tab">
-    <div class="btn btn-emoji" @click="openEmoji">
-      <i class="fa fa-smile-o" aria-hidden="true"></i>
+  <div>
+    <div class="progress mt-2 ml-auto text-right" v-if="start">
+      <div
+        class="progress-bar progress-bar-striped"
+        :class="{active: progress !='Completed'}"
+        role="progressbar"
+        aria-valuenow="0"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        v-bind:style="{width:progress}"
+      >{{progress}}</div>
+      <b-img :src="file" width="20"></b-img>
     </div>
-    <VEmojiPicker @select="selectEmoji" v-if="showEmoji" class="emoji" />
-    <div class="file-attachement">
-      <b-input placeholder="Write message......." v-model="newMessage"></b-input>
-      <span>
-      <label for="attachment">  <i class="fa fa-paperclip" aria-hidden="true"></i></label>
-         <input
-          type="file"
-          hidden
-          class="form-control-file"
-          @change="handleFileChange($event)"
-          name="attachment"
-          id="attachment"
-          aria-describedby="fileHelpId"
-        />
-      </span>
-    </div>
-    <div class="send-btn btn" type="button" @click="submit">
-      <i class="fa fa-paper-plane" aria-hidden="true"></i>
+    <div class="send-tab">
+      <div class="btn btn-emoji" @click="openEmoji">
+        <i class="fa fa-smile-o" aria-hidden="true"></i>
+      </div>
+      <VEmojiPicker @select="selectEmoji" v-if="showEmoji" class="emoji" />
+      <div class="file-attachement">
+        <b-input placeholder="Write message......." v-model="newMessage"></b-input>
+        <span>
+          <label for="attachment">
+            <i class="fa fa-paperclip" aria-hidden="true"></i>
+          </label>
+          <input
+            type="file"
+            hidden
+            class="form-control-file"
+            @change="handleFileChange($event)"
+            name="attachment"
+            id="attachment"
+            aria-describedby="fileHelpId"
+          />
+        </span>
+      </div>
+      <div class="send-btn btn" type="button" @click="submit">
+        <i class="fa fa-paper-plane" aria-hidden="true"></i>
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -46,7 +48,7 @@ export default {
     return {
       showEmoji: false,
       newMessage: "",
-        filesSelectedLength: 0,
+      filesSelectedLength: 0,
       file: [],
       filetype: "",
       uploadedFile: this.oldimage,
@@ -64,7 +66,7 @@ export default {
     VEmojiPicker,
   },
   methods: {
-        handleFileChange(event) {
+    handleFileChange(event) {
       this.file = event.target.files[0];
 
       this.filesSelectedLength = event.target.files.length;
@@ -110,8 +112,8 @@ export default {
           this.progress = "Completed";
           setTimeout(() => {}, 1000);
           var response = JSON.parse(xhr.response);
-          this.$emit('attach',response.secure_url); // https address of uploaded file
-          this.start = false
+          this.$emit("attach", response.secure_url); // https address of uploaded file
+          this.start = false;
         } else {
           this.start = false;
           this.progress = 0;
@@ -181,11 +183,11 @@ export default {
   padding-top: 5px;
 }
 .progress {
-    height: 10px;
-    position: absolute;
-    bottom: 60px;
-    right: 50px;
-    width: 100px;
+  height: 10px;
+  position: absolute;
+  bottom: 60px;
+  right: 50px;
+  width: 100px;
 }
 label {
   margin: 0 !important;

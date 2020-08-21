@@ -7,6 +7,7 @@ use App\Tutor;
 use App\Message;
 use Illuminate\Http\Request;
 use App\Events\GroupMessageSent;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class MessagesController extends Controller
@@ -64,6 +65,7 @@ class MessagesController extends Controller
 
     public function sendGroupMessage(Request $request)
     {
+     $mess =  DB::transaction(function ()use($request) {
         $user =  auth('tutor')->user();
         $tutor = Tutor::find($user->id);
         $group =  Group::where('id', $request->input('group_id'))->first();
@@ -79,9 +81,12 @@ class MessagesController extends Controller
          broadcast(new GroupMessageSent($tutor, $message, $group))->toOthers();
 
         return ['status' => 'Message Sent!'];
+       });
+       return $mess;
     }
     public function sendStudentGroupMessage(Request $request)
     {
+     $mess=  DB::transaction(function () use($request) {
         $user =  auth('api')->user();
         $group =  Group::where('id', $request->input('group_id'))->first();
         $tutor = Tutor::where('id', $group->tutor_id)->first();
@@ -100,6 +105,8 @@ class MessagesController extends Controller
          broadcast(new GroupMessageSent( $user , $message, $group))->toOthers();
 
         return ['status' => 'Message Sent!'];
+       });
+       return $mess;
     }
    
     public function show(Message $message)

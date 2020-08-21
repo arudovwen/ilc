@@ -4,21 +4,7 @@
     <div class="p-3">
     
       <b-card no-body class="group-chat">
-     
-        <!-- <b-tabs pills card vertical end>
-          <b-tab title-item-class="group" :title="item.name" active v-for="(item,idx) in groups" :key="idx">
-            <b-card-text>
-             
-            </b-card-text>
-          </b-tab>
-           <b-tab title-item-class="group" title="Chat" >
-            <b-card-text>
-             <PrivateChat :student="student"/>
-            </b-card-text>
-          </b-tab>
-        </b-tabs>
-        </b-tabs> -->
-         <Chat :student="student" :id="item.id" />
+         <Chat :student="student" />
       </b-card>
     </div>
   </div>
@@ -48,9 +34,9 @@ export default {
   watch: {
     item: "selectAll",
   },
-  mounted() {
-    this.getgroups();
-  },
+  // created() {
+  //   this.getgroups();
+  // },
   methods: {
     cancel() {
       this.update = false;

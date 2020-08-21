@@ -1,287 +1,122 @@
 <template>
- 
-  <!-- <div class="view">
-    <div class="chat-body"  v-chat-scroll>
-      <div class="message-body" >
-        <ul>
-          <li
-            class="message mb-4"
-            v-for="(message,idx) in messages"
-            :key="idx"
-           
-          >
-            <div
-              class="shadow rounded-pill chat-message"
-              v-if=" message.user"
-              :class="{'ml-auto':message.user.id == student.id }"
-            >
-              <strong class="text-muted">{{message.user.name}}</strong>
 
-              <br />
-              <span v-if="message.message" class="mr-3">{{message.message}}</span>
-              <a v-else :href="message.attachment" download class="mr-3">
-                <b-img :src="message.attachment" fluid width="60"></b-img>
-              </a>
-              <small class="text-muted">{{message.created_at | moment('h:mm a')}}</small>
-            </div>
-            <div
-              class="shadow rounded-pill chat-message"
-              v-if="message.tutor"
-              
-            >
-              <strong class="text-muted">{{message.tutor.name}}</strong>
-              <br />
-              <span v-if="message.message" class="mr-3">{{message.message}}</span>
-              <a v-else :href="message.attachment" download class="mr-3">
-                <b-img :src="message.attachment" fluid width="60"></b-img>
-              </a>
-              <small class="text-muted">{{message.created_at | moment('h:mm a')}}</small>
-            </div>
-          </li>
-          <div class="progress mt-2 w-25 ml-auto text-right" v-if="start">
-            <div
-              class="progress-bar progress-bar-striped"
-              :class="{active: progress !='Completed'}"
-              role="progressbar"
-              aria-valuenow="0"
-              aria-valuemin="0"
-              aria-valuemax="100"
-              v-bind:style="{width:progress}"
-            >{{progress}}</div>
-            <b-img :src="file" width="20"></b-img>
-          </div>
-        </ul>
-      </div>
-    </div>
-    <b-form @submit.prevent="submit" class="send-tab">
-      <b-input-group>
-        <b-input-group-prepend>
-          <b-button class="button px-2" @click="openEmoji">
-            <i class="fa fa-smile-o" aria-hidden="true"></i>
-          </b-button>
-          <VEmojiPicker @select="selectEmoji" v-if="showEmoji" class="emoji" />
-        </b-input-group-prepend>
-
-        <div class="form-group w-75 m-0">
-          <input
-            type="text"
-            class="form-control"
-            v-model="message"
-            aria-describedby="helpId"
-            placeholder
-            required
-          />
-          <label for="attachment">
-            <i class="fa fa-paperclip" aria-hidden="true"></i>
-          </label>
-        </div>
-
-        <input
-          type="file"
-          hidden
-          class="form-control-file"
-          @change="handleFileChange($event)"
-          name="attachment"
-          id="attachment"
-          aria-describedby="fileHelpId"
-        />
-
-        <b-input-group-append>
-          <b-button variant="secondary" type="submit">Send</b-button>
-        </b-input-group-append>
-      </b-input-group>
-    </b-form>
-    <div class="online">
-      <div class="form-control thead-dark">Online</div>
-      <ul>
-        <li v-for="(user,idx) in users" :key="idx">
-          <b-avatar size="sm" :src="user.profile"></b-avatar>
-          {{user.name}}
-        </li>
-      </ul>
-    </div>
-  </div> -->
-   <div class="chat">
+  <div class="chat">
     <div class="card tutor-chat">
       <b-row>
-        <b-col md="8" class="chat-area ">
-          <div @submit.prevent="submit" class="send-tab" >
-           <div class="btn btn-emoji"  @click="openEmoji"><i class="fa fa-smile-o" aria-hidden="true"></i></div>
-          <VEmojiPicker @select="selectEmoji" v-if="showEmoji" class="emoji" />
-             <div class="file-attachement">
-                <b-input placeholder="Write message......."></b-input><span><i class="fa fa-paperclip" aria-hidden="true"></i></span>
-              
-             </div>
-          <div class="send-btn btn" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></div>
+        <b-col md="8" class="chat-area">
+          <div class="chat-body" v-chat-scroll>
+            <div class="message-body">
+              <ul>
+                <li class="message mb-4" v-for="(message,idx) in messages" :key="idx">
+                  <div
+                    class="shadow-sm rounded-pill chat-message"
+                    v-if=" message.user"
+                    :class="{'ml-auto':message.user.id == student.id }"
+                  >
+                    <strong class="text-muted">{{message.user.name}}</strong>
+
+                    <br />
+                    <span v-if="message.message" class="mr-3">{{message.message}}</span>
+                    <a v-else :href="message.attachment" download class="mr-3">
+                      <b-img :src="message.attachment" class="attach" fluid width="120"></b-img>
+                    </a>
+                    <small class="text-muted">{{message.created_at | moment('h:mm a')}}</small>
+                  </div>
+                  <div class="shadow-sm rounded-pill chat-message" v-if="message.tutor">
+                    <strong class="text-muted">{{message.tutor.name}}</strong>
+                    <br />
+                    <span v-if="message.message" class="mr-3">{{message.message}}</span>
+                    <a v-else :href="message.attachment" download class="mr-3">
+                      <b-img :src="message.attachment" fluid width="60"></b-img>
+                    </a>
+                    <small class="text-muted">{{message.created_at | moment('h:mm a')}}</small>
+                  </div>
+                </li>
+               
+              </ul>
+            </div>
           </div>
+          <ChatBar @submit="submit" @attach="attach"/>
         </b-col>
-        <b-col md="4">
-          <b-card class="online-presence">
-            <div class="online-presence-top">
-              <b-form-input placeholder="Search to start chat"></b-form-input>
-              
-            </div>
-            <hr />
-            <div class="online-tag">
-              <div class="single-online-tag">
-                <div class="inner-single">
-                  <div class="avatar">
-                    <b-avatar></b-avatar>
-                  </div>
-                  <div class="message-info">
-                    <h6>Group name</h6>
-                    <div>
-                      <b-badge variant="success">3</b-badge>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <hr />
-            </div>
-          </b-card>
-        </b-col>
+        <ChatMenu :groups="groups"  @joinGroup="joinGroup" @online="online"/>
       </b-row>
     </div>
+   
+
+  <b-modal id="online" title="Online Users" hide-footer>
+
+      <div class="text-center">
+        <b-list-group class="text-center">
+  <b-list-group-item v-for="(user,id) in users" :key="id" class="toCaps">{{user.name}}</b-list-group-item>
+
+</b-list-group>
+      </div>
+  </b-modal>
   </div>
 </template>
 
 <script>
-import VEmojiPicker from "v-emoji-picker";
+import ChatBar from "../chatBar";
+import ChatMenu from "../chatMenu";
 export default {
-  props: ["student", "id"],
+  props: ["student"],
   data() {
     return {
+      group_id:null,
+      groups: [],
       messages: [],
       message: "",
       attachment: "",
       users: [],
       myText: "",
-      showEmoji: false,
-      filesSelectedLength: 0,
-      file: [],
-      filetype: "",
-      uploadedFile: this.oldimage,
-      uploadedFileUrl: "",
-      cloudinary: {
-        uploadPreset: "wo4qwffs",
-        apiKey: "754134295584927",
-        cloudName: "imostate",
-      },
-      progress: 0,
-      start: false,
+
+    
     };
   },
   components: {
-    VEmojiPicker,
+    ChatBar,
+    ChatMenu,
   },
   created() {
-    this.getMessages();
-    axios
-      .get(`/api/student-group/${this.$props.id}`, {
-        headers: {
-          Authorization: `Bearer ${this.$props.student.access_token}`,
-        },
-      })
-      .then((res) => {
-        if (res.status == 200) {
-          Echo.join(
-            res.data.name.replace(" ", "") + this.$props.id + res.data.tutor_id
-          )
-            .here((users) => {
-              this.users = users;
-            })
-            .joining((user) => {
-              if (!this.users.includes(user)) {
-                this.users.push(user);
-              }
-            })
-            .listen("GroupMessageSent", (e) => {
-              console.log("e", e);
-              this.messages.push({
-                message: e.message.message,
-                user: e.user,
-                tutor: e.tutor,
-              });
-            })
-            .leaving((user) => {
-               this.users =  this.users.filter(u=>u.id != user.id)
-            });
-        }
-      });
+    this.getgroups();
   },
+  mounted() {},
   methods: {
-    handleFileChange(event) {
-      this.file = event.target.files[0];
-
-      this.filesSelectedLength = event.target.files.length;
-
-      this.loadFile();
+    online(){
+      this.$bvModal.show('online')
     },
-    loadFile() {
-      let reader = new FileReader();
-      reader.onload = (event) => {
-        this.uploadedFile = event.target.result;
-      };
-      reader.readAsDataURL(this.file);
-      this.processUpload();
+    attach(val){
+        this.attachment= val
+        this.submit(null)
     },
-    processUpload() {
-      let that = this;
-      this.start = true;
-      var formData = new FormData();
-      var xhr = new XMLHttpRequest();
-      var cloudName = this.cloudinary.cloudName;
-      var upload_preset = this.cloudinary.uploadPreset;
-      formData.append("file", this.file);
-      formData.append("resource_type", "auto");
-      formData.append("upload_preset", upload_preset); // REQUIRED
-      xhr.open(
-        "POST",
-        "https://api.cloudinary.com/v1_1/" + cloudName + "/upload"
-      );
-      xhr.upload.onprogress = function (e) {
-        if (e.lengthComputable) {
-          that.progress = Math.round((e.loaded / e.total) * 100) + "%";
-        }
-      };
-      xhr.upload.onloadstart = function (e) {
-        this.progress = "Starting...";
-      };
-      xhr.upload.onloadend = function (e) {
-        this.progress = "Completing..";
-      };
-      xhr.onload = (progressEvent) => {
-        if (xhr.status === 200) {
-          // Success! You probably want to save the URL somewhere
-          this.progress = "Completed";
-          setTimeout(() => {}, 1000);
-          var response = JSON.parse(xhr.response);
-          this.attachment = response.secure_url; // https address of uploaded file
-        } else {
-          this.start = false;
-          this.progress = 0;
-          alert("Upload failed. Please try again.");
-        }
-      };
-      xhr.send(formData);
+    getgroups() {
+      axios
+        .get("/api/student-group", {
+          headers: {
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.groups = res.data;
+            this.getMessages(this.groups[0].id);
+            this.joinGroup(this.groups[0].name, this.groups[0].id, this.groups[0].tutor_id);
+            this.group_id = this.groups[0].id
+          }
+        });
     },
-    openEmoji() {
-      this.showEmoji = !this.showEmoji;
-    },
-    selectEmoji(emoji) {
-      this.message = this.message + emoji.data;
-      this.showEmoji = false;
-    },
-    submit() {
+  
+    submit(message) {
       this.showEmoji = false;
       this.messages.push({
-        message: this.message,
+        message: message,
         user: this.$props.student,
+        attachment: this.attachment,
       });
-      console.log("submit ->  this.messages", this.messages);
+     
       let data = {
-        message: this.message,
-        group_id: this.$props.id,
+        message: message,
+        group_id: this.group_id,
         attachment: this.attachment,
       };
       axios
@@ -297,9 +132,9 @@ export default {
           }
         });
     },
-    getMessages() {
+    getMessages(id) {
       axios
-        .get(`/api/get-student-messages/${this.$props.id}`, {
+        .get(`/api/get-student-messages/${id}`, {
           headers: {
             Authorization: `Bearer ${this.$props.student.access_token}`,
           },
@@ -307,6 +142,38 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             this.messages = res.data;
+          }
+        });
+    },
+    joinGroup(name, id,tutor) {
+      axios
+        .get(`/api/student-group/${id}`, {
+          headers: {
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            Echo.join(name + id + tutor)
+              .here((users) => {
+                this.users = users;
+              })
+              .joining((user) => {
+                if (!this.users.includes(user)) {
+                  this.users.push(user);
+                }
+              })
+              .listen("GroupMessageSent", (e) => {
+               
+                this.messages.push({
+                  message: e.message.message,
+                  user: e.user,
+                  tutor: e.tutor,
+                });
+              })
+              .leaving((user) => {
+                this.users = this.users.filter((u) => u.id != user.id);
+              });
           }
         });
     },
@@ -343,19 +210,23 @@ export default {
   margin-bottom: 0;
   line-height: 0;
 }
-.file-attachement{
+.file-attachement {
   display: flex;
   width: 100%;
   position: relative;
 }
-.file-attachement span{
-      position: absolute;
-    right: 0;
-    transform: translate(-7px);
-    padding-top: 5px;
+.file-attachement span {
+  position: absolute;
+  right: 0;
+  transform: translate(-7px);
+  padding-top: 5px;
 }
 .progress {
   height: 15px;
+}
+.attach{
+  border-radius: 6px;
+  padding: 10px;;
 }
 label {
   margin: 0 !important;
@@ -363,12 +234,11 @@ label {
 }
 .message {
   font-size: 14px;
-  padding: 20px;
+  padding:0 20px;
 }
 .chat-body {
-  width: 80%;
-  height: 100%;
-  background: #f7f8fa;
+  width: 100%;
+  height: 85vh;
   padding: 20px 0 60px;
   position: relative;
   overflow: auto;
@@ -377,16 +247,16 @@ label {
   height: 100%;
   width: 20%;
 }
-.chat-area{
+.chat-area {
   position: relative;
 }
 .send-tab {
   position: absolute;
   bottom: 0;
   background: #cec9c9;
- display: flex;
-    width: 100%;
-    padding: 10px;
+  display: flex;
+  width: 100%;
+  padding: 10px;
 }
 
 .emoji {

@@ -3,7 +3,7 @@
 namespace App\Events;
 
 use App\Group;
-use App\Tutor;
+// use App\Tutor;
 use App\Message;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
@@ -22,12 +22,12 @@ class GroupMessageSent implements ShouldBroadcast
      *
      * @return void
      */
-    public $tutor;
+    public $user;
     public $message;
     public $group;
-    public function __construct(Tutor $tutor, Message $message, Group $group)
+    public function __construct( $user, Message $message, Group $group)
     {
-        $this->tutor = $tutor;
+        $this->user = $user;
         $this->group = $group;
         $this->message = $message;
     }
@@ -39,6 +39,6 @@ class GroupMessageSent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PresenceChannel($this->group->name.$this->group->id.$this->tutor->id);
+        return new PresenceChannel($this->group->name.$this->group->id.$this->group->tutor_id);
     }
 }

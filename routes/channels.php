@@ -1,6 +1,7 @@
 <?php
 
 use App\Tutor;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -32,4 +33,8 @@ Broadcast::channel('{groupName}{groupId}{tutorId}', function ($user, $tutorId) {
   });
   Broadcast::channel('deleted-group{id}', function ($user) {
     return (int) $user->id === (int) $id;
+});
+
+Broadcast::channel('chat', function ($user) {
+  return Auth::check();
 });

@@ -1,21 +1,41 @@
 <template>
   <div class="view">
-    <div class="chat-body"  v-chat-scroll>
-      <div class="message-body" >
+    <div class="chat-body" v-chat-scroll>
+      <div class="message-body">
         <ul>
           <li
             class="message mb-4"
-            v-for="(item,idx) in messages"
+            v-for="(message,idx) in messages"
             :key="idx"
-            :class="{'text-right':item.sender_id == student.id}"
+           
           >
-            <span class="shadow rounded-pill chat-item">
-              <span v-if="item.message" class="mr-3">{{item.message}}</span>
-              <a v-else :href="item.attachment" download class="mr-3">
-                <b-img :src="item.attachment" fluid width="60"></b-img>
+            <div
+              class="shadow rounded-pill chat-message"
+              v-if=" message.user"
+              :class="{'ml-auto':message.user.id == student.id }"
+            >
+              <strong class="text-muted">{{message.user.name}}</strong>
+
+              <br />
+              <span v-if="message.message" class="mr-3">{{message.message}}</span>
+              <a v-else :href="message.attachment" download class="mr-3">
+                <b-img :src="message.attachment" fluid width="60"></b-img>
               </a>
-              <small class="text-muted">{{item.created_at | moment('h:m a')}}</small>
-            </span>
+              <small class="text-muted">{{message.created_at | moment('h:mm a')}}</small>
+            </div>
+            <div
+              class="shadow rounded-pill chat-message"
+              v-if="message.tutor"
+              
+            >
+              <strong class="text-muted">{{message.tutor.name}}</strong>
+              <br />
+              <span v-if="message.message" class="mr-3">{{message.message}}</span>
+              <a v-else :href="message.attachment" download class="mr-3">
+                <b-img :src="message.attachment" fluid width="60"></b-img>
+              </a>
+              <small class="text-muted">{{message.created_at | moment('h:mm a')}}</small>
+            </div>
           </li>
           <div class="progress mt-2 w-25 ml-auto text-right" v-if="start">
             <div
@@ -121,18 +141,27 @@ export default {
       })
       .then((res) => {
         if (res.status == 200) {
-          Echo.join(res.data.name + this.$props.id + res.data.tutor_id)
+          Echo.join(
+            res.data.name.replace(" ", "") + this.$props.id + res.data.tutor_id
+          )
             .here((users) => {
               this.users = users;
             })
             .joining((user) => {
-              this.users.push(user);
+              if (!this.users.includes(user)) {
+                this.users.push(user);
+              }
             })
             .listen("GroupMessageSent", (e) => {
-              this.messages.push(e.message);
+              console.log("e", e);
+              this.messages.push({
+                message: e.message.message,
+                user: e.user,
+                tutor: e.tutor,
+              });
             })
             .leaving((user) => {
-              console.log(user.name);
+               this.users =  this.users.filter(u=>u.id != user.id)
             });
         }
       });
@@ -202,6 +231,11 @@ export default {
     },
     submit() {
       this.showEmoji = false;
+      this.messages.push({
+        message: this.message,
+        user: this.$props.student,
+      });
+      console.log("submit ->  this.messages", this.messages);
       let data = {
         message: this.message,
         group_id: this.$props.id,
@@ -297,8 +331,13 @@ ul,
 ol {
   list-style: none;
 }
-.chat-item {
+.chat-message {
   background: white;
-  padding: 30px 50px;
+  padding: 15px 20px;
+  width: fit-content;
+  width: max-content;
+  max-width: 50%;
+
+  text-align: left;
 }
 </style>

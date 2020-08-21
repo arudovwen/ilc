@@ -44,6 +44,7 @@ class GroupsController extends Controller
     public $students;
     public function store(Request $request)
     {
+       
         $group = DB::transaction(function () use ($request) {
             $tutor = auth('tutor')->user();
             $student = [];
@@ -69,7 +70,8 @@ class GroupsController extends Controller
             'message'=> \strtolower($request->name).' group created',
             'status'=> false,
             'sender_id'=> $tutor->id ,
-            'role' => 'tutor'
+            'role' => 'tutor',
+            'type'=>'Group'
         ]);
 
             foreach ($student as $key) {
@@ -80,13 +82,13 @@ class GroupsController extends Controller
                 'message'=>'You have been subscribed to '.\strtolower($request->name).' group',
                 'status'=> false,
                 'sender_id'=>$maingroup->id,
-                'role' => 'student'
+                'role' => 'student',
+                'type'=>'Group'
             ]);
 
                 broadcast(new GroupSubscribed($maingroup, $subscribedMessage));
             }
             broadcast(new GroupCreated($maingroup, $createdMessage));
-
            
 
             return $maingroup;

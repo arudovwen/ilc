@@ -10,7 +10,7 @@
         <b-input-group>
           <b-form-input placeholder="Search quiz title"></b-form-input>
           <b-input-group-append>
-            <router-link to="/tutor/assessment/create/exam">
+            <router-link to="/tutor/assessment/create/quiz">
               <div class="create-btn">
                 <div class="btn btn-create">New Quiz</div>
               </div>
@@ -100,6 +100,7 @@
 export default {
   data() {
     return {
+      search:'',
       fields: [
         { key: "title", sortable: true },
         "session",

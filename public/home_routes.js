@@ -12144,6 +12144,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student", "id"],
@@ -12182,14 +12202,24 @@ __webpack_require__.r(__webpack_exports__);
       }
     }).then(function (res) {
       if (res.status == 200) {
-        Echo.join(res.data.name + _this.$props.id + res.data.tutor_id).here(function (users) {
+        Echo.join(res.data.name.replace(" ", "") + _this.$props.id + res.data.tutor_id).here(function (users) {
           _this.users = users;
         }).joining(function (user) {
-          _this.users.push(user);
+          if (!_this.users.includes(user)) {
+            _this.users.push(user);
+          }
         }).listen("GroupMessageSent", function (e) {
-          _this.messages.push(e.message);
+          console.log("e", e);
+
+          _this.messages.push({
+            message: e.message.message,
+            user: e.user,
+            tutor: e.tutor
+          });
         }).leaving(function (user) {
-          console.log(user.name);
+          _this.users = _this.users.filter(function (u) {
+            return u.id != user.id;
+          });
         });
       }
     });
@@ -12268,6 +12298,11 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       this.showEmoji = false;
+      this.messages.push({
+        message: this.message,
+        user: this.$props.student
+      });
+      console.log("submit ->  this.messages", this.messages);
       var data = {
         message: this.message,
         group_id: this.$props.id,
@@ -12535,6 +12570,12 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chat */ "./resources/js/components/student/chat.vue");
+/* harmony import */ var _privateChat__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./privateChat */ "./resources/js/components/student/privateChat.vue");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -12557,6 +12598,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -12570,7 +12612,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   components: {
-    Chat: _chat__WEBPACK_IMPORTED_MODULE_0__["default"]
+    Chat: _chat__WEBPACK_IMPORTED_MODULE_0__["default"],
+    PrivateChat: _privateChat__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   watch: {
     item: "selectAll"
@@ -13620,6 +13663,245 @@ __webpack_require__.r(__webpack_exports__);
           });
 
           _this3.count = count.length;
+        }
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/privateChat.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/student/privateChat.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var v_emoji_picker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! v-emoji-picker */ "./node_modules/v-emoji-picker/lib/v-emoji-picker.esm.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["student"],
+  data: function data() {
+    return {
+      messages: [],
+      message: "",
+      attachment: "",
+      users: [],
+      myText: "",
+      showEmoji: false,
+      filesSelectedLength: 0,
+      file: [],
+      filetype: "",
+      uploadedFile: this.oldimage,
+      uploadedFileUrl: "",
+      cloudinary: {
+        uploadPreset: "wo4qwffs",
+        apiKey: "754134295584927",
+        cloudName: "imostate"
+      },
+      progress: 0,
+      start: false
+    };
+  },
+  components: {
+    VEmojiPicker: v_emoji_picker__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  created: function created() {
+    var _this = this;
+
+    this.getMessages();
+    Echo["private"]("chat").listen("PrivateMessageSent", function (e) {
+      console.log("created -> e", e);
+
+      _this.messages.push({
+        message: e.message.message,
+        user: e.user
+      });
+    });
+  },
+  mounted: function mounted() {},
+  methods: {
+    handleFileChange: function handleFileChange(event) {
+      this.file = event.target.files[0];
+      this.filesSelectedLength = event.target.files.length;
+      this.loadFile();
+    },
+    loadFile: function loadFile() {
+      var _this2 = this;
+
+      var reader = new FileReader();
+
+      reader.onload = function (event) {
+        _this2.uploadedFile = event.target.result;
+      };
+
+      reader.readAsDataURL(this.file);
+      this.processUpload();
+    },
+    processUpload: function processUpload() {
+      var _this3 = this;
+
+      var that = this;
+      this.start = true;
+      var formData = new FormData();
+      var xhr = new XMLHttpRequest();
+      var cloudName = this.cloudinary.cloudName;
+      var upload_preset = this.cloudinary.uploadPreset;
+      formData.append("file", this.file);
+      formData.append("resource_type", "auto");
+      formData.append("upload_preset", upload_preset); // REQUIRED
+
+      xhr.open("POST", "https://api.cloudinary.com/v1_1/" + cloudName + "/upload");
+
+      xhr.upload.onprogress = function (e) {
+        if (e.lengthComputable) {
+          that.progress = Math.round(e.loaded / e.total * 100) + "%";
+        }
+      };
+
+      xhr.upload.onloadstart = function (e) {
+        this.progress = "Starting...";
+      };
+
+      xhr.upload.onloadend = function (e) {
+        this.progress = "Completing..";
+      };
+
+      xhr.onload = function (progressEvent) {
+        if (xhr.status === 200) {
+          // Success! You probably want to save the URL somewhere
+          _this3.progress = "Completed";
+          setTimeout(function () {}, 1000);
+          var response = JSON.parse(xhr.response);
+          _this3.attachment = response.secure_url; // https address of uploaded file
+        } else {
+          _this3.start = false;
+          _this3.progress = 0;
+          alert("Upload failed. Please try again.");
+        }
+      };
+
+      xhr.send(formData);
+    },
+    openEmoji: function openEmoji() {
+      this.showEmoji = !this.showEmoji;
+    },
+    selectEmoji: function selectEmoji(emoji) {
+      this.message = this.message + emoji.data;
+      this.showEmoji = false;
+    },
+    submit: function submit() {
+      var _this4 = this;
+
+      this.showEmoji = false;
+      this.messages.push({
+        message: this.message,
+        attachment: this.attachment,
+        user: this.$props.student
+      });
+      var data = {
+        message: this.message,
+        attachment: this.attachment
+      };
+      axios.post("/api/private-message", data, {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.student.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this4.message = "";
+          _this4.start = false;
+        }
+      });
+    },
+    getMessages: function getMessages() {
+      var _this5 = this;
+
+      axios.get("/api/private-message", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.student.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this5.messages = res.data;
         }
       });
     }
@@ -17185,6 +17467,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["form", "options"],
@@ -17326,6 +17626,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      search: '',
       fields: [{
         key: "title",
         sortable: true
@@ -17519,6 +17820,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      search: '',
       fields: [{
         key: "title",
         sortable: true
@@ -17715,9 +18017,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["tutor", 'id'],
+  props: ["tutor", "id"],
   data: function data() {
     return {
       messages: [],
@@ -17755,11 +18068,19 @@ __webpack_require__.r(__webpack_exports__);
         Echo.join(res.data.name + _this.$props.id + _this.$props.tutor.id).here(function (users) {
           _this.users = users;
         }).joining(function (user) {
-          _this.users.push(user);
+          if (!_this.users.includes(user)) {
+            _this.users.push(user);
+          }
         }).listen("GroupMessageSent", function (e) {
-          _this.messages.push(e.message);
+          _this.messages.push({
+            message: e.message.message,
+            user: e.user,
+            tutor: e.tutor
+          });
         }).leaving(function (user) {
-          console.log(user.name);
+          _this.users = _this.users.filter(function (u) {
+            return u.id != user.id;
+          });
         });
       }
     });
@@ -17838,6 +18159,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       this.showEmoji = false;
+      this.messages.push({
+        'message': this.message,
+        'tutor': this.$props.tutor
+      });
       var data = {
         message: this.message,
         group_id: this.$props.id
@@ -23941,7 +24266,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.view[data-v-51658877] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.progress[data-v-51658877] {\n  height: 15px;\n}\nlabel[data-v-51658877] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-51658877] {\n  font-size: 14px;\n  padding: 20px;\n}\n.chat-body[data-v-51658877] {\n  width: 80%;\n  height: 100%;\n  background: #f7f8fa;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-51658877] {\n  height: 100%;\n  width: 20%;\n}\n.send-tab[data-v-51658877] {\n  position: absolute;\n  bottom: 0;\n  width: 93%;\n  margin: 0 auto;\n  padding: 4px 0;\n  background: white;\n}\n.emoji[data-v-51658877] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-51658877] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-51658877] {\n  position: relative;\n}\n.fa-paperclip[data-v-51658877] {\n  position: absolute;\n  font-size: 17px;\n  right: 10px;\n  top: 50%;\n  margin-top: -8px;\n}\nul[data-v-51658877],\nol[data-v-51658877] {\n  list-style: none;\n}\n.chat-item[data-v-51658877] {\n  background: white;\n  padding: 30px 50px;\n}\n", ""]);
+exports.push([module.i, "\n.view[data-v-51658877] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.progress[data-v-51658877] {\n  height: 15px;\n}\nlabel[data-v-51658877] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-51658877] {\n  font-size: 14px;\n  padding: 20px;\n}\n.chat-body[data-v-51658877] {\n  width: 80%;\n  height: 100%;\n  background: #f7f8fa;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-51658877] {\n  height: 100%;\n  width: 20%;\n}\n.send-tab[data-v-51658877] {\n  position: absolute;\n  bottom: 0;\n  width: 93%;\n  margin: 0 auto;\n  padding: 4px 0;\n  background: white;\n}\n.emoji[data-v-51658877] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-51658877] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-51658877] {\n  position: relative;\n}\n.fa-paperclip[data-v-51658877] {\n  position: absolute;\n  font-size: 17px;\n  right: 10px;\n  top: 50%;\n  margin-top: -8px;\n}\nul[data-v-51658877],\nol[data-v-51658877] {\n  list-style: none;\n}\n.chat-message[data-v-51658877] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -24056,6 +24381,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 // module
 exports.push([module.i, "\n.nav[data-v-09903b50] {\n  background: #f7f8fa;\n  position:-webkit-sticky;\n  position:sticky;\n  top:0;\n  z-index: 9;\n}\n.nav-item i[data-v-09903b50] {\n  color: #808080;\n  font-size: 24px;\n}\n.anime-stop[data-v-09903b50] {\n  -webkit-animation: none;\n          animation: none;\n}\n.bell[data-v-09903b50] {\n  color: #13a699;\n}\n.bell[data-v-09903b50]:hover {\n  color: #008e3a;\n}\n#notification[data-v-09903b50] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-09903b50] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-09903b50] {\n  max-height: 300px;\n  overflow: scroll;\n}\nul[data-v-09903b50]{\n  margin: 0;\n}\n.icon[data-v-09903b50] {\n  position: relative;\n}\n.badge[data-v-09903b50] {\n  position: absolute;\n  top: -10%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 13px;\n}\n.list-group-item[data-v-09903b50] {\n  font-size: 12px;\n}\n/* .semi-white{\n\n  padding:50px 20px;\n\n}\nnav {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background:white;\n}\n\n.fa-bell {\n  font-size: 24px;\n  color:#ffd708;\n} */\n.search[data-v-09903b50] {\n  width: 250px;\n\n  border-color: #ccc;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/privateChat.vue?vue&type=style&index=0&id=25c727a8&scoped=true&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/student/privateChat.vue?vue&type=style&index=0&id=25c727a8&scoped=true&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.view[data-v-25c727a8] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.progress[data-v-25c727a8] {\n  height: 15px;\n}\nlabel[data-v-25c727a8] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-25c727a8] {\n  font-size: 14px;\n  padding: 20px;\n}\n.chat-body[data-v-25c727a8] {\n  width: 80%;\n  height: 100%;\n  background: #f7f8fa;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-25c727a8] {\n  height: 100%;\n  width: 20%;\n}\n.send-tab[data-v-25c727a8] {\n  position: absolute;\n  bottom: 0;\n  width: 93%;\n  margin: 0 auto;\n  padding: 4px 0;\n  background: white;\n}\n.emoji[data-v-25c727a8] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-25c727a8] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-25c727a8] {\n  position: relative;\n}\n.fa-paperclip[data-v-25c727a8] {\n  position: absolute;\n  font-size: 17px;\n  right: 10px;\n  top: 50%;\n  margin-top: -8px;\n}\nul[data-v-25c727a8],\nol[data-v-25c727a8] {\n  list-style: none;\n}\n.chat-message[data-v-25c727a8] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -24321,7 +24665,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.view[data-v-f752e2c8] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 75vh;\n}\n.progress[data-v-f752e2c8] {\n  height: 15px;\n}\nlabel[data-v-f752e2c8] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-f752e2c8] {\n  font-size: 14px;\n  padding: 20px;\n}\n.chat-body[data-v-f752e2c8] {\n  width: 80%;\n  height: 100%;\n  background: #f7f8fa;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-f752e2c8] {\n  height: 100%;\n  width: 20%;\n}\n.send-tab[data-v-f752e2c8] {\n  position: absolute;\n  bottom: 0;\n  width: 93%;\n  margin: 0 auto;\n  padding: 4px 0;\n  background: white;\n}\n.emoji[data-v-f752e2c8] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-f752e2c8] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-f752e2c8] {\n  position: relative;\n}\n.fa-paperclip[data-v-f752e2c8] {\n  position: absolute;\n  font-size: 17px;\n  right: 10px;\n  top: 50%;\n  margin-top: -8px;\n}\nul[data-v-f752e2c8],\nol[data-v-f752e2c8] {\n  list-style: none;\n}\n.chat-item[data-v-f752e2c8] {\n  background: white;\n  padding: 30px 50px;\n}\n", ""]);
+exports.push([module.i, "\n.view[data-v-f752e2c8] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 75vh;\n}\n.progress[data-v-f752e2c8] {\n  height: 15px;\n}\nlabel[data-v-f752e2c8] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-f752e2c8] {\n  font-size: 14px;\n  padding: 20px;\n}\n.chat-body[data-v-f752e2c8] {\n  width: 80%;\n  height: 100%;\n  background: #f7f8fa;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-f752e2c8] {\n  height: 100%;\n  width: 20%;\n}\n.send-tab[data-v-f752e2c8] {\n  position: absolute;\n  bottom: 0;\n  width: 93%;\n  margin: 0 auto;\n  padding: 4px 0;\n  background: white;\n}\n.emoji[data-v-f752e2c8] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-f752e2c8] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-f752e2c8] {\n  position: relative;\n}\n.fa-paperclip[data-v-f752e2c8] {\n  position: absolute;\n  font-size: 17px;\n  right: 10px;\n  top: 50%;\n  margin-top: -8px;\n}\nul[data-v-f752e2c8],\nol[data-v-f752e2c8] {\n  list-style: none;\n}\n.chat-message[data-v-f752e2c8] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n      max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -26528,6 +26872,36 @@ if(false) {}
 
 
 var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./main.vue?vue&type=style&index=0&id=09903b50&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/main.vue?vue&type=style&index=0&id=09903b50&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/privateChat.vue?vue&type=style&index=0&id=25c727a8&scoped=true&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/student/privateChat.vue?vue&type=style&index=0&id=25c727a8&scoped=true&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./privateChat.vue?vue&type=style&index=0&id=25c727a8&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/privateChat.vue?vue&type=style&index=0&id=25c727a8&scoped=true&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -47899,50 +48273,107 @@ var render = function() {
             _c(
               "ul",
               [
-                _vm._l(_vm.messages, function(item, idx) {
-                  return _c(
-                    "li",
-                    {
-                      key: idx,
-                      staticClass: "message mb-4",
-                      class: { "text-right": item.sender_id == _vm.student.id }
-                    },
-                    [
-                      _c(
-                        "span",
-                        { staticClass: "shadow rounded-pill chat-item" },
-                        [
-                          item.message
-                            ? _c("span", { staticClass: "mr-3" }, [
-                                _vm._v(_vm._s(item.message))
-                              ])
-                            : _c(
-                                "a",
-                                {
-                                  staticClass: "mr-3",
-                                  attrs: { href: item.attachment, download: "" }
-                                },
-                                [
-                                  _c("b-img", {
+                _vm._l(_vm.messages, function(message, idx) {
+                  return _c("li", { key: idx, staticClass: "message mb-4" }, [
+                    message.user
+                      ? _c(
+                          "div",
+                          {
+                            staticClass: "shadow rounded-pill chat-message",
+                            class: {
+                              "ml-auto": message.user.id == _vm.student.id
+                            }
+                          },
+                          [
+                            _c("strong", { staticClass: "text-muted" }, [
+                              _vm._v(_vm._s(message.user.name))
+                            ]),
+                            _vm._v(" "),
+                            _c("br"),
+                            _vm._v(" "),
+                            message.message
+                              ? _c("span", { staticClass: "mr-3" }, [
+                                  _vm._v(_vm._s(message.message))
+                                ])
+                              : _c(
+                                  "a",
+                                  {
+                                    staticClass: "mr-3",
                                     attrs: {
-                                      src: item.attachment,
-                                      fluid: "",
-                                      width: "60"
+                                      href: message.attachment,
+                                      download: ""
                                     }
-                                  })
-                                ],
-                                1
-                              ),
-                          _vm._v(" "),
-                          _c("small", { staticClass: "text-muted" }, [
-                            _vm._v(
-                              _vm._s(_vm._f("moment")(item.created_at, "h:m a"))
-                            )
-                          ])
-                        ]
-                      )
-                    ]
-                  )
+                                  },
+                                  [
+                                    _c("b-img", {
+                                      attrs: {
+                                        src: message.attachment,
+                                        fluid: "",
+                                        width: "60"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                            _vm._v(" "),
+                            _c("small", { staticClass: "text-muted" }, [
+                              _vm._v(
+                                _vm._s(
+                                  _vm._f("moment")(message.created_at, "h:mm a")
+                                )
+                              )
+                            ])
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    message.tutor
+                      ? _c(
+                          "div",
+                          { staticClass: "shadow rounded-pill chat-message" },
+                          [
+                            _c("strong", { staticClass: "text-muted" }, [
+                              _vm._v(_vm._s(message.tutor.name))
+                            ]),
+                            _vm._v(" "),
+                            _c("br"),
+                            _vm._v(" "),
+                            message.message
+                              ? _c("span", { staticClass: "mr-3" }, [
+                                  _vm._v(_vm._s(message.message))
+                                ])
+                              : _c(
+                                  "a",
+                                  {
+                                    staticClass: "mr-3",
+                                    attrs: {
+                                      href: message.attachment,
+                                      download: ""
+                                    }
+                                  },
+                                  [
+                                    _c("b-img", {
+                                      attrs: {
+                                        src: message.attachment,
+                                        fluid: "",
+                                        width: "60"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                            _vm._v(" "),
+                            _c("small", { staticClass: "text-muted" }, [
+                              _vm._v(
+                                _vm._s(
+                                  _vm._f("moment")(message.created_at, "h:mm a")
+                                )
+                              )
+                            ])
+                          ]
+                        )
+                      : _vm._e()
+                  ])
                 }),
                 _vm._v(" "),
                 _vm.start
@@ -48329,32 +48760,43 @@ var render = function() {
             _c(
               "b-tabs",
               { attrs: { pills: "", card: "", vertical: "", end: "" } },
-              _vm._l(_vm.groups, function(item, idx) {
-                return _c(
+              [
+                _vm._l(_vm.groups, function(item, idx) {
+                  return _c(
+                    "b-tab",
+                    {
+                      key: idx,
+                      attrs: { "title-item-class": "group", title: item.name }
+                    },
+                    [
+                      _c(
+                        "b-card-text",
+                        [
+                          _c("Chat", {
+                            attrs: { student: _vm.student, id: item.id }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                }),
+                _vm._v(" "),
+                _c(
                   "b-tab",
-                  {
-                    key: idx,
-                    attrs: {
-                      "title-item-class": "group",
-                      title: item.name,
-                      active: ""
-                    }
-                  },
+                  { attrs: { "title-item-class": "group", title: "Chat" } },
                   [
                     _c(
                       "b-card-text",
-                      [
-                        _c("Chat", {
-                          attrs: { student: _vm.student, id: item.id }
-                        })
-                      ],
+                      [_c("PrivateChat", { attrs: { student: _vm.student } })],
                       1
                     )
                   ],
                   1
                 )
-              }),
-              1
+              ],
+              2
             )
           ],
           1
@@ -49751,6 +50193,243 @@ var render = function() {
             staticClass: "semi-white",
             attrs: { student: _vm.student, notifications: _vm.notifications }
           })
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/privateChat.vue?vue&type=template&id=25c727a8&scoped=true&":
+/*!**********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/student/privateChat.vue?vue&type=template&id=25c727a8&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "view" },
+    [
+      _c(
+        "div",
+        {
+          directives: [{ name: "chat-scroll", rawName: "v-chat-scroll" }],
+          staticClass: "chat-body"
+        },
+        [
+          _c("div", { staticClass: "message-body" }, [
+            _c(
+              "ul",
+              [
+                _vm._l(_vm.messages, function(message, idx) {
+                  return _c("li", { key: idx, staticClass: "message mb-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "shadow rounded-pill chat-message",
+                        class: { "ml-auto": message.user.id == _vm.student.id }
+                      },
+                      [
+                        _c("strong", { staticClass: "text-muted" }, [
+                          _vm._v(_vm._s(message.user.name))
+                        ]),
+                        _vm._v(" "),
+                        _c("br"),
+                        _vm._v(" "),
+                        message.message
+                          ? _c("span", { staticClass: "mr-3" }, [
+                              _vm._v(_vm._s(message.message))
+                            ])
+                          : _c(
+                              "a",
+                              {
+                                staticClass: "mr-3",
+                                attrs: {
+                                  href: message.attachment,
+                                  download: ""
+                                }
+                              },
+                              [
+                                _c("b-img", {
+                                  attrs: {
+                                    src: message.attachment,
+                                    fluid: "",
+                                    width: "60"
+                                  }
+                                })
+                              ],
+                              1
+                            ),
+                        _vm._v(" "),
+                        _c("small", { staticClass: "text-muted" }, [
+                          _vm._v(
+                            _vm._s(
+                              _vm._f("moment")(message.created_at, "h:mm a")
+                            )
+                          )
+                        ])
+                      ]
+                    )
+                  ])
+                }),
+                _vm._v(" "),
+                _vm.start
+                  ? _c(
+                      "div",
+                      { staticClass: "progress mt-2 w-25 ml-auto text-right" },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "progress-bar progress-bar-striped",
+                            class: { active: _vm.progress != "Completed" },
+                            style: { width: _vm.progress },
+                            attrs: {
+                              role: "progressbar",
+                              "aria-valuenow": "0",
+                              "aria-valuemin": "0",
+                              "aria-valuemax": "100"
+                            }
+                          },
+                          [_vm._v(_vm._s(_vm.progress))]
+                        ),
+                        _vm._v(" "),
+                        _c("b-img", { attrs: { src: _vm.file, width: "20" } })
+                      ],
+                      1
+                    )
+                  : _vm._e()
+              ],
+              2
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "b-form",
+        {
+          staticClass: "send-tab",
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.submit($event)
+            }
+          }
+        },
+        [
+          _c(
+            "b-input-group",
+            [
+              _c(
+                "b-input-group-prepend",
+                [
+                  _c(
+                    "b-button",
+                    {
+                      staticClass: "button px-2",
+                      on: { click: _vm.openEmoji }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fa fa-smile-o",
+                        attrs: { "aria-hidden": "true" }
+                      })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm.showEmoji
+                    ? _c("VEmojiPicker", {
+                        staticClass: "emoji",
+                        on: { select: _vm.selectEmoji }
+                      })
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group w-75 m-0" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.message,
+                      expression: "message"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    "aria-describedby": "helpId",
+                    placeholder: "",
+                    required: ""
+                  },
+                  domProps: { value: _vm.message },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.message = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "attachment" } }, [
+                  _c("i", {
+                    staticClass: "fa fa-paperclip",
+                    attrs: { "aria-hidden": "true" }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "form-control-file",
+                attrs: {
+                  type: "file",
+                  hidden: "",
+                  name: "attachment",
+                  id: "attachment",
+                  "aria-describedby": "fileHelpId"
+                },
+                on: {
+                  change: function($event) {
+                    return _vm.handleFileChange($event)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "b-input-group-append",
+                [
+                  _c(
+                    "b-button",
+                    { attrs: { variant: "secondary", type: "submit" } },
+                    [_vm._v("Send")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
         ],
         1
       )
@@ -52543,7 +53222,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "b-row",
-            { staticClass: "pt-3" },
+            { staticClass: "pt-1" },
             [
               _c(
                 "b-col",
@@ -53498,7 +54177,13 @@ var render = function() {
                                                 _vm._v(" "),
                                                 _c("hr"),
                                                 _vm._v(" "),
-                                                _vm.openedQuestion.includes(idx)
+                                                _vm.openedQuestion.includes(
+                                                  idx
+                                                ) &&
+                                                question.answer_format !=
+                                                  "text box" &&
+                                                question.answer_format !=
+                                                  "long text"
                                                   ? _c(
                                                       "b-col",
                                                       { attrs: { cols: "6" } },
@@ -53781,72 +54466,44 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "preview" },
-                  [
-                    _c("h6", {}, [_vm._v("Publish")]),
-                    _vm._v(" "),
-                    _c("hr"),
-                    _vm._v(" "),
+                _c("div", { staticClass: "preview" }, [
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "action-btn text-center" }, [
                     _c(
-                      "b-form-group",
-                      { attrs: { label: "Deadline for Submission" } },
-                      [
-                        _c("datetime", {
-                          attrs: {
-                            format: " DD-MM-YYYY",
-                            placeholder: "Select Date"
-                          },
-                          model: {
-                            value: _vm.deadline,
-                            callback: function($$v) {
-                              _vm.deadline = $$v
-                            },
-                            expression: "deadline"
+                      "div",
+                      {
+                        directives: [
+                          {
+                            name: "b-modal",
+                            rawName: "v-b-modal.modal-1",
+                            modifiers: { "modal-1": true }
                           }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "action-btn text-center" }, [
-                      _c(
-                        "div",
-                        {
-                          directives: [
-                            {
-                              name: "b-modal",
-                              rawName: "v-b-modal.modal-1",
-                              modifiers: { "modal-1": true }
-                            }
-                          ],
-                          staticClass: "btn btn-preview"
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "fa fa-eye",
-                            attrs: { "aria-hidden": "true" }
-                          }),
-                          _vm._v(" "),
-                          _c("span", [_vm._v("Preview")])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "btn btn-trash" }, [
+                        ],
+                        staticClass: "btn btn-preview"
+                      },
+                      [
                         _c("i", {
-                          staticClass: "fa fa-trash-o",
+                          staticClass: "fa fa-eye",
                           attrs: { "aria-hidden": "true" }
                         }),
                         _vm._v(" "),
-                        _c("span", [_vm._v("Move to Trash")])
-                      ])
-                    ]),
+                        _c("span", [_vm._v("Preview")])
+                      ]
+                    ),
                     _vm._v(" "),
-                    _c("hr")
-                  ],
-                  1
-                )
+                    _c("div", { staticClass: "btn btn-trash" }, [
+                      _c("i", {
+                        staticClass: "fa fa-trash-o",
+                        attrs: { "aria-hidden": "true" }
+                      }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v("Move to Trash")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("hr")
+                ])
               ])
             ],
             1
@@ -53933,7 +54590,9 @@ var render = function() {
                     [
                       _c(
                         "router-link",
-                        { attrs: { to: "/tutor/assessment/create/exam" } },
+                        {
+                          attrs: { to: "/tutor/assessment/create/assignment" }
+                        },
                         [
                           _c("div", { staticClass: "create-btn" }, [
                             _c(
@@ -55877,13 +56536,15 @@ var render = function() {
                       _c("b-col", { attrs: { sm: "6" } }, [
                         _c("strong", { staticClass: "toCaps" }, [
                           _vm._v(
-                            "Start : " +
+                            "\n            Start : " +
                               _vm._s(_vm.options.duration.start_time) +
-                              " "
+                              "\n            "
                           ),
                           _c("br"),
                           _vm._v(
-                            " End : " + _vm._s(_vm.options.duration.end_time)
+                            "\n            End : " +
+                              _vm._s(_vm.options.duration.end_time) +
+                              "\n          "
                           )
                         ])
                       ])
@@ -55937,6 +56598,12 @@ var render = function() {
                                               [_vm._v(_vm._s(question.title))]
                                             ),
                                             _vm._v(" "),
+                                            _c(
+                                              "small",
+                                              { staticClass: "form-text" },
+                                              [_vm._v(_vm._s(question.guide))]
+                                            ),
+                                            _vm._v(" "),
                                             _c("b-form-input", {
                                               attrs: {
                                                 type: "text",
@@ -55971,6 +56638,12 @@ var render = function() {
                                               [_vm._v(_vm._s(question.title))]
                                             ),
                                             _vm._v(" "),
+                                            _c(
+                                              "small",
+                                              { staticClass: "form-text" },
+                                              [_vm._v(_vm._s(question.guide))]
+                                            ),
+                                            _vm._v(" "),
                                             _c("b-form-input", {
                                               attrs: {
                                                 type: "email",
@@ -56002,6 +56675,12 @@ var render = function() {
                                               "label",
                                               { attrs: { for: "" } },
                                               [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "small",
+                                              { staticClass: "form-text" },
+                                              [_vm._v(_vm._s(question.guide))]
                                             ),
                                             _vm._v(" "),
                                             _c("b-form-input", {
@@ -56070,6 +56749,12 @@ var render = function() {
                                               [_vm._v(_vm._s(question.title))]
                                             ),
                                             _vm._v(" "),
+                                            _c(
+                                              "small",
+                                              { staticClass: "form-text" },
+                                              [_vm._v(_vm._s(question.guide))]
+                                            ),
+                                            _vm._v(" "),
                                             _vm._l(question.options, function(
                                               opt,
                                               id
@@ -56108,6 +56793,12 @@ var render = function() {
                                               "label",
                                               { attrs: { for: "" } },
                                               [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "small",
+                                              { staticClass: "form-text" },
+                                              [_vm._v(_vm._s(question.guide))]
                                             ),
                                             _vm._v(" "),
                                             _vm._l(question.options, function(
@@ -56150,6 +56841,12 @@ var render = function() {
                                               [_vm._v(_vm._s(question.title))]
                                             ),
                                             _vm._v(" "),
+                                            _c(
+                                              "small",
+                                              { staticClass: "form-text" },
+                                              [_vm._v(_vm._s(question.guide))]
+                                            ),
+                                            _vm._v(" "),
                                             _c("br"),
                                             _vm._v(" "),
                                             _c("b-form-datepicker", {
@@ -56178,6 +56875,12 @@ var render = function() {
                                               "label",
                                               { attrs: { for: "" } },
                                               [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "small",
+                                              { staticClass: "form-text" },
+                                              [_vm._v(_vm._s(question.guide))]
                                             ),
                                             _vm._v(" "),
                                             _c("br"),
@@ -56424,7 +57127,7 @@ var render = function() {
                     [
                       _c(
                         "router-link",
-                        { attrs: { to: "/tutor/assessment/create/exam" } },
+                        { attrs: { to: "/tutor/assessment/create/quiz" } },
                         [
                           _c("div", { staticClass: "create-btn" }, [
                             _c("div", { staticClass: "btn btn-create" }, [
@@ -56750,7 +57453,7 @@ var render = function() {
                     [
                       _c(
                         "router-link",
-                        { attrs: { to: "/tutor/assessment/create/exam" } },
+                        { attrs: { to: "/tutor/assessment/create/test" } },
                         [
                           _c("div", { staticClass: "create-btn" }, [
                             _c("div", { staticClass: "btn btn-create" }, [
@@ -57093,33 +57796,53 @@ var render = function() {
             _c(
               "ul",
               [
-                _vm._l(_vm.messages, function(item, idx) {
+                _vm._l(_vm.messages, function(message, idx) {
                   return _c(
                     "li",
                     {
                       key: idx,
                       staticClass: "message mb-4",
-                      class: { "text-right": item.sender_id == _vm.tutor.id }
+                      class: { "text-right": message.user_id == _vm.tutor.id }
                     },
                     [
                       _c(
-                        "span",
-                        { staticClass: "shadow rounded-pill chat-item" },
+                        "div",
+                        {
+                          staticClass: "shadow rounded-pill chat-message",
+                          class: { "ml-auto": message.tutor }
+                        },
                         [
-                          item.message
+                          message.tutor
+                            ? _c("strong", { staticClass: "text-muted" }, [
+                                _vm._v(_vm._s(message.tutor.name))
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          message.user
+                            ? _c("strong", { staticClass: "text-muted" }, [
+                                _vm._v(_vm._s(message.user.name))
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c("br"),
+                          _vm._v(" "),
+                          message.message
                             ? _c("span", { staticClass: "mr-3" }, [
-                                _vm._v(_vm._s(item.message))
+                                _vm._v(_vm._s(message.message))
                               ])
                             : _c(
                                 "a",
                                 {
                                   staticClass: "mr-3",
-                                  attrs: { href: item.attachment, download: "" }
+                                  attrs: {
+                                    href: message.attachment,
+                                    download: ""
+                                  }
                                 },
                                 [
                                   _c("b-img", {
                                     attrs: {
-                                      src: item.attachment,
+                                      src: message.attachment,
                                       fluid: "",
                                       width: "60"
                                     }
@@ -57130,7 +57853,9 @@ var render = function() {
                           _vm._v(" "),
                           _c("small", { staticClass: "text-muted" }, [
                             _vm._v(
-                              _vm._s(_vm._f("moment")(item.created_at, "h:m a"))
+                              _vm._s(
+                                _vm._f("moment")(message.created_at, "h:mm a")
+                              )
                             )
                           ])
                         ]
@@ -57147,7 +57872,7 @@ var render = function() {
                         _c(
                           "div",
                           {
-                            staticClass: "progress-bar progress-bar-striped ",
+                            staticClass: "progress-bar progress-bar-striped",
                             class: { active: _vm.progress != "Completed" },
                             style: { width: _vm.progress },
                             attrs: {
@@ -57297,7 +58022,7 @@ var render = function() {
               { key: idx },
               [
                 _c("b-avatar", { attrs: { size: "sm", src: user.profile } }),
-                _vm._v(" " + _vm._s(user.name))
+                _vm._v("\n        " + _vm._s(user.name) + "\n      ")
               ],
               1
             )
@@ -62132,7 +62857,7 @@ var render = function() {
             _c("li", [
               _c("i", { staticClass: "icon-business-class pr-2   " }),
               _vm._v(" "),
-              !_vm.sideBar ? _c("span", [_vm._v("Administrative")]) : _vm._e()
+              !_vm.sideBar ? _c("span", [_vm._v("Administratives")]) : _vm._e()
             ])
           ]),
           _vm._v(" "),
@@ -70167,6 +70892,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_main_vue_vue_type_template_id_09903b50_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_main_vue_vue_type_template_id_09903b50_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/student/privateChat.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/student/privateChat.vue ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _privateChat_vue_vue_type_template_id_25c727a8_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./privateChat.vue?vue&type=template&id=25c727a8&scoped=true& */ "./resources/js/components/student/privateChat.vue?vue&type=template&id=25c727a8&scoped=true&");
+/* harmony import */ var _privateChat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./privateChat.vue?vue&type=script&lang=js& */ "./resources/js/components/student/privateChat.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _privateChat_vue_vue_type_style_index_0_id_25c727a8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./privateChat.vue?vue&type=style&index=0&id=25c727a8&scoped=true&lang=css& */ "./resources/js/components/student/privateChat.vue?vue&type=style&index=0&id=25c727a8&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _privateChat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _privateChat_vue_vue_type_template_id_25c727a8_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _privateChat_vue_vue_type_template_id_25c727a8_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "25c727a8",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/student/privateChat.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/student/privateChat.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/student/privateChat.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_privateChat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./privateChat.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/privateChat.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_privateChat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/student/privateChat.vue?vue&type=style&index=0&id=25c727a8&scoped=true&lang=css&":
+/*!******************************************************************************************************************!*\
+  !*** ./resources/js/components/student/privateChat.vue?vue&type=style&index=0&id=25c727a8&scoped=true&lang=css& ***!
+  \******************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_privateChat_vue_vue_type_style_index_0_id_25c727a8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./privateChat.vue?vue&type=style&index=0&id=25c727a8&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/privateChat.vue?vue&type=style&index=0&id=25c727a8&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_privateChat_vue_vue_type_style_index_0_id_25c727a8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_privateChat_vue_vue_type_style_index_0_id_25c727a8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_privateChat_vue_vue_type_style_index_0_id_25c727a8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_privateChat_vue_vue_type_style_index_0_id_25c727a8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_privateChat_vue_vue_type_style_index_0_id_25c727a8_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/student/privateChat.vue?vue&type=template&id=25c727a8&scoped=true&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/components/student/privateChat.vue?vue&type=template&id=25c727a8&scoped=true& ***!
+  \****************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_privateChat_vue_vue_type_template_id_25c727a8_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./privateChat.vue?vue&type=template&id=25c727a8&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/privateChat.vue?vue&type=template&id=25c727a8&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_privateChat_vue_vue_type_template_id_25c727a8_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_privateChat_vue_vue_type_template_id_25c727a8_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

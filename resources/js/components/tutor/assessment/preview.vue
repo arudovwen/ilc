@@ -3,12 +3,24 @@
     <b-container v-if="form">
       <b-form>
         <legend class="text-center mb-5">{{options.title}}</legend>
-       <b-row>
-           <b-col sm="6"><strong class="toCaps">{{options.session}} Term</strong> </b-col>
-            <b-col  sm="6"><strong class="toCaps">Level : {{options.myclass}}</strong></b-col>
-             <b-col  sm="6"><strong class="toCaps">Subject : {{options.subject}}</strong></b-col>
-              <b-col  sm="6"><strong class="toCaps">Start : {{options.duration.start_time}} <br> End : {{options.duration.end_time}}</strong></b-col>
-       </b-row>
+        <b-row>
+          <b-col sm="6">
+            <strong class="toCaps">{{options.session}} Term</strong>
+          </b-col>
+          <b-col sm="6">
+            <strong class="toCaps">Level : {{options.myclass}}</strong>
+          </b-col>
+          <b-col sm="6">
+            <strong class="toCaps">Subject : {{options.subject}}</strong>
+          </b-col>
+          <b-col sm="6">
+            <strong class="toCaps">
+              Start : {{options.duration.start_time}}
+              <br />
+              End : {{options.duration.end_time}}
+            </strong>
+          </b-col>
+        </b-row>
         <section v-if=" num < form.length">
           <b-form-row>
             <b-col cols="12">
@@ -20,6 +32,7 @@
             <b-col cols="12">
               <b-form-group v-if="question.answer_format=='text box'">
                 <label for>{{question.title}}</label>
+                <small class="form-text">{{question.guide}}</small>
                 <b-form-input
                   type="text"
                   v-model="question.answer"
@@ -31,9 +44,10 @@
                             <label for=""></label>
                             <b-form-input type="tel" placeholder=""></b-form-input>
               </b-form-group>-->
-            
+
               <b-form-group v-if="question.answer_format=='email'">
                 <label for>{{question.title}}</label>
+                <small class="form-text">{{question.guide}}</small>
                 <b-form-input
                   type="email"
                   v-model="question.answer"
@@ -42,6 +56,7 @@
               </b-form-group>
               <b-form-group v-if="question.answer_format=='number'">
                 <label for>{{question.title}}</label>
+                <small class="form-text">{{question.guide}}</small>
                 <b-form-input
                   type="number"
                   v-model="question.answer"
@@ -57,7 +72,7 @@
 
               <b-form-group v-if="question.answer_format=='multi choice'">
                 <label for>{{question.title}}</label>
-
+                <small class="form-text">{{question.guide}}</small>
                 <b-form-checkbox
                   v-model="question.answers"
                   v-for="(opt,id) in question.options"
@@ -68,6 +83,7 @@
 
               <b-form-group v-if="question.answer_format=='single choice'">
                 <label for>{{question.title}}</label>
+                <small class="form-text">{{question.guide}}</small>
                 <b-form-radio
                   v-model="question.answer"
                   v-for="(opt,id) in question.options"
@@ -78,12 +94,14 @@
 
               <b-form-group v-if="question.answer_format=='date'">
                 <label for>{{question.title}}</label>
+                <small class="form-text">{{question.guide}}</small>
                 <br />
                 <b-form-datepicker v-model="question.answer"></b-form-datepicker>
               </b-form-group>
 
               <b-form-group v-if="question.answer_format=='time'">
                 <label for>{{question.title}}</label>
+                <small class="form-text">{{question.guide}}</small>
                 <br />
                 <b-form-timepicker v-model="question.answer"></b-form-timepicker>
               </b-form-group>
@@ -150,11 +168,8 @@ export default {
   components: {
     Upload,
   },
-  mounted() {
-   
-  },
+  mounted() {},
   methods: {
-    
     handleShow() {
       this.show = !this.show;
     },

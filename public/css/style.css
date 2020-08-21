@@ -583,10 +583,10 @@ form .reg-btn {
 
 }
 
-/* .assess>.tabs>.card-header {
+.assess>.tabs>.card-header {
     background-color: rgba(19, 166, 153, 0.9) !important;
     color: white !important;
-} */
+}
 
 .group-chat>.tabs>.tab-content >.card-body {
     padding-right: 0;

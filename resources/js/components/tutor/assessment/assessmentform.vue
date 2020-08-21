@@ -6,7 +6,7 @@
           <h6 class="text-center">{{option.title}}</h6>
         </b-col>
       </b-row>
-      <b-row class="pt-3">
+      <b-row class="pt-1">
         <b-col class="bg-white right-bar" md="9">
           <b-form @submit.prevent="submit">
             <b-container fluid>
@@ -171,7 +171,7 @@
                         </b-col>
                       </div>
                       <hr />
-                      <b-col cols="6" v-if="openedQuestion.includes(idx)">
+                      <b-col cols="6" v-if="openedQuestion.includes(idx) && question.answer_format != 'text box' && question.answer_format != 'long text'">
                         <div
                           class="bottom-box mb-3"
                           v-if="question.answer_format == 'multi choice'"
@@ -218,11 +218,11 @@
             </div>
           </div>
           <div class="preview">
-            <h6 class>Publish</h6>
+            <!-- <h6 class>Publish</h6> -->
             <hr />
-            <b-form-group label="Deadline for Submission">
+            <!-- <b-form-group label="Deadline for Submission">
               <datetime format=" DD-MM-YYYY" v-model="deadline" placeholder="Select Date"></datetime>
-            </b-form-group>
+            </b-form-group> -->
             <div class="action-btn text-center">
               <div class="btn btn-preview" v-b-modal.modal-1>
                 <i class="fa fa-eye" aria-hidden="true"></i>

@@ -68,6 +68,9 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('rating', 'CourseReviewController');
     Route::resource('note', 'NoteController');
     Route::get('todays-class/{class}','TimesTableController@getCurrentTimesTable');
+
+    Route::get('private-message','PrivateMessageController@fetchMessages');
+    Route::post('private-message','PrivateMessageController@sendMessage');
 });
 
 Route::middleware('auth:tutor')->group(function () {

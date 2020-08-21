@@ -10,7 +10,7 @@
         <ul>
             <router-link to="/tutor"> <li><i class="icon-dashboard pr-2" aria-hidden="true"></i> <span v-if="!sideBar">Dashboard</span></li></router-link>
              <router-link to="/tutor/profile"> <li><i class="icon-group pr-2" aria-hidden="true"></i> <span v-if="!sideBar">Profile</span></li></router-link>
-               <router-link to="/tutor/administrative"> <li><i class="icon-business-class pr-2   "></i> <span v-if="!sideBar">Administrative</span></li></router-link>
+               <router-link to="/tutor/administrative"> <li><i class="icon-business-class pr-2   "></i> <span v-if="!sideBar">Administratives</span></li></router-link>
              <router-link to="#"> <li><i class="icon-market  pr-2" aria-hidden="true"></i> <span v-if="!sideBar">My Activities</span ></li></router-link>
               <router-link to="#"> <li><i class="icon-edit   pr-2  "></i> <span v-if="!sideBar">Attendance</span></li></router-link>
             <router-link to="/tutor/resources"> <li><i class="icon-open-book pr-2"></i> <span v-if="!sideBar">Resources</span></li></router-link>

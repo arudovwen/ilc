@@ -3,15 +3,13 @@
     <div class="chat-body" v-chat-scroll>
       <div class="message-body">
         <ul>
-          <li
-            class="message mb-4"
-            v-for="(message,idx) in messages"
-            :key="idx"
-            :class="{'text-right':message.user_id == tutor.id}"
-          >
-            <div class="shadow rounded-pill chat-message"  :class="{'ml-auto':message.tutor}">
-               <strong class="text-muted" v-if="message.tutor">{{message.tutor.name}}</strong>
-                 <strong class="text-muted" v-if="message.user">{{message.user.name}}</strong> <br>
+          <li class="message mb-4" v-for="(message,idx) in messages" :key="idx">
+            <div
+              class="shadow rounded-pill chat-message"
+              :class="{'ml-auto':message.user.id == student.id}"
+            >
+              <strong class="text-muted">{{message.user.name}}</strong>
+              <br />
               <span v-if="message.message" class="mr-3">{{message.message}}</span>
               <a v-else :href="message.attachment" download class="mr-3">
                 <b-img :src="message.attachment" fluid width="60"></b-img>
@@ -72,26 +70,18 @@
         </b-input-group-append>
       </b-input-group>
     </b-form>
-    <div class="online">
-      <div class="form-control thead-dark">Online</div>
-      <ul>
-        <li v-for="(user,idx) in users" :key="idx">
-          <b-avatar size="sm" :src="user.profile"></b-avatar>
-          {{user.name}}
-        </li>
-      </ul>
-    </div>
   </div>
 </template>
 
 <script>
 import VEmojiPicker from "v-emoji-picker";
 export default {
-  props: ["tutor", "id"],
+  props: ["student"],
   data() {
     return {
       messages: [],
       message: "",
+      attachment: "",
       users: [],
       myText: "",
       showEmoji: false,
@@ -114,40 +104,15 @@ export default {
   },
   created() {
     this.getMessages();
-    axios
-      .get(`/api/group/${this.$props.id}`, {
-        headers: {
-          Authorization: `Bearer ${this.$props.tutor.access_token}`,
-        },
-      })
-      .then((res) => {
-        if (res.status == 200) {
-          Echo.join(res.data.name + this.$props.id + this.$props.tutor.id)
-            .here((users) => {
-              this.users = users;
-            })
-            .joining((user) => {
-             
-              if ( !this.users.includes(user)) {
-                 this.users.push(user);
-              }
-             
-            })
-            .listen("GroupMessageSent", (e) => {
-           
-              this.messages.push({
-                message: e.message.message,
-                user: e.user,
-                tutor: e.tutor,
-              });
-            })
-            .leaving((user) => {
-            
-            this.users =  this.users.filter(u=>u.id != user.id)
-            });
-        }
+    Echo.private("chat").listen("PrivateMessageSent", (e) => {
+    console.log("created -> e", e)
+      this.messages.push({
+        message: e.message.message,
+        user: e.user,
       });
+    });
   },
+  mounted() {},
   methods: {
     handleFileChange(event) {
       this.file = event.target.files[0];
@@ -214,17 +179,18 @@ export default {
     submit() {
       this.showEmoji = false;
       this.messages.push({
-        'message':this.message,
-        'tutor':this.$props.tutor
-      })
+        message: this.message,
+        attachment: this.attachment,
+        user: this.$props.student,
+      });
       let data = {
         message: this.message,
-        group_id: this.$props.id,
+        attachment: this.attachment,
       };
       axios
-        .post("/api/send-message", data, {
+        .post("/api/private-message", data, {
           headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+            Authorization: `Bearer ${this.$props.student.access_token}`,
           },
         })
         .then((res) => {
@@ -236,9 +202,9 @@ export default {
     },
     getMessages() {
       axios
-        .get(`/api/get-messages/${this.$props.id}`, {
+        .get(`/api/private-message`, {
           headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+            Authorization: `Bearer ${this.$props.student.access_token}`,
           },
         })
         .then((res) => {
@@ -255,7 +221,7 @@ export default {
   background: white;
   position: relative;
   display: flex;
-  height: 75vh;
+  height: 84vh;
 }
 .progress {
   height: 15px;
@@ -316,7 +282,7 @@ ol {
   padding: 15px 20px;
   width: fit-content;
   width: max-content;
-      max-width: 50%;
+  max-width: 50%;
 
   text-align: left;
 }

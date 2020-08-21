@@ -10,7 +10,7 @@
         <b-input-group>
           <b-form-input v-model="search" placeholder="Search title"></b-form-input>
           <b-input-group-append>
-            <router-link to="/tutor/assessment/create/exam">
+            <router-link to="/tutor/assessment/create/assignment">
               <div class="create-btn">
                 <div class="btn btn-create"> <b-icon icon="plus" size="1rem"></b-icon>  Assignment</div>
               </div>

@@ -9,6 +9,7 @@ use App\GradeBook;
 use App\Department;
 use App\CourseLevel;
 use App\EducationLevel;
+use App\PrivateMessage;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -76,6 +77,9 @@ class User extends Authenticatable
     }
     public function messages(){
         return $this->hasMany(Message::class);
+    }
+    public function privateMessages(){
+        return $this->hasMany(PrivateMessage::class);
     }
     public function gradebooks(){
         return $this->belongsTo(GradeBook::class);

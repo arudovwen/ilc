@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-
-use App\PrivateMessage;
+use App\StaffChat;
 use Illuminate\Http\Request;
-use App\Events\PrivateMessageSent;
+use App\Events\StaffMessageSent;
 
-class PrivateMessageController extends Controller
+class StaffChatController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,18 +37,13 @@ class PrivateMessageController extends Controller
 
     public function sendMessage(Request $request)
     {
-     
-        $user = auth('api')->user();
-        $receiver = User::find($request->receiver_id);
-        $message = PrivateMessage::create([
-            'user_id'=> $user->id,
-            'receiver_id' => $request->receiver_id,
-            'message'=>$request->message,
-            'attachment'=>$request->attachment
-        ]);
       
+        $tutor = auth('tutor')->user();
+        $message = $tutor->staffMessage()->create([
+        'message' => $request->input('message')
+      ]);
     
-         broadcast(new PrivateMessageSent($user,$receiver, $message))->toOthers();
+         broadcast(new StaffMessageSent($tutor, $message))->toOthers();
     
         return ['status' => 'Message Sent!'];
     }
@@ -58,7 +51,7 @@ class PrivateMessageController extends Controller
 
     public function fetchMessages()
     {
-        return PrivateMessage::with('user')->get();
+        return StaffChat::with('tutor')->get();
     }
 
     public function store(Request $request)
@@ -69,10 +62,10 @@ class PrivateMessageController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\PrivateMessage  $privateMessage
+     * @param  \App\StaffChat  $staffChat
      * @return \Illuminate\Http\Response
      */
-    public function show(PrivateMessage $privateMessage)
+    public function show(StaffChat $staffChat)
     {
         //
     }
@@ -80,10 +73,10 @@ class PrivateMessageController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\PrivateMessage  $privateMessage
+     * @param  \App\StaffChat  $staffChat
      * @return \Illuminate\Http\Response
      */
-    public function edit(PrivateMessage $privateMessage)
+    public function edit(StaffChat $staffChat)
     {
         //
     }
@@ -92,10 +85,10 @@ class PrivateMessageController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\PrivateMessage  $privateMessage
+     * @param  \App\StaffChat  $staffChat
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PrivateMessage $privateMessage)
+    public function update(Request $request, StaffChat $staffChat)
     {
         //
     }
@@ -103,10 +96,10 @@ class PrivateMessageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\PrivateMessage  $privateMessage
+     * @param  \App\StaffChat  $staffChat
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PrivateMessage $privateMessage)
+    public function destroy(StaffChat $staffChat)
     {
         //
     }

@@ -10,6 +10,7 @@ use App\Department;
 use App\CourseLevel;
 use App\EducationLevel;
 use App\PrivateMessage;
+use App\DraftAssessmentResult;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -87,5 +88,8 @@ class User extends Authenticatable
 
     public function reviews(){
         return $this->hasMany(CourseReview::class);
+    }
+    public function draftResult(){
+        return $this->hasMany(DraftAssessmentResult::class);
     }
 }

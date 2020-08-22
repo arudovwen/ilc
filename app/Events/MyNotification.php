@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class PrivateMessageSent  implements ShouldBroadcast
+class MyNotification implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -20,16 +20,12 @@ class PrivateMessageSent  implements ShouldBroadcast
      * @return void
      */
     public $user;
-    public $receiver;
-    public $message;
-   public function __construct( $user, $receiver ,$message)
-   {
-       //
-       
-       $this->user = $user;
-       $this->receiver = $receiver;
-       $this->message = $message;
-   }
+    public $resource;
+    public function __construct($user, $resource)
+    {
+        $this->user = $user;
+        $this->resource = $resource;
+    }
 
     /**
      * Get the channels the event should broadcast on.
@@ -38,6 +34,6 @@ class PrivateMessageSent  implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('chat'.$this->receiver->id);
+        return  new PrivateChannel('notify'.$this->user->id);
     }
 }

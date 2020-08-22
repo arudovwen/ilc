@@ -1,10 +1,22 @@
 <template>
   <div class>
-   
     <div class="p-3">
-    
       <b-card no-body class="group-chat">
-         <Chat :student="student" />
+        <Chat
+          :student="student"
+          :groups="groups"
+          :groupMessage="groupMessage"
+          :onlineMembers="onlineMembers"
+          @addGroupMessage="addGroupMessage"
+          @switchGroup="switchGroup"
+          :currentChat="currentChat"
+          :group_id="group_id"
+          :classmates="classmates"
+          :showChat="showChat"
+          :privateMessages="privateMessages"
+           @addPrivateMessage="addPrivateMessage"
+            :receiver_id="receiver_id"
+        />
       </b-card>
     </div>
   </div>
@@ -14,141 +26,39 @@
 
 <script>
 import Chat from "./chat";
-import PrivateChat from './privateChat'
+import PrivateChat from "./privateChat";
 export default {
-  props: ["student"],
+  props: [
+    "student",
+    "onlineMembers",
+    "groupMessage",
+    "groups",
+    "currentChat",
+    "group_id",
+    "classmates",
+    "showChat",
+    "privateMessages",
+    "receiver_id"
+  ],
   data() {
-    return {
-      groups: [],
-      heads: [],
-      name: "",
-      items: [],
-      item: false,
-      update: false,
-    };
+    return {};
   },
   components: {
     Chat,
-    PrivateChat
+    PrivateChat,
   },
-  watch: {
-    item: "selectAll",
-  },
-  // created() {
-  //   this.getgroups();
-  // },
-  methods: {
-    cancel() {
-      this.update = false;
 
-      this.name = "";
+  methods: {
+   switchGroup(name,id) {
+      this.$emit("switchGroup",name, id);
     },
-    selectAll() {
-      if (this.item) {
-        this.items = [];
-        this.groups.forEach((it) => {
-          this.items.push(it.id);
-        });
-      } else {
-        this.items = [];
-      }
+
+    addGroupMessage(message, attachment) {
+      this.$emit("addGroupMessage", message, attachment);
     },
-    addClass() {
-      let data = {
-        name: this.name,
-      };
-      axios
-        .post("/api/student-group", data, {
-          headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 201) {
-            this.name = "";
-            this.getgroups();
-          }
-        });
-    },
-    updateN() {
-      axios
-        .put(`/api/student-group/${this.data.id}`, this.data, {
-          headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            this.getgroups();
-            this.update = false;
-            this.name = "";
-          }
-        });
-    },
-    gotoGroup(id) {
-      this.$router.push(`/student/group/${id}`);
-    },
-    edit(id) {
-      axios
-        .get(`/api/student-group/${id}`, {
-          headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            this.name = res.data.name;
-            this.update = true;
-          }
-        });
-    },
-    getgroups() {
-      axios
-        .get("/api/student-group", {
-          headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            this.groups = res.data;
-          }
-        });
-    },
-    drop(id) {
-      let del = confirm("Are you sure?");
-      if (del) {
-        axios
-          .delete(`/api/student-group/${id}`, {
-            headers: {
-              Authorization: `Bearer ${this.$props.student.access_token}`,
-            },
-          })
-          .then((res) => {
-            if (res.status == 200) {
-              this.getgroups();
-            }
-          });
-      }
-    },
-    multiDrop() {
-      let del = confirm("Are you sure about this?");
-      if (del) {
-        axios
-          .post("/api/multi-student-group-drop", this.items, {
-            headers: {
-              Authorization: `Bearer ${this.$props.student.access_token}`,
-            },
-          })
-          .then((res) => {
-            if (res.status == 200) {
-              this.getgroups();
-            }
-          })
-          .catch((err) => {
-            console.log("del -> err", err);
-          });
-      }
+     addPrivateMessage(message, attachment) {
+   
+      this.$emit("addPrivateMessage", message, attachment);
     },
   },
 };
@@ -183,10 +93,10 @@ table {
 .chat {
   cursor: pointer;
 }
-.card-header{
+.card-header {
   padding: 0;
 }
-li{
+li {
   width: 150px;
 }
 </style>

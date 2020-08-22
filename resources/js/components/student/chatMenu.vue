@@ -3,66 +3,68 @@
     <b-card class="online-presence">
       <div class="online-presence-top">
         <b-form-input placeholder="Search to start chat"></b-form-input>
-        <span class="px-2">   <b-icon icon="three-dots-vertical" @click="online" font-scale="2"></b-icon></span>
+        <span class="px-2">
+          <b-icon icon="three-dots-vertical" @click="online" font-scale="2"></b-icon>
+        </span>
       </div>
       <hr />
-       <div class="single-online-tag"     @click="switchGroup('staff-chat')">
-         
-           <div class="inner-single" >
-           
-            <div
-              class="message-info"
-           
-           
-            >
-             <div class="avatar mr-3">
-              <b-avatar></b-avatar >
-            </div>
-              <h6 class="toCaps">Staffs</h6>
-              
-            </div>
-            <div>
-                <b-badge variant="success">3</b-badge>
-              </div>
-          </div>
-        </div>
-           <hr />
+
       <div class="online-tag">
-        <div class="single-online-tag"    @click="switchGroup(item.id,)" v-for="(item,idx) in groups"
-              :key="idx">
-          <div class="inner-single" >
-           
-            <div
-              class="message-info" >
-               <div class="avatar nr-3">
-              <b-avatar></b-avatar >
-            </div>
-              <h6 class="toCaps">{{item.name}}</h6>
+        <div class="mb-3">
+          <strong class="text-muted">Groups</strong>
+        </div>
+        <div class="single-online-tag" v-for="(group,idx) in groups" :key="idx" @click="switchGroup('group',group.id,)">
+          <div class="inner-single">
+            
+            <div class="message-info" >
+               <b-avatar  class="mr-3"></b-avatar>
+              <h6 class="toCaps">{{group.name}}</h6>
              
             </div>
              <div>
                 <b-badge variant="success">3</b-badge>
               </div>
           </div>
-          
         </div>
         <hr />
-        
+        <div class="mb-3">
+          <strong class="text-muted">Classmates</strong>
+        </div>
+        <div class="single-online-tag border-bottom " @click="switchGroup('private',mate.id)" v-for="(mate,index) in classmates" :class="{active:mate.id==receiver_id}" >
+          <div class="inner-single">
+            
+            <div class="message-info" >
+              <div class=" mr-3">
+              <b-avatar ></b-avatar>
+            </div>
+              <div><h6 class="toCaps mb-1">{{mate.name}}</h6> 
+              <small class="lastmessage " v-if="getLastMessage(mate.id).length">{{getLastMessage(mate.id)[getLastMessage(mate.id).length-1].message}}</small></div>
+             
+            </div>
+             <div>
+              <small v-if="getLastMessage(mate.id).length"> {{getLastMessage(mate.id)[getLastMessage(mate.id).length-1].created_at | moment('h:mm A')}}</small>
+                <b-badge variant="success">3</b-badge>
+              </div>
+          </div>
+          
+        </div>
       </div>
     </b-card>
   </b-col>
 </template>
 <script>
 export default {
-  props: ["groups"],
+  props: ["student","groups", "classmates",'receiver_id',"privateMessages"],
 
   methods: {
-     switchGroup(id){
-     
-        this.$emit('switchGroup',id)
+    switchGroup(name,id) {
+      this.$emit("switchGroup", name,id);
     },
-    online(){
-        this.$emit('online')
+    online() {
+      this.$emit("online");
+    },
+    getLastMessage(id){
+    return  this.$props.privateMessages.filter(item=>item.receiver_id== id | item.user_id ==id)
     }
   },
 };

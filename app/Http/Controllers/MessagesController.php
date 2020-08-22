@@ -86,6 +86,7 @@ class MessagesController extends Controller
     }
     public function sendStudentGroupMessage(Request $request)
     {
+      
      $mess=  DB::transaction(function () use($request) {
         $user =  auth('api')->user();
         $group =  Group::where('id', $request->input('group_id'))->first();

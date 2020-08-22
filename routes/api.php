@@ -63,6 +63,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('check-assessment', 'AssessmentResultController@checkAssessment');
     Route::resource('student-grade-book', 'GradeBookController');
     Route::post('student-assessment-result', 'AssessmentResultController@store');
+    Route::get('get-assessment-result', 'AssessmentResultController@getResult');
     Route::get('student-all-subjects', 'SubjectsController@getAllSubjectsForStudent');
     Route::get('student-times-table/{id}', 'TimesTableController@getTimesTablePerClass');
     Route::resource('rating', 'CourseReviewController');
@@ -71,6 +72,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('private-message','PrivateMessageController@fetchMessages');
     Route::post('private-message','PrivateMessageController@sendMessage');
+    Route::get('classmates', 'ClassesController@getClassmates');
 });
 
 Route::middleware('auth:tutor')->group(function () {
@@ -100,9 +102,13 @@ Route::middleware('auth:tutor')->group(function () {
     Route::get('draft-assessment', 'AssessmentController@getDraft');
     Route::put('publish-assessment/{id}', 'AssessmentController@publish');
     Route::resource('assessment-result', 'AssessmentResultController');
+    Route::put('approve-assessment-result/{id}', 'AssessmentResultController@ApproveAssessment');
+    Route::post('draft-result', 'AssessmentResultController@draftResult');
     Route::post('tutor-grade-book', 'GradeBookController@getBooks');
     Route::get('tutor-grade-books', 'GradeBookController@index');
     Route::get('current-class','TimesTableController@getCurrentClass');
+    Route::get('staff-message', 'StaffChatController@fetchMessages');
+    Route::post('staff-message', 'StaffChatController@sendMessage');
 });
 Route::get('student-group/{id}', 'GroupsController@show');
 Route::post('school-register', 'SchoolController@store');

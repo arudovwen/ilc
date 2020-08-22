@@ -1,12 +1,11 @@
 <template>
   <div>
-  <nav class="shadow-sm p-3 py-1 shadow-sm">
+    <nav class="shadow-sm p-3 py-1 shadow-sm">
       <b-form-input placeholder="Search... " class="search rounded-pill"></b-form-input>
-       <b-row class="align-items-center">
-      
-          <div id="notification" class="mx-3">
+      <b-row class="align-items-center">
+        <div id="notification" class="mx-3">
           <div class="icon" @click="toggleNotification">
-             <i class="icon-bell-1"></i>
+            <i class="icon-bell-1"></i>
             <div class="badge animated pulse" v-if="count>0">{{count}}</div>
           </div>
           <div
@@ -28,21 +27,31 @@
                 <small>View all</small>
               </li>
             </ul>
-            
           </div>
         </div>
-  
-        
-     
-     <div  class="mx-3">
-         <b-avatar to="/tutor/profile" size="sm" :src="tutor.profile" ></b-avatar> <span class="toCaps mx-2">{{tutor.name}}</span>   <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-     </div>
-    
-      
+
+        <div class="mx-3">
+          <b-avatar to="/tutor/profile" size="sm" :src="tutor.profile"></b-avatar>
+          <span class="toCaps mx-2">{{tutor.name}}</span>
+          <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+        </div>
       </b-row>
     </nav>
     <transition name="slide-fade">
-      <router-view :tutor="tutor"  class="semi-white"></router-view>
+      <router-view
+        :tutor="tutor"
+        class="semi-white"
+        :onlineStaffs="onlineStaffs"
+        :staffsMessages="staffsMessages"
+        @addStaffMessage="addStaffMessage"
+        :onlineGroupMembers="onlineGroupMembers"
+        :groupMessages="groupMessages"
+        @addGroupMessage="addGroupMessage"
+          :groups='groups'
+              @switchGroup="switchGroup"
+              :group_id="group_id"
+                 :showChat="showChat"
+      ></router-view>
     </transition>
   </div>
 </template>
@@ -50,36 +59,54 @@
 
 <script>
 export default {
-  props: ["tutor"],
+  props: [
+    "tutor",
+    "onlineStaffs",
+    "staffsMessages",
+    "onlineGroupMembers",
+    "groupMessages",
+    'groups',
+    'group_id',
+    'showChat'
+  ],
   data() {
     return {
       showNotification: false,
       notifications: [],
-      count: 0
+      count: 0,
     };
   },
   mounted() {
     Echo.private("group-created" + this.$props.tutor.id).listen(
       "GroupCreated",
-      e => {
-         this.getNotifications();
+      (e) => {
+        this.getNotifications();
       }
     );
-     this.getNotifications();
+    this.getNotifications();
   },
-  
+
   watch: {
-    $route: "reset"
+    $route: "reset",
   },
   methods: {
+    switchGroup(id){
+        this.$emit('switchGroup',id)
+    },
+    addStaffMessage(message, attachment) {
+      this.$emit("addStaffMessage", message, attachment);
+    },
+    addGroupMessage(message, attachment) {
+      this.$emit("addGroupMessage", message, attachment);
+    },
     initialLoad() {
       axios
         .get("/api/group", {
           headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
           }
         });
@@ -98,14 +125,14 @@ export default {
       axios
         .get(`/api/tutor-notifications/${this.$props.tutor.id}`, {
           headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             let count = [];
             this.notifications = res.data;
-            this.notifications.forEach(item => {
+            this.notifications.forEach((item) => {
               if (!item.status) {
                 count.push(item);
               }
@@ -118,26 +145,24 @@ export default {
       axios
         .get(`/api/clear-tutor-notifications/${this.$props.tutor.id}`, {
           headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`
-          }
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
         })
-        .then(res => {
+        .then((res) => {
           if (res.status == 200) {
             this.getNotifications();
             this.count = 0;
           }
         });
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
-.semi-white{
- background: #F9F7F0;
- min-height: 100%;
-
-
+.semi-white {
+  background: #f9f7f0;
+  min-height: 100%;
 }
 nav {
   display: flex;
@@ -145,8 +170,8 @@ nav {
   align-items: center;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
   position: sticky;
-  top:0;
-  background:#fff;
+  top: 0;
+  background: #fff;
   z-index: 999;
 }
 #notification {
@@ -160,7 +185,7 @@ nav {
 }
 .main-notify {
   max-height: 300px;
- overflow: scroll;
+  overflow: scroll;
 }
 .icon {
   position: relative;
@@ -180,10 +205,10 @@ nav {
 }
 .fa-bell {
   font-size: 24px;
-  color:#41cee2;
+  color: #41cee2;
 }
-.search{
-  width:250px;
-  border-color:#41cee2
+.search {
+  width: 250px;
+  border-color: #41cee2;
 }
 </style>

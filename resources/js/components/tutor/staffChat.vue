@@ -3,29 +3,29 @@
     <div class="card tutor-chat">
       <b-row>
         <b-col md="8" class="chat-area">
-          <ChatBody
-            :student="student"
-            :groupMessage="groupMessage"
-            :onlineMembers="onlineMembers"
-            v-if="showChat =='group'"
-          />
-          <PrivateChat
-            :student="student"
-            v-if="showChat=='private'"
-            :privateMessages="privateMessages"
-            :receiver_id="receiver_id"
-          />
+          <div class="chat-body" v-chat-scroll>
+            <div class="message-body">
+              <ul>
+                <li class="message mb-4" v-for="(message,idx) in staffsMessages" :key="idx">
+                  <div
+                    class="shadow rounded-pill chat-message"
+                    :class="{'ml-auto':message.tutor.id == tutor.id}"
+                  >
+                    <strong class="text-muted" v-if="message.tutor">{{message.tutor.name}}</strong>
+                    <br />
+                    <span v-if="message.message" class="mr-3">{{message.message}}</span>
+                    <a v-else :href="message.attachment" download class="mr-3">
+                      <b-img :src="message.attachment" fluid width="60"></b-img>
+                    </a>
+                    <small class="text-muted">{{message.created_at | moment('h:mm a')}}</small>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
           <ChatBar @submit="submit" @attach="attach" />
         </b-col>
-        <ChatMenu
-         :student="student"
-          :groups="groups"
-          @switchGroup="switchGroup"
-          @online="online"
-          :classmates="classmates"
-          :receiver_id="receiver_id"
-           :privateMessages="privateMessages"
-        />
+        <ChatMenu />
       </b-row>
     </div>
 
@@ -33,10 +33,9 @@
       <div class="text-center">
         <b-list-group class="text-center">
           <b-list-group-item
-            v-for="(user,id) in onlineMembers"
+            v-for="(user,id) in onlineStaffs"
             :key="id"
             class="toCaps"
-            @click="openChat(user)"
           >{{user.name}}</b-list-group-item>
         </b-list-group>
       </div>
@@ -46,22 +45,9 @@
 
 <script>
 import ChatBar from "../chatBar";
-import ChatMenu from "./chatMenu";
-import ChatBody from "./groupBody";
-import PrivateChat from "./privateChat";
+import ChatMenu from "../chatMenu";
 export default {
-  props: [
-    "student",
-    "onlineMembers",
-    "groupMessage",
-    "groups",
-    "currentChat",
-    "group_id",
-    "classmates",
-    "showChat",
-    "privateMessages",
-    "receiver_id"
-  ],
+  props: ["tutor", "onlineStaffs", "staffsMessages"],
   data() {
     return {
       messages: [],
@@ -74,16 +60,9 @@ export default {
   components: {
     ChatBar,
     ChatMenu,
-    ChatBody,
-    PrivateChat,
   },
 
-  mounted() {},
   methods: {
-     switchGroup(name,id) {
-      this.$emit("switchGroup",name, id);
-    },
-
     online() {
       this.$bvModal.show("online");
     },
@@ -93,46 +72,24 @@ export default {
     },
 
     submit(message) {
-     
-      if (this.$props.showChat == "group") {
-        this.$emit("addGroupMessgae", message, this.attachment);
-        let data = {
-          message: message,
-          group_id: this.$props.group_id,
-          attachment: this.attachment,
-        };
-        axios
-          .post("/api/send-student-message", data, {
-            headers: {
-              Authorization: `Bearer ${this.$props.student.access_token}`,
-            },
-          })
-          .then((res) => {
-            if (res.status == 200) {
-              this.message = "";
-            }
-          });
-      }
-      if (this.$props.showChat == "private") {
-        this.$emit("addPrivateMessage", message, this.attachment);
+      this.showEmoji = false;
 
-        let data = {
-          message: message,
-          receiver_id:this.$props.receiver_id,
-          attachment: this.attachment,
-        };
-        axios
-          .post("/api/private-message", data, {
-            headers: {
-              Authorization: `Bearer ${this.$props.student.access_token}`,
-            },
-          })
-          .then((res) => {
-            if (res.status == 200) {
-              this.message = "";
-            }
-          });
-      }
+      this.$emit("addStaffMessage", message, this.attachment);
+      let data = {
+        message: message,
+        attachment: this.attachment,
+      };
+      axios
+        .post("/api/staff-message", data, {
+          headers: {
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.message = "";
+          }
+        });
     },
   },
 };

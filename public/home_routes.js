@@ -8583,11 +8583,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["groups"],
   methods: {
-    joinGroup: function joinGroup(name, id, tutor) {
-      this.$emit("joinGroup", name, id, tutor);
+    switchGroup: function switchGroup(id) {
+      this.$emit('switchGroup', id);
     },
     online: function online() {
       this.$emit('online');
@@ -11883,7 +11905,8 @@ __webpack_require__.r(__webpack_exports__);
       option: [],
       total_scores: 0,
       submitCount: 0,
-      showScores: false
+      showScores: false,
+      newAns: []
     };
   },
   components: {
@@ -11897,7 +11920,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     submit: function submit() {
       if (!this.showScores) {
-        this.total_scores += this.sectionAnswer();
+        // this.total_scores += this.sectionAnswer();
         this.showScores = true;
         var student = JSON.parse(localStorage.getItem("typeStudent"));
         var data = {
@@ -11906,7 +11929,8 @@ __webpack_require__.r(__webpack_exports__);
           title: this.$props.details.title,
           tutor_id: this.$props.details.tutor_id,
           total_score: this.total_scores,
-          record: this.$props.template
+          record: this.$props.template,
+          overall: this.$props.total
         };
         axios.post("/api/student-assessment-result", data, {
           headers: {
@@ -11972,6 +11996,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var score = 0;
       var result = {};
+      this.template[this.num].question[id].student_score = 0;
 
       if (this.scores.length > 0) {
         this.scores.forEach(function (item, index) {
@@ -11986,19 +12011,21 @@ __webpack_require__.r(__webpack_exports__);
       if (answer.answer_format !== "multi choice") {
         if (e == answer.real_answer) {
           score = answer.score;
+          this.template[this.num].question[id].student_score = answer.score;
         }
       } else {
-        var newAns = [];
+        this.newAns = [];
         var p_score = Number(answer.score / answer.real_answers.length);
         answer.real_answers.forEach(function (item) {
-          newAns.push(item.answer);
+          _this.newAns.push(item.answer);
         });
 
-        if (newAns.includes(e)) {
+        if (this.newAns.includes(e)) {
           this.temp_score += p_score;
         }
 
         score = this.temp_score;
+        this.template[this.num].question[id].student_score = this.temp_score;
       }
 
       this.scores.push({
@@ -12278,7 +12305,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chatBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chatBar */ "./resources/js/components/chatBar.vue");
-/* harmony import */ var _chatMenu__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../chatMenu */ "./resources/js/components/chatMenu.vue");
+/* harmony import */ var _chatMenu__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chatMenu */ "./resources/js/components/student/chatMenu.vue");
+/* harmony import */ var _groupBody__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./groupBody */ "./resources/js/components/student/groupBody.vue");
+/* harmony import */ var _privateChat__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./privateChat */ "./resources/js/components/student/privateChat.vue");
 //
 //
 //
@@ -12325,25 +12354,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["student"],
+  props: ["student", "onlineMembers", "groupMessage", "groups", "currentChat", "group_id", "classmates", "showChat", "privateMessages", "receiver_id"],
   data: function data() {
     return {
-      group_id: null,
-      groups: [],
       messages: [],
       message: "",
       attachment: "",
@@ -12353,105 +12371,141 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: {
     ChatBar: _chatBar__WEBPACK_IMPORTED_MODULE_0__["default"],
-    ChatMenu: _chatMenu__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
-  created: function created() {
-    this.getgroups();
+    ChatMenu: _chatMenu__WEBPACK_IMPORTED_MODULE_1__["default"],
+    ChatBody: _groupBody__WEBPACK_IMPORTED_MODULE_2__["default"],
+    PrivateChat: _privateChat__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   mounted: function mounted() {},
   methods: {
+    switchGroup: function switchGroup(name, id) {
+      this.$emit("switchGroup", name, id);
+    },
     online: function online() {
-      this.$bvModal.show('online');
+      this.$bvModal.show("online");
     },
     attach: function attach(val) {
       this.attachment = val;
       this.submit(null);
     },
-    getgroups: function getgroups() {
+    submit: function submit(message) {
       var _this = this;
 
-      axios.get("/api/student-group", {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this.groups = res.data;
+      if (this.$props.showChat == "group") {
+        this.$emit("addGroupMessgae", message, this.attachment);
+        var data = {
+          message: message,
+          group_id: this.$props.group_id,
+          attachment: this.attachment
+        };
+        axios.post("/api/send-student-message", data, {
+          headers: {
+            Authorization: "Bearer ".concat(this.$props.student.access_token)
+          }
+        }).then(function (res) {
+          if (res.status == 200) {
+            _this.message = "";
+          }
+        });
+      }
 
-          _this.getMessages(_this.groups[0].id);
+      if (this.$props.showChat == "private") {
+        this.$emit("addPrivateMessage", message, this.attachment);
+        var _data = {
+          message: message,
+          receiver_id: this.$props.receiver_id,
+          attachment: this.attachment
+        };
+        axios.post("/api/private-message", _data, {
+          headers: {
+            Authorization: "Bearer ".concat(this.$props.student.access_token)
+          }
+        }).then(function (res) {
+          if (res.status == 200) {
+            _this.message = "";
+          }
+        });
+      }
+    }
+  }
+});
 
-          _this.joinGroup(_this.groups[0].name, _this.groups[0].id, _this.groups[0].tutor_id);
+/***/ }),
 
-          _this.group_id = _this.groups[0].id;
-        }
-      });
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/chatMenu.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/student/chatMenu.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["student", "groups", "classmates", 'receiver_id', "privateMessages"],
+  methods: {
+    switchGroup: function switchGroup(name, id) {
+      this.$emit("switchGroup", name, id);
     },
-    submit: function submit(message) {
-      var _this2 = this;
-
-      this.showEmoji = false;
-      this.messages.push({
-        message: message,
-        user: this.$props.student,
-        attachment: this.attachment
-      });
-      var data = {
-        message: message,
-        group_id: this.group_id,
-        attachment: this.attachment
-      };
-      axios.post("/api/send-student-message", data, {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this2.message = "";
-          _this2.start = false;
-        }
-      });
+    online: function online() {
+      this.$emit("online");
     },
-    getMessages: function getMessages(id) {
-      var _this3 = this;
-
-      axios.get("/api/get-student-messages/".concat(id), {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this3.messages = res.data;
-        }
-      });
-    },
-    joinGroup: function joinGroup(name, id, tutor) {
-      var _this4 = this;
-
-      this.group_id = id;
-      axios.get("/api/student-group/".concat(id), {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          Echo.join(name + id + tutor).here(function (users) {
-            _this4.users = users;
-          }).joining(function (user) {
-            if (!_this4.users.includes(user)) {
-              _this4.users.push(user);
-            }
-          }).listen("GroupMessageSent", function (e) {
-            _this4.messages.push({
-              message: e.message.message,
-              user: e.user,
-              tutor: e.tutor
-            });
-          }).leaving(function (user) {
-            _this4.users = _this4.users.filter(function (u) {
-              return u.id != user.id;
-            });
-          });
-        }
+    getLastMessage: function getLastMessage(id) {
+      return this.$props.privateMessages.filter(function (item) {
+        return item.receiver_id == id | item.user_id == id;
       });
     }
   }
@@ -12478,13 +12532,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       student: {},
-      sideBar: false
+      groups: [],
+      sideBar: false,
+      groupMessage: [],
+      onlineMembers: [],
+      currentChat: "private",
+      group_id: null,
+      receiver_id: null,
+      classmates: [],
+      showChat: "private",
+      privateMessages: []
     };
   },
   components: {
@@ -12493,10 +12578,146 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.student = JSON.parse(localStorage.getItem("typeStudent"));
+    this.getgroups();
+    this.getClassmates();
+    this.getPrivateMessages();
   },
   methods: {
     minimise: function minimise() {
       this.sideBar = !this.sideBar;
+    },
+    getgroups: function getgroups() {
+      var _this = this;
+
+      axios.get("/api/student-group", {
+        headers: {
+          Authorization: "Bearer ".concat(this.student.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this.groups = res.data;
+
+          _this.getGroupMessages(_this.groups[0].id);
+
+          res.data.forEach(function (group) {
+            _this.joinGroup(group.name, group.id, group.tutor_id);
+          });
+          _this.group_id = _this.groups[0].id;
+        }
+      });
+    },
+    getGroupMessages: function getGroupMessages(id) {
+      var _this2 = this;
+
+      axios.get("/api/get-student-messages/".concat(id), {
+        headers: {
+          Authorization: "Bearer ".concat(this.student.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this2.groupMessage = res.data;
+        }
+      });
+    },
+    joinGroup: function joinGroup(name, id, tutor) {
+      var _this3 = this;
+
+      axios.get("/api/student-group/".concat(id), {
+        headers: {
+          Authorization: "Bearer ".concat(this.student.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          Echo.join(name + id + tutor).here(function (users) {
+            _this3.onlineMembers = users;
+          }).joining(function (user) {
+            _this3.onlineMembers.push(user);
+          }).listen("GroupMessageSent", function (e) {
+            _this3.groupMessage.push({
+              message: e.message.message,
+              user: e.user,
+              tutor: e.tutor,
+              created_at: e.message.created_at,
+              attachment: e.message.atttachment
+            });
+          }).leaving(function (user) {
+            _this3.onlineMembers = _this3.onlineMembers.filter(function (u) {
+              return u.id != user.id;
+            });
+          });
+        }
+      });
+    },
+    addGroupMessage: function addGroupMessage(message, attachment) {
+      this.groupMessages.push({
+        message: message,
+        user: this.student,
+        attachment: attachment,
+        created_at: new Date()
+      });
+    },
+    addPrivateMessage: function addPrivateMessage(message, attachment) {
+      this.privateMessages.push({
+        message: message,
+        attachment: attachment,
+        user: this.student,
+        user_id: this.student.id,
+        receiver_id: this.receiver_id,
+        created_at: new Date()
+      });
+    },
+    getClassmates: function getClassmates() {
+      var _this4 = this;
+
+      axios.get("/api/classmates", {
+        headers: {
+          Authorization: "Bearer ".concat(this.student.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          if (res.data.length) {
+            _this4.classmates = res.data.filter(function (item) {
+              return item.id !== _this4.student.id;
+            });
+            _this4.receiver_id = _this4.classmates[0].id;
+            res.data.forEach(function (item) {
+              Echo["private"]("chat" + item.id).listen("PrivateMessageSent", function (e) {
+                _this4.privateMessages.push({
+                  message: e.message.message,
+                  user: e.user,
+                  user_id: e.user.id,
+                  receiver_id: e.receiver.id,
+                  created_at: e.message.created_at,
+                  attachment: e.message.atttachment
+                });
+              });
+            });
+          }
+        }
+      });
+    },
+    getPrivateMessages: function getPrivateMessages() {
+      var _this5 = this;
+
+      axios.get("/api/private-message", {
+        headers: {
+          Authorization: "Bearer ".concat(this.student.access_token)
+        }
+      }).then(function (res) {
+        _this5.privateMessages = res.data;
+      });
+    },
+    switchGroup: function switchGroup(name, id) {
+      if (name == "private") {
+        this.showChat = "private";
+        this.receiver_id = id;
+      }
+
+      if (name == "group") {
+        this.showChat = "group";
+        this.group_id = id;
+        this.getGroupMessages(id);
+      }
     }
   }
 });
@@ -12682,6 +12903,55 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/groupBody.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/student/groupBody.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["student", "onlineMembers", "groupMessage"]
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/groups.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/student/groups.vue?vue&type=script&lang=js& ***!
@@ -12707,146 +12977,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["student"],
+  props: ["student", "onlineMembers", "groupMessage", "groups", "currentChat", "group_id", "classmates", "showChat", "privateMessages", "receiver_id"],
   data: function data() {
-    return {
-      groups: [],
-      heads: [],
-      name: "",
-      items: [],
-      item: false,
-      update: false
-    };
+    return {};
   },
   components: {
     Chat: _chat__WEBPACK_IMPORTED_MODULE_0__["default"],
     PrivateChat: _privateChat__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  watch: {
-    item: "selectAll"
-  },
-  // created() {
-  //   this.getgroups();
-  // },
   methods: {
-    cancel: function cancel() {
-      this.update = false;
-      this.name = "";
+    switchGroup: function switchGroup(name, id) {
+      this.$emit("switchGroup", name, id);
     },
-    selectAll: function selectAll() {
-      var _this = this;
-
-      if (this.item) {
-        this.items = [];
-        this.groups.forEach(function (it) {
-          _this.items.push(it.id);
-        });
-      } else {
-        this.items = [];
-      }
+    addGroupMessage: function addGroupMessage(message, attachment) {
+      this.$emit("addGroupMessage", message, attachment);
     },
-    addClass: function addClass() {
-      var _this2 = this;
-
-      var data = {
-        name: this.name
-      };
-      axios.post("/api/student-group", data, {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 201) {
-          _this2.name = "";
-
-          _this2.getgroups();
-        }
-      });
-    },
-    updateN: function updateN() {
-      var _this3 = this;
-
-      axios.put("/api/student-group/".concat(this.data.id), this.data, {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this3.getgroups();
-
-          _this3.update = false;
-          _this3.name = "";
-        }
-      });
-    },
-    gotoGroup: function gotoGroup(id) {
-      this.$router.push("/student/group/".concat(id));
-    },
-    edit: function edit(id) {
-      var _this4 = this;
-
-      axios.get("/api/student-group/".concat(id), {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this4.name = res.data.name;
-          _this4.update = true;
-        }
-      });
-    },
-    getgroups: function getgroups() {
-      var _this5 = this;
-
-      axios.get("/api/student-group", {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this5.groups = res.data;
-        }
-      });
-    },
-    drop: function drop(id) {
-      var _this6 = this;
-
-      var del = confirm("Are you sure?");
-
-      if (del) {
-        axios["delete"]("/api/student-group/".concat(id), {
-          headers: {
-            Authorization: "Bearer ".concat(this.$props.student.access_token)
-          }
-        }).then(function (res) {
-          if (res.status == 200) {
-            _this6.getgroups();
-          }
-        });
-      }
-    },
-    multiDrop: function multiDrop() {
-      var _this7 = this;
-
-      var del = confirm("Are you sure about this?");
-
-      if (del) {
-        axios.post("/api/multi-student-group-drop", this.items, {
-          headers: {
-            Authorization: "Bearer ".concat(this.$props.student.access_token)
-          }
-        }).then(function (res) {
-          if (res.status == 200) {
-            _this7.getgroups();
-          }
-        })["catch"](function (err) {
-          console.log("del -> err", err);
-        });
-      }
+    addPrivateMessage: function addPrivateMessage(message, attachment) {
+      this.$emit("addPrivateMessage", message, attachment);
     }
   }
 });
@@ -13166,17 +13328,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student", "notifications"],
   data: function data() {
     return {
+      ass_result: [],
       tutors: [],
       new_resource: [],
       students: [],
@@ -13186,6 +13342,7 @@ __webpack_require__.r(__webpack_exports__);
       fields: ["class", "subject"],
       field: ["class"],
       value: null,
+      animate: true,
       max: null,
       note: {
         title: "",
@@ -13199,6 +13356,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.getNotes();
     this.getTodayClass();
+    this.getAss();
   },
   computed: {
     newresource: function newresource() {
@@ -13208,6 +13366,17 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    getAss: function getAss() {
+      var _this = this;
+
+      axios.get("/api/get-assessment-result", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.student.access_token)
+        }
+      }).then(function (res) {
+        _this.ass_result = res.data;
+      });
+    },
     getSecond: function getSecond(hms) {
       var a = hms.split(":"); // split it at the colons
       // minutes are worth 60 seconds. Hours are worth 60 minutes.
@@ -13216,7 +13385,7 @@ __webpack_require__.r(__webpack_exports__);
       return seconds;
     },
     getTodayClass: function getTodayClass() {
-      var _this = this;
+      var _this2 = this;
 
       axios.get("/api/todays-class/".concat(this.$props.student.sub_class), {
         headers: {
@@ -13225,16 +13394,26 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         if (res.status == 200) {
           if (res.data.length) {
-            _this.todaysClass = res.data[0].courses;
+            _this2.todaysClass = res.data[0].courses;
           }
         }
       });
     },
     gotoHer: function gotoHer(id) {
-      this.$router.push("/student/resource/view/".concat(id));
+      if (id.type == 'assessment') {
+        this.$router.push("/student/grade-book");
+      }
+
+      if (id.type == 'group') {
+        this.$router.push("/student/group");
+      }
+
+      if (id.type == 'new resource') {
+        this.$router.push("/student/resource/view/".concat(id));
+      }
     },
     addNote: function addNote() {
-      var _this2 = this;
+      var _this3 = this;
 
       var data = {
         title: this.note.title,
@@ -13246,19 +13425,19 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 201) {
-          _this2.note.description = "";
-          _this2.note.title = "";
+          _this3.note.description = "";
+          _this3.note.title = "";
 
-          _this2.getNotes();
+          _this3.getNotes();
 
-          _this2.$toasted.success("Note created");
+          _this3.$toasted.success("Note created");
 
-          _this2.$bvModal.hide("note");
+          _this3.$bvModal.hide("note");
         }
       })["catch"]();
     },
     getNotes: function getNotes() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get("/api/note", {
         headers: {
@@ -13266,12 +13445,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this3.notes = res.data;
+          _this4.notes = res.data;
         }
       });
     },
     remove: function remove(id) {
-      var _this4 = this;
+      var _this5 = this;
 
       var del = confirm("Are you sure?");
 
@@ -13282,9 +13461,9 @@ __webpack_require__.r(__webpack_exports__);
           }
         }).then(function (res) {
           if (res.status == 200) {
-            _this4.$toasted.info("Note removed");
+            _this5.$toasted.info("Note removed");
 
-            _this4.getNotes();
+            _this5.getNotes();
           }
         });
       }
@@ -13688,8 +13867,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["student"],
+  props: ["student", "onlineMembers", "groupMessage", "groups", "currentChat", "group_id", "classmates", "showChat", "privateMessages", "receiver_id"],
   data: function data() {
     return {
       showNotification: false,
@@ -13719,6 +13914,15 @@ __webpack_require__.r(__webpack_exports__);
     $route: "reset"
   },
   methods: {
+    switchGroup: function switchGroup(name, id) {
+      this.$emit("switchGroup", name, id);
+    },
+    addGroupMessage: function addGroupMessage(message, attachment) {
+      this.$emit("addGroupMessage", message, attachment);
+    },
+    addPrivateMessage: function addPrivateMessage(message, attachment) {
+      this.$emit("addPrivateMessage", message, attachment);
+    },
     initialLoad: function initialLoad() {
       axios.get("/api/student-group", {
         headers: {
@@ -13790,7 +13994,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var v_emoji_picker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! v-emoji-picker */ "./node_modules/v-emoji-picker/lib/v-emoji-picker.esm.js");
 //
 //
 //
@@ -13814,207 +14017,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["student"],
+  props: ["student", "privateMessages", "receiver_id"],
   data: function data() {
     return {
       messages: [],
       message: "",
       attachment: "",
       users: [],
-      myText: "",
-      showEmoji: false,
-      filesSelectedLength: 0,
-      file: [],
-      filetype: "",
-      uploadedFile: this.oldimage,
-      uploadedFileUrl: "",
-      cloudinary: {
-        uploadPreset: "wo4qwffs",
-        apiKey: "754134295584927",
-        cloudName: "imostate"
-      },
-      progress: 0,
-      start: false
+      myText: ""
     };
   },
-  components: {
-    VEmojiPicker: v_emoji_picker__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
-  created: function created() {
-    var _this = this;
+  components: {},
+  computed: {
+    sortedMessage: function sortedMessage() {
+      var _this = this;
 
-    this.getMessages();
-    Echo["private"]("chat").listen("PrivateMessageSent", function (e) {
-      console.log("created -> e", e);
-
-      _this.messages.push({
-        message: e.message.message,
-        user: e.user
+      return this.$props.privateMessages.filter(function (item) {
+        return item.receiver_id == _this.$props.student.id && item.user_id == _this.receiver_id || item.receiver_id == _this.receiver_id && item.user_id == _this.$props.student.id;
       });
-    });
+    }
   },
   mounted: function mounted() {},
   methods: {
-    handleFileChange: function handleFileChange(event) {
-      this.file = event.target.files[0];
-      this.filesSelectedLength = event.target.files.length;
-      this.loadFile();
-    },
-    loadFile: function loadFile() {
-      var _this2 = this;
-
-      var reader = new FileReader();
-
-      reader.onload = function (event) {
-        _this2.uploadedFile = event.target.result;
-      };
-
-      reader.readAsDataURL(this.file);
-      this.processUpload();
-    },
-    processUpload: function processUpload() {
-      var _this3 = this;
-
-      var that = this;
-      this.start = true;
-      var formData = new FormData();
-      var xhr = new XMLHttpRequest();
-      var cloudName = this.cloudinary.cloudName;
-      var upload_preset = this.cloudinary.uploadPreset;
-      formData.append("file", this.file);
-      formData.append("resource_type", "auto");
-      formData.append("upload_preset", upload_preset); // REQUIRED
-
-      xhr.open("POST", "https://api.cloudinary.com/v1_1/" + cloudName + "/upload");
-
-      xhr.upload.onprogress = function (e) {
-        if (e.lengthComputable) {
-          that.progress = Math.round(e.loaded / e.total * 100) + "%";
-        }
-      };
-
-      xhr.upload.onloadstart = function (e) {
-        this.progress = "Starting...";
-      };
-
-      xhr.upload.onloadend = function (e) {
-        this.progress = "Completing..";
-      };
-
-      xhr.onload = function (progressEvent) {
-        if (xhr.status === 200) {
-          // Success! You probably want to save the URL somewhere
-          _this3.progress = "Completed";
-          setTimeout(function () {}, 1000);
-          var response = JSON.parse(xhr.response);
-          _this3.attachment = response.secure_url; // https address of uploaded file
-        } else {
-          _this3.start = false;
-          _this3.progress = 0;
-          alert("Upload failed. Please try again.");
-        }
-      };
-
-      xhr.send(formData);
-    },
-    openEmoji: function openEmoji() {
-      this.showEmoji = !this.showEmoji;
-    },
-    selectEmoji: function selectEmoji(emoji) {
-      this.message = this.message + emoji.data;
-      this.showEmoji = false;
-    },
-    submit: function submit() {
-      var _this4 = this;
-
-      this.showEmoji = false;
-      this.messages.push({
-        message: this.message,
-        attachment: this.attachment,
-        user: this.$props.student
-      });
-      var data = {
-        message: this.message,
-        attachment: this.attachment
-      };
-      axios.post("/api/private-message", data, {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this4.message = "";
-          _this4.start = false;
-        }
-      });
-    },
-    getMessages: function getMessages() {
-      var _this5 = this;
-
-      axios.get("/api/private-message", {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this5.messages = res.data;
-        }
-      });
-    }
+    submit: function submit() {}
   }
 });
 
@@ -15881,6 +15907,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         question: [{
           title: "",
           guide: "",
+          student_score: 0,
           answer_format: "",
           answer: "",
           real_answer: "",
@@ -16190,31 +16217,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         question: [{
           title: "",
           guide: "",
+          student_score: 0,
           answer_format: "",
+          answer: "",
           real_answer: "",
           real_answers: [{
             answer: ""
           }],
-          answer: "",
           answers: [{
             answer: ""
           }],
           limit: "",
-          placeholder: "",
           score: "",
+          placeholder: "",
           options: [{
             name: ""
           }],
           tools: [],
           tools_description: "",
           fields: [],
-          items: [{
-            key: ""
-          }],
-          media: [{
-            name: "",
-            file: ""
-          }]
+          items: [],
+          media: ""
         }]
       }); // this.opened.push(this.form.length - 1);
     },
@@ -16243,12 +16266,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.form[index].question.push({
         title: "",
         guide: "",
+        student_score: 0,
         answer_format: "",
         answer: "",
+        real_answer: "",
+        real_answers: [{
+          answer: ""
+        }],
         answers: [{
           answer: ""
         }],
         limit: "",
+        score: "",
         placeholder: "",
         options: [{
           name: ""
@@ -16256,13 +16285,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         tools: [],
         tools_description: "",
         fields: [],
-        items: [{
-          key: ""
-        }],
-        documents: [{
-          name: "",
-          file: ""
-        }]
+        items: [],
+        media: ""
       });
     },
     removeQuestion: function removeQuestion(index) {
@@ -16997,6 +17021,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _review__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./review */ "./resources/js/components/tutor/assessment/review.vue");
 //
 //
 //
@@ -17289,11 +17314,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tutor"],
   data: function data() {
     return {
+      id: null,
+      name: {},
+      form: [],
+      overall: null,
+      options: {
+        title: "",
+        subject: "",
+        level: "",
+        type: ""
+      },
+      search: "",
       tutors: [],
       busy: true,
       items: [],
@@ -17302,6 +17338,10 @@ __webpack_require__.r(__webpack_exports__);
       test: [],
       assignment: [],
       examination: [],
+      draftResult: [],
+      title: "",
+      subject: "",
+      type: "",
       fields: [{
         key: "title",
         sortable: true
@@ -17311,12 +17351,67 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     item: "selectAll"
   },
+  components: {
+    Review: _review__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   mounted: function mounted() {
     this.getData();
   },
-  methods: {
-    publish: function publish(name, id) {
+  computed: {
+    examResult: function examResult() {
       var _this = this;
+
+      return this.draftResult.filter(function (item) {
+        if (item.title.toLowerCase().includes(_this.search.toLowerCase())) {
+          return item.type == "examination";
+        }
+      });
+    },
+    testResult: function testResult() {
+      var _this2 = this;
+
+      return this.draftResult.filter(function (item) {
+        if (item.title.toLowerCase().includes(_this2.search.toLowerCase())) {
+          return item.type == "test";
+        }
+      });
+    },
+    assResult: function assResult() {
+      var _this3 = this;
+
+      return this.draftResult.filter(function (item) {
+        if (item.title.toLowerCase().includes(_this3.search.toLowerCase())) {
+          return item.type == "assignment";
+        }
+      });
+    },
+    quizResult: function quizResult() {
+      var _this4 = this;
+
+      return this.draftResult.filter(function (item) {
+        if (item.title.toLowerCase().includes(_this4.search.toLowerCase())) {
+          return item.type == "quiz";
+        }
+      });
+    }
+  },
+  methods: {
+    refresh: function refresh() {
+      this.getDraftResult();
+    },
+    getContent: function getContent(content) {
+      this.id = content.id;
+      this.overall = content.overall;
+      this.name = content.user;
+      this.options.title = content.title;
+      this.options.subject = content.subject;
+      this.options.level = content.level;
+      this.options.type = content.type;
+      this.form = JSON.parse(content.record);
+      this.$bvModal.show("content");
+    },
+    publish: function publish(name, id) {
+      var _this5 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
       var data = {
@@ -17328,12 +17423,34 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this.getData();
+          _this5.getData();
+        }
+      });
+    },
+    getDraftResult: function getDraftResult(title, subject, type) {
+      var _this6 = this;
+
+      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      var data = {
+        title: title,
+        subject: subject,
+        type: type
+      };
+      axios.post("/api/draft-result", data, {
+        headers: {
+          Authorization: "Bearer ".concat(tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this6.draftResult = res.data;
+          _this6.subject = subject;
+          _this6.title = title;
+          _this6.type = type;
         }
       });
     },
     getData: function getData() {
-      var _this2 = this;
+      var _this7 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
       this.quiz = [];
@@ -17346,42 +17463,46 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this2.items = res.data;
+          _this7.items = res.data;
 
-          _this2.items.forEach(function (item) {
+          _this7.items.forEach(function (item) {
             if (item.type == "quiz") {
-              _this2.quiz.push(item);
+              _this7.quiz.push(item);
             }
 
             if (item.type == "test") {
-              _this2.test.push(item);
+              _this7.test.push(item);
             }
 
             if (item.type == "assignment") {
-              _this2.assignment.push(item);
+              _this7.assignment.push(item);
             }
 
             if (item.type == "examination") {
-              _this2.examination.push(item);
+              _this7.examination.push(item);
             }
           });
+
+          if (_this7.assignment.length) {
+            _this7.getDraftResult(_this7.assignment[0].title, _this7.assignment[0].subject, _this7.assignment[0].type);
+          }
         }
       })["catch"]();
     },
     selectAll: function selectAll() {
-      var _this3 = this;
+      var _this8 = this;
 
       if (this.item) {
         this.items = [];
         this.tutors.forEach(function (it) {
-          _this3.items.push(it.id);
+          _this8.items.push(it.id);
         });
       } else {
         this.items = [];
       }
     },
     drop: function drop(id) {
-      var _this4 = this;
+      var _this9 = this;
 
       var del = confirm("Are you sure?");
 
@@ -17392,13 +17513,13 @@ __webpack_require__.r(__webpack_exports__);
           }
         }).then(function (res) {
           if (res.status == 200) {
-            _this4.getAdmins();
+            _this9.getAdmins();
           }
         });
       }
     },
     multiDrop: function multiDrop() {
-      var _this5 = this;
+      var _this10 = this;
 
       var del = confirm("Are you sure about this?");
       var data = {
@@ -17412,7 +17533,7 @@ __webpack_require__.r(__webpack_exports__);
           }
         }).then(function (res) {
           if (res.status == 200) {
-            _this5.getAdmins();
+            _this10.getAdmins();
           }
         })["catch"](function (err) {
           console.log("del -> err", err);
@@ -17818,6 +17939,250 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/assessment/review.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/assessment/review.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _miniupload__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../miniupload */ "./resources/js/components/miniupload.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["id", "name", "overall", "form", "options"],
+  data: function data() {
+    return {
+      lgas: [],
+      num: 0,
+      show: false,
+      totalScores: 0,
+      showSubmit: false
+    };
+  },
+  components: {
+    Upload: _miniupload__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  mounted: function mounted() {},
+  methods: {
+    handleShow: function handleShow() {
+      this.show = !this.show;
+    },
+    next: function next() {
+      this.num++;
+    },
+    prev: function prev() {
+      if (this.num !== 0) {
+        this.num--;
+      }
+    },
+    calcTotal: function calcTotal() {
+      this.showSubmit = true;
+      var temp = [];
+      this.$props.form.forEach(function (item) {
+        item.question.forEach(function (i) {
+          temp.push(i.student_score);
+        });
+      });
+      this.totalScores = temp.reduce(function (a, b) {
+        return a + b;
+      }, 0);
+    },
+    submit: function submit() {
+      var _this = this;
+
+      var con = confirm("Are you sure you are done assigning scores ?");
+
+      if (con) {
+        var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+        var data = {
+          id: this.$props.id,
+          subject: this.$props.options.subject,
+          overall: this.$props.overall,
+          type: this.$props.options.type,
+          title: this.$props.options.title,
+          tutor_id: tutor.id,
+          total_score: this.totalScores,
+          record: this.$props.form
+        };
+        axios.put("/api/approve-assessment-result/".concat(this.$props.id), data, {
+          headers: {
+            Authorization: "Bearer ".concat(tutor.access_token)
+          }
+        }).then(function (res) {
+          if (res.status == 201) {
+            _this.$toasted.success("Assessment submitted");
+
+            _this.$bvModal.hide("content");
+
+            _this.$emit("refresh");
+          }
+        });
+      }
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/assessment/test.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/assessment/test.vue?vue&type=script&lang=js& ***!
@@ -18053,6 +18418,8 @@ var Login = function Login() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chatBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chatBar */ "./resources/js/components/chatBar.vue");
 /* harmony import */ var _chatMenu__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../chatMenu */ "./resources/js/components/chatMenu.vue");
+/* harmony import */ var _groupChat__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./groupChat */ "./resources/js/components/tutor/groupChat.vue");
+/* harmony import */ var _staffsChat__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./staffsChat */ "./resources/js/components/tutor/staffsChat.vue");
 //
 //
 //
@@ -18136,26 +18503,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["tutor"],
+  props: ["tutor", "onlineGroupMembers", "groupMessages", "groups", "group_id", 'showChat', 'onlineStaffs', 'staffsMessages'],
   data: function data() {
     return {
-      group_id: null,
-      groups: [],
       messages: [],
       message: "",
       attachment: "",
@@ -18165,13 +18520,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: {
     ChatBar: _chatBar__WEBPACK_IMPORTED_MODULE_0__["default"],
-    ChatMenu: _chatMenu__WEBPACK_IMPORTED_MODULE_1__["default"]
+    ChatMenu: _chatMenu__WEBPACK_IMPORTED_MODULE_1__["default"],
+    GroupChat: _groupChat__WEBPACK_IMPORTED_MODULE_2__["default"],
+    StaffsChat: _staffsChat__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
-  created: function created() {
-    this.getgroups();
-  },
-  mounted: function mounted() {},
   methods: {
+    switchGroup: function switchGroup(id) {
+      this.$emit("switchGroup", id);
+    },
     online: function online() {
       this.$bvModal.show("online");
     },
@@ -18179,91 +18535,43 @@ __webpack_require__.r(__webpack_exports__);
       this.attachment = val;
       this.submit(null);
     },
-    getgroups: function getgroups() {
+    submit: function submit(message) {
       var _this = this;
 
-      axios.get("/api/group", {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this.groups = res.data;
+      if (this.$props.showChat == 'group') {
+        this.$emit("addGroupMessage", message, this.attachment);
+        var data = {
+          message: message,
+          group_id: this.$props.group_id,
+          attachment: this.attachment
+        };
+        axios.post("/api/send-message", data, {
+          headers: {
+            Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+          }
+        }).then(function (res) {
+          if (res.status == 200) {
+            _this.message = "";
+          }
+        });
+      }
 
-          _this.getMessages(_this.groups[0].id);
-
-          _this.joinGroup(_this.groups[0].name, _this.groups[0].id, _this.groups[0].tutor_id);
-
-          _this.group_id = _this.groups[0].id;
-        }
-      });
-    },
-    submit: function submit(message) {
-      var _this2 = this;
-
-      this.showEmoji = false;
-      this.messages.push({
-        message: message,
-        tutor: this.$props.tutor,
-        attachment: this.attachment
-      });
-      var data = {
-        message: message,
-        group_id: this.group_id,
-        attachment: this.attachment
-      };
-      axios.post("/api/send-message", data, {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this2.message = "";
-        }
-      });
-    },
-    getMessages: function getMessages(id) {
-      var _this3 = this;
-
-      axios.get("/api/get-messages/".concat(id), {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this3.messages = res.data;
-        }
-      });
-    },
-    joinGroup: function joinGroup(name, id, tutor) {
-      var _this4 = this;
-
-      this.group_id = id;
-      axios.get("/api/student-group/".concat(id), {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          Echo.join(name + id + tutor).here(function (users) {
-            _this4.users = users;
-          }).joining(function (user) {
-            if (!_this4.users.includes(user)) {
-              _this4.users.push(user);
-            }
-          }).listen("GroupMessageSent", function (e) {
-            _this4.messages.push({
-              message: e.message.message,
-              user: e.user,
-              tutor: e.tutor
-            });
-          }).leaving(function (user) {
-            _this4.users = _this4.users.filter(function (u) {
-              return u.id != user.id;
-            });
-          });
-        }
-      });
+      if (this.$props.showChat == 'staff') {
+        this.$emit("addStaffMessage", message, this.attachment);
+        var _data = {
+          message: message,
+          attachment: this.attachment
+        };
+        axios.post("/api/staff-message", _data, {
+          headers: {
+            Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+          }
+        }).then(function (res) {
+          if (res.status == 200) {
+            _this.message = "";
+          }
+        });
+      }
     }
   }
 });
@@ -18438,13 +18746,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      tutor: '',
-      sideBar: false
+      tutor: "",
+      sideBar: false,
+      onlineStaffs: [],
+      staffsMessages: [],
+      groups: [],
+      group_id: null,
+      groupMessages: [],
+      onlineStudents: [],
+      onlineGroupMembers: [],
+      showChat: 'staff'
     };
   },
   components: {
@@ -18453,10 +18789,138 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.tutor = JSON.parse(localStorage.getItem("typeTutor"));
+    this.joinGroup("staff-chat");
+    this.getgroups();
+    this.getMessages();
   },
   methods: {
+    addStaffMessage: function addStaffMessage(message, attachment) {
+      this.staffsMessages.push({
+        message: message,
+        tutor: this.tutor,
+        attachment: attachment,
+        created_at: new Date()
+      });
+    },
+    addGroupMessage: function addGroupMessage(message, attachment) {
+      console.log("addGroupMessage -> message savage", message);
+      this.groupMessages.push({
+        message: message,
+        tutor: this.tutor,
+        attachment: attachment,
+        created_at: new Date()
+      });
+    },
+    getGroupMessages: function getGroupMessages(id) {
+      var _this = this;
+
+      axios.get("/api/get-messages/".concat(id), {
+        headers: {
+          Authorization: "Bearer ".concat(this.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this.groupMessages = res.data;
+        }
+      });
+    },
+    getgroups: function getgroups() {
+      var _this2 = this;
+
+      axios.get("/api/group", {
+        headers: {
+          Authorization: "Bearer ".concat(this.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          if (res.data.length) {
+            _this2.groups = res.data;
+            _this2.group_id = _this2.groups[0].id;
+
+            _this2.getGroupMessages(_this2.groups[0].id);
+
+            res.data.forEach(function (group) {
+              _this2.joinClassGroup(group.name, group.id);
+            });
+          }
+        }
+      });
+    },
+    joinClassGroup: function joinClassGroup(name, id) {
+      var _this3 = this;
+
+      axios.get("/api/student-group/".concat(id), {
+        headers: {
+          Authorization: "Bearer ".concat(this.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          Echo.join(name + id + _this3.tutor.id).here(function (users) {
+            _this3.onlineGroupMembers = users;
+          }).joining(function (user) {
+            if (!_this3.users.includes(user)) {
+              _this3.onlineGroupMembers.push(user);
+            }
+          }).listen("GroupMessageSent", function (e) {
+            _this3.groupMessages.push({
+              message: e.message.message,
+              user: e.user,
+              tutor: e.tutor,
+              created_at: e.message.created_at,
+              attachment: e.message.atttachment
+            });
+          }).leaving(function (user) {
+            _this3.onlineGroupMembers = _this3.onlineGroupMembers.filter(function (u) {
+              return u.id != user.id;
+            });
+          });
+        }
+      });
+    },
+    getMessages: function getMessages() {
+      var _this4 = this;
+
+      axios.get("/api/staff-message", {
+        headers: {
+          Authorization: "Bearer ".concat(this.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this4.staffsMessages = res.data;
+        }
+      });
+    },
     minimise: function minimise() {
       this.sideBar = !this.sideBar;
+    },
+    joinGroup: function joinGroup(name) {
+      var _this5 = this;
+
+      Echo.join(name).here(function (users) {
+        _this5.onlineStaffs = users;
+      }).joining(function (user) {
+        _this5.onlineStaffs.push(user);
+      }).listen("StaffMessageSent", function (e) {
+        _this5.staffsMessages.push({
+          message: e.message.message,
+          tutor: e.tutor,
+          created_at: e.message.created_at,
+          attachment: e.message.atttachment
+        });
+      }).leaving(function (user) {
+        _this5.onlineStaffs = _this5.onlineStaffs.filter(function (u) {
+          return u.id != user.id;
+        });
+      });
+    },
+    switchGroup: function switchGroup(id) {
+      if (id == 'staff-chat') {
+        this.showChat = 'staff';
+      } else {
+        this.showChat = 'group';
+        this.group_id = id;
+        this.getGroupMessages(id);
+      }
     }
   }
 });
@@ -18913,6 +19377,46 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/groupChat.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/groupChat.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['tutor', 'groupMessages']
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/groups.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/groups.vue?vue&type=script&lang=js& ***!
@@ -18923,40 +19427,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chat */ "./resources/js/components/tutor/chat.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var _staffChat__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./staffChat */ "./resources/js/components/tutor/staffChat.vue");
 //
 //
 //
@@ -19030,11 +19501,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["tutor"],
+  props: ["tutor", "onlineStaffs", "staffsMessages", "onlineGroupMembers", "groupMessages", "groups", "group_id", 'showChat'],
   data: function data() {
     return {
-      groups: [],
       heads: [],
       name: "",
       class_name: "",
@@ -19053,13 +19524,23 @@ __webpack_require__.r(__webpack_exports__);
     class_name: "reset"
   },
   components: {
-    Chat: _chat__WEBPACK_IMPORTED_MODULE_0__["default"]
+    Chat: _chat__WEBPACK_IMPORTED_MODULE_0__["default"],
+    StaffChat: _staffChat__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   mounted: function mounted() {
-    this.getgroups();
+    // this.getgroups();
     this.getCLasses();
   },
   methods: {
+    switchGroup: function switchGroup(id) {
+      this.$emit('switchGroup', id);
+    },
+    addStaffMessage: function addStaffMessage(message, attachment) {
+      this.$emit("addStaffMessage", message, attachment);
+    },
+    addGroupMessage: function addGroupMessage(message, attachment) {
+      this.$emit("addGroupMessage", message, attachment);
+    },
     reset: function reset() {
       this.names = [];
       this.added_names = [];
@@ -19181,21 +19662,8 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    getgroups: function getgroups() {
-      var _this7 = this;
-
-      axios.get("/api/group", {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this7.groups = res.data;
-        }
-      });
-    },
     drop: function drop(id) {
-      var _this8 = this;
+      var _this7 = this;
 
       var del = confirm("Are you sure?");
 
@@ -19206,13 +19674,13 @@ __webpack_require__.r(__webpack_exports__);
           }
         }).then(function (res) {
           if (res.status == 200) {
-            _this8.getgroups();
+            _this7.getgroups();
           }
         });
       }
     },
     multiDrop: function multiDrop() {
-      var _this9 = this;
+      var _this8 = this;
 
       var del = confirm("Are you sure about this?");
       var data = {
@@ -19226,9 +19694,9 @@ __webpack_require__.r(__webpack_exports__);
           }
         }).then(function (res) {
           if (res.status == 200) {
-            _this9.getgroups();
+            _this8.getgroups();
 
-            _this9.item = false;
+            _this8.item = false;
           }
         })["catch"](function (err) {
           console.log("del -> err", err);
@@ -19778,8 +20246,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["tutor"],
+  props: ["tutor", "onlineStaffs", "staffsMessages", "onlineGroupMembers", "groupMessages", 'groups', 'group_id', 'showChat'],
   data: function data() {
     return {
       showNotification: false,
@@ -19799,6 +20276,15 @@ __webpack_require__.r(__webpack_exports__);
     $route: "reset"
   },
   methods: {
+    switchGroup: function switchGroup(id) {
+      this.$emit('switchGroup', id);
+    },
+    addStaffMessage: function addStaffMessage(message, attachment) {
+      this.$emit("addStaffMessage", message, attachment);
+    },
+    addGroupMessage: function addGroupMessage(message, attachment) {
+      this.$emit("addGroupMessage", message, attachment);
+    },
     initialLoad: function initialLoad() {
       axios.get("/api/group", {
         headers: {
@@ -21908,6 +22394,160 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('minimise');
     }
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/staffChat.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/staffChat.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _chatBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../chatBar */ "./resources/js/components/chatBar.vue");
+/* harmony import */ var _chatMenu__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../chatMenu */ "./resources/js/components/chatMenu.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["tutor", "onlineStaffs", "staffsMessages"],
+  data: function data() {
+    return {
+      messages: [],
+      message: "",
+      attachment: "",
+      users: [],
+      myText: ""
+    };
+  },
+  components: {
+    ChatBar: _chatBar__WEBPACK_IMPORTED_MODULE_0__["default"],
+    ChatMenu: _chatMenu__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  methods: {
+    online: function online() {
+      this.$bvModal.show("online");
+    },
+    attach: function attach(val) {
+      this.attachment = val;
+      this.submit(null);
+    },
+    submit: function submit(message) {
+      var _this = this;
+
+      this.showEmoji = false;
+      this.$emit("addStaffMessage", message, this.attachment);
+      var data = {
+        message: message,
+        attachment: this.attachment
+      };
+      axios.post("/api/staff-message", data, {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this.message = "";
+        }
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/staffsChat.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/staffsChat.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['tutor', "onlineStaffs", "staffsMessages"]
 });
 
 /***/ }),
@@ -24153,7 +24793,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.view[data-v-25b32ea2] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.online-presence[data-v-25b32ea2] {\n  background: #f5f4f4;\n  height: 85vh;\n}\n.online-presence-top[data-v-25b32ea2] {\n  display: flex;\n}\n.online-presence-top .fa[data-v-25b32ea2] {\n  padding-left: 10px;\n  padding-top: 10px;\n}\n.inner-single[data-v-25b32ea2] {\n  display: flex;\n}\n.message-info[data-v-25b32ea2] {\n  display: flex;\n  padding-left: 20px;\n  align-items: center;\n}\n.message-info h6[data-v-25b32ea2] {\n  margin-bottom: 0;\n  line-height: 0;\n}\n.file-attachement[data-v-25b32ea2] {\n  display: flex;\n  width: 100%;\n  position: relative;\n}\n.file-attachement span[data-v-25b32ea2] {\n  position: absolute;\n  right: 0;\n  transform: translate(-7px);\n  padding-top: 5px;\n}\n.progress[data-v-25b32ea2] {\n  height: 15px;\n}\nlabel[data-v-25b32ea2] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-25b32ea2] {\n  font-size: 14px;\n  padding: 20px;\n}\n.chat-body[data-v-25b32ea2] {\n  width: 100%;\n  height: 100%;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-25b32ea2] {\n  height: 100%;\n  width: 20%;\n}\n.chat-area[data-v-25b32ea2] {\n  position: relative;\n}\n.send-tab[data-v-25b32ea2] {\n  position: absolute;\n  bottom: 0;\n  background: #cec9c9;\n  display: flex;\n  width: 100%;\n  padding: 10px;\n}\n.emoji[data-v-25b32ea2] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-25b32ea2] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-25b32ea2] {\n  position: relative;\n}\nul[data-v-25b32ea2],\nol[data-v-25b32ea2] {\n  list-style: none;\n}\n.chat-message[data-v-25b32ea2] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
+exports.push([module.i, "\n.view[data-v-25b32ea2] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.single-online-tag[data-v-25b32ea2]{\npadding:15px 10px;\n}\n.single-online-tag.active[data-v-25b32ea2]{\nbackground-color: #fff;\nborder-left:3px solid #ccc\n}\n.online-presence[data-v-25b32ea2] {\n  background: #f5f4f4;\n  height: 85vh;\n}\n.online-presence-top[data-v-25b32ea2] {\n  display: flex;\n}\n.online-presence-top .fa[data-v-25b32ea2] {\n  padding-left: 10px;\n  padding-top: 10px;\n}\n.inner-single[data-v-25b32ea2] {\n  display: flex;\n  justify-content:space-between;\n}\n.message-info[data-v-25b32ea2] {\n  display: flex;\n  padding-left: 20px;\n  align-items: center;\n}\n/* .message-info h6 {\n  margin-bottom: 0;\n  line-height: 0;\n} */\n.file-attachement[data-v-25b32ea2] {\n  display: flex;\n  width: 100%;\n  position: relative;\n}\n.file-attachement span[data-v-25b32ea2] {\n  position: absolute;\n  right: 0;\n  transform: translate(-7px);\n  padding-top: 5px;\n}\n.progress[data-v-25b32ea2] {\n  height: 15px;\n}\nlabel[data-v-25b32ea2] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-25b32ea2] {\n  font-size: 14px;\n  padding: 20px;\n}\n.chat-body[data-v-25b32ea2] {\n  width: 100%;\n  height: 100%;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-25b32ea2] {\n  height: 100%;\n  width: 20%;\n}\n.chat-area[data-v-25b32ea2] {\n  position: relative;\n}\n.send-tab[data-v-25b32ea2] {\n  position: absolute;\n  bottom: 0;\n  background: #cec9c9;\n  display: flex;\n  width: 100%;\n  padding: 10px;\n}\n.emoji[data-v-25b32ea2] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-25b32ea2] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-25b32ea2] {\n  position: relative;\n}\nul[data-v-25b32ea2],\nol[data-v-25b32ea2] {\n  list-style: none;\n}\n.chat-message[data-v-25b32ea2] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -24400,7 +25040,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-42307846] {\n  min-height: 70vh;\n  padding: 50px 0;\n}\nsection[data-v-42307846] {\n  position: relative;\n}\n.total[data-v-42307846] {\n  position: absolute;\n  right: 15px;\n  top: 15px;\n}\n.upload[data-v-42307846] {\n  background: #f7f8fa;\n}\nlabel[data-v-42307846] {\n  font-weight: bold;\n}\n.border[data-v-42307846] {\n  border-radius: 15px;\n}\nli[data-v-42307846] {\n   margin-left: 1rem;\n  margin-bottom:50px;\n}\n.form-text[data-v-42307846] {\n  margin-bottom: 0.25rem;\n  margin-top: 0;\n  color: blue;\n}\n@media (max-width: 425px) {\n.container[data-v-42307846] {\n    padding: 30px 10px;\n}\nform[data-v-42307846] {\n    padding: 30px 10px;\n}\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-42307846] {\n  min-height: 70vh;\n  padding: 50px 0;\n}\nsection[data-v-42307846] {\n  position: relative;\n}\n.total[data-v-42307846] {\n  position: absolute;\n  right: 15px;\n  top: 15px;\n}\n.upload[data-v-42307846] {\n  background: #f7f8fa;\n}\nlabel[data-v-42307846] {\n  font-weight: bold;\n}\n.border[data-v-42307846] {\n  border-radius: 15px;\n}\nli[data-v-42307846] {\n   margin-left: 1rem;\n  margin-bottom:50px;\n}\n.form-text[data-v-42307846] {\n  margin-bottom: 0.25rem;\n  margin-top: 0;\n  color: blue;\n}\n.scores[data-v-42307846]{\n  font-size:11px;\n}\n@media (max-width: 425px) {\n.container[data-v-42307846] {\n    padding: 30px 10px;\n}\nform[data-v-42307846] {\n    padding: 30px 10px;\n}\n}\n", ""]);
 
 // exports
 
@@ -24457,7 +25097,26 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.view[data-v-51658877] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.online-presence[data-v-51658877] {\n  background: #f5f4f4;\n  height: 85vh;\n}\n.online-presence-top[data-v-51658877] {\n  display: flex;\n}\n.online-presence-top .fa[data-v-51658877] {\n  padding-left: 10px;\n  padding-top: 10px;\n}\n.inner-single[data-v-51658877] {\n  display: flex;\n}\n.message-info[data-v-51658877] {\n  display: flex;\n  padding-left: 20px;\n  align-items: center;\n}\n.message-info h6[data-v-51658877] {\n  margin-bottom: 0;\n  line-height: 0;\n}\n.file-attachement[data-v-51658877] {\n  display: flex;\n  width: 100%;\n  position: relative;\n}\n.file-attachement span[data-v-51658877] {\n  position: absolute;\n  right: 0;\n  transform: translate(-7px);\n  padding-top: 5px;\n}\n.progress[data-v-51658877] {\n  height: 15px;\n}\n.attach[data-v-51658877]{\n  border-radius: 6px;\n  padding: 10px;\n}\nlabel[data-v-51658877] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-51658877] {\n  font-size: 14px;\n  padding:0 20px;\n}\n.chat-body[data-v-51658877] {\n  width: 100%;\n  height: 85vh;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-51658877] {\n  height: 100%;\n  width: 20%;\n}\n.chat-area[data-v-51658877] {\n  position: relative;\n}\n.send-tab[data-v-51658877] {\n  position: absolute;\n  bottom: 0;\n  background: #cec9c9;\n  display: flex;\n  width: 100%;\n  padding: 10px;\n}\n.emoji[data-v-51658877] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-51658877] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-51658877] {\n  position: relative;\n}\nul[data-v-51658877],\nol[data-v-51658877] {\n  list-style: none;\n}\n.chat-message[data-v-51658877] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
+exports.push([module.i, "\n.view[data-v-51658877] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.online-presence[data-v-51658877] {\n  background: #f5f4f4;\n  height: 85vh;\n}\n.online-presence-top[data-v-51658877] {\n  display: flex;\n}\n.online-presence-top .fa[data-v-51658877] {\n  padding-left: 10px;\n  padding-top: 10px;\n}\n.inner-single[data-v-51658877] {\n  display: flex;\n}\n.message-info[data-v-51658877] {\n  display: flex;\n  padding-left: 20px;\n  align-items: center;\n}\n.message-info h6[data-v-51658877] {\n  margin-bottom: 0;\n  line-height: 0;\n}\n.file-attachement[data-v-51658877] {\n  display: flex;\n  width: 100%;\n  position: relative;\n}\n.file-attachement span[data-v-51658877] {\n  position: absolute;\n  right: 0;\n  transform: translate(-7px);\n  padding-top: 5px;\n}\n.progress[data-v-51658877] {\n  height: 15px;\n}\n.attach[data-v-51658877] {\n  border-radius: 6px;\n  padding: 10px;\n}\nlabel[data-v-51658877] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-51658877] {\n  font-size: 14px;\n  padding: 0 20px;\n}\n.chat-body[data-v-51658877] {\n  width: 100%;\n  height: 85vh;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-51658877] {\n  height: 100%;\n  width: 20%;\n}\n.chat-area[data-v-51658877] {\n  position: relative;\n}\n.send-tab[data-v-51658877] {\n  position: absolute;\n  bottom: 0;\n  background: #cec9c9;\n  display: flex;\n  width: 100%;\n  padding: 10px;\n}\n.emoji[data-v-51658877] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-51658877] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-51658877] {\n  position: relative;\n}\nul[data-v-51658877],\nol[data-v-51658877] {\n  list-style: none;\n}\n.chat-message[data-v-51658877] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/chatMenu.vue?vue&type=style&index=0&id=c0219a14&scoped=true&lang=css&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/student/chatMenu.vue?vue&type=style&index=0&id=c0219a14&scoped=true&lang=css& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.view[data-v-c0219a14] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.single-online-tag[data-v-c0219a14]{\npadding:15px 10px;\n}\n.single-online-tag.active[data-v-c0219a14]{\nbackground-color: #fff;\nborder-left:3px solid #ccc\n}\n.online-presence[data-v-c0219a14] {\n  background: #f5f4f4;\n  height: 85vh;\n}\n.online-presence-top[data-v-c0219a14] {\n  display: flex;\n}\n.online-presence-top .fa[data-v-c0219a14] {\n  padding-left: 10px;\n  padding-top: 10px;\n}\n.inner-single[data-v-c0219a14] {\n  display: flex;\n  justify-content:space-between;\n}\n.message-info[data-v-c0219a14] {\n  display: flex;\n  padding-left: 20px;\n  align-items: center;\n}\n/* .message-info h6 {\n  margin-bottom: 0;\n  line-height: 0;\n} */\n.file-attachement[data-v-c0219a14] {\n  display: flex;\n  width: 100%;\n  position: relative;\n}\n.file-attachement span[data-v-c0219a14] {\n  position: absolute;\n  right: 0;\n  transform: translate(-7px);\n  padding-top: 5px;\n}\n.progress[data-v-c0219a14] {\n  height: 15px;\n}\nlabel[data-v-c0219a14] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-c0219a14] {\n  font-size: 14px;\n  padding: 20px;\n}\n.chat-body[data-v-c0219a14] {\n  width: 100%;\n  height: 100%;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-c0219a14] {\n  height: 100%;\n  width: 20%;\n}\n.chat-area[data-v-c0219a14] {\n  position: relative;\n}\n.send-tab[data-v-c0219a14] {\n  position: absolute;\n  bottom: 0;\n  background: #cec9c9;\n  display: flex;\n  width: 100%;\n  padding: 10px;\n}\n.emoji[data-v-c0219a14] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-c0219a14] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-c0219a14] {\n  position: relative;\n}\nul[data-v-c0219a14],\nol[data-v-c0219a14] {\n  list-style: none;\n}\n.chat-message[data-v-c0219a14] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -24476,7 +25135,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.my-container[data-v-bc98fdf6]{\n    widows: 100vw;\n    width: 100%;\n    background: rgba(255, 247, 237, 0.68);\n}\n.side[data-v-bc98fdf6]{\n    width: 15%;\n    height: 100vh;\n   background: #FFFFFF;\nbox-shadow: 0px 4px 9px rgba(128, 128, 128, 0.25);\nborder-radius: 0px 15px 15px 0px;\nposition: fixed;\n}\n.main[data-v-bc98fdf6]{\n    width:85%;\n    position: absolute;\n    background: rgba(255, 247, 237, 0.68);\n    right: 0;\n    height: 100%;\n    overflow: auto;\n}\n.min-side[data-v-bc98fdf6]{\nwidth: 4% !important;\n}\n.min-main[data-v-bc98fdf6]{\nwidth: 96% !important;\n}\n\n", ""]);
+exports.push([module.i, "\n.my-container[data-v-bc98fdf6] {\n  widows: 100vw;\n  width: 100%;\n  background: rgba(255, 247, 237, 0.68);\n}\n.side[data-v-bc98fdf6] {\n  width: 15%;\n  height: 100vh;\n  background: #ffffff;\n  box-shadow: 0px 4px 9px rgba(128, 128, 128, 0.25);\n  border-radius: 0px 15px 15px 0px;\n  position: fixed;\n}\n.main[data-v-bc98fdf6] {\n  width: 85%;\n  position: absolute;\n  background: rgba(255, 247, 237, 0.68);\n  right: 0;\n  height: 100%;\n  overflow: auto;\n}\n.min-side[data-v-bc98fdf6] {\n  width: 4% !important;\n}\n.min-main[data-v-bc98fdf6] {\n  width: 96% !important;\n}\n", ""]);
 
 // exports
 
@@ -24502,6 +25161,25 @@ exports.push([module.i, "\n.view[data-v-7c861bc4] {\n  padding: 40px 20px 60px;\
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/groupBody.vue?vue&type=style&index=0&id=a995f69c&scoped=true&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/student/groupBody.vue?vue&type=style&index=0&id=a995f69c&scoped=true&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.view[data-v-a995f69c] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.online-presence[data-v-a995f69c] {\n  background: #f5f4f4;\n  height: 85vh;\n}\n.online-presence-top[data-v-a995f69c] {\n  display: flex;\n}\n.online-presence-top .fa[data-v-a995f69c] {\n  padding-left: 10px;\n  padding-top: 10px;\n}\n.inner-single[data-v-a995f69c] {\n  display: flex;\n}\n.message-info[data-v-a995f69c] {\n  display: flex;\n  padding-left: 20px;\n  align-items: center;\n}\n.message-info h6[data-v-a995f69c] {\n  margin-bottom: 0;\n  line-height: 0;\n}\n.file-attachement[data-v-a995f69c] {\n  display: flex;\n  width: 100%;\n  position: relative;\n}\n.file-attachement span[data-v-a995f69c] {\n  position: absolute;\n  right: 0;\n  transform: translate(-7px);\n  padding-top: 5px;\n}\n.progress[data-v-a995f69c] {\n  height: 15px;\n}\n.attach[data-v-a995f69c] {\n  border-radius: 6px;\n  padding: 10px;\n}\nlabel[data-v-a995f69c] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-a995f69c] {\n  font-size: 14px;\n  padding: 0 20px;\n}\n.chat-body[data-v-a995f69c] {\n  width: 100%;\n  height: 85vh;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-a995f69c] {\n  height: 100%;\n  width: 20%;\n}\n.chat-area[data-v-a995f69c] {\n  position: relative;\n}\n.send-tab[data-v-a995f69c] {\n  position: absolute;\n  bottom: 0;\n  background: #cec9c9;\n  display: flex;\n  width: 100%;\n  padding: 10px;\n}\n.emoji[data-v-a995f69c] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-a995f69c] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-a995f69c] {\n  position: relative;\n}\nul[data-v-a995f69c],\nol[data-v-a995f69c] {\n  list-style: none;\n}\n.chat-message[data-v-a995f69c] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/groups.vue?vue&type=style&index=0&id=7d83ab33&scoped=true&lang=css&":
 /*!********************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/student/groups.vue?vue&type=style&index=0&id=7d83ab33&scoped=true&lang=css& ***!
@@ -24514,7 +25192,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nnav[data-v-7d83ab33] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.table .thead-light th[data-v-7d83ab33] {\n  color: white;\n  background-color: rgba(19, 166, 153, 0.9);\n  border-color: rgba(19, 166, 153, 0.9);\n}\ntd[data-v-7d83ab33] {\n  text-transform: capitalize;\n}\n.hiden[data-v-7d83ab33] {\n  opacity: 0;\n}\n.add[data-v-7d83ab33] {\n  background-color: #f7f8fa;\n}\ntable[data-v-7d83ab33] {\n  font-size: 16px;\n  text-align: center;\n}\n.chat[data-v-7d83ab33] {\n  cursor: pointer;\n}\n.card-header[data-v-7d83ab33]{\n  padding: 0;\n}\nli[data-v-7d83ab33]{\n  width: 150px;\n}\n", ""]);
+exports.push([module.i, "\nnav[data-v-7d83ab33] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.table .thead-light th[data-v-7d83ab33] {\n  color: white;\n  background-color: rgba(19, 166, 153, 0.9);\n  border-color: rgba(19, 166, 153, 0.9);\n}\ntd[data-v-7d83ab33] {\n  text-transform: capitalize;\n}\n.hiden[data-v-7d83ab33] {\n  opacity: 0;\n}\n.add[data-v-7d83ab33] {\n  background-color: #f7f8fa;\n}\ntable[data-v-7d83ab33] {\n  font-size: 16px;\n  text-align: center;\n}\n.chat[data-v-7d83ab33] {\n  cursor: pointer;\n}\n.card-header[data-v-7d83ab33] {\n  padding: 0;\n}\nli[data-v-7d83ab33] {\n  width: 150px;\n}\n", ""]);
 
 // exports
 
@@ -24533,7 +25211,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-42846304] {\n  font-family: \"Montserrat\";\n  padding-bottom: 50px;\n}\n.note-body[data-v-42846304] {\n  display: flex;\n  border-bottom: 1px solid #ccc;\n  margin-bottom: 14px;\n}\n.m-res[data-v-42846304] {\n  height: 320px;\n  overflow: auto;\n}\n.main-note[data-v-42846304] {\n  height: 290px;\n  overflow: auto;\n}\n.welcome-board[data-v-42846304] {\n  background: rgba(19, 166, 153, 0.43);\n  width: 100%;\n  height: 200px;\n  border-radius: 10px;\n  display: flex;\n  position: relative;\n  margin-top: 2rem;\n}\n.welcome-board img[data-v-42846304] {\n  width: 320px;\n  height: 280px;\n  position: absolute;\n  transform: translateY(-28%);\n}\n.welcome-board-content[data-v-42846304] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  padding: 2.5rem;\n}\n.welcome-board-content p[data-v-42846304] {\n  text-align: center;\n  padding: 10px;\n}\n.welcome-board-content h3[data-v-42846304] {\n  color: #13a699;\n}\n.cards[data-v-42846304] {\n  margin-top: 2rem;\n  background: #fff;\n  padding: 1.5rem;\n  border-radius: 10px;\n  height: 400px;\n}\n.class_section[data-v-42846304] {\n  height: 300px;\n  overflow: auto;\n}\n.result-progress[data-v-42846304] {\n  margin-top: 10px;\n}\n.progress-top[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.progress-bar[data-v-42846304] {\n  width: 67% !important;\n  background-color: #de1515 !important;\n}\n.update-content[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.update-content p[data-v-42846304] {\n  font-size: 12px;\n  padding-left: 10px;\n  margin-bottom: 0;\n}\n.log-link[data-v-42846304] {\n  display: flex;\n  justify-content: flex-end;\n}\n.log-link a[data-v-42846304] {\n  color: #808080;\n}\n.log-link a[data-v-42846304]:hover {\n  color: #13a699;\n  text-decoration: underline !important;\n}\n.resources-inner[data-v-42846304] {\n  border-bottom: 1px solid #e4e4e4;\n  padding-top: 5px;\n}\n.resources-inner[data-v-42846304]:last-child {\n  border-bottom: none;\n}\n.class-content[data-v-42846304] {\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.red[data-v-42846304]{\n   color: #ff0000;\n}\n.green[data-v-42846304]{\n   color:green;\n}\n.class-content-main[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-42846304] {\n  font-size: 12px;\n}\n.notes-top[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.btn[data-v-42846304] {\n  background: transparent;\n  border: 1px solid #13a699;\n  border-radius: 5px;\n  color: #13a699;\n  font-size: 15px;\n}\n.btn[data-v-42846304]:hover {\n  background: #13a699;\n  border-radius: 5px;\n  color: #fff;\n}\n.update-avatar img[data-v-42846304] {\n  height: 40px;\n  width: 40px;\n}\n.notes-content[data-v-42846304] {\n  border-bottom: 1px solid #e4e4e4;\n}\n.notes-content[data-v-42846304]:last-child {\n  border-bottom: none;\n}\n.notes-top[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 1rem;\n}\n.notes-content-top[data-v-42846304] {\n  display: flex;\n}\n.notes-content-top h6[data-v-42846304] {\n  margin-bottom: 0;\n}\n.notes-content[data-v-42846304] {\n}\n.notes-content-main[data-v-42846304] {\n  padding-bottom: 5px;\n}\n.notes-content-main p[data-v-42846304] {\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notes-date[data-v-42846304] {\n  color: #808080;\n  padding-top: 5px;\n}\n.fa-file-o[data-v-42846304] {\n  color: #13a699;\n  background: rgba(19, 166, 153, 0.43);\n  border-radius: 50%;\n  padding: 9px;\n}\n.discussion-content[data-v-42846304] {\n  border-bottom: 1px solid #e4e4e4;\n  padding-bottom: 10px;\n  padding-top: 5px;\n}\n.discussion-content[data-v-42846304]:last-child {\n  border-bottom: none;\n}\n.discussion-content p[data-v-42846304] {\n  font-size: 10px;\n}\n.discussion-content-top[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-top p[data-v-42846304] {\n  font-size: 14px;\n}\n.discussion-content-bottom[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-bottom p[data-v-42846304] {\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notify-discussion p[data-v-42846304] {\n  background: #e4e4e4;\n  color: #808080;\n  border-radius: 5px;\n  font-weight: 500;\n  padding: 5px 10px;\n}\n.my-icon[data-v-42846304] {\n  color: #008e3a;\n}\n.check_it[data-v-42846304] {\n  color: #008e3a;\n  font-size: 12px;\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-42846304] {\n  font-family: \"Montserrat\";\n  padding-bottom: 50px;\n}\n.note-body[data-v-42846304] {\n  display: flex;\n  border-bottom: 1px solid #ccc;\n  margin-bottom: 14px;\n}\n.m-res[data-v-42846304] {\n  height: 320px;\n  overflow: auto;\n}\n.main-note[data-v-42846304] {\n  height: 290px;\n  overflow: auto;\n}\n.welcome-board[data-v-42846304] {\n  background: rgba(19, 166, 153, 0.43);\n  width: 100%;\n  height: 200px;\n  border-radius: 10px;\n  display: flex;\n  position: relative;\n  margin-top: 2rem;\n}\n.welcome-board img[data-v-42846304] {\n  width: 320px;\n  height: 280px;\n  position: absolute;\n  transform: translateY(-28%);\n}\n.welcome-board-content[data-v-42846304] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  padding: 2.5rem;\n}\n.welcome-board-content p[data-v-42846304] {\n  text-align: center;\n  padding: 10px;\n}\n.welcome-board-content h3[data-v-42846304] {\n  color: #13a699;\n}\n.cards[data-v-42846304] {\n  margin-top: 2rem;\n  background: #fff;\n  padding: 1.5rem;\n  border-radius: 10px;\n  height: 400px;\n}\n.class_section[data-v-42846304] {\n  height: 300px;\n  overflow: auto;\n}\n.result-progress[data-v-42846304] {\n  margin-top: 10px;\n}\n.progress-top[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.update-content[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.update-content p[data-v-42846304] {\n  font-size: 12px;\n  padding-left: 10px;\n  margin-bottom: 0;\n}\n.log-link[data-v-42846304] {\n  display: flex;\n  justify-content: flex-end;\n}\n.log-link a[data-v-42846304] {\n  color: #808080;\n}\n.log-link a[data-v-42846304]:hover {\n  color: #13a699;\n  text-decoration: underline !important;\n}\n.resources-inner[data-v-42846304] {\n  border-bottom: 1px solid #e4e4e4;\n  padding-top: 5px;\n}\n.resources-inner[data-v-42846304]:last-child {\n  border-bottom: none;\n}\n.class-content[data-v-42846304] {\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.red[data-v-42846304]{\n   color: #ff0000;\n}\n.green[data-v-42846304]{\n   color:green;\n}\n.class-content-main[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-42846304] {\n  font-size: 12px;\n}\n.notes-top[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.btn[data-v-42846304] {\n  background: transparent;\n  border: 1px solid #13a699;\n  border-radius: 5px;\n  color: #13a699;\n  font-size: 15px;\n}\n.btn[data-v-42846304]:hover {\n  background: #13a699;\n  border-radius: 5px;\n  color: #fff;\n}\n.update-avatar img[data-v-42846304] {\n  height: 40px;\n  width: 40px;\n}\n.notes-content[data-v-42846304] {\n  border-bottom: 1px solid #e4e4e4;\n}\n.notes-content[data-v-42846304]:last-child {\n  border-bottom: none;\n}\n.notes-top[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 1rem;\n}\n.notes-content-top[data-v-42846304] {\n  display: flex;\n}\n.notes-content-top h6[data-v-42846304] {\n  margin-bottom: 0;\n}\n.notes-content[data-v-42846304] {\n}\n.notes-content-main[data-v-42846304] {\n  padding-bottom: 5px;\n}\n.notes-content-main p[data-v-42846304] {\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notes-date[data-v-42846304] {\n  color: #808080;\n  padding-top: 5px;\n}\n.fa-file-o[data-v-42846304] {\n  color: #13a699;\n  background: rgba(19, 166, 153, 0.43);\n  border-radius: 50%;\n  padding: 9px;\n}\n.discussion-content[data-v-42846304] {\n  border-bottom: 1px solid #e4e4e4;\n  padding-bottom: 10px;\n  padding-top: 5px;\n}\n.discussion-content[data-v-42846304]:last-child {\n  border-bottom: none;\n}\n.discussion-content p[data-v-42846304] {\n  font-size: 10px;\n}\n.discussion-content-top[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-top p[data-v-42846304] {\n  font-size: 14px;\n}\n.discussion-content-bottom[data-v-42846304] {\n  display: flex;\n  justify-content: space-between;\n}\n.discussion-content-bottom p[data-v-42846304] {\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notify-discussion p[data-v-42846304] {\n  background: #e4e4e4;\n  color: #808080;\n  border-radius: 5px;\n  font-weight: 500;\n  padding: 5px 10px;\n}\n.my-icon[data-v-42846304] {\n  color: #008e3a;\n}\n.check_it[data-v-42846304] {\n  color: #008e3a;\n  font-size: 12px;\n}\n", ""]);
 
 // exports
 
@@ -24571,7 +25249,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.nav[data-v-09903b50] {\n  background: #f7f8fa;\n  position:-webkit-sticky;\n  position:sticky;\n  top:0;\n  z-index: 9;\n}\n.nav-item i[data-v-09903b50] {\n  color: #808080;\n  font-size: 24px;\n}\n.anime-stop[data-v-09903b50] {\n  -webkit-animation: none;\n          animation: none;\n}\n.bell[data-v-09903b50] {\n  color: #13a699;\n}\n.bell[data-v-09903b50]:hover {\n  color: #008e3a;\n}\n#notification[data-v-09903b50] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-09903b50] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-09903b50] {\n  max-height: 300px;\n  overflow: scroll;\n}\nul[data-v-09903b50]{\n  margin: 0;\n}\n.icon[data-v-09903b50] {\n  position: relative;\n}\n.badge[data-v-09903b50] {\n  position: absolute;\n  top: -10%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 13px;\n}\n.list-group-item[data-v-09903b50] {\n  font-size: 12px;\n}\n/* .semi-white{\n\n  padding:50px 20px;\n\n}\nnav {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background:white;\n}\n\n.fa-bell {\n  font-size: 24px;\n  color:#ffd708;\n} */\n.search[data-v-09903b50] {\n  width: 250px;\n\n  border-color: #ccc;\n}\n", ""]);
+exports.push([module.i, "\n.nav[data-v-09903b50] {\n  background: #f7f8fa;\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  z-index: 9;\n}\n.nav-item i[data-v-09903b50] {\n  color: #808080;\n  font-size: 24px;\n}\n.anime-stop[data-v-09903b50] {\n  -webkit-animation: none;\n          animation: none;\n}\n.bell[data-v-09903b50] {\n  color: #13a699;\n}\n.bell[data-v-09903b50]:hover {\n  color: #008e3a;\n}\n#notification[data-v-09903b50] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-09903b50] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-09903b50] {\n  max-height: 300px;\n  overflow: scroll;\n}\nul[data-v-09903b50] {\n  margin: 0;\n}\n.icon[data-v-09903b50] {\n  position: relative;\n}\n.badge[data-v-09903b50] {\n  position: absolute;\n  top: -10%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 13px;\n}\n.list-group-item[data-v-09903b50] {\n  font-size: 12px;\n}\n/* .semi-white{\n\n  padding:50px 20px;\n\n}\nnav {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background:white;\n}\n\n.fa-bell {\n  font-size: 24px;\n  color:#ffd708;\n} */\n.search[data-v-09903b50] {\n  width: 250px;\n\n  border-color: #ccc;\n}\n", ""]);
 
 // exports
 
@@ -24590,7 +25268,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.view[data-v-25c727a8] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.progress[data-v-25c727a8] {\n  height: 15px;\n}\nlabel[data-v-25c727a8] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-25c727a8] {\n  font-size: 14px;\n  padding: 20px;\n}\n.chat-body[data-v-25c727a8] {\n  width: 80%;\n  height: 100%;\n  background: #f7f8fa;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-25c727a8] {\n  height: 100%;\n  width: 20%;\n}\n.send-tab[data-v-25c727a8] {\n  position: absolute;\n  bottom: 0;\n  width: 93%;\n  margin: 0 auto;\n  padding: 4px 0;\n  background: white;\n}\n.emoji[data-v-25c727a8] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-25c727a8] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-25c727a8] {\n  position: relative;\n}\n.fa-paperclip[data-v-25c727a8] {\n  position: absolute;\n  font-size: 17px;\n  right: 10px;\n  top: 50%;\n  margin-top: -8px;\n}\nul[data-v-25c727a8],\nol[data-v-25c727a8] {\n  list-style: none;\n}\n.chat-message[data-v-25c727a8] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
+exports.push([module.i, "\n.view[data-v-25c727a8] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.online-presence[data-v-25c727a8] {\n  background: #f5f4f4;\n  height: 85vh;\n}\n.online-presence-top[data-v-25c727a8] {\n  display: flex;\n}\n.online-presence-top .fa[data-v-25c727a8] {\n  padding-left: 10px;\n  padding-top: 10px;\n}\n.inner-single[data-v-25c727a8] {\n  display: flex;\n}\n.message-info[data-v-25c727a8] {\n  display: flex;\n  padding-left: 20px;\n  align-items: center;\n}\n.message-info h6[data-v-25c727a8] {\n  margin-bottom: 0;\n  line-height: 0;\n}\n.file-attachement[data-v-25c727a8] {\n  display: flex;\n  width: 100%;\n  position: relative;\n}\n.file-attachement span[data-v-25c727a8] {\n  position: absolute;\n  right: 0;\n  transform: translate(-7px);\n  padding-top: 5px;\n}\n.progress[data-v-25c727a8] {\n  height: 15px;\n}\n.attach[data-v-25c727a8] {\n  border-radius: 6px;\n  padding: 10px;\n}\nlabel[data-v-25c727a8] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-25c727a8] {\n  font-size: 14px;\n  padding: 0 20px;\n}\n.chat-body[data-v-25c727a8] {\n  width: 100%;\n  height: 85vh;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-25c727a8] {\n  height: 100%;\n  width: 20%;\n}\n.chat-area[data-v-25c727a8] {\n  position: relative;\n}\n.send-tab[data-v-25c727a8] {\n  position: absolute;\n  bottom: 0;\n  background: #cec9c9;\n  display: flex;\n  width: 100%;\n  padding: 10px;\n}\n.emoji[data-v-25c727a8] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-25c727a8] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-25c727a8] {\n  position: relative;\n}\nul[data-v-25c727a8],\nol[data-v-25c727a8] {\n  list-style: none;\n}\n.chat-message[data-v-25c727a8] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -24799,7 +25477,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container-fluid[data-v-1684a710] {\n  width: 100% !important;\n}\n.main-title[data-v-1684a710]{\n  width: 350px;\n}\n.title[data-v-1684a710]{\n  font-weight: bold;\n  color:#56cee3;\n}\n.row[data-v-1684a710] {\n  margin-left: 0px !important;\n}\n.right[data-v-1684a710] {\n  background: #fff;\n  height: 100vh;\n  padding: 10px;\n  margin-top: 1rem;\n}\n.right-btn[data-v-1684a710] {\n  display: flex;\n  justify-content: flex-end;\n  padding-top: 2rem;\n}\n.btn[data-v-1684a710] {\n  background: transparent;\n text-decoration: underline;\n  color: #0a4065;\n  font-weight: 500;\n}\n.btn[data-v-1684a710]:hover {\n  color:  #118fe2;\n}\n.right h6[data-v-1684a710] {\n  padding-top: 1.5rem;\n  font-size: 14px;\n}\n.assignment-notification[data-v-1684a710] {\n  background: rgba(34, 202, 222, 0.2);\n  border-left: 5px solid #22cade;\n  padding: 5px 10px;\n  margin-bottom: 1rem;\n  margin-top: 1rem;\n}\n.notification-content p[data-v-1684a710] {\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notify-class[data-v-1684a710] {\n  display: flex;\n  justify-content: flex-end;\n  color: #0a4065;\n  font-weight: 500;\n}\n.assessment-table[data-v-1684a710] {\n  padding-left: 15px;\n  padding-top: 0;\n}\n.hiden[data-v-1684a710] {\n  opacity: 0;\n}\n.overall-assessment[data-v-1684a710]{\n  display: flex;\n  justify-content: space-between;\n  padding: 2px 10px;\n}\n.overall-assessment h6[data-v-1684a710]{\n  margin-bottom: 3px;\n  padding-top: 5px;\n}\n.overall-assessment p[data-v-1684a710]{\n  color: grey;\n  font-size: 14px;\n}\n.submitted[data-v-1684a710]{\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.pending[data-v-1684a710]{\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.submitted .fa-check[data-v-1684a710]{\n        color: #008e3a;\n    background: rgba(0, 142, 58, 0.25);\n    border-radius: 50%;\n    padding: 10px;\n}\n.pending .fa-ban[data-v-1684a710]{\n  color: #dfd291;\n    background: rgba(223, 210, 145, 0.25);\n    border-radius: 50%;\n    padding: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.container-fluid[data-v-1684a710] {\n  width: 100% !important;\n}\n.main-title[data-v-1684a710] {\n  width: 350px;\n}\n.title[data-v-1684a710] {\n  font-weight: bold;\n  color: #56cee3;\n}\n.row[data-v-1684a710] {\n  margin-left: 0px !important;\n}\n.right[data-v-1684a710] {\n  background: #fff;\n  height: 100vh;\n  padding: 10px;\n  margin-top: 1rem;\n}\n.right-btn[data-v-1684a710] {\n  display: flex;\n  justify-content: flex-end;\n  padding-top: 2rem;\n}\n.btn[data-v-1684a710] {\n  background: transparent;\n  text-decoration: underline;\n  color: #0a4065;\n  font-weight: 500;\n}\n.btn[data-v-1684a710]:hover {\n  color: #118fe2;\n}\n.right h6[data-v-1684a710] {\n  padding-top: 1.5rem;\n  font-size: 14px;\n}\n.assignment-notification[data-v-1684a710] {\n  background: rgba(34, 202, 222, 0.2);\n  border-left: 5px solid #22cade;\n  padding: 5px 10px;\n  margin-bottom: 1rem;\n  margin-top: 1rem;\n}\n.notification-content p[data-v-1684a710] {\n  font-size: 12px;\n  margin-bottom: 0;\n}\n.notify-class[data-v-1684a710] {\n  display: flex;\n  justify-content: flex-end;\n  color: #0a4065;\n  font-weight: 500;\n}\n.notify[data-v-1684a710] {\n  text-align: center;\n  font-size: 17px;\n  margin-bottom: 16px;\n}\n.assessment-table[data-v-1684a710] {\n  padding-left: 15px;\n  padding-top: 0;\n}\n.hiden[data-v-1684a710] {\n  opacity: 0;\n}\n.overall-assessment[data-v-1684a710] {\n  display: flex;\n  justify-content: space-between;\n  padding: 2px 10px;\n}\n.overall-assessment h6[data-v-1684a710] {\n  margin-bottom: 3px;\n  padding-top: 5px;\n}\n.overall-assessment p[data-v-1684a710] {\n  color: grey;\n  font-size: 14px;\n}\n.submitted[data-v-1684a710] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.pending[data-v-1684a710] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.submitted .fa-check[data-v-1684a710] {\n  color: #008e3a;\n  background: rgba(0, 142, 58, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n.pending .fa-ban[data-v-1684a710] {\n  color: #dfd291;\n  background: rgba(223, 210, 145, 0.25);\n  border-radius: 50%;\n  padding: 10px;\n}\n", ""]);
 
 // exports
 
@@ -24819,6 +25497,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 // module
 exports.push([module.i, "\n.body[data-v-593ba224] {\n  font-family: \"Montserrat\";\n}\n.options[data-v-593ba224] {\n  position: relative;\n}\n.main-title[data-v-593ba224]{\n  width: 350px;\n}\n.title[data-v-593ba224]{\n  font-weight: bold;\n  color:#56cee3;\n}\nul[data-v-593ba224]{\n  margin: 0;\n}\n.option[data-v-593ba224] {\n  display: none;\n  position: absolute;\n  padding: 10px;\n  bottom: 80%;\n  right: 12px;\n  background: white;\n}\n.options:hover .option[data-v-593ba224] {\n  display: block;\n}\n.option li[data-v-593ba224] {\n  padding: 4px 15px;\n  cursor: pointer;\n}\nul[data-v-593ba224] {\n  list-style: none;\n}\n.create-btn[data-v-593ba224] {\n  display: flex;\n  justify-content: flex-end;\n}\n/* .btn {\n  padding: 10px 20px;\n  border-radius: 5px;\n} */\n.btn-create[data-v-593ba224] {\n  background: #56cee3;\n  color: #fff;\n}\n.search[data-v-593ba224] {\n  width: 250px;\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-593ba224] {\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-593ba224] {\n  display: flex;\n  justify-content: flex-start;\n  padding-top: 10px;\n}\n.filter-btn[data-v-593ba224] {\n  background: #fff;\n  padding: 10px 20px;\n  border-radius: 5px;\n}\n.filter-btn span[data-v-593ba224] {\n  font-family: \"Montserrat\";\n  font-weight: bold;\n}\n.filter-btn i[data-v-593ba224] {\n  padding-left: 3px;\n}\n.sort-section[data-v-593ba224] {\n  display: flex;\n  justify-content: space-between;\n  background: #fff;\n  border-radius: 10px;\n}\n.bg-info[data-v-593ba224] {\n  background: #fff !important;\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\n  margin-top: 20px;\n  border-radius: 10px;\n}\n.nav-link[data-v-593ba224] {\n  color: #000 !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/assessment/review.vue?vue&type=style&index=0&id=5482ae31&scoped=true&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/assessment/review.vue?vue&type=style&index=0&id=5482ae31&scoped=true&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.multi[data-v-5482ae31] {\n  width: 50px;\n}\n", ""]);
 
 // exports
 
@@ -24894,7 +25591,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.my-container[data-v-19998a00]{\n    widows: 100vw;\n}\n.side[data-v-19998a00]{\n    width: 15%;\n    height: 100vh;\n    background:#41cee2 ;\n    color:white;\n    position: fixed;\n}\n.main[data-v-19998a00]{\n    width:85%;\n height: 100%;\nposition: absolute;\nright: 0;\n/* background:#fff7ed ; */\n}\n.min-side[data-v-19998a00]{\nwidth: 4% !important;\n}\n.min-main[data-v-19998a00]{\nwidth: 96% !important;\n}\n\n \n", ""]);
+exports.push([module.i, "\n.my-container[data-v-19998a00] {\n  widows: 100vw;\n}\n.side[data-v-19998a00] {\n  width: 15%;\n  height: 100vh;\n  background: #41cee2;\n  color: white;\n  position: fixed;\n}\n.main[data-v-19998a00] {\n  width: 85%;\n  height: 100%;\n  position: absolute;\n  right: 0;\n  /* background:#fff7ed ; */\n}\n.min-side[data-v-19998a00] {\n  width: 4% !important;\n}\n.min-main[data-v-19998a00] {\n  width: 96% !important;\n}\n", ""]);
 
 // exports
 
@@ -24914,6 +25611,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 // module
 exports.push([module.i, "\n.overallgradebook-table[data-v-7ff33f92] {\n  font-family: \"Montserrat\";\n}\n.gradebook-table[data-v-7ff33f92] {\n  font-family: \"Montserrat\";\n}\n.grade-book[data-v-7ff33f92] {\n  background: #fff;\n  padding: 15px;\n}\n.overall[data-v-7ff33f92]{\n  background: #fff;\n}\n.outer-grade-book[data-v-7ff33f92] {\n  padding-top: 20px;\n}\n.search[data-v-7ff33f92] {\n  /* width:250px; */\n  border-color: #41cee2;\n}\n.sort-table p[data-v-7ff33f92] {\n  font-size: 14px;\n}\n.btn-export[data-v-7ff33f92]{\n  border: 1px solid #c4c4c4;\n}\n.b-table-sticky-header[data-v-7ff33f92] {\n  max-height: 80vh;\n}\n/* width */\n[data-v-7ff33f92]::-webkit-scrollbar {\n  width: 5px;\n}\n\n/* Track */\n[data-v-7ff33f92]::-webkit-scrollbar-track {\n  background: none;\n}\n\n/* Handle */\n[data-v-7ff33f92]::-webkit-scrollbar-thumb {\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 5px;\n}\n\n/* Handle on hover */\n[data-v-7ff33f92]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/groupChat.vue?vue&type=style&index=0&id=134b9c63&scoped=true&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/groupChat.vue?vue&type=style&index=0&id=134b9c63&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.view[data-v-134b9c63] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.online-presence[data-v-134b9c63] {\n  background: #f5f4f4;\n  height: 85vh;\n}\n.online-presence-top[data-v-134b9c63] {\n  display: flex;\n}\n.online-presence-top .fa[data-v-134b9c63] {\n  padding-left: 10px;\n  padding-top: 10px;\n}\n.inner-single[data-v-134b9c63] {\n  display: flex;\n}\n.message-info[data-v-134b9c63] {\n  display: flex;\n  padding-left: 20px;\n  align-items: center;\n}\n.message-info h6[data-v-134b9c63] {\n  margin-bottom: 0;\n  line-height: 0;\n}\n.file-attachement[data-v-134b9c63] {\n  display: flex;\n  width: 100%;\n  position: relative;\n}\n.file-attachement span[data-v-134b9c63] {\n  position: absolute;\n  right: 0;\n  transform: translate(-7px);\n  padding-top: 5px;\n}\n.progress[data-v-134b9c63] {\n  height: 15px;\n}\n.attach[data-v-134b9c63] {\n  border-radius: 6px;\n  padding: 10px;\n}\nlabel[data-v-134b9c63] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-134b9c63] {\n  font-size: 14px;\n  padding: 0 20px;\n}\n.chat-body[data-v-134b9c63] {\n  width: 100%;\n  height: 85vh;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-134b9c63] {\n  height: 100%;\n  width: 20%;\n}\n.chat-area[data-v-134b9c63] {\n  position: relative;\n}\n.send-tab[data-v-134b9c63] {\n  position: absolute;\n  bottom: 0;\n  background: #cec9c9;\n  display: flex;\n  width: 100%;\n  padding: 10px;\n}\n.emoji[data-v-134b9c63] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-134b9c63] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-134b9c63] {\n  position: relative;\n}\nul[data-v-134b9c63],\nol[data-v-134b9c63] {\n  list-style: none;\n}\n.chat-message[data-v-134b9c63] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -24970,7 +25686,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.semi-white[data-v-2e28e87d]{\n background: #F9F7F0;\n min-height: 100%;\n}\nnav[data-v-2e28e87d] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);\n  position: -webkit-sticky;\n  position: sticky;\n  top:0;\n  background:#fff;\n  z-index: 999;\n}\n#notification[data-v-2e28e87d] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-2e28e87d] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-2e28e87d] {\n  max-height: 300px;\n overflow: scroll;\n}\n.icon[data-v-2e28e87d] {\n  position: relative;\n  font-size: 22px;\n}\n.badge[data-v-2e28e87d] {\n  position: absolute;\n  top: -10%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 14px;\n}\n.list-group-item[data-v-2e28e87d] {\n  font-size: 14px;\n}\n.fa-bell[data-v-2e28e87d] {\n  font-size: 24px;\n  color:#41cee2;\n}\n.search[data-v-2e28e87d]{\n  width:250px;\n  border-color:#41cee2\n}\n", ""]);
+exports.push([module.i, "\n.semi-white[data-v-2e28e87d] {\n  background: #f9f7f0;\n  min-height: 100%;\n}\nnav[data-v-2e28e87d] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  background: #fff;\n  z-index: 999;\n}\n#notification[data-v-2e28e87d] {\n  position: relative;\n  z-index: 999;\n}\n.notification-body[data-v-2e28e87d] {\n  position: absolute;\n  left: -240px;\n  width: 250px;\n}\n.main-notify[data-v-2e28e87d] {\n  max-height: 300px;\n  overflow: scroll;\n}\n.icon[data-v-2e28e87d] {\n  position: relative;\n  font-size: 22px;\n}\n.badge[data-v-2e28e87d] {\n  position: absolute;\n  top: -10%;\n  left: 50%;\n  background: red;\n  color: white;\n  font-size: 14px;\n}\n.list-group-item[data-v-2e28e87d] {\n  font-size: 14px;\n}\n.fa-bell[data-v-2e28e87d] {\n  font-size: 24px;\n  color: #41cee2;\n}\n.search[data-v-2e28e87d] {\n  width: 250px;\n  border-color: #41cee2;\n}\n", ""]);
 
 // exports
 
@@ -25085,6 +25801,44 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 // module
 exports.push([module.i, "\n.bar[data-v-3bd343a8]{\n    position: relative;\n}\n.min-nav[data-v-3bd343a8]{\n    position: absolute;\n    text-align: center;\n    right: 20px;\n    bottom: 40px;\n}\n.logo[data-v-3bd343a8]{\n    padding: 10px 20px;\n    margin-bottom:20px;\n    text-align:center;\n}\n.logo p[data-v-3bd343a8]{\n    font-weight: bold;\n    font-family: 'Josefin Sans';\n    font-size: 24px;\n    text-align:center;\n    color:#41cee2;\n    margin:0;\n}\n.logo small[data-v-3bd343a8]{\n \n  font-size:18px;\n    color:white\n}\nul[data-v-3bd343a8]{\n    list-style:none;\n}\nnav ul li[data-v-3bd343a8]{\n  padding: 10px 20px;\n  font-size: 15px;\n  cursor: pointer;\n  color:hsl(187deg 74% 100%);\n}\nnav[data-v-3bd343a8]{\n    padding-left:20px;\n}\n.router-link-exact-active li[data-v-3bd343a8]{\nbackground:#0a4065 ;\nborder-top-left-radius:10px;\nborder-bottom-left-radius:10px\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/staffChat.vue?vue&type=style&index=0&id=115777c4&scoped=true&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/staffChat.vue?vue&type=style&index=0&id=115777c4&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.view[data-v-115777c4] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.online-presence[data-v-115777c4] {\n  background: #f5f4f4;\n  height: 85vh;\n}\n.online-presence-top[data-v-115777c4] {\n  display: flex;\n}\n.online-presence-top .fa[data-v-115777c4] {\n  padding-left: 10px;\n  padding-top: 10px;\n}\n.inner-single[data-v-115777c4] {\n  display: flex;\n}\n.message-info[data-v-115777c4] {\n  display: flex;\n  padding-left: 20px;\n  align-items: center;\n}\n.message-info h6[data-v-115777c4] {\n  margin-bottom: 0;\n  line-height: 0;\n}\n.file-attachement[data-v-115777c4] {\n  display: flex;\n  width: 100%;\n  position: relative;\n}\n.file-attachement span[data-v-115777c4] {\n  position: absolute;\n  right: 0;\n  transform: translate(-7px);\n  padding-top: 5px;\n}\n.progress[data-v-115777c4] {\n  height: 15px;\n}\n.attach[data-v-115777c4] {\n  border-radius: 6px;\n  padding: 10px;\n}\nlabel[data-v-115777c4] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-115777c4] {\n  font-size: 14px;\n  padding: 0 20px;\n}\n.chat-body[data-v-115777c4] {\n  width: 100%;\n  height: 85vh;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-115777c4] {\n  height: 100%;\n  width: 20%;\n}\n.chat-area[data-v-115777c4] {\n  position: relative;\n}\n.send-tab[data-v-115777c4] {\n  position: absolute;\n  bottom: 0;\n  background: #cec9c9;\n  display: flex;\n  width: 100%;\n  padding: 10px;\n}\n.emoji[data-v-115777c4] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-115777c4] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-115777c4] {\n  position: relative;\n}\nul[data-v-115777c4],\nol[data-v-115777c4] {\n  list-style: none;\n}\n.chat-message[data-v-115777c4] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/staffsChat.vue?vue&type=style&index=0&id=387a184f&scoped=true&lang=css&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/staffsChat.vue?vue&type=style&index=0&id=387a184f&scoped=true&lang=css& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.view[data-v-387a184f] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.online-presence[data-v-387a184f] {\n  background: #f5f4f4;\n  height: 85vh;\n}\n.online-presence-top[data-v-387a184f] {\n  display: flex;\n}\n.online-presence-top .fa[data-v-387a184f] {\n  padding-left: 10px;\n  padding-top: 10px;\n}\n.inner-single[data-v-387a184f] {\n  display: flex;\n}\n.message-info[data-v-387a184f] {\n  display: flex;\n  padding-left: 20px;\n  align-items: center;\n}\n.message-info h6[data-v-387a184f] {\n  margin-bottom: 0;\n  line-height: 0;\n}\n.file-attachement[data-v-387a184f] {\n  display: flex;\n  width: 100%;\n  position: relative;\n}\n.file-attachement span[data-v-387a184f] {\n  position: absolute;\n  right: 0;\n  transform: translate(-7px);\n  padding-top: 5px;\n}\n.progress[data-v-387a184f] {\n  height: 15px;\n}\n.attach[data-v-387a184f] {\n  border-radius: 6px;\n  padding: 10px;\n}\nlabel[data-v-387a184f] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-387a184f] {\n  font-size: 14px;\n  padding: 0 20px;\n}\n.chat-body[data-v-387a184f] {\n  width: 100%;\n  height: 85vh;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-387a184f] {\n  height: 100%;\n  width: 20%;\n}\n.chat-area[data-v-387a184f] {\n  position: relative;\n}\n.send-tab[data-v-387a184f] {\n  position: absolute;\n  bottom: 0;\n  background: #cec9c9;\n  display: flex;\n  width: 100%;\n  padding: 10px;\n}\n.emoji[data-v-387a184f] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-387a184f] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-387a184f] {\n  position: relative;\n}\nul[data-v-387a184f],\nol[data-v-387a184f] {\n  list-style: none;\n}\n.chat-message[data-v-387a184f] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -26964,6 +27718,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/chatMenu.vue?vue&type=style&index=0&id=c0219a14&scoped=true&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/student/chatMenu.vue?vue&type=style&index=0&id=c0219a14&scoped=true&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./chatMenu.vue?vue&type=style&index=0&id=c0219a14&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/chatMenu.vue?vue&type=style&index=0&id=c0219a14&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/dashboard.vue?vue&type=style&index=0&id=bc98fdf6&scoped=true&lang=css&":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/student/dashboard.vue?vue&type=style&index=0&id=bc98fdf6&scoped=true&lang=css& ***!
@@ -27003,6 +27787,36 @@ if(false) {}
 
 
 var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./explore.vue?vue&type=style&index=0&id=7c861bc4&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/explore.vue?vue&type=style&index=0&id=7c861bc4&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/groupBody.vue?vue&type=style&index=0&id=a995f69c&scoped=true&lang=css&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/student/groupBody.vue?vue&type=style&index=0&id=a995f69c&scoped=true&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./groupBody.vue?vue&type=style&index=0&id=a995f69c&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/groupBody.vue?vue&type=style&index=0&id=a995f69c&scoped=true&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -27534,6 +28348,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/assessment/review.vue?vue&type=style&index=0&id=5482ae31&scoped=true&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/assessment/review.vue?vue&type=style&index=0&id=5482ae31&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./review.vue?vue&type=style&index=0&id=5482ae31&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/assessment/review.vue?vue&type=style&index=0&id=5482ae31&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/assessment/test.vue?vue&type=style&index=0&id=65442aaa&scoped=true&lang=css&":
 /*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/assessment/test.vue?vue&type=style&index=0&id=65442aaa&scoped=true&lang=css& ***!
@@ -27677,6 +28521,36 @@ options.transform = transform
 options.insertInto = undefined;
 
 var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/groupChat.vue?vue&type=style&index=0&id=134b9c63&scoped=true&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/groupChat.vue?vue&type=style&index=0&id=134b9c63&scoped=true&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./groupChat.vue?vue&type=style&index=0&id=134b9c63&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/groupChat.vue?vue&type=style&index=0&id=134b9c63&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -27933,6 +28807,66 @@ if(false) {}
 
 
 var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./sideBar.vue?vue&type=style&index=0&id=3bd343a8&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/sideBar.vue?vue&type=style&index=0&id=3bd343a8&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/staffChat.vue?vue&type=style&index=0&id=115777c4&scoped=true&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/staffChat.vue?vue&type=style&index=0&id=115777c4&scoped=true&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./staffChat.vue?vue&type=style&index=0&id=115777c4&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/staffChat.vue?vue&type=style&index=0&id=115777c4&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/staffsChat.vue?vue&type=style&index=0&id=387a184f&scoped=true&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/staffsChat.vue?vue&type=style&index=0&id=387a184f&scoped=true&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./staffsChat.vue?vue&type=style&index=0&id=387a184f&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/staffsChat.vue?vue&type=style&index=0&id=387a184f&scoped=true&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -42143,126 +43077,126 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _vm.start
-      ? _c(
-          "div",
-          { staticClass: "progress mt-2 ml-auto text-right" },
-          [
-            _c(
-              "div",
-              {
-                staticClass: "progress-bar progress-bar-striped",
-                class: { active: _vm.progress != "Completed" },
-                style: { width: _vm.progress },
-                attrs: {
-                  role: "progressbar",
-                  "aria-valuenow": "0",
-                  "aria-valuemin": "0",
-                  "aria-valuemax": "100"
-                }
-              },
-              [_vm._v(_vm._s(_vm.progress))]
-            ),
-            _vm._v(" "),
-            _c("b-img", { attrs: { src: _vm.file, width: "20" } })
-          ],
-          1
-        )
-      : _vm._e(),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "send-tab" },
-      [
-        _c(
-          "div",
-          { staticClass: "btn btn-emoji", on: { click: _vm.openEmoji } },
-          [
-            _c("i", {
-              staticClass: "fa fa-smile-o",
-              attrs: { "aria-hidden": "true" }
-            })
-          ]
-        ),
-        _vm._v(" "),
-        _vm.showEmoji
-          ? _c("VEmojiPicker", {
-              staticClass: "emoji",
-              on: { select: _vm.selectEmoji }
-            })
-          : _vm._e(),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "file-attachement" },
-          [
-            _c("b-input", {
-              attrs: { placeholder: "Write message......." },
-              model: {
-                value: _vm.newMessage,
-                callback: function($$v) {
-                  _vm.newMessage = $$v
-                },
-                expression: "newMessage"
-              }
-            }),
-            _vm._v(" "),
-            _c("span", [
-              _vm._m(0),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control-file",
-                attrs: {
-                  type: "file",
-                  hidden: "",
-                  name: "attachment",
-                  id: "attachment",
-                  "aria-describedby": "fileHelpId"
-                },
-                on: {
-                  change: function($event) {
-                    return _vm.handleFileChange($event)
+  return _c(
+    "b-form",
+    {
+      on: {
+        submit: function($event) {
+          $event.preventDefault()
+          return _vm.submit($event)
+        }
+      }
+    },
+    [
+      _vm.start
+        ? _c(
+            "div",
+            { staticClass: "progress mt-2 ml-auto text-right" },
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "progress-bar progress-bar-striped",
+                  class: { active: _vm.progress != "Completed" },
+                  style: { width: _vm.progress },
+                  attrs: {
+                    role: "progressbar",
+                    "aria-valuenow": "0",
+                    "aria-valuemin": "0",
+                    "aria-valuemax": "100"
                   }
-                }
+                },
+                [_vm._v(_vm._s(_vm.progress))]
+              ),
+              _vm._v(" "),
+              _c("b-img", { attrs: { src: _vm.file, width: "20" } })
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "send-tab" },
+        [
+          _c(
+            "div",
+            { staticClass: "btn btn-emoji", on: { click: _vm.openEmoji } },
+            [
+              _c("i", {
+                staticClass: "fa fa-smile-o",
+                attrs: { "aria-hidden": "true" }
               })
-            ])
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "send-btn btn",
-            attrs: { type: "button" },
-            on: { click: _vm.submit }
-          },
-          [
-            _c("i", {
-              staticClass: "fa fa-paper-plane",
-              attrs: { "aria-hidden": "true" }
-            })
-          ]
-        )
-      ],
-      1
-    )
-  ])
+            ]
+          ),
+          _vm._v(" "),
+          _vm.showEmoji
+            ? _c("VEmojiPicker", {
+                staticClass: "emoji",
+                on: { select: _vm.selectEmoji }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "file-attachement" },
+            [
+              _c("b-input", {
+                attrs: { placeholder: "Write message......." },
+                model: {
+                  value: _vm.newMessage,
+                  callback: function($$v) {
+                    _vm.newMessage = $$v
+                  },
+                  expression: "newMessage"
+                }
+              }),
+              _vm._v(" "),
+              _c("span", [
+                _c("label", { attrs: { for: "attachment" } }, [
+                  _c("i", {
+                    staticClass: "fa fa-paperclip",
+                    attrs: { "aria-hidden": "true" }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "form-control-file",
+                  attrs: {
+                    type: "file",
+                    hidden: "",
+                    name: "attachment",
+                    id: "attachment",
+                    "aria-describedby": "fileHelpId"
+                  },
+                  on: {
+                    change: function($event) {
+                      return _vm.handleFileChange($event)
+                    }
+                  }
+                })
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "send-btn btn", attrs: { type: "submit" } },
+            [
+              _c("i", {
+                staticClass: "fa fa-paper-plane",
+                attrs: { "aria-hidden": "true" }
+              })
+            ]
+          )
+        ],
+        1
+      )
+    ]
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { attrs: { for: "attachment" } }, [
-      _c("i", {
-        staticClass: "fa fa-paperclip",
-        attrs: { "aria-hidden": "true" }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -42314,54 +43248,88 @@ var render = function() {
         _vm._v(" "),
         _c("hr"),
         _vm._v(" "),
-        _c("div", { staticClass: "online-tag" }, [
-          _c("div", { staticClass: "single-online-tag" }, [
-            _c(
-              "div",
-              { staticClass: "inner-single" },
-              [
-                _c("div", { staticClass: "avatar" }, [_c("b-avatar")], 1),
+        _c(
+          "div",
+          {
+            staticClass: "single-online-tag",
+            on: {
+              click: function($event) {
+                return _vm.switchGroup("staff-chat")
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "inner-single" }, [
+              _c("div", { staticClass: "message-info" }, [
+                _c("div", { staticClass: "avatar mr-3" }, [_c("b-avatar")], 1),
                 _vm._v(" "),
-                _vm._l(_vm.groups, function(item, idx) {
-                  return _c(
-                    "div",
-                    {
-                      key: idx,
-                      staticClass: "message-info",
-                      on: {
-                        click: function($event) {
-                          return _vm.joinGroup(
-                            item.name,
-                            item.id,
-                            item.tutor_id
-                          )
-                        }
-                      }
-                    },
-                    [
-                      _c("h6", { staticClass: "toCaps" }, [
-                        _vm._v(_vm._s(item.name))
-                      ]),
-                      _vm._v(" "),
+                _c("h6", { staticClass: "toCaps" }, [_vm._v("Staffs")])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                [
+                  _c("b-badge", { attrs: { variant: "success" } }, [
+                    _vm._v("3")
+                  ])
+                ],
+                1
+              )
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "online-tag" },
+          [
+            _vm._l(_vm.groups, function(item, idx) {
+              return _c(
+                "div",
+                {
+                  key: idx,
+                  staticClass: "single-online-tag",
+                  on: {
+                    click: function($event) {
+                      return _vm.switchGroup(item.id)
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "inner-single" }, [
+                    _c("div", { staticClass: "message-info" }, [
                       _c(
                         "div",
-                        [
-                          _c("b-badge", { attrs: { variant: "success" } }, [
-                            _vm._v("3")
-                          ])
-                        ],
+                        { staticClass: "avatar nr-3" },
+                        [_c("b-avatar")],
                         1
-                      )
-                    ]
-                  )
-                })
-              ],
-              2
-            )
-          ]),
-          _vm._v(" "),
-          _c("hr")
-        ])
+                      ),
+                      _vm._v(" "),
+                      _c("h6", { staticClass: "toCaps" }, [
+                        _vm._v(_vm._s(item.name))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      [
+                        _c("b-badge", { attrs: { variant: "success" } }, [
+                          _vm._v("3")
+                        ])
+                      ],
+                      1
+                    )
+                  ])
+                ]
+              )
+            }),
+            _vm._v(" "),
+            _c("hr")
+          ],
+          2
+        )
       ])
     ],
     1
@@ -47294,10 +48262,13 @@ var render = function() {
                             "b-col",
                             { staticClass: "text-left" },
                             [
-                              _vm.question.media
+                              _vm.template[_vm.num].question[_vm.quest].media
                                 ? _c("b-img", {
                                     attrs: {
-                                      src: _vm.question.media,
+                                      src:
+                                        _vm.template[_vm.num].question[
+                                          _vm.quest
+                                        ].media,
                                       width: "80px"
                                     }
                                   })
@@ -47754,14 +48725,7 @@ var render = function() {
                     _vm._v("\n        Total score :\n        "),
                     _c("strong", [_vm._v(_vm._s(_vm.total))]),
                     _vm._v(" "),
-                    _c("br"),
-                    _vm._v(" "),
-                    _vm.showScores
-                      ? _c("span", [
-                          _vm._v("\n          Your score :\n          "),
-                          _c("strong", [_vm._v(_vm._s(_vm.total_scores))])
-                        ])
-                      : _vm._e()
+                    _c("br")
                   ]),
                   _vm._v(" "),
                   _c(
@@ -47801,7 +48765,18 @@ var render = function() {
                                       "b-form-group",
                                       [
                                         _c("label", { attrs: { for: "" } }, [
-                                          _vm._v(_vm._s(question.title))
+                                          _vm._v(_vm._s(question.title) + " ("),
+                                          _c(
+                                            "span",
+                                            { staticClass: "scores" },
+                                            [
+                                              _vm._v(
+                                                _vm._s(question.score) +
+                                                  " marks"
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(")")
                                         ]),
                                         _vm._v(" "),
                                         question.guide
@@ -47818,14 +48793,6 @@ var render = function() {
                                             disabled: _vm.showScores,
                                             placeholder: question.placeholder,
                                             max: question.limit
-                                          },
-                                          on: {
-                                            change: function($event) {
-                                              return _vm.calcAnswer(
-                                                idx,
-                                                question
-                                              )
-                                            }
                                           },
                                           model: {
                                             value: question.answer,
@@ -47845,7 +48812,18 @@ var render = function() {
                                       "b-form-group",
                                       [
                                         _c("label", { attrs: { for: "" } }, [
-                                          _vm._v(_vm._s(question.title))
+                                          _vm._v(_vm._s(question.title) + " ("),
+                                          _c(
+                                            "span",
+                                            { staticClass: "scores" },
+                                            [
+                                              _vm._v(
+                                                _vm._s(question.score) +
+                                                  " marks"
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(")")
                                         ]),
                                         _vm._v(" "),
                                         question.guide
@@ -47861,14 +48839,6 @@ var render = function() {
                                             disabled: _vm.showScores,
                                             type: "email",
                                             placeholder: "example@email.com"
-                                          },
-                                          on: {
-                                            change: function($event) {
-                                              return _vm.calcAnswer(
-                                                idx,
-                                                question
-                                              )
-                                            }
                                           },
                                           model: {
                                             value: question.answer,
@@ -47888,7 +48858,18 @@ var render = function() {
                                       "b-form-group",
                                       [
                                         _c("label", { attrs: { for: "" } }, [
-                                          _vm._v(_vm._s(question.title))
+                                          _vm._v(_vm._s(question.title) + " ("),
+                                          _c(
+                                            "span",
+                                            { staticClass: "scores" },
+                                            [
+                                              _vm._v(
+                                                _vm._s(question.score) +
+                                                  " marks"
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(")")
                                         ]),
                                         _vm._v(" "),
                                         question.guide
@@ -47932,7 +48913,18 @@ var render = function() {
                                       "b-form-group",
                                       [
                                         _c("label", { attrs: { for: "" } }, [
-                                          _vm._v(_vm._s(question.title))
+                                          _vm._v(_vm._s(question.title) + " ("),
+                                          _c(
+                                            "span",
+                                            { staticClass: "scores" },
+                                            [
+                                              _vm._v(
+                                                _vm._s(question.score) +
+                                                  " marks"
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(")")
                                         ]),
                                         _vm._v(" "),
                                         question.guide
@@ -47947,14 +48939,6 @@ var render = function() {
                                           attrs: {
                                             disabled: _vm.showScores,
                                             placeholder: question.placeholder
-                                          },
-                                          on: {
-                                            change: function($event) {
-                                              return _vm.calcAnswer(
-                                                idx,
-                                                question
-                                              )
-                                            }
                                           },
                                           model: {
                                             value: question.answer,
@@ -47974,7 +48958,18 @@ var render = function() {
                                       "b-form-group",
                                       [
                                         _c("label", { attrs: { for: "" } }, [
-                                          _vm._v(_vm._s(question.title))
+                                          _vm._v(_vm._s(question.title) + " ("),
+                                          _c(
+                                            "span",
+                                            { staticClass: "scores" },
+                                            [
+                                              _vm._v(
+                                                _vm._s(question.score) +
+                                                  " marks"
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(")")
                                         ]),
                                         _vm._v(" "),
                                         question.guide
@@ -48031,7 +49026,18 @@ var render = function() {
                                       "b-form-group",
                                       [
                                         _c("label", { attrs: { for: "" } }, [
-                                          _vm._v(_vm._s(question.title))
+                                          _vm._v(_vm._s(question.title) + " ("),
+                                          _c(
+                                            "span",
+                                            { staticClass: "scores" },
+                                            [
+                                              _vm._v(
+                                                _vm._s(question.score) +
+                                                  " marks"
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(")")
                                         ]),
                                         _vm._v(" "),
                                         question.guide
@@ -48088,7 +49094,18 @@ var render = function() {
                                       "b-form-group",
                                       [
                                         _c("label", { attrs: { for: "" } }, [
-                                          _vm._v(_vm._s(question.title))
+                                          _vm._v(_vm._s(question.title) + " ("),
+                                          _c(
+                                            "span",
+                                            { staticClass: "scores" },
+                                            [
+                                              _vm._v(
+                                                _vm._s(question.score) +
+                                                  " marks"
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(")")
                                         ]),
                                         _vm._v(" "),
                                         question.guide
@@ -48130,7 +49147,17 @@ var render = function() {
                                       "b-form-group",
                                       [
                                         _c("label", { attrs: { for: "" } }, [
-                                          _vm._v(_vm._s(question.title))
+                                          _vm._v(_vm._s(question.title) + " ("),
+                                          _c(
+                                            "span",
+                                            { staticClass: "scores" },
+                                            [
+                                              _vm._v(
+                                                _vm._s(question.score) +
+                                                  " marks)"
+                                              )
+                                            ]
+                                          )
                                         ]),
                                         _vm._v(" "),
                                         question.guide
@@ -48172,7 +49199,18 @@ var render = function() {
                                       "b-form-group",
                                       [
                                         _c("label", { attrs: { for: "" } }, [
-                                          _vm._v(_vm._s(question.title))
+                                          _vm._v(_vm._s(question.title) + " ("),
+                                          _c(
+                                            "span",
+                                            { staticClass: "scores" },
+                                            [
+                                              _vm._v(
+                                                _vm._s(question.score) +
+                                                  " marks"
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(")")
                                         ]),
                                         _vm._v(" "),
                                         question.guide
@@ -48339,14 +49377,7 @@ var render = function() {
         { attrs: { id: "completed", size: "lg", "hide-footer": "" } },
         [
           _c("div", { staticClass: "text-center" }, [
-            _vm._v("\n      You have completed this Assessment\n      "),
-            _c("br"),
-            _vm._v("your score is\n      "),
-            _c("br"),
-            _vm._v(" "),
-            _c("span", { staticClass: "display-4" }, [
-              _vm._v(_vm._s(_vm.total_scores))
-            ])
+            _vm._v("\n      You have completed this Assessment\n      ")
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "text-center" }, [
@@ -48770,157 +49801,25 @@ var render = function() {
                 "b-col",
                 { staticClass: "chat-area", attrs: { md: "8" } },
                 [
-                  _c(
-                    "div",
-                    {
-                      directives: [
-                        { name: "chat-scroll", rawName: "v-chat-scroll" }
-                      ],
-                      staticClass: "chat-body"
-                    },
-                    [
-                      _c("div", { staticClass: "message-body" }, [
-                        _c(
-                          "ul",
-                          _vm._l(_vm.messages, function(message, idx) {
-                            return _c(
-                              "li",
-                              { key: idx, staticClass: "message mb-4" },
-                              [
-                                message.user
-                                  ? _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "shadow-sm rounded-pill chat-message",
-                                        class: {
-                                          "ml-auto":
-                                            message.user.id == _vm.student.id
-                                        }
-                                      },
-                                      [
-                                        _c(
-                                          "strong",
-                                          { staticClass: "text-muted" },
-                                          [_vm._v(_vm._s(message.user.name))]
-                                        ),
-                                        _vm._v(" "),
-                                        _c("br"),
-                                        _vm._v(" "),
-                                        message.message
-                                          ? _c(
-                                              "span",
-                                              { staticClass: "mr-3" },
-                                              [_vm._v(_vm._s(message.message))]
-                                            )
-                                          : _c(
-                                              "a",
-                                              {
-                                                staticClass: "mr-3",
-                                                attrs: {
-                                                  href: message.attachment,
-                                                  download: ""
-                                                }
-                                              },
-                                              [
-                                                _c("b-img", {
-                                                  staticClass: "attach",
-                                                  attrs: {
-                                                    src: message.attachment,
-                                                    fluid: "",
-                                                    width: "120"
-                                                  }
-                                                })
-                                              ],
-                                              1
-                                            ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "small",
-                                          { staticClass: "text-muted" },
-                                          [
-                                            _vm._v(
-                                              _vm._s(
-                                                _vm._f("moment")(
-                                                  message.created_at,
-                                                  "h:mm a"
-                                                )
-                                              )
-                                            )
-                                          ]
-                                        )
-                                      ]
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                message.tutor
-                                  ? _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "shadow-sm rounded-pill chat-message"
-                                      },
-                                      [
-                                        _c(
-                                          "strong",
-                                          { staticClass: "text-muted" },
-                                          [_vm._v(_vm._s(message.tutor.name))]
-                                        ),
-                                        _vm._v(" "),
-                                        _c("br"),
-                                        _vm._v(" "),
-                                        message.message
-                                          ? _c(
-                                              "span",
-                                              { staticClass: "mr-3" },
-                                              [_vm._v(_vm._s(message.message))]
-                                            )
-                                          : _c(
-                                              "a",
-                                              {
-                                                staticClass: "mr-3",
-                                                attrs: {
-                                                  href: message.attachment,
-                                                  download: ""
-                                                }
-                                              },
-                                              [
-                                                _c("b-img", {
-                                                  attrs: {
-                                                    src: message.attachment,
-                                                    fluid: "",
-                                                    width: "60"
-                                                  }
-                                                })
-                                              ],
-                                              1
-                                            ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "small",
-                                          { staticClass: "text-muted" },
-                                          [
-                                            _vm._v(
-                                              _vm._s(
-                                                _vm._f("moment")(
-                                                  message.created_at,
-                                                  "h:mm a"
-                                                )
-                                              )
-                                            )
-                                          ]
-                                        )
-                                      ]
-                                    )
-                                  : _vm._e()
-                              ]
-                            )
-                          }),
-                          0
-                        )
-                      ])
-                    ]
-                  ),
+                  _vm.showChat == "group"
+                    ? _c("ChatBody", {
+                        attrs: {
+                          student: _vm.student,
+                          groupMessage: _vm.groupMessage,
+                          onlineMembers: _vm.onlineMembers
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.showChat == "private"
+                    ? _c("PrivateChat", {
+                        attrs: {
+                          student: _vm.student,
+                          privateMessages: _vm.privateMessages,
+                          receiver_id: _vm.receiver_id
+                        }
+                      })
+                    : _vm._e(),
                   _vm._v(" "),
                   _c("ChatBar", {
                     on: { submit: _vm.submit, attach: _vm.attach }
@@ -48930,8 +49829,14 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("ChatMenu", {
-                attrs: { groups: _vm.groups },
-                on: { joinGroup: _vm.joinGroup, online: _vm.online }
+                attrs: {
+                  student: _vm.student,
+                  groups: _vm.groups,
+                  classmates: _vm.classmates,
+                  receiver_id: _vm.receiver_id,
+                  privateMessages: _vm.privateMessages
+                },
+                on: { switchGroup: _vm.switchGroup, online: _vm.online }
               })
             ],
             1
@@ -48951,10 +49856,18 @@ var render = function() {
               _c(
                 "b-list-group",
                 { staticClass: "text-center" },
-                _vm._l(_vm.users, function(user, id) {
+                _vm._l(_vm.onlineMembers, function(user, id) {
                   return _c(
                     "b-list-group-item",
-                    { key: id, staticClass: "toCaps" },
+                    {
+                      key: id,
+                      staticClass: "toCaps",
+                      on: {
+                        click: function($event) {
+                          return _vm.openChat(user)
+                        }
+                      }
+                    },
                     [_vm._v(_vm._s(user.name))]
                   )
                 }),
@@ -48965,6 +49878,188 @@ var render = function() {
           )
         ]
       )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/chatMenu.vue?vue&type=template&id=c0219a14&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/student/chatMenu.vue?vue&type=template&id=c0219a14&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "b-col",
+    { attrs: { md: "4" } },
+    [
+      _c("b-card", { staticClass: "online-presence" }, [
+        _c(
+          "div",
+          { staticClass: "online-presence-top" },
+          [
+            _c("b-form-input", {
+              attrs: { placeholder: "Search to start chat" }
+            }),
+            _vm._v(" "),
+            _c(
+              "span",
+              { staticClass: "px-2" },
+              [
+                _c("b-icon", {
+                  attrs: { icon: "three-dots-vertical", "font-scale": "2" },
+                  on: { click: _vm.online }
+                })
+              ],
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "online-tag" },
+          [
+            _c("div", { staticClass: "mb-3" }, [
+              _c("strong", { staticClass: "text-muted" }, [_vm._v("Groups")])
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.groups, function(group, idx) {
+              return _c(
+                "div",
+                {
+                  key: idx,
+                  staticClass: "single-online-tag",
+                  on: {
+                    click: function($event) {
+                      return _vm.switchGroup("group", group.id)
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "inner-single" }, [
+                    _c(
+                      "div",
+                      { staticClass: "message-info" },
+                      [
+                        _c("b-avatar", { staticClass: "mr-3" }),
+                        _vm._v(" "),
+                        _c("h6", { staticClass: "toCaps" }, [
+                          _vm._v(_vm._s(group.name))
+                        ])
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      [
+                        _c("b-badge", { attrs: { variant: "success" } }, [
+                          _vm._v("3")
+                        ])
+                      ],
+                      1
+                    )
+                  ])
+                ]
+              )
+            }),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _c("div", { staticClass: "mb-3" }, [
+              _c("strong", { staticClass: "text-muted" }, [
+                _vm._v("Classmates")
+              ])
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.classmates, function(mate, index) {
+              return _c(
+                "div",
+                {
+                  staticClass: "single-online-tag border-bottom ",
+                  class: { active: mate.id == _vm.receiver_id },
+                  on: {
+                    click: function($event) {
+                      return _vm.switchGroup("private", mate.id)
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "inner-single" }, [
+                    _c("div", { staticClass: "message-info" }, [
+                      _c("div", { staticClass: " mr-3" }, [_c("b-avatar")], 1),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("h6", { staticClass: "toCaps mb-1" }, [
+                          _vm._v(_vm._s(mate.name))
+                        ]),
+                        _vm._v(" "),
+                        _vm.getLastMessage(mate.id).length
+                          ? _c("small", { staticClass: "lastmessage " }, [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.getLastMessage(mate.id)[
+                                    _vm.getLastMessage(mate.id).length - 1
+                                  ].message
+                                )
+                              )
+                            ])
+                          : _vm._e()
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      [
+                        _vm.getLastMessage(mate.id).length
+                          ? _c("small", [
+                              _vm._v(
+                                " " +
+                                  _vm._s(
+                                    _vm._f("moment")(
+                                      _vm.getLastMessage(mate.id)[
+                                        _vm.getLastMessage(mate.id).length - 1
+                                      ].created_at,
+                                      "h:mm A"
+                                    )
+                                  )
+                              )
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("b-badge", { attrs: { variant: "success" } }, [
+                          _vm._v("3")
+                        ])
+                      ],
+                      1
+                    )
+                  ])
+                ]
+              )
+            })
+          ],
+          2
+        )
+      ])
     ],
     1
   )
@@ -49005,7 +50100,23 @@ var render = function() {
       _c("Main", {
         staticClass: "main",
         class: { "min-main": _vm.sideBar },
-        attrs: { student: _vm.student }
+        attrs: {
+          student: _vm.student,
+          groups: _vm.groups,
+          groupMessage: _vm.groupMessage,
+          group_id: _vm.group_id,
+          onlineMembers: _vm.onlineMembers,
+          currentChat: _vm.currentChat,
+          classmates: _vm.classmates,
+          showChat: _vm.showChat,
+          privateMessages: _vm.privateMessages,
+          receiver_id: _vm.receiver_id
+        },
+        on: {
+          addGroupMessage: _vm.addGroupMessage,
+          switchGroup: _vm.switchGroup,
+          addPrivateMessage: _vm.addPrivateMessage
+        }
       })
     ],
     1
@@ -49156,6 +50267,135 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/groupBody.vue?vue&type=template&id=a995f69c&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/student/groupBody.vue?vue&type=template&id=a995f69c&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      directives: [{ name: "chat-scroll", rawName: "v-chat-scroll" }],
+      staticClass: "chat-body"
+    },
+    [
+      _c("div", { staticClass: "message-body" }, [
+        _c(
+          "ul",
+          _vm._l(_vm.groupMessage, function(message, idx) {
+            return _c("li", { key: idx, staticClass: "message mb-4" }, [
+              message.user
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "shadow-sm rounded-pill chat-message",
+                      class: { "ml-auto": message.user.id == _vm.student.id }
+                    },
+                    [
+                      _c("strong", { staticClass: "text-muted" }, [
+                        _vm._v(_vm._s(message.user.name))
+                      ]),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      message.message
+                        ? _c("span", { staticClass: "mr-3" }, [
+                            _vm._v(_vm._s(message.message))
+                          ])
+                        : _c(
+                            "a",
+                            {
+                              staticClass: "mr-3",
+                              attrs: { href: message.attachment, download: "" }
+                            },
+                            [
+                              _c("b-img", {
+                                staticClass: "attach",
+                                attrs: {
+                                  src: message.attachment,
+                                  fluid: "",
+                                  width: "120"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                      _vm._v(" "),
+                      _c("small", { staticClass: "text-muted" }, [
+                        _vm._v(
+                          _vm._s(_vm._f("moment")(message.created_at, "h:mm a"))
+                        )
+                      ])
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              message.tutor
+                ? _c(
+                    "div",
+                    { staticClass: "shadow-sm rounded-pill chat-message" },
+                    [
+                      _c("strong", { staticClass: "text-muted" }, [
+                        _vm._v(_vm._s(message.tutor.name))
+                      ]),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      message.message
+                        ? _c("span", { staticClass: "mr-3" }, [
+                            _vm._v(_vm._s(message.message))
+                          ])
+                        : _c(
+                            "a",
+                            {
+                              staticClass: "mr-3",
+                              attrs: { href: message.attachment, download: "" }
+                            },
+                            [
+                              _c("b-img", {
+                                attrs: {
+                                  src: message.attachment,
+                                  fluid: "",
+                                  width: "60"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                      _vm._v(" "),
+                      _c("small", { staticClass: "text-muted" }, [
+                        _vm._v(
+                          _vm._s(_vm._f("moment")(message.created_at, "h:mm a"))
+                        )
+                      ])
+                    ]
+                  )
+                : _vm._e()
+            ])
+          }),
+          0
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/groups.vue?vue&type=template&id=7d83ab33&scoped=true&":
 /*!*****************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/student/groups.vue?vue&type=template&id=7d83ab33&scoped=true& ***!
@@ -49179,7 +50419,27 @@ var render = function() {
         _c(
           "b-card",
           { staticClass: "group-chat", attrs: { "no-body": "" } },
-          [_c("Chat", { attrs: { student: _vm.student } })],
+          [
+            _c("Chat", {
+              attrs: {
+                student: _vm.student,
+                groups: _vm.groups,
+                groupMessage: _vm.groupMessage,
+                onlineMembers: _vm.onlineMembers,
+                currentChat: _vm.currentChat,
+                group_id: _vm.group_id,
+                classmates: _vm.classmates,
+                showChat: _vm.showChat,
+                privateMessages: _vm.privateMessages,
+                receiver_id: _vm.receiver_id
+              },
+              on: {
+                addGroupMessage: _vm.addGroupMessage,
+                switchGroup: _vm.switchGroup,
+                addPrivateMessage: _vm.addPrivateMessage
+              }
+            })
+          ],
           1
         )
       ],
@@ -49240,63 +50500,62 @@ var render = function() {
                 _c("div", { staticClass: "result-board" }, [
                   _c("div", { staticClass: "latest-result-board cards" }, [
                     _c("div", { staticClass: "row latest-result-top" }, [
-                      _c("div", { staticClass: "col-md-6" }, [
-                        _c("h6", [_vm._v("Latest Result")])
+                      _c("div", { staticClass: "col-md-12" }, [
+                        _c("h5", [_vm._v("Latest Result")])
                       ])
                     ]),
                     _vm._v(" "),
                     _c(
                       "div",
-                      { staticClass: "result-progress" },
-                      [
-                        _c("div", { staticClass: "progress-top" }, [
-                          _c("h6", [_vm._v("Mathematics")]),
-                          _vm._v(" "),
-                          _c("p", [_vm._v("67%")])
-                        ]),
-                        _vm._v(" "),
-                        _c("b-progress", {
-                          staticClass: "mb-3",
-                          attrs: { value: _vm.value, max: _vm.max }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "result-progress" },
-                      [
-                        _c("div", { staticClass: "progress-top" }, [
-                          _c("h6", [_vm._v("Mathematics")]),
-                          _vm._v(" "),
-                          _c("p", [_vm._v("67%")])
-                        ]),
-                        _vm._v(" "),
-                        _c("b-progress", {
-                          staticClass: "mb-3",
-                          attrs: { value: _vm.value, max: _vm.max }
-                        })
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "result-progress" },
-                      [
-                        _c("div", { staticClass: "progress-top" }, [
-                          _c("h6", [_vm._v("Mathematics")]),
-                          _vm._v(" "),
-                          _c("p", [_vm._v("67%")])
-                        ]),
-                        _vm._v(" "),
-                        _c("b-progress", {
-                          staticClass: "mb-3",
-                          attrs: { value: _vm.value, max: _vm.max }
-                        })
-                      ],
-                      1
+                      { staticClass: "m-res" },
+                      _vm._l(_vm.ass_result, function(result, idx) {
+                        return _c(
+                          "div",
+                          {
+                            key: idx,
+                            staticClass: "result-progress border-bottom"
+                          },
+                          [
+                            _c("div", [
+                              _c("h6", [_vm._v(_vm._s(result.subject))]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "progress-top" }, [
+                                _c("p", [_vm._v(_vm._s(result.title))]),
+                                _vm._v(" "),
+                                _c("p", [
+                                  _vm._v(
+                                    _vm._s(result.total_score) +
+                                      "/" +
+                                      _vm._s(result.overall)
+                                  )
+                                ])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "b-progress",
+                              {
+                                staticClass: "mb-3",
+                                attrs: { max: result.overall }
+                              },
+                              [
+                                _c("b-progress-bar", {
+                                  attrs: {
+                                    value: result.total_score,
+                                    animated: _vm.animate,
+                                    variant: "info",
+                                    label:
+                                      result.total_score + "/" + result.overall
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      }),
+                      0
                     )
                   ])
                 ])
@@ -49304,12 +50563,12 @@ var render = function() {
               _vm._v(" "),
               _c("b-col", { attrs: { md: "4" } }, [
                 _c("div", { staticClass: "resources-update cards" }, [
-                  _c("h5", [_vm._v("Resources Update")]),
+                  _c("h5", [_vm._v(" Updates")]),
                   _vm._v(" "),
                   _c(
                     "div",
                     { staticClass: "m-res" },
-                    _vm._l(_vm.newresource, function(resource, idx) {
+                    _vm._l(_vm.notifications, function(resource, idx) {
                       return _c(
                         "div",
                         {
@@ -49342,7 +50601,7 @@ var render = function() {
                                 staticClass: "check_it cpointer",
                                 on: {
                                   click: function($event) {
-                                    return _vm.gotoHer(resource.resource_id)
+                                    return _vm.gotoHer(resource)
                                   }
                                 }
                               },
@@ -50572,7 +51831,24 @@ var render = function() {
         [
           _c("router-view", {
             staticClass: "semi-white",
-            attrs: { student: _vm.student, notifications: _vm.notifications }
+            attrs: {
+              student: _vm.student,
+              notifications: _vm.notifications,
+              groups: _vm.groups,
+              groupMessage: _vm.groupMessage,
+              onlineMembers: _vm.onlineMembers,
+              currentChat: _vm.currentChat,
+              group_id: _vm.group_id,
+              classmates: _vm.classmates,
+              showChat: _vm.showChat,
+              privateMessages: _vm.privateMessages,
+              receiver_id: _vm.receiver_id
+            },
+            on: {
+              addGroupMessage: _vm.addGroupMessage,
+              switchGroup: _vm.switchGroup,
+              addPrivateMessage: _vm.addPrivateMessage
+            }
           })
         ],
         1
@@ -50605,217 +51881,64 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "view" },
+    {
+      directives: [{ name: "chat-scroll", rawName: "v-chat-scroll" }],
+      staticClass: "chat-body"
+    },
     [
-      _c(
-        "div",
-        {
-          directives: [{ name: "chat-scroll", rawName: "v-chat-scroll" }],
-          staticClass: "chat-body"
-        },
-        [
-          _c("div", { staticClass: "message-body" }, [
-            _c(
-              "ul",
-              [
-                _vm._l(_vm.messages, function(message, idx) {
-                  return _c("li", { key: idx, staticClass: "message mb-4" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "shadow rounded-pill chat-message",
-                        class: { "ml-auto": message.user.id == _vm.student.id }
-                      },
-                      [
-                        _c("strong", { staticClass: "text-muted" }, [
-                          _vm._v(_vm._s(message.user.name))
-                        ]),
-                        _vm._v(" "),
-                        _c("br"),
-                        _vm._v(" "),
-                        message.message
-                          ? _c("span", { staticClass: "mr-3" }, [
-                              _vm._v(_vm._s(message.message))
-                            ])
-                          : _c(
-                              "a",
-                              {
-                                staticClass: "mr-3",
-                                attrs: {
-                                  href: message.attachment,
-                                  download: ""
-                                }
-                              },
-                              [
-                                _c("b-img", {
-                                  attrs: {
-                                    src: message.attachment,
-                                    fluid: "",
-                                    width: "60"
-                                  }
-                                })
-                              ],
-                              1
-                            ),
-                        _vm._v(" "),
-                        _c("small", { staticClass: "text-muted" }, [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("moment")(message.created_at, "h:mm a")
-                            )
-                          )
-                        ])
-                      ]
+      _c("div", { staticClass: "message-body" }, [
+        _c(
+          "ul",
+          _vm._l(_vm.sortedMessage, function(message, idx) {
+            return _c("li", { key: idx, staticClass: "message mb-4" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "shadow-sm rounded-pill chat-message",
+                  class: { "ml-auto": message.user.id == _vm.student.id }
+                },
+                [
+                  _c("strong", { staticClass: "text-muted" }, [
+                    _vm._v(_vm._s(message.user.name))
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  message.message
+                    ? _c("span", { staticClass: "mr-3" }, [
+                        _vm._v(_vm._s(message.message))
+                      ])
+                    : _c(
+                        "a",
+                        {
+                          staticClass: "mr-3",
+                          attrs: { href: message.attachment, download: "" }
+                        },
+                        [
+                          _c("b-img", {
+                            attrs: {
+                              src: message.attachment,
+                              fluid: "",
+                              width: "60"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                  _vm._v(" "),
+                  _c("small", { staticClass: "text-muted" }, [
+                    _vm._v(
+                      _vm._s(_vm._f("moment")(message.created_at, "h:mm a"))
                     )
                   ])
-                }),
-                _vm._v(" "),
-                _vm.start
-                  ? _c(
-                      "div",
-                      { staticClass: "progress mt-2 w-25 ml-auto text-right" },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "progress-bar progress-bar-striped",
-                            class: { active: _vm.progress != "Completed" },
-                            style: { width: _vm.progress },
-                            attrs: {
-                              role: "progressbar",
-                              "aria-valuenow": "0",
-                              "aria-valuemin": "0",
-                              "aria-valuemax": "100"
-                            }
-                          },
-                          [_vm._v(_vm._s(_vm.progress))]
-                        ),
-                        _vm._v(" "),
-                        _c("b-img", { attrs: { src: _vm.file, width: "20" } })
-                      ],
-                      1
-                    )
-                  : _vm._e()
-              ],
-              2
-            )
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "b-form",
-        {
-          staticClass: "send-tab",
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              return _vm.submit($event)
-            }
-          }
-        },
-        [
-          _c(
-            "b-input-group",
-            [
-              _c(
-                "b-input-group-prepend",
-                [
-                  _c(
-                    "b-button",
-                    {
-                      staticClass: "button px-2",
-                      on: { click: _vm.openEmoji }
-                    },
-                    [
-                      _c("i", {
-                        staticClass: "fa fa-smile-o",
-                        attrs: { "aria-hidden": "true" }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm.showEmoji
-                    ? _c("VEmojiPicker", {
-                        staticClass: "emoji",
-                        on: { select: _vm.selectEmoji }
-                      })
-                    : _vm._e()
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group w-75 m-0" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.message,
-                      expression: "message"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    "aria-describedby": "helpId",
-                    placeholder: "",
-                    required: ""
-                  },
-                  domProps: { value: _vm.message },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.message = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("label", { attrs: { for: "attachment" } }, [
-                  _c("i", {
-                    staticClass: "fa fa-paperclip",
-                    attrs: { "aria-hidden": "true" }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                staticClass: "form-control-file",
-                attrs: {
-                  type: "file",
-                  hidden: "",
-                  name: "attachment",
-                  id: "attachment",
-                  "aria-describedby": "fileHelpId"
-                },
-                on: {
-                  change: function($event) {
-                    return _vm.handleFileChange($event)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "b-input-group-append",
-                [
-                  _c(
-                    "b-button",
-                    { attrs: { variant: "secondary", type: "submit" } },
-                    [_vm._v("Send")]
-                  )
-                ],
-                1
+                ]
               )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ],
-    1
+            ])
+          }),
+          0
+        )
+      ])
+    ]
   )
 }
 var staticRenderFns = []
@@ -56111,6 +57234,18 @@ var render = function() {
                             "div",
                             { staticClass: "bd-table" },
                             [
+                              _c(
+                                "router-link",
+                                { attrs: { to: "/tutor/assignment" } },
+                                [
+                                  _c("div", { staticClass: "right-btn" }, [
+                                    _c("div", { staticClass: "btn" }, [
+                                      _c("span", [_vm._v("ALL ASSIGNMENTS")])
+                                    ])
+                                  ])
+                                ]
+                              ),
+                              _vm._v(" "),
                               _c("b-table", {
                                 attrs: {
                                   fields: _vm.fields,
@@ -56206,68 +57341,115 @@ var render = function() {
                       ),
                       _vm._v(" "),
                       _c("b-col", { attrs: { md: "4" } }, [
-                        _c(
-                          "div",
-                          { staticClass: "right" },
-                          [
-                            _c(
-                              "router-link",
-                              { attrs: { to: "/tutor/assignment" } },
-                              [
-                                _c("div", { staticClass: "right-btn" }, [
-                                  _c("div", { staticClass: "btn" }, [
-                                    _c("span", [_vm._v("ALL ASSIGNMENTS")])
-                                  ])
-                                ])
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "overall-assessment" }, [
-                              _c("div", { staticClass: "submitted" }, [
-                                _c("i", { staticClass: "fa fa-check" }),
-                                _vm._v(" "),
-                                _c("h6", [_vm._v("20")]),
-                                _vm._v(" "),
-                                _c("p", [_vm._v("submitted")])
+                        _c("div", { staticClass: "right" }, [
+                          _c("h6", { staticClass: "notify" }, [
+                            _vm._v("Assignment Notification")
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "overall-assessment" }, [
+                            _c("div", { staticClass: "submitted" }, [
+                              _c("i", { staticClass: "fa fa-check" }),
+                              _vm._v(" "),
+                              _c("h6", [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm.assResult.filter(function(item) {
+                                      return item.status == "submitted"
+                                    }).length
+                                  )
+                                )
                               ]),
                               _vm._v(" "),
-                              _c("div", { staticClass: "pending" }, [
-                                _c("i", { staticClass: "fa fa-ban" }),
-                                _vm._v(" "),
-                                _c("h6", [_vm._v("10")]),
-                                _vm._v(" "),
-                                _c("p", [_vm._v("pending")])
-                              ])
+                              _c("p", [_vm._v("submitted")])
                             ]),
                             _vm._v(" "),
-                            _c("h6", { staticClass: "notify" }, [
-                              _vm._v("Assignment Notification")
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              { staticClass: "assignment-notification" },
-                              [
-                                _c(
-                                  "div",
-                                  { staticClass: "notification-content" },
-                                  [
-                                    _c("p", [
-                                      _vm._v(
-                                        "Henry Obudu submitted English Assignment"
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "notify-class" }, [
-                                      _c("p", [_vm._v("Primary 1")])
-                                    ])
-                                  ]
+                            _c("div", { staticClass: "pending" }, [
+                              _c("i", { staticClass: "fa fa-ban" }),
+                              _vm._v(" "),
+                              _c("h6", [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm.assResult.filter(function(item) {
+                                      return item.status == "pending"
+                                    }).length
+                                  )
                                 )
-                              ]
-                            )
-                          ],
-                          1
-                        )
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [_vm._v("pending")])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            [
+                              _c("b-form-input", {
+                                attrs: { placeholder: "Search title" },
+                                model: {
+                                  value: _vm.search,
+                                  callback: function($$v) {
+                                    _vm.search = $$v
+                                  },
+                                  expression: "search"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "assignment-notification" },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "notification-content" },
+                                _vm._l(
+                                  _vm.assResult.filter(function(item) {
+                                    return item.status == "pending"
+                                  }),
+                                  function(item, idx) {
+                                    return _c(
+                                      "div",
+                                      {
+                                        key: idx,
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.getContent(item)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("p", [
+                                          _vm._v(
+                                            _vm._s(item.user.name) +
+                                              " submitted " +
+                                              _vm._s(item.subject) +
+                                              " " +
+                                              _vm._s(item.type) +
+                                              " - " +
+                                              _vm._s(item.title)
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          { staticClass: "notify-class" },
+                                          [
+                                            _c("p", [
+                                              _vm._v(_vm._s(item.level))
+                                            ])
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  }
+                                ),
+                                0
+                              )
+                            ]
+                          )
+                        ])
                       ])
                     ],
                     1
@@ -56298,6 +57480,20 @@ var render = function() {
                             "div",
                             { staticClass: "bd-table" },
                             [
+                              _c(
+                                "router-link",
+                                { attrs: { to: "/tutor/quiz" } },
+                                [
+                                  _c("div", { staticClass: "right-btn" }, [
+                                    _c(
+                                      "div",
+                                      { staticClass: "btn text-center" },
+                                      [_c("span", [_vm._v("ALL QUIZZES")])]
+                                    )
+                                  ])
+                                ]
+                              ),
+                              _vm._v(" "),
                               _c("b-table", {
                                 attrs: {
                                   fields: _vm.fields,
@@ -56397,72 +57593,115 @@ var render = function() {
                         "b-col",
                         { staticClass: "notify-board", attrs: { md: "4" } },
                         [
-                          _c(
-                            "div",
-                            { staticClass: "right" },
-                            [
-                              _c(
-                                "router-link",
-                                { attrs: { to: "/tutor/quiz" } },
-                                [
-                                  _c("div", { staticClass: "right-btn" }, [
-                                    _c(
-                                      "div",
-                                      { staticClass: "btn text-center" },
-                                      [_c("span", [_vm._v("ALL QUIZZES")])]
+                          _c("div", { staticClass: "right" }, [
+                            _c("h6", { staticClass: "notify" }, [
+                              _vm._v("Quiz Notification")
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "overall-assessment" }, [
+                              _c("div", { staticClass: "submitted" }, [
+                                _c("i", { staticClass: "fa fa-check" }),
+                                _vm._v(" "),
+                                _c("h6", [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.quizResult.filter(function(item) {
+                                        return item.status == "submitted"
+                                      }).length
                                     )
-                                  ])
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "overall-assessment" }, [
-                                _c("div", { staticClass: "submitted" }, [
-                                  _c("i", { staticClass: "fa fa-check" }),
-                                  _vm._v(" "),
-                                  _c("h6", [_vm._v("20")]),
-                                  _vm._v(" "),
-                                  _c("p", [_vm._v("submitted")])
+                                  )
                                 ]),
                                 _vm._v(" "),
-                                _c("div", { staticClass: "pending" }, [
-                                  _c("i", { staticClass: "fa fa-ban" }),
-                                  _vm._v(" "),
-                                  _c("h6", [_vm._v("10")]),
-                                  _vm._v(" "),
-                                  _c("p", [_vm._v("pending")])
-                                ])
+                                _c("p", [_vm._v("submitted")])
                               ]),
                               _vm._v(" "),
-                              _c("h6", { staticClass: "notify" }, [
-                                _vm._v("Quiz Notification")
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "assignment-notification" },
-                                [
-                                  _c(
-                                    "div",
-                                    { staticClass: "notification-content" },
-                                    [
-                                      _c("p", [
-                                        _vm._v(
-                                          "Henry Obudu submitted Maths Quiz"
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "div",
-                                        { staticClass: "notify-class" },
-                                        [_c("p", [_vm._v("Primary 1")])]
-                                      )
-                                    ]
+                              _c("div", { staticClass: "pending" }, [
+                                _c("i", { staticClass: "fa fa-ban" }),
+                                _vm._v(" "),
+                                _c("h6", [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.quizResult.filter(function(item) {
+                                        return item.status == "pending"
+                                      }).length
+                                    )
                                   )
-                                ]
-                              )
-                            ],
-                            1
-                          )
+                                ]),
+                                _vm._v(" "),
+                                _c("p", [_vm._v("pending")])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              [
+                                _c("b-form-input", {
+                                  attrs: { placeholder: "Search title" },
+                                  model: {
+                                    value: _vm.search,
+                                    callback: function($$v) {
+                                      _vm.search = $$v
+                                    },
+                                    expression: "search"
+                                  }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "assignment-notification" },
+                              [
+                                _c(
+                                  "div",
+                                  { staticClass: "notification-content" },
+                                  _vm._l(
+                                    _vm.quizResult.filter(function(item) {
+                                      return item.status == "pending"
+                                    }),
+                                    function(item, idx) {
+                                      return _c(
+                                        "div",
+                                        {
+                                          key: idx,
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.getContent(item)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("p", [
+                                            _vm._v(
+                                              _vm._s(item.user.name) +
+                                                "u submitted " +
+                                                _vm._s(item.subject) +
+                                                " " +
+                                                _vm._s(item.type) +
+                                                " - " +
+                                                _vm._s(item.title)
+                                            )
+                                          ]),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "notify-class" },
+                                            [
+                                              _c("p", [
+                                                _vm._v(_vm._s(item.level))
+                                              ])
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    }
+                                  ),
+                                  0
+                                )
+                              ]
+                            )
+                          ])
                         ]
                       )
                     ],
@@ -56494,6 +57733,20 @@ var render = function() {
                             "div",
                             { staticClass: "bd-table" },
                             [
+                              _c(
+                                "router-link",
+                                { attrs: { to: "/tutor/test" } },
+                                [
+                                  _c("div", { staticClass: "right-btn" }, [
+                                    _c(
+                                      "div",
+                                      { staticClass: "btn text-center" },
+                                      [_c("span", [_vm._v("ALL TESTS")])]
+                                    )
+                                  ])
+                                ]
+                              ),
+                              _vm._v(" "),
                               _c("b-table", {
                                 attrs: {
                                   fields: _vm.fields,
@@ -56590,68 +57843,115 @@ var render = function() {
                       ),
                       _vm._v(" "),
                       _c("b-col", { attrs: { md: "4" } }, [
-                        _c(
-                          "div",
-                          { staticClass: "right" },
-                          [
-                            _c(
-                              "router-link",
-                              { attrs: { to: "/tutor/test" } },
-                              [
-                                _c("div", { staticClass: "right-btn" }, [
-                                  _c(
-                                    "div",
-                                    { staticClass: "btn text-center" },
-                                    [_c("span", [_vm._v("ALL TESTS")])]
+                        _c("div", { staticClass: "right" }, [
+                          _c("h6", { staticClass: "notify" }, [
+                            _vm._v("Test Notification")
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "overall-assessment" }, [
+                            _c("div", { staticClass: "submitted" }, [
+                              _c("i", { staticClass: "fa fa-check" }),
+                              _vm._v(" "),
+                              _c("h6", [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm.testResult.filter(function(item) {
+                                      return item.status == "submitted"
+                                    }).length
                                   )
-                                ])
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "overall-assessment" }, [
-                              _c("div", { staticClass: "submitted" }, [
-                                _c("i", { staticClass: "fa fa-check" }),
-                                _vm._v(" "),
-                                _c("h6", [_vm._v("20")]),
-                                _vm._v(" "),
-                                _c("p", [_vm._v("submitted")])
+                                )
                               ]),
                               _vm._v(" "),
-                              _c("div", { staticClass: "pending" }, [
-                                _c("i", { staticClass: "fa fa-ban" }),
-                                _vm._v(" "),
-                                _c("h6", [_vm._v("10")]),
-                                _vm._v(" "),
-                                _c("p", [_vm._v("pending")])
-                              ])
+                              _c("p", [_vm._v("Submitted")])
                             ]),
                             _vm._v(" "),
-                            _c("h6", { staticClass: "notify" }, [
-                              _vm._v("Test Notification")
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              { staticClass: "assignment-notification" },
-                              [
-                                _c(
-                                  "div",
-                                  { staticClass: "notification-content" },
-                                  [
-                                    _c("p", [
-                                      _vm._v("Henry Obudu submitted Maths Test")
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "notify-class" }, [
-                                      _c("p", [_vm._v("Primary 1")])
-                                    ])
-                                  ]
+                            _c("div", { staticClass: "pending" }, [
+                              _c("i", { staticClass: "fa fa-ban" }),
+                              _vm._v(" "),
+                              _c("h6", [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm.testResult.filter(function(item) {
+                                      return item.status == "pending"
+                                    }).length
+                                  )
                                 )
-                              ]
-                            )
-                          ],
-                          1
-                        )
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [_vm._v("Pending")])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            [
+                              _c("b-form-input", {
+                                attrs: { placeholder: "Search title" },
+                                model: {
+                                  value: _vm.search,
+                                  callback: function($$v) {
+                                    _vm.search = $$v
+                                  },
+                                  expression: "search"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "assignment-notification" },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "notification-content" },
+                                _vm._l(
+                                  _vm.testResult.filter(function(item) {
+                                    return item.status == "pending"
+                                  }),
+                                  function(item, idx) {
+                                    return _c(
+                                      "div",
+                                      {
+                                        key: idx,
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.getContent(item)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("p", [
+                                          _vm._v(
+                                            _vm._s(item.user.name) +
+                                              " submitted " +
+                                              _vm._s(item.subject) +
+                                              " " +
+                                              _vm._s(item.type) +
+                                              " - " +
+                                              _vm._s(item.title)
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          { staticClass: "notify-class" },
+                                          [
+                                            _c("p", [
+                                              _vm._v(_vm._s(item.level))
+                                            ])
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  }
+                                ),
+                                0
+                              )
+                            ]
+                          )
+                        ])
                       ])
                     ],
                     1
@@ -56682,6 +57982,20 @@ var render = function() {
                             "div",
                             { staticClass: "bd-table" },
                             [
+                              _c(
+                                "router-link",
+                                { attrs: { to: "/tutor/exam" } },
+                                [
+                                  _c("div", { staticClass: "right-btn" }, [
+                                    _c(
+                                      "div",
+                                      { staticClass: "btn text-center" },
+                                      [_c("span", [_vm._v("ALL EXAMINATIONS")])]
+                                    )
+                                  ])
+                                ]
+                              ),
+                              _vm._v(" "),
                               _c("b-table", {
                                 attrs: {
                                   fields: _vm.fields,
@@ -56778,68 +58092,115 @@ var render = function() {
                       ),
                       _vm._v(" "),
                       _c("b-col", { attrs: { md: "4" } }, [
-                        _c(
-                          "div",
-                          { staticClass: "right" },
-                          [
-                            _c(
-                              "router-link",
-                              { attrs: { to: "/tutor/exam" } },
-                              [
-                                _c("div", { staticClass: "right-btn" }, [
-                                  _c(
-                                    "div",
-                                    { staticClass: "btn text-center" },
-                                    [_c("span", [_vm._v("ALL EXAMINATIONS")])]
+                        _c("div", { staticClass: "right" }, [
+                          _c("h6", { staticClass: "notify mb-2" }, [
+                            _vm._v("Exam Notification")
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "overall-assessment" }, [
+                            _c("div", { staticClass: "submitted" }, [
+                              _c("i", { staticClass: "fa fa-check" }),
+                              _vm._v(" "),
+                              _c("h6", [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm.examResult.filter(function(item) {
+                                      return item.status == "submitted"
+                                    }).length
                                   )
-                                ])
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "overall-assessment" }, [
-                              _c("div", { staticClass: "submitted" }, [
-                                _c("i", { staticClass: "fa fa-check" }),
-                                _vm._v(" "),
-                                _c("h6", [_vm._v("20")]),
-                                _vm._v(" "),
-                                _c("p", [_vm._v("submitted")])
+                                )
                               ]),
                               _vm._v(" "),
-                              _c("div", { staticClass: "pending" }, [
-                                _c("i", { staticClass: "fa fa-ban" }),
-                                _vm._v(" "),
-                                _c("h6", [_vm._v("10")]),
-                                _vm._v(" "),
-                                _c("p", [_vm._v("pending")])
-                              ])
+                              _c("p", [_vm._v("Submitted")])
                             ]),
                             _vm._v(" "),
-                            _c("h6", { staticClass: "notify" }, [
-                              _vm._v("Exam Notification")
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              { staticClass: "assignment-notification" },
-                              [
-                                _c(
-                                  "div",
-                                  { staticClass: "notification-content" },
-                                  [
-                                    _c("p", [
-                                      _vm._v("Henry Obudu submitted Maths Exam")
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "notify-class" }, [
-                                      _c("p", [_vm._v("Primary 1")])
-                                    ])
-                                  ]
+                            _c("div", { staticClass: "pending" }, [
+                              _c("i", { staticClass: "fa fa-ban" }),
+                              _vm._v(" "),
+                              _c("h6", [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm.examResult.filter(function(item) {
+                                      return item.status == "pending"
+                                    }).length
+                                  )
                                 )
-                              ]
-                            )
-                          ],
-                          1
-                        )
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [_vm._v("Pending")])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            [
+                              _c("b-form-input", {
+                                attrs: { placeholder: "Search title" },
+                                model: {
+                                  value: _vm.search,
+                                  callback: function($$v) {
+                                    _vm.search = $$v
+                                  },
+                                  expression: "search"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "assignment-notification" },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "notification-content" },
+                                _vm._l(
+                                  _vm.examResult.filter(function(item) {
+                                    return item.status == "pending"
+                                  }),
+                                  function(item, idx) {
+                                    return _c(
+                                      "div",
+                                      {
+                                        key: idx,
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.getContent(item)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("p", [
+                                          _vm._v(
+                                            _vm._s(item.user.name) +
+                                              " submitted " +
+                                              _vm._s(item.subject) +
+                                              " " +
+                                              _vm._s(item.type) +
+                                              " - " +
+                                              _vm._s(item.title)
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          { staticClass: "notify-class" },
+                                          [
+                                            _c("p", [
+                                              _vm._v(_vm._s(item.level))
+                                            ])
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  }
+                                ),
+                                0
+                              )
+                            ]
+                          )
+                        ])
                       ])
                     ],
                     1
@@ -56850,6 +58211,31 @@ var render = function() {
             ],
             1
           )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: {
+            id: "content",
+            size: "xl",
+            title: "Review",
+            "hide-footer": ""
+          }
+        },
+        [
+          _c("Review", {
+            attrs: {
+              id: _vm.id,
+              overall: _vm.overall,
+              name: _vm.name,
+              form: _vm.form,
+              options: _vm.options
+            },
+            on: { refresh: _vm.refresh }
+          })
         ],
         1
       )
@@ -57793,6 +59179,626 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/assessment/review.vue?vue&type=template&id=5482ae31&scoped=true&":
+/*!**************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/assessment/review.vue?vue&type=template&id=5482ae31&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _vm.form
+        ? _c(
+            "b-container",
+            [
+              _c(
+                "b-form",
+                [
+                  _c("legend", { staticClass: "text-center mb-5" }, [
+                    _vm._v(_vm._s(_vm.options.title))
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    { staticClass: "mb-5" },
+                    [
+                      _c(
+                        "b-col",
+                        { staticClass: "mb-3", attrs: { cols: "12" } },
+                        [
+                          _vm._v("\n          Student Name :\n          "),
+                          _c("strong", { staticClass: "toCaps" }, [
+                            _vm._v(_vm._s(_vm.name.name))
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("b-col", { attrs: { sm: "3" } }, [
+                        _c("strong", { staticClass: "toCaps" }, [
+                          _vm._v("Level : " + _vm._s(_vm.options.level))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("b-col", { attrs: { sm: "3" } }, [
+                        _c("strong", { staticClass: "toCaps" }, [
+                          _vm._v("Subject : " + _vm._s(_vm.options.subject))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("b-col", { attrs: { sm: "3" } }, [
+                        _c("strong", { staticClass: "toCaps" }, [
+                          _vm._v(
+                            "Student Total : " +
+                              _vm._s(_vm.totalScores) +
+                              " / " +
+                              _vm._s(_vm.overall)
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        { attrs: { sm: "3" } },
+                        [
+                          _vm.showSubmit
+                            ? _c("b-button", { on: { click: _vm.submit } }, [
+                                _vm._v("Submit Assessment")
+                              ])
+                            : _vm._e()
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.num < _vm.form.length
+                    ? _c(
+                        "section",
+                        [
+                          _c(
+                            "b-form-row",
+                            [
+                              _c(
+                                "b-col",
+                                { staticClass: "mb-4", attrs: { cols: "12" } },
+                                [
+                                  _c("h5", [
+                                    _vm._v(_vm._s(_vm.form[_vm.num].title))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("p", {
+                                    domProps: {
+                                      innerHTML: _vm._s(
+                                        _vm.form[_vm.num].description
+                                      )
+                                    }
+                                  })
+                                ]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.form[_vm.num].question, function(
+                            question,
+                            idx
+                          ) {
+                            return _c(
+                              "b-form-row",
+                              {
+                                key: idx,
+                                staticClass: "mb-4 border-bottom pb-3"
+                              },
+                              [
+                                _c(
+                                  "b-col",
+                                  { attrs: { cols: "8" } },
+                                  [
+                                    question.answer_format == "text box"
+                                      ? _c(
+                                          "b-form-group",
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "small",
+                                              { staticClass: "form-text" },
+                                              [_vm._v(_vm._s(question.guide))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("b-form-input", {
+                                              attrs: {
+                                                disabled: "",
+                                                type: "text",
+                                                placeholder:
+                                                  question.placeholder,
+                                                max: question.limit
+                                              },
+                                              model: {
+                                                value: question.answer,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    question,
+                                                    "answer",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "question.answer"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    question.answer_format == "email"
+                                      ? _c(
+                                          "b-form-group",
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "small",
+                                              { staticClass: "form-text" },
+                                              [_vm._v(_vm._s(question.guide))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("b-form-input", {
+                                              attrs: {
+                                                disabled: "",
+                                                type: "email",
+                                                placeholder:
+                                                  question.placeholder
+                                              },
+                                              model: {
+                                                value: question.answer,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    question,
+                                                    "answer",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "question.answer"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    question.answer_format == "number"
+                                      ? _c(
+                                          "b-form-group",
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "small",
+                                              { staticClass: "form-text" },
+                                              [_vm._v(_vm._s(question.guide))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("b-form-input", {
+                                              attrs: {
+                                                disabled: "",
+                                                type: "number",
+                                                placeholder:
+                                                  question.placeholder,
+                                                max: question.limit
+                                              },
+                                              model: {
+                                                value: question.answer,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    question,
+                                                    "answer",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "question.answer"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    question.answer_format == "long text"
+                                      ? _c(
+                                          "b-form-group",
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("b-form-textarea", {
+                                              attrs: {
+                                                disabled: "",
+                                                placeholder:
+                                                  question.placeholder
+                                              },
+                                              model: {
+                                                value: question.answer,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    question,
+                                                    "answer",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "question.answer"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    question.answer_format == "multi choice"
+                                      ? _c(
+                                          "b-form-group",
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "small",
+                                              { staticClass: "form-text" },
+                                              [_vm._v(_vm._s(question.guide))]
+                                            ),
+                                            _vm._v(" "),
+                                            _vm._l(question.options, function(
+                                              opt,
+                                              id
+                                            ) {
+                                              return _c(
+                                                "b-form-checkbox",
+                                                {
+                                                  key: id,
+                                                  attrs: {
+                                                    disabled: "",
+                                                    value: opt.name
+                                                  },
+                                                  model: {
+                                                    value: question.answers,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        question,
+                                                        "answers",
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression:
+                                                      "question.answers"
+                                                  }
+                                                },
+                                                [_vm._v(_vm._s(opt.name))]
+                                              )
+                                            })
+                                          ],
+                                          2
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    question.answer_format == "single choice"
+                                      ? _c(
+                                          "b-form-group",
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "small",
+                                              { staticClass: "form-text" },
+                                              [_vm._v(_vm._s(question.guide))]
+                                            ),
+                                            _vm._v(" "),
+                                            _vm._l(question.options, function(
+                                              opt,
+                                              id
+                                            ) {
+                                              return _c(
+                                                "b-form-radio",
+                                                {
+                                                  key: id,
+                                                  attrs: {
+                                                    disabled: "",
+                                                    value: opt.name
+                                                  },
+                                                  model: {
+                                                    value: question.answer,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        question,
+                                                        "answer",
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression:
+                                                      "question.answer"
+                                                  }
+                                                },
+                                                [_vm._v(_vm._s(opt.name))]
+                                              )
+                                            })
+                                          ],
+                                          2
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    question.answer_format == "date"
+                                      ? _c(
+                                          "b-form-group",
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "small",
+                                              { staticClass: "form-text" },
+                                              [_vm._v(_vm._s(question.guide))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("br"),
+                                            _vm._v(" "),
+                                            _c("b-form-datepicker", {
+                                              attrs: { disabled: "" },
+                                              model: {
+                                                value: question.answer,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    question,
+                                                    "answer",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "question.answer"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    question.answer_format == "time"
+                                      ? _c(
+                                          "b-form-group",
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "small",
+                                              { staticClass: "form-text" },
+                                              [_vm._v(_vm._s(question.guide))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("br"),
+                                            _vm._v(" "),
+                                            _c("b-form-timepicker", {
+                                              attrs: { disabled: "" },
+                                              model: {
+                                                value: question.answer,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    question,
+                                                    "answer",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "question.answer"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    question.answer_format == "multi text"
+                                      ? _c(
+                                          "b-form-group",
+                                          _vm._l(question.answers, function(
+                                            item,
+                                            i
+                                          ) {
+                                            return _c(
+                                              "div",
+                                              { key: i },
+                                              [
+                                                _c("b-form-input", {
+                                                  attrs: { disabled: "" },
+                                                  model: {
+                                                    value: item.answer,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        item,
+                                                        "answer",
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression: "item.answer"
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            )
+                                          }),
+                                          0
+                                        )
+                                      : _vm._e()
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "b-col",
+                                  {
+                                    staticClass: "text-right",
+                                    attrs: { cols: "3" }
+                                  },
+                                  [
+                                    _c("div", [
+                                      _vm._v(
+                                        "Score : " + _vm._s(question.score)
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    question.answer_format == "single choice" ||
+                                    question.answer_format == "multi choice"
+                                      ? _c("div", [
+                                          _vm._v(
+                                            "Student score : " +
+                                              _vm._s(question.student_score)
+                                          )
+                                        ])
+                                      : _c(
+                                          "div",
+                                          [
+                                            _vm._v(
+                                              "\n              Student score :\n              "
+                                            ),
+                                            _c(
+                                              "b-form-select",
+                                              {
+                                                staticClass: "multi",
+                                                attrs: { size: "sm" },
+                                                model: {
+                                                  value: question.student_score,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      question,
+                                                      "student_score",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "question.student_score"
+                                                }
+                                              },
+                                              [
+                                                _c(
+                                                  "b-form-select-option",
+                                                  { attrs: { value: "0" } },
+                                                  [_vm._v("0")]
+                                                ),
+                                                _vm._v(" "),
+                                                _vm._l(question.score, function(
+                                                  n,
+                                                  idx
+                                                ) {
+                                                  return _c(
+                                                    "b-form-select-option",
+                                                    {
+                                                      key: idx,
+                                                      attrs: { value: n }
+                                                    },
+                                                    [_vm._v(_vm._s(n))]
+                                                  )
+                                                })
+                                              ],
+                                              2
+                                            )
+                                          ],
+                                          1
+                                        )
+                                  ]
+                                )
+                              ],
+                              1
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    { staticClass: "justify-content-between my-3" },
+                    [
+                      _vm.num > 0 && _vm.num < _vm.form.length
+                        ? _c("b-button", { on: { click: _vm.prev } }, [
+                            _vm._v("Previous")
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.num < _vm.form.length - 1
+                        ? _c(
+                            "b-button",
+                            { staticClass: "ml-auto", on: { click: _vm.next } },
+                            [_vm._v("Next")]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.num == _vm.form.length - 1
+                        ? _c(
+                            "b-button",
+                            {
+                              staticClass: "ml-auto",
+                              on: { click: _vm.calcTotal }
+                            },
+                            [_vm._v("Calculate")]
+                          )
+                        : _vm._e()
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/assessment/test.vue?vue&type=template&id=65442aaa&scoped=true&":
 /*!************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/assessment/test.vue?vue&type=template&id=65442aaa&scoped=true& ***!
@@ -58177,100 +60183,24 @@ var render = function() {
                 "b-col",
                 { staticClass: "chat-area", attrs: { md: "8" } },
                 [
-                  _c(
-                    "div",
-                    {
-                      directives: [
-                        { name: "chat-scroll", rawName: "v-chat-scroll" }
-                      ],
-                      staticClass: "chat-body"
-                    },
-                    [
-                      _c("div", { staticClass: "message-body" }, [
-                        _c(
-                          "ul",
-                          _vm._l(_vm.messages, function(message, idx) {
-                            return _c(
-                              "li",
-                              {
-                                key: idx,
-                                staticClass: "message mb-4",
-                                class: {
-                                  "text-right": message.user_id == _vm.tutor.id
-                                }
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "shadow rounded-pill chat-message",
-                                    class: { "ml-auto": message.tutor }
-                                  },
-                                  [
-                                    message.tutor
-                                      ? _c(
-                                          "strong",
-                                          { staticClass: "text-muted" },
-                                          [_vm._v(_vm._s(message.tutor.name))]
-                                        )
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    message.user
-                                      ? _c(
-                                          "strong",
-                                          { staticClass: "text-muted" },
-                                          [_vm._v(_vm._s(message.user.name))]
-                                        )
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _c("br"),
-                                    _vm._v(" "),
-                                    message.message
-                                      ? _c("span", { staticClass: "mr-3" }, [
-                                          _vm._v(_vm._s(message.message))
-                                        ])
-                                      : _c(
-                                          "a",
-                                          {
-                                            staticClass: "mr-3",
-                                            attrs: {
-                                              href: message.attachment,
-                                              download: ""
-                                            }
-                                          },
-                                          [
-                                            _c("b-img", {
-                                              attrs: {
-                                                src: message.attachment,
-                                                fluid: "",
-                                                width: "60"
-                                              }
-                                            })
-                                          ],
-                                          1
-                                        ),
-                                    _vm._v(" "),
-                                    _c("small", { staticClass: "text-muted" }, [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm._f("moment")(
-                                            message.created_at,
-                                            "h:mm a"
-                                          )
-                                        )
-                                      )
-                                    ])
-                                  ]
-                                )
-                              ]
-                            )
-                          }),
-                          0
-                        )
-                      ])
-                    ]
-                  ),
+                  _vm.showChat == "group"
+                    ? _c("GroupChat", {
+                        attrs: {
+                          tutor: _vm.tutor,
+                          groupMessages: _vm.groupMessages
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.showChat == "staff"
+                    ? _c("staffsChat", {
+                        attrs: {
+                          tutor: _vm.tutor,
+                          onlineStaffs: _vm.onlineStaffs,
+                          staffsMessages: _vm.staffsMessages
+                        }
+                      })
+                    : _vm._e(),
                   _vm._v(" "),
                   _c("ChatBar", {
                     on: { submit: _vm.submit, attach: _vm.attach }
@@ -58281,7 +60211,7 @@ var render = function() {
               _vm._v(" "),
               _c("ChatMenu", {
                 attrs: { groups: _vm.groups },
-                on: { joinGroup: _vm.joinGroup, online: _vm.online }
+                on: { switchGroup: _vm.switchGroup }
               })
             ],
             1
@@ -58301,7 +60231,7 @@ var render = function() {
               _c(
                 "b-list-group",
                 { staticClass: "text-center" },
-                _vm._l(_vm.users, function(user, id) {
+                _vm._l(_vm.onlineGroupMembers, function(user, id) {
                   return _c(
                     "b-list-group-item",
                     { key: id, staticClass: "toCaps" },
@@ -58555,7 +60485,21 @@ var render = function() {
       _c("Main", {
         staticClass: "main",
         class: { "min-main": _vm.sideBar },
-        attrs: { tutor: _vm.tutor }
+        attrs: {
+          tutor: _vm.tutor,
+          onlineStaffs: _vm.onlineStaffs,
+          staffsMessages: _vm.staffsMessages,
+          onlineGroupMembers: _vm.onlineGroupMembers,
+          groupMessages: _vm.groupMessages,
+          groups: _vm.groups,
+          group_id: _vm.group_id,
+          showChat: _vm.showChat
+        },
+        on: {
+          addStaffMessage: _vm.addStaffMessage,
+          addGroupMessage: _vm.addGroupMessage,
+          switchGroup: _vm.switchGroup
+        }
       })
     ],
     1
@@ -58967,6 +60911,106 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/groupChat.vue?vue&type=template&id=134b9c63&scoped=true&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/groupChat.vue?vue&type=template&id=134b9c63&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      directives: [{ name: "chat-scroll", rawName: "v-chat-scroll" }],
+      staticClass: "chat-body"
+    },
+    [
+      _c("div", { staticClass: "message-body" }, [
+        _c(
+          "ul",
+          _vm._l(_vm.groupMessages, function(message, idx) {
+            return _c(
+              "li",
+              {
+                key: idx,
+                staticClass: "message mb-4",
+                class: { "text-right": message.user_id == _vm.tutor.id }
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "shadow rounded-pill chat-message",
+                    class: { "ml-auto": message.tutor }
+                  },
+                  [
+                    message.tutor
+                      ? _c("strong", { staticClass: "text-muted" }, [
+                          _vm._v(_vm._s(message.tutor.name))
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    message.user
+                      ? _c("strong", { staticClass: "text-muted" }, [
+                          _vm._v(_vm._s(message.user.name))
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    message.message
+                      ? _c("span", { staticClass: "mr-3" }, [
+                          _vm._v(_vm._s(message.message))
+                        ])
+                      : _c(
+                          "a",
+                          {
+                            staticClass: "mr-3",
+                            attrs: { href: message.attachment, download: "" }
+                          },
+                          [
+                            _c("b-img", {
+                              attrs: {
+                                src: message.attachment,
+                                fluid: "",
+                                width: "60"
+                              }
+                            })
+                          ],
+                          1
+                        ),
+                    _vm._v(" "),
+                    _c("small", { staticClass: "text-muted" }, [
+                      _vm._v(
+                        _vm._s(_vm._f("moment")(message.created_at, "h:mm a"))
+                      )
+                    ])
+                  ]
+                )
+              ]
+            )
+          }),
+          0
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/groups.vue?vue&type=template&id=8f6887d0&scoped=true&":
 /*!***************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/groups.vue?vue&type=template&id=8f6887d0&scoped=true& ***!
@@ -58986,12 +61030,23 @@ var render = function() {
     "div",
     { staticClass: "body" },
     [
-      _c(
-        "b-card",
-        { staticClass: "group-chat", attrs: { "no-body": "" } },
-        [_c("Chat", { attrs: { id: _vm.item.id, tutor: _vm.tutor } })],
-        1
-      ),
+      _c("Chat", {
+        attrs: {
+          tutor: _vm.tutor,
+          onlineGroupMembers: _vm.onlineGroupMembers,
+          groupMessages: _vm.groupMessages,
+          groups: _vm.groups,
+          group_id: _vm.group_id,
+          onlineStaffs: _vm.onlineStaffs,
+          staffsMessages: _vm.staffsMessages,
+          showChat: _vm.showChat
+        },
+        on: {
+          addGroupMessage: _vm.addGroupMessage,
+          switchGroup: _vm.switchGroup,
+          addStaffMessage: _vm.addStaffMessage
+        }
+      }),
       _vm._v(" "),
       _c(
         "b-modal",
@@ -60196,7 +62251,21 @@ var render = function() {
         [
           _c("router-view", {
             staticClass: "semi-white",
-            attrs: { tutor: _vm.tutor }
+            attrs: {
+              tutor: _vm.tutor,
+              onlineStaffs: _vm.onlineStaffs,
+              staffsMessages: _vm.staffsMessages,
+              onlineGroupMembers: _vm.onlineGroupMembers,
+              groupMessages: _vm.groupMessages,
+              groups: _vm.groups,
+              group_id: _vm.group_id,
+              showChat: _vm.showChat
+            },
+            on: {
+              addStaffMessage: _vm.addStaffMessage,
+              addGroupMessage: _vm.addGroupMessage,
+              switchGroup: _vm.switchGroup
+            }
           })
         ],
         1
@@ -63388,6 +65457,284 @@ var render = function() {
       _c("i", { staticClass: "fas fa-compress-alt   fa-1x " })
     ])
   ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/staffChat.vue?vue&type=template&id=115777c4&scoped=true&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/staffChat.vue?vue&type=template&id=115777c4&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "chat" },
+    [
+      _c(
+        "div",
+        { staticClass: "card tutor-chat" },
+        [
+          _c(
+            "b-row",
+            [
+              _c(
+                "b-col",
+                { staticClass: "chat-area", attrs: { md: "8" } },
+                [
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        { name: "chat-scroll", rawName: "v-chat-scroll" }
+                      ],
+                      staticClass: "chat-body"
+                    },
+                    [
+                      _c("div", { staticClass: "message-body" }, [
+                        _c(
+                          "ul",
+                          _vm._l(_vm.staffsMessages, function(message, idx) {
+                            return _c(
+                              "li",
+                              { key: idx, staticClass: "message mb-4" },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "shadow rounded-pill chat-message",
+                                    class: {
+                                      "ml-auto":
+                                        message.tutor.id == _vm.tutor.id
+                                    }
+                                  },
+                                  [
+                                    message.tutor
+                                      ? _c(
+                                          "strong",
+                                          { staticClass: "text-muted" },
+                                          [_vm._v(_vm._s(message.tutor.name))]
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _c("br"),
+                                    _vm._v(" "),
+                                    message.message
+                                      ? _c("span", { staticClass: "mr-3" }, [
+                                          _vm._v(_vm._s(message.message))
+                                        ])
+                                      : _c(
+                                          "a",
+                                          {
+                                            staticClass: "mr-3",
+                                            attrs: {
+                                              href: message.attachment,
+                                              download: ""
+                                            }
+                                          },
+                                          [
+                                            _c("b-img", {
+                                              attrs: {
+                                                src: message.attachment,
+                                                fluid: "",
+                                                width: "60"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        ),
+                                    _vm._v(" "),
+                                    _c("small", { staticClass: "text-muted" }, [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("moment")(
+                                            message.created_at,
+                                            "h:mm a"
+                                          )
+                                        )
+                                      )
+                                    ])
+                                  ]
+                                )
+                              ]
+                            )
+                          }),
+                          0
+                        )
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("ChatBar", {
+                    on: { submit: _vm.submit, attach: _vm.attach }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("ChatMenu")
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        { attrs: { id: "online", title: "Online Users", "hide-footer": "" } },
+        [
+          _c(
+            "div",
+            { staticClass: "text-center" },
+            [
+              _c(
+                "b-list-group",
+                { staticClass: "text-center" },
+                _vm._l(_vm.onlineStaffs, function(user, id) {
+                  return _c(
+                    "b-list-group-item",
+                    { key: id, staticClass: "toCaps" },
+                    [_vm._v(_vm._s(user.name))]
+                  )
+                }),
+                1
+              )
+            ],
+            1
+          )
+        ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/staffsChat.vue?vue&type=template&id=387a184f&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/tutor/staffsChat.vue?vue&type=template&id=387a184f&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      directives: [{ name: "chat-scroll", rawName: "v-chat-scroll" }],
+      staticClass: "chat-body"
+    },
+    [
+      _c("div", { staticClass: "message-body" }, [
+        _c(
+          "ul",
+          _vm._l(_vm.staffsMessages, function(message, idx) {
+            return _c("li", { key: idx, staticClass: "message mb-4" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "shadow rounded-pill chat-message",
+                  class: { "ml-auto": message.tutor.id == _vm.tutor.id }
+                },
+                [
+                  message.tutor
+                    ? _c("strong", { staticClass: "text-muted" }, [
+                        _vm._v(_vm._s(message.tutor.name))
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  message.message
+                    ? _c("span", { staticClass: "mr-3" }, [
+                        _vm._v(_vm._s(message.message))
+                      ])
+                    : _c(
+                        "a",
+                        {
+                          staticClass: "mr-3",
+                          attrs: { href: message.attachment, download: "" }
+                        },
+                        [
+                          _c("b-img", {
+                            attrs: {
+                              src: message.attachment,
+                              fluid: "",
+                              width: "60"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                  _vm._v(" "),
+                  _c("small", { staticClass: "text-muted" }, [
+                    _vm._v(
+                      _vm._s(_vm._f("moment")(message.created_at, "h:mm a"))
+                    )
+                  ])
+                ]
+              )
+            ])
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        { attrs: { id: "online", title: "Online Users", "hide-footer": "" } },
+        [
+          _c(
+            "div",
+            { staticClass: "text-center" },
+            [
+              _c(
+                "b-list-group",
+                { staticClass: "text-center" },
+                _vm._l(_vm.onlineStaffs, function(user, id) {
+                  return _c(
+                    "b-list-group-item",
+                    { key: id, staticClass: "toCaps" },
+                    [_vm._v(_vm._s(user.name))]
+                  )
+                }),
+                1
+              )
+            ],
+            1
+          )
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -70991,6 +73338,93 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/student/chatMenu.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/student/chatMenu.vue ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _chatMenu_vue_vue_type_template_id_c0219a14_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chatMenu.vue?vue&type=template&id=c0219a14&scoped=true& */ "./resources/js/components/student/chatMenu.vue?vue&type=template&id=c0219a14&scoped=true&");
+/* harmony import */ var _chatMenu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chatMenu.vue?vue&type=script&lang=js& */ "./resources/js/components/student/chatMenu.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _chatMenu_vue_vue_type_style_index_0_id_c0219a14_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./chatMenu.vue?vue&type=style&index=0&id=c0219a14&scoped=true&lang=css& */ "./resources/js/components/student/chatMenu.vue?vue&type=style&index=0&id=c0219a14&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _chatMenu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _chatMenu_vue_vue_type_template_id_c0219a14_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _chatMenu_vue_vue_type_template_id_c0219a14_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "c0219a14",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/student/chatMenu.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/student/chatMenu.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/student/chatMenu.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_chatMenu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./chatMenu.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/chatMenu.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_chatMenu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/student/chatMenu.vue?vue&type=style&index=0&id=c0219a14&scoped=true&lang=css&":
+/*!***************************************************************************************************************!*\
+  !*** ./resources/js/components/student/chatMenu.vue?vue&type=style&index=0&id=c0219a14&scoped=true&lang=css& ***!
+  \***************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_chatMenu_vue_vue_type_style_index_0_id_c0219a14_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./chatMenu.vue?vue&type=style&index=0&id=c0219a14&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/chatMenu.vue?vue&type=style&index=0&id=c0219a14&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_chatMenu_vue_vue_type_style_index_0_id_c0219a14_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_chatMenu_vue_vue_type_style_index_0_id_c0219a14_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_chatMenu_vue_vue_type_style_index_0_id_c0219a14_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_chatMenu_vue_vue_type_style_index_0_id_c0219a14_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_chatMenu_vue_vue_type_style_index_0_id_c0219a14_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/student/chatMenu.vue?vue&type=template&id=c0219a14&scoped=true&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/student/chatMenu.vue?vue&type=template&id=c0219a14&scoped=true& ***!
+  \*************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_chatMenu_vue_vue_type_template_id_c0219a14_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./chatMenu.vue?vue&type=template&id=c0219a14&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/chatMenu.vue?vue&type=template&id=c0219a14&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_chatMenu_vue_vue_type_template_id_c0219a14_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_chatMenu_vue_vue_type_template_id_c0219a14_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/student/dashboard.vue":
 /*!*******************************************************!*\
   !*** ./resources/js/components/student/dashboard.vue ***!
@@ -71160,6 +73594,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_explore_vue_vue_type_template_id_7c861bc4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_explore_vue_vue_type_template_id_7c861bc4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/student/groupBody.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/student/groupBody.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _groupBody_vue_vue_type_template_id_a995f69c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./groupBody.vue?vue&type=template&id=a995f69c&scoped=true& */ "./resources/js/components/student/groupBody.vue?vue&type=template&id=a995f69c&scoped=true&");
+/* harmony import */ var _groupBody_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./groupBody.vue?vue&type=script&lang=js& */ "./resources/js/components/student/groupBody.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _groupBody_vue_vue_type_style_index_0_id_a995f69c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./groupBody.vue?vue&type=style&index=0&id=a995f69c&scoped=true&lang=css& */ "./resources/js/components/student/groupBody.vue?vue&type=style&index=0&id=a995f69c&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _groupBody_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _groupBody_vue_vue_type_template_id_a995f69c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _groupBody_vue_vue_type_template_id_a995f69c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "a995f69c",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/student/groupBody.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/student/groupBody.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/student/groupBody.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_groupBody_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./groupBody.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/groupBody.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_groupBody_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/student/groupBody.vue?vue&type=style&index=0&id=a995f69c&scoped=true&lang=css&":
+/*!****************************************************************************************************************!*\
+  !*** ./resources/js/components/student/groupBody.vue?vue&type=style&index=0&id=a995f69c&scoped=true&lang=css& ***!
+  \****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_groupBody_vue_vue_type_style_index_0_id_a995f69c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./groupBody.vue?vue&type=style&index=0&id=a995f69c&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/groupBody.vue?vue&type=style&index=0&id=a995f69c&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_groupBody_vue_vue_type_style_index_0_id_a995f69c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_groupBody_vue_vue_type_style_index_0_id_a995f69c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_groupBody_vue_vue_type_style_index_0_id_a995f69c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_groupBody_vue_vue_type_style_index_0_id_a995f69c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_groupBody_vue_vue_type_style_index_0_id_a995f69c_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/student/groupBody.vue?vue&type=template&id=a995f69c&scoped=true&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/components/student/groupBody.vue?vue&type=template&id=a995f69c&scoped=true& ***!
+  \**************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_groupBody_vue_vue_type_template_id_a995f69c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./groupBody.vue?vue&type=template&id=a995f69c&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/groupBody.vue?vue&type=template&id=a995f69c&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_groupBody_vue_vue_type_template_id_a995f69c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_groupBody_vue_vue_type_template_id_a995f69c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -72800,6 +75321,93 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/tutor/assessment/review.vue":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/tutor/assessment/review.vue ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _review_vue_vue_type_template_id_5482ae31_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./review.vue?vue&type=template&id=5482ae31&scoped=true& */ "./resources/js/components/tutor/assessment/review.vue?vue&type=template&id=5482ae31&scoped=true&");
+/* harmony import */ var _review_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./review.vue?vue&type=script&lang=js& */ "./resources/js/components/tutor/assessment/review.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _review_vue_vue_type_style_index_0_id_5482ae31_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./review.vue?vue&type=style&index=0&id=5482ae31&scoped=true&lang=css& */ "./resources/js/components/tutor/assessment/review.vue?vue&type=style&index=0&id=5482ae31&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _review_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _review_vue_vue_type_template_id_5482ae31_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _review_vue_vue_type_template_id_5482ae31_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "5482ae31",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/tutor/assessment/review.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/tutor/assessment/review.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/tutor/assessment/review.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_review_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./review.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/assessment/review.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_review_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/tutor/assessment/review.vue?vue&type=style&index=0&id=5482ae31&scoped=true&lang=css&":
+/*!**********************************************************************************************************************!*\
+  !*** ./resources/js/components/tutor/assessment/review.vue?vue&type=style&index=0&id=5482ae31&scoped=true&lang=css& ***!
+  \**********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_review_vue_vue_type_style_index_0_id_5482ae31_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./review.vue?vue&type=style&index=0&id=5482ae31&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/assessment/review.vue?vue&type=style&index=0&id=5482ae31&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_review_vue_vue_type_style_index_0_id_5482ae31_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_review_vue_vue_type_style_index_0_id_5482ae31_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_review_vue_vue_type_style_index_0_id_5482ae31_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_review_vue_vue_type_style_index_0_id_5482ae31_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_review_vue_vue_type_style_index_0_id_5482ae31_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/tutor/assessment/review.vue?vue&type=template&id=5482ae31&scoped=true&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/components/tutor/assessment/review.vue?vue&type=template&id=5482ae31&scoped=true& ***!
+  \********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_review_vue_vue_type_template_id_5482ae31_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./review.vue?vue&type=template&id=5482ae31&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/assessment/review.vue?vue&type=template&id=5482ae31&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_review_vue_vue_type_template_id_5482ae31_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_review_vue_vue_type_template_id_5482ae31_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/tutor/assessment/test.vue":
 /*!***********************************************************!*\
   !*** ./resources/js/components/tutor/assessment/test.vue ***!
@@ -73368,6 +75976,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_view_vue_vue_type_template_id_37959b50_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_view_vue_vue_type_template_id_37959b50_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/tutor/groupChat.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/tutor/groupChat.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _groupChat_vue_vue_type_template_id_134b9c63_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./groupChat.vue?vue&type=template&id=134b9c63&scoped=true& */ "./resources/js/components/tutor/groupChat.vue?vue&type=template&id=134b9c63&scoped=true&");
+/* harmony import */ var _groupChat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./groupChat.vue?vue&type=script&lang=js& */ "./resources/js/components/tutor/groupChat.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _groupChat_vue_vue_type_style_index_0_id_134b9c63_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./groupChat.vue?vue&type=style&index=0&id=134b9c63&scoped=true&lang=css& */ "./resources/js/components/tutor/groupChat.vue?vue&type=style&index=0&id=134b9c63&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _groupChat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _groupChat_vue_vue_type_template_id_134b9c63_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _groupChat_vue_vue_type_template_id_134b9c63_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "134b9c63",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/tutor/groupChat.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/tutor/groupChat.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/tutor/groupChat.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_groupChat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./groupChat.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/groupChat.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_groupChat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/tutor/groupChat.vue?vue&type=style&index=0&id=134b9c63&scoped=true&lang=css&":
+/*!**************************************************************************************************************!*\
+  !*** ./resources/js/components/tutor/groupChat.vue?vue&type=style&index=0&id=134b9c63&scoped=true&lang=css& ***!
+  \**************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_groupChat_vue_vue_type_style_index_0_id_134b9c63_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./groupChat.vue?vue&type=style&index=0&id=134b9c63&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/groupChat.vue?vue&type=style&index=0&id=134b9c63&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_groupChat_vue_vue_type_style_index_0_id_134b9c63_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_groupChat_vue_vue_type_style_index_0_id_134b9c63_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_groupChat_vue_vue_type_style_index_0_id_134b9c63_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_groupChat_vue_vue_type_style_index_0_id_134b9c63_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_groupChat_vue_vue_type_style_index_0_id_134b9c63_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/tutor/groupChat.vue?vue&type=template&id=134b9c63&scoped=true&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/tutor/groupChat.vue?vue&type=template&id=134b9c63&scoped=true& ***!
+  \************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_groupChat_vue_vue_type_template_id_134b9c63_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./groupChat.vue?vue&type=template&id=134b9c63&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/groupChat.vue?vue&type=template&id=134b9c63&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_groupChat_vue_vue_type_template_id_134b9c63_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_groupChat_vue_vue_type_template_id_134b9c63_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -74151,6 +76846,180 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_sideBar_vue_vue_type_template_id_3bd343a8_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_sideBar_vue_vue_type_template_id_3bd343a8_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/tutor/staffChat.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/tutor/staffChat.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _staffChat_vue_vue_type_template_id_115777c4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./staffChat.vue?vue&type=template&id=115777c4&scoped=true& */ "./resources/js/components/tutor/staffChat.vue?vue&type=template&id=115777c4&scoped=true&");
+/* harmony import */ var _staffChat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./staffChat.vue?vue&type=script&lang=js& */ "./resources/js/components/tutor/staffChat.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _staffChat_vue_vue_type_style_index_0_id_115777c4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./staffChat.vue?vue&type=style&index=0&id=115777c4&scoped=true&lang=css& */ "./resources/js/components/tutor/staffChat.vue?vue&type=style&index=0&id=115777c4&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _staffChat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _staffChat_vue_vue_type_template_id_115777c4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _staffChat_vue_vue_type_template_id_115777c4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "115777c4",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/tutor/staffChat.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/tutor/staffChat.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/tutor/staffChat.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_staffChat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./staffChat.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/staffChat.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_staffChat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/tutor/staffChat.vue?vue&type=style&index=0&id=115777c4&scoped=true&lang=css&":
+/*!**************************************************************************************************************!*\
+  !*** ./resources/js/components/tutor/staffChat.vue?vue&type=style&index=0&id=115777c4&scoped=true&lang=css& ***!
+  \**************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_staffChat_vue_vue_type_style_index_0_id_115777c4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./staffChat.vue?vue&type=style&index=0&id=115777c4&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/staffChat.vue?vue&type=style&index=0&id=115777c4&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_staffChat_vue_vue_type_style_index_0_id_115777c4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_staffChat_vue_vue_type_style_index_0_id_115777c4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_staffChat_vue_vue_type_style_index_0_id_115777c4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_staffChat_vue_vue_type_style_index_0_id_115777c4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_staffChat_vue_vue_type_style_index_0_id_115777c4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/tutor/staffChat.vue?vue&type=template&id=115777c4&scoped=true&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/tutor/staffChat.vue?vue&type=template&id=115777c4&scoped=true& ***!
+  \************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_staffChat_vue_vue_type_template_id_115777c4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./staffChat.vue?vue&type=template&id=115777c4&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/staffChat.vue?vue&type=template&id=115777c4&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_staffChat_vue_vue_type_template_id_115777c4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_staffChat_vue_vue_type_template_id_115777c4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/tutor/staffsChat.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/tutor/staffsChat.vue ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _staffsChat_vue_vue_type_template_id_387a184f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./staffsChat.vue?vue&type=template&id=387a184f&scoped=true& */ "./resources/js/components/tutor/staffsChat.vue?vue&type=template&id=387a184f&scoped=true&");
+/* harmony import */ var _staffsChat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./staffsChat.vue?vue&type=script&lang=js& */ "./resources/js/components/tutor/staffsChat.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _staffsChat_vue_vue_type_style_index_0_id_387a184f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./staffsChat.vue?vue&type=style&index=0&id=387a184f&scoped=true&lang=css& */ "./resources/js/components/tutor/staffsChat.vue?vue&type=style&index=0&id=387a184f&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _staffsChat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _staffsChat_vue_vue_type_template_id_387a184f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _staffsChat_vue_vue_type_template_id_387a184f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "387a184f",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/tutor/staffsChat.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/tutor/staffsChat.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/tutor/staffsChat.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_staffsChat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./staffsChat.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/staffsChat.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_staffsChat_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/tutor/staffsChat.vue?vue&type=style&index=0&id=387a184f&scoped=true&lang=css&":
+/*!***************************************************************************************************************!*\
+  !*** ./resources/js/components/tutor/staffsChat.vue?vue&type=style&index=0&id=387a184f&scoped=true&lang=css& ***!
+  \***************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_staffsChat_vue_vue_type_style_index_0_id_387a184f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./staffsChat.vue?vue&type=style&index=0&id=387a184f&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/staffsChat.vue?vue&type=style&index=0&id=387a184f&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_staffsChat_vue_vue_type_style_index_0_id_387a184f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_staffsChat_vue_vue_type_style_index_0_id_387a184f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_staffsChat_vue_vue_type_style_index_0_id_387a184f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_staffsChat_vue_vue_type_style_index_0_id_387a184f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_staffsChat_vue_vue_type_style_index_0_id_387a184f_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/tutor/staffsChat.vue?vue&type=template&id=387a184f&scoped=true&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/tutor/staffsChat.vue?vue&type=template&id=387a184f&scoped=true& ***!
+  \*************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_staffsChat_vue_vue_type_template_id_387a184f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./staffsChat.vue?vue&type=template&id=387a184f&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/tutor/staffsChat.vue?vue&type=template&id=387a184f&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_staffsChat_vue_vue_type_template_id_387a184f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_staffsChat_vue_vue_type_template_id_387a184f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

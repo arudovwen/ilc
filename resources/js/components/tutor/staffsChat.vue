@@ -2,12 +2,12 @@
   <div class="chat-body" v-chat-scroll>
     <div class="message-body">
       <ul>
-        <li class="message mb-4" v-for="(message,idx) in sortedMessage" :key="idx">
+        <li class="message mb-4" v-for="(message,idx) in staffsMessages" :key="idx">
           <div
-            class="shadow-sm rounded-pill chat-message"
-            :class="{'ml-auto':message.user.id == student.id}"
+            class="shadow rounded-pill chat-message"
+            :class="{'ml-auto':message.tutor.id == tutor.id}"
           >
-            <strong class="text-muted">{{message.user.name}}</strong>
+            <strong class="text-muted" v-if="message.tutor">{{message.tutor.name}}</strong>
             <br />
             <span v-if="message.message" class="mr-3">{{message.message}}</span>
             <a v-else :href="message.attachment" download class="mr-3">
@@ -18,33 +18,23 @@
         </li>
       </ul>
     </div>
+    <b-modal id="online" title="Online Users" hide-footer>
+      <div class="text-center">
+        <b-list-group class="text-center">
+          <b-list-group-item
+            v-for="(user,id) in onlineStaffs"
+            :key="id"
+            class="toCaps"
+          >{{user.name}}</b-list-group-item>
+        </b-list-group>
+      </div>
+    </b-modal>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["student", "privateMessages", "receiver_id"],
-  data() {
-    return {
-      messages: [],
-      message: "",
-      attachment: "",
-      users: [],
-      myText: "",
-    };
-  },
-  components: {},
-  computed: {
-    sortedMessage() {
-      return this.$props.privateMessages.filter(
-        (item) => (item.receiver_id == this.$props.student.id &&  item.user_id == this.receiver_id) ||(item.receiver_id ==this.receiver_id &&  item.user_id ==  this.$props.student.id)
-      );
-    },
-  },
-  mounted() {},
-  methods: {
-    submit() {},
-  },
+      props: ['tutor',"onlineStaffs", "staffsMessages"],
 };
 </script>
 <style scoped>

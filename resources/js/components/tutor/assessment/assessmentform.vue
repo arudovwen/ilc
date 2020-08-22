@@ -277,6 +277,7 @@ export default {
             {
               title: "",
               guide: "",
+              student_score:0,
               answer_format: "",
               answer: "",
               real_answer: "",
@@ -562,42 +563,33 @@ export default {
 
         question: [
           {
-            title: "",
-            guide: "",
-            answer_format: "",
-            real_answer: "",
-            real_answers: [
-              {
-                answer: "",
-              },
-            ],
-            answer: "",
-            answers: [{ answer: "" }],
-            limit: "",
-            placeholder: "",
-            score: "",
+              title: "",
+              guide: "",
+              student_score:0,
+              answer_format: "",
+              answer: "",
+              real_answer: "",
+              real_answers: [
+                {
+                  answer: "",
+                },
+              ],
+              answers: [{ answer: "" }],
+              limit: "",
+              score: "",
+              placeholder: "",
 
-            options: [
-              {
-                name: "",
-              },
-            ],
-            tools: [],
-            tools_description: "",
-            fields: [],
-            items: [
-              {
-                key: "",
-              },
-            ],
-
-            media: [
-              {
-                name: "",
-                file: "",
-              },
-            ],
-          },
+              options: [
+                {
+                  name: "",
+                },
+              ],
+              tools: [],
+              tools_description: "",
+              fields: [],
+              items: [],
+              media: "",
+            },
         ],
       });
 
@@ -626,35 +618,34 @@ export default {
     },
     addQuestion(index) {
       // this.openedQuestion.push(index);
-      this.form[index].question.push({
-        title: "",
-        guide: "",
-        answer_format: "",
-        answer: "",
-        answers: [{ answer: "" }],
-        limit: "",
-        placeholder: "",
+      this.form[index].question.push( {
+              title: "",
+              guide: "",
+              student_score:0,
+              answer_format: "",
+              answer: "",
+              real_answer: "",
+              real_answers: [
+                {
+                  answer: "",
+                },
+              ],
+              answers: [{ answer: "" }],
+              limit: "",
+              score: "",
+              placeholder: "",
 
-        options: [
-          {
-            name: "",
-          },
-        ],
-        tools: [],
-        tools_description: "",
-        fields: [],
-        items: [
-          {
-            key: "",
-          },
-        ],
-        documents: [
-          {
-            name: "",
-            file: "",
-          },
-        ],
-      });
+              options: [
+                {
+                  name: "",
+                },
+              ],
+              tools: [],
+              tools_description: "",
+              fields: [],
+              items: [],
+              media: "",
+            });
     },
     removeQuestion(index) {
       this.form[index].question.pop();

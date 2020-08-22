@@ -2,52 +2,55 @@
   <b-col md="4">
     <b-card class="online-presence">
       <div class="online-presence-top">
-        <b-form-input placeholder="Search to start chat"></b-form-input>
-        <span class="px-2">   <b-icon icon="three-dots-vertical" @click="online" font-scale="2"></b-icon></span>
+        <b-form-input placeholder="Search to start chat" v-model="search"></b-form-input>
+        <span class="px-2">
+          
+          <b-icon icon="three-dots-vertical" id="popover-button-event" font-scale="2"></b-icon>
+        </span>
+         <b-popover ref="popover" target="popover-button-event" >
+      <ul class="pop">
+        <li @click="newGroup">New Group</li>
+         <li @click="online">Who's Online?</li>
+      </ul>
+    </b-popover>
       </div>
       <hr />
-       <div class="single-online-tag"     @click="switchGroup('staff-chat')">
-         
-           <div class="inner-single" >
-           
-            <div
-              class="message-info"
-           
-           
-            >
-             <div class="avatar mr-3">
-              <b-avatar></b-avatar >
+      <div class="single-online-tag" :class="{active:active=='staff-chat'}" @click="switchGroup('staff-chat')">
+        <div class="inner-single">
+          <div class="message-info">
+            <div class="avatar mr-3">
+              <b-avatar></b-avatar>
             </div>
-              <h6 class="toCaps">Staffs</h6>
-              
+            <h6 class="toCaps">Staffs</h6>
+          </div>
+          <div>
+            <b-badge variant="success">3</b-badge>
+          </div>
+        </div>
+      </div>
+      <hr class="m-0" />
+      <div class="online-tag">
+        <div
+
+          class="single-online-tag"
+          :class="{active:active==item.id}"
+          @click="switchGroup(item.id,)"
+          v-for="(item,idx) in sortedGroups"
+          :key="idx"
+        >
+          <div class="inner-single">
+            <div class="message-info">
+              <div class="avatar mr-3">
+                <b-avatar></b-avatar>
+              </div>
+              <h6 class="toCaps">{{item.name}}</h6>
             </div>
             <div>
-                <b-badge variant="success">3</b-badge>
-              </div>
+              <b-badge variant="success">3</b-badge>
+            </div>
           </div>
         </div>
-           <hr />
-      <div class="online-tag">
-        <div class="single-online-tag"    @click="switchGroup(item.id,)" v-for="(item,idx) in groups"
-              :key="idx">
-          <div class="inner-single" >
-           
-            <div
-              class="message-info" >
-               <div class="avatar nr-3">
-              <b-avatar></b-avatar >
-            </div>
-              <h6 class="toCaps">{{item.name}}</h6>
-             
-            </div>
-             <div>
-                <b-badge variant="success">3</b-badge>
-              </div>
-          </div>
-          
-        </div>
-        <hr />
-        
+        <hr class="m-0"/>
       </div>
     </b-card>
   </b-col>
@@ -55,14 +58,32 @@
 <script>
 export default {
   props: ["groups"],
-
+   data() {
+     return {
+       active:'',
+       search:''
+     }
+   },
+   mounted() {
+     this.active="staff-chat"
+   },
+   computed: {
+     sortedGroups(){
+       return this.$props.groups.filter(item=>item.name.toLowerCase().includes(this.search.toLowerCase()))
+     }
+   },
   methods: {
-     switchGroup(id){
-     
-        this.$emit('switchGroup',id)
+    switchGroup(id) {
+      this.active=id
+      this.$emit("switchGroup", id);
     },
-    online(){
-        this.$emit('online')
+    online() {
+       this.$refs.popover.$emit('close')
+      this.$emit("online");
+    },
+    newGroup(){
+       this.$refs.popover.$emit('close')
+   this.$emit('newGroup')
     }
   },
 };
@@ -74,12 +95,18 @@ export default {
   display: flex;
   height: 84vh;
 }
-.single-online-tag{
-padding:15px 10px;
+.single-online-tag {
+  padding: 15px 10px;
 }
-.single-online-tag.active{
-background-color: #fff;
-border-left:3px solid #ccc
+.single-online-tag.active {
+  background-color: #fff;
+  border-left: 3px solid #ccc;
+}
+.pop{
+  margin: 0;
+}
+.pop li{
+  padding: 10px 0;
 }
 .online-presence {
   background: #f5f4f4;
@@ -94,7 +121,7 @@ border-left:3px solid #ccc
 }
 .inner-single {
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
 }
 .message-info {
   display: flex;
@@ -105,6 +132,7 @@ border-left:3px solid #ccc
   margin-bottom: 0;
   line-height: 0;
 } */
+
 .file-attachement {
   display: flex;
   width: 100%;

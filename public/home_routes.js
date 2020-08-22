@@ -8605,14 +8605,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["groups"],
+  data: function data() {
+    return {
+      active: '',
+      search: ''
+    };
+  },
+  mounted: function mounted() {
+    this.active = "staff-chat";
+  },
+  computed: {
+    sortedGroups: function sortedGroups() {
+      var _this = this;
+
+      return this.$props.groups.filter(function (item) {
+        return item.name.toLowerCase().includes(_this.search.toLowerCase());
+      });
+    }
+  },
   methods: {
     switchGroup: function switchGroup(id) {
-      this.$emit('switchGroup', id);
+      this.active = id;
+      this.$emit("switchGroup", id);
     },
     online: function online() {
-      this.$emit('online');
+      this.$refs.popover.$emit('close');
+      this.$emit("online");
+    },
+    newGroup: function newGroup() {
+      this.$refs.popover.$emit('close');
+      this.$emit('newGroup');
     }
   }
 });
@@ -12494,14 +12521,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["student", "groups", "classmates", 'receiver_id', "privateMessages"],
+  props: ["student", "groups", "classmates", "receiver_id", "privateMessages"],
   methods: {
     switchGroup: function switchGroup(name, id) {
       this.$emit("switchGroup", name, id);
     },
     online: function online() {
       this.$emit("online");
+      this.$refs.popover.$emit('close');
     },
     getLastMessage: function getLastMessage(id) {
       return this.$props.privateMessages.filter(function (item) {
@@ -18503,12 +18548,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["tutor", "onlineGroupMembers", "groupMessages", "groups", "group_id", 'showChat', 'onlineStaffs', 'staffsMessages'],
+  props: ["tutor", "onlineGroupMembers", "groupMessages", "groups", "group_id", "showChat", "onlineStaffs", "staffsMessages"],
   data: function data() {
     return {
       messages: [],
@@ -18525,11 +18581,14 @@ __webpack_require__.r(__webpack_exports__);
     StaffsChat: _staffsChat__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   methods: {
+    newGroup: function newGroup() {
+      this.$emit("newGroup");
+    },
     switchGroup: function switchGroup(id) {
       this.$emit("switchGroup", id);
     },
     online: function online() {
-      this.$bvModal.show("online");
+      this.$bvModal.show("online-group");
     },
     attach: function attach(val) {
       this.attachment = val;
@@ -18538,7 +18597,7 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit(message) {
       var _this = this;
 
-      if (this.$props.showChat == 'group') {
+      if (this.$props.showChat == "group") {
         this.$emit("addGroupMessage", message, this.attachment);
         var data = {
           message: message,
@@ -18556,7 +18615,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
 
-      if (this.$props.showChat == 'staff') {
+      if (this.$props.showChat == "staff") {
         this.$emit("addStaffMessage", message, this.attachment);
         var _data = {
           message: message,
@@ -19500,12 +19559,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["tutor", "onlineStaffs", "staffsMessages", "onlineGroupMembers", "groupMessages", "groups", "group_id", 'showChat'],
+  props: ["tutor", "onlineStaffs", "staffsMessages", "onlineGroupMembers", "groupMessages", "groups", "group_id", "showChat"],
   data: function data() {
     return {
+      group_type: true,
       heads: [],
       name: "",
       class_name: "",
@@ -19532,8 +19605,14 @@ __webpack_require__.r(__webpack_exports__);
     this.getCLasses();
   },
   methods: {
+    switchGrouping: function switchGrouping(val) {
+      this.group_type = val;
+    },
+    newGroup: function newGroup() {
+      this.$bvModal.show("group");
+    },
     switchGroup: function switchGroup(id) {
-      this.$emit('switchGroup', id);
+      this.$emit("switchGroup", id);
     },
     addStaffMessage: function addStaffMessage(message, attachment) {
       this.$emit("addStaffMessage", message, attachment);
@@ -24793,7 +24872,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.view[data-v-25b32ea2] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.single-online-tag[data-v-25b32ea2]{\npadding:15px 10px;\n}\n.single-online-tag.active[data-v-25b32ea2]{\nbackground-color: #fff;\nborder-left:3px solid #ccc\n}\n.online-presence[data-v-25b32ea2] {\n  background: #f5f4f4;\n  height: 85vh;\n}\n.online-presence-top[data-v-25b32ea2] {\n  display: flex;\n}\n.online-presence-top .fa[data-v-25b32ea2] {\n  padding-left: 10px;\n  padding-top: 10px;\n}\n.inner-single[data-v-25b32ea2] {\n  display: flex;\n  justify-content:space-between;\n}\n.message-info[data-v-25b32ea2] {\n  display: flex;\n  padding-left: 20px;\n  align-items: center;\n}\n/* .message-info h6 {\n  margin-bottom: 0;\n  line-height: 0;\n} */\n.file-attachement[data-v-25b32ea2] {\n  display: flex;\n  width: 100%;\n  position: relative;\n}\n.file-attachement span[data-v-25b32ea2] {\n  position: absolute;\n  right: 0;\n  transform: translate(-7px);\n  padding-top: 5px;\n}\n.progress[data-v-25b32ea2] {\n  height: 15px;\n}\nlabel[data-v-25b32ea2] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-25b32ea2] {\n  font-size: 14px;\n  padding: 20px;\n}\n.chat-body[data-v-25b32ea2] {\n  width: 100%;\n  height: 100%;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-25b32ea2] {\n  height: 100%;\n  width: 20%;\n}\n.chat-area[data-v-25b32ea2] {\n  position: relative;\n}\n.send-tab[data-v-25b32ea2] {\n  position: absolute;\n  bottom: 0;\n  background: #cec9c9;\n  display: flex;\n  width: 100%;\n  padding: 10px;\n}\n.emoji[data-v-25b32ea2] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-25b32ea2] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-25b32ea2] {\n  position: relative;\n}\nul[data-v-25b32ea2],\nol[data-v-25b32ea2] {\n  list-style: none;\n}\n.chat-message[data-v-25b32ea2] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
+exports.push([module.i, "\n.view[data-v-25b32ea2] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.single-online-tag[data-v-25b32ea2] {\n  padding: 15px 10px;\n}\n.single-online-tag.active[data-v-25b32ea2] {\n  background-color: #fff;\n  border-left: 3px solid #ccc;\n}\n.pop[data-v-25b32ea2]{\n  margin: 0;\n}\n.pop li[data-v-25b32ea2]{\n  padding: 10px 0;\n}\n.online-presence[data-v-25b32ea2] {\n  background: #f5f4f4;\n  height: 85vh;\n}\n.online-presence-top[data-v-25b32ea2] {\n  display: flex;\n}\n.online-presence-top .fa[data-v-25b32ea2] {\n  padding-left: 10px;\n  padding-top: 10px;\n}\n.inner-single[data-v-25b32ea2] {\n  display: flex;\n  justify-content: space-between;\n}\n.message-info[data-v-25b32ea2] {\n  display: flex;\n  padding-left: 20px;\n  align-items: center;\n}\n/* .message-info h6 {\n  margin-bottom: 0;\n  line-height: 0;\n} */\n.file-attachement[data-v-25b32ea2] {\n  display: flex;\n  width: 100%;\n  position: relative;\n}\n.file-attachement span[data-v-25b32ea2] {\n  position: absolute;\n  right: 0;\n  transform: translate(-7px);\n  padding-top: 5px;\n}\n.progress[data-v-25b32ea2] {\n  height: 15px;\n}\nlabel[data-v-25b32ea2] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-25b32ea2] {\n  font-size: 14px;\n  padding: 20px;\n}\n.chat-body[data-v-25b32ea2] {\n  width: 100%;\n  height: 100%;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-25b32ea2] {\n  height: 100%;\n  width: 20%;\n}\n.chat-area[data-v-25b32ea2] {\n  position: relative;\n}\n.send-tab[data-v-25b32ea2] {\n  position: absolute;\n  bottom: 0;\n  background: #cec9c9;\n  display: flex;\n  width: 100%;\n  padding: 10px;\n}\n.emoji[data-v-25b32ea2] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-25b32ea2] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-25b32ea2] {\n  position: relative;\n}\nul[data-v-25b32ea2],\nol[data-v-25b32ea2] {\n  list-style: none;\n}\n.chat-message[data-v-25b32ea2] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -25116,7 +25195,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.view[data-v-c0219a14] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.single-online-tag[data-v-c0219a14]{\npadding:15px 10px;\n}\n.single-online-tag.active[data-v-c0219a14]{\nbackground-color: #fff;\nborder-left:3px solid #ccc\n}\n.online-presence[data-v-c0219a14] {\n  background: #f5f4f4;\n  height: 85vh;\n}\n.online-presence-top[data-v-c0219a14] {\n  display: flex;\n}\n.online-presence-top .fa[data-v-c0219a14] {\n  padding-left: 10px;\n  padding-top: 10px;\n}\n.inner-single[data-v-c0219a14] {\n  display: flex;\n  justify-content:space-between;\n}\n.message-info[data-v-c0219a14] {\n  display: flex;\n  padding-left: 20px;\n  align-items: center;\n}\n/* .message-info h6 {\n  margin-bottom: 0;\n  line-height: 0;\n} */\n.file-attachement[data-v-c0219a14] {\n  display: flex;\n  width: 100%;\n  position: relative;\n}\n.file-attachement span[data-v-c0219a14] {\n  position: absolute;\n  right: 0;\n  transform: translate(-7px);\n  padding-top: 5px;\n}\n.progress[data-v-c0219a14] {\n  height: 15px;\n}\nlabel[data-v-c0219a14] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-c0219a14] {\n  font-size: 14px;\n  padding: 20px;\n}\n.chat-body[data-v-c0219a14] {\n  width: 100%;\n  height: 100%;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-c0219a14] {\n  height: 100%;\n  width: 20%;\n}\n.chat-area[data-v-c0219a14] {\n  position: relative;\n}\n.send-tab[data-v-c0219a14] {\n  position: absolute;\n  bottom: 0;\n  background: #cec9c9;\n  display: flex;\n  width: 100%;\n  padding: 10px;\n}\n.emoji[data-v-c0219a14] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-c0219a14] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-c0219a14] {\n  position: relative;\n}\nul[data-v-c0219a14],\nol[data-v-c0219a14] {\n  list-style: none;\n}\n.chat-message[data-v-c0219a14] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
+exports.push([module.i, "\n.view[data-v-c0219a14] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.pop[data-v-c0219a14]{\n  margin: 0;\n}\n.pop li[data-v-c0219a14]{\n  padding: 10px 0;\n}\n.single-online-tag[data-v-c0219a14] {\n  padding: 15px 10px;\n}\n.single-online-tag.active[data-v-c0219a14] {\n  background-color: #fff;\n  border-left: 3px solid #ccc;\n}\n.online-presence[data-v-c0219a14] {\n  background: #f5f4f4;\n  height: 85vh;\n}\n.online-presence-top[data-v-c0219a14] {\n  display: flex;\n}\n.online-presence-top .fa[data-v-c0219a14] {\n  padding-left: 10px;\n  padding-top: 10px;\n}\n.inner-single[data-v-c0219a14] {\n  display: flex;\n  justify-content: space-between;\n}\n.message-info[data-v-c0219a14] {\n  display: flex;\n  padding-left: 20px;\n  align-items: center;\n}\n/* .message-info h6 {\n  margin-bottom: 0;\n  line-height: 0;\n} */\n.file-attachement[data-v-c0219a14] {\n  display: flex;\n  width: 100%;\n  position: relative;\n}\n.file-attachement span[data-v-c0219a14] {\n  position: absolute;\n  right: 0;\n  transform: translate(-7px);\n  padding-top: 5px;\n}\n.progress[data-v-c0219a14] {\n  height: 15px;\n}\nlabel[data-v-c0219a14] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-c0219a14] {\n  font-size: 14px;\n  padding: 20px;\n}\n.chat-body[data-v-c0219a14] {\n  width: 100%;\n  height: 100%;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-c0219a14] {\n  height: 100%;\n  width: 20%;\n}\n.chat-area[data-v-c0219a14] {\n  position: relative;\n}\n.send-tab[data-v-c0219a14] {\n  position: absolute;\n  bottom: 0;\n  background: #cec9c9;\n  display: flex;\n  width: 100%;\n  padding: 10px;\n}\n.emoji[data-v-c0219a14] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-c0219a14] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-c0219a14] {\n  position: relative;\n}\nul[data-v-c0219a14],\nol[data-v-c0219a14] {\n  list-style: none;\n}\n.chat-message[data-v-c0219a14] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\n", ""]);
 
 // exports
 
@@ -43228,7 +43307,14 @@ var render = function() {
           { staticClass: "online-presence-top" },
           [
             _c("b-form-input", {
-              attrs: { placeholder: "Search to start chat" }
+              attrs: { placeholder: "Search to start chat" },
+              model: {
+                value: _vm.search,
+                callback: function($$v) {
+                  _vm.search = $$v
+                },
+                expression: "search"
+              }
             }),
             _vm._v(" "),
             _c(
@@ -43236,11 +43322,30 @@ var render = function() {
               { staticClass: "px-2" },
               [
                 _c("b-icon", {
-                  attrs: { icon: "three-dots-vertical", "font-scale": "2" },
-                  on: { click: _vm.online }
+                  attrs: {
+                    icon: "three-dots-vertical",
+                    id: "popover-button-event",
+                    "font-scale": "2"
+                  }
                 })
               ],
               1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-popover",
+              { ref: "popover", attrs: { target: "popover-button-event" } },
+              [
+                _c("ul", { staticClass: "pop" }, [
+                  _c("li", { on: { click: _vm.newGroup } }, [
+                    _vm._v("New Group")
+                  ]),
+                  _vm._v(" "),
+                  _c("li", { on: { click: _vm.online } }, [
+                    _vm._v("Who's Online?")
+                  ])
+                ])
+              ]
             )
           ],
           1
@@ -43252,6 +43357,7 @@ var render = function() {
           "div",
           {
             staticClass: "single-online-tag",
+            class: { active: _vm.active == "staff-chat" },
             on: {
               click: function($event) {
                 return _vm.switchGroup("staff-chat")
@@ -43279,18 +43385,19 @@ var render = function() {
           ]
         ),
         _vm._v(" "),
-        _c("hr"),
+        _c("hr", { staticClass: "m-0" }),
         _vm._v(" "),
         _c(
           "div",
           { staticClass: "online-tag" },
           [
-            _vm._l(_vm.groups, function(item, idx) {
+            _vm._l(_vm.sortedGroups, function(item, idx) {
               return _c(
                 "div",
                 {
                   key: idx,
                   staticClass: "single-online-tag",
+                  class: { active: _vm.active == item.id },
                   on: {
                     click: function($event) {
                       return _vm.switchGroup(item.id)
@@ -43302,7 +43409,7 @@ var render = function() {
                     _c("div", { staticClass: "message-info" }, [
                       _c(
                         "div",
-                        { staticClass: "avatar nr-3" },
+                        { staticClass: "avatar mr-3" },
                         [_c("b-avatar")],
                         1
                       ),
@@ -43326,7 +43433,7 @@ var render = function() {
               )
             }),
             _vm._v(" "),
-            _c("hr")
+            _c("hr", { staticClass: "m-0" })
           ],
           2
         )
@@ -49922,11 +50029,26 @@ var render = function() {
               { staticClass: "px-2" },
               [
                 _c("b-icon", {
-                  attrs: { icon: "three-dots-vertical", "font-scale": "2" },
-                  on: { click: _vm.online }
+                  attrs: {
+                    icon: "three-dots-vertical",
+                    id: "popover-button-event",
+                    "font-scale": "2"
+                  }
                 })
               ],
               1
+            ),
+            _vm._v(" "),
+            _c(
+              "b-popover",
+              { ref: "popover", attrs: { target: "popover-button-event" } },
+              [
+                _c("ul", { staticClass: "pop" }, [
+                  _c("li", { on: { click: _vm.online } }, [
+                    _vm._v("Who's Online?")
+                  ])
+                ])
+              ]
             )
           ],
           1
@@ -49995,7 +50117,7 @@ var render = function() {
               return _c(
                 "div",
                 {
-                  staticClass: "single-online-tag border-bottom ",
+                  staticClass: "single-online-tag border-bottom",
                   class: { active: mate.id == _vm.receiver_id },
                   on: {
                     click: function($event) {
@@ -50006,7 +50128,7 @@ var render = function() {
                 [
                   _c("div", { staticClass: "inner-single" }, [
                     _c("div", { staticClass: "message-info" }, [
-                      _c("div", { staticClass: " mr-3" }, [_c("b-avatar")], 1),
+                      _c("div", { staticClass: "mr-3" }, [_c("b-avatar")], 1),
                       _vm._v(" "),
                       _c("div", [
                         _c("h6", { staticClass: "toCaps mb-1" }, [
@@ -50014,7 +50136,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _vm.getLastMessage(mate.id).length
-                          ? _c("small", { staticClass: "lastmessage " }, [
+                          ? _c("small", { staticClass: "lastmessage" }, [
                               _vm._v(
                                 _vm._s(
                                   _vm.getLastMessage(mate.id)[
@@ -50033,15 +50155,14 @@ var render = function() {
                         _vm.getLastMessage(mate.id).length
                           ? _c("small", [
                               _vm._v(
-                                " " +
-                                  _vm._s(
-                                    _vm._f("moment")(
-                                      _vm.getLastMessage(mate.id)[
-                                        _vm.getLastMessage(mate.id).length - 1
-                                      ].created_at,
-                                      "h:mm A"
-                                    )
+                                _vm._s(
+                                  _vm._f("moment")(
+                                    _vm.getLastMessage(mate.id)[
+                                      _vm.getLastMessage(mate.id).length - 1
+                                    ].created_at,
+                                    "h:mm A"
                                   )
+                                )
                               )
                             ])
                           : _vm._e(),
@@ -60211,7 +60332,11 @@ var render = function() {
               _vm._v(" "),
               _c("ChatMenu", {
                 attrs: { groups: _vm.groups },
-                on: { switchGroup: _vm.switchGroup }
+                on: {
+                  newGroup: _vm.newGroup,
+                  switchGroup: _vm.switchGroup,
+                  online: _vm.online
+                }
               })
             ],
             1
@@ -60222,24 +60347,43 @@ var render = function() {
       _vm._v(" "),
       _c(
         "b-modal",
-        { attrs: { id: "online", title: "Online Users", "hide-footer": "" } },
+        {
+          attrs: {
+            id: "online-group",
+            title: "Online Users",
+            "hide-footer": ""
+          }
+        },
         [
           _c(
             "div",
             { staticClass: "text-center" },
             [
-              _c(
-                "b-list-group",
-                { staticClass: "text-center" },
-                _vm._l(_vm.onlineGroupMembers, function(user, id) {
-                  return _c(
-                    "b-list-group-item",
-                    { key: id, staticClass: "toCaps" },
-                    [_vm._v(_vm._s(user.name))]
+              _vm.showChat == "staff"
+                ? _c(
+                    "b-list-group",
+                    { staticClass: "text-center" },
+                    _vm._l(_vm.onlineStaffs, function(user, id) {
+                      return _c(
+                        "b-list-group-item",
+                        { key: id, staticClass: "toCaps" },
+                        [_vm._v(_vm._s(user.name))]
+                      )
+                    }),
+                    1
                   )
-                }),
-                1
-              )
+                : _c(
+                    "b-list-group",
+                    { staticClass: "text-center" },
+                    _vm._l(_vm.onlineGroupMembers, function(user, id) {
+                      return _c(
+                        "b-list-group-item",
+                        { key: id, staticClass: "toCaps" },
+                        [_vm._v(_vm._s(user.name))]
+                      )
+                    }),
+                    1
+                  )
             ],
             1
           )
@@ -60948,7 +61092,7 @@ var render = function() {
                 _c(
                   "div",
                   {
-                    staticClass: "shadow rounded-pill chat-message",
+                    staticClass: "shadow-sm rounded-pill chat-message",
                     class: { "ml-auto": message.tutor }
                   },
                   [
@@ -61044,7 +61188,8 @@ var render = function() {
         on: {
           addGroupMessage: _vm.addGroupMessage,
           switchGroup: _vm.switchGroup,
-          addStaffMessage: _vm.addStaffMessage
+          addStaffMessage: _vm.addStaffMessage,
+          newGroup: _vm.newGroup
         }
       }),
       _vm._v(" "),
@@ -61094,168 +61239,216 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "" } }, [_vm._v("Add Class")]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.class_name,
-                        expression: "class_name"
-                      }
-                    ],
-                    staticClass: "custom-select",
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.class_name = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      }
-                    }
-                  },
-                  [
-                    _c("option", { attrs: { selected: "", value: "" } }, [
-                      _vm._v("Select Class")
-                    ]),
-                    _vm._v(" "),
-                    _vm._l(_vm.allClass, function(item, idx) {
-                      return _c(
-                        "option",
-                        { key: idx, domProps: { value: item } },
-                        [_vm._v(_vm._s(item))]
-                      )
-                    })
-                  ],
-                  2
-                )
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "text-center" }, [_vm._v("or")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "" } }, [_vm._v("Add Students")]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.name_class,
-                        expression: "name_class"
-                      }
-                    ],
-                    staticClass: "custom-select",
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.name_class = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      }
-                    }
-                  },
-                  [
-                    _c("option", { attrs: { selected: "", value: "" } }, [
-                      _vm._v("Select Class")
-                    ]),
-                    _vm._v(" "),
-                    _vm._l(_vm.allClass, function(item, idx) {
-                      return _c(
-                        "option",
-                        { key: idx, domProps: { value: item } },
-                        [_vm._v(_vm._s(item))]
-                      )
-                    })
-                  ],
-                  2
-                )
-              ]),
-              _vm._v(" "),
-              _vm.names.length
-                ? _c(
-                    "div",
-                    { staticClass: "names form-group" },
-                    _vm._l(_vm.names, function(item, idx) {
-                      return _c(
-                        "label",
+              _c(
+                "div",
+                { staticClass: "mt-3 text-center" },
+                [
+                  _c(
+                    "b-button-group",
+                    { attrs: { size: "sm" } },
+                    [
+                      _c(
+                        "b-button",
                         {
-                          key: idx,
-                          staticClass: "custom-control custom-checkbox"
+                          on: {
+                            click: function($event) {
+                              return _vm.switchGrouping(true)
+                            }
+                          }
+                        },
+                        [_vm._v("Class Group")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-button",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.switchGrouping(false)
+                            }
+                          }
+                        },
+                        [_vm._v("Student Group")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "d-flex mt-4" }, [
+                _vm.group_type
+                  ? _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Add Entire Class")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.class_name,
+                              expression: "class_name"
+                            }
+                          ],
+                          staticClass: "custom-select",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.class_name = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
                         },
                         [
-                          _c("input", {
+                          _c("option", { attrs: { selected: "", value: "" } }, [
+                            _vm._v("Select Class")
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.allClass, function(item, idx) {
+                            return _c(
+                              "option",
+                              { key: idx, domProps: { value: item } },
+                              [_vm._v(_vm._s(item))]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ])
+                  : _c("div", [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Add Students")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
                             directives: [
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.added_names,
-                                expression: "added_names"
+                                value: _vm.name_class,
+                                expression: "name_class"
                               }
                             ],
-                            staticClass: "custom-control-input",
-                            attrs: { type: "checkbox" },
-                            domProps: {
-                              value: item.id,
-                              checked: Array.isArray(_vm.added_names)
-                                ? _vm._i(_vm.added_names, item.id) > -1
-                                : _vm.added_names
-                            },
+                            staticClass: "custom-select",
                             on: {
                               change: function($event) {
-                                var $$a = _vm.added_names,
-                                  $$el = $event.target,
-                                  $$c = $$el.checked ? true : false
-                                if (Array.isArray($$a)) {
-                                  var $$v = item.id,
-                                    $$i = _vm._i($$a, $$v)
-                                  if ($$el.checked) {
-                                    $$i < 0 &&
-                                      (_vm.added_names = $$a.concat([$$v]))
-                                  } else {
-                                    $$i > -1 &&
-                                      (_vm.added_names = $$a
-                                        .slice(0, $$i)
-                                        .concat($$a.slice($$i + 1)))
-                                  }
-                                } else {
-                                  _vm.added_names = $$c
-                                }
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.name_class = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
                               }
                             }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "span",
-                            { staticClass: "custom-control-indicator" },
-                            [_vm._v(_vm._s(item.name))]
+                          },
+                          [
+                            _c(
+                              "option",
+                              { attrs: { selected: "", value: "" } },
+                              [_vm._v("Select Class")]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.allClass, function(item, idx) {
+                              return _c(
+                                "option",
+                                { key: idx, domProps: { value: item } },
+                                [_vm._v(_vm._s(item))]
+                              )
+                            })
+                          ],
+                          2
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm.names.length
+                        ? _c(
+                            "div",
+                            { staticClass: "names form-group p-3" },
+                            _vm._l(_vm.names, function(item, idx) {
+                              return _c(
+                                "label",
+                                {
+                                  key: idx,
+                                  staticClass: "custom-control custom-checkbox"
+                                },
+                                [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.added_names,
+                                        expression: "added_names"
+                                      }
+                                    ],
+                                    staticClass: "custom-control-input",
+                                    attrs: { type: "checkbox" },
+                                    domProps: {
+                                      value: item.id,
+                                      checked: Array.isArray(_vm.added_names)
+                                        ? _vm._i(_vm.added_names, item.id) > -1
+                                        : _vm.added_names
+                                    },
+                                    on: {
+                                      change: function($event) {
+                                        var $$a = _vm.added_names,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = item.id,
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              (_vm.added_names = $$a.concat([
+                                                $$v
+                                              ]))
+                                          } else {
+                                            $$i > -1 &&
+                                              (_vm.added_names = $$a
+                                                .slice(0, $$i)
+                                                .concat($$a.slice($$i + 1)))
+                                          }
+                                        } else {
+                                          _vm.added_names = $$c
+                                        }
+                                      }
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "span",
+                                    { staticClass: "custom-control-indicator" },
+                                    [_vm._v(_vm._s(item.name))]
+                                  )
+                                ]
+                              )
+                            }),
+                            0
                           )
-                        ]
-                      )
-                    }),
-                    0
-                  )
-                : _vm._e(),
+                        : _vm._e()
+                    ])
+              ]),
               _vm._v(" "),
               _c(
                 "div",
@@ -65516,7 +65709,7 @@ var render = function() {
                                   "div",
                                   {
                                     staticClass:
-                                      "shadow rounded-pill chat-message",
+                                      "shadow-sm rounded-pill chat-message",
                                     class: {
                                       "ml-auto":
                                         message.tutor.id == _vm.tutor.id
@@ -65660,7 +65853,7 @@ var render = function() {
               _c(
                 "div",
                 {
-                  staticClass: "shadow rounded-pill chat-message",
+                  staticClass: "shadow-sm rounded-pill chat-message",
                   class: { "ml-auto": message.tutor.id == _vm.tutor.id }
                 },
                 [

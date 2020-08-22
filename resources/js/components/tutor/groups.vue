@@ -9,12 +9,14 @@
       :group_id="group_id"
       @switchGroup="switchGroup"
       :onlineStaffs="onlineStaffs"
-      :staffsMessages="staffsMessages"    @addStaffMessage="addStaffMessage"
-      :showChat ='showChat'
+      :staffsMessages="staffsMessages"
+      @addStaffMessage="addStaffMessage"
+      :showChat="showChat"
+      @newGroup="newGroup"
     />
-     <!-- <staffChat   :tutor="tutor"  :onlineStaffs="onlineStaffs"
+    <!-- <staffChat   :tutor="tutor"  :onlineStaffs="onlineStaffs"
       :staffsMessages="staffsMessages"    @addStaffMessage="addStaffMessage"/>
-   -->
+    -->
 
     <b-modal id="group" title="New Group" hide-footer>
       <form @submit.prevent="addClass" class="mb-5">
@@ -28,33 +30,44 @@
             placeholder="Pearl"
           />
         </div>
-        <div class="form-group">
-          <label for>Add Class</label>
-          <select class="custom-select" v-model="class_name">
-            <option selected value>Select Class</option>
-            <option :value="item" v-for="(item,idx) in allClass" :key="idx">{{item}}</option>
-          </select>
-        </div>
+         <div class="mt-3 text-center">
+    <b-button-group size="sm">
+      <b-button @click="switchGrouping(true)">Class Group</b-button>
+      
+      <b-button @click="switchGrouping(false)">Student Group</b-button>
+    </b-button-group>
+  </div>
 
-        <p class="text-center">or</p>
-        <div class="form-group">
-          <label for>Add Students</label>
-          <select class="custom-select" v-model="name_class">
-            <option selected value>Select Class</option>
-            <option :value="item" v-for="(item,idx) in allClass" :key="idx">{{item}}</option>
-          </select>
-        </div>
+        <div class="d-flex mt-4">
+          <div class="form-group" v-if="group_type">
+            <label for>Add Entire Class</label>
+            <select class="custom-select" v-model="class_name">
+              <option selected value>Select Class</option>
+              <option :value="item" v-for="(item,idx) in allClass" :key="idx">{{item}}</option>
+            </select>
+          </div>
 
-        <div class="names form-group" v-if="names.length">
-          <label class="custom-control custom-checkbox" v-for="(item,idx) in names" :key="idx">
-            <input
-              type="checkbox"
-              :value="item.id"
-              class="custom-control-input"
-              v-model="added_names"
-            />
-            <span class="custom-control-indicator">{{item.name}}</span>
-          </label>
+          <div v-else>
+            <div class="form-group">
+              <label for>Add Students</label>
+              <select class="custom-select" v-model="name_class">
+                <option selected value>Select Class</option>
+                <option :value="item" v-for="(item,idx) in allClass" :key="idx">{{item}}</option>
+              </select>
+            </div>
+
+            <div class="names form-group p-3" v-if="names.length">
+              <label class="custom-control custom-checkbox" v-for="(item,idx) in names" :key="idx">
+                <input
+                  type="checkbox"
+                  :value="item.id"
+                  class="custom-control-input"
+                  v-model="added_names"
+                />
+                <span class="custom-control-indicator">{{item.name}}</span>
+              </label>
+            </div>
+          </div>
         </div>
 
         <div class="form-group my-4">
@@ -82,10 +95,11 @@ export default {
     "groupMessages",
     "groups",
     "group_id",
-    'showChat'
+    "showChat",
   ],
   data() {
     return {
+      group_type:true,
       heads: [],
       name: "",
       class_name: "",
@@ -112,8 +126,14 @@ export default {
     this.getCLasses();
   },
   methods: {
-     switchGroup(id){
-        this.$emit('switchGroup',id)
+    switchGrouping(val){
+this.group_type = val
+    },
+    newGroup() {
+      this.$bvModal.show("group");
+    },
+    switchGroup(id) {
+      this.$emit("switchGroup", id);
     },
     addStaffMessage(message, attachment) {
       this.$emit("addStaffMessage", message, attachment);

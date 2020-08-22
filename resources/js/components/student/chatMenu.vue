@@ -4,8 +4,13 @@
       <div class="online-presence-top">
         <b-form-input placeholder="Search to start chat"></b-form-input>
         <span class="px-2">
-          <b-icon icon="three-dots-vertical" @click="online" font-scale="2"></b-icon>
+          <b-icon icon="three-dots-vertical" id="popover-button-event" font-scale="2"></b-icon>
         </span>
+        <b-popover ref="popover" target="popover-button-event">
+          <ul class="pop">
+            <li @click="online">Who's Online?</li>
+          </ul>
+        </b-popover>
       </div>
       <hr />
 
@@ -13,40 +18,52 @@
         <div class="mb-3">
           <strong class="text-muted">Groups</strong>
         </div>
-        <div class="single-online-tag" v-for="(group,idx) in groups" :key="idx" @click="switchGroup('group',group.id,)">
+        <div
+          class="single-online-tag"
+          v-for="(group,idx) in groups"
+          :key="idx"
+          @click="switchGroup('group',group.id,)"
+        >
           <div class="inner-single">
-            
-            <div class="message-info" >
-               <b-avatar  class="mr-3"></b-avatar>
+            <div class="message-info">
+              <b-avatar class="mr-3"></b-avatar>
               <h6 class="toCaps">{{group.name}}</h6>
-             
             </div>
-             <div>
-                <b-badge variant="success">3</b-badge>
-              </div>
+            <div>
+              <b-badge variant="success">3</b-badge>
+            </div>
           </div>
         </div>
         <hr />
         <div class="mb-3">
           <strong class="text-muted">Classmates</strong>
         </div>
-        <div class="single-online-tag border-bottom " @click="switchGroup('private',mate.id)" v-for="(mate,index) in classmates" :class="{active:mate.id==receiver_id}" >
+        <div
+          class="single-online-tag border-bottom"
+          @click="switchGroup('private',mate.id)"
+          v-for="(mate,index) in classmates"
+          :class="{active:mate.id==receiver_id}"
+        >
           <div class="inner-single">
-            
-            <div class="message-info" >
-              <div class=" mr-3">
-              <b-avatar ></b-avatar>
-            </div>
-              <div><h6 class="toCaps mb-1">{{mate.name}}</h6> 
-              <small class="lastmessage " v-if="getLastMessage(mate.id).length">{{getLastMessage(mate.id)[getLastMessage(mate.id).length-1].message}}</small></div>
-             
-            </div>
-             <div>
-              <small v-if="getLastMessage(mate.id).length"> {{getLastMessage(mate.id)[getLastMessage(mate.id).length-1].created_at | moment('h:mm A')}}</small>
-                <b-badge variant="success">3</b-badge>
+            <div class="message-info">
+              <div class="mr-3">
+                <b-avatar></b-avatar>
               </div>
+              <div>
+                <h6 class="toCaps mb-1">{{mate.name}}</h6>
+                <small
+                  class="lastmessage"
+                  v-if="getLastMessage(mate.id).length"
+                >{{getLastMessage(mate.id)[getLastMessage(mate.id).length-1].message}}</small>
+              </div>
+            </div>
+            <div>
+              <small
+                v-if="getLastMessage(mate.id).length"
+              >{{getLastMessage(mate.id)[getLastMessage(mate.id).length-1].created_at | moment('h:mm A')}}</small>
+              <b-badge variant="success">3</b-badge>
+            </div>
           </div>
-          
         </div>
       </div>
     </b-card>
@@ -54,18 +71,21 @@
 </template>
 <script>
 export default {
-  props: ["student","groups", "classmates",'receiver_id',"privateMessages"],
+  props: ["student", "groups", "classmates", "receiver_id", "privateMessages"],
 
   methods: {
-    switchGroup(name,id) {
-      this.$emit("switchGroup", name,id);
+    switchGroup(name, id) {
+      this.$emit("switchGroup", name, id);
     },
     online() {
       this.$emit("online");
+          this.$refs.popover.$emit('close')
     },
-    getLastMessage(id){
-    return  this.$props.privateMessages.filter(item=>item.receiver_id== id | item.user_id ==id)
-    }
+    getLastMessage(id) {
+      return this.$props.privateMessages.filter(
+        (item) => (item.receiver_id == id) | (item.user_id == id)
+      );
+    },
   },
 };
 </script>
@@ -76,12 +96,18 @@ export default {
   display: flex;
   height: 84vh;
 }
-.single-online-tag{
-padding:15px 10px;
+.pop{
+  margin: 0;
 }
-.single-online-tag.active{
-background-color: #fff;
-border-left:3px solid #ccc
+.pop li{
+  padding: 10px 0;
+}
+.single-online-tag {
+  padding: 15px 10px;
+}
+.single-online-tag.active {
+  background-color: #fff;
+  border-left: 3px solid #ccc;
 }
 .online-presence {
   background: #f5f4f4;
@@ -96,7 +122,7 @@ border-left:3px solid #ccc
 }
 .inner-single {
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
 }
 .message-info {
   display: flex;

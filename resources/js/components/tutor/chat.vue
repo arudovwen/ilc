@@ -53,23 +53,34 @@
     <div class="card tutor-chat">
       <b-row>
         <b-col md="8" class="chat-area">
-          <GroupChat :tutor="tutor" :groupMessages="groupMessages" v-if="showChat=='group'"/>
+          <GroupChat :tutor="tutor" :groupMessages="groupMessages" v-if="showChat=='group'" />
           <staffsChat
-          v-if="showChat=='staff'"
-           :tutor="tutor"
+            v-if="showChat=='staff'"
+            :tutor="tutor"
             :onlineStaffs="onlineStaffs"
             :staffsMessages="staffsMessages"
-          
           />
           <ChatBar @submit="submit" @attach="attach" />
         </b-col>
-        <ChatMenu :groups="groups" @switchGroup="switchGroup" />
+        <ChatMenu
+          @newGroup="newGroup"
+          :groups="groups"
+          @switchGroup="switchGroup"
+          @online="online"
+        />
       </b-row>
     </div>
 
-    <b-modal id="online" title="Online Users" hide-footer>
+    <b-modal id="online-group" title="Online Users" hide-footer>
       <div class="text-center">
-        <b-list-group class="text-center">
+        <b-list-group class="text-center"   v-if="showChat=='staff'">
+          <b-list-group-item
+            v-for="(user,id) in onlineStaffs"
+            :key="id"
+            class="toCaps"
+          >{{user.name}}</b-list-group-item>
+        </b-list-group>
+        <b-list-group class="text-center" v-else>
           <b-list-group-item
             v-for="(user,id) in onlineGroupMembers"
             :key="id"
@@ -85,9 +96,18 @@
 import ChatBar from "../chatBar";
 import ChatMenu from "../chatMenu";
 import GroupChat from "./groupChat";
-import StaffsChat from './staffsChat'
+import StaffsChat from "./staffsChat";
 export default {
-  props: ["tutor", "onlineGroupMembers", "groupMessages", "groups", "group_id",'showChat','onlineStaffs','staffsMessages'],
+  props: [
+    "tutor",
+    "onlineGroupMembers",
+    "groupMessages",
+    "groups",
+    "group_id",
+    "showChat",
+    "onlineStaffs",
+    "staffsMessages",
+  ],
   data() {
     return {
       messages: [],
@@ -101,15 +121,18 @@ export default {
     ChatBar,
     ChatMenu,
     GroupChat,
-    StaffsChat
+    StaffsChat,
   },
 
   methods: {
+    newGroup() {
+      this.$emit("newGroup");
+    },
     switchGroup(id) {
       this.$emit("switchGroup", id);
     },
     online() {
-      this.$bvModal.show("online");
+      this.$bvModal.show("online-group");
     },
     attach(val) {
       this.attachment = val;
@@ -117,47 +140,45 @@ export default {
     },
 
     submit(message) {
-  
-     if (this.$props.showChat == 'group') {
+      if (this.$props.showChat == "group") {
         this.$emit("addGroupMessage", message, this.attachment);
-      let data = {
-        message: message,
-        group_id: this.$props.group_id,
-        attachment: this.attachment,
-      };
-      axios
-        .post("/api/send-message", data, {
-          headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            this.message = "";
-          }
-        });
-     }
+        let data = {
+          message: message,
+          group_id: this.$props.group_id,
+          attachment: this.attachment,
+        };
+        axios
+          .post("/api/send-message", data, {
+            headers: {
+              Authorization: `Bearer ${this.$props.tutor.access_token}`,
+            },
+          })
+          .then((res) => {
+            if (res.status == 200) {
+              this.message = "";
+            }
+          });
+      }
 
-     if (this.$props.showChat == 'staff') {
+      if (this.$props.showChat == "staff") {
         this.$emit("addStaffMessage", message, this.attachment);
-      let data = {
-        message: message,
-        attachment: this.attachment,
-      };
-      axios
-        .post("/api/staff-message", data, {
-          headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            this.message = "";
-          }
-        });
-     }
+        let data = {
+          message: message,
+          attachment: this.attachment,
+        };
+        axios
+          .post("/api/staff-message", data, {
+            headers: {
+              Authorization: `Bearer ${this.$props.tutor.access_token}`,
+            },
+          })
+          .then((res) => {
+            if (res.status == 200) {
+              this.message = "";
+            }
+          });
+      }
     },
-    
   },
 };
 </script>

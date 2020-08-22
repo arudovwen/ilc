@@ -8,7 +8,7 @@
                   :key="idx"
                   :class="{'text-right':message.user_id == tutor.id}"
                 >
-                  <div class="shadow rounded-pill chat-message" :class="{'ml-auto':message.tutor}">
+                  <div class="shadow-sm rounded-pill chat-message" :class="{'ml-auto':message.tutor}">
                     <strong class="text-muted" v-if="message.tutor">{{message.tutor.name}}</strong>
                     <strong class="text-muted" v-if="message.user">{{message.user.name}}</strong>
                     <br />

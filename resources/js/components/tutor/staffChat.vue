@@ -8,7 +8,7 @@
               <ul>
                 <li class="message mb-4" v-for="(message,idx) in staffsMessages" :key="idx">
                   <div
-                    class="shadow rounded-pill chat-message"
+                    class="shadow-sm rounded-pill chat-message"
                     :class="{'ml-auto':message.tutor.id == tutor.id}"
                   >
                     <strong class="text-muted" v-if="message.tutor">{{message.tutor.name}}</strong>

@@ -62,7 +62,7 @@
                   :key="idx"
                   :class="{'text-right':message.user_id == tutor.id}"
                 >
-                  <div class="shadow rounded-pill chat-message" :class="{'ml-auto':message.tutor}">
+                  <div class=" rounded-pill chat-message" :class="{'ml-auto':message.tutor}">
                     <strong class="text-muted" v-if="message.tutor">{{message.tutor.name}}</strong>
                     <strong class="text-muted" v-if="message.user">{{message.user.name}}</strong>
                     <br />
@@ -220,6 +220,10 @@ export default {
 };
 </script>
 <style scoped>
+.chat .card{
+  /* background-image: linear-gradient(to bottom, rgba(34, 202, 222, 0.15), rgba(34, 202, 222, 0.15)), url(/images/patterns.jpg); */
+  
+}
 .view {
   background: white;
   position: relative;
@@ -316,12 +320,12 @@ ol {
   list-style: none;
 }
 .chat-message {
-  background: white;
+  background: linear-gradient(to bottom, rgba(34, 202, 222, 0.15), rgba(34, 202, 222, 0.15));
   padding: 15px 20px;
   width: fit-content;
   width: max-content;
   max-width: 50%;
-
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
   text-align: left;
 }
 </style>

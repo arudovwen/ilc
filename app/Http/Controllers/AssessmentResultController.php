@@ -220,7 +220,13 @@ class AssessmentResultController extends Controller
     public function getResult()
     {
         $user = auth('api')->user();
-        return  AssessmentResult::where('school_id', $user->school_id)->where('user_id', $user->id)->get();
+        return  AssessmentResult::where('school_id', $user->school_id)->with('user')->where('user_id', $user->id)->get();
+    }
+
+    public function getTutorResult()
+    {
+        $user = auth('tutor')->user();
+        return  AssessmentResult::where('school_id', $user->school_id)->with('user')->get();
     }
 
     /**

@@ -1,41 +1,4 @@
 <template>
-  <!-- <div>
-    <b-container>
-      <b-row>
-        <b-col class="p-2">
-          <b-table :items="classes" :fields="field1" hover>
-            <template v-slot:cell(class_name)="data"  >
-              <span @click="selectClass(data.item.class_name)">{{data.item.class_name}}</span>
-            </template>
-          </b-table>
-        </b-col>
-        <b-col class="p-2">
-           <b-table :items="subjects" :fields="field2" hover>
-            <template v-slot:cell(name)="data">
-              <span @click="selectSubject(data.item.name)">{{data.item.name}}</span>
-            </template>
-          </b-table>
-        </b-col>
-      </b-row>
-      <b-row class="justify-content-center flex-column align-items-center">
-       
-        <table class="table table-bordered w-25">
-          
-          <tbody>
-            <tr>
-              <td scope="row">{{name}}</td>
-              <td>{{subject}}</td>
-             
-            </tr>
-            
-           
-          </tbody>
-        </table>
-        <b-button @click="viewBook">View</b-button>
-       
-      </b-row>
-    </b-container>
-  </div>-->
   <div>
     <div class="outer-grade-book container">
       <b-tabs>
@@ -53,13 +16,13 @@
                     <b-container>
                       <b-row>
                         <b-col md="4">
-                          <b-form-select v-model="selected" :options="Class"></b-form-select>
+                          <b-form-select v-model="selected"></b-form-select>
                         </b-col>
                         <b-col md="4">
-                          <b-form-select v-model="selected" :options="subject"></b-form-select>
+                          <b-form-select v-model="selected"></b-form-select>
                         </b-col>
                         <b-col md="4">
-                          <b-form-select v-model="selected" :options="term"></b-form-select>
+                          <b-form-select v-model="selected"></b-form-select>
                         </b-col>
                       </b-row>
                     </b-container>
@@ -72,7 +35,10 @@
                         </b-col>
                         <b-col md="6">
                           <div class="export">
-                            <div class="btn btn-export">Export <i class="fa fa-external-link"></i></div>
+                            <div class="btn btn-export">
+                              Export
+                              <i class="fa fa-external-link"></i>
+                            </div>
                           </div>
                         </b-col>
                       </b-row>
@@ -84,8 +50,8 @@
           </div>
           <hr />
           <div class="overallgradebook-table">
-              <b-table striped hover  :items="overalltableitems"></b-table>
-            </div>
+            <b-table striped hover :items="overalltableitems"></b-table>
+          </div>
         </b-tab>
         <b-tab title="Assessment Grades">
           <div class="grade-book">
@@ -123,7 +89,7 @@
             </div>
             <hr />
             <div class="gradebook-table">
-              <b-table striped hover sticky-header :items="tableitems"></b-table>
+              <b-table striped hover sticky-header :fields="assessmentField" :items="ass"></b-table>
             </div>
           </div>
         </b-tab>
@@ -142,6 +108,8 @@ export default {
       subjects: [],
       subject: "",
       name: "",
+      result: [],
+      assessmentField: ["name"],
       field1: ["class_name"],
       fields: { Participation: "participate", Attendance: "attendance" },
       items: [
@@ -150,27 +118,27 @@ export default {
       ],
 
       field2: ["name"],
-      overalltableitems:[
+      overalltableitems: [
         {
           name: "success ahon",
-          participation:20,
-          attendance:10,
-          quiz:20,
-          assignment:20,
+          participation: 20,
+          attendance: 10,
+          quiz: 20,
+          assignment: 20,
           test: 20,
-          examination:60,
-          total: 80
+          examination: 60,
+          total: 80,
         },
-           {
+        {
           name: "success ahon",
-          participation:20,
-          attendance:10,
-          quiz:20,
-          assignment:20,
+          participation: 20,
+          attendance: 10,
+          quiz: 20,
+          assignment: 20,
           test: 20,
-          examination:60,
-          total: 80
-        }
+          examination: 60,
+          total: 80,
+        },
       ],
       tableitems: [
         {
@@ -283,14 +251,68 @@ export default {
         { value: "b", text: "Second" },
         { value: "c", text: "Third" },
       ],
+      ass: [],
+      names: [],
     };
   },
   mounted() {
     this.getData();
     this.getClasses();
     this.getSubjects();
+    this.getResult();
   },
   methods: {
+    getResult() {
+      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios
+        .get("/api/get-tutor-assessment", {
+          headers: {
+            Authorization: `Bearer ${tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            var obj = {};
+
+            this.result = res.data;
+            this.result.sort(function(a, b){
+                return a.user_id-b.user_id
+            })
+
+            this.result.forEach((item) => {
+              var obj = {};
+              this.assessmentField.push(item.title);
+              if (this.ass.length == 0) {
+                obj[item.title] = item.total_score;
+                obj.name = item.user.name;
+
+                this.ass.push(obj);
+              } else {
+                this.ass.forEach((ite, index) => {
+                  if (ite.name == item.user.name) {
+                    ite[item.title] = item.total_score;
+                  } else {
+                    obj[item.title] = item.total_score;
+                    obj.name = item.user.name;
+                      console.log("getResult -> obj", obj)
+                     
+                         this.ass.push(obj);
+                      
+                   
+                  
+                  }
+                });
+              }
+            });
+  
+            // console.log("getResult -> this.ass", this.ass);
+            //    let jsonObject = this.ass.map(JSON.stringify);
+            // let uniqueSet = new Set(jsonObject);
+            // let perCourse = Array.from(uniqueSet).map(JSON.parse);
+            // console.log("getResult -> perCourse", perCourse)
+          }
+        });
+    },
     getClasses() {
       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios
@@ -302,14 +324,6 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             this.classes = res.data;
-            // res.data.forEach((item) => {
-            //   this.allClass.push(item.class_name);
-            //   if (item.sub_class !== "") {
-            //     item.sub_class.split(",").forEach((i) => {
-            //       this.allClass.push(i);
-            //     });
-            //   }
-            // });
           }
         });
     },
@@ -369,7 +383,7 @@ export default {
   background: #fff;
   padding: 15px;
 }
-.overall{
+.overall {
   background: #fff;
 }
 .outer-grade-book {
@@ -382,7 +396,7 @@ export default {
 .sort-table p {
   font-size: 14px;
 }
-.btn-export{
+.btn-export {
   border: 1px solid #c4c4c4;
 }
 .b-table-sticky-header {

@@ -329,7 +329,7 @@ export default {
         });
       }
       if (answer.answer_format !== "multi choice") {
-        if (e == answer.real_answer) {
+        if (e.toLowerCase() == answer.real_answer.toLowerCase()) {
           score = answer.score;
            this.template[this.num].question[id].student_score = answer.score
         }

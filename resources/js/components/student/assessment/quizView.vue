@@ -316,7 +316,7 @@ export default {
         });
       }
       if (answer.answer_format !== "multi choice") {
-        if (e == answer.real_answer) {
+        if (e.toLowerCase() == answer.real_answer.toLowerCase()) {
           score = answer.score;
           this.right = answer.real_answer;
           this.wrong = null;

@@ -10,6 +10,7 @@ use App\Department;
 use App\CourseLevel;
 use App\EducationLevel;
 use App\PrivateMessage;
+use App\AssessmentResult;
 use App\DraftAssessmentResult;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -91,5 +92,8 @@ class User extends Authenticatable
     }
     public function draftResult(){
         return $this->hasMany(DraftAssessmentResult::class);
+    }
+    public function result(){
+        return $this->hasMany(AssessmentResult::class);
     }
 }

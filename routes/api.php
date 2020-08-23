@@ -109,6 +109,7 @@ Route::middleware('auth:tutor')->group(function () {
     Route::get('current-class','TimesTableController@getCurrentClass');
     Route::get('staff-message', 'StaffChatController@fetchMessages');
     Route::post('staff-message', 'StaffChatController@sendMessage');
+    Route::get('get-tutor-assessment', 'AssessmentResultController@getTutorResult');
 });
 Route::get('student-group/{id}', 'GroupsController@show');
 Route::post('school-register', 'SchoolController@store');
@@ -145,6 +146,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('admin-get-assessment/{id}', 'AssessmentController@getAdminAssessment');
     Route::put('admin-verify-assessment/{id}', 'AssessmentController@verifyAssessment');
     Route::delete('admin-drop-assessment/{id}', 'AssessmentController@destroy');
+   
    
 });
 Route::resource('order', 'OrdersController');

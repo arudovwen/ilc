@@ -11432,7 +11432,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (answer.answer_format !== "multi choice") {
-        if (e == answer.real_answer) {
+        if (e.toLowerCase() == answer.real_answer.toLowerCase()) {
           score = answer.score;
           this.right = answer.real_answer;
           this.wrong = null;
@@ -12036,7 +12036,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (answer.answer_format !== "multi choice") {
-        if (e == answer.real_answer) {
+        if (e.toLowerCase() == answer.real_answer.toLowerCase()) {
           score = answer.score;
           this.template[this.num].question[id].student_score = answer.score;
         }
@@ -19097,40 +19097,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var _ref, _ref2;
@@ -19142,6 +19108,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       subjects: [],
       subject: "",
       name: "",
+      result: [],
+      assessmentField: ["name"],
       field1: ["class_name"],
       fields: {
         Participation: "participate",
@@ -19287,16 +19255,66 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }, {
       value: "c",
       text: "Third"
-    }]), _ref2;
+    }]), _defineProperty(_ref2, "ass", []), _defineProperty(_ref2, "names", []), _ref2;
   },
   mounted: function mounted() {
     this.getData();
     this.getClasses();
     this.getSubjects();
+    this.getResult();
   },
   methods: {
-    getClasses: function getClasses() {
+    getResult: function getResult() {
       var _this = this;
+
+      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios.get("/api/get-tutor-assessment", {
+        headers: {
+          Authorization: "Bearer ".concat(tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          var obj = {};
+          _this.result = res.data;
+
+          _this.result.sort(function (a, b) {
+            return a.user_id - b.user_id;
+          });
+
+          _this.result.forEach(function (item) {
+            var obj = {};
+
+            _this.assessmentField.push(item.title);
+
+            if (_this.ass.length == 0) {
+              obj[item.title] = item.total_score;
+              obj.name = item.user.name;
+
+              _this.ass.push(obj);
+            } else {
+              _this.ass.forEach(function (ite, index) {
+                if (ite.name == item.user.name) {
+                  ite[item.title] = item.total_score;
+                } else {
+                  obj[item.title] = item.total_score;
+                  obj.name = item.user.name;
+                  console.log("getResult -> obj", obj);
+
+                  _this.ass.push(obj);
+                }
+              });
+            }
+          }); // console.log("getResult -> this.ass", this.ass);
+          //    let jsonObject = this.ass.map(JSON.stringify);
+          // let uniqueSet = new Set(jsonObject);
+          // let perCourse = Array.from(uniqueSet).map(JSON.parse);
+          // console.log("getResult -> perCourse", perCourse)
+
+        }
+      });
+    },
+    getClasses: function getClasses() {
+      var _this2 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios.get("/api/all-classes", {
@@ -19305,19 +19323,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this.classes = res.data; // res.data.forEach((item) => {
-          //   this.allClass.push(item.class_name);
-          //   if (item.sub_class !== "") {
-          //     item.sub_class.split(",").forEach((i) => {
-          //       this.allClass.push(i);
-          //     });
-          //   }
-          // });
+          _this2.classes = res.data;
         }
       });
     },
     getSubjects: function getSubjects() {
-      var _this2 = this;
+      var _this3 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios.get("/api/tutor-all-subjects", {
@@ -19326,12 +19337,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this2.subjects = res.data;
+          _this3.subjects = res.data;
         }
       })["catch"]();
     },
     getData: function getData() {
-      var _this3 = this;
+      var _this4 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios.get("/api/tutor-assessment-result", {
@@ -19340,7 +19351,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this3.items = res.data.data;
+          _this4.items = res.data.data;
         }
       });
     },
@@ -25689,7 +25700,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.overallgradebook-table[data-v-7ff33f92] {\n  font-family: \"Montserrat\";\n}\n.gradebook-table[data-v-7ff33f92] {\n  font-family: \"Montserrat\";\n}\n.grade-book[data-v-7ff33f92] {\n  background: #fff;\n  padding: 15px;\n}\n.overall[data-v-7ff33f92]{\n  background: #fff;\n}\n.outer-grade-book[data-v-7ff33f92] {\n  padding-top: 20px;\n}\n.search[data-v-7ff33f92] {\n  /* width:250px; */\n  border-color: #41cee2;\n}\n.sort-table p[data-v-7ff33f92] {\n  font-size: 14px;\n}\n.btn-export[data-v-7ff33f92]{\n  border: 1px solid #c4c4c4;\n}\n.b-table-sticky-header[data-v-7ff33f92] {\n  max-height: 80vh;\n}\n/* width */\n[data-v-7ff33f92]::-webkit-scrollbar {\n  width: 5px;\n}\n\n/* Track */\n[data-v-7ff33f92]::-webkit-scrollbar-track {\n  background: none;\n}\n\n/* Handle */\n[data-v-7ff33f92]::-webkit-scrollbar-thumb {\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 5px;\n}\n\n/* Handle on hover */\n[data-v-7ff33f92]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n", ""]);
+exports.push([module.i, "\n.overallgradebook-table[data-v-7ff33f92] {\n  font-family: \"Montserrat\";\n}\n.gradebook-table[data-v-7ff33f92] {\n  font-family: \"Montserrat\";\n}\n.grade-book[data-v-7ff33f92] {\n  background: #fff;\n  padding: 15px;\n}\n.overall[data-v-7ff33f92] {\n  background: #fff;\n}\n.outer-grade-book[data-v-7ff33f92] {\n  padding-top: 20px;\n}\n.search[data-v-7ff33f92] {\n  /* width:250px; */\n  border-color: #41cee2;\n}\n.sort-table p[data-v-7ff33f92] {\n  font-size: 14px;\n}\n.btn-export[data-v-7ff33f92] {\n  border: 1px solid #c4c4c4;\n}\n.b-table-sticky-header[data-v-7ff33f92] {\n  max-height: 80vh;\n}\n/* width */\n[data-v-7ff33f92]::-webkit-scrollbar {\n  width: 5px;\n}\n\n/* Track */\n[data-v-7ff33f92]::-webkit-scrollbar-track {\n  background: none;\n}\n\n/* Handle */\n[data-v-7ff33f92]::-webkit-scrollbar-thumb {\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 5px;\n}\n\n/* Handle on hover */\n[data-v-7ff33f92]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n", ""]);
 
 // exports
 
@@ -60715,7 +60726,6 @@ var render = function() {
                                             { attrs: { md: "4" } },
                                             [
                                               _c("b-form-select", {
-                                                attrs: { options: _vm.Class },
                                                 model: {
                                                   value: _vm.selected,
                                                   callback: function($$v) {
@@ -60733,7 +60743,6 @@ var render = function() {
                                             { attrs: { md: "4" } },
                                             [
                                               _c("b-form-select", {
-                                                attrs: { options: _vm.subject },
                                                 model: {
                                                   value: _vm.selected,
                                                   callback: function($$v) {
@@ -60751,7 +60760,6 @@ var render = function() {
                                             { attrs: { md: "4" } },
                                             [
                                               _c("b-form-select", {
-                                                attrs: { options: _vm.term },
                                                 model: {
                                                   value: _vm.selected,
                                                   callback: function($$v) {
@@ -60810,7 +60818,9 @@ var render = function() {
                                                       "btn btn-export"
                                                   },
                                                   [
-                                                    _vm._v("Export "),
+                                                    _vm._v(
+                                                      "\n                            Export\n                            "
+                                                    ),
                                                     _c("i", {
                                                       staticClass:
                                                         "fa fa-external-link"
@@ -61008,7 +61018,8 @@ var render = function() {
                         striped: "",
                         hover: "",
                         "sticky-header": "",
-                        items: _vm.tableitems
+                        fields: _vm.assessmentField,
+                        items: _vm.ass
                       }
                     })
                   ],

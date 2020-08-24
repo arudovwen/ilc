@@ -12,7 +12,7 @@
              <router-link to="/tutor/profile"> <li><i class="icon-group pr-2" aria-hidden="true"></i> <span v-if="!sideBar">Profile</span></li></router-link>
                <router-link to="/tutor/administrative"> <li><i class="icon-business-class pr-2   "></i> <span v-if="!sideBar">Administratives</span></li></router-link>
              <router-link to="#"> <li><i class="icon-market  pr-2" aria-hidden="true"></i> <span v-if="!sideBar">My Activities</span ></li></router-link>
-              <router-link to="#"> <li><i class="icon-edit   pr-2  "></i> <span v-if="!sideBar">Attendance</span></li></router-link>
+              <router-link to="/tutor/attendance"> <li><i class="icon-edit   pr-2  "></i> <span v-if="!sideBar">Attendance</span></li></router-link>
             <router-link to="/tutor/resources"> <li><i class="icon-open-book pr-2"></i> <span v-if="!sideBar">Resources</span></li></router-link>
             <router-link to="/tutor/assessment"> <li><i class="icon-hour  pr-2" aria-hidden="true"></i> <span v-if="!sideBar">Assessments</span></li></router-link>
              <router-link to="/tutor/gradebook"> <li><i class="icon-score  pr-2" aria-hidden="true"></i> <span v-if="!sideBar">Grade Book</span></li></router-link>

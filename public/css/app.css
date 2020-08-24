@@ -455,6 +455,12 @@ form .reg-btn {
 .gradebook-table .table-bordered thead th:first-child {
     width: 35%;
 }
+.attendance-table .table-bordered thead th:first-child {
+    width: 40%;
+}
+.attendance-table .table {
+    overflow: scroll;
+}
 
 .nav-tabs .nav-link {
     /* border: none !important;

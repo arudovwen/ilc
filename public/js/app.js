@@ -667,6 +667,10 @@ var TutorCurriculum = function TutorCurriculum() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/curriculum */ "./resources/js/components/tutor/curriculum.vue"));
 };
 
+var Attendance = function Attendance() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/attendance */ "./resources/js/components/tutor/attendance.vue"));
+};
+
 var TutorSyllabusView = function TutorSyllabusView() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/viewSyllabus */ "./resources/js/components/tutor/viewSyllabus.vue"));
 };
@@ -1340,6 +1344,13 @@ var routes = [{
     path: "profile",
     component: TutorProfile,
     name: "TutorProfile",
+    meta: {
+      typeTutor: true
+    }
+  }, {
+    path: "attendance",
+    component: Attendance,
+    name: "Attendance",
     meta: {
       typeTutor: true
     }

@@ -123,15 +123,25 @@
                       <b-form-input placeholder disabled v-model="detail.student_level"></b-form-input>
                     </b-form-group>
                   </b-col>
-                  <b-col>
-                    <b-form-group label="File No">
-                      <b-form-input disabled placeholder v-model="detail.name"></b-form-input>
-                    </b-form-group>
-                  </b-col>
+                    <b-col>
+                    <b-form-group label="Sub Class">
+                  <b-form-input disabled placeholder v-model="detail.sub_class"></b-form-input>
+                </b-form-group>
+                   </b-col>
+                  
                 </b-form-row>
-                <b-form-group label="Student Id">
+               <b-form-row>
+                 <b-col>
+                    <b-form-group label="Student Id">
                   <b-form-input disabled placeholder v-model="detail.student_id"></b-form-input>
                 </b-form-group>
+                   </b-col>
+                  <b-col>
+                    <b-form-group label="File No">
+                      <b-form-input disabled placeholder v-model="detail.file_no"></b-form-input>
+                    </b-form-group>
+                  </b-col>
+               </b-form-row>
               </b-form>
             </div>
           </div>

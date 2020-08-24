@@ -111,22 +111,23 @@ class ResourceController extends Controller
      */
     public function show($id)
     {
+
         $resource = Resource::find($id);
     
         return  new SyllabusCurriculumResource($resource);
     }
 
-    public function getModuleResource($name,$level)
+    public function getModuleResource($name,$level,$school)
     {
-        
-      return  $resource = Resource::where('level',$level)->where('subject',$name)->get();
+       
+      return  $resource = Resource::where('school_id',$school)->where('level',$level)->where('subject',$name)->get();
 
      
     }
 
-    public function getModules($level)
-    {
-        $resource = Resource::where('level',$level)->get();
+    public function getModules($level,$school)
+    { 
+        $resource = Resource::where('school_id',$school)->where('level',$level)->get();
       
       return  SyllabusCurriculumResource::collection($resource);
 

@@ -13415,6 +13415,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -13502,11 +13503,13 @@ __webpack_require__.r(__webpack_exports__);
     getResources: function getResources() {
       var _this3 = this;
 
-      axios.get("/api/get-modules/".concat(this.$props.student.level)).then(function (res) {
+      axios.get("/api/get-modules/".concat(this.$props.student.level, "/").concat(this.$props.student.school_id), {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.student.access_token)
+        }
+      }).then(function (res) {
         if (res.status == 200) {
-          console.log("getResources -> res.data.data", res.data.data);
           _this3.resources = _this3.checkDuplicateInObject("subject", res.data.data);
-          console.log("getResources -> res.data.data", res.data.data);
         }
       });
     },
@@ -15049,6 +15052,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -15461,7 +15474,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         if (res.status == 200) {
           _this.library = res.data;
-          axios.get("/api/get-module/".concat(res.data.subject, "/").concat(_this.$props.student.level)).then(function (res) {
+          axios.get("/api/get-module/".concat(res.data.subject, "/").concat(_this.$props.student.level, "//").concat(_this.$props.student.school_id)).then(function (res) {
             if (res.status == 200) {
               _this.modules = res.data;
               _this.src = JSON.parse(_this.modules[0].content)[0].file;
@@ -16273,7 +16286,7 @@ __webpack_require__.r(__webpack_exports__);
           _this4.cover_image = res.data.data.cover_image;
           _this4.subject = res.data.data.subject;
           _this4.show = false;
-          axios.get("/api/get-module/".concat(_this4.subject, "/").concat(_this4.$props.student.level)).then(function (res) {
+          axios.get("/api/get-module/".concat(_this4.subject, "/").concat(_this4.$props.student.level, "/").concat(_this4.$props.student.school_id)).then(function (res) {
             if (res.status == 200) {
               _this4.modules = res.data;
 
@@ -23452,7 +23465,7 @@ __webpack_require__.r(__webpack_exports__);
           _this2.id = res.data.data.id;
           _this2.cover_image = res.data.data.cover_image;
           _this2.subject = res.data.data.subject;
-          axios.get("/api/get-module/".concat(res.data.data.subject, "/").concat(_this2.syllabus.grade_level)).then(function (res) {
+          axios.get("/api/get-module/".concat(res.data.data.subject, "/").concat(_this2.syllabus.grade_level, "/").concat(_this2.$props.tutor.school_id)).then(function (res) {
             if (res.status == 200) {
               _this2.modules = res.data;
               _this2.show = false;
@@ -54774,16 +54787,16 @@ var render = function() {
                               [
                                 _c(
                                   "b-form-group",
-                                  { attrs: { label: "File No" } },
+                                  { attrs: { label: "Sub Class" } },
                                   [
                                     _c("b-form-input", {
                                       attrs: { disabled: "", placeholder: "" },
                                       model: {
-                                        value: _vm.detail.name,
+                                        value: _vm.detail.sub_class,
                                         callback: function($$v) {
-                                          _vm.$set(_vm.detail, "name", $$v)
+                                          _vm.$set(_vm.detail, "sub_class", $$v)
                                         },
-                                        expression: "detail.name"
+                                        expression: "detail.sub_class"
                                       }
                                     })
                                   ],
@@ -54797,19 +54810,59 @@ var render = function() {
                         ),
                         _vm._v(" "),
                         _c(
-                          "b-form-group",
-                          { attrs: { label: "Student Id" } },
+                          "b-form-row",
                           [
-                            _c("b-form-input", {
-                              attrs: { disabled: "", placeholder: "" },
-                              model: {
-                                value: _vm.detail.student_id,
-                                callback: function($$v) {
-                                  _vm.$set(_vm.detail, "student_id", $$v)
-                                },
-                                expression: "detail.student_id"
-                              }
-                            })
+                            _c(
+                              "b-col",
+                              [
+                                _c(
+                                  "b-form-group",
+                                  { attrs: { label: "Student Id" } },
+                                  [
+                                    _c("b-form-input", {
+                                      attrs: { disabled: "", placeholder: "" },
+                                      model: {
+                                        value: _vm.detail.student_id,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.detail,
+                                            "student_id",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "detail.student_id"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-col",
+                              [
+                                _c(
+                                  "b-form-group",
+                                  { attrs: { label: "File No" } },
+                                  [
+                                    _c("b-form-input", {
+                                      attrs: { disabled: "", placeholder: "" },
+                                      model: {
+                                        value: _vm.detail.file_no,
+                                        callback: function($$v) {
+                                          _vm.$set(_vm.detail, "file_no", $$v)
+                                        },
+                                        expression: "detail.file_no"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
                           ],
                           1
                         )

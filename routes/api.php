@@ -113,8 +113,8 @@ Route::middleware('auth:tutor')->group(function () {
 });
 Route::get('student-group/{id}', 'GroupsController@show');
 Route::post('school-register', 'SchoolController@store');
-Route::get('get-module/{name}/{level}', 'ResourceController@getModuleResource');
-Route::get('get-modules/{level}', 'ResourceController@getModules');
+Route::get('get-module/{name}/{level}/{school}', 'ResourceController@getModuleResource');
+Route::get('get-modules/{level}/{school}', 'ResourceController@getModules');
 
 Route::middleware('auth:admin')->group(function () {
     Route::resource('admin', 'AdminController');

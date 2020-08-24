@@ -19,6 +19,7 @@
           <div class="hover-shadow">
             <div class="single-content">
               <img :src="item.cover_image" alt />
+           
               <div class="text-content">
                 <p class="excerpt">{{JSON.parse(item.syllabus.syllabus).description}}</p>
               </div>
@@ -127,14 +128,18 @@ export default {
       return newArr;
     },
     getResources() {
-      axios.get(`/api/get-modules/${this.$props.student.level}`).then((res) => {
+      axios.get(`/api/get-modules/${this.$props.student.level}/${this.$props.student.school_id}`, {
+          headers: {
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
+        }).then((res) => {
         if (res.status == 200) {
-          console.log("getResources -> res.data.data", res.data.data);
+          
           this.resources = this.checkDuplicateInObject(
             "subject",
             res.data.data
           );
-          console.log("getResources -> res.data.data", res.data.data);
+          
         }
       });
     },

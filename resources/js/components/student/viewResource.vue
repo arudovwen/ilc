@@ -427,7 +427,7 @@ export default {
 
             axios
               .get(
-                `/api/get-module/${this.subject}/${this.$props.student.level}`
+                `/api/get-module/${this.subject}/${this.$props.student.level}/${this.$props.student.school_id}`
               )
               .then((res) => {
                 if (res.status == 200) {

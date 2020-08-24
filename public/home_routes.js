@@ -1339,6 +1339,8 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 201) {
+          _this2.$toasted.success('Created');
+
           _this2.subject = {
             name: "",
             code: ""
@@ -1359,6 +1361,8 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
+          _this3.$toasted.success('Updated');
+
           _this3.getSubjects();
 
           _this3.update = false;

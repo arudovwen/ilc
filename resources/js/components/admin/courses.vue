@@ -143,6 +143,7 @@ export default {
         })
         .then((res) => {
           if (res.status == 201) {
+            this.$toasted.success('Created')
             this.subject = {
               name: "",
               code: "",
@@ -161,6 +162,7 @@ export default {
         })
         .then((res) => {
           if (res.status == 200) {
+              this.$toasted.success('Updated')
             this.getSubjects();
             this.update = false;
                this.$bvModal.show("classes");

@@ -82,7 +82,7 @@ class TutorController extends Controller
         
         ]);
             $tutor->pass = $password->random_strings(8);
-            // $tutor->notify(new NewTutor($school, $tutor));
+            $tutor->notify(new NewTutor($school, $tutor));
             return $tutor;
         });
         return $value;
@@ -159,6 +159,18 @@ class TutorController extends Controller
         $tutor->delete();
         return response()->json([
             'status' => 'Removed'
+        ]);
+    }
+    public function multiDrop(Request $request)
+    {
+        foreach ($request->data as $id) {
+            $find = Tutor::find($id);
+             $find->delete();
+           
+        }
+     
+        return response()->json([
+            'status'=>'Deleted'
         ]);
     }
 }

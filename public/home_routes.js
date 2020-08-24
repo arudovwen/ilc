@@ -23894,8 +23894,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var v_calendar_lib_components_calendar_umd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! v-calendar/lib/components/calendar.umd */ "./node_modules/v-calendar/lib/components/calendar.umd.js");
-/* harmony import */ var v_calendar_lib_components_calendar_umd__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(v_calendar_lib_components_calendar_umd__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -23968,181 +23966,67 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    Calendar: v_calendar_lib_components_calendar_umd__WEBPACK_IMPORTED_MODULE_0___default.a
-  },
+  components: {},
   props: ["tutor"],
   data: function data() {
     return {
       tables: [],
       table: [],
-      myclass: "",
+      myclass: [],
       overlay: false,
       item: false,
+      my_class: "",
       items: [],
-      filterShow: false
+      filterShow: false,
+      todaysClass: [],
+      today: new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()
     };
   },
   mounted: function mounted() {
     this.getTable();
+    this.getTodayClass();
   },
-  methods: {
-    cancel: function cancel() {
-      this.overlay = false;
-      this.tables = [];
-      this.myclass = "";
-    },
-    getTables: function getTables(id) {
+  computed: {
+    sortedTable: function sortedTable() {
       var _this = this;
 
-      axios.get("/api/tutor-times-table/".concat(id), {
+      return this.tables.filter(function (item) {
+        return item.myclass.toLowerCase().includes(_this.my_class.toLowerCase());
+      });
+    }
+  },
+  methods: {
+    getSecond: function getSecond(hms) {
+      var a = hms.split(":"); // split it at the colons
+      // minutes are worth 60 seconds. Hours are worth 60 minutes.
+
+      var seconds = +a[0] * 60 * 60 + +a[1] * 60 + +a[2];
+      return seconds;
+    },
+    getTodayClass: function getTodayClass() {
+      var _this2 = this;
+
+      axios.get("/api/current-class", {
         headers: {
           Authorization: "Bearer ".concat(this.$props.tutor.access_token)
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this.tables = JSON.parse(res.data.table);
-          _this.myclass = res.data.myclass;
-          _this.overlay = true;
+          _this2.todaysClass = res.data;
         }
       });
+    },
+    cancel: function cancel() {
+      this.overlay = false;
+      this.tables = [];
+      this.myclass = "";
     },
     toggleFilter: function toggleFilter() {
       this.filterShow = !this.filterShow;
     },
     getTable: function getTable() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.get("/api/tutor-times-table", {
         headers: {
@@ -24150,7 +24034,11 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this2.table = res.data;
+          _this3.tables = res.data;
+          _this3.myclass = res.data.filter(function (item) {
+            return item.myclass;
+          });
+          _this3.my_class = _this3.myclass[0].myclass;
         }
       });
     }
@@ -26970,7 +26858,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.timetable-schedule[data-v-a874f09c] {\n  display: flex;\n  justify-content: space-between;\n}\n.body[data-v-a874f09c] {\n  position: relative;\n  padding: 40px 20px 50px;\n  height: 100%;\n}\n.overlay-content[data-v-a874f09c] {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  bottom: 0px;\n  right: 0px;\n  opacity: 0.85;\n  -webkit-backdrop-filter: blur(2px);\n          backdrop-filter: blur(2px);\n  height: 100vh;\n  width: 100%;\n  left: 0;\n  background: rgba(0, 0, 0, 0.8);\n  padding: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.cancel[data-v-a874f09c] {\n  position: absolute;\n  right: 10px;\n  top: 10px;\n}\n.ov[data-v-a874f09c] {\n  width: 100%;\n  position: relative;\n}\n.schedule-part[data-v-a874f09c] {\n  background: #fff;\n  height: 100vh;\n}\n.schedule-inner[data-v-a874f09c] {\n  padding: 20px;\n      height: 100vh;\n    overflow-y: scroll;\n}\n.schedule-inner p[data-v-a874f09c] {\n  font-size: 14px;\n}\n.schedule-inner h6[data-v-a874f09c] {\n  padding-top: 20px;\n}\n.notify[data-v-a874f09c] {\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 15px;\n}\n.notify-i i[data-v-a874f09c] {\n  color: #22cade;\n  padding: 10px;\n}\n.notify-i[data-v-a874f09c] {\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 50%;\n}\n.noftify-word p[data-v-a874f09c]{\n  font-size: 12px;\n}\n/* width */\n[data-v-a874f09c]::-webkit-scrollbar {\n  width: 10px;\n}\n\n/* Track */\n[data-v-a874f09c]::-webkit-scrollbar-track {\n  background: none;\n}\n \n/* Handle */\n[data-v-a874f09c]::-webkit-scrollbar-thumb {\n  background: rgba(34, 202, 222, 0.25); \n  border-radius: 5px;\n}\n\n/* Handle on hover */\n[data-v-a874f09c]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n.search[data-v-a874f09c] {\n  width: 250px;\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-a874f09c] {\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-a874f09c] {\n  display: flex;\n  justify-content: flex-start;\n  padding-top: 10px;\n}\n.filter-btn[data-v-a874f09c] {\n  background: #fff;\n  padding: 10px 20px;\n  border-radius: 5px;\n}\n.filter-btn span[data-v-a874f09c] {\n  font-family: \"Montserrat\";\n  font-weight: bold;\n}\n.filter-btn i[data-v-a874f09c] {\n  padding-left: 3px;\n}\n.sort-section[data-v-a874f09c] {\n  display: flex;\n  justify-content: space-between;\n  background: #fff;\n  border-radius: 10px;\n}\n.bg-info[data-v-a874f09c] {\n  background: #fff !important;\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\n  margin-top: 20px;\n  border-radius: 10px;\n}\n.nav-link[data-v-a874f09c] {\n  color: #000 !important;\n}\n", ""]);
+exports.push([module.i, "\n.timetable-schedule[data-v-a874f09c] {\n  display: flex;\n  justify-content: space-between;\n}\n.body[data-v-a874f09c] {\n  position: relative;\n  padding: 40px 20px 50px;\n  height: 100%;\n}\n.overlay-content[data-v-a874f09c] {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  bottom: 0px;\n  right: 0px;\n  opacity: 0.85;\n  -webkit-backdrop-filter: blur(2px);\n          backdrop-filter: blur(2px);\n  height: 100vh;\n  width: 100%;\n  left: 0;\n  background: rgba(0, 0, 0, 0.8);\n  padding: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.cancel[data-v-a874f09c] {\n  position: absolute;\n  right: 10px;\n  top: 10px;\n}\n.ov[data-v-a874f09c] {\n  width: 100%;\n  position: relative;\n}\n.sort[data-v-a874f09c] {\n  width: 120px;\n}\n.schedule-part[data-v-a874f09c] {\n  background: #fff;\n  height: 100vh;\n}\n.schedule-inner[data-v-a874f09c] {\n  padding: 20px;\n  height: 100vh;\n  overflow-y: scroll;\n}\n.schedule-inner p[data-v-a874f09c] {\n  font-size: 14px;\n}\n.schedule-inner h6[data-v-a874f09c] {\n  padding-top: 20px;\n}\n.notify[data-v-a874f09c] {\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 15px;\n}\n.notify-i i[data-v-a874f09c] {\n  color: #22cade;\n  padding: 10px;\n}\n.notify-i[data-v-a874f09c] {\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 50%;\n}\n.noftify-word p[data-v-a874f09c] {\n  font-size: 12px;\n}\n/* width */\n[data-v-a874f09c]::-webkit-scrollbar {\n  width: 10px;\n}\n\n/* Track */\n[data-v-a874f09c]::-webkit-scrollbar-track {\n  background: none;\n}\n\n/* Handle */\n[data-v-a874f09c]::-webkit-scrollbar-thumb {\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 5px;\n}\n\n/* Handle on hover */\n[data-v-a874f09c]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n.search[data-v-a874f09c] {\n  width: 250px;\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-a874f09c] {\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-a874f09c] {\n  display: flex;\n  justify-content: flex-start;\n  padding-top: 10px;\n}\n.filter-btn[data-v-a874f09c] {\n  background: #fff;\n  padding: 10px 20px;\n  border-radius: 5px;\n}\n.filter-btn span[data-v-a874f09c] {\n  font-family: \"Montserrat\";\n  font-weight: bold;\n}\n.filter-btn i[data-v-a874f09c] {\n  padding-left: 3px;\n}\n.sort-section[data-v-a874f09c] {\n  display: flex;\n  justify-content: space-between;\n  background: #fff;\n  border-radius: 10px;\n}\n.bg-info[data-v-a874f09c] {\n  background: #fff !important;\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\n  margin-top: 20px;\n  border-radius: 10px;\n}\n.nav-link[data-v-a874f09c] {\n  color: #000 !important;\n}\n.m-res[data-v-a874f09c] {\n  height: 520px;\n  overflow: auto;\n}\n.main-note[data-v-a874f09c] {\n  height: 290px;\n  overflow: auto;\n}\nsmall[data-v-a874f09c],\n.small[data-v-a874f09c] {\n  font-size: 100%;\n}\n.resources-inner[data-v-a874f09c] {\n  border-bottom: 1px solid #e4e4e4;\n  padding-top: 5px;\n}\n.resources-inner[data-v-a874f09c]:last-child {\n  border-bottom: none;\n}\n.class-content[data-v-a874f09c] {\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-a874f09c] {\n  display: flex;\n  justify-content: space-between;\n}\n.red[data-v-a874f09c] {\n  color: #ff0000;\n}\n.green[data-v-a874f09c] {\n  color: green;\n}\n.class-content-main[data-v-a874f09c] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-a874f09c] {\n  font-size: 16px;\n}\n.notes-top[data-v-a874f09c] {\n  display: flex;\n  justify-content: space-between;\n}\n.btn[data-v-a874f09c] {\n  background: transparent;\n  border: 1px solid #13a699;\n  border-radius: 5px;\n  color: #13a699;\n  font-size: 15px;\n}\n.my-icon[data-v-a874f09c] {\n  color: #008e3a;\n}\n.check_it[data-v-a874f09c] {\n  color: #008e3a;\n  font-size: 12px;\n}\n", ""]);
 
 // exports
 
@@ -69139,110 +69027,72 @@ var render = function() {
       { staticClass: "timetable-schedule" },
       [
         _c("b-container", [
+          _c("h5", { staticClass: "mt-5" }, [_vm._v("School Times-Table")]),
+          _vm._v(" "),
           _c(
             "div",
             { staticClass: "filter-table" },
             [
-              _c("div", { staticClass: "filter-container" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "filter-btn btn",
-                    on: { click: _vm.toggleFilter }
-                  },
-                  [
-                    _c("span", [_vm._v("Filter")]),
-                    _vm._v(" "),
-                    _c("i", { staticClass: "icon-sort" })
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _vm.filterShow
-                ? _c(
-                    "b-navbar",
-                    {
-                      attrs: { toggleable: "lg", type: "dark", variant: "info" }
-                    },
+              _c(
+                "b-navbar",
+                { attrs: { toggleable: "lg", type: "dark", variant: "info" } },
+                [
+                  _c("b-navbar-toggle", { attrs: { target: "nav-collapse" } }),
+                  _vm._v(" "),
+                  _c(
+                    "b-collapse",
+                    { attrs: { id: "nav-collapse", "is-nav": "" } },
                     [
-                      _c("b-navbar-toggle", {
-                        attrs: { target: "nav-collapse" }
-                      }),
+                      _c(
+                        "b-navbar-nav",
+                        [
+                          _c("div", { staticClass: "mr-3 sort" }, [
+                            _vm._v("Sort By:")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-select",
+                            {
+                              model: {
+                                value: _vm.my_class,
+                                callback: function($$v) {
+                                  _vm.my_class = $$v
+                                },
+                                expression: "my_class"
+                              }
+                            },
+                            [
+                              _c(
+                                "b-form-select-option",
+                                { attrs: { value: "", disabled: "" } },
+                                [_vm._v("-- Class --")]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.myclass, function(item, idx) {
+                                return _c(
+                                  "b-form-select-option",
+                                  { key: idx, attrs: { value: item.myclass } },
+                                  [_vm._v(_vm._s(item.myclass))]
+                                )
+                              })
+                            ],
+                            2
+                          )
+                        ],
+                        1
+                      ),
                       _vm._v(" "),
                       _c(
-                        "b-collapse",
-                        { attrs: { id: "nav-collapse", "is-nav": "" } },
+                        "b-navbar-nav",
+                        { staticClass: "ml-auto" },
                         [
                           _c(
-                            "b-navbar-nav",
+                            "b-nav-form",
                             [
-                              _c("b-nav-item", { attrs: { href: "#" } }, [
-                                _vm._v("Sort By:")
-                              ])
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-navbar-nav",
-                            { staticClass: "mx-auto" },
-                            [
-                              _c(
-                                "b-form-select",
-                                {
-                                  staticClass: "mr-3",
-                                  model: {
-                                    value: _vm.myclass,
-                                    callback: function($$v) {
-                                      _vm.myclass = $$v
-                                    },
-                                    expression: "myclass"
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "b-form-select-option",
-                                    { attrs: { value: "", disabled: "" } },
-                                    [_vm._v("-- Class --")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-form-select-option",
-                                    { attrs: { value: "all" } },
-                                    [_vm._v("-- All --")]
-                                  ),
-                                  _vm._v(" "),
-                                  _vm._l(_vm.classess, function(item, idx) {
-                                    return _c(
-                                      "b-form-select-option",
-                                      {
-                                        key: idx,
-                                        attrs: { value: item.class_name }
-                                      },
-                                      [_vm._v(_vm._s(item.class_name))]
-                                    )
-                                  })
-                                ],
-                                2
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-navbar-nav",
-                            [
-                              _c(
-                                "b-nav-form",
-                                { staticClass: "ml-auto" },
-                                [
-                                  _c("b-form-input", {
-                                    staticClass: "mr-sm-2 search rounded-pill",
-                                    attrs: { size: "sm", placeholder: "Search" }
-                                  })
-                                ],
-                                1
-                              )
+                              _c("b-form-input", {
+                                staticClass: "mr-sm-2 search rounded-pill",
+                                attrs: { size: "sm", placeholder: "Search" }
+                              })
                             ],
                             1
                           )
@@ -69252,90 +69102,87 @@ var render = function() {
                     ],
                     1
                   )
-                : _vm._e()
+                ],
+                1
+              )
             ],
             1
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "table-responsive" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c("h5", { staticClass: "toCaps" }, [_vm._v(_vm._s(_vm.myclass))])
-            ]),
-            _vm._v(" "),
-            _c("table", { staticClass: "table table-bordered" }, [
-              _c("thead", { staticClass: "thead-darkblue" }, [
-                _c("tr", [
-                  _c("th", [_vm._v("Day")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Time")])
+          _c("div", { staticClass: "bd-table" }, [
+            _c("div", { staticClass: "table-responsive" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("h5", { staticClass: "toCaps" }, [
+                  _vm._v(_vm._s(_vm.my_class))
                 ])
               ]),
               _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.tables, function(tab, index) {
-                  return _c("tr", { key: index }, [
-                    _c("td", { staticClass: "toCaps day" }, [
-                      _vm._v(_vm._s(tab.day))
+              _vm.sortedTable.length
+                ? _c("table", { staticClass: "table table-bordered" }, [
+                    _c("thead", { staticClass: "thead-light" }, [
+                      _c("tr", [
+                        _c("th", [_vm._v("Day")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Time")])
+                      ])
                     ]),
                     _vm._v(" "),
                     _c(
-                      "td",
-                      { staticClass: "d-flex justify-content-between p-0" },
-                      [
-                        _c("table", { staticClass: "w-100" }, [
+                      "tbody",
+                      _vm._l(JSON.parse(_vm.sortedTable[0].table), function(
+                        tab,
+                        index
+                      ) {
+                        return _c("tr", { key: index }, [
+                          _c("td", { staticClass: "toCaps day" }, [
+                            _vm._v(_vm._s(tab.day))
+                          ]),
+                          _vm._v(" "),
                           _c(
-                            "tr",
-                            { staticClass: "w-100" },
-                            _vm._l(tab.courses, function(item, idx) {
-                              return _c(
-                                "td",
-                                { key: idx, staticClass: "text-center" },
-                                [
-                                  _c("div", {}, [
-                                    _vm._v(
-                                      _vm._s(item.start) +
-                                        " - " +
-                                        _vm._s(item.end)
+                            "td",
+                            {
+                              staticClass: "d-flex justify-content-between p-0"
+                            },
+                            [
+                              _c("table", { staticClass: "w-100" }, [
+                                _c(
+                                  "tr",
+                                  { staticClass: "w-100" },
+                                  _vm._l(tab.courses, function(item, idx) {
+                                    return _c(
+                                      "td",
+                                      { key: idx, staticClass: "text-center" },
+                                      [
+                                        _c("div", {}, [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm._f("format")(item.start)
+                                            ) +
+                                              " - " +
+                                              _vm._s(_vm._f("format")(item.end))
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("div", [
+                                          _vm._v(_vm._s(item.subject))
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("div", [_vm._v(_vm._s(item.tutor))])
+                                      ]
                                     )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", [_vm._v(_vm._s(item.subject))]),
-                                  _vm._v(" "),
-                                  _c("div", [_vm._v(_vm._s(item.tutor))])
-                                ]
-                              )
-                            }),
-                            0
+                                  }),
+                                  0
+                                )
+                              ])
+                            ]
                           )
                         ])
-                      ]
+                      }),
+                      0
                     )
                   ])
-                }),
-                0
-              )
+                : _vm._e()
             ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "schedule-part" }, [
-          _c("div", { staticClass: "schedule-inner" }, [
-            _c("h6", [_vm._v("Scheduler")]),
-            _vm._v(" "),
-            _c("p", [_vm._v("keep reminders with your scheduler")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "calendar" }, [_c("vc-calendar")], 1),
-            _vm._v(" "),
-            _c("h6", [_vm._v("Notifications")]),
-            _vm._v(" "),
-            _vm._m(0),
-            _vm._v(" "),
-            _vm._m(1),
-            _vm._v(" "),
-            _vm._m(2),
-            _vm._v(" "),
-            _vm._m(3)
           ])
         ])
       ],
@@ -69343,84 +69190,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "notify" }, [
-      _c("div", { staticClass: "notify-i" }, [
-        _c("i", { staticClass: "fa fa-book", attrs: { "aria-hidden": "true" } })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "notify-word" }, [
-        _c("p", [
-          _vm._v("\n              SS1\n              "),
-          _c("strong", [_vm._v("English Language")]),
-          _vm._v(" "),
-          _c("em", [_vm._v("8:00AM")])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "notify" }, [
-      _c("div", { staticClass: "notify-i" }, [
-        _c("i", { staticClass: "fa fa-book", attrs: { "aria-hidden": "true" } })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "notify-word" }, [
-        _c("p", [
-          _vm._v("\n              JSS2\n              "),
-          _c("strong", [_vm._v("Virtual Class")]),
-          _vm._v(" "),
-          _c("em", [_vm._v("10:00AM")])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "notify" }, [
-      _c("div", { staticClass: "notify-i" }, [
-        _c("i", { staticClass: "fa fa-book", attrs: { "aria-hidden": "true" } })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "notify-word" }, [
-        _c("p", [
-          _vm._v("\n              JSS2\n              "),
-          _c("strong", [_vm._v("Virtual Class")]),
-          _vm._v(" "),
-          _c("em", [_vm._v("10:00AM")])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "notify" }, [
-      _c("div", { staticClass: "notify-i" }, [
-        _c("i", { staticClass: "fa fa-book", attrs: { "aria-hidden": "true" } })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "notify-word" }, [
-        _c("p", [
-          _vm._v("\n              JSS2\n              "),
-          _c("strong", [_vm._v("Virtual Class")]),
-          _vm._v(" "),
-          _c("em", [_vm._v("10:00AM")])
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

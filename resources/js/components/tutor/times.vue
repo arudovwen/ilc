@@ -1,247 +1,140 @@
 <template>
-  <!-- <div class="body">
-   
-    <div class="overlay-content" v-if="overlay">
-      <div class="ov bg-white  p-3">
-        <div class="text-right">
-          <button type="button" class="btn btn-primary ml-auto" @click="cancel">Close</button>
-        </div>
-       
-        <div class="table-responsive ">
-          <div class="form-group">
-            <h5 class="toCaps">{{myclass}}</h5>
-          </div>
-          <table class="table table-bordered">
-            <thead class="thead-darkblue">
-              <tr>
-                <th>Day</th>
-                <th>Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(tab,index) in tables" :key="index">
-                <td class="toCaps day">{{tab.day}}</td>
-                <td class="d-flex justify-content-between p-0">
-                  <table class="w-100">
-                    <tr class="w-100">
-                      <td class="text-center" v-for="(item,idx) in tab.courses" :key="idx">
-                        <div class>{{item.start}} - {{item.end}}</div>
-                        <div>{{item.subject}}</div>
-                        <div>{{item.tutor}}</div>
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
- 
-    <div>
-      <table class="table table-bordered">
-        <thead class="thead-darkblue">
-          <tr>
-            <th>Class</th>
-
-            <th>Action</th>
-            <th>
-              <input type="checkbox" v-model="item" />
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(item,idx) in table" :key="idx">
-            <td scope="row" class="toCaps">{{item.myclass}}</td>
-
-            <td class="d-flex justify-content-around">
-              <span class="mr-3" @click="getTables(item.id)">
-                <i class="fa fa-eye" aria-hidden="true"></i> View
-              </span>
-            </td>
-            <td>
-              <input type="checkbox" :value="item.id" v-model="items" />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>-->
   <div class="time-table">
     <div class="timetable-schedule">
+     
       <b-container>
-       <div class="filter-table">
-        <div class="filter-container">
-          <div class="filter-btn btn" @click="toggleFilter">
-            <span>Filter</span>
-            <i class="icon-sort"></i>
-          </div>
+         <h5 class="mt-5">School Times-Table</h5>
+        <div class="filter-table">
+        
+          <b-navbar toggleable="lg" type="dark" variant="info">
+            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+            <b-collapse id="nav-collapse" is-nav>
+              <b-navbar-nav>
+                <div class="mr-3 sort">Sort By:</div>
+                <b-form-select v-model="my_class">
+                  <b-form-select-option value disabled>-- Class --</b-form-select-option>
+
+                  <b-form-select-option
+                    :value="item.myclass"
+                    v-for="(item,idx) in myclass"
+                    :key="idx"
+                  >{{item.myclass}}</b-form-select-option>
+                </b-form-select>
+              </b-navbar-nav>
+
+              <!-- Right aligned nav items -->
+
+              <b-navbar-nav class="ml-auto">
+                <b-nav-form>
+                  <b-form-input size="sm" class="mr-sm-2 search rounded-pill" placeholder="Search"></b-form-input>
+                </b-nav-form>
+              </b-navbar-nav>
+            </b-collapse>
+          </b-navbar>
         </div>
-        <b-navbar toggleable="lg" type="dark" variant="info" v-if="filterShow">
-          <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-          <b-collapse id="nav-collapse" is-nav>
-            <b-navbar-nav>
-              <b-nav-item href="#">Sort By:</b-nav-item>
-            </b-navbar-nav>
-
-            <!-- Right aligned nav items -->
-            <b-navbar-nav class="mx-auto">
-              <b-form-select class="mr-3" v-model="myclass">
-                <b-form-select-option value disabled>-- Class --</b-form-select-option>
-                <b-form-select-option value="all">-- All --</b-form-select-option>
-                <b-form-select-option
-                  :value="item.class_name"
-                  v-for="(item,idx) in classess"
-                  :key="idx"
-                >{{item.class_name}}</b-form-select-option>
-              </b-form-select>
-            </b-navbar-nav>
-            <b-navbar-nav>
-              <b-nav-form class="ml-auto">
-                <b-form-input size="sm" class="mr-sm-2 search rounded-pill" placeholder="Search"></b-form-input>
-              </b-nav-form>
-            </b-navbar-nav>
-          </b-collapse>
-        </b-navbar>
-      </div>
-        <div class="table-responsive">
-          <div class="form-group">
-            <h5 class="toCaps">{{myclass}}</h5>
+        <div class="bd-table">
+          <div class="table-responsive">
+            <div class="form-group">
+              <h5 class="toCaps">{{my_class}}</h5>
+            </div>
+            <table class="table table-bordered" v-if="sortedTable.length">
+              <thead class="thead-light">
+                <tr>
+                  <th>Day</th>
+                  <th>Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(tab,index) in JSON.parse(sortedTable[0].table)" :key="index">
+                  <td class="toCaps day">{{tab.day}}</td>
+                  <td class="d-flex justify-content-between p-0">
+                    <table class="w-100">
+                      <tr class="w-100">
+                        <td class="text-center" v-for="(item,idx) in tab.courses" :key="idx">
+                          <div class>{{item.start | format}} - {{item.end | format}}</div>
+                          <div>{{item.subject}}</div>
+                          <div>{{item.tutor}}</div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <table class="table table-bordered">
-            <thead class="thead-darkblue">
-              <tr>
-                <th>Day</th>
-                <th>Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(tab,index) in tables" :key="index">
-                <td class="toCaps day">{{tab.day}}</td>
-                <td class="d-flex justify-content-between p-0">
-                  <table class="w-100">
-                    <tr class="w-100">
-                      <td class="text-center" v-for="(item,idx) in tab.courses" :key="idx">
-                        <div class>{{item.start}} - {{item.end}}</div>
-                        <div>{{item.subject}}</div>
-                        <div>{{item.tutor}}</div>
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </tbody>
-          </table>
         </div>
       </b-container>
-      <div class="schedule-part">
-        <div class="schedule-inner">
-          <h6>Scheduler</h6>
-          <p>keep reminders with your scheduler</p>
-          <div class="calendar">
-            <vc-calendar></vc-calendar>
-          </div>
-          <h6>Notifications</h6>
-          <div class="notify">
-            <div class="notify-i">
-              <i class="fa fa-book" aria-hidden="true"></i>
-            </div>
-            <div class="notify-word">
-              <p>
-                SS1
-                <strong>English Language</strong>
-                <em>8:00AM</em>
-              </p>
-            </div>
-          </div>
-          <div class="notify">
-            <div class="notify-i">
-              <i class="fa fa-book" aria-hidden="true"></i>
-            </div>
-            <div class="notify-word">
-              <p>
-                JSS2
-                <strong>Virtual Class</strong>
-                <em>10:00AM</em>
-              </p>
-            </div>
-          </div>
-              <div class="notify">
-            <div class="notify-i">
-              <i class="fa fa-book" aria-hidden="true"></i>
-            </div>
-            <div class="notify-word">
-              <p>
-                JSS2
-                <strong>Virtual Class</strong>
-                <em>10:00AM</em>
-              </p>
-            </div>
-          </div>
-              <div class="notify">
-            <div class="notify-i">
-              <i class="fa fa-book" aria-hidden="true"></i>
-            </div>
-            <div class="notify-word">
-              <p>
-                JSS2
-                <strong>Virtual Class</strong>
-                <em>10:00AM</em>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+  
     </div>
   </div>
 </template>
 
 <script>
-import Calendar from "v-calendar/lib/components/calendar.umd";
+
 export default {
   components: {
-    Calendar,
+    
   },
   props: ["tutor"],
   data() {
     return {
       tables: [],
       table: [],
-      myclass: "",
+      myclass: [],
       overlay: false,
       item: false,
+      my_class: "",
       items: [],
-       filterShow: false,
+      filterShow: false,
+      todaysClass: [],
+      today:
+        new Date().getHours() +
+        ":" +
+        new Date().getMinutes() +
+        ":" +
+        new Date().getSeconds(),
     };
   },
   mounted() {
     this.getTable();
+    this.getTodayClass();
+  },
+  computed: {
+    sortedTable() {
+      return this.tables.filter((item) =>
+        item.myclass.toLowerCase().includes(this.my_class.toLowerCase())
+      );
+    },
   },
   methods: {
-    cancel() {
-      this.overlay = false;
-      this.tables = [];
-      this.myclass = "";
+    getSecond(hms) {
+      var a = hms.split(":"); // split it at the colons
+
+      // minutes are worth 60 seconds. Hours are worth 60 minutes.
+      var seconds = +a[0] * 60 * 60 + +a[1] * 60 + +a[2];
+      return seconds;
     },
-    getTables(id) {
+    getTodayClass() {
       axios
-        .get(`/api/tutor-times-table/${id}`, {
+        .get(`/api/current-class`, {
           headers: {
             Authorization: `Bearer ${this.$props.tutor.access_token}`,
           },
         })
         .then((res) => {
           if (res.status == 200) {
-            this.tables = JSON.parse(res.data.table);
-            this.myclass = res.data.myclass;
-            this.overlay = true;
+            this.todaysClass = res.data;
           }
         });
     },
-      toggleFilter() {
+    cancel() {
+      this.overlay = false;
+      this.tables = [];
+      this.myclass = "";
+    },
+
+    toggleFilter() {
       this.filterShow = !this.filterShow;
     },
     getTable() {
@@ -253,7 +146,9 @@ export default {
         })
         .then((res) => {
           if (res.status == 200) {
-            this.table = res.data;
+            this.tables = res.data;
+            this.myclass = res.data.filter((item) => item.myclass);
+            this.my_class = this.myclass[0].myclass;
           }
         });
     },
@@ -296,14 +191,17 @@ export default {
   width: 100%;
   position: relative;
 }
+.sort {
+  width: 120px;
+}
 .schedule-part {
   background: #fff;
   height: 100vh;
 }
 .schedule-inner {
   padding: 20px;
-      height: 100vh;
-    overflow-y: scroll;
+  height: 100vh;
+  overflow-y: scroll;
 }
 .schedule-inner p {
   font-size: 14px;
@@ -324,7 +222,7 @@ export default {
   background: rgba(34, 202, 222, 0.25);
   border-radius: 50%;
 }
-.noftify-word p{
+.noftify-word p {
   font-size: 12px;
 }
 /* width */
@@ -334,18 +232,18 @@ export default {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: none; 
+  background: none;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgba(34, 202, 222, 0.25); 
+  background: rgba(34, 202, 222, 0.25);
   border-radius: 5px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+  background: #555;
 }
 .search {
   width: 250px;
@@ -387,5 +285,66 @@ export default {
 
 .nav-link {
   color: #000 !important;
+}
+
+.m-res {
+  height: 520px;
+  overflow: auto;
+}
+.main-note {
+  height: 290px;
+  overflow: auto;
+}
+
+small,
+.small {
+  font-size: 100%;
+}
+.resources-inner {
+  border-bottom: 1px solid #e4e4e4;
+  padding-top: 5px;
+}
+.resources-inner:last-child {
+  border-bottom: none;
+}
+.class-content {
+  padding-bottom: 10px;
+}
+.class-content-top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.red {
+  color: #ff0000;
+}
+.green {
+  color: green;
+}
+.class-content-main {
+  display: flex;
+  justify-content: space-between;
+}
+.class-content-main p {
+  font-size: 16px;
+}
+.notes-top {
+  display: flex;
+  justify-content: space-between;
+}
+.btn {
+  background: transparent;
+  border: 1px solid #13a699;
+  border-radius: 5px;
+  color: #13a699;
+  font-size: 15px;
+}
+
+.my-icon {
+  color: #008e3a;
+}
+.check_it {
+  color: #008e3a;
+  font-size: 12px;
 }
 </style>

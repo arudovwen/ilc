@@ -37,7 +37,7 @@ export default {
     this.getData();
   },
   methods: {
-    getData() {
+    getBook() {
       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
       let data = {
         level: this.$route.params.id.replace(/-/g, " "),

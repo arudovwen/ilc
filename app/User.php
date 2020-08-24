@@ -84,7 +84,7 @@ class User extends Authenticatable
         return $this->hasMany(PrivateMessage::class);
     }
     public function gradebooks(){
-        return $this->belongsTo(GradeBook::class);
+        return $this->hasMany(GradeBook::class);
     }
 
     public function reviews(){

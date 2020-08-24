@@ -14,19 +14,25 @@
           <router-link to="/student/profile">
           <li>
             <i class="icon-group" aria-hidden="true"></i>
-            <span v-if="!sideBar">Profile</span>
+            <span v-if="!sideBar">My Profile</span>
+          </li>
+        </router-link>
+         <router-link to="/student/activities">
+          <li>
+            <i class="icon-market" aria-hidden="true"></i>
+            <span v-if="!sideBar">My Activities</span>
           </li>
         </router-link>
         <router-link to="/student/explore">
           <li>
             <i class="icon-refresh" aria-hidden="true"></i>
-            <span v-if="!sideBar">Explore</span>
+            <span v-if="!sideBar">Resources</span>
           </li>
         </router-link>
         <router-link to="/student/library">
           <li>
             <i class="icon-open-book" aria-hidden="true"></i>
-            <span v-if="!sideBar">Library</span>
+            <span v-if="!sideBar">My Library</span>
           </li>
         </router-link>
         <router-link to="/student/assessment">
@@ -35,28 +41,23 @@
             <span v-if="!sideBar">Assessment</span>
           </li>
         </router-link>
+       
+        <router-link to="/student/gradebook">
+          <li>
+            <i class="icon-score" aria-hidden="true"></i>
+            <span v-if="!sideBar">Grade Book</span>
+          </li>
+        </router-link>
         <router-link to="/student/groups">
           <li>
             <i class="icon-group-1" aria-hidden="true"></i>
             <span v-if="!sideBar">Live Chat</span>
           </li>
         </router-link>
-        <router-link to="/student/groups">
-          <li>
-            <i class="icon-score" aria-hidden="true"></i>
-            <span v-if="!sideBar">Grade Books</span>
-          </li>
-        </router-link>
-        <router-link to="/student/activities">
-          <li>
-            <i class="icon-market" aria-hidden="true"></i>
-            <span v-if="!sideBar">Activities</span>
-          </li>
-        </router-link>
         <router-link to="/student/virtual">
           <li>
             <i class="icon-business-class" aria-hidden="true"></i>
-            <span v-if="!sideBar">Virtual Class</span>
+            <span v-if="!sideBar">Live Class</span>
           </li>
         </router-link>
 

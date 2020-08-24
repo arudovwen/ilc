@@ -26,8 +26,8 @@ class TimesTableController extends Controller
     
     public function getTimesTablePerClass($id)
     {
-        $user = auth('student')->user();
-        return TimesTable::where('school_id', $user->school_id)->where('myclass', $user->student_level)->get();
+        $user = auth('api')->user();
+        return TimesTable::where('school_id', $user->school_id)->where('myclass', $user->sub_class)->get();
     }
     /**
      * Show the form for creating a new resource.

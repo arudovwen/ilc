@@ -455,7 +455,9 @@ form .reg-btn {
 .gradebook-table .table-bordered thead th:first-child {
     max-width: 35%;
 }
-
+table#table-transition-example .flip-list-move {
+  transition: transform 1s;
+}
 .nav-tabs .nav-link {
     /* border: none !important;
     border-top-left-radius: 0 !important;

@@ -12,28 +12,35 @@
                       <strong>Overall Grades</strong>
                     </p>
                   </b-col>
-                  <b-col md="6">
+                  <b-col md="5">
                     <b-container>
                       <b-row>
                         <b-col md="4">
+                         <b-form-select v-model="my_class">
+                            <b-form-select-option
+                              :value="item.class_name.toLowerCase()"
+                              v-for="(item,idx) in all_class"
+                              class="toCaps"
+                              :key="idx"
+                            >{{item.class_name}}</b-form-select-option>
+                          </b-form-select>
+                        </b-col>
+                        <!-- <b-col md="4">
                           <b-form-select v-model="selected"></b-form-select>
                         </b-col>
                         <b-col md="4">
                           <b-form-select v-model="selected"></b-form-select>
-                        </b-col>
-                        <b-col md="4">
-                          <b-form-select v-model="selected"></b-form-select>
-                        </b-col>
+                        </b-col> -->
                       </b-row>
                     </b-container>
                   </b-col>
-                  <b-col md="4">
+                  <b-col md="5">
                     <b-container>
                       <b-row>
-                        <b-col md="6">
-                          <b-form-input placeholder="Search Student " class="search rounded-pill"></b-form-input>
+                        <b-col md="8">
+                          <b-form-input placeholder="Search Student name" v-model="overall_search" class="search rounded-pill"></b-form-input>
                         </b-col>
-                        <b-col md="6">
+                        <b-col md="4">
                           <div class="export">
                             <div class="btn btn-export">
                               Export
@@ -50,7 +57,13 @@
           </div>
           <hr />
           <div class="overallgradebook-table">
-            <b-table striped hover :items="overalltableitems"></b-table>
+            <b-table striped hover :fields="grade_fields" :items="sortGrades">
+              <template v-slot:cell(name)="data">
+                <div>
+                  {{data.item.user.name}}
+                </div>
+              </template>
+            </b-table>
           </div>
         </b-tab>
         <b-tab title="Assessment Grades">
@@ -66,23 +79,42 @@
                   <b-col md="8">
                     <b-container>
                       <b-row>
-                        <b-col md="3">
-                          <b-form-select v-model="selected" :options="assessmentType"></b-form-select>
+                         <b-col md="2">
+                          <b-form-select v-model="my_class">
+                            <b-form-select-option
+                              :value="item.class_name.toLowerCase()"
+                              v-for="(item,idx) in all_class"
+                              class="toCaps"
+                              :key="idx"
+                            >{{item.class_name}}</b-form-select-option>
+                          </b-form-select>
                         </b-col>
+                     
                         <b-col md="3">
-                          <b-form-select v-model="selected" :options="assessmentClass"></b-form-select>
+                          <b-form-select v-model="type" :options="assessmentType"></b-form-select>
                         </b-col>
-                        <b-col md="3">
-                          <b-form-select v-model="selected" :options="assessmentSubject"></b-form-select>
+                         <b-col md="3">
+                          <b-form-select v-model="subject">
+                            <b-form-select-option value="">Select subject</b-form-select-option>
+                            <b-form-select-option
+                              :value="item.name.toLowerCase()"
+                              v-for="(item,idx) in subjects"
+                              class="toCaps"
+                              :key="idx"
+                            >{{item.name}}</b-form-select-option>
+                          </b-form-select>
                         </b-col>
-                        <b-col md="3">
-                          <b-form-select v-model="selected" :options="assessmentTerm"></b-form-select>
+                        <b-col md="2">
+                          <b-form-select ></b-form-select>
+                        </b-col>
+                         <b-col md="2">
+                         <span @click="refresh"> Reset <i class="fa fa-refresh" aria-hidden="true"></i></span>
                         </b-col>
                       </b-row>
                     </b-container>
                   </b-col>
                   <b-col md="2">
-                    <b-form-input placeholder="Search Student " class="search rounded-pill"></b-form-input>
+                    <b-form-input placeholder="Search Student" v-model="search" class="search rounded-pill"></b-form-input>
                   </b-col>
                 </b-row>
               </b-container>
@@ -102,6 +134,13 @@
 export default {
   data() {
     return {
+      overall_search:'',
+      search:'',
+      subject: "",
+      my_class: "",
+      subjects: [],
+      type:'',
+      all_class: [],
       selected: null,
       items: [],
       classes: [],
@@ -140,146 +179,126 @@ export default {
           total: 80,
         },
       ],
-      tableitems: [
-        {
-          name: "sucess ahon",
-          assignment: "20",
-          quiz: "35",
-          test: 40,
-          examination: 70,
-          module1: 30,
-          module2: 40,
-          module3: 10,
-          module4: 15,
-          module5: 30,
-          module5: 40,
-          modlue7: 30,
-          module8: 22,
-          module9: 40,
-          module10: 20,
-          module11: 50,
-          module12: 12,
-          module13: 50,
-          module14: 40,
-          module15: 1,
-          module16: 2,
-          module17: 17,
-          module18: 18,
-          module19: 19,
-        },
-        {
-          name: "sucess ahon",
-          assignment: "20",
-          quiz: "35",
-          test: 40,
-          examination: 70,
-        },
-        {
-          name: "sucess ahon",
-          assignment: "20",
-          quiz: "35",
-          test: 40,
-          examination: 70,
-        },
-        {
-          name: "sucess ahon",
-          assignment: "20",
-          quiz: "35",
-          test: 40,
-          examination: 70,
-        },
-        {
-          name: "sucess ahon",
-          assignment: "20",
-          quiz: "35",
-          test: 40,
-          examination: 70,
-        },
-        {
-          name: "sucess ahon",
-          assignment: "20",
-          quiz: "35",
-          test: 40,
-          examination: 70,
-        },
-        {
-          name: "sucess ahon",
-          assignment: "20",
-          quiz: "35",
-          test: 40,
-          examination: 70,
-        },
-        {
-          name: "sucess ahon",
-          assignment: "20",
-          quiz: "35",
-          test: 40,
-          examination: 70,
-        },
-        {
-          name: "sucess ahon",
-          assignment: "20",
-          quiz: "35",
-          test: 40,
-          examination: 70,
-        },
-      ],
+     
       assessmentType: [
-        { value: null, text: " Select Assessment" },
-        { value: "a", text: "Assignment" },
-        { value: "b", text: "Quiz" },
-        { value: "c", text: "Test" },
-        { value: "d", text: "Examination" },
+        { value: '', text: " Select Assessment" },
+        { value: "assignment", text: "Assignment" },
+        { value: "quiz", text: "Quiz" },
+        { value: "test", text: "Test" },
+        { value: "examination", text: "Examination" },
       ],
-      assessmentClass: [
-        { value: null, text: "Select Class" },
-        { value: "a", text: "Assignment" },
-        { value: "b", text: "Quiz" },
-        { value: "c", text: "Test" },
-        { value: "d", text: "Examination" },
-      ],
-      assessmentSubject: [
-        { value: null, text: "Select Subject" },
-        { value: "a", text: "Assignment" },
-        { value: "b", text: "Quiz" },
-        { value: "c", text: "Test" },
-        { value: "d", text: "Examination" },
-      ],
-      assessmentTerm: [
-        { value: null, text: "Select Term" },
-        { value: "a", text: "First" },
-        { value: "b", text: "Second" },
-        { value: "c", text: "Third" },
-      ],
+     
       ass: [],
       names: [],
+      grade_book:[],
+      grade_fields:[
+        {key:'name',sortable:true},
+        'participation',
+        'attendance',
+        'quiz',
+        'assignment',
+        'test',
+        'examination',
+        'total_score'
+      ]
     };
   },
   mounted() {
+       this.getBook()
     this.getData();
     this.getClasses();
     this.getSubjects();
     this.getResult();
+ 
   },
+  computed:{
+    sortData(){
+     var search = this.result.filter(d=>{
+      return  d.user.name.toLowerCase().includes(this.search.toLowerCase())
+      })
+      var level=  search.filter(sub=>{
+      return  sub.level.toLowerCase().includes(this.my_class.toLowerCase())
+      })
+
+       var subject = level.filter(sub=>{
+      return  sub.subject.toLowerCase().includes(this.subject.toLowerCase())
+      })
+     var type = subject.filter(sub=>{
+      return  sub.type.toLowerCase().includes(this.type.toLowerCase())
+      })
+      return type
+    },
+     sortGrades(){
+     var search = this.grade_book.filter(d=>{
+      return  d.user.name.toLowerCase().includes(this.overall_search.toLowerCase())
+      })
+      var level=  search.filter(sub=>{
+      return  sub.level.toLowerCase().includes(this.my_class.toLowerCase())
+      })
+
+    //    var subject = level.filter(sub=>{
+    //   return  sub.subject.toLowerCase().includes(this.subject.toLowerCase())
+    //   })
+    //  var type = subject.filter(sub=>{
+    //   return  sub.type.toLowerCase().includes(this.type.toLowerCase())
+    //   })
+      return level
+    },
+  },
+   watch: {
+      sortData(newValue){
+         this.handleData(newValue)
+       
+      }
+    },
+  
+   
   methods: {
-    getResult() {
+    refresh(){
+        this.subject = this.my_class = this.search = this.type =''
+    },
+    getSubjects() {
       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios
-        .get("/api/get-tutor-assessment", {
+        .get(`/api/tutor-all-subjects`, {
           headers: {
             Authorization: `Bearer ${tutor.access_token}`,
           },
         })
         .then((res) => {
           if (res.status == 200) {
-            var obj = {};
-
-            this.result = res.data;
-            this.result.sort(function (a, b) {
-              return a.user_id - b.user_id;
-            });
-
-            this.result.forEach((item) => {
+            this.subjects = res.data;
+          }
+        });
+    },
+    getClasses() {
+      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios
+        .get("/api/all-classes", {
+          headers: {
+            Authorization: `Bearer ${tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.all_class = res.data;
+            this.my_class = res.data[0].class_name.toLowerCase()
+            // res.data.forEach((item) => {
+            //   this.allClass.push(item.class_name);
+            //   if (item.sub_class !== "") {
+            //     item.sub_class.split(",").forEach((i) => {
+            //       this.allClass.push(i);
+            //     });
+            //   }
+            // });
+          }
+        });
+    },
+    handleData(arr){
+       var obj = {};
+       this.ass = []
+       this.assessmentField=['name']
+       arr.forEach((item) => {
               this.assessmentField.push(item.title);
               if (this.ass.length == 0) {
                 obj[item.title] = item.total_score;
@@ -299,46 +318,35 @@ export default {
                   }
                   return obj;
                 });
-               
+
                 if (Object.keys(obj).length !== 0) {
                   this.ass.push(obj);
                 }
               }
             });
+    },
+    getResult() {
+      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios
+        .get("/api/get-tutor-assessment", {
+          headers: {
+            Authorization: `Bearer ${tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+           
 
-         
+            this.result = res.data;
+            this.result.sort(function (a, b) {
+              return a.user_id - b.user_id;
+            });
+
+          // this.handleData()
           }
         });
     },
-    getClasses() {
-      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
-      axios
-        .get("/api/all-classes", {
-          headers: {
-            Authorization: `Bearer ${tutor.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            this.classes = res.data;
-          }
-        });
-    },
-    getSubjects() {
-      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
-      axios
-        .get("/api/tutor-all-subjects", {
-          headers: {
-            Authorization: `Bearer ${tutor.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            this.subjects = res.data;
-          }
-        })
-        .catch();
-    },
+
     getData() {
       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios
@@ -357,13 +365,18 @@ export default {
     selectSubject(name) {
       this.subject = name;
     },
-    viewBook() {
-      this.$router.push(
-        `/tutor/gradebook/view/${this.subject.replace(
-          / /g,
-          "-"
-        )}/${this.name.replace(/ /g, "-")}`
-      );
+    getBook() {
+      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+     
+      axios
+        .get(`/api/tutor-grade-books`, {
+          headers: { Authorization: `Bearer ${tutor.access_token}` },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.grade_book = res.data;
+          }
+        });
     },
   },
 };
@@ -380,7 +393,6 @@ export default {
   background: #fff;
   padding: 15px;
 }
-
 
 .overall {
   background: #fff;

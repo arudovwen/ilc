@@ -380,15 +380,15 @@ export default {
         });
     },
     gotoHer(id) {
-      
-      if (id.type=='assessment') {
-          this.$router.push(`/student/grade-book`);
+    
+      if (id.type.toLowerCase()=='assessment') {
+          this.$router.push(`/student/gradebook`);
       }
-       if (id.type == 'group') {
-          this.$router.push(`/student/group`);
+       if (id.type.toLowerCase() == 'group') {
+          this.$router.push(`/student/groups`);
       }
-       if (id.type=='new resource') {
-          this.$router.push(`/student/resource/view/${id}`);
+       if (id.type.toLowerCase() =='resource') {
+          this.$router.push(`/student/resource/view/${id.id}`);
       }
      
     },

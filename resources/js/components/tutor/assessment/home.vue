@@ -296,6 +296,8 @@ export default {
   props: ["tutor"],
   data() {
     return {
+      subjects:[],
+      all_classess:[],
       id: null,
       name: {},
       form: [],
@@ -372,6 +374,41 @@ export default {
     },
   },
   methods: {
+    getSubjects() {
+      axios
+        .get(`/api/tutor-all-subjects`, {
+          headers: {
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.subjects = res.data;
+          }
+        });
+    },
+     getClasses() {
+      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios
+        .get("/api/all-classes", {
+          headers: {
+            Authorization: `Bearer ${tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.all_classess = res.data;
+            // res.data.forEach((item) => {
+            //   this.allClass.push(item.class_name);
+            //   if (item.sub_class !== "") {
+            //     item.sub_class.split(",").forEach((i) => {
+            //       this.allClass.push(i);
+            //     });
+            //   }
+            // });
+          }
+        });
+    },
     refresh() {
       this.getDraftResult();
     },

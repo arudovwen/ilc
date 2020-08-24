@@ -17,7 +17,7 @@ class GradeBookController extends Controller
     public function index()
     {
         $tutor = auth('tutor')->user();
-       return GradeBook::with('users')->where('school_id', $tutor->school_id)->get();
+       return GradeBook::with('user')->where('school_id', $tutor->school_id)->get();
     }
 
     /**
@@ -70,9 +70,10 @@ class GradeBookController extends Controller
        return  GradeBookResource::collection(GradeBook::where('school_id', $tutor->school_id)->where('level', $request->level)->where('subject', $request->subject)->get());
          
     }
-    public function show(GradeBook $gradeBook)
+    public function show( $id)
     {
-        //
+        $user = auth('api')->user();
+        return GradeBook::with('user')->where('school_id', $user->school_id)->where('user_id' ,$id)->get();
     }
 
     /**

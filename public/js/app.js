@@ -879,6 +879,10 @@ var TimesTableTutor = function TimesTableTutor() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/times */ "./resources/js/components/tutor/times.vue"));
 };
 
+var StudentGradebook = function StudentGradebook() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/gradeBook.vue */ "./resources/js/components/student/gradeBook.vue"));
+};
+
 var AssessmentHome = function AssessmentHome() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/assessment/home.vue */ "./resources/js/components/tutor/assessment/home.vue"));
 };
@@ -961,6 +965,14 @@ var GradeBook = function GradeBook() {
 
 var ViewGradeBook = function ViewGradeBook() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/gradebook/view.vue */ "./resources/js/components/tutor/gradebook/view.vue"));
+};
+
+var TutorActivities = function TutorActivities() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/activities.vue */ "./resources/js/components/tutor/activities.vue"));
+};
+
+var StudentActivities = function StudentActivities() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/activities.vue */ "./resources/js/components/student/activities.vue"));
 };
 
 var Administrative = function Administrative() {
@@ -1325,7 +1337,7 @@ var routes = [{
   }, {
     path: "administrative",
     component: Administrative,
-    name: 'Administrative',
+    name: "Administrative",
     meta: {
       typeTutor: true
     }
@@ -1477,6 +1489,13 @@ var routes = [{
       typeTutor: true
     }
   }, {
+    path: "activities",
+    component: TutorActivities,
+    name: 'TutorActivities',
+    meta: {
+      typeTutor: true
+    }
+  }, {
     path: "gradebook/view/:subject/:id",
     component: ViewGradeBook,
     name: "ViewGradeBook",
@@ -1548,6 +1567,20 @@ var routes = [{
     path: "profile",
     component: StudentProfile,
     name: "StudentProfile",
+    meta: {
+      typeStudent: true
+    }
+  }, {
+    path: "gradebook",
+    component: StudentGradebook,
+    name: 'StudentGradebook',
+    meta: {
+      typeStudent: true
+    }
+  }, {
+    path: "activities",
+    component: StudentActivities,
+    name: 'StudentActivities',
     meta: {
       typeStudent: true
     }

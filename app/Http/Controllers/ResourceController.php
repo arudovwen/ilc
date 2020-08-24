@@ -93,7 +93,7 @@ class ResourceController extends Controller
                 'status'=> false,
                 'sender_id'=> $tutor->id ,
                 'role' => 'student',
-                'type'=>$request->type,
+                'type'=>"resource",
                 'resource_id'=>$resource->id,
             ]);
                 broadcast(new ResourceAdded($users, $resource));

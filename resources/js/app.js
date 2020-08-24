@@ -47,16 +47,6 @@ Vue.filter("timeStatus", function(num) {
         return "Ongoing";
     }
 });
-Vue.filter('currency', function (num) {
-  if (num !== null) {
-    return (
-      "\u20A6" + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
-    );
-} else {
-    return "NGN 0.00";
-}
-})
-
 
 Vue.filter("format", function(time) {
     // Check correct time format and split into components

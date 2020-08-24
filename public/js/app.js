@@ -382,13 +382,6 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter("timeStatus", function (num) {
     return "Ongoing";
   }
 });
-vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter('currency', function (num) {
-  if (num !== null) {
-    return "\u20A6" + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-  } else {
-    return "NGN 0.00";
-  }
-});
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter("format", function (time) {
   // Check correct time format and split into components
   time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
@@ -772,6 +765,10 @@ var TimeTableHome = function TimeTableHome() {
 
 var ViewTimeTable = function ViewTimeTable() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/timeTable/view */ "./resources/js/components/admin/timeTable/view.vue"));
+};
+
+var EditTimeTable = function EditTimeTable() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/admin/timeTable/edit */ "./resources/js/components/admin/timeTable/edit.vue"));
 };
 
 var StudentAuth = function StudentAuth() {
@@ -1220,6 +1217,13 @@ var routes = [{
   }, {
     path: "time-table/view/:id",
     component: ViewTimeTable,
+    name: "ViewTimeTable",
+    meta: {
+      typeAdmin: true
+    }
+  }, {
+    path: "time-table/edit/:id",
+    component: EditTimeTable,
     name: "ViewTimeTable",
     meta: {
       typeAdmin: true

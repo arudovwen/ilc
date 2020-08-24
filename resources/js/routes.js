@@ -154,6 +154,10 @@ const ViewTimeTable = () =>
     import(
         /* webpackChunkName: "home_routes" */ "./components/admin/timeTable/view"
     );
+    const EditTimeTable = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/admin/timeTable/edit"
+    );
 
 const StudentAuth = () =>
     import(
@@ -630,6 +634,14 @@ export const routes = [
             {
                 path: "time-table/view/:id",
                 component: ViewTimeTable,
+                name: "ViewTimeTable",
+                meta: {
+                    typeAdmin: true
+                }
+            },
+            {
+                path: "time-table/edit/:id",
+                component: EditTimeTable,
                 name: "ViewTimeTable",
                 meta: {
                     typeAdmin: true

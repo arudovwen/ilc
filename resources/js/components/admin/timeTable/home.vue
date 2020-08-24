@@ -113,6 +113,9 @@ export default {
           });
       }
     },
+     edit(id) {
+      this.$router.push(`/admin/time-table/edit/${id}`);
+    },
     view(id) {
       this.$router.push(`/admin/time-table/view/${id}`);
     }

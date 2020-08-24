@@ -132,8 +132,8 @@ class TimesTableController extends Controller
     public function update(Request $request, $id)
     {
         $s = TimesTable::find($id);
-        $s->mytime = $request->mytime;
-        $s->table = $request->table;
+        $s->myclass = $request->myclass;
+        $s->table =  json_encode($request->table);
         $s->save();
     }
 

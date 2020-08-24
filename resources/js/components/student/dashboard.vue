@@ -23,6 +23,7 @@
       :privateMessages="privateMessages"
       @addPrivateMessage="addPrivateMessage"
       :receiver_id="receiver_id"
+       @updateChat = "updateChat"
     />
   </div>
 </template>
@@ -58,6 +59,9 @@ export default {
     this.getPrivateMessages();
   },
   methods: {
+     updateChat(){
+        this.getgroups();
+    },
     minimise() {
       this.sideBar = !this.sideBar;
     },

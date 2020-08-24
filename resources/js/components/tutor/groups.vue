@@ -13,6 +13,8 @@
       @addStaffMessage="addStaffMessage"
       :showChat="showChat"
       @newGroup="newGroup"
+      @drop="drop"
+     
     />
     <!-- <staffChat   :tutor="tutor"  :onlineStaffs="onlineStaffs"
       :staffsMessages="staffsMessages"    @addStaffMessage="addStaffMessage"/>
@@ -30,13 +32,13 @@
             placeholder="Pearl"
           />
         </div>
-         <div class="mt-3 text-center">
-    <b-button-group size="sm">
-      <b-button @click="switchGrouping(true)">Class Group</b-button>
-      
-      <b-button @click="switchGrouping(false)">Student Group</b-button>
-    </b-button-group>
-  </div>
+        <div class="mt-3 text-center">
+          <b-button-group size="sm">
+            <b-button @click="switchGrouping(true)">Class Group</b-button>
+
+            <b-button @click="switchGrouping(false)">Student Group</b-button>
+          </b-button-group>
+        </div>
 
         <div class="d-flex mt-4">
           <div class="form-group" v-if="group_type">
@@ -99,7 +101,7 @@ export default {
   ],
   data() {
     return {
-      group_type:true,
+      group_type: true,
       heads: [],
       name: "",
       class_name: "",
@@ -126,8 +128,8 @@ export default {
     this.getCLasses();
   },
   methods: {
-    switchGrouping(val){
-this.group_type = val
+    switchGrouping(val) {
+      this.group_type = val;
     },
     newGroup() {
       this.$bvModal.show("group");
@@ -200,7 +202,7 @@ this.group_type = val
     addClass() {
       if (this.added_names.length) {
         var data = {
-          name: this.name,
+          name: this.name.replace(/ /g,'-'),
           class_name: this.name_class,
           subscribers: this.added_names,
         };
@@ -270,7 +272,7 @@ this.group_type = val
           })
           .then((res) => {
             if (res.status == 200) {
-              this.getgroups();
+            this.$emit('updateChat')
             }
           });
       }

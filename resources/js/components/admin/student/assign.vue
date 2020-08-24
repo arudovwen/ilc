@@ -39,7 +39,7 @@
           </thead>
           <tbody>
             <tr v-for="(item,idx) in data.choosen_course" :key="idx">
-              <td scope="row" class="text-center">{{item.name}}</td>
+              <td scope="row" class="text-center">{{item.name}}  <b-icon @click=" removeSubject(item.name)" icon="x"></b-icon></td>
             </tr>
           </tbody>
         </table>
@@ -93,13 +93,19 @@ export default {
         .then(res => {
           if (res.status == 201) {
             this.$toasted.info("Successful");
+            this.data.choosen_course = []
             this.toggleModal()
           }
           if (res.status == 200) {
+             this.data.choosen_course = []
             this.$toasted.info("Saved Successful");
-            this.$router.push("/admin/students");
+           
           }
         });
+    },
+    removeSubject(val){
+  
+     this.data.choosen_course.splice(this.data.choosen_course.indexOf(val),1)
     },
     selectSubject(id, name) {
       if (this.data.student.name !== "") {

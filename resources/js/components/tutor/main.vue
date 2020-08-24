@@ -47,10 +47,11 @@
         :onlineGroupMembers="onlineGroupMembers"
         :groupMessages="groupMessages"
         @addGroupMessage="addGroupMessage"
-          :groups='groups'
-              @switchGroup="switchGroup"
-              :group_id="group_id"
-                 :showChat="showChat"
+        :groups="groups"
+        @switchGroup="switchGroup"
+        :group_id="group_id"
+        :showChat="showChat"
+        @updateChat="updateChat"
       ></router-view>
     </transition>
   </div>
@@ -65,9 +66,9 @@ export default {
     "staffsMessages",
     "onlineGroupMembers",
     "groupMessages",
-    'groups',
-    'group_id',
-    'showChat'
+    "groups",
+    "group_id",
+    "showChat",
   ],
   data() {
     return {
@@ -81,8 +82,10 @@ export default {
       "GroupCreated",
       (e) => {
         this.getNotifications();
+        this.$emit("updateChat");
       }
     );
+   
     this.getNotifications();
   },
 
@@ -90,8 +93,11 @@ export default {
     $route: "reset",
   },
   methods: {
-    switchGroup(id){
-        this.$emit('switchGroup',id)
+    updateChat(){
+       this.$emit("updateChat");
+    },
+    switchGroup(id) {
+      this.$emit("switchGroup", id);
     },
     addStaffMessage(message, attachment) {
       this.$emit("addStaffMessage", message, attachment);

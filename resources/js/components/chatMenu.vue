@@ -43,10 +43,10 @@
               <div class="avatar mr-3">
                 <b-avatar></b-avatar>
               </div>
-              <h6 class="toCaps">{{item.name}}</h6>
+              <h6 class="toCaps">{{item.name}}  </h6>
             </div>
             <div>
-              <b-badge variant="success">3</b-badge>
+              <b-badge variant="success"><b-icon class="" icon="x" @click="drop(item.id)"></b-icon></b-badge>
             </div>
           </div>
         </div>
@@ -73,6 +73,9 @@ export default {
      }
    },
   methods: {
+     drop(val) {
+      this.$emit("drop",val);
+    },
     switchGroup(id) {
       this.active=id
       this.$emit("switchGroup", id);

@@ -42,7 +42,7 @@
                 <tr class="w-100 ">
                   <td class="text-center" v-for="(item,idx) in tab.courses" :key="idx">
                      <div class="">
-                  {{item.start}} - {{item.end}}
+                  {{item.start | time}} - {{item.end | time}}
                 </div>
                 <div>{{item.subject}}</div>
                  <div>{{item.tutor}}</div>

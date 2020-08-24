@@ -136,12 +136,12 @@ export default {
             if (res.status == 201) {
               this.$toasted.info("Successful");
               this.toggleModal();
-              this.data = [
-                {
+              this.data = []
+               this.data.push({
                   my_class: "",
-                  students: [],
-                },
-              ];
+                  students: []
+                })
+              
             }
           });
       } else {

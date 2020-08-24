@@ -67,8 +67,8 @@
               </b-form-group>
                 </b-col>
                 <b-col>
-                <b-form-group>
-                    <b-form-input v-model="details.phons"></b-form-input>
+                <b-form-group label="Phone NuMBER">
+                    <b-form-input v-model="details.phone" type="tel"></b-form-input>
                 </b-form-group>
                 </b-col>
               </b-form-row>

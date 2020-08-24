@@ -3546,15 +3546,20 @@ __webpack_require__.r(__webpack_exports__);
         if (res.status == 201) {
           _this.$toasted.info("Successful");
 
+          _this.data.choosen_course = [];
+
           _this.toggleModal();
         }
 
         if (res.status == 200) {
-          _this.$toasted.info("Saved Successful");
+          _this.data.choosen_course = [];
 
-          _this.$router.push("/admin/students");
+          _this.$toasted.info("Saved Successful");
         }
       });
+    },
+    removeSubject: function removeSubject(val) {
+      this.data.choosen_course.splice(this.data.choosen_course.indexOf(val), 1);
     },
     selectSubject: function selectSubject(id, name) {
       if (this.data.student.name !== "") {
@@ -3764,10 +3769,12 @@ __webpack_require__.r(__webpack_exports__);
 
             _this3.toggleModal();
 
-            _this3.data = [{
+            _this3.data = [];
+
+            _this3.data.push({
               my_class: "",
               students: []
-            }];
+            });
           }
         });
       } else {
@@ -4270,6 +4277,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -4279,6 +4289,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ["admin"],
   data: function data() {
     return {
+      search: '',
       id: null,
       busy: true,
       students: [],
@@ -4319,15 +4330,13 @@ __webpack_require__.r(__webpack_exports__);
     sortedStudents: function sortedStudents() {
       var _this = this;
 
-      return this.students.filter(function (item) {
-        if (item.student_level.toLowerCase().trim() == _this.current.toLowerCase().trim()) {
-          return item;
-        }
-
-        if (_this.current == "") {
-          return item;
-        }
+      var search = this.students.filter(function (item) {
+        return item.student_level.toLowerCase().trim().includes(_this.search.toLowerCase().trim());
       });
+      var level = search.filter(function (item) {
+        return item.student_level.toLowerCase().trim().includes(_this.current.toLowerCase().trim());
+      });
+      return level;
     }
   },
   methods: {
@@ -8719,6 +8728,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    drop: function drop(val) {
+      this.$emit("drop", val);
+    },
     switchGroup: function switchGroup(id) {
       this.active = id;
       this.$emit("switchGroup", id);
@@ -12876,6 +12888,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -12905,6 +12918,9 @@ __webpack_require__.r(__webpack_exports__);
     this.getPrivateMessages();
   },
   methods: {
+    updateChat: function updateChat() {
+      this.getgroups();
+    },
     minimise: function minimise() {
       this.sideBar = !this.sideBar;
     },
@@ -14426,6 +14442,8 @@ __webpack_require__.r(__webpack_exports__);
 
     Echo["private"]("group-subscribed" + this.$props.student.id).listen("GroupSubscribed", function (e) {
       _this.getNotifications();
+
+      _this.$emit('updateChat');
     });
     Echo["private"]("resource-added" + this.$props.student.id).listen("ResourceAdded", function (e) {
       _this.getNotifications();
@@ -19314,6 +19332,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -19336,6 +19355,9 @@ __webpack_require__.r(__webpack_exports__);
     StaffsChat: _staffsChat__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   methods: {
+    drop: function drop(val) {
+      this.$emit("drop", val);
+    },
     newGroup: function newGroup() {
       this.$emit("newGroup");
     },
@@ -19580,6 +19602,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -19608,6 +19631,9 @@ __webpack_require__.r(__webpack_exports__);
     this.getMessages();
   },
   methods: {
+    updateChat: function updateChat() {
+      this.getgroups();
+    },
     addStaffMessage: function addStaffMessage(message, attachment) {
       this.staffsMessages.push({
         message: message,
@@ -20341,6 +20367,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -20452,7 +20480,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.added_names.length) {
         var data = {
-          name: this.name,
+          name: this.name.replace(/ /g, '-'),
           class_name: this.name_class,
           subscribers: this.added_names
         };
@@ -20522,7 +20550,7 @@ __webpack_require__.r(__webpack_exports__);
           }
         }).then(function (res) {
           if (res.status == 200) {
-            _this7.getgroups();
+            _this7.$emit('updateChat');
           }
         });
       }
@@ -21103,8 +21131,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["tutor", "onlineStaffs", "staffsMessages", "onlineGroupMembers", "groupMessages", 'groups', 'group_id', 'showChat'],
+  props: ["tutor", "onlineStaffs", "staffsMessages", "onlineGroupMembers", "groupMessages", "groups", "group_id", "showChat"],
   data: function data() {
     return {
       showNotification: false,
@@ -21117,6 +21146,8 @@ __webpack_require__.r(__webpack_exports__);
 
     Echo["private"]("group-created" + this.$props.tutor.id).listen("GroupCreated", function (e) {
       _this.getNotifications();
+
+      _this.$emit("updateChat");
     });
     this.getNotifications();
   },
@@ -21124,8 +21155,11 @@ __webpack_require__.r(__webpack_exports__);
     $route: "reset"
   },
   methods: {
+    updateChat: function updateChat() {
+      this.$emit("updateChat");
+    },
     switchGroup: function switchGroup(id) {
-      this.$emit('switchGroup', id);
+      this.$emit("switchGroup", id);
     },
     addStaffMessage: function addStaffMessage(message, attachment) {
       this.$emit("addStaffMessage", message, attachment);
@@ -24337,137 +24371,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tutor"],
   data: function data() {
@@ -26685,7 +26588,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.body[data-v-45774dee] {\n  padding: 40px 30px 70px;\n  position: relative;\n}\n.popup-overlay[data-v-45774dee] {\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  background: rgba(255, 255, 255, 0.7);\n  z-index: 1;\n  top: 0;\n  left: 0;\n}\n.suggestion-box[data-v-45774dee] {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: center;\n  background: white;\n  border-radius: 5px;\n  height: 250px;\n  width: 50%;\n  padding: 15px;\n  position: absolute;\n  bottom: 50%;\n  transform: translate(50%, 50%);\n  right: 50%;\n}\n.suggestion-box p[data-v-45774dee] {\n  font-size: 24px;\n  font-weight: bold;\n  text-align: center;\n}\n.close[data-v-45774dee] {\n  position: absolute;\n  right: 5px;\n  top: 5px;\n}\nform[data-v-45774dee] {\n  padding: 20px;\n  padding-bottom: 60px;\n  background: white;\n  font-size: 14px;\n}\nstrong[data-v-45774dee] {\n  margin-bottom: 24px;\n  font-size: 1.3em;\n}\n.side-label[data-v-45774dee] {\n  width: 150px;\n}\n.form-text[data-v-45774dee] {\n  margin-bottom: 18px;\n}\n.underline[data-v-45774dee] {\n  width: 80px;\n  height: 3px;\n  background-color: #0a4065;\n}\n.class-information[data-v-45774dee] {\n  padding-top: 20px;\n}\n.class-information strong[data-v-45774dee] {\n  margin-bottom: 0 !important;\n}\n.class-information-inner[data-v-45774dee] {\n  display: flex;\n  justify-content: space-around;\n  padding-top: 20px;\n}\nh5[data-v-45774dee]{\n  color: #808080;\n}\n.class-information-inner span[data-v-45774dee] {\n  color: #333333;\n}\n.view-syllabus[data-v-45774dee] {\n  background: #fff;\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\n  padding: 30px;\n  border-radius: 10px;\n}\n.subject-description[data-v-45774dee] {\n  padding-top: 15px;\n}\n.contain-syllabus[data-v-45774dee] {\n  padding: 30px;\n}\n", ""]);
+exports.push([module.i, "\n.body[data-v-45774dee] {\n  padding: 40px 30px 70px;\n  position: relative;\n}\n.popup-overlay[data-v-45774dee] {\n  position: absolute;\n  width: 100%;\n  height: 100vh;\n  background: rgba(255, 255, 255, 0.7);\n  z-index: 1;\n  top: 0;\n  left: 0;\n}\n.suggestion-box[data-v-45774dee] {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n  align-items: center;\n  background: white;\n  border-radius: 5px;\n  height: 250px;\n  width: 50%;\n  padding: 15px;\n  position: absolute;\n  bottom: 50%;\n  transform: translate(50%, 50%);\n  right: 50%;\n}\n.suggestion-box p[data-v-45774dee] {\n  font-size: 24px;\n  font-weight: bold;\n  text-align: center;\n}\n.close[data-v-45774dee] {\n  position: absolute;\n  right: 5px;\n  top: 5px;\n}\nform[data-v-45774dee] {\n  padding: 20px;\n  padding-bottom: 60px;\n  background: white;\n  font-size: 14px;\n}\nstrong[data-v-45774dee] {\n  margin-bottom: 24px;\n  font-size: 1.3em;\n}\n.side-label[data-v-45774dee] {\n  width: 150px;\n}\n.form-text[data-v-45774dee] {\n  margin-bottom: 18px;\n}\n.underline[data-v-45774dee] {\n  width: 80px;\n  height: 3px;\n  background-color: #0a4065;\n}\n.class-information[data-v-45774dee] {\n  padding-top: 20px;\n}\n.class-information strong[data-v-45774dee] {\n  margin-bottom: 0 !important;\n}\n.class-information-inner[data-v-45774dee] {\n  display: flex;\n  justify-content: space-around;\n  padding-top: 20px;\n}\nh5[data-v-45774dee] {\n  color: #808080;\n}\n.class-information-inner span[data-v-45774dee] {\n  color: #333333;\n}\n.view-syllabus[data-v-45774dee] {\n  background: #fff;\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\n  padding: 30px;\n  border-radius: 10px;\n}\n.subject-description[data-v-45774dee] {\n  padding-top: 15px;\n}\n.contain-syllabus[data-v-45774dee] {\n  padding: 30px;\n}\n", ""]);
 
 // exports
 
@@ -35890,7 +35793,18 @@ var render = function() {
                   _c(
                     "td",
                     { staticClass: "text-center", attrs: { scope: "row" } },
-                    [_vm._v(_vm._s(item.name))]
+                    [
+                      _vm._v(_vm._s(item.name) + "  "),
+                      _c("b-icon", {
+                        attrs: { icon: "x" },
+                        on: {
+                          click: function($event) {
+                            return _vm.removeSubject(item.name)
+                          }
+                        }
+                      })
+                    ],
+                    1
                   )
                 ])
               }),
@@ -36958,12 +36872,13 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "b-col",
-                  { staticClass: "text-right" },
+                  { staticClass: "text-right d-flex " },
                   [
                     _c(
                       "b-form-select",
                       {
-                        staticClass: "w-25",
+                        staticClass: "w-50 mr-2",
+                        attrs: { size: "sm" },
                         model: {
                           value: _vm.current,
                           callback: function($$v) {
@@ -36992,7 +36907,18 @@ var render = function() {
                         })
                       ],
                       2
-                    )
+                    ),
+                    _vm._v(" "),
+                    _c("b-form-input", {
+                      attrs: { placeholder: "Search name", size: "sm" },
+                      model: {
+                        value: _vm.search,
+                        callback: function($$v) {
+                          _vm.search = $$v
+                        },
+                        expression: "search"
+                      }
+                    })
                   ],
                   1
                 )
@@ -41758,9 +41684,9 @@ var render = function() {
                           _c("div", {}, [
                             _vm._v(
                               "\n                " +
-                                _vm._s(item.start) +
+                                _vm._s(_vm._f("time")(item.start)) +
                                 " - " +
-                                _vm._s(item.end) +
+                                _vm._s(_vm._f("time")(item.end)) +
                                 "\n              "
                             )
                           ]),
@@ -44203,16 +44129,28 @@ var render = function() {
                       ),
                       _vm._v(" "),
                       _c("h6", { staticClass: "toCaps" }, [
-                        _vm._v(_vm._s(item.name))
+                        _vm._v(_vm._s(item.name) + "  ")
                       ])
                     ]),
                     _vm._v(" "),
                     _c(
                       "div",
                       [
-                        _c("b-badge", { attrs: { variant: "success" } }, [
-                          _vm._v("3")
-                        ])
+                        _c(
+                          "b-badge",
+                          { attrs: { variant: "success" } },
+                          [
+                            _c("b-icon", {
+                              attrs: { icon: "x" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.drop(item.id)
+                                }
+                              }
+                            })
+                          ],
+                          1
+                        )
                       ],
                       1
                     )
@@ -51407,7 +51345,8 @@ var render = function() {
         on: {
           addGroupMessage: _vm.addGroupMessage,
           switchGroup: _vm.switchGroup,
-          addPrivateMessage: _vm.addPrivateMessage
+          addPrivateMessage: _vm.addPrivateMessage,
+          updateChat: _vm.updateChat
         }
       })
     ],
@@ -62109,7 +62048,8 @@ var render = function() {
                 on: {
                   newGroup: _vm.newGroup,
                   switchGroup: _vm.switchGroup,
-                  online: _vm.online
+                  online: _vm.online,
+                  drop: _vm.drop
                 }
               })
             ],
@@ -62416,7 +62356,8 @@ var render = function() {
         on: {
           addStaffMessage: _vm.addStaffMessage,
           addGroupMessage: _vm.addGroupMessage,
-          switchGroup: _vm.switchGroup
+          switchGroup: _vm.switchGroup,
+          updateChat: _vm.updateChat
         }
       })
     ],
@@ -63032,7 +62973,8 @@ var render = function() {
           addGroupMessage: _vm.addGroupMessage,
           switchGroup: _vm.switchGroup,
           addStaffMessage: _vm.addStaffMessage,
-          newGroup: _vm.newGroup
+          newGroup: _vm.newGroup,
+          drop: _vm.drop
         }
       }),
       _vm._v(" "),
@@ -64300,7 +64242,8 @@ var render = function() {
             on: {
               addStaffMessage: _vm.addStaffMessage,
               addGroupMessage: _vm.addGroupMessage,
-              switchGroup: _vm.switchGroup
+              switchGroup: _vm.switchGroup,
+              updateChat: _vm.updateChat
             }
           })
         ],
@@ -64591,14 +64534,16 @@ var render = function() {
                               [
                                 _c(
                                   "b-form-group",
+                                  { attrs: { label: "Phone NuMBER" } },
                                   [
                                     _c("b-form-input", {
+                                      attrs: { type: "tel" },
                                       model: {
-                                        value: _vm.details.phons,
+                                        value: _vm.details.phone,
                                         callback: function($$v) {
-                                          _vm.$set(_vm.details, "phons", $$v)
+                                          _vm.$set(_vm.details, "phone", $$v)
                                         },
-                                        expression: "details.phons"
+                                        expression: "details.phone"
                                       }
                                     })
                                   ],
@@ -69293,14 +69238,14 @@ var render = function() {
                 [
                   _c("b-col", [
                     _c("h5", [
-                      _vm._v("\n            Term:\n            "),
+                      _vm._v("\n                Term:\n                "),
                       _c("span", [_vm._v(_vm._s(_vm.syllabus.term))])
                     ])
                   ]),
                   _vm._v(" "),
                   _c("b-col", [
                     _c("h5", [
-                      _vm._v("\n            Class:\n            "),
+                      _vm._v("\n                Class:\n                "),
                       _c("span", [_vm._v(_vm._s(_vm.syllabus.grade_level))])
                     ])
                   ])
@@ -69315,7 +69260,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "class-information " },
+            { staticClass: "class-information" },
             [
               _c("strong", { staticClass: "mb-3" }, [
                 _vm._v("Subject Information")
@@ -69327,7 +69272,7 @@ var render = function() {
                 [
                   _c("b-col", { attrs: { cols: "6" } }, [
                     _c("h5", [
-                      _vm._v("\n            Subject:\n            "),
+                      _vm._v("\n                Subject:\n                "),
                       _c("span", { staticClass: "toCaps" }, [
                         _vm._v(_vm._s(_vm.syllabus.subject))
                       ])
@@ -69336,7 +69281,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("b-col", { attrs: { cols: "6" } }, [
                     _c("h5", [
-                      _vm._v("\n            Frequency:\n            "),
+                      _vm._v("\n                Frequency:\n                "),
                       _c("span", [_vm._v(_vm._s(_vm.syllabus.frequency))])
                     ])
                   ]),
@@ -69366,7 +69311,7 @@ var render = function() {
             _vm._v(" "),
             _c(
               "b-row",
-              { staticClass: " p-2 px-sm-4" },
+              { staticClass: "p-2 px-sm-4" },
               [
                 _c("b-col", [
                   _c(
@@ -69381,9 +69326,9 @@ var render = function() {
                             _vm._v(_vm._s(idx + 1) + ".")
                           ]),
                           _vm._v(
-                            "\n            " +
+                            "\n                " +
                               _vm._s(item.name) +
-                              "\n          "
+                              "\n              "
                           )
                         ]
                       )
@@ -69424,9 +69369,9 @@ var render = function() {
                             _vm._v(_vm._s(idx + 1) + ".")
                           ]),
                           _vm._v(
-                            "\n            " +
+                            "\n                " +
                               _vm._s(item.name) +
-                              "\n          "
+                              "\n              "
                           )
                         ]
                       )
@@ -69465,9 +69410,9 @@ var render = function() {
                             _vm._v(_vm._s(idx + 1) + ".")
                           ]),
                           _vm._v(
-                            "\n            " +
+                            "\n                " +
                               _vm._s(item.name) +
-                              "\n          "
+                              "\n              "
                           )
                         ]
                       )
@@ -69506,9 +69451,9 @@ var render = function() {
                             _vm._v(_vm._s(idx + 1) + ".")
                           ]),
                           _vm._v(
-                            "\n            " +
+                            "\n                " +
                               _vm._s(item.name) +
-                              "\n          "
+                              "\n              "
                           )
                         ]
                       )
@@ -69549,9 +69494,9 @@ var render = function() {
                             _vm._v(_vm._s(idx + 1) + ".")
                           ]),
                           _vm._v(
-                            "\n            " +
+                            "\n                " +
                               _vm._s(item.name) +
-                              "\n          "
+                              "\n              "
                           )
                         ]
                       )
@@ -69604,7 +69549,7 @@ var render = function() {
               [
                 _c("b-col", [
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._v(_vm._s(_vm.syllabus.comments))
+                    _vm._v(_vm._s(_vm.syllabus.comment))
                   ])
                 ])
               ],

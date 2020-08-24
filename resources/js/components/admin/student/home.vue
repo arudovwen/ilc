@@ -50,8 +50,8 @@
           <b-col>
             <h4 class="toCaps mb-4">Showing : {{current== ''? 'All': current.toLowerCase()}}</h4>
           </b-col>
-          <b-col class="text-right">
-            <b-form-select v-model="current" class="w-25">
+          <b-col class="text-right d-flex ">
+            <b-form-select v-model="current" class="w-50 mr-2" size="sm">
               <b-form-select-option value disabled>Select Level</b-form-select-option>
               <b-form-select-option value>All</b-form-select-option>
               <b-form-select-option
@@ -60,6 +60,9 @@
                 :key="idx"
               >{{item.class_name}}</b-form-select-option>
             </b-form-select>
+
+
+            <b-form-input placeholder="Search name"  v-model="search" size="sm"></b-form-input>
           </b-col>
         </b-row>
 
@@ -114,6 +117,7 @@ export default {
   props: ["admin"],
   data() {
     return {
+      search:'',
       id: null,
       busy: true,
       students: [],
@@ -127,7 +131,7 @@ export default {
         "email",
         { key: "gender", sortable: true },
         { key: "student_level", sortable: true },
-         { key: "sub_class", sortable: true },
+        { key: "sub_class", sortable: true },
         "action",
         "drop",
       ],
@@ -149,17 +153,20 @@ export default {
   },
   computed: {
     sortedStudents() {
-      return this.students.filter((item) => {
-        if (
-          item.student_level.toLowerCase().trim() ==
-          this.current.toLowerCase().trim()
-        ) {
-          return item;
-        }
-        if (this.current == "") {
-          return item;
-        }
+      var search = this.students.filter((item) => {
+        return item.student_level
+          .toLowerCase()
+          .trim()
+          .includes(this.search.toLowerCase().trim());
       });
+      var level = search.filter((item) => {
+        return item.student_level
+          .toLowerCase()
+          .trim()
+          .includes(this.current.toLowerCase().trim());
+      });
+
+      return level;
     },
   },
   methods: {

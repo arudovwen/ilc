@@ -67,6 +67,7 @@
           :groups="groups"
           @switchGroup="switchGroup"
           @online="online"
+           @drop="drop"
         />
       </b-row>
     </div>
@@ -125,6 +126,10 @@ export default {
   },
 
   methods: {
+
+     drop(val) {
+      this.$emit("drop",val);
+    },
     newGroup() {
       this.$emit("newGroup");
     },

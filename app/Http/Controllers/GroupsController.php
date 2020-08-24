@@ -164,12 +164,14 @@ class GroupsController extends Controller
                 'message'=> \strtolower($group->name).' group removed',
                 'status'=> false,
                 'sender_id'=> $group->id ,
-                'role' => 'student'
+                'role' => 'student',
+                'type' => 'group'
             ]);
             broadcast(new DeletedGroup($group));
-        }
            
+        }
         $group->delete();
+       
     }
     public function multiDrop(Request $request)
     {

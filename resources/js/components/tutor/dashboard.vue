@@ -21,6 +21,7 @@
       :group_id="group_id"
       @switchGroup="switchGroup"
       :showChat="showChat"
+      @updateChat ="updateChat"
     />
   </div>
 </template>
@@ -55,6 +56,9 @@ export default {
     this.getMessages();
   },
   methods: {
+    updateChat(){
+        this.getgroups();
+    },
     addStaffMessage(message, attachment) {
    
       this.staffsMessages.push({

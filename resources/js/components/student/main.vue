@@ -84,6 +84,7 @@ export default {
       "GroupSubscribed",
       (e) => {
         this.getNotifications();
+          this.$emit('updateChat')
       }
     );
     Echo.private("resource-added" + this.$props.student.id).listen(

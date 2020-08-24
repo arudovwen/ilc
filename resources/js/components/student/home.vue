@@ -32,7 +32,7 @@
                   <p>{{result.total_score}}/{{result.overall}}</p></div>
                 </div>
                 <b-progress  :max="result.overall" class="mb-3">
-                  <b-progress-bar :value="result.total_score" :animated="animate" variant="info" :label="`${result.total_score}/${result.overall}`" ></b-progress-bar>
+                  <b-progress-bar :value="result.total_score" variant="info" :label="`${result.total_score}/${result.overall}`" ></b-progress-bar>
                 </b-progress>
               </div>
               </div>

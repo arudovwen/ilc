@@ -367,7 +367,8 @@ export default {
         content: this.content,
         excerpt: this.excerpt,
         worksheet_id: 0,
-        level:this.syllabus.grade_level
+        level:this.syllabus.grade_level,
+        cover:this.syllabus.cover
       };
       axios
         .post("/api/library", data, {

@@ -16231,7 +16231,8 @@ __webpack_require__.r(__webpack_exports__);
         content: this.content,
         excerpt: this.excerpt,
         worksheet_id: 0,
-        level: this.syllabus.grade_level
+        level: this.syllabus.grade_level,
+        cover: this.syllabus.cover
       };
       axios.post("/api/library", data, {
         headers: {
@@ -52867,7 +52868,6 @@ var render = function() {
                                 _c("b-progress-bar", {
                                   attrs: {
                                     value: result.total_score,
-                                    animated: _vm.animate,
                                     variant: "info",
                                     label:
                                       result.total_score + "/" + result.overall

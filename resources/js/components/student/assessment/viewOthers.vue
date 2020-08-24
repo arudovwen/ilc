@@ -191,16 +191,6 @@
       </div>
     </b-modal>
 
-      <b-modal id="ended" size="lg" hide-footer>
-      <div class="text-center">
-        This Assessment has ended 
-       
-      </div>
-     
-      <div class="text-center">
-        <b-button variant="outline-darkgreen" @click="closeForm">Close</b-button>
-      </div>
-    </b-modal>
   </div>
 </template>
 

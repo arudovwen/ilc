@@ -368,6 +368,9 @@ nav {
   background: rgba(19, 166, 153, 0.9) !important;
   color: #fff;
 }
+.main-title{
+  width:350px;
+}
 .title{
   color: rgba(19, 166, 153, 0.9) ;
   font-weight:bold;

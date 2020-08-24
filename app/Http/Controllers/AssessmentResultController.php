@@ -188,6 +188,7 @@ class AssessmentResultController extends Controller
                 'overall'=>$request->overall,
                 'total_score'=>$request->total_score,
                 'record'=>\json_encode($request->record),
+                'status'=>'pending'
             ]);
          
 

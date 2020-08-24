@@ -126,7 +126,7 @@
                 <div class="assignment-notification">
                   <div class="notification-content">
                     <div v-for="(item,idx) in quizResult.filter(item=>item.status=='pending')" :key="idx" @click="getContent(item)">
-                      <p>{{item.user.name}}u submitted {{item.subject}} {{item.type}} - {{item.title}}</p>
+                      <p>{{item.user.name}} submitted {{item.subject}} {{item.type}} - {{item.title}}</p>
                       <div class="notify-class">
                         <p>{{item.level}}</p>
                       </div>

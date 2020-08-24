@@ -11321,10 +11321,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["template", "total", "details"],
@@ -11361,7 +11357,8 @@ __webpack_require__.r(__webpack_exports__);
         title: this.$props.details.title,
         tutor_id: this.$props.details.tutor_id,
         total_score: this.total_scores,
-        record: this.$props.template
+        record: this.$props.template,
+        overall: this.$props.total
       };
       axios.post("/api/student-assessment-result", data, {
         headers: {
@@ -11422,6 +11419,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var score = 0;
       var result = {};
+      this.template[this.num].question[id].student_score = 0;
 
       if (this.scores.length > 0) {
         this.scores.forEach(function (item, index) {
@@ -11434,6 +11432,7 @@ __webpack_require__.r(__webpack_exports__);
       if (answer.answer_format !== "multi choice") {
         if (e.toLowerCase() == answer.real_answer.toLowerCase()) {
           score = answer.score;
+          this.template[this.num].question[id].student_score = answer.score;
           this.right = answer.real_answer;
           this.wrong = null;
         } else {
@@ -11713,16 +11712,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _miniupload__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../miniupload */ "./resources/js/components/miniupload.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -25072,7 +25061,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-71c18bbd] {\n  padding-top: 50px;\n  padding-bottom: 70px;\n}\nnav[data-v-71c18bbd] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-71c18bbd] {\n  opacity: 0;\n}\n.overall-tab[data-v-71c18bbd] {\n  padding-top: 20px;\n}\n.main-table[data-v-71c18bbd] {\n  padding-top: 20px;\n}\n.student-assessment[data-v-71c18bbd] {\n  padding: 40px 20px;\n}\n.card-header[data-v-71c18bbd] {\n  background-color: green;\n}\n.btn-create[data-v-71c18bbd] {\n  background: rgba(19, 166, 153, 0.9) !important;\n  color: #fff;\n}\n.title[data-v-71c18bbd]{\n  color: rgba(19, 166, 153, 0.9) ;\n  font-weight:bold;\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-71c18bbd] {\n  padding-top: 50px;\n  padding-bottom: 70px;\n}\nnav[data-v-71c18bbd] {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr 1fr;\n  grid-column-gap: 30px;\n}\n.hiden[data-v-71c18bbd] {\n  opacity: 0;\n}\n.overall-tab[data-v-71c18bbd] {\n  padding-top: 20px;\n}\n.main-table[data-v-71c18bbd] {\n  padding-top: 20px;\n}\n.student-assessment[data-v-71c18bbd] {\n  padding: 40px 20px;\n}\n.card-header[data-v-71c18bbd] {\n  background-color: green;\n}\n.btn-create[data-v-71c18bbd] {\n  background: rgba(19, 166, 153, 0.9) !important;\n  color: #fff;\n}\n.main-title[data-v-71c18bbd]{\n  width:350px;\n}\n.title[data-v-71c18bbd]{\n  color: rgba(19, 166, 153, 0.9) ;\n  font-weight:bold;\n}\n", ""]);
 
 // exports
 
@@ -48420,28 +48409,6 @@ var render = function() {
           _vm._v(" "),
           _c(
             "b-modal",
-            { attrs: { id: "completed", size: "lg", "hide-footer": "" } },
-            [
-              _c(
-                "div",
-                { staticClass: "text-center" },
-                [
-                  _c(
-                    "b-button",
-                    {
-                      attrs: { variant: "outline-darkgreen" },
-                      on: { click: _vm.closeForm }
-                    },
-                    [_vm._v("Close")]
-                  )
-                ],
-                1
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "b-modal",
             { attrs: { id: "round", size: "md", "hide-footer": "" } },
             [
               _c("div", { staticClass: "text-center mb-2" }, [
@@ -48568,27 +48535,35 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("b-modal", { attrs: { id: "ended", size: "lg", "hide-footer": "" } }, [
-        _c("div", { staticClass: "text-center" }, [
-          _vm._v("\n      This Assessment has ended \n     \n    ")
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "text-center" },
-          [
-            _c(
-              "b-button",
-              {
-                attrs: { variant: "outline-darkgreen" },
-                on: { click: _vm.closeForm }
-              },
-              [_vm._v("Close")]
-            )
-          ],
-          1
-        )
-      ])
+      _c(
+        "b-modal",
+        { attrs: { id: "completed", size: "lg", "hide-footer": "" } },
+        [
+          _c("div", { staticClass: "text-center" }, [
+            _vm._v("\n      This Assessment has ended \n     \n    ")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "text-center" }, [
+            _vm._v(_vm._s(_vm.details.feedback))
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "text-center" },
+            [
+              _c(
+                "b-button",
+                {
+                  attrs: { variant: "outline-darkgreen" },
+                  on: { click: _vm.closeForm }
+                },
+                [_vm._v("Close")]
+              )
+            ],
+            1
+          )
+        ]
+      )
     ],
     1
   )
@@ -49517,29 +49492,7 @@ var render = function() {
             1
           )
         ]
-      ),
-      _vm._v(" "),
-      _c("b-modal", { attrs: { id: "ended", size: "lg", "hide-footer": "" } }, [
-        _c("div", { staticClass: "text-center" }, [
-          _vm._v("\n      This Assessment has ended \n     \n    ")
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "text-center" },
-          [
-            _c(
-              "b-button",
-              {
-                attrs: { variant: "outline-darkgreen" },
-                on: { click: _vm.closeForm }
-              },
-              [_vm._v("Close")]
-            )
-          ],
-          1
-        )
-      ])
+      )
     ],
     1
   )
@@ -50892,13 +50845,11 @@ var render = function() {
                         }),
                         0
                       )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "class_section phert-5" }, [
-                    _c("div", { staticClass: "form-control text-align" }, [
-                      _vm._v(" No Class Available")
-                    ])
-                  ]),
+                    : _c("div", { staticClass: "class_section phert-5" }, [
+                        _c("div", { staticClass: "form-control text-align" }, [
+                          _vm._v(" No Class Available")
+                        ])
+                      ]),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -57806,7 +57757,7 @@ var render = function() {
                                           _c("p", [
                                             _vm._v(
                                               _vm._s(item.user.name) +
-                                                "u submitted " +
+                                                " submitted " +
                                                 _vm._s(item.subject) +
                                                 " " +
                                                 _vm._s(item.type) +

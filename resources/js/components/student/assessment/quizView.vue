@@ -139,11 +139,7 @@
           <b-button type="submit">Submit</b-button>
         </div>
       </b-row>
-      <b-modal id="completed" size="lg" hide-footer>
-        <div class="text-center">
-          <b-button variant="outline-darkgreen" @click="closeForm">Close</b-button>
-        </div>
-      </b-modal>
+  
 
       <b-modal id="round" size="md" hide-footer>
         <div class="text-center mb-2">
@@ -184,12 +180,12 @@
         </div>
       </b-modal>
     </b-form>
-       <b-modal id="ended" size="lg" hide-footer>
+       <b-modal id="completed" size="lg" hide-footer>
       <div class="text-center">
         This Assessment has ended 
        
       </div>
-     
+     <div class="text-center">{{details.feedback}}</div>
       <div class="text-center">
         <b-button variant="outline-darkgreen" @click="closeForm">Close</b-button>
       </div>
@@ -238,6 +234,7 @@ export default {
         tutor_id: this.$props.details.tutor_id,
         total_score: this.total_scores,
         record: this.$props.template,
+        overall:this.$props.total
       };
       axios
         .post("/api/student-assessment-result", data, {
@@ -307,6 +304,7 @@ export default {
     calcAnswer(id, answer, e) {
       var score = 0;
       var result = {};
+       this.template[this.num].question[id].student_score=0
 
       if (this.scores.length > 0) {
         this.scores.forEach((item, index) => {
@@ -318,6 +316,7 @@ export default {
       if (answer.answer_format !== "multi choice") {
         if (e.toLowerCase() == answer.real_answer.toLowerCase()) {
           score = answer.score;
+           this.template[this.num].question[id].student_score = answer.score
           this.right = answer.real_answer;
           this.wrong = null;
         } else {

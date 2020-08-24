@@ -2,89 +2,90 @@
   <b-col md="4">
     <b-card class="online-presence">
       <div class="online-presence-top">
-        <b-form-input placeholder="Search to start chat" v-model="search"></b-form-input>
+        <b-form-input placeholder="Search to start chat"></b-form-input>
         <span class="px-2">
-          
           <b-icon icon="three-dots-vertical" id="popover-button-event" font-scale="2"></b-icon>
         </span>
-         <b-popover ref="popover" target="popover-button-event" >
-      <ul class="pop">
-        <li @click="newGroup">New Group</li>
-         <li @click="online">Who's Online?</li>
-      </ul>
-    </b-popover>
+        <b-popover ref="popover" target="popover-button-event">
+          <ul class="pop">
+            <li @click="online">Who's Online?</li>
+          </ul>
+        </b-popover>
       </div>
       <hr />
-      <div class="single-online-tag" :class="{active:active=='staff-chat'}" @click="switchGroup('staff-chat')">
-        <div class="inner-single">
-          <div class="message-info">
-            <div class="avatar mr-3">
-              <b-avatar></b-avatar>
-            </div>
-            <h6 class="toCaps">Staffs</h6>
-          </div>
-          <div>
-            <b-badge variant="success">3</b-badge>
-          </div>
-        </div>
-      </div>
-      <hr class="m-0" />
-      <div class="online-tag">
-        <div
 
+      <div class="online-tag">
+        <div class="mb-3">
+          <strong class="text-muted">Groups</strong>
+        </div>
+        <div
           class="single-online-tag"
-          :class="{active:active==item.id}"
-          @click="switchGroup(item.id,)"
-          v-for="(item,idx) in sortedGroups"
+          v-for="(group,idx) in groups"
           :key="idx"
+          @click="switchGroup('group',group.id,)"
         >
           <div class="inner-single">
             <div class="message-info">
-              <div class="avatar mr-3">
-                <b-avatar></b-avatar>
-              </div>
-              <h6 class="toCaps">{{item.name}}</h6>
+              <b-avatar class="mr-3"></b-avatar>
+              <h6 class="toCaps">{{group.name}}</h6>
             </div>
             <div>
               <b-badge variant="success">3</b-badge>
             </div>
           </div>
         </div>
-        <hr class="m-0"/>
+        <hr />
+        <div class="mb-3">
+          <strong class="text-muted">Classmates</strong>
+        </div>
+        <div
+          class="single-online-tag border-bottom"
+          @click="switchGroup('private',mate.id)"
+          v-for="(mate,index) in classmates"
+          :class="{active:mate.id==receiver_id}"
+        >
+          <div class="inner-single">
+            <div class="message-info">
+              <div class="mr-3">
+                <b-avatar></b-avatar>
+              </div>
+              <div>
+                <h6 class="toCaps mb-1">{{mate.name}}</h6>
+                <small
+                  class="lastmessage"
+                  v-if="getLastMessage(mate.id).length"
+                >{{getLastMessage(mate.id)[getLastMessage(mate.id).length-1].message}}</small>
+              </div>
+            </div>
+            <div>
+              <small
+                v-if="getLastMessage(mate.id).length"
+              >{{getLastMessage(mate.id)[getLastMessage(mate.id).length-1].created_at | moment('h:mm A')}}</small>
+              <b-badge variant="success">3</b-badge>
+            </div>
+          </div>
+        </div>
       </div>
     </b-card>
   </b-col>
 </template>
 <script>
 export default {
-  props: ["groups"],
-   data() {
-     return {
-       active:'',
-       search:''
-     }
-   },
-   mounted() {
-     this.active="staff-chat"
-   },
-   computed: {
-     sortedGroups(){
-       return this.$props.groups.filter(item=>item.name.toLowerCase().includes(this.search.toLowerCase()))
-     }
-   },
+  props: ["student", "groups", "classmates", "receiver_id", "privateMessages"],
+
   methods: {
-    switchGroup(id) {
-      this.active=id
-      this.$emit("switchGroup", id);
+    switchGroup(name, id) {
+      this.$emit("switchGroup", name, id);
     },
     online() {
-       this.$refs.popover.$emit('close')
       this.$emit("online");
+          this.$refs.popover.$emit('close')
     },
-    newGroup(){
-       this.$refs.popover.$emit('close')
-   this.$emit('newGroup')
-    }
+    getLastMessage(id) {
+      return this.$props.privateMessages.filter(
+        (item) => (item.receiver_id == id) | (item.user_id == id)
+      );
+    },
   },
 };
 </script>
@@ -95,18 +96,18 @@ export default {
   display: flex;
   height: 84vh;
 }
+.pop{
+  margin: 0;
+}
+.pop li{
+  padding: 10px 0;
+}
 .single-online-tag {
   padding: 15px 10px;
 }
 .single-online-tag.active {
   background-color: #fff;
   border-left: 3px solid #ccc;
-}
-.pop{
-  margin: 0;
-}
-.pop li{
-  padding: 10px 0;
 }
 .online-presence {
   background: #f5f4f4;
@@ -132,7 +133,6 @@ export default {
   margin-bottom: 0;
   line-height: 0;
 } */
-
 .file-attachement {
   display: flex;
   width: 100%;

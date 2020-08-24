@@ -1,54 +1,22 @@
 <template>
   <div class="body">
-    <!-- <nav class="mb-1">
-      <b-button class="shadow-sm" @click="multiDrop">Multi-Drop</b-button>
-      <b-button class="shadow-sm " v-b-modal.group>Create Group</b-button>
-    </nav>-->
-    <b-card no-body class="group-chat">
-      <!-- <b-tabs pills card vertical end>
-      <b-tab :title="item.name+'('+item.class_name+')'"  v-for="(item,idx) in groups" :key="idx"><b-card-text>
-        <Chat :id="item.id"  :tutor="tutor"/>
-        </b-card-text></b-tab>
-     
-      </b-tabs>-->
-      <Chat :id="item.id" :tutor="tutor" />
-    </b-card>
-
-    <!-- <div class="d-flex justify-content-between">
-      <table class="table table-bordered mr-4 w-75">
-        <thead class="thead-darkblue">
-          <tr>
-            <th>Group Name</th>
-            <th>Class</th>
-            <th>Action</th>
-            <th>
-              <input type="checkbox" v-model="item" />
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(item,idx) in groups" :key="idx">
-            <td class="toCaps chat" @click="gotoGroup(item.id)">
-              {{item.name}}
-              <i class="fa fa-comments" aria-hidden="true"></i>
-            </td>
-            <td>{{item.class_name}}</td>
-            <td class="d-flex justify-content-around">
-              <span class="mr-3" @click="drop(item.id)">
-                <i class="fa fa-minus-circle" aria-hidden="true"></i> Drop
-              </span>
-              <span @click="edit(item.id)">
-                <i class="fas fa-edit"></i>Update
-              </span>
-            </td>
-            <td>
-              <input type="checkbox" :value="item.id" v-model="items" />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    
-    </div>-->
+    <Chat
+      :tutor="tutor"
+      :onlineGroupMembers="onlineGroupMembers"
+      :groupMessages="groupMessages"
+      @addGroupMessage="addGroupMessage"
+      :groups="groups"
+      :group_id="group_id"
+      @switchGroup="switchGroup"
+      :onlineStaffs="onlineStaffs"
+      :staffsMessages="staffsMessages"
+      @addStaffMessage="addStaffMessage"
+      :showChat="showChat"
+      @newGroup="newGroup"
+    />
+    <!-- <staffChat   :tutor="tutor"  :onlineStaffs="onlineStaffs"
+      :staffsMessages="staffsMessages"    @addStaffMessage="addStaffMessage"/>
+    -->
 
     <b-modal id="group" title="New Group" hide-footer>
       <form @submit.prevent="addClass" class="mb-5">
@@ -62,33 +30,44 @@
             placeholder="Pearl"
           />
         </div>
-        <div class="form-group">
-          <label for>Add Class</label>
-          <select class="custom-select" v-model="class_name">
-            <option selected value>Select Class</option>
-            <option :value="item" v-for="(item,idx) in allClass" :key="idx">{{item}}</option>
-          </select>
-        </div>
+         <div class="mt-3 text-center">
+    <b-button-group size="sm">
+      <b-button @click="switchGrouping(true)">Class Group</b-button>
+      
+      <b-button @click="switchGrouping(false)">Student Group</b-button>
+    </b-button-group>
+  </div>
 
-        <p class="text-center">or</p>
-        <div class="form-group">
-          <label for>Add Students</label>
-          <select class="custom-select" v-model="name_class">
-            <option selected value>Select Class</option>
-            <option :value="item" v-for="(item,idx) in allClass" :key="idx">{{item}}</option>
-          </select>
-        </div>
+        <div class="d-flex mt-4">
+          <div class="form-group" v-if="group_type">
+            <label for>Add Entire Class</label>
+            <select class="custom-select" v-model="class_name">
+              <option selected value>Select Class</option>
+              <option :value="item" v-for="(item,idx) in allClass" :key="idx">{{item}}</option>
+            </select>
+          </div>
 
-        <div class="names form-group" v-if="names.length">
-          <label class="custom-control custom-checkbox" v-for="(item,idx) in names" :key="idx">
-            <input
-              type="checkbox"
-              :value="item.id"
-              class="custom-control-input"
-              v-model="added_names"
-            />
-            <span class="custom-control-indicator">{{item.name}}</span>
-          </label>
+          <div v-else>
+            <div class="form-group">
+              <label for>Add Students</label>
+              <select class="custom-select" v-model="name_class">
+                <option selected value>Select Class</option>
+                <option :value="item" v-for="(item,idx) in allClass" :key="idx">{{item}}</option>
+              </select>
+            </div>
+
+            <div class="names form-group p-3" v-if="names.length">
+              <label class="custom-control custom-checkbox" v-for="(item,idx) in names" :key="idx">
+                <input
+                  type="checkbox"
+                  :value="item.id"
+                  class="custom-control-input"
+                  v-model="added_names"
+                />
+                <span class="custom-control-indicator">{{item.name}}</span>
+              </label>
+            </div>
+          </div>
         </div>
 
         <div class="form-group my-4">
@@ -106,11 +85,21 @@
 
 <script>
 import Chat from "./chat";
+import StaffChat from "./staffChat";
 export default {
-  props: ["tutor"],
+  props: [
+    "tutor",
+    "onlineStaffs",
+    "staffsMessages",
+    "onlineGroupMembers",
+    "groupMessages",
+    "groups",
+    "group_id",
+    "showChat",
+  ],
   data() {
     return {
-      groups: [],
+      group_type:true,
       heads: [],
       name: "",
       class_name: "",
@@ -130,12 +119,28 @@ export default {
   },
   components: {
     Chat,
+    StaffChat,
   },
   mounted() {
-    this.getgroups();
+    // this.getgroups();
     this.getCLasses();
   },
   methods: {
+    switchGrouping(val){
+this.group_type = val
+    },
+    newGroup() {
+      this.$bvModal.show("group");
+    },
+    switchGroup(id) {
+      this.$emit("switchGroup", id);
+    },
+    addStaffMessage(message, attachment) {
+      this.$emit("addStaffMessage", message, attachment);
+    },
+    addGroupMessage(message, attachment) {
+      this.$emit("addGroupMessage", message, attachment);
+    },
     reset() {
       this.names = [];
       this.added_names = [];
@@ -253,19 +258,7 @@ export default {
           }
         });
     },
-    getgroups() {
-      axios
-        .get("/api/group", {
-          headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            this.groups = res.data;
-          }
-        });
-    },
+
     drop(id) {
       let del = confirm("Are you sure?");
       if (del) {

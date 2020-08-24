@@ -35,7 +35,23 @@
       </b-nav-item>
     </b-nav>
     <transition name="slide-fade">
-      <router-view :student="student" :notifications="notifications" class="semi-white"></router-view>
+      <router-view
+        :student="student"
+        :notifications="notifications"
+        class="semi-white"
+        :groups="groups"
+        :groupMessage="groupMessage"
+        :onlineMembers="onlineMembers"
+        @addGroupMessage="addGroupMessage"
+        @switchGroup="switchGroup"
+        :currentChat="currentChat"
+        :group_id="group_id"
+        :classmates="classmates"
+         :showChat="showChat"
+           :privateMessages="privateMessages"
+             @addPrivateMessage="addPrivateMessage"
+              :receiver_id="receiver_id"
+      ></router-view>
     </transition>
   </div>
 </template>
@@ -43,7 +59,19 @@
 
 <script>
 export default {
-  props: ["student"],
+  props: [
+    "student",
+    "onlineMembers",
+    "groupMessage",
+    "groups",
+    "currentChat",
+    "group_id",
+    "classmates",
+    "showChat",
+    "privateMessages",
+    "receiver_id"
+
+  ],
   data() {
     return {
       showNotification: false,
@@ -79,6 +107,17 @@ export default {
     $route: "reset",
   },
   methods: {
+    switchGroup(name,id) {
+      this.$emit("switchGroup",name, id);
+    },
+
+    addGroupMessage(message, attachment) {
+      this.$emit("addGroupMessage", message, attachment);
+    },
+     addPrivateMessage(message, attachment) {
+     
+      this.$emit("addPrivateMessage", message, attachment);
+    },
     initialLoad() {
       axios
         .get("/api/student-group", {
@@ -141,8 +180,8 @@ export default {
 <style scoped>
 .nav {
   background: #f7f8fa;
-  position:sticky;
-  top:0;
+  position: sticky;
+  top: 0;
   z-index: 9;
 }
 .nav-item i {
@@ -172,7 +211,7 @@ export default {
   max-height: 300px;
   overflow: scroll;
 }
-ul{
+ul {
   margin: 0;
 }
 .icon {

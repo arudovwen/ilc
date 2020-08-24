@@ -53,40 +53,39 @@
     <div class="card tutor-chat">
       <b-row>
         <b-col md="8" class="chat-area">
-          <div class="chat-body" v-chat-scroll>
-            <div class="message-body">
-              <ul>
-                <li
-                  class="message mb-4"
-                  v-for="(message,idx) in messages"
-                  :key="idx"
-                  :class="{'text-right':message.user_id == tutor.id}"
-                >
-                  <div class=" rounded-pill chat-message" :class="{'ml-auto':message.tutor}">
-                    <strong class="text-muted" v-if="message.tutor">{{message.tutor.name}}</strong>
-                    <strong class="text-muted" v-if="message.user">{{message.user.name}}</strong>
-                    <br />
-                    <span v-if="message.message" class="mr-3">{{message.message}}</span>
-                    <a v-else :href="message.attachment" download class="mr-3">
-                      <b-img :src="message.attachment" fluid width="60"></b-img>
-                    </a>
-                    <small class="text-muted">{{message.created_at | moment('h:mm a')}}</small>
-                  </div>
-                </li>
-               
-              </ul>
-            </div>
-          </div>
+          <GroupChat :tutor="tutor" :groupMessages="groupMessages" v-if="showChat=='group'" />
+          <staffsChat
+            v-if="showChat=='staff'"
+            :tutor="tutor"
+            :onlineStaffs="onlineStaffs"
+            :staffsMessages="staffsMessages"
+          />
           <ChatBar @submit="submit" @attach="attach" />
         </b-col>
-        <ChatMenu :groups="groups" @joinGroup="joinGroup" @online="online" />
+        <ChatMenu
+          @newGroup="newGroup"
+          :groups="groups"
+          @switchGroup="switchGroup"
+          @online="online"
+        />
       </b-row>
     </div>
 
-    <b-modal id="online" title="Online Users" hide-footer>
+    <b-modal id="online-group" title="Online Users" hide-footer>
       <div class="text-center">
-        <b-list-group class="text-center">
-          <b-list-group-item v-for="(user,id) in users" :key="id" class="toCaps">{{user.name}}</b-list-group-item>
+        <b-list-group class="text-center"   v-if="showChat=='staff'">
+          <b-list-group-item
+            v-for="(user,id) in onlineStaffs"
+            :key="id"
+            class="toCaps"
+          >{{user.name}}</b-list-group-item>
+        </b-list-group>
+        <b-list-group class="text-center" v-else>
+          <b-list-group-item
+            v-for="(user,id) in onlineGroupMembers"
+            :key="id"
+            class="toCaps"
+          >{{user.name}}</b-list-group-item>
         </b-list-group>
       </div>
     </b-modal>
@@ -96,12 +95,21 @@
 <script>
 import ChatBar from "../chatBar";
 import ChatMenu from "../chatMenu";
+import GroupChat from "./groupChat";
+import StaffsChat from "./staffsChat";
 export default {
-  props: ["tutor"],
+  props: [
+    "tutor",
+    "onlineGroupMembers",
+    "groupMessages",
+    "groups",
+    "group_id",
+    "showChat",
+    "onlineStaffs",
+    "staffsMessages",
+  ],
   data() {
     return {
-      group_id: null,
-      groups: [],
       messages: [],
       message: "",
       attachment: "",
@@ -112,109 +120,64 @@ export default {
   components: {
     ChatBar,
     ChatMenu,
+    GroupChat,
+    StaffsChat,
   },
-  created() {
-    this.getgroups();
-  },
-  mounted() {},
+
   methods: {
+    newGroup() {
+      this.$emit("newGroup");
+    },
+    switchGroup(id) {
+      this.$emit("switchGroup", id);
+    },
     online() {
-      this.$bvModal.show("online");
+      this.$bvModal.show("online-group");
     },
     attach(val) {
       this.attachment = val;
       this.submit(null);
     },
 
-    getgroups() {
-      axios
-        .get("/api/group", {
-          headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            this.groups = res.data;
-            this.getMessages(this.groups[0].id);
-            this.joinGroup(
-              this.groups[0].name,
-              this.groups[0].id,
-              this.groups[0].tutor_id
-            );
-            this.group_id = this.groups[0].id;
-          }
-        });
-    },
-
     submit(message) {
-      this.showEmoji = false;
-      this.messages.push({
-        message: message,
-        tutor: this.$props.tutor,
-        attachment: this.attachment,
-      });
-      let data = {
-        message: message,
-        group_id: this.group_id,
-        attachment: this.attachment,
-      };
-      axios
-        .post("/api/send-message", data, {
-          headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            this.message = "";
-          }
-        });
-    },
-    getMessages(id) {
-      axios
-        .get(`/api/get-messages/${id}`, {
-          headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            this.messages = res.data;
-          }
-        });
-    },
-    joinGroup(name, id, tutor) {
-      this.group_id = id
-      axios
-        .get(`/api/student-group/${id}`, {
-          headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            Echo.join(name + id + tutor)
-              .here((users) => {
-                this.users = users;
-              })
-              .joining((user) => {
-                if (!this.users.includes(user)) {
-                  this.users.push(user);
-                }
-              })
-              .listen("GroupMessageSent", (e) => {
-                this.messages.push({
-                  message: e.message.message,
-                  user: e.user,
-                  tutor: e.tutor,
-                });
-              })
-              .leaving((user) => {
-                this.users = this.users.filter((u) => u.id != user.id);
-              });
-          }
-        });
+      if (this.$props.showChat == "group") {
+        this.$emit("addGroupMessage", message, this.attachment);
+        let data = {
+          message: message,
+          group_id: this.$props.group_id,
+          attachment: this.attachment,
+        };
+        axios
+          .post("/api/send-message", data, {
+            headers: {
+              Authorization: `Bearer ${this.$props.tutor.access_token}`,
+            },
+          })
+          .then((res) => {
+            if (res.status == 200) {
+              this.message = "";
+            }
+          });
+      }
+
+      if (this.$props.showChat == "staff") {
+        this.$emit("addStaffMessage", message, this.attachment);
+        let data = {
+          message: message,
+          attachment: this.attachment,
+        };
+        axios
+          .post("/api/staff-message", data, {
+            headers: {
+              Authorization: `Bearer ${this.$props.tutor.access_token}`,
+            },
+          })
+          .then((res) => {
+            if (res.status == 200) {
+              this.message = "";
+            }
+          });
+      }
     },
   },
 };

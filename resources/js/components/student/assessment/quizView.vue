@@ -124,7 +124,7 @@
                 </b-col>
               </b-row>-->
               <b-col class="text-left">
-                <b-img :src="question.media" v-if="question.media" width="80px"></b-img>
+                <b-img :src="template[num].question[quest].media" v-if="template[num].question[quest].media" width="80px"></b-img>
               </b-col>
             </li>
           </ol>

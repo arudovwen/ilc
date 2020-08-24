@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class PrivateMessage extends Model
 {
 
-    protected $fillable = ['message','attachment'];
+    protected $fillable = ['user_id','receiver_id','message','attachment'];
     public function tutor(){
         return $this->belongsTo(Tutor::class);
     }

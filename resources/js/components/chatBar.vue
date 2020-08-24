@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <b-form @submit.prevent="submit">
     <div class="progress mt-2 ml-auto text-right" v-if="start">
       <div
         class="progress-bar progress-bar-striped"
@@ -34,11 +34,11 @@
           />
         </span>
       </div>
-      <div class="send-btn btn" type="button" @click="submit">
+      <button class="send-btn btn" type="submit">
         <i class="fa fa-paper-plane" aria-hidden="true"></i>
-      </div>
+      </button>
     </div>
-  </div>
+  </b-form>
 </template>
 
 <script>

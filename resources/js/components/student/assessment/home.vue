@@ -216,6 +216,7 @@ export default {
     this.getData();
   },
   methods: {
+    
     getData() {
       let student = JSON.parse(localStorage.getItem("typeStudent"));
       axios
@@ -318,6 +319,7 @@ export default {
             if (res.data.status == "begin") {
               this.view(info.id, info.end);
             } else {
+              
               this.$toasted.error("Assessment already submitted");
             }
           }

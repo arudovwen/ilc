@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Classes;
 use Illuminate\Http\Request;
 
@@ -19,7 +20,10 @@ class ClassesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+    public function getClassmates(){
+        $user = auth('api')->user();
+        return User::where('school_id',$user->school_id)->where('student_level',$user->student_level)->get();
+    }
      public function getAllTutorClasses(){
         $school_id = auth('tutor')->user()->school_id;
         

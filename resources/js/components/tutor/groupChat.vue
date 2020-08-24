@@ -1,52 +1,34 @@
 <template>
-  <div class="chat-body" v-chat-scroll>
-    <div class="message-body">
-      <ul>
-        <li class="message mb-4" v-for="(message,idx) in sortedMessage" :key="idx">
-          <div
-            class="shadow-sm rounded-pill chat-message"
-            :class="{'ml-auto':message.user.id == student.id}"
-          >
-            <strong class="text-muted">{{message.user.name}}</strong>
-            <br />
-            <span v-if="message.message" class="mr-3">{{message.message}}</span>
-            <a v-else :href="message.attachment" download class="mr-3">
-              <b-img :src="message.attachment" fluid width="60"></b-img>
-            </a>
-            <small class="text-muted">{{message.created_at | moment('h:mm a')}}</small>
+    <div class="chat-body" v-chat-scroll>
+            <div class="message-body">
+              <ul>
+                <li
+                  class="message mb-4"
+                  v-for="(message,idx) in groupMessages"
+                  :key="idx"
+                  :class="{'text-right':message.user_id == tutor.id}"
+                >
+                  <div class="shadow-sm rounded-pill chat-message" :class="{'ml-auto':message.tutor}">
+                    <strong class="text-muted" v-if="message.tutor">{{message.tutor.name}}</strong>
+                    <strong class="text-muted" v-if="message.user">{{message.user.name}}</strong>
+                    <br />
+                    <span v-if="message.message" class="mr-3">{{message.message}}</span>
+                    <a v-else :href="message.attachment" download class="mr-3">
+                      <b-img :src="message.attachment" fluid width="60"></b-img>
+                    </a>
+                    <small class="text-muted">{{message.created_at | moment('h:mm a')}}</small>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
-        </li>
-      </ul>
-    </div>
-  </div>
 </template>
-
 <script>
 export default {
-  props: ["student", "privateMessages", "receiver_id"],
-  data() {
-    return {
-      messages: [],
-      message: "",
-      attachment: "",
-      users: [],
-      myText: "",
-    };
-  },
-  components: {},
-  computed: {
-    sortedMessage() {
-      return this.$props.privateMessages.filter(
-        (item) => (item.receiver_id == this.$props.student.id &&  item.user_id == this.receiver_id) ||(item.receiver_id ==this.receiver_id &&  item.user_id ==  this.$props.student.id)
-      );
-    },
-  },
-  mounted() {},
-  methods: {
-    submit() {},
-  },
-};
+    props:['tutor','groupMessages']
+}
 </script>
+
 <style scoped>
 .view {
   background: white;

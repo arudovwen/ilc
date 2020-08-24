@@ -35,6 +35,11 @@ Broadcast::channel('{groupName}{groupId}{tutorId}', function ($user, $tutorId) {
     return (int) $user->id === (int) $id;
 });
 
-Broadcast::channel('chat', function ($user) {
+Broadcast::channel('chat{id}', function ($user) {
   return Auth::check();
+});
+
+Broadcast::channel('staff-chat', function ($user) {
+   $tutor = auth('tutor')->user()->id;
+   return $tutor ;
 });

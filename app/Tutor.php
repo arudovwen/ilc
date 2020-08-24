@@ -6,6 +6,7 @@ use App\School;
 use App\Classes;
 use App\Faculty;
 use App\Message;
+use App\StaffChat;
 use App\Department;
 use App\CourseLevel;
 use App\EducationLevel;
@@ -62,5 +63,8 @@ class Tutor extends Authenticatable
     }
     public function messages(){
         return $this->hasMany(Message::class);
+    }
+    public function staffMessage(){
+        return $this->hasMany(StaffChat::class);
     }
 }

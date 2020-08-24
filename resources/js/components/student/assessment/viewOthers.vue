@@ -26,10 +26,10 @@
           Total score :
           <strong>{{total}}</strong>
           <br />
-          <span v-if="showScores">
+          <!-- <span v-if="showScores">
             Your score :
             <strong>{{total_scores}}</strong>
-          </span>
+          </span> -->
         </div>
         <b-form-row>
           <b-col cols="12">
@@ -42,13 +42,13 @@
             <li v-for="(question,idx) in template[num].question" :key="idx">
               <b-col cols="12">
                 <b-form-group v-if="question.answer_format=='text box'">
-                  <label for>{{question.title}}</label>
+                  <label for>{{question.title}} (<span class="scores">{{question.score}} marks</span>)</label>
                   <small class="form-text" v-if="question.guide">{{question.guide}}</small>
 
                   <b-form-input
                     type="text"
                     :disabled="showScores"
-                    @change="calcAnswer(idx,question,)"
+                  
                     v-model="question.answer"
                     :placeholder="question.placeholder"
                     :max="question.limit"
@@ -56,18 +56,18 @@
                 </b-form-group>
 
                 <b-form-group v-if="question.answer_format=='email'">
-                  <label for>{{question.title}}</label>
+                  <label for>{{question.title}} (<span class="scores">{{question.score}} marks</span>)</label>
                   <small class="form-text" v-if="question.guide">{{question.guide}}</small>
                   <b-form-input
                     :disabled="showScores"
                     type="email"
-                    @change="calcAnswer(idx,question)"
+                  
                     v-model="question.answer"
                     placeholder="example@email.com"
                   ></b-form-input>
                 </b-form-group>
                 <b-form-group v-if="question.answer_format=='number'">
-                  <label for>{{question.title}}</label>
+                  <label for>{{question.title}} (<span class="scores">{{question.score}} marks</span>)</label>
                   <small class="form-text" v-if="question.guide">{{question.guide}}</small>
                   <b-form-input
                     type="number"
@@ -80,18 +80,18 @@
                 </b-form-group>
 
                 <b-form-group v-if="question.answer_format=='long text'">
-                  <label for>{{question.title}}</label>
+                  <label for>{{question.title}} (<span class="scores">{{question.score}} marks</span>)</label>
                   <small class="form-text" v-if="question.guide">{{question.guide}}</small>
                   <b-form-textarea
                     :disabled="showScores"
-                    @change="calcAnswer(idx,question)"
+                  
                     :placeholder="question.placeholder"
                     v-model="question.answer"
                   ></b-form-textarea>
                 </b-form-group>
 
                 <b-form-group v-if="question.answer_format=='multi choice'">
-                  <label for>{{question.title}}</label>
+                  <label for>{{question.title}} (<span class="scores">{{question.score}} marks</span>)</label>
                   <small class="form-text" v-if="question.guide">{{question.guide}}</small>
 
                   <b-form-checkbox
@@ -105,7 +105,7 @@
                 </b-form-group>
 
                 <b-form-group v-if="question.answer_format=='single choice'">
-                  <label for>{{question.title}}</label>
+                  <label for>{{question.title}} (<span class="scores">{{question.score}} marks</span>)</label>
                   <small class="form-text" v-if="question.guide">{{question.guide}}</small>
                   <b-form-radio
                     :disabled="showScores"
@@ -118,7 +118,7 @@
                 </b-form-group>
 
                 <b-form-group v-if="question.answer_format=='date'">
-                  <label for>{{question.title}}</label>
+                  <label for>{{question.title}} (<span class="scores">{{question.score}} marks</span>)</label>
                   <small class="form-text" v-if="question.guide">{{question.guide}}</small>
                   <br />
                   <b-form-datepicker
@@ -129,7 +129,7 @@
                 </b-form-group>
 
                 <b-form-group v-if="question.answer_format=='time'">
-                  <label for>{{question.title}}</label>
+                  <label for>{{question.title}} (<span class="scores">{{question.score}} marks)</span></label>
                   <small class="form-text" v-if="question.guide">{{question.guide}}</small>
                   <br />
                   <b-form-timepicker
@@ -140,7 +140,7 @@
                 </b-form-group>
 
                 <b-form-group v-if="question.answer_format=='multi text'">
-                  <label for>{{question.title}}</label>
+                  <label for>{{question.title}} (<span class="scores">{{question.score}} marks</span>)</label>
                   <small class="form-text mb-2" v-if="question.guide">{{question.guide}}</small>
                   <div v-for="(item,i) in question.answers" :key="i">
                     <b-form-input
@@ -181,9 +181,9 @@
     <b-modal id="completed" size="lg" hide-footer>
       <div class="text-center">
         You have completed this Assessment
-        <br />your score is
+        <!-- <br />your score is
         <br />
-        <span class="display-4">{{total_scores}}</span>
+        <span class="display-4">{{total_scores}}</span> -->
       </div>
       <div class="text-center">{{details.feedback}}</div>
       <div class="text-center">
@@ -220,6 +220,7 @@ export default {
       total_scores: 0,
       submitCount: 0,
       showScores: false,
+      newAns:[]
     };
   },
   components: {
@@ -237,7 +238,7 @@ export default {
     },
     submit() {
       if (!this.showScores) {
-        this.total_scores += this.sectionAnswer();
+        // this.total_scores += this.sectionAnswer();
 
         this.showScores = true;
 
@@ -249,6 +250,7 @@ export default {
           tutor_id: this.$props.details.tutor_id,
           total_score: this.total_scores,
           record: this.$props.template,
+          overall:this.$props.total
         };
         axios
           .post("/api/student-assessment-result", data, {
@@ -316,7 +318,7 @@ export default {
     calcAnswer(id, answer, e) {
       var score = 0;
       var result = {};
-
+      this.template[this.num].question[id].student_score=0
       if (this.scores.length > 0) {
         this.scores.forEach((item, index) => {
           if (item["id"] == id) {
@@ -329,19 +331,21 @@ export default {
       if (answer.answer_format !== "multi choice") {
         if (e == answer.real_answer) {
           score = answer.score;
+           this.template[this.num].question[id].student_score = answer.score
         }
       } else {
-        var newAns = [];
+        this.newAns = [];
        let p_score = Number(answer.score / answer.real_answers.length);
 
         answer.real_answers.forEach((item) => {
-          newAns.push(item.answer);
+           this.newAns.push(item.answer);
         });
-        if (newAns.includes(e)) {
+        if ( this.newAns.includes(e)) {
          
          this.temp_score += p_score
         }
          score = this.temp_score;
+           this.template[this.num].question[id].student_score =  this.temp_score
         
       }
       this.scores.push({
@@ -394,6 +398,9 @@ li {
   margin-bottom: 0.25rem;
   margin-top: 0;
   color: blue;
+}
+.scores{
+  font-size:11px;
 }
 @media (max-width: 425px) {
   .container {

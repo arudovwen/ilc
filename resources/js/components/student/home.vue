@@ -20,41 +20,34 @@
           <div class="result-board">
             <div class="latest-result-board cards">
               <div class="row latest-result-top">
-                <div class="col-md-6">
-                  <h6>Latest Result</h6>
+                <div class="col-md-12">
+                  <h5>Latest Result</h5>
                 </div>
               </div>
-              <div class="result-progress">
-                <div class="progress-top">
-                  <h6>Mathematics</h6>
-                  <p>67%</p>
+              <div class="m-res">
+                 <div class="result-progress border-bottom" v-for="(result,idx) in ass_result" :key="idx">
+                <div >
+                  <h6>{{result.subject}}</h6>
+                   <div class="progress-top"><p>{{result.title}}</p>
+                  <p>{{result.total_score}}/{{result.overall}}</p></div>
                 </div>
-                <b-progress :value="value" :max="max" class="mb-3"></b-progress>
+                <b-progress  :max="result.overall" class="mb-3">
+                  <b-progress-bar :value="result.total_score" :animated="animate" variant="info" :label="`${result.total_score}/${result.overall}`" ></b-progress-bar>
+                </b-progress>
               </div>
-              <div class="result-progress">
-                <div class="progress-top">
-                  <h6>Mathematics</h6>
-                  <p>67%</p>
-                </div>
-                <b-progress :value="value" :max="max" class="mb-3"></b-progress>
               </div>
-              <div class="result-progress">
-                <div class="progress-top">
-                  <h6>Mathematics</h6>
-                  <p>67%</p>
-                </div>
-                <b-progress :value="value" :max="max" class="mb-3"></b-progress>
-              </div>
+             
+             
             </div>
           </div>
         </b-col>
         <b-col md="4">
           <div class="resources-update cards">
-            <h5>Resources Update</h5>
+            <h5> Updates</h5>
             <div class="m-res">
               <div
                 class="resources-inner border-bottom"
-                v-for="(resource,idx) in newresource"
+                v-for="(resource,idx) in notifications"
                 :key="idx"
               >
                 <div class="update-content">
@@ -64,7 +57,7 @@
                   <p>{{resource.message}}</p>
                 </div>
                 <div class="log-link">
-                  <div class="check_it cpointer" @click="gotoHer(resource.resource_id)">
+                  <div class="check_it cpointer" @click="gotoHer(resource)">
                     <span class="mr-1">Check it</span>
                     <b-icon icon="arrow-right"></b-icon>
                   </div>
@@ -314,6 +307,7 @@ export default {
   props: ["student", "notifications"],
   data() {
     return {
+      ass_result:[],
       tutors: [],
       new_resource: [],
       students: [],
@@ -323,6 +317,7 @@ export default {
       fields: ["class", "subject"],
       field: ["class"],
       value: null,
+      animate: true,
       max: null,
       note: {
         title: "",
@@ -341,6 +336,7 @@ export default {
   mounted() {
     this.getNotes();
     this.getTodayClass();
+    this.getAss()
   },
   computed: {
     newresource() {
@@ -350,6 +346,17 @@ export default {
     },
   },
   methods: {
+    getAss(){
+         axios
+        .get(`/api/get-assessment-result`, {
+          headers: {
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
+        }).then(res=>{
+          this.ass_result = res.data
+        
+        })
+    },
     getSecond(hms) {
       var a = hms.split(":"); // split it at the colons
 
@@ -373,7 +380,17 @@ export default {
         });
     },
     gotoHer(id) {
-      this.$router.push(`/student/resource/view/${id}`);
+      
+      if (id.type=='assessment') {
+          this.$router.push(`/student/grade-book`);
+      }
+       if (id.type == 'group') {
+          this.$router.push(`/student/group`);
+      }
+       if (id.type=='new resource') {
+          this.$router.push(`/student/resource/view/${id}`);
+      }
+     
     },
     addNote() {
       let data = {
@@ -498,10 +515,7 @@ export default {
   justify-content: space-between;
 }
 
-.progress-bar {
-  width: 67% !important;
-  background-color: #de1515 !important;
-}
+
 .update-content {
   display: flex;
   justify-content: space-between;

@@ -89,7 +89,7 @@ class ResourceController extends Controller
                 Notification::create([
                 'school_id'=>$tutor->school_id,
                 'receiver_id'=>$value->id,
-                'message'=> strtoupper($request->module).'- A new resource has been added to '.strtoupper($request->subject),
+                'message'=> ucfirst($request->module).'- A new resource has been added to '.ucfirst($request->subject),
                 'status'=> false,
                 'sender_id'=> $tutor->id ,
                 'role' => 'student',

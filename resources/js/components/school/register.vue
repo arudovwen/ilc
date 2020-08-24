@@ -56,7 +56,14 @@
               required
               v-model="check"
             >I agree to <span><a href="">terms</a> </span> and <span><a href="">condition</a></span></b-form-checkbox>
-            <button class="reg-btn" type="submit">REGISTER</button>
+            <button class="reg-btn" type="submit">REGISTER  <b-spinner
+                          variant
+                          small
+                          label="small spinner"
+                          type="grow"
+                          class="ml-2"
+                          v-if="spin"
+                        ></b-spinner></button>
            <p class="form-txt my-3">Tutor or Student? <span><a href="">Login</a></span></p> 
           </b-form>
         </b-container>
@@ -85,6 +92,7 @@ export default {
   },
   methods: {
     register() {
+      this.spin = true
       axios.post("/api/school-register", this.admin).then(res => {
         if (res.status == 201) {
           const regDetails = {};
@@ -116,7 +124,11 @@ export default {
             }
           });
           this.$router.push(`/subscribe/institute?id=${res.data.data.id}&redirection_from=registration`);
+          
         }
+      }).catch(err=>{
+        this.spin = false
+        this.$toasted.error(err.data.message)
       });
     }
   }

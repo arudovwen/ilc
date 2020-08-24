@@ -10397,6 +10397,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -10416,6 +10423,7 @@ __webpack_require__.r(__webpack_exports__);
     register: function register() {
       var _this = this;
 
+      this.spin = true;
       axios.post("/api/school-register", this.admin).then(function (res) {
         if (res.status == 201) {
           var regDetails = {};
@@ -10448,6 +10456,10 @@ __webpack_require__.r(__webpack_exports__);
 
           _this.$router.push("/subscribe/institute?id=".concat(res.data.data.id, "&redirection_from=registration"));
         }
+      })["catch"](function (err) {
+        _this.spin = false;
+
+        _this.$toasted.error(err.data.message);
       });
     }
   }
@@ -47574,7 +47586,21 @@ var render = function() {
                   _c(
                     "button",
                     { staticClass: "reg-btn", attrs: { type: "submit" } },
-                    [_vm._v("REGISTER")]
+                    [
+                      _vm._v("REGISTER  "),
+                      _vm.spin
+                        ? _c("b-spinner", {
+                            staticClass: "ml-2",
+                            attrs: {
+                              variant: "",
+                              small: "",
+                              label: "small spinner",
+                              type: "grow"
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
                   ),
                   _vm._v(" "),
                   _c("p", { staticClass: "form-txt my-3" }, [

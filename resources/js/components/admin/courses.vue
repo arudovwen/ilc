@@ -99,6 +99,7 @@ export default {
   props: ["admin"],
   data() {
     return {
+      subjects:[],
       subject: {
         name: "",
         code: "",

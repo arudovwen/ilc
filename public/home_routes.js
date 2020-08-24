@@ -1193,6 +1193,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -1292,17 +1294,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["admin"],
   data: function data() {
-    return {
+    var _ref;
+
+    return _ref = {
+      subjects: [],
       subject: {
         name: "",
         code: ""
-      },
-      subjects: [],
-      items: [],
-      item: false,
-      update: false,
-      fields: ["code", "subject", "action", "drop"]
-    };
+      }
+    }, _defineProperty(_ref, "subjects", []), _defineProperty(_ref, "items", []), _defineProperty(_ref, "item", false), _defineProperty(_ref, "update", false), _defineProperty(_ref, "fields", ["code", "subject", "action", "drop"]), _ref;
   },
   watch: {
     item: "selectAll"
@@ -7481,14 +7481,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      subjects: [],
       tutor: {
         name: "",
         email: "",
         gender: "",
-        subjects: ""
+        subject: ""
       },
       options: [{
         value: "",
@@ -7504,12 +7507,29 @@ __webpack_require__.r(__webpack_exports__);
       spin: false
     };
   },
+  mounted: function mounted() {
+    this.getSubjects();
+  },
   methods: {
     toggleModal: function toggleModal() {
       this.$emit("toggleModal", "tutor-create");
     },
-    register: function register() {
+    getSubjects: function getSubjects() {
       var _this = this;
+
+      var admin = JSON.parse(localStorage.getItem("typeAdmin"));
+      axios.get("/api/subject", {
+        headers: {
+          Authorization: "Bearer ".concat(admin.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this.subjects = res.data;
+        }
+      });
+    },
+    register: function register() {
+      var _this2 = this;
 
       var admin = JSON.parse(localStorage.getItem("typeAdmin"));
       axios.post("/api/tutor", this.tutor, {
@@ -7518,9 +7538,9 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 201) {
-          _this.$toasted.info("Successful");
+          _this2.$toasted.info("Successful");
 
-          _this.toggleModal();
+          _this2.toggleModal();
         }
       });
     }
@@ -42222,31 +42242,55 @@ var render = function() {
         _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "" } }, [_vm._v("Subject")]),
           _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.tutor.subject,
-                expression: "tutor.subject"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "text",
-              "aria-describedby": "helpId",
-              placeholder: "e.g English language"
-            },
-            domProps: { value: _vm.tutor.subject },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.tutor.subject,
+                  expression: "tutor.subject"
                 }
-                _vm.$set(_vm.tutor, "subject", $event.target.value)
+              ],
+              staticClass: "form-control",
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.tutor,
+                    "subject",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
               }
-            }
-          })
+            },
+            [
+              _c("option", { attrs: { value: "", disabled: "" } }, [
+                _vm._v("Select Subject")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.subjects, function(item, idx) {
+                return _c(
+                  "option",
+                  {
+                    key: idx,
+                    staticClass: "toCaps",
+                    domProps: { value: item.name }
+                  },
+                  [_vm._v(_vm._s(item.name))]
+                )
+              })
+            ],
+            2
+          )
         ]),
         _vm._v(" "),
         _c(

@@ -34,13 +34,15 @@
 
       <div class="form-group">
         <label for>Subject</label>
-        <input
-          type="text"
-          class="form-control"
-          v-model="tutor.subject"
-          aria-describedby="helpId"
-          placeholder="e.g English language"
-        />
+        <select class="form-control" v-model="tutor.subject">
+                  <option value disabled>Select Subject</option>
+                  <option
+                    v-for="(item,idx) in subjects"
+                    :key="idx"
+                    :value="item.name"
+                    class="toCaps"
+                  >{{item.name}}</option>
+                </select>
       </div>
 
       <b-form-group class="mb-3">
@@ -62,11 +64,12 @@
 export default {
   data() {
     return {
+      subjects:[],
       tutor: {
         name: "",
         email: "",
         gender: "",
-        subjects: "",
+        subject: "",
       },
       options: [
         { value: "", text: "Select an option", disabled: true },
@@ -77,9 +80,26 @@ export default {
       spin: false,
     };
   },
+  mounted() {
+    this.getSubjects()
+  },
   methods: {
     toggleModal() {
       this.$emit("toggleModal", "tutor-create");
+    },
+      getSubjects() {
+         let admin = JSON.parse(localStorage.getItem("typeAdmin"));
+      axios
+        .get("/api/subject", {
+          headers: {
+            Authorization: `Bearer ${admin.access_token}`
+          }
+        })
+        .then(res => {
+          if (res.status == 200) {
+            this.subjects = res.data;
+          }
+        });
     },
     register() {
       let admin = JSON.parse(localStorage.getItem("typeAdmin"));

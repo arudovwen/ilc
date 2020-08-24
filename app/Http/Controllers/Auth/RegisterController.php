@@ -98,7 +98,7 @@ class RegisterController extends Controller
                         'study_course' => $request['study_course']
                     ]);
                     $student->pass = $password->random_strings(8);
-                    // $student->notify(new NewStudent($school,$student));
+                     $student->notify(new NewStudent($school,$student));
                     return $student; 
        });
 

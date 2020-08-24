@@ -275,12 +275,11 @@ export default {
             var obj = {};
 
             this.result = res.data;
-            this.result.sort(function(a, b){
-                return a.user_id-b.user_id
-            })
+            this.result.sort(function (a, b) {
+              return a.user_id - b.user_id;
+            });
 
             this.result.forEach((item) => {
-              var obj = {};
               this.assessmentField.push(item.title);
               if (this.ass.length == 0) {
                 obj[item.title] = item.total_score;
@@ -289,27 +288,25 @@ export default {
                 this.ass.push(obj);
               } else {
                 this.ass.forEach((ite, index) => {
-                  if (ite.name == item.user.name) {
+                  obj = {};
+                  if (Object.values(ite).includes(item.user.name)) {
                     ite[item.title] = item.total_score;
                   } else {
                     obj[item.title] = item.total_score;
                     obj.name = item.user.name;
-                      console.log("getResult -> obj", obj)
-                     
-                         this.ass.push(obj);
-                      
-                   
-                  
+
+                    return obj;
                   }
+                  return obj;
                 });
+               
+                if (Object.keys(obj).length !== 0) {
+                  this.ass.push(obj);
+                }
               }
             });
-  
-            // console.log("getResult -> this.ass", this.ass);
-            //    let jsonObject = this.ass.map(JSON.stringify);
-            // let uniqueSet = new Set(jsonObject);
-            // let perCourse = Array.from(uniqueSet).map(JSON.parse);
-            // console.log("getResult -> perCourse", perCourse)
+
+         
           }
         });
     },
@@ -383,6 +380,8 @@ export default {
   background: #fff;
   padding: 15px;
 }
+
+
 .overall {
   background: #fff;
 }

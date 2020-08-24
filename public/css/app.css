@@ -441,8 +441,8 @@ form .reg-btn {
 }
 
 .gradebook-table .table {
-    width: 90vw;
-    height: 90vh;
+    max-width: 90vw;
+    max-height: 90vh;
     overflow: scroll;
 }
 
@@ -453,7 +453,7 @@ form .reg-btn {
 }
 
 .gradebook-table .table-bordered thead th:first-child {
-    width: 35%;
+    max-width: 35%;
 }
 
 .nav-tabs .nav-link {

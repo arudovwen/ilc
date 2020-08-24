@@ -19282,8 +19282,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
 
           _this.result.forEach(function (item) {
-            var obj = {};
-
             _this.assessmentField.push(item.title);
 
             if (_this.ass.length == 0) {
@@ -19293,23 +19291,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               _this.ass.push(obj);
             } else {
               _this.ass.forEach(function (ite, index) {
-                if (ite.name == item.user.name) {
+                obj = {};
+
+                if (Object.values(ite).includes(item.user.name)) {
                   ite[item.title] = item.total_score;
                 } else {
                   obj[item.title] = item.total_score;
                   obj.name = item.user.name;
-                  console.log("getResult -> obj", obj);
-
-                  _this.ass.push(obj);
+                  return obj;
                 }
-              });
-            }
-          }); // console.log("getResult -> this.ass", this.ass);
-          //    let jsonObject = this.ass.map(JSON.stringify);
-          // let uniqueSet = new Set(jsonObject);
-          // let perCourse = Array.from(uniqueSet).map(JSON.parse);
-          // console.log("getResult -> perCourse", perCourse)
 
+                return obj;
+              });
+
+              if (Object.keys(obj).length !== 0) {
+                _this.ass.push(obj);
+              }
+            }
+          });
         }
       });
     },

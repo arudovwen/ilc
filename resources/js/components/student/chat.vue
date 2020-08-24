@@ -31,6 +31,7 @@
 
     <b-modal id="online" title="Online Users" hide-footer>
       <div class="text-center">
+         <router-link to>Create Group</router-link>
         <b-list-group class="text-center">
           <b-list-group-item
             v-for="(user,id) in onlineMembers"

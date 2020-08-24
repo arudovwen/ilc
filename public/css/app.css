@@ -458,6 +458,13 @@ form .reg-btn {
 table#table-transition-example .flip-list-move {
   transition: transform 1s;
 }
+.attendance-table .table-bordered thead th:first-child {
+    width: 40%;
+}
+.attendance-table .table {
+    overflow: scroll;
+}
+
 .nav-tabs .nav-link {
     /* border: none !important;
     border-top-left-radius: 0 !important;

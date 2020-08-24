@@ -25,42 +25,40 @@
     </div>
 
     <div class="border p-3">
-      <h6 class="text-center mb-3">Student   <i class="fa fa-arrows-h mx-2" aria-hidden="true"></i> Class</h6>
+      <h6 class="text-center mb-3">
+        Student
+        <i class="fa fa-arrows-h mx-2" aria-hidden="true"></i> Class
+      </h6>
       <div class="d-flex">
-      <div class="w-25"  v-if="mySubClass !=''">
-     
-        <div class="top_box">
-          <b-table hover :items="sortedStudents" bordered :fields="field2" head-variant="light">
-            <template v-slot:cell(student_list)="data">
-              <div @click="selectStudent(data.item.id,data.item.name)">{{data.item.name}}</div>
-            </template>
-          </b-table>
+        <div class="w-25" v-if="mySubClass !=''">
+          <div class="top_box">
+            <b-table hover :items="sortedStudents" bordered :fields="field2" head-variant="light">
+              <template v-slot:cell(student_list)="data">
+                <div @click="selectStudent(data.item.id,data.item.name)">{{data.item.name}}</div>
+              </template>
+            </b-table>
+          </div>
         </div>
-      </div>
-      <div  v-if="mySubClass !=''" class=" text-center w-75 " >
-     
+        <div v-if="mySubClass !=''" class="text-center w-75">
           <b-container v-for="(item,idx) in data" :key="idx">
-            <b-row  class="p-2">
+            <b-row class="p-2">
               <b-col class="top-head p-3">{{item.my_class.toUpperCase()}}</b-col>
             </b-row>
             <b-row class="p-2">
-              <b-col
-                cols="6"
-                class="single-student"
-                v-for="(item,id) in item.students"
-                :key="id"
-              >{{item.name}}  <b-icon @click="removeName(idx,id)" class="ml-3" icon="x"></b-icon></b-col>
+              <b-col cols="6" class="single-student" v-for="(item,id) in item.students" :key="id">
+                {{item.name}}
+                <b-icon @click="removeName(idx,id)" class="ml-3" icon="x"></b-icon>
+              </b-col>
             </b-row>
           </b-container>
-       
 
-        <b-form-group class="my-3">
-          <div class="text-align">
-            <b-button type="button"  @click="submit">Save </b-button>
-          </div>
-        </b-form-group>
+          <b-form-group class="my-3">
+            <div class="text-align">
+              <b-button type="button" @click="submit">Save</b-button>
+            </div>
+          </b-form-group>
+        </div>
       </div>
-    </div>
     </div>
   </div>
 </template>
@@ -114,31 +112,41 @@ export default {
     },
   },
   methods: {
-    removeName(index,id){
-  this.data[index].students.splice(id,1)
+    removeName(index, id) {
+      this.data[index].students.splice(id, 1);
     },
     toggleModal() {
       this.$emit("toggleModal", "student-create");
     },
     submit() {
-      let admin = JSON.parse(localStorage.getItem("typeAdmin"));
-      let data = {
-        data: this.data,
-        level:this.current,
-         subclass:this.mySubClass
-      };
-      axios
-        .post("/api/class-student", data, {
-          headers: {
-            Authorization: `Bearer ${admin.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 201) {
-            this.$toasted.info("Successful");
-            this.toggleModal();
-          }
-        });
+      if (this.data[0].students.length) {
+        let admin = JSON.parse(localStorage.getItem("typeAdmin"));
+        let data = {
+          data: this.data,
+          level: this.current,
+          subclass: this.mySubClass,
+        };
+        axios
+          .post("/api/class-student", data, {
+            headers: {
+              Authorization: `Bearer ${admin.access_token}`,
+            },
+          })
+          .then((res) => {
+            if (res.status == 201) {
+              this.$toasted.info("Successful");
+              this.toggleModal();
+              this.data = [
+                {
+                  my_class: "",
+                  students: [],
+                },
+              ];
+            }
+          });
+      } else {
+        this.$toasted.error("Fill all fields");
+      }
     },
     getSubclass() {
       this.sub_class = [];

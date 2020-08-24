@@ -3686,8 +3686,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["admin"],
   data: function data() {
@@ -3749,23 +3747,32 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit() {
       var _this3 = this;
 
-      var admin = JSON.parse(localStorage.getItem("typeAdmin"));
-      var data = {
-        data: this.data,
-        level: this.current,
-        subclass: this.mySubClass
-      };
-      axios.post("/api/class-student", data, {
-        headers: {
-          Authorization: "Bearer ".concat(admin.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 201) {
-          _this3.$toasted.info("Successful");
+      if (this.data[0].students.length) {
+        var admin = JSON.parse(localStorage.getItem("typeAdmin"));
+        var data = {
+          data: this.data,
+          level: this.current,
+          subclass: this.mySubClass
+        };
+        axios.post("/api/class-student", data, {
+          headers: {
+            Authorization: "Bearer ".concat(admin.access_token)
+          }
+        }).then(function (res) {
+          if (res.status == 201) {
+            _this3.$toasted.info("Successful");
 
-          _this3.toggleModal();
-        }
-      });
+            _this3.toggleModal();
+
+            _this3.data = [{
+              my_class: "",
+              students: []
+            }];
+          }
+        });
+      } else {
+        this.$toasted.error("Fill all fields");
+      }
     },
     getSubclass: function getSubclass() {
       var _this4 = this;
@@ -4287,6 +4294,9 @@ __webpack_require__.r(__webpack_exports__);
         sortable: true
       }, {
         key: "student_level",
+        sortable: true
+      }, {
+        key: "sub_class",
         sortable: true
       }, "action", "drop"]
     };
@@ -36107,7 +36117,7 @@ var render = function() {
         _vm.mySubClass != ""
           ? _c(
               "div",
-              { staticClass: " text-center w-75 " },
+              { staticClass: "text-center w-75" },
               [
                 _vm._l(_vm.data, function(item, idx) {
                   return _c(
@@ -36137,7 +36147,11 @@ var render = function() {
                               attrs: { cols: "6" }
                             },
                             [
-                              _vm._v(_vm._s(item.name) + "  "),
+                              _vm._v(
+                                "\n              " +
+                                  _vm._s(item.name) +
+                                  "\n              "
+                              ),
                               _c("b-icon", {
                                 staticClass: "ml-3",
                                 attrs: { icon: "x" },
@@ -36169,7 +36183,7 @@ var render = function() {
                           attrs: { type: "button" },
                           on: { click: _vm.submit }
                         },
-                        [_vm._v("Save ")]
+                        [_vm._v("Save")]
                       )
                     ],
                     1
@@ -36189,12 +36203,12 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h6", { staticClass: "text-center mb-3" }, [
-      _vm._v("Student   "),
+      _vm._v("\n      Student\n      "),
       _c("i", {
         staticClass: "fa fa-arrows-h mx-2",
         attrs: { "aria-hidden": "true" }
       }),
-      _vm._v(" Class")
+      _vm._v(" Class\n    ")
     ])
   }
 ]

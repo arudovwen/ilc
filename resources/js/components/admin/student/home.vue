@@ -127,6 +127,7 @@ export default {
         "email",
         { key: "gender", sortable: true },
         { key: "student_level", sortable: true },
+         { key: "sub_class", sortable: true },
         "action",
         "drop",
       ],

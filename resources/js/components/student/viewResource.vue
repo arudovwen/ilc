@@ -270,7 +270,7 @@
     <b-col cols="5" v-if="modules.length">
       <b-card
         :title="subject"
-        :img-src="cover_image"
+        :img-src="syllabus.cover"
         img-alt="Image"
         img-top
         style="width: 22rem;"

@@ -56742,7 +56742,7 @@ var render = function() {
                   staticStyle: { width: "22rem" },
                   attrs: {
                     title: _vm.subject,
-                    "img-src": _vm.cover_image,
+                    "img-src": _vm.syllabus.cover,
                     "img-alt": "Image",
                     "img-top": ""
                   }

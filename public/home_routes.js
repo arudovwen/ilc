@@ -53631,9 +53631,11 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(0)
+          _c("div", { staticClass: "continue-img" }, [
+            _c("img", { attrs: { src: _vm.lastRead.cover, alt: "" } })
+          ])
         ])
-      : _c("div", { staticClass: "continue-reading" }, [_vm._m(1)]),
+      : _c("div", { staticClass: "continue-reading" }, [_vm._m(0)]),
     _vm._v(" "),
     _c(
       "div",
@@ -53832,8 +53834,7 @@ var render = function() {
                                     staticStyle: { "max-width": "20rem" },
                                     attrs: {
                                       title: item.subject,
-                                      "img-src":
-                                        "https://picsum.photos/600/300/?image=25",
+                                      "img-src": item.cover,
                                       "img-alt": "Image",
                                       "img-top": "",
                                       tag: "article"
@@ -53994,14 +53995,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "continue-img" }, [
-      _c("img", { attrs: { src: "/images/text-book.png", alt: "" } })
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

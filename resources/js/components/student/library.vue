@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="continue-img">
-        <img src="/images/text-book.png" alt />
+        <img :src="lastRead.cover" alt />
       </div>
     </div>
     <div class="continue-reading" v-else>
@@ -82,7 +82,7 @@
                 <b-col md="3" v-for="(item,idx) in sorted" :key="idx">
                   <b-card
                     :title="item.subject"
-                    img-src="https://picsum.photos/600/300/?image=25"
+                    :img-src="item.cover"
                     img-alt="Image"
                     img-top
                     tag="article"

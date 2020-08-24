@@ -382,6 +382,13 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter("timeStatus", function (num) {
     return "Ongoing";
   }
 });
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter('currency', function (num) {
+  if (num !== null) {
+    return "\u20A6" + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  } else {
+    return "NGN 0.00";
+  }
+});
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.filter("format", function (time) {
   // Check correct time format and split into components
   time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];

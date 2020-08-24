@@ -44210,7 +44210,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("span", { staticClass: "text-muted" }, [
-                  _vm._v("₦" + _vm._s(_vm.packages.price))
+                  _vm._v(_vm._s(_vm._f("currency")(_vm.packages.price)))
                 ])
               ]
             ),
@@ -44221,7 +44221,9 @@ var render = function() {
               [
                 _c("span", [_vm._v("Total (₦)")]),
                 _vm._v(" "),
-                _c("strong", [_vm._v("₦" + _vm._s(_vm.packages.price))])
+                _c("strong", [
+                  _vm._v(_vm._s(_vm._f("currency")(_vm.packages.price)))
+                ])
               ]
             )
           ]),
@@ -47211,7 +47213,7 @@ var render = function() {
     [
       _c("b-button", { staticClass: "reg-btn ml-0", attrs: { block: "" } }, [
         _c("i", { staticClass: "fas fa-money-bill-alt" }),
-        _vm._v("\n     PAY ₦" + _vm._s(_vm.amount) + "\n  ")
+        _vm._v("\n     PAY " + _vm._s(_vm._f("currency")(_vm.amount)) + "\n  ")
       ])
     ],
     1
@@ -56065,7 +56067,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("span", { staticClass: "text-muted" }, [
-                      _vm._v("₦" + _vm._s(_vm.packages.price))
+                      _vm._v(_vm._s(_vm._f("currency")(_vm.packages.price)))
                     ])
                   ]
                 ),
@@ -56079,7 +56081,9 @@ var render = function() {
                   [
                     _c("span", [_vm._v("Total (₦)")]),
                     _vm._v(" "),
-                    _c("strong", [_vm._v("₦" + _vm._s(_vm.packages.price))])
+                    _c("strong", [
+                      _vm._v(_vm._s(_vm._f("currency")(_vm.packages.price)))
+                    ])
                   ]
                 )
               ]),

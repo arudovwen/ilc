@@ -16,7 +16,7 @@
                 <h6 class="my-0 toCaps">{{packages.name}}</h6>
                 <small class="text-muted">{{packages.desc}}</small>
               </div>
-              <span class="text-muted">&#8358;{{packages.price}}</span>
+              <span class="text-muted">{{packages.price  | currency}}</span>
             </li>
            
             <!-- <li class="list-group-item d-flex justify-content-between bg-light">
@@ -28,7 +28,7 @@
             </li> -->
             <li class="list-group-item d-flex justify-content-between">
               <span>Total (&#8358;)</span>
-              <strong>&#8358;{{packages.price}}</strong>
+              <strong>{{packages.price  | currency}}</strong>
             </li>
           </ul>
 

@@ -15474,7 +15474,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         if (res.status == 200) {
           _this.library = res.data;
-          axios.get("/api/get-module/".concat(res.data.subject, "/").concat(_this.$props.student.level, "//").concat(_this.$props.student.school_id)).then(function (res) {
+          axios.get("/api/get-module/".concat(res.data.subject, "/").concat(_this.$props.student.level, "/").concat(_this.$props.student.school_id)).then(function (res) {
             if (res.status == 200) {
               _this.modules = res.data;
               _this.src = JSON.parse(_this.modules[0].content)[0].file;

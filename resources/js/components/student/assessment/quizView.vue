@@ -85,7 +85,8 @@
                     v-if="template[num].question[quest].guide"
                   >{{template[num].question[quest].guide}}</small>
 
-                  <b-form-checkbox
+              <div class="answer-box">
+                 <b-form-checkbox
                     :disabled="showScores"
                     @change="calcAnswer(quest,template[num].question[quest],$event)"
                     v-model="template[num].question[quest].answers"
@@ -93,6 +94,8 @@
                     :key="id"
                     :value="opt.name"
                   >{{opt.name}}</b-form-checkbox>
+              </div>
+                 
                 </b-form-group>
 
                 <b-form-group v-if="template[num].question[quest].answer_format=='single choice'">
@@ -101,7 +104,9 @@
                     class="form-text"
                     v-if="template[num].question[quest].guide"
                   >{{template[num].question[quest].guide}}</small>
-                  <b-form-radio
+
+                  <div class="answer-box">
+                     <b-form-radio
                     :disabled="showScores"
                     @change="calcAnswer(quest,template[num].question[quest],$event)"
                     v-model="template[num].question[quest].answer"
@@ -109,6 +114,8 @@
                     :key="id"
                     :value="opt.name"
                   >{{opt.name}}</b-form-radio>
+                  </div>
+                 
                 </b-form-group>
               </b-col>
 
@@ -413,6 +420,14 @@ li {
 .green {
   color: green;
 }
+.answer-box{
+  display:grid;
+  width:60%;
+  grid-template-columns:1fr 1fr;
+  grid-column-gap:20px;
+  grid-row-gap: 15px;
+}
+
 @media (max-width: 425px) {
   .container {
     padding: 30px 10px;

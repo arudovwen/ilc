@@ -11917,6 +11917,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["template", "total", "details"],
@@ -12308,6 +12315,10 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _miniupload__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../miniupload */ "./resources/js/components/miniupload.vue");
+//
+//
+//
+//
 //
 //
 //
@@ -25941,7 +25952,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-327ae610] {\n  min-height: 70vh;\n  padding: 50px 0;\n}\n.upload[data-v-327ae610] {\n  background: #f7f8fa;\n}\nlabel[data-v-327ae610] {\n  font-weight: bold;\n}\n.border[data-v-327ae610] {\n  border-radius: 15px;\n}\nol[data-v-327ae610],\nul[data-v-327ae610] {\n  list-style: none;\n}\nli[data-v-327ae610] {\n  margin-left: 1rem;\n  margin-bottom:50px;\n}\n.form-text[data-v-327ae610] {\n  margin-bottom: 0.25rem;\n  margin-top: 0;\n  color: blue;\n}\n.blue[data-v-327ae610] {\n  color: blue;\n}\n.red[data-v-327ae610] {\n  color: red;\n}\n.green[data-v-327ae610] {\n  color: green;\n}\n@media (max-width: 425px) {\n.container[data-v-327ae610] {\n    padding: 30px 10px;\n}\nform[data-v-327ae610] {\n    padding: 30px 10px;\n}\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-327ae610] {\n  min-height: 70vh;\n  padding: 50px 0;\n}\n.upload[data-v-327ae610] {\n  background: #f7f8fa;\n}\nlabel[data-v-327ae610] {\n  font-weight: bold;\n}\n.border[data-v-327ae610] {\n  border-radius: 15px;\n}\nol[data-v-327ae610],\nul[data-v-327ae610] {\n  list-style: none;\n}\nli[data-v-327ae610] {\n  margin-left: 1rem;\n  margin-bottom:50px;\n}\n.form-text[data-v-327ae610] {\n  margin-bottom: 0.25rem;\n  margin-top: 0;\n  color: blue;\n}\n.blue[data-v-327ae610] {\n  color: blue;\n}\n.red[data-v-327ae610] {\n  color: red;\n}\n.green[data-v-327ae610] {\n  color: green;\n}\n.answer-box[data-v-327ae610]{\n  display:grid;\n  width:60%;\n  grid-template-columns:1fr 1fr;\n  grid-column-gap:20px;\n  grid-row-gap: 15px;\n}\n@media (max-width: 425px) {\n.container[data-v-327ae610] {\n    padding: 30px 10px;\n}\nform[data-v-327ae610] {\n    padding: 30px 10px;\n}\n}\n", ""]);
 
 // exports
 
@@ -25979,7 +25990,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.container[data-v-42307846] {\n  min-height: 70vh;\n  padding: 50px 0;\n}\nsection[data-v-42307846] {\n  position: relative;\n}\n.total[data-v-42307846] {\n  position: absolute;\n  right: 15px;\n  top: 15px;\n}\n.upload[data-v-42307846] {\n  background: #f7f8fa;\n}\nlabel[data-v-42307846] {\n  font-weight: bold;\n}\n.border[data-v-42307846] {\n  border-radius: 15px;\n}\nli[data-v-42307846] {\n   margin-left: 1rem;\n  margin-bottom:50px;\n}\n.form-text[data-v-42307846] {\n  margin-bottom: 0.25rem;\n  margin-top: 0;\n  color: blue;\n}\n.scores[data-v-42307846]{\n  font-size:11px;\n}\n@media (max-width: 425px) {\n.container[data-v-42307846] {\n    padding: 30px 10px;\n}\nform[data-v-42307846] {\n    padding: 30px 10px;\n}\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-42307846] {\n  min-height: 70vh;\n  padding: 50px 0;\n}\nsection[data-v-42307846] {\n  position: relative;\n}\n.total[data-v-42307846] {\n  position: absolute;\n  right: 15px;\n  top: 15px;\n}\n.upload[data-v-42307846] {\n  background: #f7f8fa;\n}\nlabel[data-v-42307846] {\n  font-weight: bold;\n}\n.border[data-v-42307846] {\n  border-radius: 15px;\n}\nli[data-v-42307846] {\n   margin-left: 1rem;\n  margin-bottom:50px;\n}\n.form-text[data-v-42307846] {\n  margin-bottom: 0.25rem;\n  margin-top: 0;\n  color: blue;\n}\n.scores[data-v-42307846]{\n  font-size:11px;\n}\n.answer-box[data-v-42307846]{\n  width:60%;\n  display:grid;\n  grid-template-columns:1fr 1fr;\n  grid-column-gap:20px;\n  grid-row-gap: 15px;\n}\n@media (max-width: 425px) {\n.container[data-v-42307846] {\n    padding: 30px 10px;\n}\nform[data-v-42307846] {\n    padding: 30px 10px;\n}\n}\n", ""]);
 
 // exports
 
@@ -50143,35 +50154,37 @@ var render = function() {
                               _vm._v(" "),
                               _vm.template[_vm.num].question[_vm.quest]
                                 .answer_format == "multi choice"
-                                ? _c(
-                                    "b-form-group",
-                                    [
-                                      _c("label", { attrs: { for: "" } }, [
-                                        _vm._v(
-                                          _vm._s(
-                                            _vm.template[_vm.num].question[
-                                              _vm.quest
-                                            ].title
-                                          )
+                                ? _c("b-form-group", [
+                                    _c("label", { attrs: { for: "" } }, [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm.template[_vm.num].question[
+                                            _vm.quest
+                                          ].title
                                         )
-                                      ]),
-                                      _vm._v(" "),
-                                      _vm.template[_vm.num].question[_vm.quest]
-                                        .guide
-                                        ? _c(
-                                            "small",
-                                            { staticClass: "form-text" },
-                                            [
-                                              _vm._v(
-                                                _vm._s(
-                                                  _vm.template[_vm.num]
-                                                    .question[_vm.quest].guide
-                                                )
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _vm.template[_vm.num].question[_vm.quest]
+                                      .guide
+                                      ? _c(
+                                          "small",
+                                          { staticClass: "form-text" },
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.template[_vm.num].question[
+                                                  _vm.quest
+                                                ].guide
                                               )
-                                            ]
-                                          )
-                                        : _vm._e(),
-                                      _vm._v(" "),
+                                            )
+                                          ]
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "answer-box" },
                                       _vm._l(
                                         _vm.template[_vm.num].question[
                                           _vm.quest
@@ -50215,43 +50228,45 @@ var render = function() {
                                             [_vm._v(_vm._s(opt.name))]
                                           )
                                         }
-                                      )
-                                    ],
-                                    2
-                                  )
+                                      ),
+                                      1
+                                    )
+                                  ])
                                 : _vm._e(),
                               _vm._v(" "),
                               _vm.template[_vm.num].question[_vm.quest]
                                 .answer_format == "single choice"
-                                ? _c(
-                                    "b-form-group",
-                                    [
-                                      _c("label", { attrs: { for: "" } }, [
-                                        _vm._v(
-                                          _vm._s(
-                                            _vm.template[_vm.num].question[
-                                              _vm.quest
-                                            ].title
-                                          )
+                                ? _c("b-form-group", [
+                                    _c("label", { attrs: { for: "" } }, [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm.template[_vm.num].question[
+                                            _vm.quest
+                                          ].title
                                         )
-                                      ]),
-                                      _vm._v(" "),
-                                      _vm.template[_vm.num].question[_vm.quest]
-                                        .guide
-                                        ? _c(
-                                            "small",
-                                            { staticClass: "form-text" },
-                                            [
-                                              _vm._v(
-                                                _vm._s(
-                                                  _vm.template[_vm.num]
-                                                    .question[_vm.quest].guide
-                                                )
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _vm.template[_vm.num].question[_vm.quest]
+                                      .guide
+                                      ? _c(
+                                          "small",
+                                          { staticClass: "form-text" },
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.template[_vm.num].question[
+                                                  _vm.quest
+                                                ].guide
                                               )
-                                            ]
-                                          )
-                                        : _vm._e(),
-                                      _vm._v(" "),
+                                            )
+                                          ]
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "answer-box" },
                                       _vm._l(
                                         _vm.template[_vm.num].question[
                                           _vm.quest
@@ -50294,10 +50309,10 @@ var render = function() {
                                             [_vm._v(_vm._s(opt.name))]
                                           )
                                         }
-                                      )
-                                    ],
-                                    2
-                                  )
+                                      ),
+                                      1
+                                    )
+                                  ])
                                 : _vm._e()
                             ],
                             1
@@ -50985,32 +51000,28 @@ var render = function() {
                                   : _vm._e(),
                                 _vm._v(" "),
                                 question.answer_format == "multi choice"
-                                  ? _c(
-                                      "b-form-group",
-                                      [
-                                        _c("label", { attrs: { for: "" } }, [
-                                          _vm._v(_vm._s(question.title) + " ("),
-                                          _c(
-                                            "span",
-                                            { staticClass: "scores" },
-                                            [
-                                              _vm._v(
-                                                _vm._s(question.score) +
-                                                  " marks"
-                                              )
-                                            ]
-                                          ),
-                                          _vm._v(")")
+                                  ? _c("b-form-group", [
+                                      _c("label", { attrs: { for: "" } }, [
+                                        _vm._v(_vm._s(question.title) + " ("),
+                                        _c("span", { staticClass: "scores" }, [
+                                          _vm._v(
+                                            _vm._s(question.score) + " marks"
+                                          )
                                         ]),
-                                        _vm._v(" "),
-                                        question.guide
-                                          ? _c(
-                                              "small",
-                                              { staticClass: "form-text" },
-                                              [_vm._v(_vm._s(question.guide))]
-                                            )
-                                          : _vm._e(),
-                                        _vm._v(" "),
+                                        _vm._v(")")
+                                      ]),
+                                      _vm._v(" "),
+                                      question.guide
+                                        ? _c(
+                                            "small",
+                                            { staticClass: "form-text" },
+                                            [_vm._v(_vm._s(question.guide))]
+                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        { staticClass: "answer-box" },
                                         _vm._l(question.options, function(
                                           opt,
                                           id
@@ -51046,39 +51057,35 @@ var render = function() {
                                             },
                                             [_vm._v(_vm._s(opt.name))]
                                           )
-                                        })
-                                      ],
-                                      2
-                                    )
+                                        }),
+                                        1
+                                      )
+                                    ])
                                   : _vm._e(),
                                 _vm._v(" "),
                                 question.answer_format == "single choice"
-                                  ? _c(
-                                      "b-form-group",
-                                      [
-                                        _c("label", { attrs: { for: "" } }, [
-                                          _vm._v(_vm._s(question.title) + " ("),
-                                          _c(
-                                            "span",
-                                            { staticClass: "scores" },
-                                            [
-                                              _vm._v(
-                                                _vm._s(question.score) +
-                                                  " marks"
-                                              )
-                                            ]
-                                          ),
-                                          _vm._v(")")
+                                  ? _c("b-form-group", [
+                                      _c("label", { attrs: { for: "" } }, [
+                                        _vm._v(_vm._s(question.title) + " ("),
+                                        _c("span", { staticClass: "scores" }, [
+                                          _vm._v(
+                                            _vm._s(question.score) + " marks"
+                                          )
                                         ]),
-                                        _vm._v(" "),
-                                        question.guide
-                                          ? _c(
-                                              "small",
-                                              { staticClass: "form-text" },
-                                              [_vm._v(_vm._s(question.guide))]
-                                            )
-                                          : _vm._e(),
-                                        _vm._v(" "),
+                                        _vm._v(")")
+                                      ]),
+                                      _vm._v(" "),
+                                      question.guide
+                                        ? _c(
+                                            "small",
+                                            { staticClass: "form-text" },
+                                            [_vm._v(_vm._s(question.guide))]
+                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        { staticClass: "answer-box" },
                                         _vm._l(question.options, function(
                                           opt,
                                           id
@@ -51114,10 +51121,10 @@ var render = function() {
                                             },
                                             [_vm._v(_vm._s(opt.name))]
                                           )
-                                        })
-                                      ],
-                                      2
-                                    )
+                                        }),
+                                        1
+                                      )
+                                    ])
                                   : _vm._e(),
                                 _vm._v(" "),
                                 question.answer_format == "date"

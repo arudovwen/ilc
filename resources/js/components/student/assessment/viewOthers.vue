@@ -93,8 +93,8 @@
                 <b-form-group v-if="question.answer_format=='multi choice'">
                   <label for>{{question.title}} (<span class="scores">{{question.score}} marks</span>)</label>
                   <small class="form-text" v-if="question.guide">{{question.guide}}</small>
-
-                  <b-form-checkbox
+            <div class="answer-box">
+                 <b-form-checkbox
                     :disabled="showScores"
                     v-model="question.answers"
                     @change="calcAnswer(idx,question,$event)"
@@ -102,12 +102,15 @@
                     :key="id"
                     :value="opt.name"
                   >{{opt.name}}</b-form-checkbox>
+            </div>
+                 
                 </b-form-group>
 
                 <b-form-group v-if="question.answer_format=='single choice'">
                   <label for>{{question.title}} (<span class="scores">{{question.score}} marks</span>)</label>
                   <small class="form-text" v-if="question.guide">{{question.guide}}</small>
-                  <b-form-radio
+                 <div class="answer-box">
+                    <b-form-radio
                     :disabled="showScores"
                     @change="calcAnswer(idx,question,$event)"
                     v-model="question.answer"
@@ -115,6 +118,7 @@
                     :key="id"
                     :value="opt.name"
                   >{{opt.name}}</b-form-radio>
+                 </div>
                 </b-form-group>
 
                 <b-form-group v-if="question.answer_format=='date'">
@@ -391,6 +395,13 @@ li {
 }
 .scores{
   font-size:11px;
+}
+.answer-box{
+  width:60%;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-column-gap:20px;
+  grid-row-gap: 15px;
 }
 @media (max-width: 425px) {
   .container {

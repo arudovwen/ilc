@@ -13789,6 +13789,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -13816,11 +13835,11 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         key: "total_score",
         sortable: true
-      }, 'overall'],
+      }, "overall"],
       grade_fields: [{
-        key: 'name',
+        key: "name",
         sortable: true
-      }, 'participation', 'attendance', 'quiz', 'assignment', 'test', 'examination', 'total_score'],
+      }, "participation", "attendance", "quiz", "assignment", "test", "examination", "total_score"],
       assessmentType: [{
         value: "",
         text: "  Type"
@@ -52905,9 +52924,7 @@ var render = function() {
                                           return [
                                             _c("div", [
                                               _vm._v(
-                                                "\n                " +
-                                                  _vm._s(data.item.user.name) +
-                                                  "\n              "
+                                                _vm._s(data.item.user.name)
                                               )
                                             ])
                                           ]
@@ -52920,6 +52937,74 @@ var render = function() {
                               )
                             ]
                           ),
+                          _vm._v(" "),
+                          _c("b-tab", { attrs: { title: "Participation" } }, [
+                            _c(
+                              "div",
+                              { staticClass: "grade_book" },
+                              [
+                                _c("h5", { staticClass: "mb-5" }, [
+                                  _vm._v("Overall Grades")
+                                ]),
+                                _vm._v(" "),
+                                _c("b-table", {
+                                  attrs: {
+                                    stacked: "",
+                                    items: _vm.overall,
+                                    fields: _vm.grade_fields,
+                                    bordered: ""
+                                  },
+                                  scopedSlots: _vm._u([
+                                    {
+                                      key: "cell(name)",
+                                      fn: function(data) {
+                                        return [
+                                          _c("div", [
+                                            _vm._v(_vm._s(data.item.user.name))
+                                          ])
+                                        ]
+                                      }
+                                    }
+                                  ])
+                                })
+                              ],
+                              1
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("b-tab", { attrs: { title: "Attendance" } }, [
+                            _c(
+                              "div",
+                              { staticClass: "grade_book" },
+                              [
+                                _c("h5", { staticClass: "mb-5" }, [
+                                  _vm._v("Overall Grades")
+                                ]),
+                                _vm._v(" "),
+                                _c("b-table", {
+                                  attrs: {
+                                    stacked: "",
+                                    items: _vm.overall,
+                                    fields: _vm.grade_fields,
+                                    bordered: ""
+                                  },
+                                  scopedSlots: _vm._u([
+                                    {
+                                      key: "cell(name)",
+                                      fn: function(data) {
+                                        return [
+                                          _c("div", [
+                                            _vm._v(_vm._s(data.item.user.name))
+                                          ])
+                                        ]
+                                      }
+                                    }
+                                  ])
+                                })
+                              ],
+                              1
+                            )
+                          ]),
                           _vm._v(" "),
                           _c("b-tab", { attrs: { title: "Assessments" } }, [
                             _c(

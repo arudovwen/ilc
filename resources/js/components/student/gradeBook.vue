@@ -7,13 +7,31 @@
             <b-tabs card vertical end>
               <b-tab title="Overall" active>
                 <div class="grade_book">
-                      <h5 class="mb-5">Overall Grades</h5>
+                  <h5 class="mb-5">Overall Grades</h5>
                   <b-table stacked :items="overall" :fields="grade_fields" bordered>
-                       <template v-slot:cell(name)="data">
-                <div>
-                  {{data.item.user.name}}
+                    <template v-slot:cell(name)="data">
+                      <div>{{data.item.user.name}}</div>
+                    </template>
+                  </b-table>
                 </div>
-              </template>
+              </b-tab>
+               <b-tab title="Participation" >
+                <div class="grade_book">
+                  <h5 class="mb-5">Overall Grades</h5>
+                  <b-table stacked :items="overall" :fields="grade_fields" bordered>
+                    <template v-slot:cell(name)="data">
+                      <div>{{data.item.user.name}}</div>
+                    </template>
+                  </b-table>
+                </div>
+              </b-tab>
+               <b-tab title="Attendance" >
+                <div class="grade_book">
+                  <h5 class="mb-5">Overall Grades</h5>
+                  <b-table stacked :items="overall" :fields="grade_fields" bordered>
+                    <template v-slot:cell(name)="data">
+                      <div>{{data.item.user.name}}</div>
+                    </template>
                   </b-table>
                 </div>
               </b-tab>
@@ -73,6 +91,7 @@
                   </b-row>
                 </div>
               </b-tab>
+              
             </b-tabs>
           </b-card>
         </b-col>
@@ -101,17 +120,17 @@ export default {
         { key: "type", sortable: true },
         { key: "title", sortable: true },
         { key: "total_score", sortable: true },
-        'overall'
+        "overall",
       ],
-       grade_fields:[
-        {key:'name',sortable:true},
-        'participation',
-        'attendance',
-        'quiz',
-        'assignment',
-        'test',
-        'examination',
-        'total_score'
+      grade_fields: [
+        { key: "name", sortable: true },
+        "participation",
+        "attendance",
+        "quiz",
+        "assignment",
+        "test",
+        "examination",
+        "total_score",
       ],
       assessmentType: [
         { value: "", text: "  Type" },
@@ -140,7 +159,7 @@ export default {
   mounted() {
     this.getSubjects();
     this.getAss();
-    this.getOverall()
+    this.getOverall();
   },
   methods: {
     refresh() {

@@ -96,7 +96,7 @@ export default {
       days: [
         "monday",
         "tuesday",
-        "wednessday",
+        "wednesday",
         "thursday",
         "friday",
         "saturday"

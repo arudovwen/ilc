@@ -54,6 +54,7 @@ export default {
     },
 
     addGroupMessage(message, attachment) {
+      
       this.$emit("addGroupMessage", message, attachment);
     },
      addPrivateMessage(message, attachment) {

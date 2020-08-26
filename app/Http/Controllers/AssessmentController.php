@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Assessment;
+use App\Notification;
 use Illuminate\Http\Request;
+use App\Events\MyNotification;
 
 class AssessmentController extends Controller
 {
@@ -27,8 +30,7 @@ class AssessmentController extends Controller
         return Assessment::where('type', $id)->where('school_id', $school_id)->where('tutor_id', $tutor_id)->where('status', '=', 'draft')->get();
     }
     public function getAdminAssessment($id)
-    {  
-       
+    {
         return Assessment::find($id);
     }
     public function getSingleAssessment($id)
@@ -116,12 +118,32 @@ class AssessmentController extends Controller
     }
     public function publish(Request $request, $id)
     {
-        $admin = auth('admin')->user();
+        $tutor = auth('tutor')->user();
+
+       
         $find =  Assessment::find($id);
        
-      
+  
         $find->publish_status = $request->stat;
         $find->save();
+
+       if ($request->stat) {
+        $users = User::where('student_level', $find->level)->get();
+        foreach ($users as $user) {
+            Notification::create([
+            'school_id'=>$tutor->school_id,
+            'receiver_id'=>$user->id,
+            'message'=>'New '.ucfirst($find->subject).' '.ucfirst($find->type).'  is available',
+            'status'=> false,
+            'sender_id'=> $tutor->id ,
+            'role' => 'student',
+            'type'=>'Assessment',
+            'resource_id'=>$find->id,
+        ]);
+            broadcast(new MyNotification($user, $find));
+        }
+       
+       }
         
         return response()->json([
         'status' => 'updated'

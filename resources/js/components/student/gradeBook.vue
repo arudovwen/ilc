@@ -6,14 +6,32 @@
           <b-card no-body>
             <b-tabs card vertical end>
               <b-tab title="Overall" active>
-                <div class="grade_book">
-                      <h5 class="mb-5">Overall Grades</h5>
-                  <b-table stacked :items="overall" :fields="grade_fields" bordered>
-                       <template v-slot:cell(name)="data">
-                <div>
-                  {{data.item.user.name}}
+                <div class="grade_book overall-gradebook-student">
+                  <h5 class="mb-5">Overall Grades</h5>
+                  <b-table striped stacked :items="overall" :fields="grade_fields" bordered>
+                    <template v-slot:cell(name)="data">
+                      <div>{{data.item.user.name}}</div>
+                    </template>
+                  </b-table>
                 </div>
-              </template>
+              </b-tab>
+               <b-tab title="Participation" >
+                <div class="grade_book">
+                  <h5 class="mb-5">Overall Grades</h5>
+                  <b-table stacked :items="overall" :fields="grade_fields" bordered>
+                    <template v-slot:cell(name)="data">
+                      <div>{{data.item.user.name}}</div>
+                    </template>
+                  </b-table>
+                </div>
+              </b-tab>
+               <b-tab title="Attendance" >
+                <div class="grade_book">
+                  <h5 class="mb-5">Overall Grades</h5>
+                  <b-table stacked :items="overall" :fields="grade_fields" bordered>
+                    <template v-slot:cell(name)="data">
+                      <div>{{data.item.user.name}}</div>
+                    </template>
                   </b-table>
                 </div>
               </b-tab>
@@ -73,6 +91,7 @@
                   </b-row>
                 </div>
               </b-tab>
+              
             </b-tabs>
           </b-card>
         </b-col>
@@ -101,17 +120,17 @@ export default {
         { key: "type", sortable: true },
         { key: "title", sortable: true },
         { key: "total_score", sortable: true },
-        'overall'
+        "overall",
       ],
-       grade_fields:[
-        {key:'name',sortable:true},
-        'participation',
-        'attendance',
-        'quiz',
-        'assignment',
-        'test',
-        'examination',
-        'total_score'
+      grade_fields: [
+        { key: "name", sortable: true },
+        "participation",
+        "attendance",
+        "quiz",
+        "assignment",
+        "test",
+        "examination",
+        "total_score",
       ],
       assessmentType: [
         { value: "", text: "  Type" },
@@ -140,7 +159,7 @@ export default {
   mounted() {
     this.getSubjects();
     this.getAss();
-    this.getOverall()
+    this.getOverall();
   },
   methods: {
     refresh() {
@@ -187,6 +206,7 @@ export default {
 </script>
 
 <style scoped>
+
 .container {
   padding-top: 50px;
   padding-bottom: 70px;
@@ -194,6 +214,25 @@ export default {
 
 .grade_book {
   max-height: 80vh;
-  overflow: auto;
+  overflow-y: auto;
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #c4c4c4;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 </style>

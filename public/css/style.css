@@ -464,6 +464,9 @@ table#table-transition-example .flip-list-move {
 .attendance-table .table {
     overflow: scroll;
 }
+.overall-gradebook-student .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(19, 166, 153, 0.35) !important;
+}
 
 .nav-tabs .nav-link {
     /* border: none !important;
@@ -543,7 +546,9 @@ table#table-transition-example .flip-list-move {
 .fade-leave-to {
     opacity: 0;
 }
-
+.amber{
+    color:#FFC200;
+}
 .toCaps {
     text-transform: capitalize;
 }

@@ -5,18 +5,18 @@
         <b-tabs card justified>
           <b-tab title="Todays Schedule" active>
             <div class="activity">
-              <b-row class="py-5"> 
-                <b-col md="4">
-                  <div class="cards">
-                    <h5>Today's Class</h5>
+              <b-row class="py-5">
+                <b-col md="4" >
+                  <div class="cards border-right p-2">
+                   
                     <div class="class_section" v-if="todaysClass.length">
                       <div
-                        class="class-content border-bottom p-2"
+                        class="class-content  p-2"
                         v-for="(item,idx) in todaysClass"
                         :key="idx"
                       >
                         <div class="class-content-top">
-                          <h5 class="toCaps">{{item.subject}}</h5>
+                          <p class="toCaps">{{item.subject}}</p>
                           <i
                             class="fa fa-play-circle-o green"
                             v-if="(getSecond(today)  > getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
@@ -24,8 +24,8 @@
                           ></i>
 
                           <i
-                            class="fa fa-dot-circle-o text-dark"
-                            v-else-if="(getSecond(today)  <  getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
+                            class="fa fa-dot-circle-o amber"
+                            v-else-if="(getSecond(today)  <  getSecond(item.start))"
                             aria-hidden="true"
                           ></i>
 
@@ -64,7 +64,7 @@
                             v-if="(getSecond(today)  > getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
                           >Ongoing</p>
                           <p
-                            v-else-if="(getSecond(today)  <  getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
+                            v-else-if="(getSecond(today)  <  getSecond(item.start))"
                           >Upcoming</p>
 
                           <p
@@ -76,8 +76,16 @@
                     <div class="class_section phert-5" v-else>
                       <div class="form-control text-align">No Class Available</div>
                     </div>
-
-                
+                  </div>
+                </b-col>
+                <b-col>
+                  <div class="class-content p-2" v-for="(item,idx) in assess" :key="idx">
+                    <div>
+                      <div
+                        class="border-bottom"
+                        v-if="new Date(item.end).getTime() > new Date().getTime()"
+                      >{{item.subject}} {{item.type}} submission deadline {{item.end | moment('dddd h:mm A')}}</div>
+                    </div>
                   </div>
                 </b-col>
               </b-row>
@@ -86,12 +94,19 @@
           <b-tab title="My Times Table">
             <div class="activity">
               <h5 class="mb-4">{{student.sub_class.toUpperCase()}}</h5>
+
+              <div class="d-flex justify-content-around mb-2">
+               <span> <b-icon icon="circle-fill" class="upcoming"></b-icon> Upcoming</span>
+                <span> <b-icon icon="circle-fill" class="ongoing"></b-icon> Ongoing</span>
+                 <span> <b-icon icon="circle-fill" class="finished"></b-icon> Finished</span>
+              </div>
               <table class="table table-bordered">
                 <thead class="thead-light">
                   <tr>
                     <th>Day</th>
                     <th>Time</th>
                   </tr>
+                    
                 </thead>
                 <tbody>
                   <tr v-for="(tab,index) in table" :key="index">
@@ -99,10 +114,18 @@
                     <td class="d-flex justify-content-between p-0">
                       <table class="w-100">
                         <tr class="w-100">
-                          <td class="text-center" v-for="(item,idx) in tab.courses" :key="idx">
-                            <div class>{{item.start | format}} - {{item.end | format}}</div>
+                          <td class="text-center "
+                           :class="{upcoming:getSecond(today) < getSecond(item.start) && tab.day.toLowerCase() == today_name,
+                            ongoing:getSecond(today) > getSecond(item.start) && getSecond(today) <= getSecond(item.end) && tab.day.toLowerCase() == today_name,
+                             finished: getSecond(today) >getSecond(item.end) && tab.day.toLowerCase() == today_name
+                           }"
+                           v-for="(item,idx) in tab.courses" :key="idx">
+                        
+                            <div class="">
+                               <div  >{{item.start | format}} - {{item.end | format}}</div>
                             <div>{{item.subject}}</div>
                             <div>{{item.tutor}}</div>
+                            </div>
                           </td>
                         </tr>
                       </table>
@@ -113,7 +136,79 @@
             </div>
           </b-tab>
           <b-tab title="My Attendance">
-            <div class="activity"></div>
+            <div class="activity">
+              <div class="main-attendance container">
+                <div class="attendance">
+                  <div class="sort-table">
+                    <b-container>
+                      <b-row>
+                        <b-col md="2">
+                          <p>
+                            <strong>Attendance</strong>
+                          </p>
+                        </b-col>
+                        <b-col md="6">
+                          <b-container>
+                            <b-row>
+                              <b-col md="4">
+                                <b-form-select  ></b-form-select>
+                              </b-col>
+                              <b-col md="4">
+                                <b-form-select  ></b-form-select>
+                              </b-col>
+                              <b-col md="4">
+                                <b-form-select  ></b-form-select>
+                              </b-col>
+                            </b-row>
+                          </b-container>
+                        </b-col>
+                        <b-col md="4">
+                          <b-container>
+                            <b-row>
+                              <b-col md="6">
+                                <b-form-input
+                                  placeholder="Search Student "
+                                  class="search rounded-pill"
+                                ></b-form-input>
+                              </b-col>
+                              <b-col md="6">
+                                <div class="export">
+                                  <div class="btn btn-export">
+                                    Export
+                                    <i class="fa fa-external-link"></i>
+                                  </div>
+                                </div>
+                              </b-col>
+                            </b-row>
+                          </b-container>
+                        </b-col>
+                      </b-row>
+                    </b-container>
+                  </div>
+                  <hr />
+
+                  <div class="attendance-table">
+                    <b-table :items="items" bordered>
+                      <template v-slot:cell(monday)="data" class="absent">
+                        <span v-html="data.value"></span>
+                      </template>
+                      <template v-slot:cell(tuesday)="data" class="absent">
+                        <span v-html="data.value"></span>
+                      </template>
+                      <template v-slot:cell(wednesday)="data" class="absent">
+                        <span v-html="data.value"></span>
+                      </template>
+                      <template v-slot:cell(thursday)="data" class="absent">
+                        <span v-html="data.value"></span>
+                      </template>
+                      <template v-slot:cell(friday)="data" class="absent">
+                        <span v-html="data.value"></span>
+                      </template>
+                    </b-table>
+                  </div>
+                </div>
+              </div>
+            </div>
           </b-tab>
         </b-tabs>
       </b-card>
@@ -127,20 +222,55 @@ export default {
   data() {
     return {
       table: [],
-      todaysClass: {},
+      assess: [],
+      todaysClass: [],
+      today_name:new Date().toLocaleString("default", { weekday: "long" }).toLowerCase(),
       today:
         new Date().getHours() +
         ":" +
         new Date().getMinutes() +
         ":" +
         new Date().getSeconds(),
+      items: [
+        {
+          name: "Success Ahon",
+          monday: '<i class="fa fa-check" style="color: green" ></i>',
+          tuesday: '<i class="fa fa-times" style="color: red"></i>',
+          wednesday: '<i class="fa fa-check" style="color: green" ></i>',
+          thursday: '<i class="fa fa-check" style="color: green" ></i>',
+          friday: '<i class="fa fa-check" style="color: green" ></i>',
+        },
+        {
+          name: "Success Ahon",
+          monday: '<i class="fa fa-times" style=" color:red"></i>',
+        },
+      ],
     };
   },
   mounted() {
     this.getTable();
-      this.getTodayClass();
+    this.getTodayClass();
+    this.getData();
   },
   methods: {
+    getData() {
+      let student = JSON.parse(localStorage.getItem("typeStudent"));
+      axios
+        .get(`/api/student-assessments/${student.level}`, {
+          headers: {
+            Authorization: `Bearer ${student.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.assess = res.data;
+          }
+        })
+        .catch((err) => {
+          err.response.data;
+          console.log(" err.response.data", err.response.data);
+        });
+    },
     getTable() {
       axios
         .get(`/api/student-times-table/${this.$props.student.student_level}`, {
@@ -154,7 +284,7 @@ export default {
           }
         });
     },
-   getSecond(hms) {
+    getSecond(hms) {
       var a = hms.split(":"); // split it at the colons
 
       // minutes are worth 60 seconds. Hours are worth 60 minutes.
@@ -170,9 +300,9 @@ export default {
         })
         .then((res) => {
           if (res.status == 200) {
-          if (res.data.length) {
+              if (res.data.length) {
               this.todaysClass = res.data[0].courses;
-          }
+            }
           }
         });
     },
@@ -199,8 +329,9 @@ export default {
   overflow: auto;
 }
 
-small ,.small{
-  font-size:100%;
+small,
+.small {
+  font-size: 100%;
 }
 .resources-inner {
   border-bottom: 1px solid #e4e4e4;
@@ -217,11 +348,11 @@ small ,.small{
   justify-content: space-between;
 }
 
-.red{
-   color: #ff0000;
+.red {
+  color: #ff0000;
 }
-.green{
-   color:green;
+.green {
+  color: green;
 }
 .class-content-main {
   display: flex;
@@ -248,5 +379,14 @@ small ,.small{
 .check_it {
   color: #008e3a;
   font-size: 12px;
+}
+.ongoing{
+   color: #008e3a;
+}
+.upcoming{
+    color:#FFC200;
+}
+.finished{
+    color:red;
 }
 </style>

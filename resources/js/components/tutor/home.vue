@@ -4,7 +4,7 @@
       <b-row class="overview-board">
         <b-col md="6">
           <div class="assignment-overview-board">
-            <p>Assignment Overview</p>
+            <p>Assessment Overview</p>
             <b-container class="overview-main">
               <b-row>
                 <b-col md="6" class="overview-log-1 text-center">
@@ -19,7 +19,7 @@
                 </b-col>
               </b-row>
               <div class="log-link">
-                <router-link to>View assignment log</router-link>
+                <router-link to>View assessment log</router-link>
               </div>
             </b-container>
           </div>
@@ -57,7 +57,7 @@
         <b-row>
           <b-col md="4">
             <div class="cards">
-              <h5>Today's Class</h5>
+              <h5>Today's Schedule</h5>
               <div class="class_section">
                 <div
                   class="class-content border-bottom p-2"
@@ -125,7 +125,7 @@
               </div>
 
               <div class="log-link">
-                <router-link to>View Today's Class</router-link>
+                <router-link to="/tutor/activities">View all</router-link>
               </div>
             </div>
           </b-col>
@@ -288,10 +288,12 @@
 
 <script>
 export default {
-  props: ["tutor"],
+  props: ["tutor","groups"],
   data() {
     return {
       tutors: [],
+      draftResult:[],
+      allStudents:[],
       students: [],
       classes: [],
       syllabus: [],
@@ -317,6 +319,9 @@ export default {
     this.getNotes();
     this.getResources();
     this.getTodayClass();
+    this.getData()
+    this.getStudent('jss 1')
+    this.getDraftResult()
   },
   computed:{
     pendingResource(){
@@ -327,6 +332,68 @@ export default {
     }
   },
   methods: {
+    getStudent(level){
+       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+   axios.get(`/api/students/${level}`, {
+          headers: {
+            Authorization: `Bearer ${tutor.access_token}`,
+          },
+        }).then(res=>{
+     if (res.status == 200) {
+       this.allStudents= res.data
+     }
+   })
+    },
+      getDraftResult() {
+      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      let data = {
+        title: '',
+      }
+      axios
+        .post(`/api/draft-result`, data, {
+          headers: {
+            Authorization: `Bearer ${tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.draftResult = res.data;
+          
+          }
+        });
+    },
+    getData() {
+      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+    
+
+      axios
+        .get(`/api/assessment`, {
+          headers: {
+            Authorization: `Bearer ${tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          // if (res.status == 200) {
+          //   this.items = res.data;
+          //   this.items.forEach((item) => {
+          //     if (item.type == "quiz") {
+          //       this.quiz.push(item);
+          //     }
+          //     if (item.type == "test") {
+          //       this.test.push(item);
+          //     }
+          //     if (item.type == "assignment") {
+          //       this.assignment.push(item);
+          //     }
+          //     if (item.type == "examination") {
+          //       this.examination.push(item);
+          //     }
+          //   });
+       
+          // }
+        })
+        .catch();
+    },
     getResources() {
       axios
         .get("/api/resource", {

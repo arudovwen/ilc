@@ -73,6 +73,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('private-message','PrivateMessageController@fetchMessages');
     Route::post('private-message','PrivateMessageController@sendMessage');
     Route::get('classmates', 'ClassesController@getClassmates');
+    Route::get('allmessages', 'MessagesController@getGroupChat');
 });
 
 Route::middleware('auth:tutor')->group(function () {
@@ -110,6 +111,7 @@ Route::middleware('auth:tutor')->group(function () {
     Route::get('staff-message', 'StaffChatController@fetchMessages');
     Route::post('staff-message', 'StaffChatController@sendMessage');
     Route::get('get-tutor-assessment', 'AssessmentResultController@getTutorResult');
+    Route::get('students/{class}', 'ClassesController@getStudents');
 });
 Route::get('student-group/{id}', 'GroupsController@show');
 Route::post('school-register', 'SchoolController@store');

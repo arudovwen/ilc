@@ -6643,7 +6643,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       tutors: [],
-      days: ["monday", "tuesday", "wednessday", "thursday", "friday", "saturday"],
+      days: ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"],
       subjects: [],
       classes: [],
       myclass: "",
@@ -7071,7 +7071,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       tutors: [],
-      days: ["monday", "tuesday", "wednessday", "thursday", "friday", "saturday"],
+      days: ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"],
       subjects: [],
       classes: [],
       myclass: "",
@@ -11310,22 +11310,150 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
     return {
       table: [],
-      todaysClass: {},
-      today: new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()
+      assess: [],
+      todaysClass: [],
+      today_name: new Date().toLocaleString("default", {
+        weekday: "long"
+      }).toLowerCase(),
+      today: new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds(),
+      items: [{
+        name: "Success Ahon",
+        monday: '<i class="fa fa-check" style="color: green" ></i>',
+        tuesday: '<i class="fa fa-times" style="color: red"></i>',
+        wednesday: '<i class="fa fa-check" style="color: green" ></i>',
+        thursday: '<i class="fa fa-check" style="color: green" ></i>',
+        friday: '<i class="fa fa-check" style="color: green" ></i>'
+      }, {
+        name: "Success Ahon",
+        monday: '<i class="fa fa-times" style=" color:red"></i>'
+      }]
     };
   },
   mounted: function mounted() {
     this.getTable();
     this.getTodayClass();
+    this.getData();
   },
   methods: {
-    getTable: function getTable() {
+    getData: function getData() {
       var _this = this;
+
+      var student = JSON.parse(localStorage.getItem("typeStudent"));
+      axios.get("/api/student-assessments/".concat(student.level), {
+        headers: {
+          Authorization: "Bearer ".concat(student.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this.assess = res.data;
+        }
+      })["catch"](function (err) {
+        err.response.data;
+        console.log(" err.response.data", err.response.data);
+      });
+    },
+    getTable: function getTable() {
+      var _this2 = this;
 
       axios.get("/api/student-times-table/".concat(this.$props.student.student_level), {
         headers: {
@@ -11333,7 +11461,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this.table = JSON.parse(res.data[0].table);
+          _this2.table = JSON.parse(res.data[0].table);
         }
       });
     },
@@ -11345,7 +11473,7 @@ __webpack_require__.r(__webpack_exports__);
       return seconds;
     },
     getTodayClass: function getTodayClass() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.get("/api/todays-class/".concat(this.$props.student.sub_class), {
         headers: {
@@ -11354,7 +11482,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         if (res.status == 200) {
           if (res.data.length) {
-            _this2.todaysClass = res.data[0].courses;
+            _this3.todaysClass = res.data[0].courses;
           }
         }
       });
@@ -13015,7 +13143,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       if (this.$props.showChat == "group") {
-        this.$emit("addGroupMessgae", message, this.attachment);
+        this.$emit("addGroupMessage", message, this.attachment);
         var data = {
           message: message,
           group_id: this.$props.group_id,
@@ -13135,15 +13263,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student", "groups", "classmates", "receiver_id", "privateMessages"],
+  data: function data() {
+    return {
+      active: ""
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    setTimeout(function () {
+      _this.highlight();
+    }, 1000);
+  },
   methods: {
-    switchGroup: function switchGroup(name, id) {
+    switchGroup: function switchGroup(name, id, val) {
       this.$emit("switchGroup", name, id);
+      this.active = val;
     },
     online: function online() {
       this.$emit("online");
       this.$refs.popover.$emit('close');
+    },
+    highlight: function highlight() {
+      this.active = this.$props.classmates[0].name;
     },
     getLastMessage: function getLastMessage(id) {
       return this.$props.privateMessages.filter(function (item) {
@@ -13295,7 +13441,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     addGroupMessage: function addGroupMessage(message, attachment) {
-      this.groupMessages.push({
+      this.groupMessage.push({
         message: message,
         user: this.student,
         attachment: attachment,
@@ -13643,6 +13789,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -13670,11 +13835,11 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         key: "total_score",
         sortable: true
-      }, 'overall'],
+      }, "overall"],
       grade_fields: [{
-        key: 'name',
+        key: "name",
         sortable: true
-      }, 'participation', 'attendance', 'quiz', 'assignment', 'test', 'examination', 'total_score'],
+      }, "participation", "attendance", "quiz", "assignment", "test", "examination", "total_score"],
       assessmentType: [{
         value: "",
         text: "  Type"
@@ -14133,61 +14298,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["student", "notifications"],
+  props: ["student", "notifications", "groups"],
   data: function data() {
     return {
+      groupMessage: [],
       ass_result: [],
       tutors: [],
       new_resource: [],
@@ -14204,6 +14319,7 @@ __webpack_require__.r(__webpack_exports__);
         title: "",
         description: ""
       },
+      assess: [],
       notes: [],
       todaysClass: {},
       today: new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()
@@ -14213,24 +14329,57 @@ __webpack_require__.r(__webpack_exports__);
     this.getNotes();
     this.getTodayClass();
     this.getAss();
+    this.getallmessages();
+    this.getData();
   },
   computed: {
     newresource: function newresource() {
       return this.$props.notifications.filter(function (item) {
         return item.type == "new resource";
       });
+    },
+    schedule: function schedule() {
+      return this.assess.concat(this.todaysClass);
     }
   },
   methods: {
-    getAss: function getAss() {
+    getData: function getData() {
       var _this = this;
+
+      var student = JSON.parse(localStorage.getItem("typeStudent"));
+      axios.get("/api/student-assessments/".concat(student.level), {
+        headers: {
+          Authorization: "Bearer ".concat(student.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this.assess = res.data;
+        }
+      })["catch"](function (err) {
+        err.response.data;
+        console.log(" err.response.data", err.response.data);
+      });
+    },
+    getAss: function getAss() {
+      var _this2 = this;
 
       axios.get("/api/get-assessment-result", {
         headers: {
           Authorization: "Bearer ".concat(this.$props.student.access_token)
         }
       }).then(function (res) {
-        _this.ass_result = res.data;
+        _this2.ass_result = res.data;
+      });
+    },
+    getallmessages: function getallmessages() {
+      var _this3 = this;
+
+      axios.get("/api/allmessages", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.student.access_token)
+        }
+      }).then(function (res) {
+        _this3.groupMessage = res.data;
       });
     },
     getSecond: function getSecond(hms) {
@@ -14241,7 +14390,7 @@ __webpack_require__.r(__webpack_exports__);
       return seconds;
     },
     getTodayClass: function getTodayClass() {
-      var _this2 = this;
+      var _this4 = this;
 
       axios.get("/api/todays-class/".concat(this.$props.student.sub_class), {
         headers: {
@@ -14250,26 +14399,29 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         if (res.status == 200) {
           if (res.data.length) {
-            _this2.todaysClass = res.data[0].courses;
+            _this4.todaysClass = res.data[0].courses.map(function (item) {
+              item.type = "times";
+              return item;
+            });
           }
         }
       });
     },
     gotoHer: function gotoHer(id) {
-      if (id.type.toLowerCase() == 'assessment') {
-        this.$router.push("/student/gradebook");
+      if (id.type.toLowerCase() == "assessment") {
+        this.$router.push("/student/assessment");
       }
 
-      if (id.type.toLowerCase() == 'group') {
+      if (id.type.toLowerCase() == "group") {
         this.$router.push("/student/groups");
       }
 
-      if (id.type.toLowerCase() == 'resource') {
+      if (id.type.toLowerCase() == "resource") {
         this.$router.push("/student/resource/view/".concat(id.id));
       }
     },
     addNote: function addNote() {
-      var _this3 = this;
+      var _this5 = this;
 
       var data = {
         title: this.note.title,
@@ -14281,19 +14433,19 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 201) {
-          _this3.note.description = "";
-          _this3.note.title = "";
+          _this5.note.description = "";
+          _this5.note.title = "";
 
-          _this3.getNotes();
+          _this5.getNotes();
 
-          _this3.$toasted.success("Note created");
+          _this5.$toasted.success("Note created");
 
-          _this3.$bvModal.hide("note");
+          _this5.$bvModal.hide("note");
         }
       })["catch"]();
     },
     getNotes: function getNotes() {
-      var _this4 = this;
+      var _this6 = this;
 
       axios.get("/api/note", {
         headers: {
@@ -14301,12 +14453,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this4.notes = res.data;
+          _this6.notes = res.data;
         }
       });
     },
     remove: function remove(id) {
-      var _this5 = this;
+      var _this7 = this;
 
       var del = confirm("Are you sure?");
 
@@ -14317,9 +14469,9 @@ __webpack_require__.r(__webpack_exports__);
           }
         }).then(function (res) {
           if (res.status == 200) {
-            _this5.$toasted.info("Note removed");
+            _this7.$toasted.info("Note removed");
 
-            _this5.getNotes();
+            _this7.getNotes();
           }
         });
       }
@@ -21307,10 +21459,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["tutor"],
+  props: ["tutor", "groups"],
   data: function data() {
     return {
       tutors: [],
+      draftResult: [],
+      allStudents: [],
       students: [],
       classes: [],
       syllabus: [],
@@ -21331,6 +21485,9 @@ __webpack_require__.r(__webpack_exports__);
     this.getNotes();
     this.getResources();
     this.getTodayClass();
+    this.getData();
+    this.getStudent('jss 1');
+    this.getDraftResult();
   },
   computed: {
     pendingResource: function pendingResource() {
@@ -21345,8 +21502,64 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    getResources: function getResources() {
+    getStudent: function getStudent(level) {
       var _this = this;
+
+      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios.get("/api/students/".concat(level), {
+        headers: {
+          Authorization: "Bearer ".concat(tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this.allStudents = res.data;
+        }
+      });
+    },
+    getDraftResult: function getDraftResult() {
+      var _this2 = this;
+
+      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      var data = {
+        title: ''
+      };
+      axios.post("/api/draft-result", data, {
+        headers: {
+          Authorization: "Bearer ".concat(tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this2.draftResult = res.data;
+        }
+      });
+    },
+    getData: function getData() {
+      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios.get("/api/assessment", {
+        headers: {
+          Authorization: "Bearer ".concat(tutor.access_token)
+        }
+      }).then(function (res) {// if (res.status == 200) {
+        //   this.items = res.data;
+        //   this.items.forEach((item) => {
+        //     if (item.type == "quiz") {
+        //       this.quiz.push(item);
+        //     }
+        //     if (item.type == "test") {
+        //       this.test.push(item);
+        //     }
+        //     if (item.type == "assignment") {
+        //       this.assignment.push(item);
+        //     }
+        //     if (item.type == "examination") {
+        //       this.examination.push(item);
+        //     }
+        //   });
+        // }
+      })["catch"]();
+    },
+    getResources: function getResources() {
+      var _this3 = this;
 
       axios.get("/api/resource", {
         headers: {
@@ -21354,7 +21567,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this.resources = res.data;
+          _this3.resources = res.data;
         }
       });
     },
@@ -21366,7 +21579,7 @@ __webpack_require__.r(__webpack_exports__);
       return seconds;
     },
     getTodayClass: function getTodayClass() {
-      var _this2 = this;
+      var _this4 = this;
 
       axios.get("/api/current-class", {
         headers: {
@@ -21374,7 +21587,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this2.todaysClass = res.data;
+          _this4.todaysClass = res.data;
         }
       });
     },
@@ -21382,7 +21595,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$router.push("/student/resource/view/".concat(id));
     },
     addNote: function addNote() {
-      var _this3 = this;
+      var _this5 = this;
 
       var data = {
         title: this.note.title,
@@ -21394,19 +21607,19 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 201) {
-          _this3.note.description = "";
-          _this3.note.title = "";
+          _this5.note.description = "";
+          _this5.note.title = "";
 
-          _this3.getNotes();
+          _this5.getNotes();
 
-          _this3.$toasted.success("Note created");
+          _this5.$toasted.success("Note created");
 
-          _this3.$bvModal.hide("note");
+          _this5.$bvModal.hide("note");
         }
       })["catch"]();
     },
     getNotes: function getNotes() {
-      var _this4 = this;
+      var _this6 = this;
 
       axios.get("/api/tutor-note", {
         headers: {
@@ -21414,12 +21627,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this4.notes = res.data;
+          _this6.notes = res.data;
         }
       });
     },
     getStudents: function getStudents() {
-      var _this5 = this;
+      var _this7 = this;
 
       axios.get("/api/student-get-students", {
         headers: {
@@ -21427,12 +21640,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this5.students = res.data;
+          _this7.students = res.data;
         }
       });
     },
     getCurriculum: function getCurriculum() {
-      var _this6 = this;
+      var _this8 = this;
 
       axios.get("/api/curriculum", {
         headers: {
@@ -21440,12 +21653,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this6.curriculum = res.data;
+          _this8.curriculum = res.data;
         }
       });
     },
     getTutors: function getTutors() {
-      var _this7 = this;
+      var _this9 = this;
 
       axios.get("/api/tutor", {
         headers: {
@@ -21453,12 +21666,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this7.tutors = res.data;
+          _this9.tutors = res.data;
         }
       });
     },
     getClasses: function getClasses() {
-      var _this8 = this;
+      var _this10 = this;
 
       axios.get("/api/classes", {
         headers: {
@@ -21466,12 +21679,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this8.classes = res.data;
+          _this10.classes = res.data;
         }
       });
     },
     getSyllabus: function getSyllabus() {
-      var _this9 = this;
+      var _this11 = this;
 
       axios.get("/api/syllabus", {
         headers: {
@@ -21479,7 +21692,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this9.syllabus = res.data;
+          _this11.syllabus = res.data;
         }
       });
     }
@@ -25914,7 +26127,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-383ec568] {\r\n  padding-top: 50px;\r\n  padding-bottom: 70px;\n}\n.activity[data-v-383ec568] {\r\n  max-height: 70vh;\n}\n.m-res[data-v-383ec568] {\r\n  height: 520px;\r\n  overflow: auto;\n}\n.main-note[data-v-383ec568] {\r\n  height: 290px;\r\n  overflow: auto;\n}\nsmall[data-v-383ec568],.small[data-v-383ec568]{\r\n  font-size:100%;\n}\n.resources-inner[data-v-383ec568] {\r\n  border-bottom: 1px solid #e4e4e4;\r\n  padding-top: 5px;\n}\n.resources-inner[data-v-383ec568]:last-child {\r\n  border-bottom: none;\n}\n.class-content[data-v-383ec568] {\r\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-383ec568] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.red[data-v-383ec568]{\r\n   color: #ff0000;\n}\n.green[data-v-383ec568]{\r\n   color:green;\n}\n.class-content-main[data-v-383ec568] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.class-content-main p[data-v-383ec568] {\r\n  font-size: 16px;\n}\n.notes-top[data-v-383ec568] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.btn[data-v-383ec568] {\r\n  background: transparent;\r\n  border: 1px solid #13a699;\r\n  border-radius: 5px;\r\n  color: #13a699;\r\n  font-size: 15px;\n}\n.my-icon[data-v-383ec568] {\r\n  color: #008e3a;\n}\n.check_it[data-v-383ec568] {\r\n  color: #008e3a;\r\n  font-size: 12px;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-383ec568] {\r\n  padding-top: 50px;\r\n  padding-bottom: 70px;\n}\n.activity[data-v-383ec568] {\r\n  max-height: 70vh;\n}\n.m-res[data-v-383ec568] {\r\n  height: 520px;\r\n  overflow: auto;\n}\n.main-note[data-v-383ec568] {\r\n  height: 290px;\r\n  overflow: auto;\n}\nsmall[data-v-383ec568],\r\n.small[data-v-383ec568] {\r\n  font-size: 100%;\n}\n.resources-inner[data-v-383ec568] {\r\n  border-bottom: 1px solid #e4e4e4;\r\n  padding-top: 5px;\n}\n.resources-inner[data-v-383ec568]:last-child {\r\n  border-bottom: none;\n}\n.class-content[data-v-383ec568] {\r\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-383ec568] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.red[data-v-383ec568] {\r\n  color: #ff0000;\n}\n.green[data-v-383ec568] {\r\n  color: green;\n}\n.class-content-main[data-v-383ec568] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.class-content-main p[data-v-383ec568] {\r\n  font-size: 16px;\n}\n.notes-top[data-v-383ec568] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.btn[data-v-383ec568] {\r\n  background: transparent;\r\n  border: 1px solid #13a699;\r\n  border-radius: 5px;\r\n  color: #13a699;\r\n  font-size: 15px;\n}\n.my-icon[data-v-383ec568] {\r\n  color: #008e3a;\n}\n.check_it[data-v-383ec568] {\r\n  color: #008e3a;\r\n  font-size: 12px;\n}\n.ongoing[data-v-383ec568]{\r\n   color: #008e3a;\n}\n.upcoming[data-v-383ec568]{\r\n    color:#FFC200;\n}\n.finished[data-v-383ec568]{\r\n    color:red;\n}\r\n", ""]);
 
 // exports
 
@@ -26123,7 +26336,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-00e1fbd1] {\r\n  padding-top: 50px;\r\n  padding-bottom: 70px;\n}\n.grade_book[data-v-00e1fbd1] {\r\n  max-height: 80vh;\r\n  overflow: auto;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-00e1fbd1] {\r\n  padding-top: 50px;\r\n  padding-bottom: 70px;\n}\n.grade_book[data-v-00e1fbd1] {\r\n  max-height: 80vh;\r\n  overflow-y: auto;\n}\n[data-v-00e1fbd1]::-webkit-scrollbar {\r\n  width: 5px;\n}\r\n\r\n/* Track */\n[data-v-00e1fbd1]::-webkit-scrollbar-track {\r\n  background: none;\n}\r\n\r\n/* Handle */\n[data-v-00e1fbd1]::-webkit-scrollbar-thumb {\r\n  background: #c4c4c4;\r\n  border-radius: 5px;\n}\r\n\r\n/* Handle on hover */\n[data-v-00e1fbd1]::-webkit-scrollbar-thumb:hover {\r\n  background: #555;\n}\r\n", ""]);
 
 // exports
 
@@ -26180,7 +26393,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-42846304] {\r\n  font-family: \"Montserrat\";\r\n  padding-bottom: 50px;\n}\n.note-body[data-v-42846304] {\r\n  display: flex;\r\n  border-bottom: 1px solid #ccc;\r\n  margin-bottom: 14px;\n}\n.m-res[data-v-42846304] {\r\n  height: 320px;\r\n  overflow: auto;\n}\n.main-note[data-v-42846304] {\r\n  height: 290px;\r\n  overflow: auto;\n}\n.welcome-board[data-v-42846304] {\r\n  background: rgba(19, 166, 153, 0.43);\r\n  width: 100%;\r\n  height: 200px;\r\n  border-radius: 10px;\r\n  display: flex;\r\n  position: relative;\r\n  margin-top: 2rem;\n}\n.welcome-board img[data-v-42846304] {\r\n  width: 320px;\r\n  height: 280px;\r\n  position: absolute;\r\n  transform: translateY(-28%);\n}\n.welcome-board-content[data-v-42846304] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  padding: 2.5rem;\n}\n.welcome-board-content p[data-v-42846304] {\r\n  text-align: center;\r\n  padding: 10px;\n}\n.welcome-board-content h3[data-v-42846304] {\r\n  color: #13a699;\n}\n.cards[data-v-42846304] {\r\n  margin-top: 2rem;\r\n  background: #fff;\r\n  padding: 1.5rem;\r\n  border-radius: 10px;\r\n  height: 400px;\n}\n.class_section[data-v-42846304] {\r\n  height: 300px;\r\n  overflow: auto;\n}\n.result-progress[data-v-42846304] {\r\n  margin-top: 10px;\n}\n.progress-top[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.update-content[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.update-content p[data-v-42846304] {\r\n  font-size: 12px;\r\n  padding-left: 10px;\r\n  margin-bottom: 0;\n}\n.log-link[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.log-link a[data-v-42846304] {\r\n  color: #808080;\n}\n.log-link a[data-v-42846304]:hover {\r\n  color: #13a699;\r\n  text-decoration: underline !important;\n}\n.resources-inner[data-v-42846304] {\r\n  border-bottom: 1px solid #e4e4e4;\r\n  padding-top: 5px;\n}\n.resources-inner[data-v-42846304]:last-child {\r\n  border-bottom: none;\n}\n.class-content[data-v-42846304] {\r\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.red[data-v-42846304]{\r\n   color: #ff0000;\n}\n.green[data-v-42846304]{\r\n   color:green;\n}\n.class-content-main[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.class-content-main p[data-v-42846304] {\r\n  font-size: 12px;\n}\n.notes-top[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.btn[data-v-42846304] {\r\n  background: transparent;\r\n  border: 1px solid #13a699;\r\n  border-radius: 5px;\r\n  color: #13a699;\r\n  font-size: 15px;\n}\n.btn[data-v-42846304]:hover {\r\n  background: #13a699;\r\n  border-radius: 5px;\r\n  color: #fff;\n}\n.update-avatar img[data-v-42846304] {\r\n  height: 40px;\r\n  width: 40px;\n}\n.notes-content[data-v-42846304] {\r\n  border-bottom: 1px solid #e4e4e4;\n}\n.notes-content[data-v-42846304]:last-child {\r\n  border-bottom: none;\n}\n.notes-top[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  padding-bottom: 1rem;\n}\n.notes-content-top[data-v-42846304] {\r\n  display: flex;\n}\n.notes-content-top h6[data-v-42846304] {\r\n  margin-bottom: 0;\n}\n.notes-content[data-v-42846304] {\n}\n.notes-content-main[data-v-42846304] {\r\n  padding-bottom: 5px;\n}\n.notes-content-main p[data-v-42846304] {\r\n  font-size: 12px;\r\n  margin-bottom: 0;\n}\n.notes-date[data-v-42846304] {\r\n  color: #808080;\r\n  padding-top: 5px;\n}\n.fa-file-o[data-v-42846304] {\r\n  color: #13a699;\r\n  background: rgba(19, 166, 153, 0.43);\r\n  border-radius: 50%;\r\n  padding: 9px;\n}\n.discussion-content[data-v-42846304] {\r\n  border-bottom: 1px solid #e4e4e4;\r\n  padding-bottom: 10px;\r\n  padding-top: 5px;\n}\n.discussion-content[data-v-42846304]:last-child {\r\n  border-bottom: none;\n}\n.discussion-content p[data-v-42846304] {\r\n  font-size: 10px;\n}\n.discussion-content-top[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.discussion-content-top p[data-v-42846304] {\r\n  font-size: 14px;\n}\n.discussion-content-bottom[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.discussion-content-bottom p[data-v-42846304] {\r\n  font-size: 12px;\r\n  margin-bottom: 0;\n}\n.notify-discussion p[data-v-42846304] {\r\n  background: #e4e4e4;\r\n  color: #808080;\r\n  border-radius: 5px;\r\n  font-weight: 500;\r\n  padding: 5px 10px;\n}\n.my-icon[data-v-42846304] {\r\n  color: #008e3a;\n}\n.check_it[data-v-42846304] {\r\n  color: #008e3a;\r\n  font-size: 12px;\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-42846304] {\r\n  font-family: \"Montserrat\";\r\n  padding-bottom: 50px;\n}\n.note-body[data-v-42846304] {\r\n  display: flex;\r\n  border-bottom: 1px solid #ccc;\r\n  margin-bottom: 14px;\n}\n.m-res[data-v-42846304] {\r\n  height: 320px;\r\n  overflow: auto;\n}\n.main-note[data-v-42846304] {\r\n  height: 290px;\r\n  overflow: auto;\n}\n.welcome-board[data-v-42846304] {\r\n  background: rgba(19, 166, 153, 0.43);\r\n  width: 100%;\r\n  height: 200px;\r\n  border-radius: 10px;\r\n  display: flex;\r\n  position: relative;\r\n  margin-top: 2rem;\n}\n.welcome-board img[data-v-42846304] {\r\n  width: 320px;\r\n  height: 280px;\r\n  position: absolute;\r\n  transform: translateY(-28%);\n}\n.welcome-board-content[data-v-42846304] {\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n  padding: 2.5rem;\n}\n.welcome-board-content p[data-v-42846304] {\r\n  text-align: center;\r\n  padding: 10px;\n}\n.welcome-board-content h3[data-v-42846304] {\r\n  color: #13a699;\n}\n.cards[data-v-42846304] {\r\n  margin-top: 2rem;\r\n  background: #fff;\r\n  padding: 1.5rem;\r\n  border-radius: 10px;\r\n  height: 400px;\n}\n.class_section[data-v-42846304] {\r\n  height: 300px;\r\n  overflow: auto;\n}\n.result-progress[data-v-42846304] {\r\n  margin-top: 10px;\n}\n.progress-top[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.update-content[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: flex-start;\n}\n.update-content p[data-v-42846304] {\r\n  font-size: 14px;\r\n  padding-left: 10px;\r\n  margin-bottom: 0;\n}\n.log-link[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: flex-end;\n}\n.log-link a[data-v-42846304] {\r\n  color: #808080;\n}\n.log-link a[data-v-42846304]:hover {\r\n  color: #13a699;\r\n  text-decoration: underline !important;\n}\n.resources-inner[data-v-42846304] {\r\n  border-bottom: 1px solid #e4e4e4;\r\n  padding-top: 5px;\n}\n.resources-inner[data-v-42846304]:last-child {\r\n  border-bottom: none;\n}\n.class-content[data-v-42846304] {\r\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.red[data-v-42846304] {\r\n  color: #ff0000;\n}\n.green[data-v-42846304] {\r\n  color: green;\n}\n.class-content-main[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.class-content-main p[data-v-42846304] {\r\n  font-size: 12px;\n}\n.notes-top[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.btn[data-v-42846304] {\r\n  background: transparent;\r\n  border: 1px solid #13a699;\r\n  border-radius: 5px;\r\n  color: #13a699;\r\n  font-size: 15px;\n}\n.btn[data-v-42846304]:hover {\r\n  background: #13a699;\r\n  border-radius: 5px;\r\n  color: #fff;\n}\n.update-avatar img[data-v-42846304] {\r\n  height: 40px;\r\n  width: 40px;\n}\n.notes-content[data-v-42846304] {\r\n  border-bottom: 1px solid #e4e4e4;\n}\n.notes-content[data-v-42846304]:last-child {\r\n  border-bottom: none;\n}\n.notes-top[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  padding-bottom: 1rem;\n}\n.notes-content-top[data-v-42846304] {\r\n  display: flex;\n}\n.notes-content-top h6[data-v-42846304] {\r\n  margin-bottom: 0;\n}\n.notes-content[data-v-42846304] {\n}\n.notes-content-main[data-v-42846304] {\r\n  padding-bottom: 5px;\n}\n.notes-content-main p[data-v-42846304] {\r\n  font-size: 12px;\r\n  margin-bottom: 0;\n}\n.notes-date[data-v-42846304] {\r\n  color: #808080;\r\n  padding-top: 5px;\n}\n.fa-file-o[data-v-42846304] {\r\n  color: #13a699;\r\n  background: rgba(19, 166, 153, 0.43);\r\n  border-radius: 50%;\r\n  padding: 9px;\n}\n.discussion-content[data-v-42846304] {\r\n  border-bottom: 1px solid #e4e4e4;\r\n  padding-bottom: 10px;\r\n  padding-top: 5px;\n}\n.discussion-content[data-v-42846304]:last-child {\r\n  border-bottom: none;\n}\n.discussion-content p[data-v-42846304] {\r\n  font-size: 10px;\n}\n.discussion-content-top[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.discussion-content-top p[data-v-42846304] {\r\n  font-size: 14px;\n}\n.discussion-content-bottom[data-v-42846304] {\r\n  display: flex;\r\n  justify-content: space-between;\n}\n.discussion-content-bottom p[data-v-42846304] {\r\n  font-size: 12px;\r\n  margin-bottom: 0;\n}\n.notify-discussion p[data-v-42846304] {\r\n  background: #e4e4e4;\r\n  color: #808080;\r\n  border-radius: 5px;\r\n  font-weight: 500;\r\n  padding: 5px 10px;\n}\n.my-icon[data-v-42846304] {\r\n  color: #008e3a;\n}\n.check_it[data-v-42846304] {\r\n  color: #008e3a;\r\n  font-size: 12px;\n}\n.check[data-v-42846304] {\r\n  color: #008e3a;\n}\r\n", ""]);
 
 // exports
 
@@ -44915,10 +45128,10 @@ var render = function() {
                 {
                   key: idx,
                   staticClass: "single-online-tag",
-                  class: { active: _vm.active == item.id },
+                  class: { active: _vm.active == item.name },
                   on: {
                     click: function($event) {
-                      return _vm.switchGroup(item.id)
+                      return _vm.switchGroup(item.id, item.name)
                     }
                   }
                 },
@@ -48913,258 +49126,332 @@ var render = function() {
                             { staticClass: "py-5" },
                             [
                               _c("b-col", { attrs: { md: "4" } }, [
-                                _c("div", { staticClass: "cards" }, [
-                                  _c("h5", [_vm._v("Today's Class")]),
-                                  _vm._v(" "),
-                                  _vm.todaysClass.length
-                                    ? _c(
-                                        "div",
-                                        { staticClass: "class_section" },
-                                        _vm._l(_vm.todaysClass, function(
-                                          item,
-                                          idx
-                                        ) {
-                                          return _c(
-                                            "div",
-                                            {
-                                              key: idx,
-                                              staticClass:
-                                                "class-content border-bottom p-2"
-                                            },
-                                            [
-                                              _c(
-                                                "div",
-                                                {
-                                                  staticClass:
-                                                    "class-content-top"
-                                                },
-                                                [
-                                                  _c(
-                                                    "h5",
-                                                    { staticClass: "toCaps" },
-                                                    [
-                                                      _vm._v(
-                                                        _vm._s(item.subject)
-                                                      )
-                                                    ]
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _vm.getSecond(_vm.today) >
-                                                    _vm.getSecond(item.start) &&
-                                                  _vm.getSecond(_vm.today) <
-                                                    _vm.getSecond(item.end)
-                                                    ? _c("i", {
-                                                        staticClass:
-                                                          "fa fa-play-circle-o green",
-                                                        attrs: {
-                                                          "aria-hidden": "true"
-                                                        }
-                                                      })
-                                                    : _vm.getSecond(_vm.today) <
+                                _c(
+                                  "div",
+                                  { staticClass: "cards border-right p-2" },
+                                  [
+                                    _vm.todaysClass.length
+                                      ? _c(
+                                          "div",
+                                          { staticClass: "class_section" },
+                                          _vm._l(_vm.todaysClass, function(
+                                            item,
+                                            idx
+                                          ) {
+                                            return _c(
+                                              "div",
+                                              {
+                                                key: idx,
+                                                staticClass:
+                                                  "class-content  p-2"
+                                              },
+                                              [
+                                                _c(
+                                                  "div",
+                                                  {
+                                                    staticClass:
+                                                      "class-content-top"
+                                                  },
+                                                  [
+                                                    _c(
+                                                      "p",
+                                                      { staticClass: "toCaps" },
+                                                      [
+                                                        _vm._v(
+                                                          _vm._s(item.subject)
+                                                        )
+                                                      ]
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _vm.getSecond(_vm.today) >
+                                                      _vm.getSecond(
+                                                        item.start
+                                                      ) &&
+                                                    _vm.getSecond(_vm.today) <
+                                                      _vm.getSecond(item.end)
+                                                      ? _c("i", {
+                                                          staticClass:
+                                                            "fa fa-play-circle-o green",
+                                                          attrs: {
+                                                            "aria-hidden":
+                                                              "true"
+                                                          }
+                                                        })
+                                                      : _vm.getSecond(
+                                                          _vm.today
+                                                        ) <
                                                         _vm.getSecond(
                                                           item.start
-                                                        ) &&
-                                                      _vm.getSecond(_vm.today) <
-                                                        _vm.getSecond(item.end)
-                                                    ? _c("i", {
-                                                        staticClass:
-                                                          "fa fa-dot-circle-o text-dark",
-                                                        attrs: {
-                                                          "aria-hidden": "true"
-                                                        }
-                                                      })
-                                                    : _vm.getSecond(_vm.today) >
-                                                        _vm.getSecond(
-                                                          item.start
-                                                        ) &&
-                                                      _vm.getSecond(_vm.today) >
-                                                        _vm.getSecond(item.end)
-                                                    ? _c("i", {
-                                                        staticClass:
-                                                          "fa fa-stop-circle-o red",
-                                                        attrs: {
-                                                          id: idx.toString(),
-                                                          "aria-hidden": "true"
-                                                        }
-                                                      })
-                                                    : _vm._e(),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "b-tooltip",
-                                                    {
-                                                      ref: "tooltip",
-                                                      refInFor: true,
-                                                      attrs: {
-                                                        target: idx.toString()
-                                                      }
-                                                    },
-                                                    [
-                                                      _vm.getSecond(_vm.today) >
-                                                        _vm.getSecond(
-                                                          item.start
-                                                        ) &&
-                                                      _vm.getSecond(_vm.today) <
-                                                        _vm.getSecond(item.end)
-                                                        ? _c(
-                                                            "p",
-                                                            {
-                                                              staticClass: "m-0"
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                "This class is ongoing"
-                                                              )
-                                                            ]
-                                                          )
-                                                        : _vm.getSecond(
-                                                            _vm.today
-                                                          ) <
-                                                            _vm.getSecond(
-                                                              item.start
-                                                            ) &&
+                                                        )
+                                                      ? _c("i", {
+                                                          staticClass:
+                                                            "fa fa-dot-circle-o amber",
+                                                          attrs: {
+                                                            "aria-hidden":
+                                                              "true"
+                                                          }
+                                                        })
+                                                      : _vm.getSecond(
+                                                          _vm.today
+                                                        ) >
                                                           _vm.getSecond(
-                                                            _vm.today
-                                                          ) <
-                                                            _vm.getSecond(
-                                                              item.end
+                                                            item.start
+                                                          ) &&
+                                                        _vm.getSecond(
+                                                          _vm.today
+                                                        ) >
+                                                          _vm.getSecond(
+                                                            item.end
+                                                          )
+                                                      ? _c("i", {
+                                                          staticClass:
+                                                            "fa fa-stop-circle-o red",
+                                                          attrs: {
+                                                            id: idx.toString(),
+                                                            "aria-hidden":
+                                                              "true"
+                                                          }
+                                                        })
+                                                      : _vm._e(),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "b-tooltip",
+                                                      {
+                                                        ref: "tooltip",
+                                                        refInFor: true,
+                                                        attrs: {
+                                                          target: idx.toString()
+                                                        }
+                                                      },
+                                                      [
+                                                        _vm.getSecond(
+                                                          _vm.today
+                                                        ) >
+                                                          _vm.getSecond(
+                                                            item.start
+                                                          ) &&
+                                                        _vm.getSecond(
+                                                          _vm.today
+                                                        ) <
+                                                          _vm.getSecond(
+                                                            item.end
+                                                          )
+                                                          ? _c(
+                                                              "p",
+                                                              {
+                                                                staticClass:
+                                                                  "m-0"
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  "This class is ongoing"
+                                                                )
+                                                              ]
                                                             )
-                                                        ? _c(
-                                                            "p",
-                                                            {
-                                                              staticClass: "m-0"
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                "This class begins by " +
-                                                                  _vm._s(
-                                                                    _vm._f(
-                                                                      "format"
-                                                                    )(
-                                                                      item.start
+                                                          : _vm.getSecond(
+                                                              _vm.today
+                                                            ) <
+                                                              _vm.getSecond(
+                                                                item.start
+                                                              ) &&
+                                                            _vm.getSecond(
+                                                              _vm.today
+                                                            ) <
+                                                              _vm.getSecond(
+                                                                item.end
+                                                              )
+                                                          ? _c(
+                                                              "p",
+                                                              {
+                                                                staticClass:
+                                                                  "m-0"
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  "This class begins by " +
+                                                                    _vm._s(
+                                                                      _vm._f(
+                                                                        "format"
+                                                                      )(
+                                                                        item.start
+                                                                      )
                                                                     )
-                                                                  )
-                                                              )
-                                                            ]
-                                                          )
-                                                        : _vm.getSecond(
-                                                            _vm.today
-                                                          ) >
-                                                            _vm.getSecond(
-                                                              item.start
-                                                            ) &&
-                                                          _vm.getSecond(
-                                                            _vm.today
-                                                          ) >
-                                                            _vm.getSecond(
-                                                              item.end
+                                                                )
+                                                              ]
                                                             )
-                                                        ? _c(
-                                                            "p",
-                                                            {
-                                                              staticClass: "m-0"
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                "This class has ended"
+                                                          : _vm.getSecond(
+                                                              _vm.today
+                                                            ) >
+                                                              _vm.getSecond(
+                                                                item.start
+                                                              ) &&
+                                                            _vm.getSecond(
+                                                              _vm.today
+                                                            ) >
+                                                              _vm.getSecond(
+                                                                item.end
                                                               )
-                                                            ]
-                                                          )
-                                                        : _vm._e()
-                                                    ]
-                                                  )
-                                                ],
-                                                1
-                                              ),
-                                              _vm._v(" "),
-                                              _c("small", [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    _vm._f("format")(item.start)
-                                                  ) +
-                                                    " to " +
+                                                          ? _c(
+                                                              "p",
+                                                              {
+                                                                staticClass:
+                                                                  "m-0"
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  "This class has ended"
+                                                                )
+                                                              ]
+                                                            )
+                                                          : _vm._e()
+                                                      ]
+                                                    )
+                                                  ],
+                                                  1
+                                                ),
+                                                _vm._v(" "),
+                                                _c("small", [
+                                                  _vm._v(
                                                     _vm._s(
-                                                      _vm._f("format")(item.end)
+                                                      _vm._f("format")(
+                                                        item.start
+                                                      )
+                                                    ) +
+                                                      " to " +
+                                                      _vm._s(
+                                                        _vm._f("format")(
+                                                          item.end
+                                                        )
+                                                      )
+                                                  )
+                                                ]),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "div",
+                                                  {
+                                                    staticClass:
+                                                      "class-content-main"
+                                                  },
+                                                  [
+                                                    _c("p", [
+                                                      _c("span", [
+                                                        _vm._v(
+                                                          "\n                            Tutor :\n                            "
+                                                        ),
+                                                        _c(
+                                                          "strong",
+                                                          {
+                                                            staticClass:
+                                                              "toCaps"
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              _vm._s(item.tutor)
+                                                            )
+                                                          ]
+                                                        )
+                                                      ])
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _vm.getSecond(_vm.today) >
+                                                      _vm.getSecond(
+                                                        item.start
+                                                      ) &&
+                                                    _vm.getSecond(_vm.today) <
+                                                      _vm.getSecond(item.end)
+                                                      ? _c("p", [
+                                                          _vm._v("Ongoing")
+                                                        ])
+                                                      : _vm.getSecond(
+                                                          _vm.today
+                                                        ) <
+                                                        _vm.getSecond(
+                                                          item.start
+                                                        )
+                                                      ? _c("p", [
+                                                          _vm._v("Upcoming")
+                                                        ])
+                                                      : _vm.getSecond(
+                                                          _vm.today
+                                                        ) >
+                                                          _vm.getSecond(
+                                                            item.start
+                                                          ) &&
+                                                        _vm.getSecond(
+                                                          _vm.today
+                                                        ) >
+                                                          _vm.getSecond(
+                                                            item.end
+                                                          )
+                                                      ? _c("p", [
+                                                          _vm._v("Finished")
+                                                        ])
+                                                      : _vm._e()
+                                                  ]
+                                                )
+                                              ]
+                                            )
+                                          }),
+                                          0
+                                        )
+                                      : _c(
+                                          "div",
+                                          {
+                                            staticClass: "class_section phert-5"
+                                          },
+                                          [
+                                            _c(
+                                              "div",
+                                              {
+                                                staticClass:
+                                                  "form-control text-align"
+                                              },
+                                              [_vm._v("No Class Available")]
+                                            )
+                                          ]
+                                        )
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "b-col",
+                                _vm._l(_vm.assess, function(item, idx) {
+                                  return _c(
+                                    "div",
+                                    {
+                                      key: idx,
+                                      staticClass: "class-content p-2"
+                                    },
+                                    [
+                                      _c("div", [
+                                        new Date(item.end).getTime() >
+                                        new Date().getTime()
+                                          ? _c(
+                                              "div",
+                                              { staticClass: "border-bottom" },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(item.subject) +
+                                                    " " +
+                                                    _vm._s(item.type) +
+                                                    " submission deadline " +
+                                                    _vm._s(
+                                                      _vm._f("moment")(
+                                                        item.end,
+                                                        "dddd h:mm A"
+                                                      )
                                                     )
                                                 )
-                                              ]),
-                                              _vm._v(" "),
-                                              _c(
-                                                "div",
-                                                {
-                                                  staticClass:
-                                                    "class-content-main"
-                                                },
-                                                [
-                                                  _c("p", [
-                                                    _c("span", [
-                                                      _vm._v(
-                                                        "\n                            Tutor :\n                            "
-                                                      ),
-                                                      _c(
-                                                        "strong",
-                                                        {
-                                                          staticClass: "toCaps"
-                                                        },
-                                                        [
-                                                          _vm._v(
-                                                            _vm._s(item.tutor)
-                                                          )
-                                                        ]
-                                                      )
-                                                    ])
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _vm.getSecond(_vm.today) >
-                                                    _vm.getSecond(item.start) &&
-                                                  _vm.getSecond(_vm.today) <
-                                                    _vm.getSecond(item.end)
-                                                    ? _c("p", [
-                                                        _vm._v("Ongoing")
-                                                      ])
-                                                    : _vm.getSecond(_vm.today) <
-                                                        _vm.getSecond(
-                                                          item.start
-                                                        ) &&
-                                                      _vm.getSecond(_vm.today) <
-                                                        _vm.getSecond(item.end)
-                                                    ? _c("p", [
-                                                        _vm._v("Upcoming")
-                                                      ])
-                                                    : _vm.getSecond(_vm.today) >
-                                                        _vm.getSecond(
-                                                          item.start
-                                                        ) &&
-                                                      _vm.getSecond(_vm.today) >
-                                                        _vm.getSecond(item.end)
-                                                    ? _c("p", [
-                                                        _vm._v("Finished")
-                                                      ])
-                                                    : _vm._e()
-                                                ]
-                                              )
-                                            ]
-                                          )
-                                        }),
-                                        0
-                                      )
-                                    : _c(
-                                        "div",
-                                        {
-                                          staticClass: "class_section phert-5"
-                                        },
-                                        [
-                                          _c(
-                                            "div",
-                                            {
-                                              staticClass:
-                                                "form-control text-align"
-                                            },
-                                            [_vm._v("No Class Available")]
-                                          )
-                                        ]
-                                      )
-                                ])
-                              ])
+                                              ]
+                                            )
+                                          : _vm._e()
+                                      ])
+                                    ]
+                                  )
+                                }),
+                                0
+                              )
                             ],
                             1
                           )
@@ -49179,6 +49466,48 @@ var render = function() {
                       _c("h5", { staticClass: "mb-4" }, [
                         _vm._v(_vm._s(_vm.student.sub_class.toUpperCase()))
                       ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "d-flex justify-content-around mb-2" },
+                        [
+                          _c(
+                            "span",
+                            [
+                              _c("b-icon", {
+                                staticClass: "upcoming",
+                                attrs: { icon: "circle-fill" }
+                              }),
+                              _vm._v(" Upcoming")
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            [
+                              _c("b-icon", {
+                                staticClass: "ongoing",
+                                attrs: { icon: "circle-fill" }
+                              }),
+                              _vm._v(" Ongoing")
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            [
+                              _c("b-icon", {
+                                staticClass: "finished",
+                                attrs: { icon: "circle-fill" }
+                              }),
+                              _vm._v(" Finished")
+                            ],
+                            1
+                          )
+                        ]
+                      ),
                       _vm._v(" "),
                       _c("table", { staticClass: "table table-bordered" }, [
                         _c("thead", { staticClass: "thead-light" }, [
@@ -49213,27 +49542,48 @@ var render = function() {
                                           "td",
                                           {
                                             key: idx,
-                                            staticClass: "text-center"
+                                            staticClass: "text-center ",
+                                            class: {
+                                              upcoming:
+                                                _vm.getSecond(_vm.today) <
+                                                  _vm.getSecond(item.start) &&
+                                                tab.day.toLowerCase() ==
+                                                  _vm.today_name,
+                                              ongoing:
+                                                _vm.getSecond(_vm.today) >
+                                                  _vm.getSecond(item.start) &&
+                                                _vm.getSecond(_vm.today) <=
+                                                  _vm.getSecond(item.end) &&
+                                                tab.day.toLowerCase() ==
+                                                  _vm.today_name,
+                                              finished:
+                                                _vm.getSecond(_vm.today) >
+                                                  _vm.getSecond(item.end) &&
+                                                tab.day.toLowerCase() ==
+                                                  _vm.today_name
+                                            }
                                           },
                                           [
                                             _c("div", {}, [
-                                              _vm._v(
-                                                _vm._s(
-                                                  _vm._f("format")(item.start)
-                                                ) +
-                                                  " - " +
+                                              _c("div", [
+                                                _vm._v(
                                                   _vm._s(
-                                                    _vm._f("format")(item.end)
-                                                  )
-                                              )
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("div", [
-                                              _vm._v(_vm._s(item.subject))
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("div", [
-                                              _vm._v(_vm._s(item.tutor))
+                                                    _vm._f("format")(item.start)
+                                                  ) +
+                                                    " - " +
+                                                    _vm._s(
+                                                      _vm._f("format")(item.end)
+                                                    )
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("div", [
+                                                _vm._v(_vm._s(item.subject))
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("div", [
+                                                _vm._v(_vm._s(item.tutor))
+                                              ])
                                             ])
                                           ]
                                         )
@@ -49252,7 +49602,217 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("b-tab", { attrs: { title: "My Attendance" } }, [
-                    _c("div", { staticClass: "activity" })
+                    _c("div", { staticClass: "activity" }, [
+                      _c("div", { staticClass: "main-attendance container" }, [
+                        _c("div", { staticClass: "attendance" }, [
+                          _c(
+                            "div",
+                            { staticClass: "sort-table" },
+                            [
+                              _c(
+                                "b-container",
+                                [
+                                  _c(
+                                    "b-row",
+                                    [
+                                      _c("b-col", { attrs: { md: "2" } }, [
+                                        _c("p", [
+                                          _c("strong", [_vm._v("Attendance")])
+                                        ])
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        { attrs: { md: "6" } },
+                                        [
+                                          _c(
+                                            "b-container",
+                                            [
+                                              _c(
+                                                "b-row",
+                                                [
+                                                  _c(
+                                                    "b-col",
+                                                    { attrs: { md: "4" } },
+                                                    [_c("b-form-select")],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "b-col",
+                                                    { attrs: { md: "4" } },
+                                                    [_c("b-form-select")],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "b-col",
+                                                    { attrs: { md: "4" } },
+                                                    [_c("b-form-select")],
+                                                    1
+                                                  )
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        { attrs: { md: "4" } },
+                                        [
+                                          _c(
+                                            "b-container",
+                                            [
+                                              _c(
+                                                "b-row",
+                                                [
+                                                  _c(
+                                                    "b-col",
+                                                    { attrs: { md: "6" } },
+                                                    [
+                                                      _c("b-form-input", {
+                                                        staticClass:
+                                                          "search rounded-pill",
+                                                        attrs: {
+                                                          placeholder:
+                                                            "Search Student "
+                                                        }
+                                                      })
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "b-col",
+                                                    { attrs: { md: "6" } },
+                                                    [
+                                                      _c(
+                                                        "div",
+                                                        {
+                                                          staticClass: "export"
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "div",
+                                                            {
+                                                              staticClass:
+                                                                "btn btn-export"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "\n                                  Export\n                                  "
+                                                              ),
+                                                              _c("i", {
+                                                                staticClass:
+                                                                  "fa fa-external-link"
+                                                              })
+                                                            ]
+                                                          )
+                                                        ]
+                                                      )
+                                                    ]
+                                                  )
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("hr"),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "attendance-table" },
+                            [
+                              _c("b-table", {
+                                attrs: { items: _vm.items, bordered: "" },
+                                scopedSlots: _vm._u([
+                                  {
+                                    key: "cell(monday)",
+                                    fn: function(data) {
+                                      return [
+                                        _c("span", {
+                                          domProps: {
+                                            innerHTML: _vm._s(data.value)
+                                          }
+                                        })
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    key: "cell(tuesday)",
+                                    fn: function(data) {
+                                      return [
+                                        _c("span", {
+                                          domProps: {
+                                            innerHTML: _vm._s(data.value)
+                                          }
+                                        })
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    key: "cell(wednesday)",
+                                    fn: function(data) {
+                                      return [
+                                        _c("span", {
+                                          domProps: {
+                                            innerHTML: _vm._s(data.value)
+                                          }
+                                        })
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    key: "cell(thursday)",
+                                    fn: function(data) {
+                                      return [
+                                        _c("span", {
+                                          domProps: {
+                                            innerHTML: _vm._s(data.value)
+                                          }
+                                        })
+                                      ]
+                                    }
+                                  },
+                                  {
+                                    key: "cell(friday)",
+                                    fn: function(data) {
+                                      return [
+                                        _c("span", {
+                                          domProps: {
+                                            innerHTML: _vm._s(data.value)
+                                          }
+                                        })
+                                      ]
+                                    }
+                                  }
+                                ])
+                              })
+                            ],
+                            1
+                          )
+                        ])
+                      ])
+                    ])
                   ])
                 ],
                 1
@@ -51983,9 +52543,10 @@ var render = function() {
                 {
                   key: idx,
                   staticClass: "single-online-tag",
+                  class: { active: group.name == _vm.active },
                   on: {
                     click: function($event) {
-                      return _vm.switchGroup("group", group.id)
+                      return _vm.switchGroup("group", group.id, group.name)
                     }
                   }
                 },
@@ -52031,10 +52592,10 @@ var render = function() {
                 "div",
                 {
                   staticClass: "single-online-tag border-bottom",
-                  class: { active: mate.id == _vm.receiver_id },
+                  class: { active: mate.name == _vm.active },
                   on: {
                     click: function($event) {
-                      return _vm.switchGroup("private", mate.id)
+                      return _vm.switchGroup("private", mate.id, mate.name)
                     }
                   }
                 },
@@ -52343,7 +52904,10 @@ var render = function() {
                             [
                               _c(
                                 "div",
-                                { staticClass: "grade_book" },
+                                {
+                                  staticClass:
+                                    "grade_book overall-gradebook-student"
+                                },
                                 [
                                   _c("h5", { staticClass: "mb-5" }, [
                                     _vm._v("Overall Grades")
@@ -52351,6 +52915,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("b-table", {
                                     attrs: {
+                                      striped: "",
                                       stacked: "",
                                       items: _vm.overall,
                                       fields: _vm.grade_fields,
@@ -52363,9 +52928,7 @@ var render = function() {
                                           return [
                                             _c("div", [
                                               _vm._v(
-                                                "\n                " +
-                                                  _vm._s(data.item.user.name) +
-                                                  "\n              "
+                                                _vm._s(data.item.user.name)
                                               )
                                             ])
                                           ]
@@ -52378,6 +52941,74 @@ var render = function() {
                               )
                             ]
                           ),
+                          _vm._v(" "),
+                          _c("b-tab", { attrs: { title: "Participation" } }, [
+                            _c(
+                              "div",
+                              { staticClass: "grade_book" },
+                              [
+                                _c("h5", { staticClass: "mb-5" }, [
+                                  _vm._v("Overall Grades")
+                                ]),
+                                _vm._v(" "),
+                                _c("b-table", {
+                                  attrs: {
+                                    stacked: "",
+                                    items: _vm.overall,
+                                    fields: _vm.grade_fields,
+                                    bordered: ""
+                                  },
+                                  scopedSlots: _vm._u([
+                                    {
+                                      key: "cell(name)",
+                                      fn: function(data) {
+                                        return [
+                                          _c("div", [
+                                            _vm._v(_vm._s(data.item.user.name))
+                                          ])
+                                        ]
+                                      }
+                                    }
+                                  ])
+                                })
+                              ],
+                              1
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("b-tab", { attrs: { title: "Attendance" } }, [
+                            _c(
+                              "div",
+                              { staticClass: "grade_book" },
+                              [
+                                _c("h5", { staticClass: "mb-5" }, [
+                                  _vm._v("Overall Grades")
+                                ]),
+                                _vm._v(" "),
+                                _c("b-table", {
+                                  attrs: {
+                                    stacked: "",
+                                    items: _vm.overall,
+                                    fields: _vm.grade_fields,
+                                    bordered: ""
+                                  },
+                                  scopedSlots: _vm._u([
+                                    {
+                                      key: "cell(name)",
+                                      fn: function(data) {
+                                        return [
+                                          _c("div", [
+                                            _vm._v(_vm._s(data.item.user.name))
+                                          ])
+                                        ]
+                                      }
+                                    }
+                                  ])
+                                })
+                              ],
+                              1
+                            )
+                          ]),
                           _vm._v(" "),
                           _c("b-tab", { attrs: { title: "Assessments" } }, [
                             _c(
@@ -52895,7 +53526,7 @@ var render = function() {
               _vm._v(" "),
               _c("b-col", { attrs: { md: "4" } }, [
                 _c("div", { staticClass: "resources-update cards" }, [
-                  _c("h5", [_vm._v(" Updates")]),
+                  _c("h5", [_vm._v("Updates")]),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -52957,137 +53588,90 @@ var render = function() {
               _vm._v(" "),
               _c("b-col", { attrs: { md: "4" } }, [
                 _c("div", { staticClass: "cards" }, [
-                  _c("h5", [_vm._v("Today's Class")]),
+                  _c("h5", [_vm._v("Today's Schedule")]),
                   _vm._v(" "),
-                  _vm.todaysClass.length
+                  _vm.schedule.length
                     ? _c(
                         "div",
                         { staticClass: "class_section" },
-                        _vm._l(_vm.todaysClass, function(item, idx) {
+                        _vm._l(_vm.schedule, function(item, idx) {
                           return _c(
                             "div",
-                            {
-                              key: idx,
-                              staticClass: "class-content border-bottom p-2"
-                            },
+                            { key: idx, staticClass: "class-content p-2" },
                             [
-                              _c(
-                                "div",
-                                { staticClass: "class-content-top" },
-                                [
-                                  _c("h6", { staticClass: "toCaps" }, [
-                                    _vm._v(_vm._s(item.subject))
-                                  ]),
-                                  _vm._v(" "),
-                                  _vm.getSecond(_vm.today) >
-                                    _vm.getSecond(item.start) &&
-                                  _vm.getSecond(_vm.today) <
-                                    _vm.getSecond(item.end)
-                                    ? _c("i", {
-                                        staticClass:
-                                          "fa fa-play-circle-o green",
-                                        attrs: { "aria-hidden": "true" }
-                                      })
-                                    : _vm.getSecond(_vm.today) <
-                                        _vm.getSecond(item.start) &&
-                                      _vm.getSecond(_vm.today) <
-                                        _vm.getSecond(item.end)
-                                    ? _c("i", {
-                                        staticClass:
-                                          "fa fa-dot-circle-o text-dark",
-                                        attrs: { "aria-hidden": "true" }
-                                      })
-                                    : _vm.getSecond(_vm.today) >
-                                        _vm.getSecond(item.start) &&
-                                      _vm.getSecond(_vm.today) >
-                                        _vm.getSecond(item.end)
-                                    ? _c("i", {
-                                        staticClass: "fa fa-stop-circle-o red",
-                                        attrs: {
-                                          id: idx.toString(),
-                                          "aria-hidden": "true"
-                                        }
-                                      })
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-tooltip",
-                                    {
-                                      ref: "tooltip",
-                                      refInFor: true,
-                                      attrs: { target: idx.toString() }
-                                    },
-                                    [
-                                      _vm.getSecond(_vm.today) >
-                                        _vm.getSecond(item.start) &&
-                                      _vm.getSecond(_vm.today) <
-                                        _vm.getSecond(item.end)
-                                        ? _c("p", { staticClass: "m-0" }, [
-                                            _vm._v("This class is ongoing")
-                                          ])
-                                        : _vm.getSecond(_vm.today) <
-                                            _vm.getSecond(item.start) &&
-                                          _vm.getSecond(_vm.today) <
-                                            _vm.getSecond(item.end)
-                                        ? _c("p", { staticClass: "m-0" }, [
+                              item.type == "times"
+                                ? _c("div", { staticClass: "border-bottom" }, [
+                                    _c("div", [
+                                      _c("p", { staticClass: "toCaps" }, [
+                                        _vm._v(
+                                          _vm._s(item.subject) +
+                                            " Class By " +
+                                            _vm._s(_vm._f("format")(item.start))
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("small", [
+                                        _vm._v(
+                                          "Class ends " +
+                                            _vm._s(_vm._f("format")(item.end))
+                                        )
+                                      ])
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "class-content-main" },
+                                      [
+                                        _c("p", [
+                                          _c("span", [
                                             _vm._v(
-                                              "This class begins by " +
-                                                _vm._s(
-                                                  _vm._f("format")(item.start)
-                                                )
+                                              "\n                      Tutor:\n                      "
+                                            ),
+                                            _c(
+                                              "strong",
+                                              { staticClass: "toCaps" },
+                                              [_vm._v(_vm._s(item.tutor))]
                                             )
                                           ])
-                                        : _vm.getSecond(_vm.today) >
-                                            _vm.getSecond(item.start) &&
-                                          _vm.getSecond(_vm.today) >
-                                            _vm.getSecond(item.end)
-                                        ? _c("p", { staticClass: "m-0" }, [
-                                            _vm._v("This class has ended")
-                                          ])
-                                        : _vm._e()
-                                    ]
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c("small", [
-                                _vm._v(
-                                  _vm._s(_vm._f("format")(item.start)) +
-                                    " to " +
-                                    _vm._s(_vm._f("format")(item.end))
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "class-content-main" }, [
-                                _c("p", [
-                                  _c("span", [
-                                    _vm._v(
-                                      "\n                    by:\n                    "
-                                    ),
-                                    _c("strong", { staticClass: "toCaps" }, [
-                                      _vm._v(_vm._s(item.tutor))
-                                    ])
+                                        ]),
+                                        _vm._v(" "),
+                                        _vm.getSecond(_vm.today) >
+                                          _vm.getSecond(item.start) &&
+                                        _vm.getSecond(_vm.today) <
+                                          _vm.getSecond(item.end)
+                                          ? _c("p", [_vm._v("Ongoing")])
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        _vm.getSecond(_vm.today) <
+                                        _vm.getSecond(item.start)
+                                          ? _c("p", [_vm._v(" Upcoming")])
+                                          : _vm._e()
+                                      ]
+                                    )
                                   ])
-                                ]),
-                                _vm._v(" "),
-                                _vm.getSecond(_vm.today) >
-                                  _vm.getSecond(item.start) &&
-                                _vm.getSecond(_vm.today) <
-                                  _vm.getSecond(item.end)
-                                  ? _c("p", [_vm._v("Ongoing")])
-                                  : _vm.getSecond(_vm.today) <
-                                      _vm.getSecond(item.start) &&
-                                    _vm.getSecond(_vm.today) <
-                                      _vm.getSecond(item.end)
-                                  ? _c("p", [_vm._v("Upcoming")])
-                                  : _vm.getSecond(_vm.today) >
-                                      _vm.getSecond(item.start) &&
-                                    _vm.getSecond(_vm.today) >
-                                      _vm.getSecond(item.end)
-                                  ? _c("p", [_vm._v("Finished")])
-                                  : _vm._e()
-                              ])
+                                : _c("div", [
+                                    new Date(item.end).getTime() >
+                                    new Date().getTime()
+                                      ? _c(
+                                          "div",
+                                          { staticClass: "border-bottom" },
+                                          [
+                                            _vm._v(
+                                              _vm._s(item.subject) +
+                                                " " +
+                                                _vm._s(item.type) +
+                                                " submission deadline " +
+                                                _vm._s(
+                                                  _vm._f("moment")(
+                                                    item.end,
+                                                    "h:mm A"
+                                                  )
+                                                )
+                                            )
+                                          ]
+                                        )
+                                      : _vm._e()
+                                  ])
                             ]
                           )
                         }),
@@ -53095,7 +53679,7 @@ var render = function() {
                       )
                     : _c("div", { staticClass: "class_section phert-5" }, [
                         _c("div", { staticClass: "form-control text-align" }, [
-                          _vm._v(" No Class Available")
+                          _vm._v("No Class Available")
                         ])
                       ]),
                   _vm._v(" "),
@@ -53103,9 +53687,11 @@ var render = function() {
                     "div",
                     { staticClass: "log-link" },
                     [
-                      _c("router-link", { attrs: { to: "" } }, [
-                        _vm._v("View Today's Class")
-                      ])
+                      _c(
+                        "router-link",
+                        { attrs: { to: "/student/activities" } },
+                        [_vm._v("View all")]
+                      )
                     ],
                     1
                   )
@@ -53119,138 +53705,174 @@ var render = function() {
             "b-row",
             [
               _c("b-col", { attrs: { md: "6" } }, [
-                _c("div", { staticClass: "discussion cards" }, [
-                  _c("h5", [_vm._v("Discussion Board")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "discussion-content" }, [
-                    _c(
-                      "div",
-                      { staticClass: "discussion-content-top" },
-                      [
-                        _c("p", [_c("strong", [_vm._v("Up coming Exams")])]),
-                        _vm._v(" "),
-                        _c(
-                          "b-avatar-group",
-                          { attrs: { size: "2.5rem" } },
-                          [
-                            _c("b-avatar"),
-                            _vm._v(" "),
-                            _c("b-avatar", {
-                              attrs: { text: "BV", variant: "primary" }
-                            }),
-                            _vm._v(" "),
-                            _c("b-avatar", {
-                              attrs: {
-                                src: "https://placekitten.com/300/300",
-                                variant: "info"
-                              }
-                            })
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v("the upcoming exam is coming up .................")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "discussion-content-bottom" }, [
-                      _c("p", [_vm._v("Updated 2mins ago")]),
+                _vm.groupMessage.length
+                  ? _c("div", { staticClass: "discussion cards" }, [
+                      _c("h5", [_vm._v("Discussion Board")]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "notify-discussion" }, [
-                        _c("p", [_vm._v("3 New Messages")])
-                      ])
+                      _c(
+                        "div",
+                        { staticClass: "main-note" },
+                        _vm._l(_vm.groups, function(group, idx) {
+                          return _c(
+                            "div",
+                            { key: idx, staticClass: "discussion-content" },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "discussion-content-top" },
+                                [
+                                  _c(
+                                    "router-link",
+                                    { attrs: { to: "/student/group" } },
+                                    [
+                                      _c("p", [
+                                        _c(
+                                          "strong",
+                                          { staticClass: "toCaps check" },
+                                          [_vm._v(_vm._s(group.name))]
+                                        )
+                                      ])
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-avatar-group",
+                                    { attrs: { size: "2.5rem" } },
+                                    [
+                                      _vm.groupMessage.filter(function(item) {
+                                        return item.group_id == group.id
+                                      })[
+                                        _vm.groupMessage.filter(function(item) {
+                                          return item.group_id == group.id
+                                        }).length - 1
+                                      ].user
+                                        ? _c("b-avatar", {
+                                            staticClass: "profile-img",
+                                            attrs: {
+                                              src: _vm.groupMessage.filter(
+                                                function(item) {
+                                                  return (
+                                                    item.group_id == group.id
+                                                  )
+                                                }
+                                              )[
+                                                _vm.groupMessage.filter(
+                                                  function(item) {
+                                                    return (
+                                                      item.group_id == group.id
+                                                    )
+                                                  }
+                                                ).length - 1
+                                              ].user.profile
+                                            }
+                                          })
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      _vm.groupMessage.filter(function(item) {
+                                        return item.group_id == group.id
+                                      })[
+                                        _vm.groupMessage.filter(function(item) {
+                                          return item.group_id == group.id
+                                        }).length - 1
+                                      ].tutor
+                                        ? _c("b-avatar", {
+                                            staticClass: "profile-img",
+                                            attrs: {
+                                              src: _vm.groupMessage.filter(
+                                                function(item) {
+                                                  return (
+                                                    item.group_id == group.id
+                                                  )
+                                                }
+                                              )[
+                                                _vm.groupMessage.filter(
+                                                  function(item) {
+                                                    return (
+                                                      item.group_id == group.id
+                                                    )
+                                                  }
+                                                ).length - 1
+                                              ].tutor.profile
+                                            }
+                                          })
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      _c("b-avatar", {
+                                        attrs: {
+                                          text: "BV",
+                                          variant: "primary"
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("b-avatar", {
+                                        attrs: {
+                                          src:
+                                            "https://placekitten.com/300/300",
+                                          variant: "info"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c("p", [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm.groupMessage.filter(function(item) {
+                                      return item.group_id == group.id
+                                    })[
+                                      _vm.groupMessage.filter(function(item) {
+                                        return item.group_id == group.id
+                                      }).length - 1
+                                    ].message
+                                  )
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "discussion-content-bottom" },
+                                [
+                                  _c("p", [
+                                    _vm._v(
+                                      "Updated " +
+                                        _vm._s(
+                                          _vm._f("moment")(
+                                            _vm.groupMessage.filter(function(
+                                              item
+                                            ) {
+                                              return item.group_id == group.id
+                                            })[
+                                              _vm.groupMessage.filter(function(
+                                                item
+                                              ) {
+                                                return item.group_id == group.id
+                                              }).length - 1
+                                            ].created_at,
+                                            "from",
+                                            "now"
+                                          )
+                                        )
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    { staticClass: "notify-discussion" },
+                                    [_c("p", [_vm._v("3 New Messages")])]
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        }),
+                        0
+                      )
                     ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "discussion-content" }, [
-                    _c(
-                      "div",
-                      { staticClass: "discussion-content-top" },
-                      [
-                        _c("p", [_c("strong", [_vm._v("Up coming Exams")])]),
-                        _vm._v(" "),
-                        _c(
-                          "b-avatar-group",
-                          { attrs: { size: "2.5rem" } },
-                          [
-                            _c("b-avatar"),
-                            _vm._v(" "),
-                            _c("b-avatar", {
-                              attrs: { text: "BV", variant: "primary" }
-                            }),
-                            _vm._v(" "),
-                            _c("b-avatar", {
-                              attrs: {
-                                src: "https://placekitten.com/300/300",
-                                variant: "info"
-                              }
-                            })
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v("the upcoming exam is coming up .................")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "discussion-content-bottom" }, [
-                      _c("p", [_vm._v("Updated 2mins ago")]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "notify-discussion" }, [
-                        _c("p", [_vm._v("3 New Messages")])
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "discussion-content" }, [
-                    _c(
-                      "div",
-                      { staticClass: "discussion-content-top" },
-                      [
-                        _c("p", [_c("strong", [_vm._v("Up coming Exams")])]),
-                        _vm._v(" "),
-                        _c(
-                          "b-avatar-group",
-                          { attrs: { size: "2.5rem" } },
-                          [
-                            _c("b-avatar"),
-                            _vm._v(" "),
-                            _c("b-avatar", {
-                              attrs: { text: "BV", variant: "primary" }
-                            }),
-                            _vm._v(" "),
-                            _c("b-avatar", {
-                              attrs: {
-                                src: "https://placekitten.com/300/300",
-                                variant: "info"
-                              }
-                            })
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v("the upcoming exam is coming up .................")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "discussion-content-bottom" }, [
-                      _c("p", [_vm._v("Updated 2mins ago")]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "notify-discussion" }, [
-                        _c("p", [_vm._v("3 New Messages")])
-                      ])
-                    ])
-                  ])
-                ])
+                  : _vm._e()
               ]),
               _vm._v(" "),
               _c("b-col", { attrs: { md: "6" } }, [
@@ -53662,7 +54284,7 @@ var render = function() {
                   "b-input-group",
                   [
                     _c("b-form-input", {
-                      attrs: { placeholder: "Search quiz title" },
+                      attrs: { placeholder: "Search" },
                       model: {
                         value: _vm.search,
                         callback: function($$v) {
@@ -64397,7 +65019,7 @@ var render = function() {
                   "div",
                   { staticClass: "assignment-overview-board" },
                   [
-                    _c("p", [_vm._v("Assignment Overview")]),
+                    _c("p", [_vm._v("Assessment Overview")]),
                     _vm._v(" "),
                     _c(
                       "b-container",
@@ -64450,7 +65072,7 @@ var render = function() {
                           { staticClass: "log-link" },
                           [
                             _c("router-link", { attrs: { to: "" } }, [
-                              _vm._v("View assignment log")
+                              _vm._v("View assessment log")
                             ])
                           ],
                           1
@@ -64560,7 +65182,7 @@ var render = function() {
                 [
                   _c("b-col", { attrs: { md: "4" } }, [
                     _c("div", { staticClass: "cards" }, [
-                      _c("h5", [_vm._v("Today's Class")]),
+                      _c("h5", [_vm._v("Today's Schedule")]),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -64700,9 +65322,11 @@ var render = function() {
                         "div",
                         { staticClass: "log-link" },
                         [
-                          _c("router-link", { attrs: { to: "" } }, [
-                            _vm._v("View Today's Class")
-                          ])
+                          _c(
+                            "router-link",
+                            { attrs: { to: "/tutor/activities" } },
+                            [_vm._v("View all")]
+                          )
                         ],
                         1
                       )

@@ -40,6 +40,7 @@ class StaffChatController extends Controller
       
         $tutor = auth('tutor')->user();
         $message = $tutor->staffMessage()->create([
+            'school_id'=> $tutor->school_id,
         'message' => $request->input('message')
       ]);
     

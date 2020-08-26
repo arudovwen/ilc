@@ -464,7 +464,7 @@ table#table-transition-example .flip-list-move {
 .attendance-table .table {
     overflow: scroll;
 }
-.overall-gradebook-student .table-striped tbody tr:nth-of-type(odd) {
+.overall-gradebook-student .table-striped tbody td:nth-of-type(odd) {
     background-color: rgba(19, 166, 153, 0.35) !important;
 }
 

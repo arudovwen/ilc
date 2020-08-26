@@ -32,7 +32,7 @@
       <b-row class="justify-content-end my-5">
         <b-col cols="4">
           <b-input-group>
-            <b-form-input v-model="search" placeholder="Search quiz title"></b-form-input>
+            <b-form-input v-model="search" placeholder="Search"></b-form-input>
             <b-input-group-append>
               <div class="create-btn">
                 <div class="btn btn-create">Search</div>

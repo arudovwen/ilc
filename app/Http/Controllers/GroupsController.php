@@ -67,7 +67,7 @@ class GroupsController extends Controller
             $createdMessage = Notification::create([
             'school_id'=>$tutor->school_id,
             'receiver_id'=>$tutor->id,
-            'message'=> \strtolower($request->name).' group created',
+            'message'=> \ucfirst($request->name).' group created',
             'status'=> false,
             'sender_id'=> $tutor->id ,
             'role' => 'tutor',
@@ -161,7 +161,7 @@ class GroupsController extends Controller
             Notification::create([
                 'school_id'=>$group->school_id,
                 'receiver_id'=>$key,
-                'message'=> \strtolower($group->name).' group removed',
+                'message'=> \ucfirst($group->name).' group removed',
                 'status'=> false,
                 'sender_id'=> $group->id ,
                 'role' => 'student',

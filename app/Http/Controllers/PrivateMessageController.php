@@ -43,6 +43,7 @@ class PrivateMessageController extends Controller
         $user = auth('api')->user();
         $receiver = User::find($request->receiver_id);
         $message = PrivateMessage::create([
+            'school_id'=> $user->school_id,
             'user_id'=> $user->id,
             'receiver_id' => $request->receiver_id,
             'message'=>$request->message,

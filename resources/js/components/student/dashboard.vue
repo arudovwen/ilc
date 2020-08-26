@@ -131,7 +131,7 @@ export default {
         });
     },
     addGroupMessage(message, attachment) {
-      this.groupMessages.push({
+      this.groupMessage.push({
         message: message,
         user: this.student,
         attachment: attachment,

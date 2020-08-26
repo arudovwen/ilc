@@ -20,6 +20,11 @@ class ClassesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function getStudents($class){
+        $user = auth('tutor')->user();
+        return User::where('school_id',$user->school_id)->where(strtolower('student_level'),$class)->get();
+    }
+
     public function getClassmates(){
         $user = auth('api')->user();
         return User::where('school_id',$user->school_id)->where('student_level',$user->student_level)->get();

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="welcome-board">
-      <img src="/images/clip-99.png" alt  style="z-index:10"/>
+      <img src="/images/clip-99.png" alt style="z-index:10" />
       <div class="welcome-board-content ml-auto">
         <h3>
           Welcome OnBoard
@@ -25,25 +25,33 @@
                 </div>
               </div>
               <div class="m-res">
-                 <div class="result-progress border-bottom" v-for="(result,idx) in ass_result" :key="idx">
-                <div >
-                  <h6>{{result.subject}}</h6>
-                   <div class="progress-top"><p>{{result.title}}</p>
-                  <p>{{result.total_score}}/{{result.overall}}</p></div>
+                <div
+                  class="result-progress border-bottom"
+                  v-for="(result,idx) in ass_result"
+                  :key="idx"
+                >
+                  <div>
+                    <h6>{{result.subject}}</h6>
+                    <div class="progress-top">
+                      <p>{{result.title}}</p>
+                      <p>{{result.total_score}}/{{result.overall}}</p>
+                    </div>
+                  </div>
+                  <b-progress :max="result.overall" class="mb-3">
+                    <b-progress-bar
+                      :value="result.total_score"
+                      variant="info"
+                      :label="`${result.total_score}/${result.overall}`"
+                    ></b-progress-bar>
+                  </b-progress>
                 </div>
-                <b-progress  :max="result.overall" class="mb-3">
-                  <b-progress-bar :value="result.total_score" variant="info" :label="`${result.total_score}/${result.overall}`" ></b-progress-bar>
-                </b-progress>
               </div>
-              </div>
-             
-             
             </div>
           </div>
         </b-col>
         <b-col md="4">
           <div class="resources-update cards">
-            <h5> Updates</h5>
+            <h5>Updates</h5>
             <div class="m-res">
               <div
                 class="resources-inner border-bottom"
@@ -69,143 +77,84 @@
 
         <b-col md="4">
           <div class="cards">
-            <h5>Today's Class</h5>
-            <div class="class_section" v-if="todaysClass.length">
-              <div
+            <h5>Today's Schedule</h5>
+            <div class="class_section" v-if="schedule.length">
+              <div class="class-content p-2" v-for="(item,idx) in schedule" :key="idx">
+                <div class="border-bottom" v-if="item.type == 'times'">
+                  <div >
+                    <p class="toCaps">{{item.subject}} Class By {{item.start | format}}</p> 
+                    <small>Class ends {{item.end | format}}</small>
+                  </div>
 
-                class="class-content border-bottom p-2"
-                v-for="(item,idx) in todaysClass"
-                :key="idx"
-              >
-                <div class="class-content-top">
-                  <h6 class="toCaps">{{item.subject}}</h6>
-                <i
-                      class="fa fa-play-circle-o green"
+                  <div class="class-content-main">
+                    <p>
+                      <span>
+                        Tutor:
+                        <strong class="toCaps">{{item.tutor}}</strong>
+                      </span>
+                    </p>
+
+                    <p
                       v-if="(getSecond(today)  > getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
-                      aria-hidden="true"
-                    ></i>
-
-                    <i
-                      class="fa fa-dot-circle-o text-dark"
-                      v-else-if="(getSecond(today)  <  getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
-                      aria-hidden="true"
-                    ></i>
-
-                    <i
-                      class="fa fa-stop-circle-o red"
-                      :id="idx.toString()"
-                      v-else-if="(getSecond(today)   >  getSecond(item.start)) && (getSecond(today) >getSecond(item.end))"
-                      aria-hidden="true"
-                    ></i>
-                    <b-tooltip ref="tooltip" :target="idx.toString()">
-                      <p
-                        class="m-0"
-                        v-if="(getSecond(today)  > getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
-                      >This class is ongoing</p>
-                      <p
-                        class="m-0"
-                        v-else-if="(getSecond(today)  <  getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
-                      >This class begins by {{item.start | format}}</p>
-
-                      <p
-                        class="m-0"
-                        v-else-if="(getSecond(today)   >  getSecond(item.start)) && (getSecond(today) >getSecond(item.end))"
-                      >This class has ended</p>
-                    </b-tooltip>
+                    >Ongoing</p>
+                    <p v-if="getSecond(today)  <  (getSecond(item.start))"> Upcoming</p>
+                  </div>
                 </div>
-                <small>{{item.start | format}} to {{item.end | format}}</small>
-                <div class="class-content-main">
-                  <p>
-                    <span>
-                      by:
-                      <strong class="toCaps">{{item.tutor}}</strong>
-                    </span>
-                  </p>
-
-                  <p
-                    v-if="(getSecond(today)  > getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
-                  >Ongoing</p>
-                  <p
-                    v-else-if="(getSecond(today)  <  getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
-                  >Upcoming</p>
-
-                  <p
-                    v-else-if="(getSecond(today)   >  getSecond(item.start)) && (getSecond(today) >getSecond(item.end))"
-                  >Finished</p>
+                <div v-else>
+                  <div
+                    class="border-bottom"
+                    v-if="new Date(item.end).getTime() > new Date().getTime()"
+                  >{{item.subject}} {{item.type}} submission deadline {{item.end | moment('h:mm A')}}</div>
                 </div>
               </div>
             </div>
             <div class="class_section phert-5" v-else>
-              <div class="form-control text-align"> No Class Available</div>
+              <div class="form-control text-align">No Class Available</div>
             </div>
 
             <div class="log-link">
-              <router-link to>View Today's Class</router-link>
+              <router-link to="/student/activities">View all</router-link>
             </div>
           </div>
         </b-col>
       </b-row>
       <b-row>
         <b-col md="6">
-          <div class="discussion cards">
+          <div class="discussion cards" v-if="groupMessage.length">
             <h5>Discussion Board</h5>
-            <div class="discussion-content">
+           <div  class="main-note">
+              <div class="discussion-content" v-for="(group,idx) in groups" :key="idx">
               <div class="discussion-content-top">
-                <p>
-                  <strong>Up coming Exams</strong>
-                </p>
+                <router-link to="/student/group">
+                  <p>
+                    <strong class="toCaps check">{{group.name}}</strong>
+                  </p>
+                </router-link>
+
                 <b-avatar-group size="2.5rem">
-                  <b-avatar></b-avatar>
+                  <b-avatar
+                    class="profile-img"
+                    v-if="groupMessage.filter(item=>item.group_id == group.id)[groupMessage.filter(item=>item.group_id == group.id).length-1].user"
+                    :src="groupMessage.filter(item=>item.group_id == group.id)[groupMessage.filter(item=>item.group_id == group.id).length-1].user.profile"
+                  ></b-avatar>
+                  <b-avatar
+                    class="profile-img"
+                    v-if="groupMessage.filter(item=>item.group_id == group.id)[groupMessage.filter(item=>item.group_id == group.id).length-1].tutor"
+                    :src="groupMessage.filter(item=>item.group_id == group.id)[groupMessage.filter(item=>item.group_id == group.id).length-1].tutor.profile"
+                  ></b-avatar>
                   <b-avatar text="BV" variant="primary"></b-avatar>
                   <b-avatar src="https://placekitten.com/300/300" variant="info"></b-avatar>
                 </b-avatar-group>
               </div>
-              <p>the upcoming exam is coming up .................</p>
+              <p>{{groupMessage.filter(item=>item.group_id == group.id)[groupMessage.filter(item=>item.group_id == group.id).length-1].message}}</p>
               <div class="discussion-content-bottom">
-                <p>Updated 2mins ago</p>
+                <p>Updated {{ groupMessage.filter(item=>item.group_id == group.id)[groupMessage.filter(item=>item.group_id == group.id).length-1].created_at | moment("from", "now")}}</p>
                 <div class="notify-discussion">
                   <p>3 New Messages</p>
                 </div>
               </div>
             </div>
-            <div class="discussion-content">
-              <div class="discussion-content-top">
-                <p>
-                  <strong>Up coming Exams</strong>
-                </p>
-                <b-avatar-group size="2.5rem">
-                  <b-avatar></b-avatar>
-                  <b-avatar text="BV" variant="primary"></b-avatar>
-                  <b-avatar src="https://placekitten.com/300/300" variant="info"></b-avatar>
-                </b-avatar-group>
-              </div>
-              <p>the upcoming exam is coming up .................</p>
-              <div class="discussion-content-bottom">
-                <p>Updated 2mins ago</p>
-                <div class="notify-discussion">
-                  <p>3 New Messages</p>
-                </div>
-              </div>
-            </div>
-            <div class="discussion-content">
-              <div class="discussion-content-top">
-                <p>
-                  <strong>Up coming Exams</strong>
-                </p>
-                <b-avatar-group size="2.5rem">
-                  <b-avatar></b-avatar>
-                  <b-avatar text="BV" variant="primary"></b-avatar>
-                  <b-avatar src="https://placekitten.com/300/300" variant="info"></b-avatar>
-                </b-avatar-group>
-              </div>
-              <p>the upcoming exam is coming up .................</p>
-              <div class="discussion-content-bottom">
-                <p>Updated 2mins ago</p>
-                <div class="notify-discussion">
-                  <p>3 New Messages</p>
-                </div>
-              </div>
-            </div>
+           </div>
           </div>
         </b-col>
         <b-col md="6">
@@ -304,10 +253,11 @@
 
 <script>
 export default {
-  props: ["student", "notifications"],
+  props: ["student", "notifications", "groups"],
   data() {
     return {
-      ass_result:[],
+      groupMessage: [],
+      ass_result: [],
       tutors: [],
       new_resource: [],
       students: [],
@@ -323,6 +273,7 @@ export default {
         title: "",
         description: "",
       },
+      assess: [],
       notes: [],
       todaysClass: {},
       today:
@@ -336,7 +287,9 @@ export default {
   mounted() {
     this.getNotes();
     this.getTodayClass();
-    this.getAss()
+    this.getAss();
+    this.getallmessages();
+    this.getData();
   },
   computed: {
     newresource() {
@@ -344,18 +297,50 @@ export default {
         return item.type == "new resource";
       });
     },
+    schedule() {
+      return this.assess.concat(this.todaysClass);
+    },
   },
   methods: {
-    getAss(){
-         axios
+    getData() {
+      let student = JSON.parse(localStorage.getItem("typeStudent"));
+      axios
+        .get(`/api/student-assessments/${student.level}`, {
+          headers: {
+            Authorization: `Bearer ${student.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.assess = res.data;
+          }
+        })
+        .catch((err) => {
+          err.response.data;
+          console.log(" err.response.data", err.response.data);
+        });
+    },
+    getAss() {
+      axios
         .get(`/api/get-assessment-result`, {
           headers: {
             Authorization: `Bearer ${this.$props.student.access_token}`,
           },
-        }).then(res=>{
-          this.ass_result = res.data
-        
         })
+        .then((res) => {
+          this.ass_result = res.data;
+        });
+    },
+    getallmessages() {
+      axios
+        .get(`/api/allmessages`, {
+          headers: {
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
+        })
+        .then((res) => {
+          this.groupMessage = res.data;
+        });
     },
     getSecond(hms) {
       var a = hms.split(":"); // split it at the colons
@@ -373,24 +358,25 @@ export default {
         })
         .then((res) => {
           if (res.status == 200) {
-          if (res.data.length) {
-              this.todaysClass = res.data[0].courses;
-          }
+            if (res.data.length) {
+              this.todaysClass = res.data[0].courses.map((item) => {
+                item.type = "times";
+                return item;
+              });
+            }
           }
         });
     },
     gotoHer(id) {
-    
-      if (id.type.toLowerCase()=='assessment') {
-          this.$router.push(`/student/gradebook`);
+      if (id.type.toLowerCase() == "assessment") {
+        this.$router.push(`/student/assessment`);
       }
-       if (id.type.toLowerCase() == 'group') {
-          this.$router.push(`/student/groups`);
+      if (id.type.toLowerCase() == "group") {
+        this.$router.push(`/student/groups`);
       }
-       if (id.type.toLowerCase() =='resource') {
-          this.$router.push(`/student/resource/view/${id.id}`);
+      if (id.type.toLowerCase() == "resource") {
+        this.$router.push(`/student/resource/view/${id.id}`);
       }
-     
     },
     addNote() {
       let data = {
@@ -515,13 +501,12 @@ export default {
   justify-content: space-between;
 }
 
-
 .update-content {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 .update-content p {
-  font-size: 12px;
+  font-size: 14px;
   padding-left: 10px;
   margin-bottom: 0;
 }
@@ -551,11 +536,11 @@ export default {
   justify-content: space-between;
 }
 
-.red{
-   color: #ff0000;
+.red {
+  color: #ff0000;
 }
-.green{
-   color:green;
+.green {
+  color: green;
 }
 .class-content-main {
   display: flex;
@@ -659,5 +644,8 @@ export default {
 .check_it {
   color: #008e3a;
   font-size: 12px;
+}
+.check {
+  color: #008e3a;
 }
 </style>

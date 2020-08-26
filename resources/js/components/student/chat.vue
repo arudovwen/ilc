@@ -96,7 +96,7 @@ export default {
     submit(message) {
      
       if (this.$props.showChat == "group") {
-        this.$emit("addGroupMessgae", message, this.attachment);
+        this.$emit("addGroupMessage", message, this.attachment);
         let data = {
           message: message,
           group_id: this.$props.group_id,

@@ -22,7 +22,8 @@
           class="single-online-tag"
           v-for="(group,idx) in groups"
           :key="idx"
-          @click="switchGroup('group',group.id,)"
+          @click="switchGroup('group',group.id,group.name)"
+            :class="{active:group.name==active}"
         >
           <div class="inner-single">
             <div class="message-info">
@@ -40,9 +41,10 @@
         </div>
         <div
           class="single-online-tag border-bottom"
-          @click="switchGroup('private',mate.id)"
+          @click="switchGroup('private',mate.id, mate.name)"
           v-for="(mate,index) in classmates"
-          :class="{active:mate.id==receiver_id}"
+          
+          :class="{active:mate.name==active}"
         >
           <div class="inner-single">
             <div class="message-info">
@@ -72,16 +74,31 @@
 <script>
 export default {
   props: ["student", "groups", "classmates", "receiver_id", "privateMessages"],
+ data() {
+   return {
+     active:""
+   }
+ },
+ mounted() {
+ setTimeout(()=>{
+    this.highlight()
+ },1000)
+ },
 
   methods: {
-    switchGroup(name, id) {
+    switchGroup(name, id,val) {
       this.$emit("switchGroup", name, id);
+      this.active = val
     },
     online() {
       this.$emit("online");
           this.$refs.popover.$emit('close')
     },
+    highlight(){
+       this.active = this.$props.classmates[0].name
+    },
     getLastMessage(id) {
+      
       return this.$props.privateMessages.filter(
         (item) => (item.receiver_id == id) | (item.user_id == id)
       );

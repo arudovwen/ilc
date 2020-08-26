@@ -89,8 +89,8 @@ class TimesTableController extends Controller
 
     public function getCurrentTimesTable($class)
     {
-        $user = auth('api')->user();
-        $time = TimesTable::where('myclass', $class)->where('school_id', $user->school_id)->firstOrFail();
+          $user = auth('api')->user();
+           $time = TimesTable::where('myclass', $class)->where('school_id', $user->school_id)->firstOrFail();
         json_decode($time->table);
         $today = strtolower(Carbon::now()->englishDayOfWeek);
         $arr = [];

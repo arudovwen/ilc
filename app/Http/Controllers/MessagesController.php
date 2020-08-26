@@ -19,9 +19,16 @@ class MessagesController extends Controller
      */
     public function index()
     {
-        $tutor =  auth('tutor')->user()->id;
+        $tutor =  auth('tutor')->user();
  
-        return Message::with('tutor')->get();
+        return Message::with('tutor')->where('school_id', $tutor->school_id)->get();
+    }
+
+    public function getGroupChat()
+    {
+        $user =  auth('api')->user();
+ 
+        return Message::with('user')->where('school_id', $user->school_id)->get();
     }
 
     /**
@@ -71,6 +78,7 @@ class MessagesController extends Controller
         $group =  Group::where('id', $request->input('group_id'))->first();
 
         $message = Message::create([
+            'school_id'=> $user->school_id,
             'user_id' => null,
             'message' => $request->input('message'),
             'group_id'=> $request->input('group_id'),
@@ -94,6 +102,7 @@ class MessagesController extends Controller
       
        
             $message = Message::create([
+                'school_id'=> $user->school_id,
                 'user_id' => $user->id,
                 'message' => $request->input('message'),
                 'group_id'=> $request->input('group_id'),

@@ -1228,7 +1228,7 @@ var routes = [{
   }, {
     path: "time-table/edit/:id",
     component: EditTimeTable,
-    name: "ViewTimeTable",
+    name: "EditTimeTable",
     meta: {
       typeAdmin: true
     }

@@ -543,7 +543,9 @@ table#table-transition-example .flip-list-move {
 .fade-leave-to {
     opacity: 0;
 }
-
+.amber{
+    color:#FFC200;
+}
 .toCaps {
     text-transform: capitalize;
 }

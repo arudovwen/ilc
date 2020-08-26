@@ -524,6 +524,7 @@ export default {
 .resources-inner {
   border-bottom: 1px solid #e4e4e4;
   padding-top: 5px;
+  padding-right: 15px;
 }
 .resources-inner:last-child {
   border-bottom: none;
@@ -639,13 +640,32 @@ export default {
   padding: 5px 10px;
 }
 .my-icon {
-  color: #008e3a;
+  color: #13a699;
 }
 .check_it {
-  color: #008e3a;
+  color: #13a699;
   font-size: 12px;
 }
 .check {
-  color: #008e3a;
+  color: #13a699;
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #c4c4c4;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 </style>

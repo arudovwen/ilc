@@ -60,7 +60,7 @@ class LiveClassesController extends Controller
 
     public function makeLiveClass()
     {
-        return  $user = auth('admin')->user();
+      $user = auth('admin')->user();
         $tab = TimesTable::where('school_id', $user->school_id)->get();
         $arr = [];
         foreach ($tab as $time) {

@@ -15028,13 +15028,7 @@ __webpack_require__.r(__webpack_exports__);
       };
 
       if (this.getSeconds(this.today) > this.getSeconds(val.start_time) && this.getSeconds(this.today) > this.getSeconds(val.end_time)) {
-        axios.post("/api/attendance", data, {
-          headers: {
-            Authorization: "Bearer ".concat(this.$props.student.access_token)
-          }
-        }).then(function (res) {
-          if (res.status == 201) {}
-        });
+        this.$toasted.info('This Class has ended');
       } else {
         axios.post("/api/attendance", data, {
           headers: {

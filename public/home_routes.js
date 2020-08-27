@@ -53941,13 +53941,12 @@ var render = function() {
                               { staticClass: "grade_book" },
                               [
                                 _c("h5", { staticClass: "mb-5" }, [
-                                  _vm._v("Overall Grades")
+                                  _vm._v("Participation Grades")
                                 ]),
                                 _vm._v(" "),
                                 _c("b-table", {
                                   attrs: {
                                     stacked: "",
-                                    items: _vm.overall,
                                     fields: _vm.grade_fields,
                                     bordered: ""
                                   },
@@ -53975,13 +53974,12 @@ var render = function() {
                               { staticClass: "grade_book" },
                               [
                                 _c("h5", { staticClass: "mb-5" }, [
-                                  _vm._v("Overall Grades")
+                                  _vm._v("Attendance Grades")
                                 ]),
                                 _vm._v(" "),
                                 _c("b-table", {
                                   attrs: {
                                     stacked: "",
-                                    items: _vm.overall,
                                     fields: _vm.grade_fields,
                                     bordered: ""
                                   },

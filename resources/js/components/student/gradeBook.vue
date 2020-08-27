@@ -26,8 +26,8 @@
               </b-tab>
                <b-tab title="Participation" >
                 <div class="grade_book">
-                  <h5 class="mb-5">Overall Grades</h5>
-                  <b-table stacked :items="overall" :fields="grade_fields" bordered>
+                  <h5 class="mb-5">Participation Grades</h5>
+                  <b-table stacked  :fields="grade_fields" bordered>
                     <template v-slot:cell(name)="data">
                       <div>{{data.item.user.name}}</div>
                     </template>
@@ -36,8 +36,8 @@
               </b-tab>
                <b-tab title="Attendance" >
                 <div class="grade_book">
-                  <h5 class="mb-5">Overall Grades</h5>
-                  <b-table stacked :items="overall" :fields="grade_fields" bordered>
+                  <h5 class="mb-5">Attendance Grades</h5>
+                  <b-table stacked  :fields="grade_fields" bordered>
                     <template v-slot:cell(name)="data">
                       <div>{{data.item.user.name}}</div>
                     </template>

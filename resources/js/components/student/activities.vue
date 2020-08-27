@@ -6,7 +6,7 @@
           <b-tab title="Todays Schedule" active>
             <div class="activity">
               <b-row class="py-5">
-                <b-col md="4" >
+                <b-col md="6" >
                   <div class="cards border-right p-2">
                    
                     <div class="class_section" v-if="todaysClass.length">
@@ -155,6 +155,16 @@
                   <hr />
 
                   <div class="attendance-table">
+<div class="text-right">
+  
+<b-form-select v-model="week" class="week mb-3">
+  <b-form-select-option   :value="num" v-for="(num,id) in n" :key="id">
+   {{getWeek(new Date())==num?'Current week ':'Week' }} {{num}}
+
+  </b-form-select-option>
+</b-form-select>
+</div>
+
                     <b-table-simple  bordered>
                       <b-thead>
                         <b-tr>
@@ -163,7 +173,7 @@
                         </b-tr>
                       </b-thead>
                       <b-tbody>
-                        <b-tr v-for="(record,idx) in attendance"  :key="idx">
+                        <b-tr v-for="(record,idx) in sorted"  :key="idx">
                           <b-th class="toCaps">{{record.day}} <br> {{record.date}}</b-th>
                           <b-tbody>
                             <b-tr>
@@ -195,6 +205,8 @@ export default {
   props: ["student"],
   data() {
     return {
+      n:52,
+      week:'',
       table: [],
       assess: [],
       todaysClass: [],
@@ -213,6 +225,12 @@ export default {
     this.getTodayClass();
     this.getData();
     this.getAttendance()
+    this.week = this.getWeek(new Date())
+  },
+  computed: {
+    sorted(){
+       return  this.attendance.filter(item=>this.getWeek(item.date)== this.week)
+    }
   },
   methods: {
     getData() {
@@ -279,7 +297,20 @@ export default {
             this.attendance = res.data
           }
         })
-    }
+    },
+    getWeek(date){
+       
+  var date = new Date(date);
+  date.setHours(0, 0, 0, 0);
+  // Thursday in current week decides the year.
+  date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
+  // January 4 is always in week 1.
+  var week1 = new Date(date.getFullYear(), 0, 4);
+  // Adjust to Thursday in week 1 and count number of weeks from date to week1.
+  return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000
+                        - 3 + (week1.getDay() + 6) % 7) / 7);
+}
+    
   },
 };
 </script>
@@ -362,5 +393,9 @@ small,
 }
 .finished{
     color:red;
+}
+.week{
+  width:180px;
+  margin-left:auto;
 }
 </style>

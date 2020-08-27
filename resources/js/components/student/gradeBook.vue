@@ -147,6 +147,7 @@ export default {
       part: [
         
         'date',
+        'subject',
         'score'
       ],
        att: [

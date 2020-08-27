@@ -38,6 +38,9 @@ class AttendanceController extends Controller
     {
        
         $check= Attendance::where('user_id',$request->user_id)->whereDate('date','=',$request->date)->first();
+        dd($check);
+        // $full= Attendance::where('user_id',$request->user_id)->whereDate('date','=',$request->date)->where()->first();
+
        
         $tutor = Tutor::where('name',$request->tutor)->first();
 

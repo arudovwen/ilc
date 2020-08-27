@@ -85,7 +85,10 @@ export default {
         level: val.level,
         time: new Date().toLocaleTimeString(),
       };
-      axios
+     if(this.getSeconds(this.today) > this.getSeconds(val.start_time) && this.getSeconds(this.today) > this.getSeconds(val.end_time)){
+        this.$toasted.info('This class has ended')
+     }else{
+       axios
         .post(`/api/attendance`, data, {
           headers: {
             Authorization: `Bearer ${this.$props.student.access_token}`,
@@ -95,6 +98,7 @@ export default {
           if (res.status == 201) {
           }
         });
+     }
     },
     getLive() {
       axios

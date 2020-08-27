@@ -15017,13 +15017,18 @@ __webpack_require__.r(__webpack_exports__);
         level: val.level,
         time: new Date().toLocaleTimeString()
       };
-      axios.post("/api/attendance", data, {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 201) {}
-      });
+
+      if (this.getSeconds(this.today) > this.getSeconds(val.start_time) && this.getSeconds(this.today) > this.getSeconds(val.end_time)) {
+        this.$toasted.info('This class has ended');
+      } else {
+        axios.post("/api/attendance", data, {
+          headers: {
+            Authorization: "Bearer ".concat(this.$props.student.access_token)
+          }
+        }).then(function (res) {
+          if (res.status == 201) {}
+        });
+      }
     },
     getLive: function getLive() {
       var _this = this;

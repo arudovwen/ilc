@@ -49,6 +49,7 @@
       <b-row class=" p-3">
         <b-col cols="3" class="p-2" v-for="(val,id) in sorted" :key="id">
           <b-card title="Class Detail"   class="mb-2">
+             <b-card-text class="toCaps">Day : {{val.day}}</b-card-text>
             <b-card-text>Subject : {{val.subject}}</b-card-text>
             <b-card-text>Tutor : {{val.tutor}}</b-card-text>
             <b-card-text>Level : {{val.level}}</b-card-text>

@@ -6919,6 +6919,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["admin"],
   data: function data() {
@@ -14964,6 +14965,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -14971,7 +14989,8 @@ __webpack_require__.r(__webpack_exports__);
       subject: "Mathematics",
       level: "Jss 1a",
       tutor: "Kerry",
-      todaysClass: []
+      todaysClass: [],
+      today: new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()
     };
   },
   mounted: function mounted() {
@@ -15018,6 +15037,13 @@ __webpack_require__.r(__webpack_exports__);
           _this.todaysClass = res.data;
         }
       });
+    },
+    getSeconds: function getSeconds(hms) {
+      var a = hms.split(":"); // split it at the colons
+      // minutes are worth 60 seconds. Hours are worth 60 minutes.
+
+      var seconds = +a[0] * 60 * 60 + +a[1] * 60 + +a[2];
+      return seconds;
     }
   }
 });
@@ -27077,7 +27103,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container-fluid[data-v-0bc5e65d] {\n  margin-top: 30px;\n  padding-left: 20px;\n  padding-right:20px;\n}\np.card-text[data-v-0bc5e65d]{\n    font-size: 15px;\n}\n\n", ""]);
+exports.push([module.i, "\n.container-fluid[data-v-0bc5e65d] {\n  margin-top: 30px;\n  padding-left: 20px;\n  padding-right: 20px;\n}\np.card-text[data-v-0bc5e65d] {\n  font-size: 15px;\n}\nh4.card-title[data-v-0bc5e65d] {\n  font-size: 17px;\n}\n.ongoing[data-v-0bc5e65d] {\n  border-color: #008e3a;\n}\n.upcoming[data-v-0bc5e65d] {\n  border-color: #ffc200;\n}\n.finished[data-v-0bc5e65d] {\n  border-color: red;\n}\n.ongoing-i[data-v-0bc5e65d]{\n   color: #008e3a;\n}\n.upcoming-i[data-v-0bc5e65d]{\n    color:#FFC200;\n}\n.finished-i[data-v-0bc5e65d]{\n    color:red;\n}\n", ""]);
 
 // exports
 
@@ -43067,6 +43093,12 @@ var render = function() {
                                     attrs: { title: "Class Detail" }
                                   },
                                   [
+                                    _c(
+                                      "b-card-text",
+                                      { staticClass: "toCaps" },
+                                      [_vm._v("Day : " + _vm._s(val.day))]
+                                    ),
+                                    _vm._v(" "),
                                     _c("b-card-text", [
                                       _vm._v("Subject : " + _vm._s(val.subject))
                                     ]),
@@ -53832,10 +53864,12 @@ var render = function() {
                                             _c("div", [
                                               _vm._v(
                                                 _vm._s(
-                                                  Math.round(
-                                                    data.item.quiz /
-                                                      data.item.average_quiz
-                                                  )
+                                                  data.item.average_quiz
+                                                    ? Math.round(
+                                                        data.item.quiz /
+                                                          data.item.average_quiz
+                                                      )
+                                                    : 0
                                                 )
                                               )
                                             ])
@@ -53849,11 +53883,13 @@ var render = function() {
                                             _c("div", [
                                               _vm._v(
                                                 _vm._s(
-                                                  Math.round(
-                                                    data.item.assignment /
-                                                      data.item
-                                                        .average_assignment
-                                                  )
+                                                  data.item.average_assignment
+                                                    ? Math.round(
+                                                        data.item.assignment /
+                                                          data.item
+                                                            .average_assignment
+                                                      )
+                                                    : 0
                                                 )
                                               )
                                             ])
@@ -53867,10 +53903,12 @@ var render = function() {
                                             _c("div", [
                                               _vm._v(
                                                 _vm._s(
-                                                  Math.round(
-                                                    data.item.test /
-                                                      data.item.average_test
-                                                  )
+                                                  data.item.average_test
+                                                    ? Math.round(
+                                                        data.item.test /
+                                                          data.item.average_test
+                                                      )
+                                                    : 0
                                                 )
                                               )
                                             ])
@@ -55572,9 +55610,49 @@ var render = function() {
         "b-container",
         { attrs: { fluid: "" } },
         [
+          _c("h4", { staticClass: "mb-3" }, [_vm._v("Todays Class")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "d-flex justify-content-around mb-2" }, [
+            _c(
+              "span",
+              [
+                _c("b-icon", {
+                  staticClass: "upcoming-i",
+                  attrs: { icon: "circle-fill" }
+                }),
+                _vm._v(" Upcoming")
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "span",
+              [
+                _c("b-icon", {
+                  staticClass: "ongoing-i",
+                  attrs: { icon: "circle-fill" }
+                }),
+                _vm._v(" Ongoing")
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "span",
+              [
+                _c("b-icon", {
+                  staticClass: "finished-i",
+                  attrs: { icon: "circle-fill" }
+                }),
+                _vm._v(" Finished")
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
           _c(
             "b-row",
-            { staticClass: " p-3" },
+            { staticClass: "p-3" },
             _vm._l(_vm.todaysClass, function(val, id) {
               return _c(
                 "b-col",
@@ -55582,7 +55660,25 @@ var render = function() {
                 [
                   _c(
                     "b-card",
-                    { staticClass: "mb-2", attrs: { title: "Class Detail" } },
+                    {
+                      staticClass: "mb-2",
+                      class: {
+                        ongoing:
+                          _vm.getSeconds(_vm.today) >
+                            _vm.getSeconds(val.start_time) &&
+                          _vm.getSeconds(_vm.today) <
+                            _vm.getSeconds(val.end_time),
+                        finished:
+                          _vm.getSeconds(_vm.today) >
+                            _vm.getSeconds(val.start_time) &&
+                          _vm.getSeconds(_vm.today) >
+                            _vm.getSeconds(val.end_time),
+                        upcoming:
+                          _vm.getSeconds(_vm.today) <
+                          _vm.getSeconds(val.start_time)
+                      },
+                      attrs: { title: "Class Detail" }
+                    },
                     [
                       _c("b-card-text", [
                         _vm._v("Subject : " + _vm._s(val.subject))

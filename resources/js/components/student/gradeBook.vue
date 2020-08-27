@@ -13,13 +13,13 @@
                       <div>{{data.item.user.name}}</div>
                     </template>
                      <template v-slot:cell(quiz)="data">
-                      <div>{{Math.round(data.item.quiz/data.item.average_quiz)}}</div>
+                      <div>{{data.item.average_quiz?Math.round(data.item.quiz/data.item.average_quiz):0}}</div>
                     </template>
                      <template v-slot:cell(assignment)="data">
-                       <div>{{Math.round(data.item.assignment/data.item.average_assignment)}}</div>
+                       <div>{{data.item.average_assignment?Math.round(data.item.assignment/data.item.average_assignment):0}}</div>
                     </template>
                      <template v-slot:cell(test)="data">
-                      <div>{{Math.round(data.item.test/data.item.average_test)}}</div>
+                      <div>{{data.item.average_test?Math.round(data.item.test/data.item.average_test):0}}</div>
                     </template>
                   </b-table>
                 </div>

@@ -94,7 +94,8 @@ class LiveClassesController extends Controller
     public function getTutorMyLive()
     {
         $user = auth('tutor')->user();
-        return LiveClasses::where('school_id', $user->school_id)->get();
+        $today = strtolower(Carbon::now()->englishDayOfWeek);
+        return LiveClasses::where('school_id', $user->school_id)->where(strtolower('day'), strtolower($today))->get();
     }
     public function adminGetLiveClass()
     {

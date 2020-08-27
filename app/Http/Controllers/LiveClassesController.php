@@ -60,12 +60,13 @@ class LiveClassesController extends Controller
 
     public function makeLiveClass()
     {
-        $tab = TimesTable::all();
+        return  $user = auth('admin')->user();
+        $tab = TimesTable::where('school_id', $user->school_id)->get();
         $arr = [];
         foreach ($tab as $time) {
             foreach (json_decode($time->table) as $value) {
                 foreach ($value->courses as $t) {
-                    dd($t);
+                  
                     $live =  LiveClasses::create([
                     'school_id'=>$time->school_id,
                      'tutor'=>$t->tutor,

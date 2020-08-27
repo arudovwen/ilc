@@ -36,36 +36,44 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
-       
-        $check= Attendance::where('user_id',$request->user_id)->where('date','=',$request->date)->first();
-     
-        // $full= Attendance::where('user_id',$request->user_id)->where('date','=',$request->date)->where('time', $request->time)->first();
+        $check= Attendance::where('user_id', $request->user_id)->where('date', '=', $request->date)->first();
+        $tutor = Tutor::where('name', $request->tutor)->first();
+        $ar = [];
+        if (is_null($check)) {
+            return Attendance::create([
+                'school_id'=>$request->school_id,
+                'user_id'=>$request->user_id,
+                'tutor_id'=>$tutor->id,
+                'record'=>\json_encode($request->record),
+                'date'=>$request->date,
+                'day'=>$request->day,
+                'level'=>$request->level,
+                'time'=>$request->time,
+            ]);
+        } else {
+            foreach (\json_decode($check->record) as $val) {
+                if ($val->subject == $request->subject) {
+                    array_push($ar, $val->subject);
+                }
+            }
+         
+            if (count($ar)) {
+                return 'present';
+            } else {
+              
 
        
-        $tutor = Tutor::where('name',$request->tutor)->first();
-
-              if (is_null($check)) {
-                return Attendance::create([
-                    'school_id'=>$request->school_id,
-                    'user_id'=>$request->user_id,
-                    'tutor_id'=>$tutor->id,
-                    'record'=>\json_encode($request->record),
-                    'date'=>$request->date,
-                    'day'=>$request->day,
-                    'level'=>$request->level,
-                    'time'=>$request->time,
-                ]);
-              }else{
-                  $record = \json_decode($check->record);
+                $record = \json_decode($check->record);
                 
-                  array_push($record,$request->record[0]);
-                 $check->record = \json_encode($record);
-                 $check->save();
-                 return $check;
-                  
-              }
+                array_push($record, $request->record[0]);
+                $check->record = \json_encode($record);
+                $check->save();
+                return $check;
+            }
+        }
     }
-    public function tutorMarking($id){
+    public function tutorMarking($id)
+    {
         $att = Attendance::find($id);
         $att->tutor = $request->tutor;
         $att->save();
@@ -77,10 +85,11 @@ class AttendanceController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function getStudentAttendance(){
-         $user = auth('api')->user();
-         return Attendance::where('user_id', $user->id)->get();
-     }
+    public function getStudentAttendance()
+    {
+        $user = auth('api')->user();
+        return Attendance::where('user_id', $user->id)->get();
+    }
     public function show(Attendance $attendance)
     {
         //

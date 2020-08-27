@@ -15002,6 +15002,7 @@ __webpack_require__.r(__webpack_exports__);
         school_id: this.$props.student.school_id,
         user_id: this.$props.student.id,
         tutor_id: 2,
+        subject: val.subject,
         tutor: val.tutor,
         date: new Date().toDateString(),
         day: new Date().toLocaleString("default", {
@@ -15012,14 +15013,20 @@ __webpack_require__.r(__webpack_exports__);
           student: true,
           subject: val.subject,
           level: val.level,
-          time: new Date().toLocaleTimeString()
+          time: val.start_time
         }],
         level: val.level,
         time: new Date().toLocaleTimeString()
       };
 
       if (this.getSeconds(this.today) > this.getSeconds(val.start_time) && this.getSeconds(this.today) > this.getSeconds(val.end_time)) {
-        this.$toasted.info('This class has ended');
+        axios.post("/api/attendance", data, {
+          headers: {
+            Authorization: "Bearer ".concat(this.$props.student.access_token)
+          }
+        }).then(function (res) {
+          if (res.status == 201) {}
+        });
       } else {
         axios.post("/api/attendance", data, {
           headers: {

@@ -50629,7 +50629,11 @@ var render = function() {
                                           _c(
                                             "b-th",
                                             { staticClass: "toCaps" },
-                                            [_vm._v(_vm._s(record.day))]
+                                            [
+                                              _vm._v(_vm._s(record.day) + " "),
+                                              _c("br"),
+                                              _vm._v(" " + _vm._s(record.date))
+                                            ]
                                           ),
                                           _vm._v(" "),
                                           _c(

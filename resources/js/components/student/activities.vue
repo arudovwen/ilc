@@ -164,7 +164,7 @@
                       </b-thead>
                       <b-tbody>
                         <b-tr v-for="(record,idx) in attendance"  :key="idx">
-                          <b-th class="toCaps">{{record.day}}</b-th>
+                          <b-th class="toCaps">{{record.day}} <br> {{record.date}}</b-th>
                           <b-tbody>
                             <b-tr>
                               <b-td class="text-center toCaps" v-for="(value,id) in JSON.parse(record.record)" :key="id">{{value.subject}} 

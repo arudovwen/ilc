@@ -13915,10 +13915,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -13952,6 +13948,8 @@ __webpack_require__.r(__webpack_exports__);
         sortable: true
       }, "participation", "attendance", "quiz", "assignment", "test", "examination" // "total_score",
       ],
+      part: ['date', 'score'],
+      att: ['date', 'score'],
       assessmentType: [{
         value: "",
         text: "  Type"
@@ -13971,6 +13969,16 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {
+    participation: function participation() {
+      return this.ass_result.filter(function (item) {
+        return item.type == 'participation';
+      });
+    },
+    attendance: function attendance() {
+      return this.ass_result.filter(function (item) {
+        return item.type == 'attendance';
+      });
+    },
     sortData: function sortData() {
       var _this = this;
 
@@ -53946,22 +53954,10 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("b-table", {
                                   attrs: {
-                                    stacked: "",
-                                    fields: _vm.grade_fields,
+                                    items: _vm.participation,
+                                    fields: _vm.part,
                                     bordered: ""
-                                  },
-                                  scopedSlots: _vm._u([
-                                    {
-                                      key: "cell(name)",
-                                      fn: function(data) {
-                                        return [
-                                          _c("div", [
-                                            _vm._v(_vm._s(data.item.user.name))
-                                          ])
-                                        ]
-                                      }
-                                    }
-                                  ])
+                                  }
                                 })
                               ],
                               1
@@ -53979,22 +53975,10 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("b-table", {
                                   attrs: {
-                                    stacked: "",
-                                    fields: _vm.grade_fields,
+                                    items: _vm.attendance,
+                                    fields: _vm.att,
                                     bordered: ""
-                                  },
-                                  scopedSlots: _vm._u([
-                                    {
-                                      key: "cell(name)",
-                                      fn: function(data) {
-                                        return [
-                                          _c("div", [
-                                            _vm._v(_vm._s(data.item.user.name))
-                                          ])
-                                        ]
-                                      }
-                                    }
-                                  ])
+                                  }
                                 })
                               ],
                               1

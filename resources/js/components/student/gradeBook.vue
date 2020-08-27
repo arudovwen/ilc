@@ -27,20 +27,16 @@
                <b-tab title="Participation" >
                 <div class="grade_book">
                   <h5 class="mb-5">Participation Grades</h5>
-                  <b-table stacked  :fields="grade_fields" bordered>
-                    <template v-slot:cell(name)="data">
-                      <div>{{data.item.user.name}}</div>
-                    </template>
+                  <b-table   :items="participation" :fields="part" bordered>
+                  
                   </b-table>
                 </div>
               </b-tab>
                <b-tab title="Attendance" >
                 <div class="grade_book">
                   <h5 class="mb-5">Attendance Grades</h5>
-                  <b-table stacked  :fields="grade_fields" bordered>
-                    <template v-slot:cell(name)="data">
-                      <div>{{data.item.user.name}}</div>
-                    </template>
+                  <b-table :items="attendance"  :fields="att" bordered>
+                  
                   </b-table>
                 </div>
               </b-tab>
@@ -148,6 +144,16 @@ export default {
         "examination",
         // "total_score",
       ],
+      part: [
+        
+        'date',
+        'score'
+      ],
+       att: [
+        
+        'date',
+        'score'
+      ],
       assessmentType: [
         { value: "", text: "  Type" },
         { value: "assignment", text: "Assignment" },
@@ -158,6 +164,12 @@ export default {
     };
   },
   computed: {
+    participation(){
+   return  this.ass_result.filter(item=>item.type=='participation')
+    },
+     attendance(){
+          return  this.ass_result.filter(item=>item.type=='attendance')
+    },
     sortData() {
       var search = this.ass_result.filter((d) => {
         return d.title.toLowerCase().includes(this.search.toLowerCase());

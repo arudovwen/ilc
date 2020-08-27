@@ -65,6 +65,7 @@ class LiveClassesController extends Controller
         foreach ($tab as $time) {
             foreach (json_decode($time->table) as $value) {
                 foreach ($value->courses as $t) {
+                    dd($t->tutor);
                     $live =  LiveClasses::create([
                     'school_id'=>$time->school_id,
                      'tutor'=>$t->tutor,

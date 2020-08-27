@@ -6,18 +6,26 @@
           <div class="assignment-overview-board">
             <p>Assessment Overview</p>
             <b-container class="overview-main">
-              <b-row>
-                <b-col md="6" class="overview-log-1 text-center">
-                  <h6>30+</h6>
-                  <p>Recieved</p>
-                  <i class="fa fa-check" aria-hidden="true"></i>
-                </b-col>
-                <b-col md="6" class="overview-log-3 text-center">
-                  <h6>20+</h6>
-                  <p>Yet to Recieve</p>
-                  <i class="fa fa-ban" aria-hidden="true"></i>
-                </b-col>
-              </b-row>
+              <swiper ref="mySwiper" :options="swiperOptions">
+                <swiper-slide v-for="(level,idx)  in allClass" :key="idx">
+                  <p class="toCaps">{{level.class_name}}</p>
+                  <b-row>
+                    <b-col md="6" class="overview-log-1 text-center">
+                      <h6>{{handleAssess(level.class_name).length}}</h6>
+                      <p>Recieved</p>
+                      <i class="fa fa-check" aria-hidden="true"></i>
+                    </b-col>
+                    <b-col md="6" class="overview-log-3 text-center">
+                      <h6>{{handleStudent(level.class_name).length - handleAssess(level.class_name).length}}</h6>
+                      <p>Yet to Recieve</p>
+                      <i class="fa fa-ban" aria-hidden="true"></i>
+                    </b-col>
+                  </b-row>
+                </swiper-slide>
+
+                <div class="swiper-pagination" slot="pagination"></div>
+              </swiper>
+
               <div class="log-link">
                 <router-link to>View assessment log</router-link>
               </div>
@@ -29,16 +37,17 @@
             <p>Resource Overview</p>
             <b-container class="overview-main">
               <b-row>
-                <b-col md="6" class="overview-log-4 text-center">
+                <b-col md="4" class="overview-log-1 text-center">
                   <h6>{{resources.length}}+</h6>
                   <p>Submitted</p>
                   <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                 </b-col>
-                <b-col
-                 
-                  md="6"
-                  class="overview-log-2 text-center"
-                >
+                 <b-col md="4" class="overview-log-4 text-center">
+                  <h6>{{ approvedResource.length}}+</h6>
+                  <p>Approved</p>
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </b-col>
+                <b-col md="4" class="overview-log-2 text-center">
                   <h6>{{ pendingResource.length}}+</h6>
                   <p>Pending</p>
                   <i class="fa fa-clock-o" aria-hidden="true"></i>
@@ -132,60 +141,30 @@
           <b-col md="4">
             <div class="discussion cards">
               <h5>Discussion</h5>
-              <div class="discussion-content">
-                <div class="discussion-content-top">
-                  <p>
-                    <strong>Up coming Exams</strong>
-                  </p>
-                  <b-avatar-group size="2.5rem">
-                    <b-avatar></b-avatar>
-                    <b-avatar text="BV" variant="primary"></b-avatar>
-                    <b-avatar src="https://placekitten.com/300/300" variant="info"></b-avatar>
-                  </b-avatar-group>
-                </div>
-                <p>the upcoming exam is coming up .................</p>
-                <div class="discussion-content-bottom">
-                  <p>Updated 2mins ago</p>
-                  <div class="notify-discussion">
-                    <p>3 New Messages</p>
+              <div class="main-note">
+                <div class="discussion-content" v-for="(group,idx) in groups" :key="idx">
+                  <div class="discussion-content-top">
+                    <router-link to="/student/group">
+                      <p>
+                        <strong class="toCaps check">{{group.name}}</strong>
+                      </p>
+                    </router-link>
+
+                    <b-avatar-group size="2.5rem">
+                      <b-avatar class="profile-img"></b-avatar>
+
+                      <b-avatar text="BV" variant="primary"></b-avatar>
+                      <b-avatar src="https://placekitten.com/300/300" variant="info"></b-avatar>
+                    </b-avatar-group>
                   </div>
-                </div>
-              </div>
-              <div class="discussion-content">
-                <div class="discussion-content-top">
-                  <p>
-                    <strong>Up coming Exams</strong>
-                  </p>
-                  <b-avatar-group size="2.5rem">
-                    <b-avatar></b-avatar>
-                    <b-avatar text="BV" variant="primary"></b-avatar>
-                    <b-avatar src="https://placekitten.com/300/300" variant="info"></b-avatar>
-                  </b-avatar-group>
-                </div>
-                <p>the upcoming exam is coming up .................</p>
-                <div class="discussion-content-bottom">
-                  <p>Updated 2mins ago</p>
-                  <div class="notify-discussion">
-                    <p>3 New Messages</p>
-                  </div>
-                </div>
-              </div>
-              <div class="discussion-content">
-                <div class="discussion-content-top">
-                  <p>
-                    <strong>Up coming Exams</strong>
-                  </p>
-                  <b-avatar-group size="2.5rem">
-                    <b-avatar></b-avatar>
-                    <b-avatar text="BV" variant="primary"></b-avatar>
-                    <b-avatar src="https://placekitten.com/300/300" variant="info"></b-avatar>
-                  </b-avatar-group>
-                </div>
-                <p>the upcoming exam is coming up .................</p>
-                <div class="discussion-content-bottom">
-                  <p>Updated 2mins ago</p>
-                  <div class="notify-discussion">
-                    <p>3 New Messages</p>
+                  <p
+                    v-if="group.messages.length"
+                  >{{group.messages[group.messages.length-1].message}}</p>
+                  <div class="discussion-content-bottom">
+                    <p>Updated {{ group.messages.created_at | moment("from", "now")}}</p>
+                    <div class="notify-discussion">
+                      <p>3 New Messages</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -288,15 +267,16 @@
 
 <script>
 export default {
-  props: ["tutor","groups"],
+  props: ["tutor", "groups"],
   data() {
     return {
       tutors: [],
-      draftResult:[],
-      allStudents:[],
+      draftResult: [],
+      allStudents: [],
       students: [],
       classes: [],
       syllabus: [],
+      groupMessage: [],
       curriculum: [],
       fields: ["class", "subject"],
       field: ["class"],
@@ -313,42 +293,92 @@ export default {
         ":" +
         new Date().getSeconds(),
       resources: [],
+      allClass: [],
+      swiperOptions: {
+        autoplay: {
+          delay: 5000,
+        },
+        loop: true,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        // Some Swiper option/callback...
+      },
     };
   },
   mounted() {
     this.getNotes();
     this.getResources();
     this.getTodayClass();
-    this.getData()
-    this.getStudent('jss 1')
-    this.getDraftResult()
+    this.getData();
+    this.getStudent("jss 1");
+    this.getDraftResult();
+    this.getallmessages();
+    this.getClasses();
   },
-  computed:{
-    pendingResource(){
-       return this.resources.filter(item=> item.status == 'pending')
+  computed: {
+    pendingResource() {
+      return this.resources.filter((item) => item.status == "pending");
     },
-    approvedResource(){
-  return this.resources.filter(item=> item.status == 'approved')
-    }
+    approvedResource() {
+      return this.resources.filter((item) => item.status == "approved");
+    },
   },
   methods: {
-    getStudent(level){
-       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
-   axios.get(`/api/students/${level}`, {
+    handleAssess(level) {
+      return this.draftResult.filter(
+        (item) => item.level.toLowerCase() == level.toLowerCase()
+      );
+    },
+    handleStudent(level) {
+      return this.allStudents.filter(
+        (item) => item.student_level.toLowerCase() == level.toLowerCase()
+      );
+    },
+    getClasses() {
+      axios
+        .get("/api/all-classes", {
+          headers: {
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.allClass = res.data;
+          }
+        });
+    },
+    getallmessages() {
+      axios
+        .get(`/api/tutormessages`, {
+          headers: {
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          this.groupMessage = res.data;
+        });
+    },
+    getStudent(level) {
+      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios
+        .get(`/api/students/${level}`, {
           headers: {
             Authorization: `Bearer ${tutor.access_token}`,
           },
-        }).then(res=>{
-     if (res.status == 200) {
-       this.allStudents= res.data
-     }
-   })
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.allStudents = res.data;
+          }
+        });
     },
-      getDraftResult() {
+    getDraftResult() {
       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
       let data = {
-        title: '',
-      }
+        title: "",
+      };
       axios
         .post(`/api/draft-result`, data, {
           headers: {
@@ -358,13 +388,11 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             this.draftResult = res.data;
-          
           }
         });
     },
     getData() {
       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
-    
 
       axios
         .get(`/api/assessment`, {
@@ -389,7 +417,6 @@ export default {
           //       this.examination.push(item);
           //     }
           //   });
-       
           // }
         })
         .catch();
@@ -465,19 +492,7 @@ export default {
           }
         });
     },
-    getStudents() {
-      axios
-        .get("/api/student-get-students", {
-          headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            this.students = res.data;
-          }
-        });
-    },
+  
     getCurriculum() {
       axios
         .get("/api/curriculum", {
@@ -504,19 +519,7 @@ export default {
           }
         });
     },
-    getClasses() {
-      axios
-        .get("/api/classes", {
-          headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            this.classes = res.data;
-          }
-        });
-    },
+
     getSyllabus() {
       axios
         .get("/api/syllabus", {
@@ -556,6 +559,7 @@ export default {
   font-family: "Montserrat";
   padding: 15px;
   border-radius: 10px;
+  height: 100%;
 }
 .assignment-overview-board p {
   font-weight: 600;

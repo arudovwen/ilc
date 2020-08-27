@@ -12,6 +12,15 @@
                     <template v-slot:cell(name)="data">
                       <div>{{data.item.user.name}}</div>
                     </template>
+                     <template v-slot:cell(quiz)="data">
+                      <div>{{Math.round(data.item.quiz/data.item.average_quiz)}}</div>
+                    </template>
+                     <template v-slot:cell(assignment)="data">
+                       <div>{{Math.round(data.item.assignment/data.item.average_assignment)}}</div>
+                    </template>
+                     <template v-slot:cell(test)="data">
+                      <div>{{Math.round(data.item.test/data.item.average_test)}}</div>
+                    </template>
                   </b-table>
                 </div>
               </b-tab>
@@ -86,7 +95,14 @@
                         :items="sortData"
                         :tbody-transition-props="transProps"
                         primary-key="id"
-                      ></b-table>
+                      >
+                        <template v-slot:cell(score)="data">
+                      <div>{{Math.round(data.item.total_score)}}</div>
+                    </template>
+                      <template v-slot:cell(total_mark)="data">
+                      <div>{{Math.round(data.item.overall)}}</div>
+                    </template>
+                      </b-table>
                     </b-col>
                   </b-row>
                 </div>
@@ -119,8 +135,8 @@ export default {
         { key: "subject", sortable: true },
         { key: "type", sortable: true },
         { key: "title", sortable: true },
-        { key: "total_score", sortable: true },
-        "overall",
+        { key: "score", sortable: true },
+        "total_mark",
       ],
       grade_fields: [
         { key: "name", sortable: true },
@@ -130,7 +146,7 @@ export default {
         "assignment",
         "test",
         "examination",
-        "total_score",
+        // "total_score",
       ],
       assessmentType: [
         { value: "", text: "  Type" },

@@ -18,7 +18,7 @@
             <router-link to="/tutor/assessment"> <li><i class="icon-hour  pr-2" aria-hidden="true"></i> <span v-if="!sideBar">Assessments</span></li></router-link>
              <router-link to="/tutor/gradebook"> <li><i class="icon-score  pr-2" aria-hidden="true"></i> <span v-if="!sideBar">Grade Book</span></li></router-link>
                <router-link to="/tutor/groups"> <li><i class="icon-group-1  pr-2" aria-hidden="true"></i> <span v-if="!sideBar">Live Chat</span></li></router-link>
-                <router-link to="#"> <li><i class="icon-teacher pr-2  "></i> <span v-if="!sideBar">Live Class</span></li></router-link>
+                <router-link to="/tutor/live"> <li><i class="icon-teacher pr-2  "></i> <span v-if="!sideBar">Live Class</span></li></router-link>
                   <!-- <router-link to="/tutor/times-table"> <li><i class="icon-calendar  pr-2" aria-hidden="true"></i> <span v-if="!sideBar">TimesTable</span></li></router-link>
           
              <router-link to="/tutor/curriculum"> <li><i class="icon-dashboard1  pr-2   "></i> <span v-if="!sideBar">Curriculum</span></li></router-link> -->

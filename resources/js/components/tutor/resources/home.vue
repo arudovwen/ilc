@@ -73,6 +73,7 @@
             <th>CLASS</th>
             <th>SUBJECT</th>
             <th>TITLE</th>
+            <th>STATUS</th>
 
             <th></th>
           </tr>
@@ -83,6 +84,7 @@
             <td class="toCaps">{{item.level}}</td>
             <td class="toCaps">{{item.subject}}</td>
             <td class="toCaps">{{item.module}}</td>
+             <td class="toCaps">{{item.status}}</td>
 
             <td class="options">
               <i class="fa fa-ellipsis-v" aria-hidden="true"></i>

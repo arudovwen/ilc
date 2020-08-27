@@ -65,6 +65,7 @@ class AssessmentResultController extends Controller
             $user = User::find($find->user_id);
             $assessment = AssessmentResult::where('school_id', $user->school_id)->where('user_id', $user->id)->where('level', $user->student_level)->where('subject', $request->subject)->where('type', $request->type)->where('title', $request->title)->first();
 
+           
 
             $grade = GradeBook::where('school_id', $user->school_id)->where('user_id', $user->id)->where('subject', $request->subject)->where('level', $user->student_level)->first();
        
@@ -81,6 +82,9 @@ class AssessmentResultController extends Controller
                 'overall'=>$find->overall,
                 'record'=>\json_encode($request->record),
             ]);
+
+            $currentTotalAssessment = AssessmentResult::where('school_id', $user->school_id)->where('user_id', $user->id)->where('level', $user->student_level)->where('subject', $request->subject)->where('type', $request->type)->get();
+
                 if (is_null($grade)) {
                     $gradeNew = new GradeBook;
                     $gradeNew->user_id=$user->id;
@@ -90,31 +94,20 @@ class AssessmentResultController extends Controller
                     $gradeNew->title =$request->title;
                     $gradeNew->record=json_encode($request->record);
                     if ($request->type=='quiz') {
-                        if (is_null($gradeNew->quiz)) {
-                            $gradeNew->quiz = $request->total_score;
-                        } else {
-                            $gradeNew->quiz = $gradeNew->quiz + $request->total_score;
-                        }
+                        $gradeNew->quiz = $request->total_score;
                     } elseif ($request->type== 'examination') {
-                        if (is_null($gradeNew->examination)) {
-                            $gradeNew->examination = $request->total_score;
-                        } else {
-                            $gradeNew->examination = $gradeNew->examination + $request->total_score;
-                        }
+                        $gradeNew->examination = $request->total_score;
                     } elseif ($request->type == 'test') {
-                        if (is_null($gradeNew->test)) {
-                            $gradeNew->test = $request->total_score;
-                        } else {
-                            $gradeNew->test = $gradeNew->test + $request->total_score;
-                        }
-                    } else {
-                        if (is_null($gradeNew->assignment)) {
-                            $gradeNew->assignment = $request->total_score;
-                        } else {
-                            $gradeNew->assignment = $gradeNew->assignment + $request->total_score;
-                        }
+                        $gradeNew->test = $request->total_score;
+                    } elseif ($request->type == 'assignment') {
+                        $gradeNew->assignment = $request->total_score;
+                    } elseif ($request->type == 'attendance') {
+                        $gradeNew->attendance = $request->total_score;
+                    } elseif ($request->type == 'participation') {
+                        $gradeNew->participation = $request->total_score;
                     }
                     $gradeNew->total_score = $gradeNew->assignment + $gradeNew->examination + $gradeNew->quiz + $gradeNew->test;
+                    $gradeNew->average_quiz =  $gradeNew->average_test =  $gradeNew->average_assignment = 1;
                     $gradeNew->save();
                 } else {
                     $grade->user_id=$user->id;
@@ -129,24 +122,42 @@ class AssessmentResultController extends Controller
                         } else {
                             $grade->quiz = $grade->quiz + $request->total_score;
                         }
+                        $grade->average_quiz = count($currentTotalAssessment);
                     } elseif ($request->type== 'examination') {
                         if (is_null($grade->examination)) {
                             $grade->examination = $request->total_score;
                         } else {
                             $grade->examination = $grade->examination + $request->total_score;
                         }
+                     
                     } elseif ($request->type == 'test') {
                         if (is_null($grade->test)) {
                             $grade->test = $request->total_score;
                         } else {
                             $grade->test = $grade->test + $request->total_score;
                         }
-                    } else {
+                        $grade->average_test = count($currentTotalAssessment);
+                    }  elseif ($request->type == 'assignment') {
                         if (is_null($grade->assignment)) {
                             $grade->assignment = $request->total_score;
                         } else {
                             $grade->assignment = $grade->assignment + $request->total_score;
                         }
+                        $grade->average_assignment = count($currentTotalAssessment);
+                    }elseif ($request->type == 'attendance') {
+                        if (is_null($grade->attendance)) {
+                            $grade->attendance = $request->total_score;
+                        } else {
+                            $grade->attendance = $grade->attendance + $request->total_score;
+                        }
+                       
+                    }elseif ($request->type == 'participation') {
+                        if (is_null($grade->participation)) {
+                            $grade->participation = $request->total_score;
+                        } else {
+                            $grade->participation = $grade->participation + $request->total_score;
+                        }
+                      
                     }
                     $grade->total_score = $grade->assignment + $grade->examination + $grade->quiz + $grade->test;
                     $grade->save();

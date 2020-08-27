@@ -28,7 +28,7 @@
           <div class="inner-single">
             <div class="message-info">
               <b-avatar class="mr-3"></b-avatar>
-              <h6 class="toCaps">{{group.name}}</h6>
+              <strong class="toCaps">{{group.name}}</strong>
             </div>
             <div>
               <b-badge variant="success">3</b-badge>
@@ -52,7 +52,7 @@
                 <b-avatar></b-avatar>
               </div>
               <div>
-                <h6 class="toCaps mb-1">{{mate.name}}</h6>
+                <strong class="toCaps mb-1">{{mate.name}}</strong>
                 <small
                   class="lastmessage"
                   v-if="getLastMessage(mate.id).length"
@@ -220,5 +220,8 @@ ol {
   max-width: 50%;
 
   text-align: left;
+}
+strong{
+  font-size:15px;
 }
 </style>

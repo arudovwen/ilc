@@ -9,6 +9,7 @@ use App\Message;
 use App\StaffChat;
 use App\Department;
 use App\CourseLevel;
+use App\LiveClasses;
 use App\EducationLevel;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
@@ -66,5 +67,8 @@ class Tutor extends Authenticatable
     }
     public function staffMessage(){
         return $this->hasMany(StaffChat::class);
+    }
+    public function liveClass(){
+        return $this->hasMany(LiveClasses::class);
     }
 }

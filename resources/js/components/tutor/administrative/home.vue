@@ -1,49 +1,53 @@
 <template>
-    <div>
-    <b-container>
-        <b-row>
-            <b-col class="text-center"><router-link to="/tutor/curriculum">
-                <div class="box">
-                Curriculums</div></router-link></b-col>
-           <b-col  class="text-center"><router-link to="/tutor/syllabus">
-                <div class="box">
-                Syllabuses</div></router-link></b-col>
-                <b-col  class="text-center"><router-link to="/tutor/times-table">
-                <div class="box">
-                TimesTables</div></router-link></b-col>
-        </b-row>
-    </b-container>
-
+  <div>
+    <b-container fluid>
+      <b-row>
         
-    </div>
+        <b-col>
+          <div>
+            <b-card no-body>
+              <b-tabs card justified>
+                <b-tab title="School Curriculum" active>
+                  <b-card-text><Curriculum :tutor="tutor"/></b-card-text>
+                </b-tab>
+                <b-tab title="School Syllabus">
+                  <b-card-text><Syllabus  :tutor="tutor"/></b-card-text>
+                </b-tab>
+             
+               <b-tab title="School TimeTable">
+                  <b-card-text><Times :tutor="tutor" /></b-card-text>
+                </b-tab>
+              </b-tabs>
+            </b-card>
+          </div>
+        </b-col>
+      </b-row>
+    </b-container>
+  </div>
 </template>
 
 <script>
+import Curriculum  from '../curriculum'
+import Syllabus from "../syllabus";
+import Times from '../times'
 export default {
-    
-}
+  props:['tutor'],
+    components:{
+        Curriculum,
+        Syllabus,
+        Times
+    }
+};
 </script>
 
 <style scoped>
-.container{
-    height: 100vh;
-    width: 100%;
+.container-fluid {
+  height: 100vh;
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 70px;
+  overflow:auto;
 }
-.row{
-    height: 100%;
-    width:100%;
-    justify-content: center;
-    align-items: center;
-}
-.box{
-   
-    height: 250px;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-   font-weight: bold;
-   color: #333333;
-}
+
+
 </style>

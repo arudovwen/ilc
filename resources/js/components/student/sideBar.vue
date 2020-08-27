@@ -54,7 +54,7 @@
             <span v-if="!sideBar">Live Chat</span>
           </li>
         </router-link>
-        <router-link to="/student/virtual">
+        <router-link to="/student/live">
           <li>
             <i class="icon-business-class" aria-hidden="true"></i>
             <span v-if="!sideBar">Live Class</span>

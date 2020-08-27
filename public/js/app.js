@@ -987,6 +987,14 @@ var Administrative = function Administrative() {
   return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/administrative/home.vue */ "./resources/js/components/tutor/administrative/home.vue"));
 };
 
+var StudentLive = function StudentLive() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/student/liveClass.vue */ "./resources/js/components/student/liveClass.vue"));
+};
+
+var TutorLive = function TutorLive() {
+  return Promise.all(/*! import() | home_routes */[__webpack_require__.e("/js/vendor"), __webpack_require__.e("home_routes")]).then(__webpack_require__.bind(null, /*! ./components/tutor/liveClass.vue */ "./resources/js/components/tutor/liveClass.vue"));
+};
+
 var routes = [{
   path: "*",
   redirect: "/"
@@ -1490,6 +1498,13 @@ var routes = [{
       typeTutor: true
     }
   }, {
+    path: "live",
+    component: TutorLive,
+    name: "TutorLive",
+    meta: {
+      typeTutor: true
+    }
+  }, {
     path: "times-table",
     component: TimesTableTutor,
     name: "TimesTableTutor",
@@ -1645,6 +1660,13 @@ var routes = [{
     path: "test",
     component: StudentTest,
     name: "StudentTest",
+    meta: {
+      typeStudent: true
+    }
+  }, {
+    path: "live",
+    component: StudentLive,
+    name: "StudentLive",
     meta: {
       typeStudent: true
     }

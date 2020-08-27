@@ -22,7 +22,7 @@ class GroupsController extends Controller
     {
         $tutor = auth('tutor')->user();
    
-        return Group::where('school_id', $tutor->school_id)->where('tutor_id', $tutor->id)->get();
+        return Group::with('messages')->where('school_id', $tutor->school_id)->where('tutor_id', $tutor->id)->get();
     }
 
     /**
@@ -106,7 +106,7 @@ class GroupsController extends Controller
     {
         $user = auth('api')->user();
         $student_group = [];
-        $groups = Group::where('school_id', $user->school_id)->get();
+        $groups = Group::with('messages')->where('school_id', $user->school_id)->get();
         foreach ($groups as $value) {
             foreach (json_decode($value->subscribers) as $v) {
                 if ($user->id == $v) {

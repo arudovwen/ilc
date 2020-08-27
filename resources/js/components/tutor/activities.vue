@@ -1,138 +1,275 @@
 <template>
   <div class="time-table">
     <div class="timetable-schedule">
-      <b-container>
-        <div class="filter-table">
-          <!-- <div class="filter-container">
-          <div class="filter-btn btn" @click="toggleFilter">
-            <span>Filter</span>
-            <i class="icon-sort"></i>
-          </div>
-          </div>-->
-          <b-navbar toggleable="lg" type="dark" variant="info">
-            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+         <b-card no-body>
+        <b-tabs card justified>
+          <b-tab title="Todays Schedule" active>
+            <div class="activity">
+              <b-row class="py-5">
+                <b-col md="4" >
+                  <div class="cards border-right p-2">
+                   
+                    <div class="class_section" v-if="todaysClass.length">
+                      <div
+                        class="class-content  p-2"
+                        v-for="(item,idx) in todaysClass"
+                        :key="idx"
+                      >
+                        <div class="class-content-top">
+                          <p class="toCaps">{{item.subject}}</p>
+                          <i
+                            class="fa fa-play-circle-o green"
+                            v-if="(getSecond(today)  > getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
+                            aria-hidden="true"
+                          ></i>
 
-            <b-collapse id="nav-collapse" is-nav>
-              <b-navbar-nav>
-                <div class="mr-3 sort">Sort By:</div>
-                <b-form-select v-model="my_class">
-                  <b-form-select-option value disabled>-- Class --</b-form-select-option>
+                          <i
+                            class="fa fa-dot-circle-o amber"
+                            v-else-if="(getSecond(today)  <  getSecond(item.start))"
+                            aria-hidden="true"
+                          ></i>
 
-                  <b-form-select-option
-                    :value="item.myclass"
-                    v-for="(item,idx) in myclass"
-                    :key="idx"
-                  >{{item.myclass}}</b-form-select-option>
-                </b-form-select>
-              </b-navbar-nav>
+                          <i
+                            class="fa fa-stop-circle-o red"
+                            :id="idx.toString()"
+                            v-else-if="(getSecond(today)   >  getSecond(item.start)) && (getSecond(today) >getSecond(item.end))"
+                            aria-hidden="true"
+                          ></i>
+                          <b-tooltip ref="tooltip" :target="idx.toString()">
+                            <p
+                              class="m-0"
+                              v-if="(getSecond(today)  > getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
+                            >This class is ongoing</p>
+                            <p
+                              class="m-0"
+                              v-else-if="(getSecond(today)  <  getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
+                            >This class begins by {{item.start | format}}</p>
 
-              <!-- Right aligned nav items -->
+                            <p
+                              class="m-0"
+                              v-else-if="(getSecond(today)   >  getSecond(item.start)) && (getSecond(today) >getSecond(item.end))"
+                            >This class has ended</p>
+                          </b-tooltip>
+                        </div>
+                        <small>{{item.start | format}} to {{item.end | format}}</small>
+                        <div class="class-content-main">
+                          <p>
+                            <span>
+                              Tutor :
+                              <strong class="toCaps">{{item.tutor}}</strong>
+                            </span>
+                          </p>
 
-              <b-navbar-nav class="ml-auto">
-                <b-nav-form>
-                  <b-form-input size="sm" class="mr-sm-2 search rounded-pill" placeholder="Search"></b-form-input>
-                </b-nav-form>
-              </b-navbar-nav>
-            </b-collapse>
-          </b-navbar>
-        </div>
-        <div class="bd-table">
-          <div class="table-responsive">
-            <div class="form-group">
-              <h5 class="toCaps">{{my_class}}</h5>
-            </div>
-            <table class="table table-bordered" v-if="sortedTable.length">
-              <thead class="thead-light">
-                <tr>
-                  <th>Day</th>
-                  <th>Time</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(tab,index) in JSON.parse(sortedTable[0].table)" :key="index">
-                  <td class="toCaps day">{{tab.day}}</td>
-                  <td class="d-flex justify-content-between p-0">
-                    <table class="w-100">
-                      <tr class="w-100">
-                        <td class="text-center" v-for="(item,idx) in tab.courses" :key="idx">
-                          <div class>{{item.start | format}} - {{item.end | format}}</div>
-                          <div>{{item.subject}}</div>
-                          <div>{{item.tutor}}</div>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </b-container>
-      <div class="schedule-part">
-        <div class="schedule-inner">
-          <h6>Scheduler</h6>
-          <p>keep reminders with your scheduler</p>
-          <div class="calendar">
-            <vc-calendar></vc-calendar>
-          </div>
-          <h6>Notifications</h6>
-          <b-col>
-            <div class="cards">
-              <div class="class_section">
-                <div
-                  class="class-content border-bottom p-2"
-                  v-for="(item,idx) in todaysClass"
-                  :key="idx"
-                >
-                  <div
-                    class="class-content-top"
-                    v-if="(getSecond(today)  <  getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
-                  >
-                    <h6
-                      class="toCaps"
-                     
-                    >{{item.subject}}</h6>
+                          <p
+                            v-if="(getSecond(today)  > getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
+                          >Ongoing</p>
+                          <p
+                            v-else-if="(getSecond(today)  <  getSecond(item.start))"
+                          >Upcoming</p>
 
-                    <i
-                      class="fa fa-dot-circle-o text-dark"
-                     
-                      aria-hidden="true"
-                    ></i>
-
-                    <b-tooltip ref="tooltip" :target="idx.toString()">
-                      <p
-                        class="m-0"
-                       
-                      >This class begins by {{item.start | format}}</p>
-                    </b-tooltip>
+                          <p
+                            v-else-if="(getSecond(today)   >  getSecond(item.start)) && (getSecond(today) >getSecond(item.end))"
+                          >Finished</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="class_section phert-5" v-else>
+                      <div class="form-control text-align">No Class Available</div>
+                    </div>
                   </div>
-                  <small
-                    v-if="(getSecond(today)  <  getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
-                  >{{item.start | format}} to {{item.end | format}}</small>
-                  <div class="class-content-main">
-                    <p
-                      v-if="(getSecond(today)  <  getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
-                    >Upcoming</p>
+                </b-col>
+                <b-col>
+                  
+                </b-col>
+              </b-row>
+            </div>
+          </b-tab>
+          <b-tab title="My Times Table">
+            <div class="activity">
+            
+
+              <div class="d-flex justify-content-around mb-2">
+               <span> <b-icon icon="circle-fill" class="upcoming"></b-icon> Upcoming</span>
+                <span> <b-icon icon="circle-fill" class="ongoing"></b-icon> Ongoing</span>
+                 <span> <b-icon icon="circle-fill" class="finished"></b-icon> Finished</span>
+              </div>
+              <table class="table table-bordered">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Day</th>
+                    <th>Time</th>
+                  </tr>
+                    
+                </thead>
+                <tbody>
+                  <tr v-for="(tab,index) in table" :key="index">
+                    <td class="toCaps day">{{tab.day}}</td>
+                    <td class="d-flex justify-content-between p-0">
+                      <table class="w-100">
+                        <tr class="w-100">
+                          <td class="text-center "
+                           :class="{upcoming:getSecond(today) < getSecond(item.start) && tab.day.toLowerCase() == today_name,
+                            ongoing:getSecond(today) > getSecond(item.start) && getSecond(today) <= getSecond(item.end) && tab.day.toLowerCase() == today_name,
+                             finished: getSecond(today) >getSecond(item.end) && tab.day.toLowerCase() == today_name
+                           }"
+                           v-for="(item,idx) in tab.courses" :key="idx">
+                        
+                            <div class="">
+                               <div  >{{item.start | format}} - {{item.end | format}}</div>
+                            <div>{{item.subject}}</div>
+                            <div>{{item.tutor}}</div>
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </b-tab>
+          <b-tab title="My Attendance">
+            <div class="activity">
+              <div class="main-attendance container">
+                <div class="attendance">
+                  <div class="sort-table">
+                    <b-container>
+                      <b-row>
+                        <b-col md="2">
+                          <p>
+                            <strong>Attendance</strong>
+                          </p>
+                        </b-col>
+                        <b-col md="6">
+                          <b-container>
+                            <b-row>
+                              <b-col md="4">
+                                <b-form-select  ></b-form-select>
+                              </b-col>
+                              <b-col md="4">
+                                <b-form-select  ></b-form-select>
+                              </b-col>
+                              <b-col md="4">
+                                <b-form-select  ></b-form-select>
+                              </b-col>
+                            </b-row>
+                          </b-container>
+                        </b-col>
+                        <b-col md="4">
+                          <b-container>
+                            <b-row>
+                              <b-col md="6">
+                                <b-form-input
+                                  placeholder="Search Student "
+                                  class="search rounded-pill"
+                                ></b-form-input>
+                              </b-col>
+                              <b-col md="6">
+                                <div class="export">
+                                  <div class="btn btn-export">
+                                    Export
+                                    <i class="fa fa-external-link"></i>
+                                  </div>
+                                </div>
+                              </b-col>
+                            </b-row>
+                          </b-container>
+                        </b-col>
+                      </b-row>
+                    </b-container>
+                  </div>
+                  <hr />
+
+                  <div class="attendance-table">
+                    <b-table :items="items" bordered>
+                      <template v-slot:cell(monday)="data" class="absent">
+                        <span v-html="data.value"></span>
+                      </template>
+                      <template v-slot:cell(tuesday)="data" class="absent">
+                        <span v-html="data.value"></span>
+                      </template>
+                      <template v-slot:cell(wednesday)="data" class="absent">
+                        <span v-html="data.value"></span>
+                      </template>
+                      <template v-slot:cell(thursday)="data" class="absent">
+                        <span v-html="data.value"></span>
+                      </template>
+                      <template v-slot:cell(friday)="data" class="absent">
+                        <span v-html="data.value"></span>
+                      </template>
+                    </b-table>
                   </div>
                 </div>
               </div>
             </div>
-          </b-col>
+          </b-tab>
 
-          <div class="notify">
-            <div class="notify-i">
-              <i class="fa fa-book" aria-hidden="true"></i>
+         <b-tab title="My Calendar">
+                 <b-container>
+        <b-row>
+          <b-col cols="7">
+            <vc-calendar is-expanded :attributes="attributes" :rows="3"></vc-calendar>
+          </b-col>
+          <b-col cols="5">
+            <div class="schedule-part">
+              <div class="schedule-inner">
+                <h6>Scheduler</h6>
+                <p>keep reminders with your scheduler</p>
+                <b-form>
+                  <b-input-group class="mt-3">
+                    <b-form-input></b-form-input>
+                    <b-input-group-append>
+                      <b-button variant="success">Add Todo</b-button>
+                    </b-input-group-append>
+                  </b-input-group>
+                  <hr />
+                </b-form>
+                <h6>Todays Schedule</h6>
+                <b-col>
+                  <div class="cards">
+                    <div class="class_section" v-if="todaysClass.length">
+                      <div
+                        class="class-content border-bottom p-2"
+                        v-for="(item,idx) in todaysClass"
+                        :key="idx"
+                      >
+                        <div
+                          class="class-content-top"
+                          v-if="(getSecond(today)  <  getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
+                        >
+                          <h6 class="toCaps">{{item.subject}}</h6>
+
+                          <i class="fa fa-dot-circle-o text-dark" aria-hidden="true"></i>
+
+                          <b-tooltip ref="tooltip" :target="idx.toString()">
+                            <p class="m-0">This class begins by {{item.start | format}}</p>
+                          </b-tooltip>
+                        </div>
+                        <small
+                          v-if="(getSecond(today)  <  getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
+                        >{{item.start | format}} to {{item.end | format}}</small>
+                        <div class="class-content-main">
+                          <p
+                            v-if="(getSecond(today)  <  getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
+                          >Upcoming</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="class_section d-flex justify-content-center align-items-center">
+                      <p class="pt-5">Nothing Scheduled</p>
+                    </div>
+                  </div>
+                </b-col>
+
+              </div>
             </div>
-            <div class="notify-word">
-              <p>
-                JSS2
-                <strong>Virtual Class</strong>
-                <em>10:00AM</em>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+          </b-col>
+        </b-row>
+      </b-container>
+         </b-tab>
+        </b-tabs>
+      </b-card>
+     
     </div>
   </div>
 </template>
@@ -168,6 +305,19 @@ export default {
     this.getTodayClass();
   },
   computed: {
+    attributes() {
+      return [
+        {
+          highlight: true,
+
+          dates: [new Date()],
+          popover: {
+            label: "Mathematics Class",
+             label: "Mathematics Class"
+          },
+        },
+      ];
+    },
     sortedTable() {
       return this.tables.filter((item) =>
         item.myclass.toLowerCase().includes(this.my_class.toLowerCase())
@@ -224,8 +374,8 @@ export default {
 </script>
 <style scoped>
 .timetable-schedule {
-  display: flex;
-  justify-content: space-between;
+  padding-top: 50px;
+  padding-bottom: 70px;
 }
 .body {
   position: relative;
@@ -349,7 +499,24 @@ export default {
   margin-top: 20px;
   border-radius: 10px;
 }
-
+.cal {
+  text-align: left;
+  padding: 10px;
+  width: 100px;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  font-size: 12px;
+  color: #333;
+  max-height: 60px;
+  overflow: auto;
+  padding: 5px 0;
+  border-bottom: 1px solid #ccc;
+}
+ul li {
+  padding: 5px 0;
+}
 .nav-link {
   color: #000 !important;
 }
@@ -381,7 +548,31 @@ small,
   display: flex;
   justify-content: space-between;
 }
+.cards {
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
 
+}
+.class-content {
+  padding-bottom: 10px;
+}
+.class_section {
+  max-height: 340px;
+  overflow: auto;
+}
+.class-content-top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.class-content-main {
+  display: flex;
+  justify-content: space-between;
+}
+.class-content-main p {
+  font-size: 12px;
+}
 .red {
   color: #ff0000;
 }
@@ -413,5 +604,14 @@ small,
 .check_it {
   color: #008e3a;
   font-size: 12px;
+}
+.ongoing{
+   color: #008e3a;
+}
+.upcoming{
+    color:#FFC200;
+}
+.finished{
+    color:red;
 }
 </style>

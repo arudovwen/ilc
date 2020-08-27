@@ -28,7 +28,7 @@ class UserController extends Controller
     public function tutorGetStudents($name)
     {
         $school_id = auth('tutor')->user()->school_id;
-        return User::where('school_id', $school_id)->where('student_level',$name)->get();
+        return User::where('school_id', $school_id)->get();
     }
 
     /**

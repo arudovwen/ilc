@@ -28,7 +28,13 @@ class MessagesController extends Controller
     {
         $user =  auth('api')->user();
  
-        return Message::with('user')->where('school_id', $user->school_id)->get();
+        return Message::with('user')->with('group')->where('school_id', $user->school_id)->get();
+    }
+
+    public function getTutorChat()
+    {
+        $user =  auth('tutor')->user();
+        return Message::with('user')->with('group')->where('school_id', $user->school_id)->get();
     }
 
     /**

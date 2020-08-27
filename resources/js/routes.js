@@ -388,6 +388,15 @@ const Administrative = () =>
         /* webpackChunkName: "home_routes" */ "./components/tutor/administrative/home.vue"
     );
 
+    const StudentLive = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/student/liveClass.vue"
+    );
+    const TutorLive = () =>
+    import(
+        /* webpackChunkName: "home_routes" */ "./components/tutor/liveClass.vue"
+    );
+
 export const routes = [
     { path: "*", redirect: "/" },
     {
@@ -940,6 +949,14 @@ export const routes = [
                     typeTutor: true
                 }
             },
+            {
+                path: "live",
+                component: TutorLive,
+                name: "TutorLive",
+                meta: {
+                    typeTutor: true
+                }
+            },
 
             {
                 path: "times-table",
@@ -1118,6 +1135,14 @@ export const routes = [
                 path: "test",
                 component: StudentTest,
                 name: "StudentTest",
+                meta: {
+                    typeStudent: true
+                }
+            },
+            {
+                path: "live",
+                component: StudentLive,
+                name: "StudentLive",
                 meta: {
                     typeStudent: true
                 }

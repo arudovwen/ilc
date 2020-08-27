@@ -120,9 +120,9 @@
       </b-row>
       <b-row>
         <b-col md="6">
-          <div class="discussion cards" v-if="groupMessage.length">
+          <div class="discussion cards">
             <h5>Discussion Board</h5>
-           <div  class="main-note">
+           <div  class="main-note"  v-if="groups.length">
               <div class="discussion-content" v-for="(group,idx) in groups" :key="idx">
               <div class="discussion-content-top">
                 <router-link to="/student/group">
@@ -133,22 +133,16 @@
 
                 <b-avatar-group size="2.5rem">
                   <b-avatar
-                    class="profile-img"
-                    v-if="groupMessage.filter(item=>item.group_id == group.id)[groupMessage.filter(item=>item.group_id == group.id).length-1].user"
-                    :src="groupMessage.filter(item=>item.group_id == group.id)[groupMessage.filter(item=>item.group_id == group.id).length-1].user.profile"
+                  
                   ></b-avatar>
-                  <b-avatar
-                    class="profile-img"
-                    v-if="groupMessage.filter(item=>item.group_id == group.id)[groupMessage.filter(item=>item.group_id == group.id).length-1].tutor"
-                    :src="groupMessage.filter(item=>item.group_id == group.id)[groupMessage.filter(item=>item.group_id == group.id).length-1].tutor.profile"
-                  ></b-avatar>
+               
                   <b-avatar text="BV" variant="primary"></b-avatar>
                   <b-avatar src="https://placekitten.com/300/300" variant="info"></b-avatar>
                 </b-avatar-group>
               </div>
-              <p>{{groupMessage.filter(item=>item.group_id == group.id)[groupMessage.filter(item=>item.group_id == group.id).length-1].message}}</p>
+                <p v-if="group.messages.length">{{group.messages[group.messages.length-1].message}}</p>
               <div class="discussion-content-bottom">
-                <p>Updated {{ groupMessage.filter(item=>item.group_id == group.id)[groupMessage.filter(item=>item.group_id == group.id).length-1].created_at | moment("from", "now")}}</p>
+                <p>Updated {{ group.messages.created_at | moment("from", "now")}}</p>
                 <div class="notify-discussion">
                   <p>3 New Messages</p>
                 </div>

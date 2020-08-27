@@ -74,9 +74,14 @@ Route::middleware('auth:api')->group(function () {
     Route::post('private-message','PrivateMessageController@sendMessage');
     Route::get('classmates', 'ClassesController@getClassmates');
     Route::get('allmessages', 'MessagesController@getGroupChat');
+
+    Route::get('student-attendance', 'AttendanceController@getStudentAttendance');
+    Route::get('student-attendance', 'AttendanceController@getStudentAttendance');
+    Route::get('student-live', 'LiveClassesController@getMyLive');
 });
 
 Route::middleware('auth:tutor')->group(function () {
+    Route::get('tutormessages', 'MessagesController@getTutorChat');
     Route::get('tutor-note', 'NoteController@tutorNote');
     Route::post('tutor-note', 'NoteController@storeTutorNote');
     Route::resource('group', 'GroupsController');
@@ -112,6 +117,7 @@ Route::middleware('auth:tutor')->group(function () {
     Route::post('staff-message', 'StaffChatController@sendMessage');
     Route::get('get-tutor-assessment', 'AssessmentResultController@getTutorResult');
     Route::get('students/{class}', 'ClassesController@getStudents');
+    Route::get('tutor-live', 'LiveClassesController@getTutorMyLive');
 });
 Route::get('student-group/{id}', 'GroupsController@show');
 Route::post('school-register', 'SchoolController@store');
@@ -155,3 +161,11 @@ Route::resource('order', 'OrdersController');
 Route::resource('temp-sub', 'TempSubscriptionsController');
 Route::resource('package', 'PackagesController');
 Route::get('verify/{ref}', 'SubscriptionsController@verify');
+
+Route::resource('attendance', 'AttendanceController');
+Route::put('live-class/{id}', 'LiveClassesController@update');
+Route::get('make-live-class', 'LiveClassesController@makeLiveClass');
+Route::get('get-live-class', 'LiveClassesController@adminGetLiveClass');
+
+Route::post('mark-student', 'AttendanceController@tutorMarking');
+Route::post('live-student', 'AttendanceController@tutorMarking');

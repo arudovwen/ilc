@@ -137,74 +137,48 @@
           </b-tab>
           <b-tab title="My Attendance">
             <div class="activity">
-              <div class="main-attendance container">
+              <div class="main-attendance ">
                 <div class="attendance">
                   <div class="sort-table">
-                    <b-container>
+                    <div>
                       <b-row>
                         <b-col md="2">
                           <p>
                             <strong>Attendance</strong>
                           </p>
                         </b-col>
-                        <b-col md="6">
-                          <b-container>
-                            <b-row>
-                              <b-col md="4">
-                                <b-form-select  ></b-form-select>
-                              </b-col>
-                              <b-col md="4">
-                                <b-form-select  ></b-form-select>
-                              </b-col>
-                              <b-col md="4">
-                                <b-form-select  ></b-form-select>
-                              </b-col>
-                            </b-row>
-                          </b-container>
-                        </b-col>
-                        <b-col md="4">
-                          <b-container>
-                            <b-row>
-                              <b-col md="6">
-                                <b-form-input
-                                  placeholder="Search Student "
-                                  class="search rounded-pill"
-                                ></b-form-input>
-                              </b-col>
-                              <b-col md="6">
-                                <div class="export">
-                                  <div class="btn btn-export">
-                                    Export
-                                    <i class="fa fa-external-link"></i>
-                                  </div>
-                                </div>
-                              </b-col>
-                            </b-row>
-                          </b-container>
-                        </b-col>
+                     
+                     
                       </b-row>
-                    </b-container>
+                    </div>
                   </div>
                   <hr />
 
                   <div class="attendance-table">
-                    <b-table :items="items" bordered>
-                      <template v-slot:cell(monday)="data" class="absent">
-                        <span v-html="data.value"></span>
-                      </template>
-                      <template v-slot:cell(tuesday)="data" class="absent">
-                        <span v-html="data.value"></span>
-                      </template>
-                      <template v-slot:cell(wednesday)="data" class="absent">
-                        <span v-html="data.value"></span>
-                      </template>
-                      <template v-slot:cell(thursday)="data" class="absent">
-                        <span v-html="data.value"></span>
-                      </template>
-                      <template v-slot:cell(friday)="data" class="absent">
-                        <span v-html="data.value"></span>
-                      </template>
-                    </b-table>
+                    <b-table-simple  bordered>
+                      <b-thead>
+                        <b-tr>
+                          <b-th>Day</b-th>
+                           <b-th>Record</b-th>
+                        </b-tr>
+                      </b-thead>
+                      <b-tbody>
+                        <b-tr v-for="(record,idx) in attendance"  :key="idx">
+                          <b-th class="toCaps">{{record.day}}</b-th>
+                          <b-tbody>
+                            <b-tr>
+                              <b-td class="text-center toCaps" v-for="(value,id) in JSON.parse(record.record)" :key="id">{{value.subject}} 
+                                <br> <b-icon v-if="value.student" icon="check-circle-fill" :class="{green:value.student && value.tutor,amber:value.student && !value.tutor}"></b-icon>
+                                <b-icon v-else icon="x-circle-fill" class="red"></b-icon>
+                              </b-td>
+                           
+                            </b-tr>
+                          </b-tbody>
+                        </b-tr>
+                        
+                      </b-tbody>
+                    
+                    </b-table-simple>
                   </div>
                 </div>
               </div>
@@ -231,26 +205,14 @@ export default {
         new Date().getMinutes() +
         ":" +
         new Date().getSeconds(),
-      items: [
-        {
-          name: "Success Ahon",
-          monday: '<i class="fa fa-check" style="color: green" ></i>',
-          tuesday: '<i class="fa fa-times" style="color: red"></i>',
-          wednesday: '<i class="fa fa-check" style="color: green" ></i>',
-          thursday: '<i class="fa fa-check" style="color: green" ></i>',
-          friday: '<i class="fa fa-check" style="color: green" ></i>',
-        },
-        {
-          name: "Success Ahon",
-          monday: '<i class="fa fa-times" style=" color:red"></i>',
-        },
-      ],
+       attendance:[]
     };
   },
   mounted() {
     this.getTable();
     this.getTodayClass();
     this.getData();
+    this.getAttendance()
   },
   methods: {
     getData() {
@@ -306,6 +268,18 @@ export default {
           }
         });
     },
+    getAttendance(){
+       axios
+        .get(`/api/student-attendance`, {
+          headers: {
+            Authorization: `Bearer ${this.$props.student.access_token}`,
+          },
+        }).then(res=>{
+          if (res.status ==200) {
+            this.attendance = res.data
+          }
+        })
+    }
   },
 };
 </script>

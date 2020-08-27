@@ -13,7 +13,16 @@
                     </div>
                   </div>
                 </router-link>
-                <b-table :fields="fields" :items="assignment">
+                <div>
+                  <b-form-select v-model="level"  size="sm" class="w-25">
+                    <b-form-select-option
+                      v-for="(level,idx) in all_classess"
+                      :key="idx"
+                      :value="level.class_name"
+                    >{{level.class_name}}</b-form-select-option>
+                  </b-form-select>
+                </div>
+                <b-table :fields="fields" :items="ass">
                   <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
                   <template v-slot:cell(publish_status)="data">
                     <span v-if="data.item.publish_status== true">Published</span>
@@ -21,7 +30,7 @@
                   </template>
                   <template v-slot:cell(title)="data">
                     <div class="main-title">
-                      <div class="title">{{data.item.title}}</div>
+                      <div class="title" @click="getNotification(data.item.title)">{{data.item.title}}</div>
                       <div class="text-muted">{{data.item.description}}</div>
                     </div>
                   </template>
@@ -38,15 +47,16 @@
             <b-col md="4">
               <div class="right">
                 <h6 class="notify">Assignment Notification</h6>
+                <p class="toCaps" v-if="title">Title : {{title}}</p>
                 <div class="overall-assessment">
                   <div class="submitted">
                     <i class="fa fa-check"></i>
-                    <h6>{{assResult.filter(item=>item.status=='submitted').length}}</h6>
+                    <h6>{{handleAssess(level,assResult).length}}</h6>
                     <p>submitted</p>
                   </div>
                   <div class="pending">
                     <i class="fa fa-ban"></i>
-                    <h6>{{assResult.filter(item=>item.status=='pending').length}}</h6>
+                    <h6>{{handleStudent(level,assResult).length - handleAssess(level,assResult).length}}</h6>
                     <p>pending</p>
                   </div>
                 </div>
@@ -56,8 +66,13 @@
                 </div>
                 <div class="assignment-notification">
                   <div class="notification-content">
-                    <div v-for="(item,idx) in assResult.filter(item=>item.status=='pending')" :key="idx" @click="getContent(item)">
-                      <p>{{item.user.name}} submitted {{item.subject}} {{item.type}} - {{item.title}}</p>
+                    <div
+                      v-for="(item,idx) in assResult"
+                      :key="idx"
+                      @click="getContent(item)"
+                    >
+                      <p class="mb-2">{{item.user.name}} submitted {{item.subject}} {{item.type}} - {{item.title}}</p>
+                      <small class="toCaps" :class="{approved:item.status=='submitted',pendings:item.status=='pending'}"><span>{{item.status=='submitted'?'Approved':'Pending'}}</span> <b-icon :icon="item.status=='submitted'?'check-circle-fill':'clock-fill'"></b-icon></small>
                       <div class="notify-class">
                         <p>{{item.level}}</p>
                       </div>
@@ -74,14 +89,25 @@
           <b-row>
             <b-col md="8" class="assessment-table">
               <div class="bd-table">
-                <router-link to="/tutor/quiz">
+               
                   <div class="right-btn">
+                     <router-link to="/tutor/quiz">
                     <div class="btn text-center">
                       <span>ALL QUIZZES</span>
                     </div>
+                    </router-link>
                   </div>
-                </router-link>
-                <b-table :fields="fields" :items="quiz" hover>
+                
+                <div>
+                  <b-form-select v-model="level"  size="sm" class="w-25">
+                    <b-form-select-option
+                      v-for="(level,idx) in all_classess"
+                      :key="idx"
+                      :value="level.class_name"
+                    >{{level.class_name}}</b-form-select-option>
+                  </b-form-select>
+                </div>
+                <b-table :fields="fields" :items="qu" hover>
                   <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
                   <template v-slot:cell(publish_status)="data">
                     <span v-if="data.item.publish_status== true">Published</span>
@@ -90,7 +116,7 @@
 
                   <template v-slot:cell(title)="data">
                     <div class="main-title">
-                      <div class="title">{{data.item.title}}</div>
+                      <div class="title" @click="getNotification(data.item.title)">{{data.item.title}}</div>
                       <div class="text-muted">{{data.item.description}}</div>
                     </div>
                   </template>
@@ -107,15 +133,17 @@
             <b-col md="4" class="notify-board">
               <div class="right">
                 <h6 class="notify">Quiz Notification</h6>
+                <p class="toCaps" v-if="title">Title : {{title}}</p>
                 <div class="overall-assessment">
                   <div class="submitted">
                     <i class="fa fa-check"></i>
-                    <h6>{{quizResult.filter(item=>item.status=='submitted').length}}</h6>
+                    <h6>{{handleAssess(level,quizResult).length}}</h6>
                     <p>submitted</p>
                   </div>
                   <div class="pending">
                     <i class="fa fa-ban"></i>
-                    <h6>{{quizResult.filter(item=>item.status=='pending').length}}</h6>
+                    <h6>{{handleStudent(level,quizResult).length - handleAssess(level,quizResult).length}}</h6>
+
                     <p>pending</p>
                   </div>
                 </div>
@@ -125,8 +153,13 @@
                 </div>
                 <div class="assignment-notification">
                   <div class="notification-content">
-                    <div v-for="(item,idx) in quizResult.filter(item=>item.status=='pending')" :key="idx" @click="getContent(item)">
+                    <div
+                      v-for="(item,idx) in quizResult"
+                      :key="idx"
+                      @click="getContent(item)"
+                    >
                       <p>{{item.user.name}} submitted {{item.subject}} {{item.type}} - {{item.title}}</p>
+                        <small class="toCaps" :class="{approved:item.status=='submitted',pendings:item.status=='pending'}"><span>{{item.status=='submitted'?'Approved':'Pending'}}</span> <b-icon :icon="item.status=='submitted'?'check-circle-fill':'clock-fill'"></b-icon></small>
                       <div class="notify-class">
                         <p>{{item.level}}</p>
                       </div>
@@ -143,14 +176,25 @@
           <b-row>
             <b-col md="8" class="assessment-table">
               <div class="bd-table">
-                <router-link to="/tutor/test">
+              
                   <div class="right-btn">
+                      <router-link to="/tutor/test">
                     <div class="btn text-center">
                       <span>ALL TESTS</span>
                     </div>
+                      </router-link>
                   </div>
-                </router-link>
-                <b-table :fields="fields" :items="test" hover>
+              
+                <div>
+                  <b-form-select v-model="level"  size="sm" class="w-25">
+                    <b-form-select-option
+                      v-for="(level,idx) in all_classess"
+                      :key="idx"
+                      :value="level.class_name"
+                    >{{level.class_name}}</b-form-select-option>
+                  </b-form-select>
+                </div>
+                <b-table :fields="fields" :items="tes" hover>
                   <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
                   <template v-slot:cell(action)="data">
                     <span
@@ -161,7 +205,7 @@
                   </template>
                   <template v-slot:cell(title)="data">
                     <div class="main-title">
-                      <div class="title">{{data.item.title}}</div>
+                      <div class="title" @click="getNotification(data.item.title)">{{data.item.title}}</div>
                       <div class="text-muted">{{data.item.description}}</div>
                     </div>
                   </template>
@@ -175,15 +219,16 @@
             <b-col md="4">
               <div class="right">
                 <h6 class="notify">Test Notification</h6>
+                <p class="toCaps" v-if="title">Title : {{title}}</p>
                 <div class="overall-assessment">
                   <div class="submitted">
                     <i class="fa fa-check"></i>
-                    <h6>{{testResult.filter(item=>item.status=='submitted').length}}</h6>
+                    <h6>{{handleAssess(level,testResult).length}}</h6>
                     <p>Submitted</p>
                   </div>
                   <div class="pending">
                     <i class="fa fa-ban"></i>
-                    <h6>{{testResult.filter(item=>item.status=='pending').length}}</h6>
+                    <h6>{{handleStudent(level,testResult).length - handleAssess(level,testResult).length}}</h6>
                     <p>Pending</p>
                   </div>
                 </div>
@@ -193,8 +238,13 @@
                 </div>
                 <div class="assignment-notification">
                   <div class="notification-content">
-                    <div v-for="(item,idx) in testResult.filter(item=>item.status=='pending')" :key="idx" @click="getContent(item)">
+                    <div
+                      v-for="(item,idx) in testResult"
+                      :key="idx"
+                      @click="getContent(item)"
+                    >
                       <p>{{item.user.name}} submitted {{item.subject}} {{item.type}} - {{item.title}}</p>
+                        <small class=" toCaps"  :class="{approved:item.status=='submitted',pendings:item.status=='pending'}"><span>{{item.status=='submitted'?'Approved':'Pending'}}</span> <b-icon :icon="item.status=='submitted'?'check-circle-fill':'clock-fill'"></b-icon></small>
                       <div class="notify-class">
                         <p>{{item.level}}</p>
                       </div>
@@ -211,14 +261,25 @@
           <b-row>
             <b-col md="8" class="assessment-table">
               <div class="bd-table">
-                <router-link to="/tutor/exam">
+               
                   <div class="right-btn">
+                     <router-link to="/tutor/exam">
                     <div class="btn text-center">
                       <span>ALL EXAMINATIONS</span>
                     </div>
+                      </router-link>
                   </div>
-                </router-link>
-                <b-table :fields="fields" :items="examination" hover>
+              
+                <div>
+                  <b-form-select v-model="level"  size="sm" class="w-25">
+                    <b-form-select-option
+                      v-for="(level,idx) in all_classess"
+                      :key="idx"
+                      :value="level.class_name"
+                    >{{level.class_name}}</b-form-select-option>
+                  </b-form-select>
+                </div>
+                <b-table :fields="fields" :items="ex" hover>
                   <template v-slot:cell(Sn)="data">{{data.index+1}}</template>
                   <template v-slot:cell(action)="data">
                     <span
@@ -230,7 +291,7 @@
 
                   <template v-slot:cell(title)="data">
                     <div class="main-title">
-                      <div class="title">{{data.item.title}}</div>
+                      <div class="title" @click="getNotification(data.item.title)">{{data.item.title}}</div>
                       <div class="text-muted">{{data.item.description}}</div>
                     </div>
                   </template>
@@ -244,15 +305,16 @@
             <b-col md="4">
               <div class="right">
                 <h6 class="notify mb-2">Exam Notification</h6>
+                <p class="toCaps" v-if="title">Title : {{title}}</p>
                 <div class="overall-assessment">
                   <div class="submitted">
                     <i class="fa fa-check"></i>
-                    <h6>{{examResult.filter(item=>item.status=='submitted').length}}</h6>
+                    <h6>{{handleAssess(level,examResult).length}}</h6>
                     <p>Submitted</p>
                   </div>
                   <div class="pending">
                     <i class="fa fa-ban"></i>
-                    <h6>{{examResult.filter(item=>item.status=='pending').length}}</h6>
+                    <h6>{{handleStudent(level,examResult).length - handleAssess(level,examResult).length}}</h6>
                     <p>Pending</p>
                   </div>
                 </div>
@@ -262,8 +324,13 @@
                 </div>
                 <div class="assignment-notification">
                   <div class="notification-content">
-                    <div v-for="(item,idx) in examResult.filter(item=>item.status=='pending')" :key="idx" @click="getContent(item)">
+                    <div
+                      v-for="(item,idx) in examResult"
+                      :key="idx"
+                      @click="getContent(item)"
+                    >
                       <p>{{item.user.name}} submitted {{item.subject}} {{item.type}} - {{item.title}}</p>
+                        <small class=" toCaps" :class="{approved:item.status=='submitted',pendings:item.status=='pending'}"><span>{{item.status=='submitted'?'Approved':'Pending'}}</span> <b-icon :icon="item.status=='submitted'?'check-circle-fill':'clock-fill'"></b-icon></small>
                       <div class="notify-class">
                         <p>{{item.level}}</p>
                       </div>
@@ -296,8 +363,9 @@ export default {
   props: ["tutor"],
   data() {
     return {
-      subjects:[],
-      all_classess:[],
+      subjects: [],
+      all_classess: [],
+      level: "",
       id: null,
       name: {},
       form: [],
@@ -318,6 +386,7 @@ export default {
       assignment: [],
       examination: [],
       draftResult: [],
+      allClass: [],
       title: "",
       subject: "",
       type: "",
@@ -332,6 +401,7 @@ export default {
         "publish_status",
         "action",
       ],
+      allStudents: [],
     };
   },
   watch: {
@@ -342,38 +412,94 @@ export default {
   },
   mounted() {
     this.getData();
+    this.getClasses();
+    this.getStudent("jss 1");
   },
   computed: {
+    draft(){
+       var d = this.draftResult.filter((item) => {
+       return item.level.toLowerCase().includes(this.level.toLowerCase())
+      });
+      return d.filter(item=> item.title.includes(this.title))
+    },
     examResult() {
-      return this.draftResult.filter((item) => {
-        if (item.title.toLowerCase().includes(this.search.toLowerCase())) {
+      return this.draft.filter((item) => {
+        if (item.title.toLowerCase().includes(this.search.toLowerCase()) || item.user.name.toLowerCase().includes(this.search.toLowerCase())) {
           return item.type == "examination";
         }
       });
     },
     testResult() {
-      return this.draftResult.filter((item) => {
-        if (item.title.toLowerCase().includes(this.search.toLowerCase())) {
+      return this.draft.filter((item) => {
+        if (item.title.toLowerCase().includes(this.search.toLowerCase()) || item.user.name.toLowerCase().includes(this.search.toLowerCase())) {
           return item.type == "test";
         }
       });
     },
     assResult() {
-      return this.draftResult.filter((item) => {
-        if (item.title.toLowerCase().includes(this.search.toLowerCase())) {
+      return this.draft.filter((item) => {
+        if (item.title.toLowerCase().includes(this.search.toLowerCase()) || item.user.name.toLowerCase().includes(this.search.toLowerCase())) {
           return item.type == "assignment";
         }
       });
     },
     quizResult() {
-      return this.draftResult.filter((item) => {
-        if (item.title.toLowerCase().includes(this.search.toLowerCase())) {
+      return this.draft.filter((item) => {
+        if (item.title.toLowerCase().includes(this.search.toLowerCase()) || item.user.name.toLowerCase().includes(this.search.toLowerCase())) {
           return item.type == "quiz";
         }
       });
     },
+    ass(){
+       return this.assignment.filter((item) => {
+       return item.level.toLowerCase().includes(this.level.toLowerCase())
+      });
+    },
+
+      tes(){
+       return this.test.filter((item) => {
+       return item.level.toLowerCase().includes(this.level.toLowerCase())
+      });
+    },
+      qu(){
+       return this.quiz.filter((item) => {
+       return item.level.toLowerCase().includes(this.level.toLowerCase())
+      });
+    },
+     ex(){
+       return this.examination.filter((item) => {
+       return item.level.toLowerCase().includes(this.level.toLowerCase())
+      });
+    },
   },
   methods: {
+    getNotification(title){
+          this.title = title
+    },
+    handleAssess(level,arr) {
+      return arr.filter(
+        (item) => item.level.toLowerCase() == level.toLowerCase()
+      );
+    },
+    handleStudent(level,arr) {
+      return this.allStudents.filter(
+        (item) => item.student_level.toLowerCase() == level.toLowerCase()
+      );
+    },
+      getStudent(level) {
+      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios
+        .get(`/api/students/${level}`, {
+          headers: {
+            Authorization: `Bearer ${tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.allStudents = res.data;
+          }
+        });
+    },
     getSubjects() {
       axios
         .get(`/api/tutor-all-subjects`, {
@@ -387,7 +513,7 @@ export default {
           }
         });
     },
-     getClasses() {
+    getClasses() {
       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios
         .get("/api/all-classes", {
@@ -398,6 +524,7 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             this.all_classess = res.data;
+            this.level = res.data[0].class_name
             // res.data.forEach((item) => {
             //   this.allClass.push(item.class_name);
             //   if (item.sub_class !== "") {
@@ -422,7 +549,9 @@ export default {
       this.options.type = content.type;
       this.form = JSON.parse(content.record);
 
-      this.$bvModal.show("content");
+     if (content.status== 'pending') {
+        this.$bvModal.show("content");
+     }
     },
     publish(name, id) {
       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
@@ -596,6 +725,16 @@ export default {
 }
 .btn:hover {
   color: #118fe2;
+}
+.approved{
+  padding:5px;
+  background:#0a4065;
+  color:white;
+}
+.pendings{
+  padding:5px;
+  background:#FFC200;
+  color:white;
 }
 .right h6 {
   padding-top: 1.5rem;

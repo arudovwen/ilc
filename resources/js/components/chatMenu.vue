@@ -21,7 +21,7 @@
             <div class="avatar mr-3">
               <b-avatar></b-avatar>
             </div>
-            <h6 class="toCaps">Staffs</h6>
+            <strong class="toCaps">Staffs</strong>
           </div>
           <div>
             <b-badge variant="success">3</b-badge>
@@ -43,7 +43,10 @@
               <div class="avatar mr-3">
                 <b-avatar></b-avatar>
               </div>
-              <h6 class="toCaps">{{item.name}}  </h6>
+              <div>
+                <strong class="toCaps">{{item.name}}  </strong>
+              <small v-if="item.messages.length">{{item.messages[item.messages.length-1].message}}</small>
+              </div>
             </div>
             <div>
               <b-badge variant="success"><b-icon class="" icon="x" @click="drop(item.id)"></b-icon></b-badge>
@@ -179,6 +182,9 @@ label {
   display: flex;
   width: 100%;
   padding: 10px;
+}
+strong{
+  font-size: 15px;
 }
 
 .emoji {

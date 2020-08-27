@@ -37,7 +37,7 @@ class AttendanceController extends Controller
     public function store(Request $request)
     {
        
-        $check= Attendance::whereDate('date','=',$request->date)->first();
+        $check= Attendance::where('user_id',$request->user_id)->whereDate('date','=',$request->date)->first();
        
         $tutor = Tutor::where('name',$request->tutor)->first();
 

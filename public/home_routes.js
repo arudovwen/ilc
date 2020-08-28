@@ -11873,7 +11873,7 @@ __webpack_require__.r(__webpack_exports__);
               _this5.assignment.push(item);
             }
 
-            if (item.type == "examination") {
+            if (item.type == "exam") {
               _this5.examination.push(item);
             }
           });
@@ -14158,7 +14158,7 @@ __webpack_require__.r(__webpack_exports__);
     getAttendance: function getAttendance() {
       var _this5 = this;
 
-      axios.get("/api/sorted-student-attendance", {
+      axios.get("/api/student-sorted-attendance", {
         headers: {
           Authorization: "Bearer ".concat(this.$props.student.access_token)
         }
@@ -14166,7 +14166,7 @@ __webpack_require__.r(__webpack_exports__);
         if (res.status == 200) {
           _this5.attendances = res.data;
           _this5.sumAttendance = _this5.attendances.filter(function (item) {
-            return item.tutor == true;
+            return item.tutor == true && item.tutor != 'pending';
           });
         }
       });
@@ -19608,6 +19608,7 @@ __webpack_require__.r(__webpack_exports__);
         type: ""
       },
       search: "",
+      tabIndex: 0,
       tutors: [],
       busy: true,
       items: [],
@@ -19629,7 +19630,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   watch: {
-    item: "selectAll"
+    item: "selectAll",
+    "tabIndex": 'handleSwitch'
   },
   components: {
     Review: _review__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -19718,6 +19720,23 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     getNotification: function getNotification(title) {
       this.title = title;
+    },
+    handleSwitch: function handleSwitch() {
+      if (this.tabIndex == 0) {
+        this.title = this.ass[0].title;
+      }
+
+      if (this.tabIndex == 1) {
+        this.title = this.qu[0].title;
+      }
+
+      if (this.tabIndex == 2) {
+        this.title = this.tes[0].title;
+      }
+
+      if (this.tabIndex == 3) {
+        this.title = this.ex[0].title;
+      }
     },
     handleAssess: function handleAssess(level, arr) {
       return arr.filter(function (item) {
@@ -20773,6 +20792,36 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -23364,12 +23413,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tutor"],
   data: function data() {
     return {
       todaysClass: [],
-      select: '',
+      select: "",
       classes: [],
       today: new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()
     };
@@ -23383,7 +23436,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       return this.todaysClass.filter(function (item) {
-        return item.level.toLowerCase().includes(_this.select.toLowerCase());
+        return item.level.toLowerCase().includes(_this.select.toLowerCase().trim());
       });
     }
   },
@@ -23411,17 +23464,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     enterClass: function enterClass(val) {
       var data = {
-        school_id: this.$props.tutor.school_id,
-        user_id: this.$props.tutor.id,
-        tutor_id: 2,
-        tutor: val.tutor,
         date: new Date().toDateString(),
         day: new Date().toLocaleString("default", {
           weekday: "long"
         }).toLowerCase(),
         record: [{
-          tutor: false,
-          student: true,
+          tutor: 'pending',
+          student: false,
           subject: val.subject,
           level: val.level,
           time: new Date().toLocaleTimeString()
@@ -23429,18 +23478,13 @@ __webpack_require__.r(__webpack_exports__);
         level: val.level,
         time: new Date().toLocaleTimeString()
       };
-
-      if (this.getSeconds(this.today) > this.getSeconds(val.start_time) && this.getSeconds(this.today) > this.getSeconds(val.end_time)) {
-        this.$toasted.info('This Class has ended');
-      } else {
-        axios.post("/api/tutor-attendance", data, {
-          headers: {
-            Authorization: "Bearer ".concat(this.$props.tutor.access_token)
-          }
-        }).then(function (res) {
-          if (res.status == 201) {}
-        });
-      }
+      axios.post("/api/create-attendance", data, {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 201) {}
+      });
     },
     getSeconds: function getSeconds(hms) {
       var a = hms.split(":"); // split it at the colons
@@ -28712,7 +28756,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container-fluid[data-v-f8a82150] {\n  padding-top: 30px;\n  padding-left: 20px;\n  padding-right:20px;\n}\np.card-text[data-v-f8a82150]{\n    font-size: 15px;\n}\n.lev[data-v-f8a82150]{\n  width:150px;\n  margin-left: auto;\n}\nh4.card-title[data-v-f8a82150] {\n  font-size: 17px;\n}\n.ongoing[data-v-f8a82150] {\n  border-color: #008e3a;\n}\n.upcoming[data-v-f8a82150] {\n  border-color: #ffc200;\n}\n.finished[data-v-f8a82150] {\n  border-color: red;\n}\n.ongoing-i[data-v-f8a82150]{\n   color: #008e3a;\n}\n.upcoming-i[data-v-f8a82150]{\n    color:#FFC200;\n}\n.finished-i[data-v-f8a82150]{\n    color:red;\n}\n", ""]);
+exports.push([module.i, "\n.container-fluid[data-v-f8a82150] {\n  padding-top: 30px;\n  padding-left: 20px;\n  padding-right: 20px;\n}\np.card-text[data-v-f8a82150] {\n  font-size: 15px;\n}\n.lev[data-v-f8a82150] {\n  width: 150px;\n  margin-left: auto;\n}\nh4.card-title[data-v-f8a82150] {\n  font-size: 17px;\n}\n.ongoing[data-v-f8a82150] {\n  border-color: #008e3a;\n}\n.upcoming[data-v-f8a82150] {\n  border-color: #ffc200;\n}\n.finished[data-v-f8a82150] {\n  border-color: red;\n}\n.ongoing-i[data-v-f8a82150] {\n  color: #008e3a;\n}\n.upcoming-i[data-v-f8a82150] {\n  color: #ffc200;\n}\n.finished-i[data-v-f8a82150] {\n  color: red;\n}\n", ""]);
 
 // exports
 
@@ -55053,8 +55097,13 @@ var render = function() {
                                                   _c("b-td", [
                                                     _vm._v(
                                                       _vm._s(
-                                                        _vm.sumAttendance
-                                                          .length * 5
+                                                        Math.round(
+                                                          (_vm.sumAttendance
+                                                            .length *
+                                                            5) /
+                                                            _vm.attendances
+                                                              .length
+                                                        )
                                                       )
                                                     )
                                                   ]),
@@ -64088,7 +64137,16 @@ var render = function() {
     [
       _c(
         "b-tabs",
-        { attrs: { "content-class": "" } },
+        {
+          attrs: { "content-class": "" },
+          model: {
+            value: _vm.tabIndex,
+            callback: function($$v) {
+              _vm.tabIndex = $$v
+            },
+            expression: "tabIndex"
+          }
+        },
         [
           _c(
             "b-tab",
@@ -67377,8 +67435,6 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
                       _c(
                         "div",
                         { staticClass: "attendance-table" },
@@ -67483,85 +67539,81 @@ var render = function() {
                                       _vm._v(" "),
                                       _c(
                                         "b-td",
-                                        [
-                                          _vm._l(
-                                            _vm.sorted.filter(function(item) {
-                                              return item.user_id == stud.id
-                                            }),
-                                            function(att, idx) {
-                                              return _c(
-                                                "b-tr",
-                                                { key: idx },
-                                                [
-                                                  _c(
-                                                    "b-td",
-                                                    { staticClass: "border-0" },
-                                                    [_vm._v(_vm._s(att.date))]
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _vm._l(
-                                                    JSON.parse(att.record),
-                                                    function(value, id) {
-                                                      return _c(
-                                                        "b-td",
-                                                        {
-                                                          key: id,
-                                                          staticClass:
-                                                            "text-center toCaps border-0"
-                                                        },
-                                                        [
-                                                          _vm._v(
-                                                            "\n                            " +
-                                                              _vm._s(
-                                                                value.subject
-                                                              ) +
-                                                              "\n                            "
-                                                          ),
-                                                          _c("br"),
-                                                          _vm._v(" "),
-                                                          value.student
-                                                            ? _c("b-icon", {
-                                                                class: {
-                                                                  green:
-                                                                    value.student &&
-                                                                    value.tutor !==
-                                                                      "pending",
-                                                                  amber:
-                                                                    value.student &&
-                                                                    value.tutor ==
-                                                                      "pending"
-                                                                },
-                                                                attrs: {
-                                                                  icon:
-                                                                    "check-circle-fill"
-                                                                }
-                                                              })
-                                                            : _vm._e(),
-                                                          _vm._v(" "),
-                                                          !value.tutor
-                                                            ? _c("b-icon", {
-                                                                staticClass:
-                                                                  "red",
-                                                                attrs: {
-                                                                  icon:
-                                                                    "x-circle-fill"
-                                                                }
-                                                              })
-                                                            : _vm._e()
-                                                        ],
-                                                        1
-                                                      )
-                                                    }
-                                                  )
-                                                ],
-                                                2
-                                              )
-                                            }
-                                          ),
-                                          _vm._v(" "),
-                                          _c("hr")
-                                        ],
-                                        2
+                                        _vm._l(
+                                          _vm.sorted.filter(function(item) {
+                                            return item.user_id == stud.id
+                                          }),
+                                          function(att, idx) {
+                                            return _c(
+                                              "b-tr",
+                                              { key: idx },
+                                              [
+                                                _c(
+                                                  "b-td",
+                                                  { staticClass: "border-0" },
+                                                  [_vm._v(_vm._s(att.date))]
+                                                ),
+                                                _vm._v(" "),
+                                                _vm._l(
+                                                  JSON.parse(att.record),
+                                                  function(value, id) {
+                                                    return _c(
+                                                      "b-td",
+                                                      {
+                                                        key: id,
+                                                        staticClass:
+                                                          "text-center toCaps border-0"
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          "\n                            " +
+                                                            _vm._s(
+                                                              value.subject
+                                                            ) +
+                                                            "\n                            "
+                                                        ),
+                                                        _c("br"),
+                                                        _vm._v(" "),
+                                                        value.student
+                                                          ? _c("b-icon", {
+                                                              class: {
+                                                                green:
+                                                                  value.student &&
+                                                                  value.tutor !==
+                                                                    "pending",
+                                                                amber:
+                                                                  value.student &&
+                                                                  value.tutor ==
+                                                                    "pending"
+                                                              },
+                                                              attrs: {
+                                                                icon:
+                                                                  "check-circle-fill"
+                                                              }
+                                                            })
+                                                          : _vm._e(),
+                                                        _vm._v(" "),
+                                                        !value.tutor
+                                                          ? _c("b-icon", {
+                                                              staticClass:
+                                                                "red",
+                                                              attrs: {
+                                                                icon:
+                                                                  "x-circle-fill"
+                                                              }
+                                                            })
+                                                          : _vm._e()
+                                                      ],
+                                                      1
+                                                    )
+                                                  }
+                                                )
+                                              ],
+                                              2
+                                            )
+                                          }
+                                        ),
+                                        1
                                       )
                                     ],
                                     1
@@ -67774,40 +67826,66 @@ var render = function() {
                                             _c(
                                               "div",
                                               [
-                                                _c("b-icon", {
-                                                  staticClass: "present",
-                                                  attrs: {
-                                                    icon: "check-circle-fill"
-                                                  },
-                                                  on: {
-                                                    click: function($event) {
-                                                      return _vm.mark(
-                                                        item,
-                                                        att,
-                                                        true
-                                                      )
+                                                _c(
+                                                  "b-button",
+                                                  {
+                                                    attrs: {
+                                                      variant: "success",
+                                                      size: "sm"
                                                     }
-                                                  }
-                                                }),
-                                                _vm._v(
-                                                  "|\n                    "
+                                                  },
+                                                  [
+                                                    _c("b-icon", {
+                                                      attrs: {
+                                                        icon:
+                                                          "check-circle-fill",
+                                                        size: "sm"
+                                                      },
+                                                      on: {
+                                                        click: function(
+                                                          $event
+                                                        ) {
+                                                          return _vm.mark(
+                                                            item,
+                                                            att,
+                                                            true
+                                                          )
+                                                        }
+                                                      }
+                                                    })
+                                                  ],
+                                                  1
                                                 ),
-                                                _c("b-icon", {
-                                                  staticClass: "absent",
-                                                  attrs: {
-                                                    icon: "x-circle-fill",
-                                                    size: "2rem"
-                                                  },
-                                                  on: {
-                                                    click: function($event) {
-                                                      return _vm.mark(
-                                                        item,
-                                                        att,
-                                                        false
-                                                      )
+                                                _vm._v(" "),
+                                                _c(
+                                                  "b-button",
+                                                  {
+                                                    attrs: {
+                                                      variant: "danger",
+                                                      size: "sm"
                                                     }
-                                                  }
-                                                }),
+                                                  },
+                                                  [
+                                                    _c("b-icon", {
+                                                      attrs: {
+                                                        icon: "x-circle-fill",
+                                                        size: "sm"
+                                                      },
+                                                      on: {
+                                                        click: function(
+                                                          $event
+                                                        ) {
+                                                          return _vm.mark(
+                                                            item,
+                                                            att,
+                                                            false
+                                                          )
+                                                        }
+                                                      }
+                                                    })
+                                                  ],
+                                                  1
+                                                ),
                                                 _vm._v(" "),
                                                 _c(
                                                   "span",
@@ -67834,9 +67912,6 @@ var render = function() {
                                                       "text-center d-flex align-items-center"
                                                   },
                                                   [
-                                                    _vm._v(
-                                                      '\n                    ">\n                    '
-                                                    ),
                                                     _c(
                                                       "div",
                                                       { staticClass: "mr-3" },
@@ -67940,7 +68015,84 @@ var render = function() {
                                     ),
                                     0
                                   )
-                                : _c("b-td")
+                                : _c("b-td", [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "d-flex justify-content-between"
+                                      },
+                                      [
+                                        _c(
+                                          "div",
+                                          [
+                                            _c(
+                                              "b-button",
+                                              {
+                                                attrs: {
+                                                  variant: "danger",
+                                                  size: "sm"
+                                                }
+                                              },
+                                              [
+                                                _c("b-icon", {
+                                                  attrs: {
+                                                    icon: "x-circle-fill",
+                                                    size: "sm"
+                                                  },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.mark(
+                                                        item,
+                                                        null,
+                                                        false
+                                                      )
+                                                    }
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "span",
+                                              { staticClass: "ml-4" },
+                                              [_vm._v("Absent")]
+                                            )
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass:
+                                              "text-center d-flex align-items-center"
+                                          },
+                                          [
+                                            _c("div", { staticClass: "mr-3" }, [
+                                              _c("strong", [
+                                                _vm._v("Participation")
+                                              ])
+                                            ]),
+                                            _vm._v(" "),
+                                            _c(
+                                              "div",
+                                              {
+                                                staticClass:
+                                                  "d-flex align-items-center"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                      0\n                     \n                    "
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  ])
                             ],
                             1
                           )
@@ -70269,7 +70421,7 @@ var render = function() {
               return _c(
                 "b-form-select-option",
                 { key: id, attrs: { value: val } },
-                [_vm._v("\n           " + _vm._s(val) + "\n               ")]
+                [_vm._v(_vm._s(val))]
               )
             }),
             1
@@ -70283,7 +70435,7 @@ var render = function() {
                   staticClass: "upcoming-i",
                   attrs: { icon: "circle-fill" }
                 }),
-                _vm._v(" Upcoming")
+                _vm._v("Upcoming\n      ")
               ],
               1
             ),
@@ -70295,7 +70447,7 @@ var render = function() {
                   staticClass: "ongoing-i",
                   attrs: { icon: "circle-fill" }
                 }),
-                _vm._v(" Ongoing")
+                _vm._v("Ongoing\n      ")
               ],
               1
             ),
@@ -70307,7 +70459,7 @@ var render = function() {
                   staticClass: "finished-i",
                   attrs: { icon: "circle-fill" }
                 }),
-                _vm._v(" Finished")
+                _vm._v("Finished\n      ")
               ],
               1
             )
@@ -70315,7 +70467,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "b-row",
-            { staticClass: " p-3" },
+            { staticClass: "p-3" },
             _vm._l(_vm.sorted, function(val, id) {
               return _c(
                 "b-col",

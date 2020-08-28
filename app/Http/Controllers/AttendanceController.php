@@ -116,7 +116,10 @@ class AttendanceController extends Controller
      * @param  \App\Attendance  $attendance
      * @return \Illuminate\Http\Response
      */
-    
+    public function createAttendance(Request $request){
+       $user->auth('tutor')->user();
+       $students = User::where('school_id', $user->school_id)->where('sub_class',$request->level)->get();
+    }
     public function tutorgetAttendance()
     {
         $user = auth('tutor')->user();
@@ -126,7 +129,20 @@ class AttendanceController extends Controller
     public function getStudentAttendance()
     {
         $user = auth('api')->user();
-        return Attendance::where('user_id', $user->id)->get();
+        $val =  Attendance::where('user_id', $user->id)->get();
+        $arr = [];
+       foreach($val as $value){
+        foreach(  \json_decode(  $value->record) as $v){
+            $v->id = $value->id;
+            $v->date = $value->date;
+            $v->level = $value->level;
+            $v->user = $value->user;
+            $v->day = $value->day;
+            array_push($arr,$v);
+        }
+       
+       }
+      return $arr;
     }
     public function getsortedStudentAttendance()
     {

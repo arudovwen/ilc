@@ -35,7 +35,7 @@
                     <b-tbody v-if="overall.length">
                       <b-tr>
                         <b-th>Attendance</b-th>
-                        <b-td>{{sumAttendance.length * 5}}</b-td>
+                        <b-td>{{Math.round((sumAttendance.length * 5)/attendances.length)}}</b-td>
                          <b-td></b-td>
                       </b-tr>
                        <b-tr>
@@ -297,7 +297,7 @@ export default {
     },
      getAttendance() {
       axios
-        .get(`/api/sorted-student-attendance`, {
+        .get(`/api/student-sorted-attendance`, {
           headers: {
             Authorization: `Bearer ${this.$props.student.access_token}`,
           },
@@ -306,7 +306,8 @@ export default {
           if (res.status == 200) {
             this.attendances = res.data;
 
-          this.sumAttendance  = this.attendances.filter(item=>item.tutor== true)
+          this.sumAttendance  = this.attendances.filter(item=>item.tutor== true && item.tutor !='pending')
+
           }
         });
     },

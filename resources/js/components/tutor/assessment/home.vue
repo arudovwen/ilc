@@ -1,6 +1,6 @@
 <template>
   <div class="assessment">
-    <b-tabs content-class>
+    <b-tabs content-class v-model="tabIndex">
       <b-tab title="Assignment" active>
         <b-container fluid>
           <b-row>
@@ -377,6 +377,7 @@ export default {
         type: "",
       },
       search: "",
+      tabIndex:0,
       tutors: [],
       busy: true,
       items: [],
@@ -406,6 +407,7 @@ export default {
   },
   watch: {
     item: "selectAll",
+    "tabIndex":'handleSwitch'
   },
   components: {
     Review,
@@ -475,6 +477,20 @@ export default {
   methods: {
     getNotification(title){
           this.title = title
+    },
+    handleSwitch(){
+     if (this.tabIndex == 0) {
+       this.title = this.ass[0].title
+     }
+      if (this.tabIndex == 1) {
+       this.title= this.qu[0].title
+     }
+      if (this.tabIndex == 2) {
+       this.title= this.tes[0].title
+     }
+      if (this.tabIndex == 3) {
+       this.title = this.ex[0].title
+     }
     },
     handleAssess(level,arr) {
       return arr.filter(

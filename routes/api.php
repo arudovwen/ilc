@@ -79,6 +79,7 @@ Route::middleware('auth:api')->group(function () {
    
     Route::get('student-live', 'LiveClassesController@getMyLive');
     Route::get('student-part', 'ParticipationController@studpart');
+    Route::get('student-sorted-attendance', 'AttendanceController@getStudentAttendance');
 });
 
 Route::middleware('auth:tutor')->group(function () {
@@ -127,6 +128,7 @@ Route::middleware('auth:tutor')->group(function () {
     Route::get('tutor-get-attendance', 'AttendanceController@tutorgetAttendance');
     Route::get('tutor-all-students', 'UserController@tutorGetStudents');
     Route::put('update-attendance/{id}', 'AttendanceController@updateAttendance');
+    Route::post('create-attendance', 'AttendanceController@createAttendance');
     Route::resource('participation', 'ParticipationController');
 });
 

@@ -17,8 +17,7 @@
                     </b-row>
                   </div>
                 </div>
-                <hr />
-
+               
                 <div class="attendance-table">
                   <b-row>
                     <b-col cols="4">
@@ -73,7 +72,7 @@
                               <b-icon v-if="!value.tutor" icon="x-circle-fill" class="red"></b-icon>
                             </b-td>
                           </b-tr>
-                          <hr>
+                        
                         </b-td>
                       </b-tr>
                     </b-tbody>
@@ -146,17 +145,17 @@
                     :key="idx"
                   >
                     <div>
-                      <b-icon icon="check-circle-fill" class="present" @click="mark(item,att,true)"></b-icon>|
-                      <b-icon
+                    <b-button variant="success" size="sm">  <b-icon icon="check-circle-fill"    size="sm"  @click="mark(item,att,true)"></b-icon></b-button>
+                     <b-button variant="danger" size="sm"> <b-icon
                         @click="mark(item,att,false)"
                         icon="x-circle-fill"
-                        size="2rem"
-                        class="absent"
-                      ></b-icon>
+                          size="sm"
+                      
+                      ></b-icon></b-button>
                       <span class="ml-4">{{att.tutor?'Present':'Absent'}}</span>
                     </div>
                     <div class="text-center d-flex align-items-center" v-if="att.tutor">
-                      ">
+                     
                       <div class="mr-3">
                         <strong>Participation</strong>
                       </div>
@@ -178,12 +177,43 @@
                           v-for="(i,idx) in sortedPart.filter(part=>part.user_id == item.id)"
                           :key="idx"
                         >{{i.score}}</span>
+
+                       
                       </div>
                       <div v-else>0</div>
+                      
                     </div>
                   </div>
                 </b-td>
-                <b-td v-else></b-td>
+                <b-td v-else> 
+                  <div
+                    class="d-flex justify-content-between"
+                  
+                  
+                  >
+                    <div>
+                      <!-- <b-icon icon="check-circle-fill" class="present" @click="mark(item,null,false)"></b-icon>| -->
+                    <b-button variant="danger" size="sm">  <b-icon
+                        @click="mark(item,null,false)"
+                        icon="x-circle-fill"
+                          size="sm"
+                      
+                      ></b-icon></b-button>
+                      <span class="ml-4">Absent</span>
+                    </div>
+                    <div class="text-center d-flex align-items-center" >
+                     
+                      <div class="mr-3">
+                        <strong>Participation</strong>
+                      </div>
+                      <div class="d-flex align-items-center" >
+                        0
+                       
+                      </div>
+                    
+                    </div>
+                  </div>
+                </b-td>
               </b-tr>
             </b-tbody>
           </b-table-simple>

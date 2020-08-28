@@ -338,7 +338,7 @@ export default {
   padding-bottom: 70px;
 }
 .activity {
-  max-height: 70vh;
+  min-height: 70vh;
 }
 
 .m-res {

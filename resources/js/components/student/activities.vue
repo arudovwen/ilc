@@ -55,8 +55,10 @@
                             </span>
                           </p>
 
-                          <p v-if="(getSecond(today)  > getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"> Ongoing</p>
-                          <p v-else-if="(getSecond(today) < getSecond(item.start)) ">Upcoming</p>
+                          <p
+                            v-if="(getSecond(today)  > getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
+                          >Ongoing</p>
+                          <p v-else-if="(getSecond(today)  <  getSecond(item.start))">Upcoming</p>
 
                           <p v-else-if="(getSecond(today)   >  getSecond(item.start)) && (getSecond(today) >getSecond(item.end))">Finished</p>
                         </div>
@@ -183,12 +185,11 @@
                                 {{value.subject}}
                                 <br />
                                 <b-icon
-                                  v-if="value.tutor"
+                                  v-if="value.student"
                                   icon="check-circle-fill"
-                                class="green"
+                                  :class="{green:value.student && value.tutor !=='pending',amber:value.student && value.tutor=='pending'}"
                                 ></b-icon>
-                                
-                                <b-icon v-if="!value.tutor " icon="x-circle-fill" class="red"></b-icon>
+                                <b-icon v-if="!value.tutor" icon="x-circle-fill" class="red"></b-icon>
                               </b-td>
                             </b-tr>
                           </b-tbody>
@@ -338,7 +339,7 @@ export default {
   padding-bottom: 70px;
 }
 .activity {
-  min-height: 70vh;
+  max-height: 70vh;
 }
 
 .m-res {

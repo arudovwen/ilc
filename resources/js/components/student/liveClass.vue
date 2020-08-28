@@ -77,7 +77,7 @@ export default {
         record: [
           {
             tutor_name: val.tutor,
-            tutor: false,
+            tutor: 'pending',
             student: true,
             subject: val.subject,
             level: val.level,

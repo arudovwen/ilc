@@ -76,10 +76,20 @@
                     <div class="class_section phert-5" v-else>
                       <div class="form-control text-align">No Class Available</div>
                     </div>
+                    
                   </div>
                 </b-col>
                 <b-col>
-                  
+                   <div   v-if="schedules.length">
+                     <!-- .filter(item=>new Date().toDateString() == new Date(schedule.date).toDateString())" :key="idx" -->
+                    <b-list-group>
+                      <b-list-group-item class="d-flex justify-content-between" v-for="(schedule,idx)  in schedules.filter(item=>new Date().toDateString() == new Date(item.date).toDateString())" :key="idx">
+       
+                 {{schedule.description}}  <b-icon icon="calendar3"></b-icon>
+                </b-list-group-item>
+
+              </b-list-group>
+                          </div>
                 </b-col>
               </b-row>
             </div>
@@ -187,63 +197,9 @@
               </b-table-simple>
             </div>
           </b-tab>
-        <!-- <b-tab title="Attendance">
-          <div class="main-attendance container">
-            <div class="attendance">
-              <div class="sort-table">
-                <b-container>
-                  <b-row>
-                    <b-col md="2">
-                      <p>
-                        <strong>Attendance</strong>
-                      </p>
-                    </b-col>
-                    <b-col md="6">
-                      <b-container>
-                        <b-row>
-                          <b-col md="4">
-                            <b-form-select></b-form-select>
-                          </b-col>
-                          <b-col md="4">
-                            <b-form-select></b-form-select>
-                          </b-col>
-                          <b-col md="4">
-                            <b-form-select></b-form-select>
-                          </b-col>
-                        </b-row>
-                      </b-container>
-                    </b-col>
-                    <b-col md="4">
-                      <b-container>
-                        <b-row>
-                          <b-col md="6">
-                            <b-form-input placeholder="Search Student " class="search rounded-pill"></b-form-input>
-                          </b-col>
-                          <b-col md="6">
-                            <div class="export">
-                              <div class="btn btn-export">
-                                Export
-                                <i class="fa fa-external-link"></i>
-                              </div>
-                            </div>
-                          </b-col>
-                        </b-row>
-                      </b-container>
-                    </b-col>
-                  </b-row>
-                </b-container>
-              </div>
-              <hr />
-
-              <div class="attendance-table">
-               
-              </div>
-            </div>
-          </div>
-        </b-tab> -->
-       
+   
          <b-tab title="My Calendar">
-                 <b-container>
+                 <b-container class="activity">
         <b-row>
           <b-col cols="7">
             <vc-calendar is-expanded :attributes="attributes" :rows="2"></vc-calendar>
@@ -254,46 +210,27 @@
                 <h6>Scheduler</h6>
                 <p>keep reminders with your scheduler</p>
                 <b-form>
+                  <b-form-datepicker v-model="schedule.date"></b-form-datepicker>
                   <b-input-group class="mt-3">
-                    <b-form-input></b-form-input>
+                    <b-form-input v-model="schedule.description"></b-form-input>
                     <b-input-group-append>
-                      <b-button variant="success">Add Todo</b-button>
+                      <b-button variant="success" @click="addSchedule">Add Todo</b-button>
                     </b-input-group-append>
                   </b-input-group>
                   <hr />
                 </b-form>
-                <h6>Todays Schedule</h6>
+                <h6>Schedules</h6>
                 <b-col>
                   <div class="cards">
-                    <div class="class_section" v-if="todaysClass.length">
-                      <div
-                        class="class-content border-bottom p-2"
-                        v-for="(item,idx) in todaysClass"
-                        :key="idx"
-                      >
-                        <div
-                          class="class-content-top"
-                          v-if="(getSecond(today)  <  getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
-                        >
-                          <h6 class="toCaps">{{item.subject}}</h6>
+                  <div class="class_section"  v-if="schedules.length">
+                    <b-list-group>
+  <b-list-group-item class="d-flex justify-content-between" v-for="(schedule,idx)  in schedules" :key="idx">
+   {{schedule.description}} <b-icon icon="calendar3"></b-icon> 
+  </b-list-group-item>
 
-                          <i class="fa fa-dot-circle-o text-dark" aria-hidden="true"></i>
-
-                          <b-tooltip ref="tooltip" :target="idx.toString()">
-                            <p class="m-0">This class begins by {{item.start | format}}</p>
-                          </b-tooltip>
-                        </div>
-                        <small
-                          v-if="(getSecond(today)  <  getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
-                        >{{item.start | format}} to {{item.end | format}}</small>
-                        <div class="class-content-main">
-                          <p
-                            v-if="(getSecond(today)  <  getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
-                          >Upcoming</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="class_section d-flex justify-content-center align-items-center">
+</b-list-group>
+                  </div>
+                    <div v-else class="class_section d-flex justify-content-center align-items-center">
                       <p class="pt-5">Nothing Scheduled</p>
                     </div>
                   </div>
@@ -330,7 +267,11 @@ export default {
       subject: "",
       participation:[],
 
-
+   schedules:[],
+   schedule:{
+     date:'',
+     description:''
+   },
       tables: [],
       n: 52,
       week: "",
@@ -366,6 +307,7 @@ this.getAtt();
     this.getallClass()
     this.getAttendance()
     this.getClasses()
+    this.getSchedule()
       this.week = this.getWeek(new Date());
   },
    computed: {
@@ -385,8 +327,6 @@ this.getAtt();
       );
     },
 
-
-
      sorted() {
       var first = this.attendance.filter(
         (item) => this.getWeek(item.date) == this.week
@@ -397,15 +337,14 @@ this.getAtt();
     },
     attributes() {
       return [
-        {
-          highlight: true,
-
-          dates: [new Date()],
+        ...this.schedules.map(todo => ({
+          dates: new Date(todo.date),
+          highlight:true,
           popover: {
-            label: "Mathematics Class",
-             label: "Mathematics Class"
+            label: todo.description,
           },
-        },
+          customData: todo,
+        })),
       ];
     },
     sortedTable() {
@@ -415,6 +354,33 @@ this.getAtt();
     },
   },
   methods: {
+    addSchedule(){
+      
+      axios
+        .post(`/api/tutor-schedule`,this.schedule, {
+          headers: {
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 201) {
+            this.schedules.push(res.data);
+          }
+        });
+    },
+    getSchedule(){
+       axios
+        .get(`/api/tutor-schedule`, {
+          headers: {
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.schedules = res.data;
+          }
+        });
+    },
      getWeek(date) {
       var date = new Date(date);
       date.setHours(0, 0, 0, 0);
@@ -592,26 +558,7 @@ this.getAtt();
         });
     },
     
-    // getTodayClass() {
-    //   axios
-    //     .get(`/api/current-class`, {
-    //       headers: {
-    //         Authorization: `Bearer ${this.$props.tutor.access_token}`,
-    //       },
-    //     })
-    //     .then((res) => {
-    //       if (res.status == 200) {
-    //         this.todaysClass = res.data;
-    //         this.level = res.data[0].level;
-    //         this.subject = res.data[0].subject;
-    //         res.data.forEach((i) => {
-    //           if (!this.myclass.includes(i.level)) {
-    //             this.myclass.push(i.level);
-    //           }
-    //         });
-    //       }
-    //     });
-    // },
+    
     getAtt() {
       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios
@@ -640,18 +587,35 @@ this.getAtt();
           }
         });
     },
+      getTodayClass() {
+      axios
+        .get(`/api/current-class`, {
+          headers: {
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.todaysClass = res.data;
+          }
+        });
+    },
   },
 };
 </script>
 <style scoped>
 .timetable-schedule {
-  padding-top: 50px;
+  padding-top: 30px;
   padding-bottom: 70px;
 }
 .body {
   position: relative;
   padding: 40px 20px 50px;
   height: 100%;
+}
+.activity{
+  min-height:80vh;
+  overflow:auto;
 }
 .overlay-content {
   position: absolute;

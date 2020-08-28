@@ -130,17 +130,21 @@ class AttendanceController extends Controller
     }
     public function getsortedStudentAttendance()
     {
-        $user = auth('api')->user();
-       $val = Attendance::where('user_id', $user->id)->get();
+        $user = auth('tutor')->user();
+       $val = Attendance::where('school_id', $user->school_id)->with('user')->get();
        $arr = [];
        foreach($val as $value){
         foreach(  \json_decode(  $value->record) as $v){
+            $v->id = $value->id;
             $v->date = $value->date;
+            $v->level = $value->level;
+            $v->user = $value->user;
+            $v->day = $value->day;
             array_push($arr,$v);
         }
        
        }
-  return $arr;
+      return $arr;
     }
     public function show(Attendance $attendance)
     {

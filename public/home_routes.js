@@ -11512,6 +11512,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -15160,7 +15161,7 @@ __webpack_require__.r(__webpack_exports__);
         }).toLowerCase(),
         record: [{
           tutor_name: val.tutor,
-          tutor: false,
+          tutor: 'pending',
           student: true,
           subject: val.subject,
           level: val.level,
@@ -17172,71 +17173,20 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var v_calendar_lib_components_calendar_umd__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! v-calendar/lib/components/calendar.umd */ "./node_modules/v-calendar/lib/components/calendar.umd.js");
 /* harmony import */ var v_calendar_lib_components_calendar_umd__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(v_calendar_lib_components_calendar_umd__WEBPACK_IMPORTED_MODULE_0__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -17506,6 +17456,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       allstudnts: [],
       subject: "",
       participation: [],
+      schedules: [],
+      schedule: {
+        date: '',
+        description: ''
+      },
       tables: []
     }, _defineProperty(_ref, "n", 52), _defineProperty(_ref, "week", ""), _defineProperty(_ref, "table", []), _defineProperty(_ref, "myclass", []), _defineProperty(_ref, "overlay", false), _defineProperty(_ref, "item", false), _defineProperty(_ref, "my_class", ""), _defineProperty(_ref, "items", []), _defineProperty(_ref, "filterShow", false), _defineProperty(_ref, "todaysClass", []), _defineProperty(_ref, "today", new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()), _defineProperty(_ref, "allClass", []), _defineProperty(_ref, "attendance", []), _defineProperty(_ref, "my_class", ''), _defineProperty(_ref, "all_class", []), _ref;
   },
@@ -17519,6 +17474,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.getallClass();
     this.getAttendance();
     this.getClasses();
+    this.getSchedule();
     this.week = this.getWeek(new Date());
   },
   computed: {
@@ -17554,13 +17510,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     attributes: function attributes() {
-      return [{
-        highlight: true,
-        dates: [new Date()],
-        popover: _defineProperty({
-          label: "Mathematics Class"
-        }, "label", "Mathematics Class")
-      }];
+      return _toConsumableArray(this.schedules.map(function (todo) {
+        return {
+          dates: new Date(todo.date),
+          highlight: true,
+          popover: {
+            label: todo.description
+          },
+          customData: todo
+        };
+      }));
     },
     sortedTable: function sortedTable() {
       var _this5 = this;
@@ -17570,7 +17529,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   },
-  methods: {
+  methods: _defineProperty({
+    addSchedule: function addSchedule() {
+      var _this6 = this;
+
+      axios.post("/api/tutor-schedule", this.schedule, {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 201) {
+          _this6.schedules.push(res.data);
+        }
+      });
+    },
+    getSchedule: function getSchedule() {
+      var _this7 = this;
+
+      axios.get("/api/tutor-schedule", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this7.schedules = res.data;
+        }
+      });
+    },
     getWeek: function getWeek(date) {
       var date = new Date(date);
       date.setHours(0, 0, 0, 0); // Thursday in current week decides the year.
@@ -17582,7 +17567,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
     },
     getAttendance: function getAttendance() {
-      var _this6 = this;
+      var _this8 = this;
 
       axios.get("/api/tutor-get-attendance", {
         headers: {
@@ -17590,7 +17575,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this6.attendance = res.data;
+          _this8.attendance = res.data;
         }
       });
     },
@@ -17602,7 +17587,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return seconds;
     },
     getTodayClass: function getTodayClass() {
-      var _this7 = this;
+      var _this9 = this;
 
       axios.get("/api/current-class", {
         headers: {
@@ -17610,12 +17595,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this7.todaysClass = res.data;
+          _this9.todaysClass = res.data;
         }
       });
     },
     getClasses: function getClasses() {
-      var _this8 = this;
+      var _this10 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios.get("/api/all-classes", {
@@ -17628,16 +17613,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             // this.allClass.push(item.class_name);
             if (item.sub_class !== "") {
               item.sub_class.split(",").forEach(function (i) {
-                _this8.all_class.push(i);
+                _this10.all_class.push(i);
               });
             }
           });
-          _this8.my_class = _this8.all_class[0];
+          _this10.my_class = _this10.all_class[0];
         }
       });
     },
     getallClass: function getallClass() {
-      var _this9 = this;
+      var _this11 = this;
 
       axios.get("/api/all-class", {
         headers: {
@@ -17645,7 +17630,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this9.allClass = res.data;
+          _this11.allClass = res.data;
         }
       });
     },
@@ -17658,7 +17643,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.filterShow = !this.filterShow;
     },
     getTable: function getTable() {
-      var _this10 = this;
+      var _this12 = this;
 
       axios.get("/api/tutor-times-table", {
         headers: {
@@ -17666,16 +17651,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this10.tables = res.data;
-          _this10.myclass = res.data.filter(function (item) {
+          _this12.tables = res.data;
+          _this12.myclass = res.data.filter(function (item) {
             return item.myclass;
           });
-          _this10.my_class = _this10.myclass[0].myclass;
+          _this12.my_class = _this12.myclass[0].myclass;
         }
       });
     },
     getParticipation: function getParticipation() {
-      var _this11 = this;
+      var _this13 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios.get("/api/participation", {
@@ -17684,12 +17669,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this11.participation = res.data;
+          _this13.participation = res.data;
         }
       });
     },
     handleParticipation: function handleParticipation(e, item) {
-      var _this12 = this;
+      var _this14 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
       var data = {
@@ -17708,16 +17693,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 201) {
-          _this12.getParticipation();
+          _this14.getParticipation();
         }
 
         if (res.status == 200) {
-          _this12.getParticipation();
+          _this14.getParticipation();
         }
       });
     },
     mark: function mark(user, val, value) {
-      var _this13 = this;
+      var _this15 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
       var data = {
@@ -17731,32 +17716,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this13.getAtt();
+          _this15.getAtt();
         }
       });
     },
-    // getTodayClass() {
-    //   axios
-    //     .get(`/api/current-class`, {
-    //       headers: {
-    //         Authorization: `Bearer ${this.$props.tutor.access_token}`,
-    //       },
-    //     })
-    //     .then((res) => {
-    //       if (res.status == 200) {
-    //         this.todaysClass = res.data;
-    //         this.level = res.data[0].level;
-    //         this.subject = res.data[0].subject;
-    //         res.data.forEach((i) => {
-    //           if (!this.myclass.includes(i.level)) {
-    //             this.myclass.push(i.level);
-    //           }
-    //         });
-    //       }
-    //     });
-    // },
     getAtt: function getAtt() {
-      var _this14 = this;
+      var _this16 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios.get("/api/tutor-attendance", {
@@ -17765,12 +17730,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this14.attendance = res.data;
+          _this16.attendance = res.data;
         }
       });
     },
     getStud: function getStud() {
-      var _this15 = this;
+      var _this17 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios.get("/api/tutor-all-students", {
@@ -17779,11 +17744,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this15.allstudnts = res.data;
+          _this17.allstudnts = res.data;
         }
       });
     }
-  }
+  }, "getTodayClass", function getTodayClass() {
+    var _this18 = this;
+
+    axios.get("/api/current-class", {
+      headers: {
+        Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+      }
+    }).then(function (res) {
+      if (res.status == 200) {
+        _this18.todaysClass = res.data;
+      }
+    });
+  })
 });
 
 /***/ }),
@@ -20969,40 +20946,134 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tutor"],
   data: function data() {
     var _ref;
 
     return _ref = {
-      n: 10,
+      np: 10,
       attendance: [],
       todaysClass: [],
       level: "",
-      myclass: [],
       allstudnts: [],
       subject: "",
       participation: [],
-      tables: []
-    }, _defineProperty(_ref, "n", 52), _defineProperty(_ref, "week", ""), _defineProperty(_ref, "table", []), _defineProperty(_ref, "myclass", []), _defineProperty(_ref, "overlay", false), _defineProperty(_ref, "item", false), _defineProperty(_ref, "my_class", ""), _defineProperty(_ref, "items", []), _defineProperty(_ref, "filterShow", false), _defineProperty(_ref, "todaysClass", []), _defineProperty(_ref, "today", new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()), _defineProperty(_ref, "allClass", []), _defineProperty(_ref, "attendance", []), _defineProperty(_ref, "my_class", ''), _defineProperty(_ref, "all_class", []), _ref;
+      attendanceSort: [],
+      sorTa: [],
+      tables: [],
+      n: 52,
+      week: "",
+      myweek: "",
+      table: [],
+      myclass: [],
+      overlay: false,
+      item: false,
+      my_class: "",
+      myday: 0,
+      items: [],
+      filterShow: false
+    }, _defineProperty(_ref, "todaysClass", []), _defineProperty(_ref, "today", new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()), _defineProperty(_ref, "allClass", []), _defineProperty(_ref, "attendance", []), _defineProperty(_ref, "my_class", ""), _defineProperty(_ref, "all_class", []), _defineProperty(_ref, "days", [{
+      key: "Monday",
+      value: "monday"
+    }, {
+      key: "Tuesday",
+      value: "tuesday"
+    }, {
+      key: "Wednesday",
+      value: "wednesday"
+    }, {
+      key: "Thursday",
+      value: "thursday"
+    }, {
+      key: "Friday",
+      value: "friday"
+    }, {
+      key: "Saturday",
+      value: "saturday"
+    }, {
+      key: "Sunday",
+      value: "sunday"
+    }]), _ref;
   },
   mounted: function mounted() {
-    this.getTable();
+    //  this.getTable();
     this.getTodayClass();
     this.getallClass();
     this.getAttendance();
     this.getClasses();
     this.week = this.getWeek(new Date());
+    this.myweek = this.getWeek(new Date());
+    this.getStud();
+    this.getSortAttendance();
+    this.getParticipation();
+    this.myday = new Date().toLocaleString("default", {
+      weekday: "long"
+    }).toLowerCase();
   },
   computed: {
-    sorted: function sorted() {
+    sortedStuds: function sortedStuds() {
       var _this = this;
 
-      var first = this.attendance.filter(function (item) {
-        return _this.getWeek(item.date) == _this.week;
+      return this.allstudnts.filter(function (item) {
+        return item.sub_class.toLowerCase().includes(_this.my_class.toLowerCase());
+      });
+    },
+    sortedAtt: function sortedAtt() {
+      var _this2 = this;
+
+      var mweek = this.attendanceSort.filter(function (item) {
+        return _this2.getWeek(item.date) == _this2.myweek;
+      });
+      var first = mweek.filter(function (item) {
+        return item.subject.toLowerCase().includes(_this2.subject.toLowerCase());
       });
       return first.filter(function (item) {
-        return item.level.toLowerCase().includes(_this.my_class.toLowerCase());
+        return item.day.toLowerCase().includes(_this2.myday.toLowerCase());
+      });
+    },
+    sortedPart: function sortedPart() {
+      var _this3 = this;
+
+      return this.participation.filter(function (item) {
+        return item.subject.toLowerCase().includes(_this3.subject.toLowerCase());
+      });
+    },
+    sorted: function sorted() {
+      var _this4 = this;
+
+      var first = this.attendance.filter(function (item) {
+        return _this4.getWeek(item.date) == _this4.week;
+      });
+      return first.filter(function (item) {
+        return item.level.toLowerCase().includes(_this4.my_class.toLowerCase());
       });
     },
     attributes: function attributes() {
@@ -21015,14 +21086,76 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }];
     },
     sortedTable: function sortedTable() {
-      var _this2 = this;
+      var _this5 = this;
 
       return this.tables.filter(function (item) {
-        return item.myclass.toLowerCase().includes(_this2.my_class.toLowerCase());
+        return item.myclass.toLowerCase().includes(_this5.my_class.toLowerCase());
       });
     }
   },
   methods: {
+    getParticipation: function getParticipation() {
+      var _this6 = this;
+
+      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios.get("/api/participation", {
+        headers: {
+          Authorization: "Bearer ".concat(tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this6.participation = res.data;
+        }
+      });
+    },
+    handleParticipation: function handleParticipation(e, item) {
+      var _this7 = this;
+
+      console.log("handleParticipation -> e", e);
+      console.log("handleParticipation -> item", item);
+      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      var data = {
+        att_id: item.id,
+        score: e,
+        subject: this.subject,
+        tutor: tutor.id,
+        user_id: item.user.id,
+        day: item.day,
+        date: item.date
+      };
+      axios.post("/api/participation", data, {
+        headers: {
+          Authorization: "Bearer ".concat(tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 201) {
+          _this7.getParticipation();
+        }
+
+        if (res.status == 200) {
+          _this7.getParticipation();
+        }
+      });
+    },
+    mark: function mark(user, val, value) {
+      var _this8 = this;
+
+      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      var data = {
+        user_id: user.id,
+        value: value,
+        subject: val.subject
+      };
+      axios.put("/api/update-attendance/".concat(val.id), data, {
+        headers: {
+          Authorization: "Bearer ".concat(tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this8.getSortAttendance();
+        }
+      });
+    },
     getWeek: function getWeek(date) {
       var date = new Date(date);
       date.setHours(0, 0, 0, 0); // Thursday in current week decides the year.
@@ -21033,8 +21166,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
     },
+    getStud: function getStud() {
+      var _this9 = this;
+
+      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios.get("/api/tutor-all-students", {
+        headers: {
+          Authorization: "Bearer ".concat(tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this9.allstudnts = res.data;
+        }
+      });
+    },
     getAttendance: function getAttendance() {
-      var _this3 = this;
+      var _this10 = this;
 
       axios.get("/api/tutor-get-attendance", {
         headers: {
@@ -21042,7 +21189,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this3.attendance = res.data;
+          _this10.attendance = res.data;
+        }
+      });
+    },
+    getSortAttendance: function getSortAttendance() {
+      var _this11 = this;
+
+      axios.get("/api/sorted-student-attendance", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this11.attendanceSort = res.data;
         }
       });
     },
@@ -21054,7 +21214,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return seconds;
     },
     getTodayClass: function getTodayClass() {
-      var _this4 = this;
+      var _this12 = this;
 
       axios.get("/api/current-class", {
         headers: {
@@ -21062,12 +21222,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this4.todaysClass = res.data;
+          _this12.todaysClass = res.data;
+          _this12.level = res.data[0].level;
+          _this12.subject = res.data[0].subject;
+          res.data.forEach(function (i) {
+            if (!_this12.myclass.includes(i.level)) {
+              _this12.myclass.push(i.level);
+            }
+          });
         }
       });
     },
+    // getTodayClass() {
+    //   axios
+    //     .get(`/api/current-class`, {
+    //       headers: {
+    //         Authorization: `Bearer ${this.$props.tutor.access_token}`,
+    //       },
+    //     })
+    //     .then((res) => {
+    //       if (res.status == 200) {
+    //         this.todaysClass = res.data;
+    //       }
+    //     });
+    // },
     getClasses: function getClasses() {
-      var _this5 = this;
+      var _this13 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios.get("/api/all-classes", {
@@ -21080,16 +21260,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             // this.allClass.push(item.class_name);
             if (item.sub_class !== "") {
               item.sub_class.split(",").forEach(function (i) {
-                _this5.all_class.push(i);
+                _this13.all_class.push(i);
               });
             }
           });
-          _this5.my_class = _this5.all_class[0];
+          _this13.my_class = _this13.all_class[0];
         }
       });
     },
     getallClass: function getallClass() {
-      var _this6 = this;
+      var _this14 = this;
 
       axios.get("/api/all-class", {
         headers: {
@@ -21097,7 +21277,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this6.allClass = res.data;
+          _this14.allClass = res.data;
         }
       });
     },
@@ -21108,24 +21288,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     toggleFilter: function toggleFilter() {
       this.filterShow = !this.filterShow;
-    },
-    getTable: function getTable() {
-      var _this7 = this;
+    } // getTable() {
+    //   axios
+    //     .get(`/api/tutor-times-table`, {
+    //       headers: {
+    //         Authorization: `Bearer ${this.$props.tutor.access_token}`,
+    //       },
+    //     })
+    //     .then((res) => {
+    //       if (res.status == 200) {
+    //         this.tables = res.data;
+    //         this.myclass = res.data.filter((item) => item.myclass);
+    //         this.my_class = this.myclass[0].myclass;
+    //       }
+    //     });
+    // },
 
-      axios.get("/api/tutor-times-table", {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this7.tables = res.data;
-          _this7.myclass = res.data.filter(function (item) {
-            return item.myclass;
-          });
-          _this7.my_class = _this7.myclass[0].myclass;
-        }
-      });
-    }
   }
 });
 
@@ -28126,7 +28304,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.timetable-schedule[data-v-68bbb3b1] {\n  padding-top: 50px;\n  padding-bottom: 70px;\n}\n.body[data-v-68bbb3b1] {\n  position: relative;\n  padding: 40px 20px 50px;\n  height: 100%;\n}\n.overlay-content[data-v-68bbb3b1] {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  bottom: 0px;\n  right: 0px;\n  opacity: 0.85;\n  -webkit-backdrop-filter: blur(2px);\n          backdrop-filter: blur(2px);\n  height: 100vh;\n  width: 100%;\n  left: 0;\n  background: rgba(0, 0, 0, 0.8);\n  padding: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.cancel[data-v-68bbb3b1] {\n  position: absolute;\n  right: 10px;\n  top: 10px;\n}\n.ov[data-v-68bbb3b1] {\n  width: 100%;\n  position: relative;\n}\n.sort[data-v-68bbb3b1] {\n  width: 120px;\n}\n.schedule-part[data-v-68bbb3b1] {\n  background: #fff;\n  height: 100vh;\n}\n.schedule-inner[data-v-68bbb3b1] {\n  padding: 20px;\n  height: 100vh;\n  overflow-y: scroll;\n}\n.schedule-inner p[data-v-68bbb3b1] {\n  font-size: 14px;\n}\n.schedule-inner h6[data-v-68bbb3b1] {\n  padding-top: 20px;\n}\n.border-right[data-v-68bbb3b1] {\n  border: 0 !important;\n    border-right: 1px solid #dee2e6 !important;\n}\n.notify[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 15px;\n}\n.notify-i i[data-v-68bbb3b1] {\n  color: #22cade;\n  padding: 10px;\n}\n.notify-i[data-v-68bbb3b1] {\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 50%;\n}\n.noftify-word p[data-v-68bbb3b1] {\n  font-size: 12px;\n}\n/* width */\n[data-v-68bbb3b1]::-webkit-scrollbar {\n  width: 10px;\n}\n\n/* Track */\n[data-v-68bbb3b1]::-webkit-scrollbar-track {\n  background: none;\n}\n\n/* Handle */\n[data-v-68bbb3b1]::-webkit-scrollbar-thumb {\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 5px;\n}\n\n/* Handle on hover */\n[data-v-68bbb3b1]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n.search[data-v-68bbb3b1] {\n  width: 250px;\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-68bbb3b1] {\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: flex-start;\n  padding-top: 10px;\n}\n.filter-btn[data-v-68bbb3b1] {\n  background: #fff;\n  padding: 10px 20px;\n  border-radius: 5px;\n}\n.filter-btn span[data-v-68bbb3b1] {\n  font-family: \"Montserrat\";\n  font-weight: bold;\n}\n.filter-btn i[data-v-68bbb3b1] {\n  padding-left: 3px;\n}\n.sort-section[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n  background: #fff;\n  border-radius: 10px;\n}\n.bg-info[data-v-68bbb3b1] {\n  background: #fff !important;\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\n  margin-top: 20px;\n  border-radius: 10px;\n}\n.cal[data-v-68bbb3b1] {\n  text-align: left;\n  padding: 10px;\n  width: 100px;\n}\nul[data-v-68bbb3b1] {\n  list-style: none;\n  margin: 0;\n  font-size: 12px;\n  color: #333;\n  max-height: 60px;\n  overflow: auto;\n  padding: 5px 0;\n  border-bottom: 1px solid #ccc;\n}\nul li[data-v-68bbb3b1] {\n  padding: 5px 0;\n}\n.nav-link[data-v-68bbb3b1] {\n  color: #000 !important;\n}\n.m-res[data-v-68bbb3b1] {\n  height: 520px;\n  overflow: auto;\n}\n.main-note[data-v-68bbb3b1] {\n  height: 290px;\n  overflow: auto;\n}\nsmall[data-v-68bbb3b1],\n.small[data-v-68bbb3b1] {\n  font-size: 100%;\n}\n.resources-inner[data-v-68bbb3b1] {\n  border-bottom: 1px solid #e4e4e4;\n  padding-top: 5px;\n}\n.resources-inner[data-v-68bbb3b1]:last-child {\n  border-bottom: none;\n}\n.class-content[data-v-68bbb3b1] {\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n}\n.cards[data-v-68bbb3b1] {\n  background: #fff;\n  border-radius: 10px;\n  padding: 10px;\n}\n.class-content[data-v-68bbb3b1] {\n  padding-bottom: 10px;\n}\n.class_section[data-v-68bbb3b1] {\n  max-height: 340px;\n  overflow: auto;\n}\n.class-content-top[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-68bbb3b1] {\n  font-size: 12px;\n}\n.red[data-v-68bbb3b1] {\n  color: #ff0000;\n}\n.green[data-v-68bbb3b1] {\n  color: green;\n}\n.class-content-main[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-68bbb3b1] {\n  font-size: 16px;\n}\n.notes-top[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n}\n.btn[data-v-68bbb3b1] {\n  background: transparent;\n  border: 1px solid #13a699;\n  border-radius: 5px;\n  color: #13a699;\n  font-size: 15px;\n}\n.my-icon[data-v-68bbb3b1] {\n  color: #008e3a;\n}\n.check_it[data-v-68bbb3b1] {\n  color: #008e3a;\n  font-size: 12px;\n}\n.ongoing[data-v-68bbb3b1]{\n   color: #008e3a;\n}\n.upcoming[data-v-68bbb3b1]{\n    color:#FFC200;\n}\n.finished[data-v-68bbb3b1]{\n    color:red;\n}\n.sort-table p[data-v-68bbb3b1] {\n  font-size: 14px;\n}\n.main-attendance[data-v-68bbb3b1] {\n  padding-top: 20px;\n  font-family: \"Montserrat\";\n}\n.attendance[data-v-68bbb3b1] {\n  background: #fff;\n  padding: 20px;\n}\n.absent[data-v-68bbb3b1] {\n  color: #ff0000;\n}\n.present[data-v-68bbb3b1] {\n  color: green;\n}\n.select[data-v-68bbb3b1] {\n  width: 300px;\n}\n.part[data-v-68bbb3b1] {\n  width: 180px;\n}\n", ""]);
+exports.push([module.i, "\n.timetable-schedule[data-v-68bbb3b1] {\n  padding-top: 30px;\n  padding-bottom: 70px;\n}\n.body[data-v-68bbb3b1] {\n  position: relative;\n  padding: 40px 20px 50px;\n  height: 100%;\n}\n.activity[data-v-68bbb3b1]{\n  min-height:80vh;\n  overflow:auto;\n}\n.overlay-content[data-v-68bbb3b1] {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  bottom: 0px;\n  right: 0px;\n  opacity: 0.85;\n  -webkit-backdrop-filter: blur(2px);\n          backdrop-filter: blur(2px);\n  height: 100vh;\n  width: 100%;\n  left: 0;\n  background: rgba(0, 0, 0, 0.8);\n  padding: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.cancel[data-v-68bbb3b1] {\n  position: absolute;\n  right: 10px;\n  top: 10px;\n}\n.ov[data-v-68bbb3b1] {\n  width: 100%;\n  position: relative;\n}\n.sort[data-v-68bbb3b1] {\n  width: 120px;\n}\n.schedule-part[data-v-68bbb3b1] {\n  background: #fff;\n  height: 100vh;\n}\n.schedule-inner[data-v-68bbb3b1] {\n  padding: 20px;\n  height: 100vh;\n  overflow-y: scroll;\n}\n.schedule-inner p[data-v-68bbb3b1] {\n  font-size: 14px;\n}\n.schedule-inner h6[data-v-68bbb3b1] {\n  padding-top: 20px;\n}\n.border-right[data-v-68bbb3b1] {\n  border: 0 !important;\n    border-right: 1px solid #dee2e6 !important;\n}\n.notify[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 15px;\n}\n.notify-i i[data-v-68bbb3b1] {\n  color: #22cade;\n  padding: 10px;\n}\n.notify-i[data-v-68bbb3b1] {\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 50%;\n}\n.noftify-word p[data-v-68bbb3b1] {\n  font-size: 12px;\n}\n/* width */\n[data-v-68bbb3b1]::-webkit-scrollbar {\n  width: 10px;\n}\n\n/* Track */\n[data-v-68bbb3b1]::-webkit-scrollbar-track {\n  background: none;\n}\n\n/* Handle */\n[data-v-68bbb3b1]::-webkit-scrollbar-thumb {\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 5px;\n}\n\n/* Handle on hover */\n[data-v-68bbb3b1]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n.search[data-v-68bbb3b1] {\n  width: 250px;\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-68bbb3b1] {\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: flex-start;\n  padding-top: 10px;\n}\n.filter-btn[data-v-68bbb3b1] {\n  background: #fff;\n  padding: 10px 20px;\n  border-radius: 5px;\n}\n.filter-btn span[data-v-68bbb3b1] {\n  font-family: \"Montserrat\";\n  font-weight: bold;\n}\n.filter-btn i[data-v-68bbb3b1] {\n  padding-left: 3px;\n}\n.sort-section[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n  background: #fff;\n  border-radius: 10px;\n}\n.bg-info[data-v-68bbb3b1] {\n  background: #fff !important;\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\n  margin-top: 20px;\n  border-radius: 10px;\n}\n.cal[data-v-68bbb3b1] {\n  text-align: left;\n  padding: 10px;\n  width: 100px;\n}\nul[data-v-68bbb3b1] {\n  list-style: none;\n  margin: 0;\n  font-size: 12px;\n  color: #333;\n  max-height: 60px;\n  overflow: auto;\n  padding: 5px 0;\n  border-bottom: 1px solid #ccc;\n}\nul li[data-v-68bbb3b1] {\n  padding: 5px 0;\n}\n.nav-link[data-v-68bbb3b1] {\n  color: #000 !important;\n}\n.m-res[data-v-68bbb3b1] {\n  height: 520px;\n  overflow: auto;\n}\n.main-note[data-v-68bbb3b1] {\n  height: 290px;\n  overflow: auto;\n}\nsmall[data-v-68bbb3b1],\n.small[data-v-68bbb3b1] {\n  font-size: 100%;\n}\n.resources-inner[data-v-68bbb3b1] {\n  border-bottom: 1px solid #e4e4e4;\n  padding-top: 5px;\n}\n.resources-inner[data-v-68bbb3b1]:last-child {\n  border-bottom: none;\n}\n.class-content[data-v-68bbb3b1] {\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n}\n.cards[data-v-68bbb3b1] {\n  background: #fff;\n  border-radius: 10px;\n  padding: 10px;\n}\n.class-content[data-v-68bbb3b1] {\n  padding-bottom: 10px;\n}\n.class_section[data-v-68bbb3b1] {\n  max-height: 340px;\n  overflow: auto;\n}\n.class-content-top[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-68bbb3b1] {\n  font-size: 12px;\n}\n.red[data-v-68bbb3b1] {\n  color: #ff0000;\n}\n.green[data-v-68bbb3b1] {\n  color: green;\n}\n.class-content-main[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-68bbb3b1] {\n  font-size: 16px;\n}\n.notes-top[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n}\n.btn[data-v-68bbb3b1] {\n  background: transparent;\n  border: 1px solid #13a699;\n  border-radius: 5px;\n  color: #13a699;\n  font-size: 15px;\n}\n.my-icon[data-v-68bbb3b1] {\n  color: #008e3a;\n}\n.check_it[data-v-68bbb3b1] {\n  color: #008e3a;\n  font-size: 12px;\n}\n.ongoing[data-v-68bbb3b1]{\n   color: #008e3a;\n}\n.upcoming[data-v-68bbb3b1]{\n    color:#FFC200;\n}\n.finished[data-v-68bbb3b1]{\n    color:red;\n}\n.sort-table p[data-v-68bbb3b1] {\n  font-size: 14px;\n}\n.main-attendance[data-v-68bbb3b1] {\n  padding-top: 20px;\n  font-family: \"Montserrat\";\n}\n.attendance[data-v-68bbb3b1] {\n  background: #fff;\n  padding: 20px;\n}\n.absent[data-v-68bbb3b1] {\n  color: #ff0000;\n}\n.present[data-v-68bbb3b1] {\n  color: green;\n}\n.select[data-v-68bbb3b1] {\n  width: 300px;\n}\n.part[data-v-68bbb3b1] {\n  width: 180px;\n}\n", ""]);
 
 // exports
 
@@ -28316,7 +28494,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.sort-table p[data-v-9a5706a6] {\n  font-size: 14px;\n}\n.main-attendance[data-v-9a5706a6] {\n  padding-top: 20px;\n  font-family: \"Montserrat\";\n}\n.attendance[data-v-9a5706a6] {\n  background: #fff;\n  padding: 20px;\n}\n.absent[data-v-9a5706a6] {\n  color: #ff0000;\n}\n.present[data-v-9a5706a6] {\n  color: green;\n}\n.select[data-v-9a5706a6] {\n  width: 300px;\n}\n.part[data-v-9a5706a6] {\n  width: 180px;\n}\n.red[data-v-9a5706a6] {\n  color: #ff0000;\n}\n.green[data-v-9a5706a6] {\n  color: green;\n}\n", ""]);
+exports.push([module.i, "\n.sort-table p[data-v-9a5706a6] {\n  font-size: 14px;\n}\n.main-attendance[data-v-9a5706a6] {\n  padding-top: 20px;\n  font-family: \"Montserrat\";\n}\n.attendance[data-v-9a5706a6] {\n  background: #fff;\n  padding: 20px;\n}\n.absent[data-v-9a5706a6] {\n  color: #ff0000;\n}\n.present[data-v-9a5706a6] {\n  color: green;\n}\n.select[data-v-9a5706a6] {\n  width: 70%;\n}\n.part[data-v-9a5706a6] {\n  /* width: 200px; */\n}\n.red[data-v-9a5706a6] {\n  color: #ff0000;\n}\n.green[data-v-9a5706a6] {\n  color: green;\n}\n", ""]);
 
 // exports
 
@@ -51257,7 +51435,7 @@ var render = function() {
                                                     _vm.getSecond(_vm.today) <
                                                       _vm.getSecond(item.end)
                                                       ? _c("p", [
-                                                          _vm._v(" Ongoing")
+                                                          _vm._v("Ongoing")
                                                         ])
                                                       : _vm.getSecond(
                                                           _vm.today
@@ -51635,10 +51813,18 @@ var render = function() {
                                                         ),
                                                         _c("br"),
                                                         _vm._v(" "),
-                                                        value.tutor
+                                                        value.student
                                                           ? _c("b-icon", {
-                                                              staticClass:
-                                                                "green",
+                                                              class: {
+                                                                green:
+                                                                  value.student &&
+                                                                  value.tutor !==
+                                                                    "pending",
+                                                                amber:
+                                                                  value.student &&
+                                                                  value.tutor ==
+                                                                    "pending"
+                                                              },
                                                               attrs: {
                                                                 icon:
                                                                   "check-circle-fill"
@@ -60514,7 +60700,7 @@ var render = function() {
                                                   _c("p", [
                                                     _c("span", [
                                                       _vm._v(
-                                                        "\n                            Tutor :\n                            "
+                                                        "\n                              Tutor :\n                              "
                                                       ),
                                                       _c(
                                                         "strong",
@@ -60579,7 +60765,51 @@ var render = function() {
                               )
                             ]),
                             _vm._v(" "),
-                            _c("b-col")
+                            _c("b-col", [
+                              _vm.schedules.length
+                                ? _c(
+                                    "div",
+                                    [
+                                      _c(
+                                        "b-list-group",
+                                        _vm._l(
+                                          _vm.schedules.filter(function(item) {
+                                            return (
+                                              new Date().toDateString() ==
+                                              new Date(item.date).toDateString()
+                                            )
+                                          }),
+                                          function(schedule, idx) {
+                                            return _c(
+                                              "b-list-group-item",
+                                              {
+                                                key: idx,
+                                                staticClass:
+                                                  "d-flex justify-content-between"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n       \n                 " +
+                                                    _vm._s(
+                                                      schedule.description
+                                                    ) +
+                                                    "  "
+                                                ),
+                                                _c("b-icon", {
+                                                  attrs: { icon: "calendar3" }
+                                                })
+                                              ],
+                                              1
+                                            )
+                                          }
+                                        ),
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                : _vm._e()
+                            ])
                           ],
                           1
                         )
@@ -60622,7 +60852,7 @@ var render = function() {
                                 [
                                   _c("b-td", [
                                     _vm._v(
-                                      "\n                  Monday\n              "
+                                      "\n                    Monday\n                "
                                     )
                                   ]),
                                   _vm._v(" "),
@@ -60688,7 +60918,7 @@ var render = function() {
                                 [
                                   _c("b-td", [
                                     _vm._v(
-                                      "\n                  Tuesday\n              "
+                                      "\n                    Tuesday\n                "
                                     )
                                   ]),
                                   _vm._v(" "),
@@ -60754,7 +60984,7 @@ var render = function() {
                                 [
                                   _c("b-td", [
                                     _vm._v(
-                                      "\n                  Wednesday\n              "
+                                      "\n                    Wednesday\n                "
                                     )
                                   ]),
                                   _vm._v(" "),
@@ -60820,7 +61050,7 @@ var render = function() {
                                 [
                                   _c("b-td", [
                                     _vm._v(
-                                      "\n                  Thursday\n              "
+                                      "\n                    Thursday\n                "
                                     )
                                   ]),
                                   _vm._v(" "),
@@ -60886,7 +61116,7 @@ var render = function() {
                                 [
                                   _c("b-td", [
                                     _vm._v(
-                                      "\n                  Friday\n              "
+                                      "\n                    Friday\n                "
                                     )
                                   ]),
                                   _vm._v(" "),
@@ -60963,6 +61193,7 @@ var render = function() {
                   [
                     _c(
                       "b-container",
+                      { staticClass: "activity" },
                       [
                         _c(
                           "b-row",
@@ -60999,11 +61230,38 @@ var render = function() {
                                     _c(
                                       "b-form",
                                       [
+                                        _c("b-form-datepicker", {
+                                          model: {
+                                            value: _vm.schedule.date,
+                                            callback: function($$v) {
+                                              _vm.$set(
+                                                _vm.schedule,
+                                                "date",
+                                                $$v
+                                              )
+                                            },
+                                            expression: "schedule.date"
+                                          }
+                                        }),
+                                        _vm._v(" "),
                                         _c(
                                           "b-input-group",
                                           { staticClass: "mt-3" },
                                           [
-                                            _c("b-form-input"),
+                                            _c("b-form-input", {
+                                              model: {
+                                                value: _vm.schedule.description,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    _vm.schedule,
+                                                    "description",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression:
+                                                  "schedule.description"
+                                              }
+                                            }),
                                             _vm._v(" "),
                                             _c(
                                               "b-input-group-append",
@@ -61013,6 +61271,9 @@ var render = function() {
                                                   {
                                                     attrs: {
                                                       variant: "success"
+                                                    },
+                                                    on: {
+                                                      click: _vm.addSchedule
                                                     }
                                                   },
                                                   [_vm._v("Add Todo")]
@@ -61029,166 +61290,64 @@ var render = function() {
                                       1
                                     ),
                                     _vm._v(" "),
-                                    _c("h6", [_vm._v("Todays Schedule")]),
+                                    _c("h6", [_vm._v("Schedules")]),
                                     _vm._v(" "),
                                     _c("b-col", [
                                       _c("div", { staticClass: "cards" }, [
-                                        _vm.todaysClass.length
+                                        _vm.schedules.length
                                           ? _c(
                                               "div",
                                               { staticClass: "class_section" },
-                                              _vm._l(_vm.todaysClass, function(
-                                                item,
-                                                idx
-                                              ) {
-                                                return _c(
-                                                  "div",
-                                                  {
-                                                    key: idx,
-                                                    staticClass:
-                                                      "class-content border-bottom p-2"
-                                                  },
-                                                  [
-                                                    _vm.getSecond(_vm.today) <
-                                                      _vm.getSecond(
-                                                        item.start
-                                                      ) &&
-                                                    _vm.getSecond(_vm.today) <
-                                                      _vm.getSecond(item.end)
-                                                      ? _c(
-                                                          "div",
-                                                          {
-                                                            staticClass:
-                                                              "class-content-top"
-                                                          },
-                                                          [
-                                                            _c(
-                                                              "h6",
-                                                              {
-                                                                staticClass:
-                                                                  "toCaps"
-                                                              },
-                                                              [
-                                                                _vm._v(
-                                                                  _vm._s(
-                                                                    item.subject
-                                                                  )
-                                                                )
-                                                              ]
-                                                            ),
-                                                            _vm._v(" "),
-                                                            _c("i", {
-                                                              staticClass:
-                                                                "fa fa-dot-circle-o text-dark",
-                                                              attrs: {
-                                                                "aria-hidden":
-                                                                  "true"
-                                                              }
-                                                            }),
-                                                            _vm._v(" "),
-                                                            _c(
-                                                              "b-tooltip",
-                                                              {
-                                                                ref: "tooltip",
-                                                                refInFor: true,
-                                                                attrs: {
-                                                                  target: idx.toString()
-                                                                }
-                                                              },
-                                                              [
-                                                                _c(
-                                                                  "p",
-                                                                  {
-                                                                    staticClass:
-                                                                      "m-0"
-                                                                  },
-                                                                  [
-                                                                    _vm._v(
-                                                                      "This class begins by " +
-                                                                        _vm._s(
-                                                                          _vm._f(
-                                                                            "format"
-                                                                          )(
-                                                                            item.start
-                                                                          )
-                                                                        )
-                                                                    )
-                                                                  ]
-                                                                )
-                                                              ]
-                                                            )
-                                                          ],
-                                                          1
-                                                        )
-                                                      : _vm._e(),
-                                                    _vm._v(" "),
-                                                    _vm.getSecond(_vm.today) <
-                                                      _vm.getSecond(
-                                                        item.start
-                                                      ) &&
-                                                    _vm.getSecond(_vm.today) <
-                                                      _vm.getSecond(item.end)
-                                                      ? _c("small", [
+                                              [
+                                                _c(
+                                                  "b-list-group",
+                                                  _vm._l(
+                                                    _vm.schedules,
+                                                    function(schedule, idx) {
+                                                      return _c(
+                                                        "b-list-group-item",
+                                                        {
+                                                          key: idx,
+                                                          staticClass:
+                                                            "d-flex justify-content-between"
+                                                        },
+                                                        [
                                                           _vm._v(
-                                                            _vm._s(
-                                                              _vm._f("format")(
-                                                                item.start
-                                                              )
-                                                            ) +
-                                                              " to " +
+                                                            "\n   " +
                                                               _vm._s(
-                                                                _vm._f(
-                                                                  "format"
-                                                                )(item.end)
-                                                              )
-                                                          )
-                                                        ])
-                                                      : _vm._e(),
-                                                    _vm._v(" "),
-                                                    _c(
-                                                      "div",
-                                                      {
-                                                        staticClass:
-                                                          "class-content-main"
-                                                      },
-                                                      [
-                                                        _vm.getSecond(
-                                                          _vm.today
-                                                        ) <
-                                                          _vm.getSecond(
-                                                            item.start
-                                                          ) &&
-                                                        _vm.getSecond(
-                                                          _vm.today
-                                                        ) <
-                                                          _vm.getSecond(
-                                                            item.end
-                                                          )
-                                                          ? _c("p", [
-                                                              _vm._v("Upcoming")
-                                                            ])
-                                                          : _vm._e()
-                                                      ]
-                                                    )
-                                                  ]
+                                                                schedule.description
+                                                              ) +
+                                                              " "
+                                                          ),
+                                                          _c("b-icon", {
+                                                            attrs: {
+                                                              icon: "calendar3"
+                                                            }
+                                                          })
+                                                        ],
+                                                        1
+                                                      )
+                                                    }
+                                                  ),
+                                                  1
                                                 )
-                                              }),
-                                              0
+                                              ],
+                                              1
                                             )
-                                          : _vm._e(),
-                                        _vm._v(" "),
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "class_section d-flex justify-content-center align-items-center"
-                                          },
-                                          [
-                                            _c("p", { staticClass: "pt-5" }, [
-                                              _vm._v("Nothing Scheduled")
-                                            ])
-                                          ]
-                                        )
+                                          : _c(
+                                              "div",
+                                              {
+                                                staticClass:
+                                                  "class_section d-flex justify-content-center align-items-center"
+                                              },
+                                              [
+                                                _c(
+                                                  "p",
+                                                  { staticClass: "pt-5" },
+                                                  [_vm._v("Nothing Scheduled")]
+                                                )
+                                              ]
+                                            )
                                       ])
                                     ])
                                   ],
@@ -67236,105 +67395,107 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "b-table-simple",
-                            { attrs: { bordered: "" } },
                             [
                               _c(
                                 "b-thead",
                                 [
-                                  _c(
-                                    "b-tr",
-                                    [
-                                      _c("b-th", [_vm._v("Name")]),
-                                      _vm._v(" "),
-                                      _c("b-th", [_vm._v("Day")]),
-                                      _vm._v(" "),
-                                      _c("b-th", [_vm._v("Record")])
-                                    ],
-                                    1
-                                  )
+                                  _c("b-th", [_vm._v("Name")]),
+                                  _vm._v(" "),
+                                  _c("b-th", [_vm._v("Record")])
                                 ],
                                 1
                               ),
                               _vm._v(" "),
                               _c(
                                 "b-tbody",
-                                _vm._l(_vm.sorted, function(record, idx) {
+                                _vm._l(_vm.sortedStuds, function(stud, index) {
                                   return _c(
                                     "b-tr",
-                                    { key: idx },
+                                    { key: index },
                                     [
-                                      _c("b-th", [
-                                        _vm._v(_vm._s(record.user.name))
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("b-td", { staticClass: "toCaps" }, [
-                                        _vm._v(
-                                          "\n                          " +
-                                            _vm._s(record.day) +
-                                            "\n                          "
-                                        ),
-                                        _c("br"),
-                                        _vm._v(
-                                          "\n                          " +
-                                            _vm._s(record.date) +
-                                            "\n                        "
-                                        )
-                                      ]),
+                                      _c("b-td", [_vm._v(_vm._s(stud.name))]),
                                       _vm._v(" "),
                                       _c(
-                                        "b-tbody",
+                                        "b-td",
                                         [
-                                          _c(
-                                            "b-tr",
-                                            _vm._l(
-                                              JSON.parse(record.record),
-                                              function(value, id) {
-                                                return _c(
-                                                  "b-td",
-                                                  {
-                                                    key: id,
-                                                    staticClass:
-                                                      "text-center toCaps"
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      "\n                              " +
-                                                        _vm._s(value.subject) +
-                                                        "\n                              "
-                                                    ),
-                                                    _c("br"),
-                                                    _vm._v(" "),
-                                                    value.student
-                                                      ? _c("b-icon", {
-                                                          class: {
-                                                            green:
-                                                              value.student &&
-                                                              value.tutor,
-                                                            amber:
-                                                              value.student &&
-                                                              !value.tutor
-                                                          },
-                                                          attrs: {
-                                                            icon:
-                                                              "check-circle-fill"
-                                                          }
-                                                        })
-                                                      : _c("b-icon", {
-                                                          staticClass: "red",
-                                                          attrs: {
-                                                            icon:
-                                                              "x-circle-fill"
-                                                          }
-                                                        })
-                                                  ],
-                                                  1
-                                                )
-                                              }
-                                            ),
-                                            1
-                                          )
+                                          _vm._l(
+                                            _vm.sorted.filter(function(item) {
+                                              return item.user_id == stud.id
+                                            }),
+                                            function(att, idx) {
+                                              return _c(
+                                                "b-tr",
+                                                { key: idx },
+                                                [
+                                                  _c(
+                                                    "b-td",
+                                                    { staticClass: "border-0" },
+                                                    [_vm._v(_vm._s(att.date))]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _vm._l(
+                                                    JSON.parse(att.record),
+                                                    function(value, id) {
+                                                      return _c(
+                                                        "b-td",
+                                                        {
+                                                          key: id,
+                                                          staticClass:
+                                                            "text-center toCaps border-0"
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "\n                            " +
+                                                              _vm._s(
+                                                                value.subject
+                                                              ) +
+                                                              "\n                            "
+                                                          ),
+                                                          _c("br"),
+                                                          _vm._v(" "),
+                                                          value.student
+                                                            ? _c("b-icon", {
+                                                                class: {
+                                                                  green:
+                                                                    value.student &&
+                                                                    value.tutor !==
+                                                                      "pending",
+                                                                  amber:
+                                                                    value.student &&
+                                                                    value.tutor ==
+                                                                      "pending"
+                                                                },
+                                                                attrs: {
+                                                                  icon:
+                                                                    "check-circle-fill"
+                                                                }
+                                                              })
+                                                            : _vm._e(),
+                                                          _vm._v(" "),
+                                                          !value.tutor
+                                                            ? _c("b-icon", {
+                                                                staticClass:
+                                                                  "red",
+                                                                attrs: {
+                                                                  icon:
+                                                                    "x-circle-fill"
+                                                                }
+                                                              })
+                                                            : _vm._e()
+                                                        ],
+                                                        1
+                                                      )
+                                                    }
+                                                  )
+                                                ],
+                                                2
+                                              )
+                                            }
+                                          ),
+                                          _vm._v(" "),
+                                          _c("hr")
                                         ],
-                                        1
+                                        2
                                       )
                                     ],
                                     1
@@ -67357,9 +67518,7 @@ var render = function() {
                 "b-tab",
                 { attrs: { title: "Todays Attendance" } },
                 [
-                  _c("h5", { staticClass: "mb-4" }, [
-                    _vm._v("   Todays Class")
-                  ]),
+                  _c("h5", { staticClass: "mb-4" }, [_vm._v("Todays Class")]),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -67368,8 +67527,82 @@ var render = function() {
                       _c(
                         "b-row",
                         [
+                          _c("b-col", { attrs: { cols: "3" } }, [
+                            _c(
+                              "div",
+                              { staticClass: "text-right" },
+                              [
+                                _c(
+                                  "b-form-select",
+                                  {
+                                    staticClass: "week mb-3",
+                                    model: {
+                                      value: _vm.myweek,
+                                      callback: function($$v) {
+                                        _vm.myweek = $$v
+                                      },
+                                      expression: "myweek"
+                                    }
+                                  },
+                                  _vm._l(_vm.n, function(num, id) {
+                                    return _c(
+                                      "b-form-select-option",
+                                      { key: id, attrs: { value: num } },
+                                      [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm.getWeek(new Date()) == num
+                                              ? "Current week "
+                                              : "Week"
+                                          ) +
+                                            " " +
+                                            _vm._s(num)
+                                        )
+                                      ]
+                                    )
+                                  }),
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ]),
+                          _vm._v(" "),
                           _c(
                             "b-col",
+                            { attrs: { cols: "3" } },
+                            [
+                              _c(
+                                "b-form-select",
+                                {
+                                  model: {
+                                    value: _vm.myday,
+                                    callback: function($$v) {
+                                      _vm.myday = $$v
+                                    },
+                                    expression: "myday"
+                                  }
+                                },
+                                _vm._l(_vm.days, function(day, id) {
+                                  return _c(
+                                    "b-form-select-option",
+                                    {
+                                      key: id,
+                                      staticClass: "toCaps",
+                                      attrs: { value: day.value }
+                                    },
+                                    [_vm._v(_vm._s(day.key))]
+                                  )
+                                }),
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-col",
+                            { attrs: { cols: "3" } },
                             [
                               _c(
                                 "b-form-select",
@@ -67397,6 +67630,7 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "b-col",
+                            { attrs: { cols: "3" } },
                             [
                               _c(
                                 "b-form-select",
@@ -67431,50 +67665,48 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _vm.todaysClass.length
-                    ? _c(
-                        "b-table-simple",
+                  _c(
+                    "b-table-simple",
+                    [
+                      _c(
+                        "b-thead",
                         [
-                          _c(
-                            "b-thead",
-                            [
-                              _c(
-                                "b-tr",
-                                [
-                                  _c("b-th", [_vm._v("Name")]),
-                                  _vm._v(" "),
-                                  _c("b-th", [_vm._v("Attendance")]),
-                                  _vm._v(" "),
-                                  _c("b-th", [_vm._v("Participation")])
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          ),
+                          _c("b-th", [_vm._v("Name")]),
                           _vm._v(" "),
-                          _c(
-                            "b-tbody",
-                            _vm._l(_vm.sortedStuds, function(item, idx) {
-                              return _c(
-                                "b-tr",
-                                { key: idx, attrs: { value: item } },
-                                [
-                                  _c("b-td", [_vm._v(_vm._s(item.name))]),
-                                  _vm._v(" "),
-                                  _c(
+                          _c("b-th", [_vm._v("Attendance")])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-tbody",
+                        _vm._l(_vm.sortedStuds, function(item, idx) {
+                          return _c(
+                            "b-tr",
+                            { key: idx, attrs: { value: item } },
+                            [
+                              _c("b-td", [_vm._v(_vm._s(item.name))]),
+                              _vm._v(" "),
+                              _vm.sortedAtt.filter(function(val) {
+                                return val.user.id == item.id
+                              }).length
+                                ? _c(
                                     "b-td",
-                                    [
-                                      _c(
-                                        "b-tr",
-                                        _vm._l(
-                                          _vm.sortedAtt.filter(function(i) {
-                                            return i.user.name == item.name
-                                          }),
-                                          function(val, index) {
-                                            return _c(
-                                              "b-td",
-                                              { key: index },
+                                    _vm._l(
+                                      _vm.sortedAtt.filter(function(val) {
+                                        return val.user.id == item.id
+                                      }),
+                                      function(att, idx) {
+                                        return _c(
+                                          "div",
+                                          {
+                                            key: idx,
+                                            staticClass:
+                                              "d-flex justify-content-between"
+                                          },
+                                          [
+                                            _c(
+                                              "div",
                                               [
                                                 _c("b-icon", {
                                                   staticClass: "present",
@@ -67485,23 +67717,26 @@ var render = function() {
                                                     click: function($event) {
                                                       return _vm.mark(
                                                         item,
-                                                        val,
+                                                        att,
                                                         true
                                                       )
                                                     }
                                                   }
                                                 }),
-                                                _vm._v("|\n                "),
+                                                _vm._v(
+                                                  "|\n                    "
+                                                ),
                                                 _c("b-icon", {
                                                   staticClass: "absent",
                                                   attrs: {
-                                                    icon: "x-circle-fill"
+                                                    icon: "x-circle-fill",
+                                                    size: "2rem"
                                                   },
                                                   on: {
                                                     click: function($event) {
                                                       return _vm.mark(
                                                         item,
-                                                        val,
+                                                        att,
                                                         false
                                                       )
                                                     }
@@ -67514,7 +67749,7 @@ var render = function() {
                                                   [
                                                     _vm._v(
                                                       _vm._s(
-                                                        val.tutor
+                                                        att.tutor
                                                           ? "Present"
                                                           : "Absent"
                                                       )
@@ -67523,106 +67758,136 @@ var render = function() {
                                                 )
                                               ],
                                               1
-                                            )
-                                          }
-                                        ),
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-td",
-                                    { staticClass: "part" },
-                                    [
-                                      _vm.sortedAtt.length
-                                        ? _c(
-                                            "b-row",
-                                            [
-                                              _c(
-                                                "b-col",
-                                                { attrs: { cols: "6" } },
-                                                [
-                                                  _c(
-                                                    "b-form-select",
-                                                    {
-                                                      attrs: {
-                                                        size: "sm",
-                                                        label: "Score"
-                                                      },
-                                                      on: {
-                                                        change: function(
-                                                          $event
-                                                        ) {
-                                                          return _vm.handleParticipation(
-                                                            $event,
-                                                            item
+                                            ),
+                                            _vm._v(" "),
+                                            att.tutor
+                                              ? _c(
+                                                  "div",
+                                                  {
+                                                    staticClass:
+                                                      "text-center d-flex align-items-center"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      '\n                    ">\n                    '
+                                                    ),
+                                                    _c(
+                                                      "div",
+                                                      { staticClass: "mr-3" },
+                                                      [
+                                                        _c("strong", [
+                                                          _vm._v(
+                                                            "Participation"
                                                           )
-                                                        }
-                                                      }
-                                                    },
-                                                    _vm._l(_vm.n, function(
-                                                      num,
-                                                      idx
-                                                    ) {
-                                                      return _c(
-                                                        "b-form-select-option",
-                                                        {
-                                                          key: idx,
-                                                          attrs: { value: num }
-                                                        },
-                                                        [_vm._v(_vm._s(num))]
-                                                      )
-                                                    }),
-                                                    1
-                                                  )
-                                                ],
-                                                1
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "b-col",
-                                                { attrs: { cols: "6" } },
-                                                _vm._l(
-                                                  _vm.sortedPart.filter(
-                                                    function(v) {
-                                                      return (
-                                                        v.user_id == item.id &&
-                                                        v.date ==
-                                                          new Date().toLocaleDateString()
-                                                      )
-                                                    }
-                                                  ),
-                                                  function(i, idx) {
-                                                    return _c(
-                                                      "span",
-                                                      { key: idx },
-                                                      [_vm._v(_vm._s(i.score))]
-                                                    )
-                                                  }
-                                                ),
-                                                0
-                                              )
-                                            ],
-                                            1
-                                          )
-                                        : _vm._e()
-                                    ],
-                                    1
+                                                        ])
+                                                      ]
+                                                    ),
+                                                    _vm._v(" "),
+                                                    att.tutor
+                                                      ? _c(
+                                                          "div",
+                                                          {
+                                                            staticClass:
+                                                              "d-flex align-items-center"
+                                                          },
+                                                          [
+                                                            _c(
+                                                              "b-form-select",
+                                                              {
+                                                                staticClass:
+                                                                  "mr-3",
+                                                                attrs: {
+                                                                  size: "sm",
+                                                                  label: "Score"
+                                                                },
+                                                                on: {
+                                                                  change: function(
+                                                                    $event
+                                                                  ) {
+                                                                    return _vm.handleParticipation(
+                                                                      $event,
+                                                                      att
+                                                                    )
+                                                                  }
+                                                                }
+                                                              },
+                                                              _vm._l(
+                                                                _vm.np,
+                                                                function(
+                                                                  num,
+                                                                  idx
+                                                                ) {
+                                                                  return _c(
+                                                                    "b-form-select-option",
+                                                                    {
+                                                                      key: idx,
+                                                                      attrs: {
+                                                                        value: num
+                                                                      }
+                                                                    },
+                                                                    [
+                                                                      _vm._v(
+                                                                        _vm._s(
+                                                                          num
+                                                                        )
+                                                                      )
+                                                                    ]
+                                                                  )
+                                                                }
+                                                              ),
+                                                              1
+                                                            ),
+                                                            _vm._v(" "),
+                                                            _vm._l(
+                                                              _vm.sortedPart.filter(
+                                                                function(part) {
+                                                                  return (
+                                                                    part.user_id ==
+                                                                    item.id
+                                                                  )
+                                                                }
+                                                              ),
+                                                              function(i, idx) {
+                                                                return _c(
+                                                                  "span",
+                                                                  { key: idx },
+                                                                  [
+                                                                    _vm._v(
+                                                                      _vm._s(
+                                                                        i.score
+                                                                      )
+                                                                    )
+                                                                  ]
+                                                                )
+                                                              }
+                                                            )
+                                                          ],
+                                                          2
+                                                        )
+                                                      : _c("div", [_vm._v("0")])
+                                                  ]
+                                                )
+                                              : _vm._e()
+                                          ]
+                                        )
+                                      }
+                                    ),
+                                    0
                                   )
-                                ],
-                                1
-                              )
-                            }),
+                                : _c("b-td")
+                            ],
                             1
                           )
-                        ],
+                        }),
                         1
                       )
-                    : _c("b-alert", { attrs: { show: "" } }, [
-                        _c("div", [_vm._v("No class scheduled for today")])
-                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("b-alert", [
+                    _c("div", [_vm._v("No class scheduled for today")])
+                  ])
                 ],
                 1
               )

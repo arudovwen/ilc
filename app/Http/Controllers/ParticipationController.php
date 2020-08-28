@@ -38,7 +38,7 @@ class ParticipationController extends Controller
     {
        
         $user = auth('tutor')->user();
-        $find = Participation::where('school_id', $user->school_id)->where('subject', $request->subject)->where('user_id', $request->user_id)->where( 'date',$request->date)->first();
+        $find = Participation::where('school_id', $user->school_id)->where('att_id', $request->att_id)->where('subject', $request->subject)->where('user_id', $request->user_id)->where( 'date',$request->date)->first();
         if(is_null($find)){
             return   Participation::create([
                 'school_id'=> $user->school_id,
@@ -48,6 +48,7 @@ class ParticipationController extends Controller
                 'score'=>$request->score,
                 'date'=>$request->date,
                 'day'=>$request->day,
+                'att_id'=>$request->att_id
 
             ]);
         }else{

@@ -89,8 +89,8 @@ class TimesTableController extends Controller
 
     public function getCurrentTimesTable($class)
     {
-          $user = auth('api')->user();
-           $time = TimesTable::where('myclass', $class)->where('school_id', $user->school_id)->firstOrFail();
+        $user = auth('api')->user();
+        $time = TimesTable::where('myclass', $class)->where('school_id', $user->school_id)->firstOrFail();
         json_decode($time->table);
         $today = strtolower(Carbon::now()->englishDayOfWeek);
         $arr = [];
@@ -111,8 +111,7 @@ class TimesTableController extends Controller
         $ar =[];
         foreach ($times as $time) {
             foreach (json_decode($time->table) as $value) {
-             
-                if ($value->day == $today ) {
+                if ($value->day == $today) {
                     array_push($arr, $value->courses);
                 }
             }
@@ -120,10 +119,37 @@ class TimesTableController extends Controller
 
         foreach ($arr as $value) {
             foreach ($value as $v) {
-             if ($v->tutor == $user->name) {
-                array_push($ar, $v);
-             }
-               
+                $v->level = $time->myclass;
+                if ($v->tutor == $user->name) {
+                    array_push($ar, $v);
+                }
+            }
+        }
+       
+        return  $ar;
+    }
+    public function getAllClass()
+    {
+        $user = auth('tutor')->user();
+        $times = TimesTable::where('school_id', $user->school_id)->get();
+        $today = strtolower(Carbon::now()->englishDayOfWeek);
+        $arr = [];
+        $ar =[];
+        foreach ($times as $time) {
+            foreach (json_decode($time->table) as $value) {
+                foreach ($value->courses as $r) {
+                    $r->day = $value->day;
+                    array_push($arr, $r);
+                }
+            }
+        }
+     
+        foreach ($arr as $v) {
+           
+                $v->level = $time->myclass;
+                if ($v->tutor == $user->name) {
+                    array_push($ar, $v);
+                
             }
         }
        

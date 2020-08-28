@@ -31,7 +31,7 @@
               <strong class="toCaps">{{group.name}}</strong>
             </div>
             <div>
-              <b-badge variant="success">3</b-badge>
+              <!-- <b-badge variant="success">3</b-badge> -->
             </div>
           </div>
         </div>
@@ -52,7 +52,8 @@
                 <b-avatar></b-avatar>
               </div>
               <div>
-                <strong class="toCaps mb-1">{{mate.name}}</strong>
+                <strong class="toCaps mb-1">{{mate.name}}</strong> 
+                <br>
                 <small
                   class="lastmessage"
                   v-if="getLastMessage(mate.id).length"
@@ -63,7 +64,7 @@
               <small
                 v-if="getLastMessage(mate.id).length"
               >{{getLastMessage(mate.id)[getLastMessage(mate.id).length-1].created_at | moment('h:mm A')}}</small>
-              <b-badge variant="success">3</b-badge>
+              <!-- <b-badge variant="success">3</b-badge> -->
             </div>
           </div>
         </div>
@@ -120,7 +121,7 @@ export default {
   padding: 10px 0;
 }
 .single-online-tag {
-  padding: 15px 10px;
+  padding: 8px 10px;
 }
 .single-online-tag.active {
   background-color: #fff;
@@ -222,6 +223,6 @@ ol {
   text-align: left;
 }
 strong{
-  font-size:15px;
+  font-size:14px;
 }
 </style>

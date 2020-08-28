@@ -6,6 +6,7 @@ use App\School;
 use App\Faculty;
 use App\Message;
 use App\GradeBook;
+use App\Attendance;
 use App\Department;
 use App\CourseLevel;
 use App\EducationLevel;
@@ -95,5 +96,8 @@ class User extends Authenticatable
     }
     public function result(){
         return $this->hasMany(AssessmentResult::class);
+    }
+    public function attendance(){
+        return $this->hasMany(Attendance::class);
     }
 }

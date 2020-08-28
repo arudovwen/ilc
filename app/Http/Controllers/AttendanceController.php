@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Tutor;
 use App\Attendance;
 use Illuminate\Http\Request;
@@ -60,9 +61,6 @@ class AttendanceController extends Controller
             if (count($ar)) {
                 return 'present';
             } else {
-              
-
-       
                 $record = \json_decode($check->record);
                 
                 array_push($record, $request->record[0]);
@@ -71,6 +69,40 @@ class AttendanceController extends Controller
                 return $check;
             }
         }
+    }
+    public function getAttendance()
+    {
+        $user= auth('tutor')->user();
+        $att= Attendance::where('school_id', $user->school_id)->get();
+        $arr = [];
+        $mainarr = [];
+        foreach ($att as $value) {
+            foreach (\json_decode($value->record) as $val) {
+                if ($val->tutor_name == $user->name) {
+                    $val->user = User::find($value->user_id);
+                    $val->date = $value->date;
+                    $val->day = $value->day;
+                    $val->id = $value->id;
+                    array_push($arr, $val);
+                }
+            }
+        }
+        return $arr;
+    }
+    public function updateAttendance(Request $request, $id)
+    {
+        $att= Attendance::find($id);  
+        $arr = [];
+        foreach (\json_decode($att->record) as $value) {
+            if ($value->subject == $request->subject) {
+                $value->tutor = $request->value;
+            }
+            array_push($arr,$value);
+        }
+        $att->record = \json_encode($arr);
+        $att->save();
+        
+        return $att;
     }
     public function tutorMarking($id)
     {
@@ -84,11 +116,31 @@ class AttendanceController extends Controller
      * @param  \App\Attendance  $attendance
      * @return \Illuminate\Http\Response
      */
+    
+    public function tutorgetAttendance()
+    {
+        $user = auth('tutor')->user();
+        return Attendance::with('user')->where('school_id', $user->school_id)->get();
+    }
 
     public function getStudentAttendance()
     {
         $user = auth('api')->user();
         return Attendance::where('user_id', $user->id)->get();
+    }
+    public function getsortedStudentAttendance()
+    {
+        $user = auth('api')->user();
+       $val = Attendance::where('user_id', $user->id)->get();
+       $arr = [];
+       foreach($val as $value){
+        foreach(  \json_decode(  $value->record) as $v){
+            $v->date = $value->date;
+            array_push($arr,$v);
+        }
+       
+       }
+  return $arr;
     }
     public function show(Attendance $attendance)
     {

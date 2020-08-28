@@ -76,6 +76,7 @@ export default {
           .toLowerCase(),
         record: [
           {
+            tutor_name: val.tutor,
             tutor: false,
             student: true,
             subject: val.subject,

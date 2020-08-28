@@ -6,7 +6,7 @@
           <b-tab title="Todays Schedule" active>
             <div class="activity">
               <b-row class="py-5">
-                <b-col md="4" >
+                <b-col md="6" >
                   <div class="cards border-right p-2">
                    
                     <div class="class_section" v-if="todaysClass.length">
@@ -88,127 +88,165 @@
             <div class="activity">
             
 
-              <div class="d-flex justify-content-around mb-2">
+              <!-- <div class="d-flex justify-content-around mb-2">
                <span> <b-icon icon="circle-fill" class="upcoming"></b-icon> Upcoming</span>
                 <span> <b-icon icon="circle-fill" class="ongoing"></b-icon> Ongoing</span>
                  <span> <b-icon icon="circle-fill" class="finished"></b-icon> Finished</span>
-              </div>
-              <table class="table table-bordered">
-                <thead class="thead-light">
-                  <tr>
-                    <th>Day</th>
-                    <th>Time</th>
-                  </tr>
-                    
-                </thead>
-                <tbody>
-                  <tr v-for="(tab,index) in table" :key="index">
-                    <td class="toCaps day">{{tab.day}}</td>
-                    <td class="d-flex justify-content-between p-0">
-                      <table class="w-100">
-                        <tr class="w-100">
-                          <td class="text-center "
-                           :class="{upcoming:getSecond(today) < getSecond(item.start) && tab.day.toLowerCase() == today_name,
-                            ongoing:getSecond(today) > getSecond(item.start) && getSecond(today) <= getSecond(item.end) && tab.day.toLowerCase() == today_name,
-                             finished: getSecond(today) >getSecond(item.end) && tab.day.toLowerCase() == today_name
-                           }"
-                           v-for="(item,idx) in tab.courses" :key="idx">
-                        
-                            <div class="">
-                               <div  >{{item.start | format}} - {{item.end | format}}</div>
-                            <div>{{item.subject}}</div>
-                            <div>{{item.tutor}}</div>
+              </div> -->
+          
+
+             <b-table-simple bordered>
+            <b-thead>
+              <b-tr>
+                <b-th>Day</b-th>
+                <b-th>Activity</b-th>
+              </b-tr>
+            </b-thead>
+            <b-tbody>
+              <b-tr>
+                <b-td >
+                    Monday
+                </b-td>
+               <b-td>
+                
+                   <b-tr>
+                       <b-td class="  p-0 px-2 text-center  border-right" v-for="(item,index) in allClass.filter(val=>val.day.toLowerCase().includes('monday'))" :key="index">
+                 <div> {{item.start | format}} - {{item.end | format}}</div>
+                 <div>{{item.subject}}</div>
+                 <div>{{item.level}}</div>
+                
+                </b-td>
+                   </b-tr>
+              
+               </b-td>
+              </b-tr>
+              <b-tr>
+                <b-td >
+                    Tuesday
+                </b-td>
+                <b-td>
+                  <b-tr>
+                    <b-td class="p-0 px-2 text-center   border-right" v-for="(item,index) in allClass.filter(val=>val.day.toLowerCase().includes('tuesday'))" :key="index">
+                 <div> {{item.start | format}} - {{item.end | format}}</div>
+                 <div>{{item.subject}}</div>
+                 <div>{{item.level}}</div>
+               
+                </b-td>
+                  </b-tr>
+                </b-td>
+              </b-tr>
+              <b-tr>
+                <b-td >
+                    Wednesday
+                </b-td>
+               <b-td>
+                 <b-tr>
+                    <b-td class="p-0 px-2 text-center  border-right " v-for="(item,index) in allClass.filter(val=>val.day.toLowerCase().includes('wednesday'))" :key="index">
+                 <div> {{item.start | format}} - {{item.end | format}}</div>
+                 <div>{{item.subject}}</div>
+                 <div>{{item.level}}</div>
+               
+                </b-td>
+                 </b-tr>
+               </b-td>
+              </b-tr>
+              <b-tr>
+                <b-td >
+                    Thursday
+                </b-td>
+               <b-td>
+                 <b-tr>
+                    <b-td class=" p-0 px-2 text-center   border-right" v-for="(item,index) in allClass.filter(val=>val.day.toLowerCase().includes('thursday'))" :key="index">
+                 <div> {{item.start | format}} - {{item.end | format}}</div>
+                 <div>{{item.subject}}</div>
+                 <div>{{item.level}}</div>
+               
+                </b-td>
+                 </b-tr>
+               </b-td>
+              </b-tr>
+              <b-tr>
+                   <b-td >
+                    Friday
+                </b-td>
+              <b-td>
+                <b-tr>
+                 
+                 <b-td class="p-0 px-2 text-center   border-right" v-for="(item,index) in allClass.filter(val=>val.day.toLowerCase().includes('friday'))" :key="index">
+                 <div> {{item.start | format}} - {{item.end | format}}</div>
+                 <div>{{item.subject}}</div>
+                 <div>{{item.level}}</div>
+                
+                </b-td>
+               
+                </b-tr>
+              </b-td>
+              </b-tr>
+      
+            </b-tbody>
+              </b-table-simple>
+            </div>
+          </b-tab>
+        <!-- <b-tab title="Attendance">
+          <div class="main-attendance container">
+            <div class="attendance">
+              <div class="sort-table">
+                <b-container>
+                  <b-row>
+                    <b-col md="2">
+                      <p>
+                        <strong>Attendance</strong>
+                      </p>
+                    </b-col>
+                    <b-col md="6">
+                      <b-container>
+                        <b-row>
+                          <b-col md="4">
+                            <b-form-select></b-form-select>
+                          </b-col>
+                          <b-col md="4">
+                            <b-form-select></b-form-select>
+                          </b-col>
+                          <b-col md="4">
+                            <b-form-select></b-form-select>
+                          </b-col>
+                        </b-row>
+                      </b-container>
+                    </b-col>
+                    <b-col md="4">
+                      <b-container>
+                        <b-row>
+                          <b-col md="6">
+                            <b-form-input placeholder="Search Student " class="search rounded-pill"></b-form-input>
+                          </b-col>
+                          <b-col md="6">
+                            <div class="export">
+                              <div class="btn btn-export">
+                                Export
+                                <i class="fa fa-external-link"></i>
+                              </div>
                             </div>
-                          </td>
-                        </tr>
-                      </table>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </b-tab>
-          <b-tab title="My Attendance">
-            <div class="activity">
-              <div class="main-attendance container">
-                <div class="attendance">
-                  <div class="sort-table">
-                    <b-container>
-                      <b-row>
-                        <b-col md="2">
-                          <p>
-                            <strong>Attendance</strong>
-                          </p>
-                        </b-col>
-                        <b-col md="6">
-                          <b-container>
-                            <b-row>
-                              <b-col md="4">
-                                <b-form-select  ></b-form-select>
-                              </b-col>
-                              <b-col md="4">
-                                <b-form-select  ></b-form-select>
-                              </b-col>
-                              <b-col md="4">
-                                <b-form-select  ></b-form-select>
-                              </b-col>
-                            </b-row>
-                          </b-container>
-                        </b-col>
-                        <b-col md="4">
-                          <b-container>
-                            <b-row>
-                              <b-col md="6">
-                                <b-form-input
-                                  placeholder="Search Student "
-                                  class="search rounded-pill"
-                                ></b-form-input>
-                              </b-col>
-                              <b-col md="6">
-                                <div class="export">
-                                  <div class="btn btn-export">
-                                    Export
-                                    <i class="fa fa-external-link"></i>
-                                  </div>
-                                </div>
-                              </b-col>
-                            </b-row>
-                          </b-container>
-                        </b-col>
-                      </b-row>
-                    </b-container>
-                  </div>
-                  <hr />
+                          </b-col>
+                        </b-row>
+                      </b-container>
+                    </b-col>
+                  </b-row>
+                </b-container>
+              </div>
+              <hr />
 
-                  <div class="attendance-table">
-                    <b-table :items="items" bordered>
-                      <template v-slot:cell(monday)="data" class="absent">
-                        <span v-html="data.value"></span>
-                      </template>
-                      <template v-slot:cell(tuesday)="data" class="absent">
-                        <span v-html="data.value"></span>
-                      </template>
-                      <template v-slot:cell(wednesday)="data" class="absent">
-                        <span v-html="data.value"></span>
-                      </template>
-                      <template v-slot:cell(thursday)="data" class="absent">
-                        <span v-html="data.value"></span>
-                      </template>
-                      <template v-slot:cell(friday)="data" class="absent">
-                        <span v-html="data.value"></span>
-                      </template>
-                    </b-table>
-                  </div>
-                </div>
+              <div class="attendance-table">
+               
               </div>
             </div>
-          </b-tab>
-
+          </div>
+        </b-tab> -->
+       
          <b-tab title="My Calendar">
                  <b-container>
         <b-row>
           <b-col cols="7">
-            <vc-calendar is-expanded :attributes="attributes" :rows="3"></vc-calendar>
+            <vc-calendar is-expanded :attributes="attributes" :rows="2"></vc-calendar>
           </b-col>
           <b-col cols="5">
             <div class="schedule-part">
@@ -283,7 +321,19 @@ export default {
   props: ["tutor"],
   data() {
     return {
+        n: 10,
+      attendance: [],
+      todaysClass: [],
+      level: "",
+      myclass: [],
+      allstudnts: [],
+      subject: "",
+      participation:[],
+
+
       tables: [],
+      n: 52,
+      week: "",
       table: [],
       myclass: [],
       overlay: false,
@@ -298,13 +348,53 @@ export default {
         new Date().getMinutes() +
         ":" +
         new Date().getSeconds(),
+        allClass:[],
+          attendance: [],
+          my_class:'',
+          all_class:[]
     };
   },
   mounted() {
+this.getAtt();
+    this.getTodayClass();
+    this.getStud();
+    this.getParticipation()
+
+
     this.getTable();
     this.getTodayClass();
+    this.getallClass()
+    this.getAttendance()
+    this.getClasses()
+      this.week = this.getWeek(new Date());
   },
-  computed: {
+   computed: {
+  sortedStuds() {
+      return this.allstudnts.filter((item) =>
+        item.sub_class.toLowerCase().includes(this.level.toLowerCase())
+      );
+    },
+    sortedAtt() {
+      return this.attendance.filter((item) =>
+        item.subject.toLowerCase().includes(this.subject.toLowerCase())
+      );
+    },
+    sortedPart(){
+       return this.participation.filter((item) =>
+        item.subject.toLowerCase().includes(this.subject.toLowerCase())
+      );
+    },
+
+
+
+     sorted() {
+      var first = this.attendance.filter(
+        (item) => this.getWeek(item.date) == this.week
+      );
+      return first.filter(
+        (item) =>item.level.toLowerCase().includes(this.my_class.toLowerCase())
+      );
+    },
     attributes() {
       return [
         {
@@ -325,6 +415,37 @@ export default {
     },
   },
   methods: {
+     getWeek(date) {
+      var date = new Date(date);
+      date.setHours(0, 0, 0, 0);
+      // Thursday in current week decides the year.
+      date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7));
+      // January 4 is always in week 1.
+      var week1 = new Date(date.getFullYear(), 0, 4);
+      // Adjust to Thursday in week 1 and count number of weeks from date to week1.
+      return (
+        1 +
+        Math.round(
+          ((date.getTime() - week1.getTime()) / 86400000 -
+            3 +
+            ((week1.getDay() + 6) % 7)) /
+            7
+        )
+      );
+    },
+    getAttendance() {
+      axios
+        .get(`/api/tutor-get-attendance`, {
+          headers: {
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.attendance = res.data;
+          }
+        });
+    },
     getSecond(hms) {
       var a = hms.split(":"); // split it at the colons
 
@@ -342,6 +463,43 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             this.todaysClass = res.data;
+          }
+        });
+    },
+     getClasses() {
+      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios
+        .get("/api/all-classes", {
+          headers: {
+            Authorization: `Bearer ${tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+          
+           
+            res.data.forEach((item) => {
+              // this.allClass.push(item.class_name);
+              if (item.sub_class !== "") {
+                item.sub_class.split(",").forEach((i) => {
+                  this.all_class.push(i);
+                });
+              }
+            });
+             this.my_class = this.all_class[0]
+          }
+        });
+    },
+     getallClass() {
+      axios
+        .get(`/api/all-class`, {
+          headers: {
+            Authorization: `Bearer ${this.$props.tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.allClass = res.data;
           }
         });
     },
@@ -366,6 +524,119 @@ export default {
             this.tables = res.data;
             this.myclass = res.data.filter((item) => item.myclass);
             this.my_class = this.myclass[0].myclass;
+          }
+        });
+    },
+
+
+
+
+
+
+
+     getParticipation(){
+       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+         axios
+        .get(`/api/participation`, {
+          headers: { Authorization: `Bearer ${tutor.access_token}` },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.participation =res.data
+          }
+        });
+    },
+    handleParticipation(e, item) {
+      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      let data = {
+        score: e,
+        subject: this.subject,
+        tutor: tutor.id,
+        user_id: item.id,
+        day: new Date()
+          .toLocaleString("default", { weekday: "long" })
+          .toLowerCase(),
+        date: new Date().toLocaleDateString(),
+      };
+      axios
+        .post(`/api/participation`, data, {
+          headers: { Authorization: `Bearer ${tutor.access_token}` },
+        })
+        .then((res) => {
+          if (res.status == 201) {
+            this.getParticipation()
+          }
+          if (res.status == 200) {
+            this.getParticipation()
+          }
+        });
+    },
+    mark(user, val, value) {
+      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+
+      let data = {
+        user_id: user.id,
+        value: value,
+        subject: val.subject,
+      };
+      axios
+        .put(`/api/update-attendance/${val.id}`, data, {
+          headers: {
+            Authorization: `Bearer ${tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.getAtt();
+          }
+        });
+    },
+    
+    // getTodayClass() {
+    //   axios
+    //     .get(`/api/current-class`, {
+    //       headers: {
+    //         Authorization: `Bearer ${this.$props.tutor.access_token}`,
+    //       },
+    //     })
+    //     .then((res) => {
+    //       if (res.status == 200) {
+    //         this.todaysClass = res.data;
+    //         this.level = res.data[0].level;
+    //         this.subject = res.data[0].subject;
+    //         res.data.forEach((i) => {
+    //           if (!this.myclass.includes(i.level)) {
+    //             this.myclass.push(i.level);
+    //           }
+    //         });
+    //       }
+    //     });
+    // },
+    getAtt() {
+      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios
+        .get(`/api/tutor-attendance`, {
+          headers: {
+            Authorization: `Bearer ${tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.attendance = res.data;
+          }
+        });
+    },
+    getStud() {
+      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios
+        .get(`/api/tutor-all-students`, {
+          headers: {
+            Authorization: `Bearer ${tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.allstudnts = res.data;
           }
         });
     },
@@ -425,6 +696,10 @@ export default {
 }
 .schedule-inner h6 {
   padding-top: 20px;
+}
+.border-right {
+  border: 0 !important;
+    border-right: 1px solid #dee2e6 !important;
 }
 .notify {
   display: flex;
@@ -613,5 +888,28 @@ small,
 }
 .finished{
     color:red;
+}
+.sort-table p {
+  font-size: 14px;
+}
+.main-attendance {
+  padding-top: 20px;
+  font-family: "Montserrat";
+}
+.attendance {
+  background: #fff;
+  padding: 20px;
+}
+.absent {
+  color: #ff0000;
+}
+.present {
+  color: green;
+}
+.select {
+  width: 300px;
+}
+.part {
+  width: 180px;
 }
 </style>

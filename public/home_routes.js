@@ -11496,10 +11496,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
     return {
+      n: 52,
+      week: "",
       table: [],
       assess: [],
       todaysClass: [],
@@ -11515,10 +11533,20 @@ __webpack_require__.r(__webpack_exports__);
     this.getTodayClass();
     this.getData();
     this.getAttendance();
+    this.week = this.getWeek(new Date());
+  },
+  computed: {
+    sorted: function sorted() {
+      var _this = this;
+
+      return this.attendance.filter(function (item) {
+        return _this.getWeek(item.date) == _this.week;
+      });
+    }
   },
   methods: {
     getData: function getData() {
-      var _this = this;
+      var _this2 = this;
 
       var student = JSON.parse(localStorage.getItem("typeStudent"));
       axios.get("/api/student-assessments/".concat(student.level), {
@@ -11527,7 +11555,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this.assess = res.data;
+          _this2.assess = res.data;
         }
       })["catch"](function (err) {
         err.response.data;
@@ -11535,7 +11563,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getTable: function getTable() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.get("/api/student-times-table/".concat(this.$props.student.student_level), {
         headers: {
@@ -11543,7 +11571,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this2.table = JSON.parse(res.data[0].table);
+          _this3.table = JSON.parse(res.data[0].table);
         }
       });
     },
@@ -11555,7 +11583,7 @@ __webpack_require__.r(__webpack_exports__);
       return seconds;
     },
     getTodayClass: function getTodayClass() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get("/api/todays-class/".concat(this.$props.student.sub_class), {
         headers: {
@@ -11564,13 +11592,13 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         if (res.status == 200) {
           if (res.data.length) {
-            _this3.todaysClass = res.data[0].courses;
+            _this4.todaysClass = res.data[0].courses;
           }
         }
       });
     },
     getAttendance: function getAttendance() {
-      var _this4 = this;
+      var _this5 = this;
 
       axios.get("/api/student-attendance", {
         headers: {
@@ -11578,9 +11606,19 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this4.attendance = res.data;
+          _this5.attendance = res.data;
         }
       });
+    },
+    getWeek: function getWeek(date) {
+      var date = new Date(date);
+      date.setHours(0, 0, 0, 0); // Thursday in current week decides the year.
+
+      date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7); // January 4 is always in week 1.
+
+      var week1 = new Date(date.getFullYear(), 0, 4); // Adjust to Thursday in week 1 and count number of weeks from date to week1.
+
+      return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
     }
   }
 });
@@ -13360,6 +13398,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student", "groups", "classmates", "receiver_id", "privateMessages"],
   data: function data() {
@@ -13802,6 +13841,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _preview__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./preview */ "./resources/js/components/student/preview.vue");
 //
 //
 //
@@ -13915,6 +13955,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -13942,14 +14035,9 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         key: "score",
         sortable: true
-      }, "total_mark"],
-      grade_fields: [{
-        key: "name",
-        sortable: true
-      }, "participation", "attendance", "quiz", "assignment", "test", "examination" // "total_score",
-      ],
-      part: ['date', 'score'],
-      att: ['date', 'score'],
+      }, "total_mark", "action"],
+      parts: ["date", "subject", "score"],
+      att: ["date", 'subject', "score"],
       assessmentType: [{
         value: "",
         text: "  Type"
@@ -13965,18 +14053,27 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         value: "examination",
         text: "Examination"
-      }]
+      }],
+      options: {},
+      form: [],
+      part: [],
+      partsum: 0,
+      attendances: [],
+      sumAttendance: []
     };
+  },
+  components: {
+    Preview: _preview__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   computed: {
     participation: function participation() {
       return this.ass_result.filter(function (item) {
-        return item.type == 'participation';
+        return item.type == "participation";
       });
     },
     attendance: function attendance() {
       return this.ass_result.filter(function (item) {
-        return item.type == 'attendance';
+        return item.type == "attendance";
       });
     },
     sortData: function sortData() {
@@ -13998,8 +14095,19 @@ __webpack_require__.r(__webpack_exports__);
     this.getSubjects();
     this.getAss();
     this.getOverall();
+    this.getPart();
+    this.getAttendance();
   },
   methods: {
+    preview: function preview(val) {
+      this.options.title = val.title;
+      this.options.level = val.level;
+      this.options.subject = val.subject;
+      this.options.total_score = val.total_score;
+      this.options.overall = val.overall;
+      this.form = JSON.parse(val.record);
+      this.$bvModal.show('preview');
+    },
     refresh: function refresh() {
       this.subject = this.search = this.type = "";
     },
@@ -14028,15 +14136,49 @@ __webpack_require__.r(__webpack_exports__);
         _this3.ass_result = res.data;
       });
     },
-    getOverall: function getOverall() {
+    getPart: function getPart() {
       var _this4 = this;
+
+      axios.get("/api/student-part", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.student.access_token)
+        }
+      }).then(function (res) {
+        _this4.part = res.data;
+        var score = [];
+        res.data.forEach(function (item) {
+          score.push(item.score);
+        });
+        _this4.partsum = score.reduce(function (a, b) {
+          return a + b;
+        }, 0);
+      });
+    },
+    getAttendance: function getAttendance() {
+      var _this5 = this;
+
+      axios.get("/api/sorted-student-attendance", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.student.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this5.attendances = res.data;
+          _this5.sumAttendance = _this5.attendances.filter(function (item) {
+            return item.tutor == true;
+          });
+        }
+      });
+    },
+    getOverall: function getOverall() {
+      var _this6 = this;
 
       axios.get("/api/student-grade-book/".concat(this.$props.student.id), {
         headers: {
           Authorization: "Bearer ".concat(this.$props.student.access_token)
         }
       }).then(function (res) {
-        _this4.overall = res.data;
+        _this6.overall = res.data;
       });
     }
   }
@@ -14523,7 +14665,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     gotoHer: function gotoHer(id) {
       if (id.type.toLowerCase() == "assessment") {
-        this.$router.push("/student/assessment");
+        this.$router.push("/student/gradebook");
       }
 
       if (id.type.toLowerCase() == "group") {
@@ -15017,6 +15159,7 @@ __webpack_require__.r(__webpack_exports__);
           weekday: "long"
         }).toLowerCase(),
         record: [{
+          tutor_name: val.tutor,
           tutor: false,
           student: true,
           subject: val.subject,
@@ -15230,6 +15373,183 @@ __webpack_require__.r(__webpack_exports__);
           _this3.count = count.length;
         }
       });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/preview.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/student/preview.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["form", "options"],
+  data: function data() {
+    return {
+      lgas: [],
+      num: 0,
+      show: false,
+      totalScores: 0,
+      showSubmit: false
+    };
+  },
+  mounted: function mounted() {},
+  methods: {
+    handleShow: function handleShow() {
+      this.show = !this.show;
+    },
+    next: function next() {
+      this.num++;
+    },
+    prev: function prev() {
+      if (this.num !== 0) {
+        this.num--;
+      }
     }
   }
 });
@@ -17130,6 +17450,44 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -17137,24 +17495,64 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   props: ["tutor"],
   data: function data() {
-    return {
-      tables: [],
-      table: [],
-      myclass: [],
-      overlay: false,
-      item: false,
-      my_class: "",
-      items: [],
-      filterShow: false,
+    var _ref;
+
+    return _ref = {
+      n: 10,
+      attendance: [],
       todaysClass: [],
-      today: new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()
-    };
+      level: "",
+      myclass: [],
+      allstudnts: [],
+      subject: "",
+      participation: [],
+      tables: []
+    }, _defineProperty(_ref, "n", 52), _defineProperty(_ref, "week", ""), _defineProperty(_ref, "table", []), _defineProperty(_ref, "myclass", []), _defineProperty(_ref, "overlay", false), _defineProperty(_ref, "item", false), _defineProperty(_ref, "my_class", ""), _defineProperty(_ref, "items", []), _defineProperty(_ref, "filterShow", false), _defineProperty(_ref, "todaysClass", []), _defineProperty(_ref, "today", new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()), _defineProperty(_ref, "allClass", []), _defineProperty(_ref, "attendance", []), _defineProperty(_ref, "my_class", ''), _defineProperty(_ref, "all_class", []), _ref;
   },
   mounted: function mounted() {
+    this.getAtt();
+    this.getTodayClass();
+    this.getStud();
+    this.getParticipation();
     this.getTable();
     this.getTodayClass();
+    this.getallClass();
+    this.getAttendance();
+    this.getClasses();
+    this.week = this.getWeek(new Date());
   },
   computed: {
+    sortedStuds: function sortedStuds() {
+      var _this = this;
+
+      return this.allstudnts.filter(function (item) {
+        return item.sub_class.toLowerCase().includes(_this.level.toLowerCase());
+      });
+    },
+    sortedAtt: function sortedAtt() {
+      var _this2 = this;
+
+      return this.attendance.filter(function (item) {
+        return item.subject.toLowerCase().includes(_this2.subject.toLowerCase());
+      });
+    },
+    sortedPart: function sortedPart() {
+      var _this3 = this;
+
+      return this.participation.filter(function (item) {
+        return item.subject.toLowerCase().includes(_this3.subject.toLowerCase());
+      });
+    },
+    sorted: function sorted() {
+      var _this4 = this;
+
+      var first = this.attendance.filter(function (item) {
+        return _this4.getWeek(item.date) == _this4.week;
+      });
+      return first.filter(function (item) {
+        return item.level.toLowerCase().includes(_this4.my_class.toLowerCase());
+      });
+    },
     attributes: function attributes() {
       return [{
         highlight: true,
@@ -17165,14 +17563,37 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }];
     },
     sortedTable: function sortedTable() {
-      var _this = this;
+      var _this5 = this;
 
       return this.tables.filter(function (item) {
-        return item.myclass.toLowerCase().includes(_this.my_class.toLowerCase());
+        return item.myclass.toLowerCase().includes(_this5.my_class.toLowerCase());
       });
     }
   },
   methods: {
+    getWeek: function getWeek(date) {
+      var date = new Date(date);
+      date.setHours(0, 0, 0, 0); // Thursday in current week decides the year.
+
+      date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7); // January 4 is always in week 1.
+
+      var week1 = new Date(date.getFullYear(), 0, 4); // Adjust to Thursday in week 1 and count number of weeks from date to week1.
+
+      return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
+    },
+    getAttendance: function getAttendance() {
+      var _this6 = this;
+
+      axios.get("/api/tutor-get-attendance", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this6.attendance = res.data;
+        }
+      });
+    },
     getSecond: function getSecond(hms) {
       var a = hms.split(":"); // split it at the colons
       // minutes are worth 60 seconds. Hours are worth 60 minutes.
@@ -17181,7 +17602,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return seconds;
     },
     getTodayClass: function getTodayClass() {
-      var _this2 = this;
+      var _this7 = this;
 
       axios.get("/api/current-class", {
         headers: {
@@ -17189,7 +17610,42 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this2.todaysClass = res.data;
+          _this7.todaysClass = res.data;
+        }
+      });
+    },
+    getClasses: function getClasses() {
+      var _this8 = this;
+
+      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios.get("/api/all-classes", {
+        headers: {
+          Authorization: "Bearer ".concat(tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          res.data.forEach(function (item) {
+            // this.allClass.push(item.class_name);
+            if (item.sub_class !== "") {
+              item.sub_class.split(",").forEach(function (i) {
+                _this8.all_class.push(i);
+              });
+            }
+          });
+          _this8.my_class = _this8.all_class[0];
+        }
+      });
+    },
+    getallClass: function getallClass() {
+      var _this9 = this;
+
+      axios.get("/api/all-class", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this9.allClass = res.data;
         }
       });
     },
@@ -17202,7 +17658,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.filterShow = !this.filterShow;
     },
     getTable: function getTable() {
-      var _this3 = this;
+      var _this10 = this;
 
       axios.get("/api/tutor-times-table", {
         headers: {
@@ -17210,11 +17666,120 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this3.tables = res.data;
-          _this3.myclass = res.data.filter(function (item) {
+          _this10.tables = res.data;
+          _this10.myclass = res.data.filter(function (item) {
             return item.myclass;
           });
-          _this3.my_class = _this3.myclass[0].myclass;
+          _this10.my_class = _this10.myclass[0].myclass;
+        }
+      });
+    },
+    getParticipation: function getParticipation() {
+      var _this11 = this;
+
+      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios.get("/api/participation", {
+        headers: {
+          Authorization: "Bearer ".concat(tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this11.participation = res.data;
+        }
+      });
+    },
+    handleParticipation: function handleParticipation(e, item) {
+      var _this12 = this;
+
+      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      var data = {
+        score: e,
+        subject: this.subject,
+        tutor: tutor.id,
+        user_id: item.id,
+        day: new Date().toLocaleString("default", {
+          weekday: "long"
+        }).toLowerCase(),
+        date: new Date().toLocaleDateString()
+      };
+      axios.post("/api/participation", data, {
+        headers: {
+          Authorization: "Bearer ".concat(tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 201) {
+          _this12.getParticipation();
+        }
+
+        if (res.status == 200) {
+          _this12.getParticipation();
+        }
+      });
+    },
+    mark: function mark(user, val, value) {
+      var _this13 = this;
+
+      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      var data = {
+        user_id: user.id,
+        value: value,
+        subject: val.subject
+      };
+      axios.put("/api/update-attendance/".concat(val.id), data, {
+        headers: {
+          Authorization: "Bearer ".concat(tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this13.getAtt();
+        }
+      });
+    },
+    // getTodayClass() {
+    //   axios
+    //     .get(`/api/current-class`, {
+    //       headers: {
+    //         Authorization: `Bearer ${this.$props.tutor.access_token}`,
+    //       },
+    //     })
+    //     .then((res) => {
+    //       if (res.status == 200) {
+    //         this.todaysClass = res.data;
+    //         this.level = res.data[0].level;
+    //         this.subject = res.data[0].subject;
+    //         res.data.forEach((i) => {
+    //           if (!this.myclass.includes(i.level)) {
+    //             this.myclass.push(i.level);
+    //           }
+    //         });
+    //       }
+    //     });
+    // },
+    getAtt: function getAtt() {
+      var _this14 = this;
+
+      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios.get("/api/tutor-attendance", {
+        headers: {
+          Authorization: "Bearer ".concat(tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this14.attendance = res.data;
+        }
+      });
+    },
+    getStud: function getStud() {
+      var _this15 = this;
+
+      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios.get("/api/tutor-all-students", {
+        headers: {
+          Authorization: "Bearer ".concat(tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this15.allstudnts = res.data;
         }
       });
     }
@@ -20229,6 +20794,107 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -20304,20 +20970,162 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["tutor"],
   data: function data() {
-    return {
-      items: [{
-        name: "Success Ahon",
-        monday: '<i class="fa fa-check" style="color: green" ></i>',
-        tuesday: '<i class="fa fa-times" style="color: red"></i>',
-        wednesday: '<i class="fa fa-check" style="color: green" ></i>',
-        thursday: '<i class="fa fa-check" style="color: green" ></i>',
-        friday: '<i class="fa fa-check" style="color: green" ></i>'
-      }, {
-        name: "Success Ahon",
-        monday: '<i class="fa fa-times" style=" color:red"></i>'
-      }]
-    };
+    var _ref;
+
+    return _ref = {
+      n: 10,
+      attendance: [],
+      todaysClass: [],
+      level: "",
+      myclass: [],
+      allstudnts: [],
+      subject: "",
+      participation: [],
+      tables: []
+    }, _defineProperty(_ref, "n", 52), _defineProperty(_ref, "week", ""), _defineProperty(_ref, "table", []), _defineProperty(_ref, "myclass", []), _defineProperty(_ref, "overlay", false), _defineProperty(_ref, "item", false), _defineProperty(_ref, "my_class", ""), _defineProperty(_ref, "items", []), _defineProperty(_ref, "filterShow", false), _defineProperty(_ref, "todaysClass", []), _defineProperty(_ref, "today", new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()), _defineProperty(_ref, "allClass", []), _defineProperty(_ref, "attendance", []), _defineProperty(_ref, "my_class", ''), _defineProperty(_ref, "all_class", []), _ref;
+  },
+  mounted: function mounted() {
+    this.getTable();
+    this.getTodayClass();
+    this.getallClass();
+    this.getAttendance();
+    this.getClasses();
+    this.week = this.getWeek(new Date());
+  },
+  computed: {
+    sorted: function sorted() {
+      var _this = this;
+
+      var first = this.attendance.filter(function (item) {
+        return _this.getWeek(item.date) == _this.week;
+      });
+      return first.filter(function (item) {
+        return item.level.toLowerCase().includes(_this.my_class.toLowerCase());
+      });
+    },
+    attributes: function attributes() {
+      return [{
+        highlight: true,
+        dates: [new Date()],
+        popover: _defineProperty({
+          label: "Mathematics Class"
+        }, "label", "Mathematics Class")
+      }];
+    },
+    sortedTable: function sortedTable() {
+      var _this2 = this;
+
+      return this.tables.filter(function (item) {
+        return item.myclass.toLowerCase().includes(_this2.my_class.toLowerCase());
+      });
+    }
+  },
+  methods: {
+    getWeek: function getWeek(date) {
+      var date = new Date(date);
+      date.setHours(0, 0, 0, 0); // Thursday in current week decides the year.
+
+      date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7); // January 4 is always in week 1.
+
+      var week1 = new Date(date.getFullYear(), 0, 4); // Adjust to Thursday in week 1 and count number of weeks from date to week1.
+
+      return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
+    },
+    getAttendance: function getAttendance() {
+      var _this3 = this;
+
+      axios.get("/api/tutor-get-attendance", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this3.attendance = res.data;
+        }
+      });
+    },
+    getSecond: function getSecond(hms) {
+      var a = hms.split(":"); // split it at the colons
+      // minutes are worth 60 seconds. Hours are worth 60 minutes.
+
+      var seconds = +a[0] * 60 * 60 + +a[1] * 60 + +a[2];
+      return seconds;
+    },
+    getTodayClass: function getTodayClass() {
+      var _this4 = this;
+
+      axios.get("/api/current-class", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this4.todaysClass = res.data;
+        }
+      });
+    },
+    getClasses: function getClasses() {
+      var _this5 = this;
+
+      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios.get("/api/all-classes", {
+        headers: {
+          Authorization: "Bearer ".concat(tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          res.data.forEach(function (item) {
+            // this.allClass.push(item.class_name);
+            if (item.sub_class !== "") {
+              item.sub_class.split(",").forEach(function (i) {
+                _this5.all_class.push(i);
+              });
+            }
+          });
+          _this5.my_class = _this5.all_class[0];
+        }
+      });
+    },
+    getallClass: function getallClass() {
+      var _this6 = this;
+
+      axios.get("/api/all-class", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this6.allClass = res.data;
+        }
+      });
+    },
+    cancel: function cancel() {
+      this.overlay = false;
+      this.tables = [];
+      this.myclass = "";
+    },
+    toggleFilter: function toggleFilter() {
+      this.filterShow = !this.filterShow;
+    },
+    getTable: function getTable() {
+      var _this7 = this;
+
+      axios.get("/api/tutor-times-table", {
+        headers: {
+          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this7.tables = res.data;
+          _this7.myclass = res.data.filter(function (item) {
+            return item.myclass;
+          });
+          _this7.my_class = _this7.myclass[0].myclass;
+        }
+      });
+    }
   }
 });
 
@@ -20906,6 +21714,10 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -22295,13 +23107,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tutor"],
   data: function data() {
     return {
       todaysClass: [],
       select: '',
-      classes: []
+      classes: [],
+      today: new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()
     };
   },
   mounted: function mounted() {
@@ -22359,13 +23185,25 @@ __webpack_require__.r(__webpack_exports__);
         level: val.level,
         time: new Date().toLocaleTimeString()
       };
-      axios.post("/api/tutor-attendance", data, {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.tutor.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 201) {}
-      });
+
+      if (this.getSeconds(this.today) > this.getSeconds(val.start_time) && this.getSeconds(this.today) > this.getSeconds(val.end_time)) {
+        this.$toasted.info('This Class has ended');
+      } else {
+        axios.post("/api/tutor-attendance", data, {
+          headers: {
+            Authorization: "Bearer ".concat(this.$props.tutor.access_token)
+          }
+        }).then(function (res) {
+          if (res.status == 201) {}
+        });
+      }
+    },
+    getSeconds: function getSeconds(hms) {
+      var a = hms.split(":"); // split it at the colons
+      // minutes are worth 60 seconds. Hours are worth 60 minutes.
+
+      var seconds = +a[0] * 60 * 60 + +a[1] * 60 + +a[2];
+      return seconds;
     },
     getLive: function getLive() {
       var _this3 = this;
@@ -26813,7 +27651,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-383ec568] {\n  padding-top: 50px;\n  padding-bottom: 70px;\n}\n.activity[data-v-383ec568] {\n  max-height: 70vh;\n}\n.m-res[data-v-383ec568] {\n  height: 520px;\n  overflow: auto;\n}\n.main-note[data-v-383ec568] {\n  height: 290px;\n  overflow: auto;\n}\nsmall[data-v-383ec568],\n.small[data-v-383ec568] {\n  font-size: 100%;\n}\n.resources-inner[data-v-383ec568] {\n  border-bottom: 1px solid #e4e4e4;\n  padding-top: 5px;\n}\n.resources-inner[data-v-383ec568]:last-child {\n  border-bottom: none;\n}\n.class-content[data-v-383ec568] {\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-383ec568] {\n  display: flex;\n  justify-content: space-between;\n}\n.red[data-v-383ec568] {\n  color: #ff0000;\n}\n.green[data-v-383ec568] {\n  color: green;\n}\n.class-content-main[data-v-383ec568] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-383ec568] {\n  font-size: 16px;\n}\n.notes-top[data-v-383ec568] {\n  display: flex;\n  justify-content: space-between;\n}\n.btn[data-v-383ec568] {\n  background: transparent;\n  border: 1px solid #13a699;\n  border-radius: 5px;\n  color: #13a699;\n  font-size: 15px;\n}\n.my-icon[data-v-383ec568] {\n  color: #008e3a;\n}\n.check_it[data-v-383ec568] {\n  color: #008e3a;\n  font-size: 12px;\n}\n.ongoing[data-v-383ec568]{\n   color: #008e3a;\n}\n.upcoming[data-v-383ec568]{\n    color:#FFC200;\n}\n.finished[data-v-383ec568]{\n    color:red;\n}\n", ""]);
+exports.push([module.i, "\n.container[data-v-383ec568] {\n  padding-top: 50px;\n  padding-bottom: 70px;\n}\n.activity[data-v-383ec568] {\n  max-height: 70vh;\n}\n.m-res[data-v-383ec568] {\n  height: 520px;\n  overflow: auto;\n}\n.main-note[data-v-383ec568] {\n  height: 290px;\n  overflow: auto;\n}\nsmall[data-v-383ec568],\n.small[data-v-383ec568] {\n  font-size: 100%;\n}\n.resources-inner[data-v-383ec568] {\n  border-bottom: 1px solid #e4e4e4;\n  padding-top: 5px;\n}\n.resources-inner[data-v-383ec568]:last-child {\n  border-bottom: none;\n}\n.class-content[data-v-383ec568] {\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-383ec568] {\n  display: flex;\n  justify-content: space-between;\n}\n.red[data-v-383ec568] {\n  color: #ff0000;\n}\n.green[data-v-383ec568] {\n  color: green;\n}\n.class-content-main[data-v-383ec568] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-383ec568] {\n  font-size: 16px;\n}\n.notes-top[data-v-383ec568] {\n  display: flex;\n  justify-content: space-between;\n}\n.btn[data-v-383ec568] {\n  background: transparent;\n  border: 1px solid #13a699;\n  border-radius: 5px;\n  color: #13a699;\n  font-size: 15px;\n}\n.my-icon[data-v-383ec568] {\n  color: #008e3a;\n}\n.check_it[data-v-383ec568] {\n  color: #008e3a;\n  font-size: 12px;\n}\n.ongoing[data-v-383ec568] {\n  color: #008e3a;\n}\n.upcoming[data-v-383ec568] {\n  color: #ffc200;\n}\n.finished[data-v-383ec568] {\n  color: red;\n}\n.week[data-v-383ec568] {\n  width: 180px;\n  margin-left: auto;\n}\n", ""]);
 
 // exports
 
@@ -26965,7 +27803,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.view[data-v-c0219a14] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.pop[data-v-c0219a14]{\n  margin: 0;\n}\n.pop li[data-v-c0219a14]{\n  padding: 10px 0;\n}\n.single-online-tag[data-v-c0219a14] {\n  padding: 15px 10px;\n}\n.single-online-tag.active[data-v-c0219a14] {\n  background-color: #fff;\n  border-left: 3px solid #ccc;\n}\n.online-presence[data-v-c0219a14] {\n  background: #f5f4f4;\n  height: 85vh;\n}\n.online-presence-top[data-v-c0219a14] {\n  display: flex;\n}\n.online-presence-top .fa[data-v-c0219a14] {\n  padding-left: 10px;\n  padding-top: 10px;\n}\n.inner-single[data-v-c0219a14] {\n  display: flex;\n  justify-content: space-between;\n}\n.message-info[data-v-c0219a14] {\n  display: flex;\n  padding-left: 20px;\n  align-items: center;\n}\n/* .message-info h6 {\n  margin-bottom: 0;\n  line-height: 0;\n} */\n.file-attachement[data-v-c0219a14] {\n  display: flex;\n  width: 100%;\n  position: relative;\n}\n.file-attachement span[data-v-c0219a14] {\n  position: absolute;\n  right: 0;\n  transform: translate(-7px);\n  padding-top: 5px;\n}\n.progress[data-v-c0219a14] {\n  height: 15px;\n}\nlabel[data-v-c0219a14] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-c0219a14] {\n  font-size: 14px;\n  padding: 20px;\n}\n.chat-body[data-v-c0219a14] {\n  width: 100%;\n  height: 100%;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-c0219a14] {\n  height: 100%;\n  width: 20%;\n}\n.chat-area[data-v-c0219a14] {\n  position: relative;\n}\n.send-tab[data-v-c0219a14] {\n  position: absolute;\n  bottom: 0;\n  background: #cec9c9;\n  display: flex;\n  width: 100%;\n  padding: 10px;\n}\n.emoji[data-v-c0219a14] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-c0219a14] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-c0219a14] {\n  position: relative;\n}\nul[data-v-c0219a14],\nol[data-v-c0219a14] {\n  list-style: none;\n}\n.chat-message[data-v-c0219a14] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\nstrong[data-v-c0219a14]{\n  font-size:15px;\n}\n", ""]);
+exports.push([module.i, "\n.view[data-v-c0219a14] {\n  background: white;\n  position: relative;\n  display: flex;\n  height: 84vh;\n}\n.pop[data-v-c0219a14]{\n  margin: 0;\n}\n.pop li[data-v-c0219a14]{\n  padding: 10px 0;\n}\n.single-online-tag[data-v-c0219a14] {\n  padding: 8px 10px;\n}\n.single-online-tag.active[data-v-c0219a14] {\n  background-color: #fff;\n  border-left: 3px solid #ccc;\n}\n.online-presence[data-v-c0219a14] {\n  background: #f5f4f4;\n  height: 85vh;\n}\n.online-presence-top[data-v-c0219a14] {\n  display: flex;\n}\n.online-presence-top .fa[data-v-c0219a14] {\n  padding-left: 10px;\n  padding-top: 10px;\n}\n.inner-single[data-v-c0219a14] {\n  display: flex;\n  justify-content: space-between;\n}\n.message-info[data-v-c0219a14] {\n  display: flex;\n  padding-left: 20px;\n  align-items: center;\n}\n/* .message-info h6 {\n  margin-bottom: 0;\n  line-height: 0;\n} */\n.file-attachement[data-v-c0219a14] {\n  display: flex;\n  width: 100%;\n  position: relative;\n}\n.file-attachement span[data-v-c0219a14] {\n  position: absolute;\n  right: 0;\n  transform: translate(-7px);\n  padding-top: 5px;\n}\n.progress[data-v-c0219a14] {\n  height: 15px;\n}\nlabel[data-v-c0219a14] {\n  margin: 0 !important;\n  display: block;\n}\n.message[data-v-c0219a14] {\n  font-size: 14px;\n  padding: 20px;\n}\n.chat-body[data-v-c0219a14] {\n  width: 100%;\n  height: 100%;\n  padding: 20px 0 60px;\n  position: relative;\n  overflow: auto;\n}\n.online[data-v-c0219a14] {\n  height: 100%;\n  width: 20%;\n}\n.chat-area[data-v-c0219a14] {\n  position: relative;\n}\n.send-tab[data-v-c0219a14] {\n  position: absolute;\n  bottom: 0;\n  background: #cec9c9;\n  display: flex;\n  width: 100%;\n  padding: 10px;\n}\n.emoji[data-v-c0219a14] {\n  position: absolute;\n  bottom: 100%;\n  overflow: hidden !important;\n}\n.online ul li[data-v-c0219a14] {\n  font-size: 15px;\n  padding: 10px 5px;\n}\n.form-group[data-v-c0219a14] {\n  position: relative;\n}\nul[data-v-c0219a14],\nol[data-v-c0219a14] {\n  list-style: none;\n}\n.chat-message[data-v-c0219a14] {\n  background: white;\n  padding: 15px 20px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  width: -webkit-max-content;\n  width: -moz-max-content;\n  width: max-content;\n  max-width: 50%;\n\n  text-align: left;\n}\nstrong[data-v-c0219a14]{\n  font-size:14px;\n}\n", ""]);
 
 // exports
 
@@ -27143,6 +27981,25 @@ exports.push([module.i, "\n.nav[data-v-09903b50] {\n  background: #f7f8fa;\n  po
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/preview.vue?vue&type=style&index=0&id=f4353b0e&scoped=true&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/student/preview.vue?vue&type=style&index=0&id=f4353b0e&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.multi[data-v-f4353b0e] {\n  width: 50px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/privateChat.vue?vue&type=style&index=0&id=25c727a8&scoped=true&lang=css&":
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/student/privateChat.vue?vue&type=style&index=0&id=25c727a8&scoped=true&lang=css& ***!
@@ -27269,7 +28126,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.timetable-schedule[data-v-68bbb3b1] {\n  padding-top: 50px;\n  padding-bottom: 70px;\n}\n.body[data-v-68bbb3b1] {\n  position: relative;\n  padding: 40px 20px 50px;\n  height: 100%;\n}\n.overlay-content[data-v-68bbb3b1] {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  bottom: 0px;\n  right: 0px;\n  opacity: 0.85;\n  -webkit-backdrop-filter: blur(2px);\n          backdrop-filter: blur(2px);\n  height: 100vh;\n  width: 100%;\n  left: 0;\n  background: rgba(0, 0, 0, 0.8);\n  padding: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.cancel[data-v-68bbb3b1] {\n  position: absolute;\n  right: 10px;\n  top: 10px;\n}\n.ov[data-v-68bbb3b1] {\n  width: 100%;\n  position: relative;\n}\n.sort[data-v-68bbb3b1] {\n  width: 120px;\n}\n.schedule-part[data-v-68bbb3b1] {\n  background: #fff;\n  height: 100vh;\n}\n.schedule-inner[data-v-68bbb3b1] {\n  padding: 20px;\n  height: 100vh;\n  overflow-y: scroll;\n}\n.schedule-inner p[data-v-68bbb3b1] {\n  font-size: 14px;\n}\n.schedule-inner h6[data-v-68bbb3b1] {\n  padding-top: 20px;\n}\n.notify[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 15px;\n}\n.notify-i i[data-v-68bbb3b1] {\n  color: #22cade;\n  padding: 10px;\n}\n.notify-i[data-v-68bbb3b1] {\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 50%;\n}\n.noftify-word p[data-v-68bbb3b1] {\n  font-size: 12px;\n}\n/* width */\n[data-v-68bbb3b1]::-webkit-scrollbar {\n  width: 10px;\n}\n\n/* Track */\n[data-v-68bbb3b1]::-webkit-scrollbar-track {\n  background: none;\n}\n\n/* Handle */\n[data-v-68bbb3b1]::-webkit-scrollbar-thumb {\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 5px;\n}\n\n/* Handle on hover */\n[data-v-68bbb3b1]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n.search[data-v-68bbb3b1] {\n  width: 250px;\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-68bbb3b1] {\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: flex-start;\n  padding-top: 10px;\n}\n.filter-btn[data-v-68bbb3b1] {\n  background: #fff;\n  padding: 10px 20px;\n  border-radius: 5px;\n}\n.filter-btn span[data-v-68bbb3b1] {\n  font-family: \"Montserrat\";\n  font-weight: bold;\n}\n.filter-btn i[data-v-68bbb3b1] {\n  padding-left: 3px;\n}\n.sort-section[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n  background: #fff;\n  border-radius: 10px;\n}\n.bg-info[data-v-68bbb3b1] {\n  background: #fff !important;\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\n  margin-top: 20px;\n  border-radius: 10px;\n}\n.cal[data-v-68bbb3b1] {\n  text-align: left;\n  padding: 10px;\n  width: 100px;\n}\nul[data-v-68bbb3b1] {\n  list-style: none;\n  margin: 0;\n  font-size: 12px;\n  color: #333;\n  max-height: 60px;\n  overflow: auto;\n  padding: 5px 0;\n  border-bottom: 1px solid #ccc;\n}\nul li[data-v-68bbb3b1] {\n  padding: 5px 0;\n}\n.nav-link[data-v-68bbb3b1] {\n  color: #000 !important;\n}\n.m-res[data-v-68bbb3b1] {\n  height: 520px;\n  overflow: auto;\n}\n.main-note[data-v-68bbb3b1] {\n  height: 290px;\n  overflow: auto;\n}\nsmall[data-v-68bbb3b1],\n.small[data-v-68bbb3b1] {\n  font-size: 100%;\n}\n.resources-inner[data-v-68bbb3b1] {\n  border-bottom: 1px solid #e4e4e4;\n  padding-top: 5px;\n}\n.resources-inner[data-v-68bbb3b1]:last-child {\n  border-bottom: none;\n}\n.class-content[data-v-68bbb3b1] {\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n}\n.cards[data-v-68bbb3b1] {\n  background: #fff;\n  border-radius: 10px;\n  padding: 10px;\n}\n.class-content[data-v-68bbb3b1] {\n  padding-bottom: 10px;\n}\n.class_section[data-v-68bbb3b1] {\n  max-height: 340px;\n  overflow: auto;\n}\n.class-content-top[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-68bbb3b1] {\n  font-size: 12px;\n}\n.red[data-v-68bbb3b1] {\n  color: #ff0000;\n}\n.green[data-v-68bbb3b1] {\n  color: green;\n}\n.class-content-main[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-68bbb3b1] {\n  font-size: 16px;\n}\n.notes-top[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n}\n.btn[data-v-68bbb3b1] {\n  background: transparent;\n  border: 1px solid #13a699;\n  border-radius: 5px;\n  color: #13a699;\n  font-size: 15px;\n}\n.my-icon[data-v-68bbb3b1] {\n  color: #008e3a;\n}\n.check_it[data-v-68bbb3b1] {\n  color: #008e3a;\n  font-size: 12px;\n}\n.ongoing[data-v-68bbb3b1]{\n   color: #008e3a;\n}\n.upcoming[data-v-68bbb3b1]{\n    color:#FFC200;\n}\n.finished[data-v-68bbb3b1]{\n    color:red;\n}\n", ""]);
+exports.push([module.i, "\n.timetable-schedule[data-v-68bbb3b1] {\n  padding-top: 50px;\n  padding-bottom: 70px;\n}\n.body[data-v-68bbb3b1] {\n  position: relative;\n  padding: 40px 20px 50px;\n  height: 100%;\n}\n.overlay-content[data-v-68bbb3b1] {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  bottom: 0px;\n  right: 0px;\n  opacity: 0.85;\n  -webkit-backdrop-filter: blur(2px);\n          backdrop-filter: blur(2px);\n  height: 100vh;\n  width: 100%;\n  left: 0;\n  background: rgba(0, 0, 0, 0.8);\n  padding: 10px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.cancel[data-v-68bbb3b1] {\n  position: absolute;\n  right: 10px;\n  top: 10px;\n}\n.ov[data-v-68bbb3b1] {\n  width: 100%;\n  position: relative;\n}\n.sort[data-v-68bbb3b1] {\n  width: 120px;\n}\n.schedule-part[data-v-68bbb3b1] {\n  background: #fff;\n  height: 100vh;\n}\n.schedule-inner[data-v-68bbb3b1] {\n  padding: 20px;\n  height: 100vh;\n  overflow-y: scroll;\n}\n.schedule-inner p[data-v-68bbb3b1] {\n  font-size: 14px;\n}\n.schedule-inner h6[data-v-68bbb3b1] {\n  padding-top: 20px;\n}\n.border-right[data-v-68bbb3b1] {\n  border: 0 !important;\n    border-right: 1px solid #dee2e6 !important;\n}\n.notify[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 15px;\n}\n.notify-i i[data-v-68bbb3b1] {\n  color: #22cade;\n  padding: 10px;\n}\n.notify-i[data-v-68bbb3b1] {\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 50%;\n}\n.noftify-word p[data-v-68bbb3b1] {\n  font-size: 12px;\n}\n/* width */\n[data-v-68bbb3b1]::-webkit-scrollbar {\n  width: 10px;\n}\n\n/* Track */\n[data-v-68bbb3b1]::-webkit-scrollbar-track {\n  background: none;\n}\n\n/* Handle */\n[data-v-68bbb3b1]::-webkit-scrollbar-thumb {\n  background: rgba(34, 202, 222, 0.25);\n  border-radius: 5px;\n}\n\n/* Handle on hover */\n[data-v-68bbb3b1]::-webkit-scrollbar-thumb:hover {\n  background: #555;\n}\n.search[data-v-68bbb3b1] {\n  width: 250px;\n  border-color: #41cee2;\n}\n.rounded-pill[data-v-68bbb3b1] {\n  border-radius: 50rem !important;\n}\n.filter-container[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: flex-start;\n  padding-top: 10px;\n}\n.filter-btn[data-v-68bbb3b1] {\n  background: #fff;\n  padding: 10px 20px;\n  border-radius: 5px;\n}\n.filter-btn span[data-v-68bbb3b1] {\n  font-family: \"Montserrat\";\n  font-weight: bold;\n}\n.filter-btn i[data-v-68bbb3b1] {\n  padding-left: 3px;\n}\n.sort-section[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n  background: #fff;\n  border-radius: 10px;\n}\n.bg-info[data-v-68bbb3b1] {\n  background: #fff !important;\n  box-shadow: 5px 4px 13px rgba(249, 247, 240, 0.25);\n  margin-top: 20px;\n  border-radius: 10px;\n}\n.cal[data-v-68bbb3b1] {\n  text-align: left;\n  padding: 10px;\n  width: 100px;\n}\nul[data-v-68bbb3b1] {\n  list-style: none;\n  margin: 0;\n  font-size: 12px;\n  color: #333;\n  max-height: 60px;\n  overflow: auto;\n  padding: 5px 0;\n  border-bottom: 1px solid #ccc;\n}\nul li[data-v-68bbb3b1] {\n  padding: 5px 0;\n}\n.nav-link[data-v-68bbb3b1] {\n  color: #000 !important;\n}\n.m-res[data-v-68bbb3b1] {\n  height: 520px;\n  overflow: auto;\n}\n.main-note[data-v-68bbb3b1] {\n  height: 290px;\n  overflow: auto;\n}\nsmall[data-v-68bbb3b1],\n.small[data-v-68bbb3b1] {\n  font-size: 100%;\n}\n.resources-inner[data-v-68bbb3b1] {\n  border-bottom: 1px solid #e4e4e4;\n  padding-top: 5px;\n}\n.resources-inner[data-v-68bbb3b1]:last-child {\n  border-bottom: none;\n}\n.class-content[data-v-68bbb3b1] {\n  padding-bottom: 10px;\n}\n.class-content-top[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n}\n.cards[data-v-68bbb3b1] {\n  background: #fff;\n  border-radius: 10px;\n  padding: 10px;\n}\n.class-content[data-v-68bbb3b1] {\n  padding-bottom: 10px;\n}\n.class_section[data-v-68bbb3b1] {\n  max-height: 340px;\n  overflow: auto;\n}\n.class-content-top[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-68bbb3b1] {\n  font-size: 12px;\n}\n.red[data-v-68bbb3b1] {\n  color: #ff0000;\n}\n.green[data-v-68bbb3b1] {\n  color: green;\n}\n.class-content-main[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n}\n.class-content-main p[data-v-68bbb3b1] {\n  font-size: 16px;\n}\n.notes-top[data-v-68bbb3b1] {\n  display: flex;\n  justify-content: space-between;\n}\n.btn[data-v-68bbb3b1] {\n  background: transparent;\n  border: 1px solid #13a699;\n  border-radius: 5px;\n  color: #13a699;\n  font-size: 15px;\n}\n.my-icon[data-v-68bbb3b1] {\n  color: #008e3a;\n}\n.check_it[data-v-68bbb3b1] {\n  color: #008e3a;\n  font-size: 12px;\n}\n.ongoing[data-v-68bbb3b1]{\n   color: #008e3a;\n}\n.upcoming[data-v-68bbb3b1]{\n    color:#FFC200;\n}\n.finished[data-v-68bbb3b1]{\n    color:red;\n}\n.sort-table p[data-v-68bbb3b1] {\n  font-size: 14px;\n}\n.main-attendance[data-v-68bbb3b1] {\n  padding-top: 20px;\n  font-family: \"Montserrat\";\n}\n.attendance[data-v-68bbb3b1] {\n  background: #fff;\n  padding: 20px;\n}\n.absent[data-v-68bbb3b1] {\n  color: #ff0000;\n}\n.present[data-v-68bbb3b1] {\n  color: green;\n}\n.select[data-v-68bbb3b1] {\n  width: 300px;\n}\n.part[data-v-68bbb3b1] {\n  width: 180px;\n}\n", ""]);
 
 // exports
 
@@ -27459,7 +28316,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.sort-table p[data-v-9a5706a6] {\n  font-size: 14px;\n}\n.main-attendance[data-v-9a5706a6] {\n  padding-top: 20px;\n  font-family: \"Montserrat\";\n}\n.attendance[data-v-9a5706a6] {\n  background: #fff;\n  padding: 20px;\n}\n.absent[data-v-9a5706a6] {\n  color: #ff0000;\n  background: rgba(255, 0, 0, 0.25);\n}\n", ""]);
+exports.push([module.i, "\n.sort-table p[data-v-9a5706a6] {\n  font-size: 14px;\n}\n.main-attendance[data-v-9a5706a6] {\n  padding-top: 20px;\n  font-family: \"Montserrat\";\n}\n.attendance[data-v-9a5706a6] {\n  background: #fff;\n  padding: 20px;\n}\n.absent[data-v-9a5706a6] {\n  color: #ff0000;\n}\n.present[data-v-9a5706a6] {\n  color: green;\n}\n.select[data-v-9a5706a6] {\n  width: 300px;\n}\n.part[data-v-9a5706a6] {\n  width: 180px;\n}\n.red[data-v-9a5706a6] {\n  color: #ff0000;\n}\n.green[data-v-9a5706a6] {\n  color: green;\n}\n", ""]);
 
 // exports
 
@@ -27611,7 +28468,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container-fluid[data-v-f8a82150] {\n  padding-top: 30px;\n  padding-left: 20px;\n  padding-right:20px;\n}\np.card-text[data-v-f8a82150]{\n    font-size: 15px;\n}\n.lev[data-v-f8a82150]{\n  width:150px;\n  margin-left: auto;\n}\n\n", ""]);
+exports.push([module.i, "\n.container-fluid[data-v-f8a82150] {\n  padding-top: 30px;\n  padding-left: 20px;\n  padding-right:20px;\n}\np.card-text[data-v-f8a82150]{\n    font-size: 15px;\n}\n.lev[data-v-f8a82150]{\n  width:150px;\n  margin-left: auto;\n}\nh4.card-title[data-v-f8a82150] {\n  font-size: 17px;\n}\n.ongoing[data-v-f8a82150] {\n  border-color: #008e3a;\n}\n.upcoming[data-v-f8a82150] {\n  border-color: #ffc200;\n}\n.finished[data-v-f8a82150] {\n  border-color: red;\n}\n.ongoing-i[data-v-f8a82150]{\n   color: #008e3a;\n}\n.upcoming-i[data-v-f8a82150]{\n    color:#FFC200;\n}\n.finished-i[data-v-f8a82150]{\n    color:red;\n}\n", ""]);
 
 // exports
 
@@ -30001,6 +30858,36 @@ if(false) {}
 
 
 var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./main.vue?vue&type=style&index=0&id=09903b50&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/main.vue?vue&type=style&index=0&id=09903b50&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/preview.vue?vue&type=style&index=0&id=f4353b0e&scoped=true&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/student/preview.vue?vue&type=style&index=0&id=f4353b0e&scoped=true&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./preview.vue?vue&type=style&index=0&id=f4353b0e&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/preview.vue?vue&type=style&index=0&id=f4353b0e&scoped=true&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -50136,7 +51023,7 @@ var render = function() {
                             "b-row",
                             { staticClass: "py-5" },
                             [
-                              _c("b-col", { attrs: { md: "4" } }, [
+                              _c("b-col", { attrs: { md: "6" } }, [
                                 _c(
                                   "div",
                                   { staticClass: "cards border-right p-2" },
@@ -50153,8 +51040,7 @@ var render = function() {
                                               "div",
                                               {
                                                 key: idx,
-                                                staticClass:
-                                                  "class-content  p-2"
+                                                staticClass: "class-content p-2"
                                               },
                                               [
                                                 _c(
@@ -50371,7 +51257,7 @@ var render = function() {
                                                     _vm.getSecond(_vm.today) <
                                                       _vm.getSecond(item.end)
                                                       ? _c("p", [
-                                                          _vm._v("Ongoing")
+                                                          _vm._v(" Ongoing")
                                                         ])
                                                       : _vm.getSecond(
                                                           _vm.today
@@ -50407,9 +51293,7 @@ var render = function() {
                                         )
                                       : _c(
                                           "div",
-                                          {
-                                            staticClass: "class_section phert-5"
-                                          },
+                                          { staticClass: "class_section p-5" },
                                           [
                                             _c(
                                               "div",
@@ -50489,7 +51373,7 @@ var render = function() {
                                 staticClass: "upcoming",
                                 attrs: { icon: "circle-fill" }
                               }),
-                              _vm._v(" Upcoming")
+                              _vm._v("Upcoming\n              ")
                             ],
                             1
                           ),
@@ -50501,7 +51385,7 @@ var render = function() {
                                 staticClass: "ongoing",
                                 attrs: { icon: "circle-fill" }
                               }),
-                              _vm._v(" Ongoing")
+                              _vm._v("Ongoing\n              ")
                             ],
                             1
                           ),
@@ -50513,7 +51397,7 @@ var render = function() {
                                 staticClass: "finished",
                                 attrs: { icon: "circle-fill" }
                               }),
-                              _vm._v(" Finished")
+                              _vm._v("Finished\n              ")
                             ],
                             1
                           )
@@ -50553,7 +51437,7 @@ var render = function() {
                                           "td",
                                           {
                                             key: idx,
-                                            staticClass: "text-center ",
+                                            staticClass: "text-center",
                                             class: {
                                               upcoming:
                                                 _vm.getSecond(_vm.today) <
@@ -50614,7 +51498,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("b-tab", { attrs: { title: "My Attendance" } }, [
                     _c("div", { staticClass: "activity" }, [
-                      _c("div", { staticClass: "main-attendance " }, [
+                      _c("div", { staticClass: "main-attendance" }, [
                         _c("div", { staticClass: "attendance" }, [
                           _c("div", { staticClass: "sort-table" }, [
                             _c(
@@ -50643,6 +51527,45 @@ var render = function() {
                             { staticClass: "attendance-table" },
                             [
                               _c(
+                                "div",
+                                { staticClass: "text-right" },
+                                [
+                                  _c(
+                                    "b-form-select",
+                                    {
+                                      staticClass: "week mb-3",
+                                      model: {
+                                        value: _vm.week,
+                                        callback: function($$v) {
+                                          _vm.week = $$v
+                                        },
+                                        expression: "week"
+                                      }
+                                    },
+                                    _vm._l(_vm.n, function(num, id) {
+                                      return _c(
+                                        "b-form-select-option",
+                                        { key: id, attrs: { value: num } },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm.getWeek(new Date()) == num
+                                                ? "Current week "
+                                                : "Week"
+                                            ) +
+                                              " " +
+                                              _vm._s(num)
+                                          )
+                                        ]
+                                      )
+                                    }),
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
                                 "b-table-simple",
                                 { attrs: { bordered: "" } },
                                 [
@@ -50664,10 +51587,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c(
                                     "b-tbody",
-                                    _vm._l(_vm.attendance, function(
-                                      record,
-                                      idx
-                                    ) {
+                                    _vm._l(_vm.sorted, function(record, idx) {
                                       return _c(
                                         "b-tr",
                                         { key: idx },
@@ -50676,9 +51596,17 @@ var render = function() {
                                             "b-th",
                                             { staticClass: "toCaps" },
                                             [
-                                              _vm._v(_vm._s(record.day) + " "),
+                                              _vm._v(
+                                                "\n                          " +
+                                                  _vm._s(record.day) +
+                                                  "\n                          "
+                                              ),
                                               _c("br"),
-                                              _vm._v(" " + _vm._s(record.date))
+                                              _vm._v(
+                                                "\n                          " +
+                                                  _vm._s(record.date) +
+                                                  "\n                        "
+                                              )
                                             ]
                                           ),
                                           _vm._v(" "),
@@ -50699,29 +51627,27 @@ var render = function() {
                                                       },
                                                       [
                                                         _vm._v(
-                                                          _vm._s(
-                                                            value.subject
-                                                          ) +
-                                                            " \n                              "
+                                                          "\n                              " +
+                                                            _vm._s(
+                                                              value.subject
+                                                            ) +
+                                                            "\n                              "
                                                         ),
                                                         _c("br"),
                                                         _vm._v(" "),
-                                                        value.student
+                                                        value.tutor
                                                           ? _c("b-icon", {
-                                                              class: {
-                                                                green:
-                                                                  value.student &&
-                                                                  value.tutor,
-                                                                amber:
-                                                                  value.student &&
-                                                                  !value.tutor
-                                                              },
+                                                              staticClass:
+                                                                "green",
                                                               attrs: {
                                                                 icon:
                                                                   "check-circle-fill"
                                                               }
                                                             })
-                                                          : _c("b-icon", {
+                                                          : _vm._e(),
+                                                        _vm._v(" "),
+                                                        !value.tutor
+                                                          ? _c("b-icon", {
                                                               staticClass:
                                                                 "red",
                                                               attrs: {
@@ -50729,6 +51655,7 @@ var render = function() {
                                                                   "x-circle-fill"
                                                               }
                                                             })
+                                                          : _vm._e()
                                                       ],
                                                       1
                                                     )
@@ -53506,15 +54433,7 @@ var render = function() {
                       1
                     ),
                     _vm._v(" "),
-                    _c(
-                      "div",
-                      [
-                        _c("b-badge", { attrs: { variant: "success" } }, [
-                          _vm._v("3")
-                        ])
-                      ],
-                      1
-                    )
+                    _c("div")
                   ])
                 ]
               )
@@ -53550,6 +54469,8 @@ var render = function() {
                           _vm._v(_vm._s(mate.name))
                         ]),
                         _vm._v(" "),
+                        _c("br"),
+                        _vm._v(" "),
                         _vm.getLastMessage(mate.id).length
                           ? _c("small", { staticClass: "lastmessage" }, [
                               _vm._v(
@@ -53564,30 +54485,22 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _c(
-                      "div",
-                      [
-                        _vm.getLastMessage(mate.id).length
-                          ? _c("small", [
-                              _vm._v(
-                                _vm._s(
-                                  _vm._f("moment")(
-                                    _vm.getLastMessage(mate.id)[
-                                      _vm.getLastMessage(mate.id).length - 1
-                                    ].created_at,
-                                    "h:mm A"
-                                  )
+                    _c("div", [
+                      _vm.getLastMessage(mate.id).length
+                        ? _c("small", [
+                            _vm._v(
+                              _vm._s(
+                                _vm._f("moment")(
+                                  _vm.getLastMessage(mate.id)[
+                                    _vm.getLastMessage(mate.id).length - 1
+                                  ].created_at,
+                                  "h:mm A"
                                 )
                               )
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c("b-badge", { attrs: { variant: "success" } }, [
-                          _vm._v("3")
-                        ])
-                      ],
-                      1
-                    )
+                            )
+                          ])
+                        : _vm._e()
+                    ])
                   ])
                 ]
               )
@@ -53851,112 +54764,187 @@ var render = function() {
                                     _vm._v("Overall Grades")
                                   ]),
                                   _vm._v(" "),
-                                  _c("b-table", {
-                                    attrs: {
-                                      stacked: "",
-                                      items: _vm.overall,
-                                      fields: _vm.grade_fields,
-                                      bordered: ""
-                                    },
-                                    scopedSlots: _vm._u([
-                                      {
-                                        key: "cell(name)",
-                                        fn: function(data) {
-                                          return [
-                                            _c("div", [
-                                              _vm._v(
-                                                _vm._s(data.item.user.name)
-                                              )
-                                            ])
-                                          ]
-                                        }
-                                      },
-                                      {
-                                        key: "cell(quiz)",
-                                        fn: function(data) {
-                                          return [
-                                            _c("div", [
-                                              _vm._v(
-                                                _vm._s(
-                                                  data.item.average_quiz
-                                                    ? Math.round(
-                                                        data.item.quiz /
-                                                          data.item.average_quiz
+                                  _c(
+                                    "b-table-simple",
+                                    [
+                                      _c(
+                                        "b-thead",
+                                        [
+                                          _c(
+                                            "b-tr",
+                                            [
+                                              _c("b-th"),
+                                              _vm._v(" "),
+                                              _c("b-th", [_vm._v("Average")]),
+                                              _vm._v(" "),
+                                              _c("b-th", [
+                                                _vm._v("Average percentage")
+                                              ])
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _vm.overall.length
+                                        ? _c(
+                                            "b-tbody",
+                                            [
+                                              _c(
+                                                "b-tr",
+                                                [
+                                                  _c("b-th", [
+                                                    _vm._v("Attendance")
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("b-td", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        _vm.sumAttendance
+                                                          .length * 5
                                                       )
-                                                    : 0
-                                                )
-                                              )
-                                            ])
-                                          ]
-                                        }
-                                      },
-                                      {
-                                        key: "cell(assignment)",
-                                        fn: function(data) {
-                                          return [
-                                            _c("div", [
-                                              _vm._v(
-                                                _vm._s(
-                                                  data.item.average_assignment
-                                                    ? Math.round(
-                                                        data.item.assignment /
-                                                          data.item
-                                                            .average_assignment
+                                                    )
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("b-td")
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-tr",
+                                                [
+                                                  _c("b-th", [
+                                                    _vm._v("Participation")
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("b-td", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        _vm.partsum /
+                                                          _vm.part.length
                                                       )
-                                                    : 0
-                                                )
-                                              )
-                                            ])
-                                          ]
-                                        }
-                                      },
-                                      {
-                                        key: "cell(test)",
-                                        fn: function(data) {
-                                          return [
-                                            _c("div", [
-                                              _vm._v(
-                                                _vm._s(
-                                                  data.item.average_test
-                                                    ? Math.round(
-                                                        data.item.test /
-                                                          data.item.average_test
+                                                    )
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("b-td")
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-tr",
+                                                [
+                                                  _c("b-th", [
+                                                    _vm._v("Assignment")
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("b-td", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        _vm.overall[0]
+                                                          .average_assignment
+                                                          ? Math.round(
+                                                              _vm.overall[0]
+                                                                .assignment /
+                                                                _vm.overall[0]
+                                                                  .average_assignment
+                                                            )
+                                                          : 0
                                                       )
-                                                    : 0
-                                                )
+                                                    )
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("b-td")
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-tr",
+                                                [
+                                                  _c("b-th", [_vm._v("Quiz")]),
+                                                  _vm._v(" "),
+                                                  _c("b-td", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        _vm.overall[0]
+                                                          .average_quiz
+                                                          ? Math.round(
+                                                              _vm.overall[0]
+                                                                .quiz /
+                                                                _vm.overall[0]
+                                                                  .average_quiz
+                                                            )
+                                                          : 0
+                                                      )
+                                                    )
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("b-td")
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-tr",
+                                                [
+                                                  _c("b-th", [_vm._v("Test")]),
+                                                  _vm._v(" "),
+                                                  _c("b-td", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        _vm.overall[0]
+                                                          .average_test
+                                                          ? Math.round(
+                                                              _vm.overall[0]
+                                                                .test /
+                                                                _vm.overall[0]
+                                                                  .average_test
+                                                            )
+                                                          : 0
+                                                      )
+                                                    )
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("b-td")
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-tr",
+                                                [
+                                                  _c("b-th", [
+                                                    _vm._v("Examination")
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("b-td", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        _vm.overall[0]
+                                                          .examination
+                                                      )
+                                                    )
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c("b-td")
+                                                ],
+                                                1
                                               )
-                                            ])
-                                          ]
-                                        }
-                                      }
-                                    ])
-                                  })
+                                            ],
+                                            1
+                                          )
+                                        : _vm._e()
+                                    ],
+                                    1
+                                  )
                                 ],
                                 1
                               )
                             ]
                           ),
-                          _vm._v(" "),
-                          _c("b-tab", { attrs: { title: "Participation" } }, [
-                            _c(
-                              "div",
-                              { staticClass: "grade_book" },
-                              [
-                                _c("h5", { staticClass: "mb-5" }, [
-                                  _vm._v("Participation Grades")
-                                ]),
-                                _vm._v(" "),
-                                _c("b-table", {
-                                  attrs: {
-                                    items: _vm.participation,
-                                    fields: _vm.part,
-                                    bordered: ""
-                                  }
-                                })
-                              ],
-                              1
-                            )
-                          ]),
                           _vm._v(" "),
                           _c("b-tab", { attrs: { title: "Attendance" } }, [
                             _c(
@@ -53969,8 +54957,47 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("b-table", {
                                   attrs: {
-                                    items: _vm.attendance,
+                                    items: _vm.attendances,
                                     fields: _vm.att,
+                                    bordered: ""
+                                  },
+                                  scopedSlots: _vm._u([
+                                    {
+                                      key: "cell(score)",
+                                      fn: function(data) {
+                                        return [
+                                          _c("div", [
+                                            _vm._v(
+                                              "\n                      " +
+                                                _vm._s(
+                                                  data.item.tutor ? 5 : 0
+                                                ) +
+                                                "\n                    "
+                                            )
+                                          ])
+                                        ]
+                                      }
+                                    }
+                                  ])
+                                })
+                              ],
+                              1
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("b-tab", { attrs: { title: "Participation" } }, [
+                            _c(
+                              "div",
+                              { staticClass: "grade_book" },
+                              [
+                                _c("h5", { staticClass: "mb-5" }, [
+                                  _vm._v("Participation Grades")
+                                ]),
+                                _vm._v(" "),
+                                _c("b-table", {
+                                  attrs: {
+                                    items: _vm.part,
+                                    fields: _vm.parts,
                                     bordered: ""
                                   }
                                 })
@@ -54195,6 +55222,29 @@ var render = function() {
                                                   ])
                                                 ]
                                               }
+                                            },
+                                            {
+                                              key: "cell(action)",
+                                              fn: function(data) {
+                                                return [
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass: "cpointer",
+                                                      on: {
+                                                        click: function(
+                                                          $event
+                                                        ) {
+                                                          return _vm.preview(
+                                                            data.item
+                                                          )
+                                                        }
+                                                      }
+                                                    },
+                                                    [_vm._v("View Result")]
+                                                  )
+                                                ]
+                                              }
                                             }
                                           ])
                                         })
@@ -54221,6 +55271,20 @@ var render = function() {
             1
           )
         ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: {
+            id: "preview",
+            size: "lg",
+            title: "Result",
+            "hide-footer": ""
+          }
+        },
+        [_c("Preview", { attrs: { form: _vm.form, options: _vm.options } })],
         1
       )
     ],
@@ -55900,6 +56964,532 @@ var render = function() {
         ],
         1
       )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/preview.vue?vue&type=template&id=f4353b0e&scoped=true&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/student/preview.vue?vue&type=template&id=f4353b0e&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _vm.form
+        ? _c(
+            "b-container",
+            [
+              _c(
+                "b-form",
+                [
+                  _c("legend", { staticClass: "text-center mb-5" }, [
+                    _vm._v(_vm._s(_vm.options.title))
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    { staticClass: "mb-5" },
+                    [
+                      _c("b-col", { attrs: { sm: "3" } }, [
+                        _c("strong", { staticClass: "toCaps" }, [
+                          _vm._v("Level : " + _vm._s(_vm.options.level))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("b-col", { attrs: { sm: "3" } }, [
+                        _c("strong", { staticClass: "toCaps" }, [
+                          _vm._v("Subject : " + _vm._s(_vm.options.subject))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("b-col", [
+                        _c("div", { staticClass: "text-center" }, [
+                          _c("div", [_vm._v("Your Score")]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "display-4" }, [
+                            _vm._v("  " + _vm._s(_vm.options.total_score))
+                          ])
+                        ])
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.num < _vm.form.length
+                    ? _c(
+                        "section",
+                        [
+                          _c(
+                            "b-form-row",
+                            [
+                              _c(
+                                "b-col",
+                                { staticClass: "mb-4", attrs: { cols: "12" } },
+                                [
+                                  _c("h5", [
+                                    _vm._v(_vm._s(_vm.form[_vm.num].title))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("p", {
+                                    domProps: {
+                                      innerHTML: _vm._s(
+                                        _vm.form[_vm.num].description
+                                      )
+                                    }
+                                  })
+                                ]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.form[_vm.num].question, function(
+                            question,
+                            idx
+                          ) {
+                            return _c(
+                              "b-form-row",
+                              {
+                                key: idx,
+                                staticClass: "mb-4 border-bottom pb-3"
+                              },
+                              [
+                                _c(
+                                  "b-col",
+                                  { attrs: { cols: "8" } },
+                                  [
+                                    question.answer_format == "text box"
+                                      ? _c(
+                                          "b-form-group",
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "small",
+                                              { staticClass: "form-text" },
+                                              [_vm._v(_vm._s(question.guide))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("b-form-input", {
+                                              attrs: {
+                                                disabled: "",
+                                                type: "text",
+                                                placeholder:
+                                                  question.placeholder,
+                                                max: question.limit
+                                              },
+                                              model: {
+                                                value: question.answer,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    question,
+                                                    "answer",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "question.answer"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    question.answer_format == "email"
+                                      ? _c(
+                                          "b-form-group",
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "small",
+                                              { staticClass: "form-text" },
+                                              [_vm._v(_vm._s(question.guide))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("b-form-input", {
+                                              attrs: {
+                                                disabled: "",
+                                                type: "email",
+                                                placeholder:
+                                                  question.placeholder
+                                              },
+                                              model: {
+                                                value: question.answer,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    question,
+                                                    "answer",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "question.answer"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    question.answer_format == "number"
+                                      ? _c(
+                                          "b-form-group",
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "small",
+                                              { staticClass: "form-text" },
+                                              [_vm._v(_vm._s(question.guide))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("b-form-input", {
+                                              attrs: {
+                                                disabled: "",
+                                                type: "number",
+                                                placeholder:
+                                                  question.placeholder,
+                                                max: question.limit
+                                              },
+                                              model: {
+                                                value: question.answer,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    question,
+                                                    "answer",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "question.answer"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    question.answer_format == "long text"
+                                      ? _c(
+                                          "b-form-group",
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("b-form-textarea", {
+                                              attrs: {
+                                                disabled: "",
+                                                placeholder:
+                                                  question.placeholder
+                                              },
+                                              model: {
+                                                value: question.answer,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    question,
+                                                    "answer",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "question.answer"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    question.answer_format == "multi choice"
+                                      ? _c(
+                                          "b-form-group",
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "small",
+                                              { staticClass: "form-text" },
+                                              [_vm._v(_vm._s(question.guide))]
+                                            ),
+                                            _vm._v(" "),
+                                            _vm._l(question.options, function(
+                                              opt,
+                                              id
+                                            ) {
+                                              return _c(
+                                                "b-form-checkbox",
+                                                {
+                                                  key: id,
+                                                  attrs: {
+                                                    disabled: "",
+                                                    value: opt.name
+                                                  },
+                                                  model: {
+                                                    value: question.answers,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        question,
+                                                        "answers",
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression:
+                                                      "question.answers"
+                                                  }
+                                                },
+                                                [_vm._v(_vm._s(opt.name))]
+                                              )
+                                            })
+                                          ],
+                                          2
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    question.answer_format == "single choice"
+                                      ? _c(
+                                          "b-form-group",
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "small",
+                                              { staticClass: "form-text" },
+                                              [_vm._v(_vm._s(question.guide))]
+                                            ),
+                                            _vm._v(" "),
+                                            _vm._l(question.options, function(
+                                              opt,
+                                              id
+                                            ) {
+                                              return _c(
+                                                "b-form-radio",
+                                                {
+                                                  key: id,
+                                                  attrs: {
+                                                    disabled: "",
+                                                    value: opt.name
+                                                  },
+                                                  model: {
+                                                    value: question.answer,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        question,
+                                                        "answer",
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression:
+                                                      "question.answer"
+                                                  }
+                                                },
+                                                [_vm._v(_vm._s(opt.name))]
+                                              )
+                                            })
+                                          ],
+                                          2
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    question.answer_format == "date"
+                                      ? _c(
+                                          "b-form-group",
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "small",
+                                              { staticClass: "form-text" },
+                                              [_vm._v(_vm._s(question.guide))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("br"),
+                                            _vm._v(" "),
+                                            _c("b-form-datepicker", {
+                                              attrs: { disabled: "" },
+                                              model: {
+                                                value: question.answer,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    question,
+                                                    "answer",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "question.answer"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    question.answer_format == "time"
+                                      ? _c(
+                                          "b-form-group",
+                                          [
+                                            _c(
+                                              "label",
+                                              { attrs: { for: "" } },
+                                              [_vm._v(_vm._s(question.title))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "small",
+                                              { staticClass: "form-text" },
+                                              [_vm._v(_vm._s(question.guide))]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("br"),
+                                            _vm._v(" "),
+                                            _c("b-form-timepicker", {
+                                              attrs: { disabled: "" },
+                                              model: {
+                                                value: question.answer,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    question,
+                                                    "answer",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "question.answer"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    question.answer_format == "multi text"
+                                      ? _c(
+                                          "b-form-group",
+                                          _vm._l(question.answers, function(
+                                            item,
+                                            i
+                                          ) {
+                                            return _c(
+                                              "div",
+                                              { key: i },
+                                              [
+                                                _c("b-form-input", {
+                                                  attrs: { disabled: "" },
+                                                  model: {
+                                                    value: item.answer,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        item,
+                                                        "answer",
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression: "item.answer"
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            )
+                                          }),
+                                          0
+                                        )
+                                      : _vm._e()
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "b-col",
+                                  {
+                                    staticClass: "text-right",
+                                    attrs: { cols: "3" }
+                                  },
+                                  [
+                                    _c("div", [
+                                      _vm._v(
+                                        "Student score : " +
+                                          _vm._s(question.student_score)
+                                      )
+                                    ])
+                                  ]
+                                )
+                              ],
+                              1
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    { staticClass: "justify-content-between my-3" },
+                    [
+                      _vm.num > 0 && _vm.num < _vm.form.length
+                        ? _c("b-button", { on: { click: _vm.prev } }, [
+                            _vm._v("Previous")
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.num < _vm.form.length - 1
+                        ? _c(
+                            "b-button",
+                            { staticClass: "ml-auto", on: { click: _vm.next } },
+                            [_vm._v("Next")]
+                          )
+                        : _vm._e()
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        : _vm._e()
     ],
     1
   )
@@ -58740,7 +60330,7 @@ var render = function() {
                           "b-row",
                           { staticClass: "py-5" },
                           [
-                            _c("b-col", { attrs: { md: "4" } }, [
+                            _c("b-col", { attrs: { md: "6" } }, [
                               _c(
                                 "div",
                                 { staticClass: "cards border-right p-2" },
@@ -58998,351 +60588,371 @@ var render = function() {
                 ),
                 _vm._v(" "),
                 _c("b-tab", { attrs: { title: "My Times Table" } }, [
-                  _c("div", { staticClass: "activity" }, [
-                    _c(
-                      "div",
-                      { staticClass: "d-flex justify-content-around mb-2" },
-                      [
-                        _c(
-                          "span",
-                          [
-                            _c("b-icon", {
-                              staticClass: "upcoming",
-                              attrs: { icon: "circle-fill" }
-                            }),
-                            _vm._v(" Upcoming")
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          [
-                            _c("b-icon", {
-                              staticClass: "ongoing",
-                              attrs: { icon: "circle-fill" }
-                            }),
-                            _vm._v(" Ongoing")
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          [
-                            _c("b-icon", {
-                              staticClass: "finished",
-                              attrs: { icon: "circle-fill" }
-                            }),
-                            _vm._v(" Finished")
-                          ],
-                          1
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("table", { staticClass: "table table-bordered" }, [
-                      _c("thead", { staticClass: "thead-light" }, [
-                        _c("tr", [
-                          _c("th", [_vm._v("Day")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Time")])
-                        ])
-                      ]),
-                      _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "activity" },
+                    [
                       _c(
-                        "tbody",
-                        _vm._l(_vm.table, function(tab, index) {
-                          return _c("tr", { key: index }, [
-                            _c("td", { staticClass: "toCaps day" }, [
-                              _vm._v(_vm._s(tab.day))
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              {
-                                staticClass:
-                                  "d-flex justify-content-between p-0"
-                              },
-                              [
-                                _c("table", { staticClass: "w-100" }, [
-                                  _c(
-                                    "tr",
-                                    { staticClass: "w-100" },
-                                    _vm._l(tab.courses, function(item, idx) {
-                                      return _c(
-                                        "td",
-                                        {
-                                          key: idx,
-                                          staticClass: "text-center ",
-                                          class: {
-                                            upcoming:
-                                              _vm.getSecond(_vm.today) <
-                                                _vm.getSecond(item.start) &&
-                                              tab.day.toLowerCase() ==
-                                                _vm.today_name,
-                                            ongoing:
-                                              _vm.getSecond(_vm.today) >
-                                                _vm.getSecond(item.start) &&
-                                              _vm.getSecond(_vm.today) <=
-                                                _vm.getSecond(item.end) &&
-                                              tab.day.toLowerCase() ==
-                                                _vm.today_name,
-                                            finished:
-                                              _vm.getSecond(_vm.today) >
-                                                _vm.getSecond(item.end) &&
-                                              tab.day.toLowerCase() ==
-                                                _vm.today_name
-                                          }
-                                        },
-                                        [
-                                          _c("div", {}, [
-                                            _c("div", [
-                                              _vm._v(
-                                                _vm._s(
-                                                  _vm._f("format")(item.start)
-                                                ) +
-                                                  " - " +
-                                                  _vm._s(
-                                                    _vm._f("format")(item.end)
-                                                  )
-                                              )
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("div", [
-                                              _vm._v(_vm._s(item.subject))
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("div", [
-                                              _vm._v(_vm._s(item.tutor))
-                                            ])
-                                          ])
-                                        ]
-                                      )
-                                    }),
-                                    0
-                                  )
-                                ])
-                              ]
-                            )
-                          ])
-                        }),
-                        0
-                      )
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("b-tab", { attrs: { title: "My Attendance" } }, [
-                  _c("div", { staticClass: "activity" }, [
-                    _c("div", { staticClass: "main-attendance container" }, [
-                      _c("div", { staticClass: "attendance" }, [
-                        _c(
-                          "div",
-                          { staticClass: "sort-table" },
-                          [
-                            _c(
-                              "b-container",
-                              [
-                                _c(
-                                  "b-row",
-                                  [
-                                    _c("b-col", { attrs: { md: "2" } }, [
-                                      _c("p", [
-                                        _c("strong", [_vm._v("Attendance")])
-                                      ])
-                                    ]),
-                                    _vm._v(" "),
-                                    _c(
-                                      "b-col",
-                                      { attrs: { md: "6" } },
-                                      [
-                                        _c(
-                                          "b-container",
-                                          [
-                                            _c(
-                                              "b-row",
-                                              [
-                                                _c(
-                                                  "b-col",
-                                                  { attrs: { md: "4" } },
-                                                  [_c("b-form-select")],
-                                                  1
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "b-col",
-                                                  { attrs: { md: "4" } },
-                                                  [_c("b-form-select")],
-                                                  1
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "b-col",
-                                                  { attrs: { md: "4" } },
-                                                  [_c("b-form-select")],
-                                                  1
-                                                )
-                                              ],
-                                              1
-                                            )
-                                          ],
-                                          1
-                                        )
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "b-col",
-                                      { attrs: { md: "4" } },
-                                      [
-                                        _c(
-                                          "b-container",
-                                          [
-                                            _c(
-                                              "b-row",
-                                              [
-                                                _c(
-                                                  "b-col",
-                                                  { attrs: { md: "6" } },
-                                                  [
-                                                    _c("b-form-input", {
-                                                      staticClass:
-                                                        "search rounded-pill",
-                                                      attrs: {
-                                                        placeholder:
-                                                          "Search Student "
-                                                      }
-                                                    })
-                                                  ],
-                                                  1
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "b-col",
-                                                  { attrs: { md: "6" } },
-                                                  [
-                                                    _c(
-                                                      "div",
-                                                      { staticClass: "export" },
-                                                      [
-                                                        _c(
-                                                          "div",
-                                                          {
-                                                            staticClass:
-                                                              "btn btn-export"
-                                                          },
-                                                          [
-                                                            _vm._v(
-                                                              "\n                                  Export\n                                  "
-                                                            ),
-                                                            _c("i", {
-                                                              staticClass:
-                                                                "fa fa-external-link"
-                                                            })
-                                                          ]
-                                                        )
-                                                      ]
-                                                    )
-                                                  ]
-                                                )
-                                              ],
-                                              1
-                                            )
-                                          ],
-                                          1
-                                        )
-                                      ],
-                                      1
+                        "b-table-simple",
+                        { attrs: { bordered: "" } },
+                        [
+                          _c(
+                            "b-thead",
+                            [
+                              _c(
+                                "b-tr",
+                                [
+                                  _c("b-th", [_vm._v("Day")]),
+                                  _vm._v(" "),
+                                  _c("b-th", [_vm._v("Activity")])
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-tbody",
+                            [
+                              _c(
+                                "b-tr",
+                                [
+                                  _c("b-td", [
+                                    _vm._v(
+                                      "\n                  Monday\n              "
                                     )
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c("hr"),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "attendance-table" },
-                          [
-                            _c("b-table", {
-                              attrs: { items: _vm.items, bordered: "" },
-                              scopedSlots: _vm._u([
-                                {
-                                  key: "cell(monday)",
-                                  fn: function(data) {
-                                    return [
-                                      _c("span", {
-                                        domProps: {
-                                          innerHTML: _vm._s(data.value)
-                                        }
-                                      })
-                                    ]
-                                  }
-                                },
-                                {
-                                  key: "cell(tuesday)",
-                                  fn: function(data) {
-                                    return [
-                                      _c("span", {
-                                        domProps: {
-                                          innerHTML: _vm._s(data.value)
-                                        }
-                                      })
-                                    ]
-                                  }
-                                },
-                                {
-                                  key: "cell(wednesday)",
-                                  fn: function(data) {
-                                    return [
-                                      _c("span", {
-                                        domProps: {
-                                          innerHTML: _vm._s(data.value)
-                                        }
-                                      })
-                                    ]
-                                  }
-                                },
-                                {
-                                  key: "cell(thursday)",
-                                  fn: function(data) {
-                                    return [
-                                      _c("span", {
-                                        domProps: {
-                                          innerHTML: _vm._s(data.value)
-                                        }
-                                      })
-                                    ]
-                                  }
-                                },
-                                {
-                                  key: "cell(friday)",
-                                  fn: function(data) {
-                                    return [
-                                      _c("span", {
-                                        domProps: {
-                                          innerHTML: _vm._s(data.value)
-                                        }
-                                      })
-                                    ]
-                                  }
-                                }
-                              ])
-                            })
-                          ],
-                          1
-                        )
-                      ])
-                    ])
-                  ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-td",
+                                    [
+                                      _c(
+                                        "b-tr",
+                                        _vm._l(
+                                          _vm.allClass.filter(function(val) {
+                                            return val.day
+                                              .toLowerCase()
+                                              .includes("monday")
+                                          }),
+                                          function(item, index) {
+                                            return _c(
+                                              "b-td",
+                                              {
+                                                key: index,
+                                                staticClass:
+                                                  "  p-0 px-2 text-center  border-right"
+                                              },
+                                              [
+                                                _c("div", [
+                                                  _vm._v(
+                                                    " " +
+                                                      _vm._s(
+                                                        _vm._f("format")(
+                                                          item.start
+                                                        )
+                                                      ) +
+                                                      " - " +
+                                                      _vm._s(
+                                                        _vm._f("format")(
+                                                          item.end
+                                                        )
+                                                      )
+                                                  )
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("div", [
+                                                  _vm._v(_vm._s(item.subject))
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("div", [
+                                                  _vm._v(_vm._s(item.level))
+                                                ])
+                                              ]
+                                            )
+                                          }
+                                        ),
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-tr",
+                                [
+                                  _c("b-td", [
+                                    _vm._v(
+                                      "\n                  Tuesday\n              "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-td",
+                                    [
+                                      _c(
+                                        "b-tr",
+                                        _vm._l(
+                                          _vm.allClass.filter(function(val) {
+                                            return val.day
+                                              .toLowerCase()
+                                              .includes("tuesday")
+                                          }),
+                                          function(item, index) {
+                                            return _c(
+                                              "b-td",
+                                              {
+                                                key: index,
+                                                staticClass:
+                                                  "p-0 px-2 text-center   border-right"
+                                              },
+                                              [
+                                                _c("div", [
+                                                  _vm._v(
+                                                    " " +
+                                                      _vm._s(
+                                                        _vm._f("format")(
+                                                          item.start
+                                                        )
+                                                      ) +
+                                                      " - " +
+                                                      _vm._s(
+                                                        _vm._f("format")(
+                                                          item.end
+                                                        )
+                                                      )
+                                                  )
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("div", [
+                                                  _vm._v(_vm._s(item.subject))
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("div", [
+                                                  _vm._v(_vm._s(item.level))
+                                                ])
+                                              ]
+                                            )
+                                          }
+                                        ),
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-tr",
+                                [
+                                  _c("b-td", [
+                                    _vm._v(
+                                      "\n                  Wednesday\n              "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-td",
+                                    [
+                                      _c(
+                                        "b-tr",
+                                        _vm._l(
+                                          _vm.allClass.filter(function(val) {
+                                            return val.day
+                                              .toLowerCase()
+                                              .includes("wednesday")
+                                          }),
+                                          function(item, index) {
+                                            return _c(
+                                              "b-td",
+                                              {
+                                                key: index,
+                                                staticClass:
+                                                  "p-0 px-2 text-center  border-right "
+                                              },
+                                              [
+                                                _c("div", [
+                                                  _vm._v(
+                                                    " " +
+                                                      _vm._s(
+                                                        _vm._f("format")(
+                                                          item.start
+                                                        )
+                                                      ) +
+                                                      " - " +
+                                                      _vm._s(
+                                                        _vm._f("format")(
+                                                          item.end
+                                                        )
+                                                      )
+                                                  )
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("div", [
+                                                  _vm._v(_vm._s(item.subject))
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("div", [
+                                                  _vm._v(_vm._s(item.level))
+                                                ])
+                                              ]
+                                            )
+                                          }
+                                        ),
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-tr",
+                                [
+                                  _c("b-td", [
+                                    _vm._v(
+                                      "\n                  Thursday\n              "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-td",
+                                    [
+                                      _c(
+                                        "b-tr",
+                                        _vm._l(
+                                          _vm.allClass.filter(function(val) {
+                                            return val.day
+                                              .toLowerCase()
+                                              .includes("thursday")
+                                          }),
+                                          function(item, index) {
+                                            return _c(
+                                              "b-td",
+                                              {
+                                                key: index,
+                                                staticClass:
+                                                  " p-0 px-2 text-center   border-right"
+                                              },
+                                              [
+                                                _c("div", [
+                                                  _vm._v(
+                                                    " " +
+                                                      _vm._s(
+                                                        _vm._f("format")(
+                                                          item.start
+                                                        )
+                                                      ) +
+                                                      " - " +
+                                                      _vm._s(
+                                                        _vm._f("format")(
+                                                          item.end
+                                                        )
+                                                      )
+                                                  )
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("div", [
+                                                  _vm._v(_vm._s(item.subject))
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("div", [
+                                                  _vm._v(_vm._s(item.level))
+                                                ])
+                                              ]
+                                            )
+                                          }
+                                        ),
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-tr",
+                                [
+                                  _c("b-td", [
+                                    _vm._v(
+                                      "\n                  Friday\n              "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-td",
+                                    [
+                                      _c(
+                                        "b-tr",
+                                        _vm._l(
+                                          _vm.allClass.filter(function(val) {
+                                            return val.day
+                                              .toLowerCase()
+                                              .includes("friday")
+                                          }),
+                                          function(item, index) {
+                                            return _c(
+                                              "b-td",
+                                              {
+                                                key: index,
+                                                staticClass:
+                                                  "p-0 px-2 text-center   border-right"
+                                              },
+                                              [
+                                                _c("div", [
+                                                  _vm._v(
+                                                    " " +
+                                                      _vm._s(
+                                                        _vm._f("format")(
+                                                          item.start
+                                                        )
+                                                      ) +
+                                                      " - " +
+                                                      _vm._s(
+                                                        _vm._f("format")(
+                                                          item.end
+                                                        )
+                                                      )
+                                                  )
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("div", [
+                                                  _vm._v(_vm._s(item.subject))
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("div", [
+                                                  _vm._v(_vm._s(item.level))
+                                                ])
+                                              ]
+                                            )
+                                          }
+                                        ),
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
                 ]),
                 _vm._v(" "),
                 _c(
@@ -59363,7 +60973,7 @@ var render = function() {
                                   attrs: {
                                     "is-expanded": "",
                                     attributes: _vm.attributes,
-                                    rows: 3
+                                    rows: 2
                                   }
                                 })
                               ],
@@ -65504,132 +67114,32 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "main-body" }, [
-    _c("div", { staticClass: "main-attendance container" }, [
-      _c("div", { staticClass: "attendance" }, [
-        _c(
-          "div",
-          { staticClass: "sort-table" },
-          [
-            _c(
-              "b-container",
-              [
-                _c(
-                  "b-row",
-                  [
-                    _c("b-col", { attrs: { md: "2" } }, [
-                      _c("p", [_c("strong", [_vm._v("Attendance")])])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "b-col",
-                      { attrs: { md: "6" } },
-                      [
+  return _c(
+    "div",
+    { staticClass: "main-body" },
+    [
+      _c(
+        "b-card",
+        { attrs: { "no-body": "" } },
+        [
+          _c(
+            "b-tabs",
+            { attrs: { card: "", justified: "" } },
+            [
+              _c("b-tab", { attrs: { title: "Attendance", active: "" } }, [
+                _c("div", { staticClass: "activity" }, [
+                  _c("div", { staticClass: "main-attendance" }, [
+                    _c("div", { staticClass: "attendance" }, [
+                      _c("div", { staticClass: "sort-table" }, [
                         _c(
-                          "b-container",
+                          "div",
                           [
                             _c(
                               "b-row",
                               [
-                                _c(
-                                  "b-col",
-                                  { attrs: { md: "4" } },
-                                  [
-                                    _c("b-form-select", {
-                                      attrs: { options: _vm.Class },
-                                      model: {
-                                        value: _vm.selected,
-                                        callback: function($$v) {
-                                          _vm.selected = $$v
-                                        },
-                                        expression: "selected"
-                                      }
-                                    })
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "b-col",
-                                  { attrs: { md: "4" } },
-                                  [
-                                    _c("b-form-select", {
-                                      attrs: { options: _vm.subject },
-                                      model: {
-                                        value: _vm.selected,
-                                        callback: function($$v) {
-                                          _vm.selected = $$v
-                                        },
-                                        expression: "selected"
-                                      }
-                                    })
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "b-col",
-                                  { attrs: { md: "4" } },
-                                  [
-                                    _c("b-form-select", {
-                                      attrs: { options: _vm.term },
-                                      model: {
-                                        value: _vm.selected,
-                                        callback: function($$v) {
-                                          _vm.selected = $$v
-                                        },
-                                        expression: "selected"
-                                      }
-                                    })
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "b-col",
-                      { attrs: { md: "4" } },
-                      [
-                        _c(
-                          "b-container",
-                          [
-                            _c(
-                              "b-row",
-                              [
-                                _c(
-                                  "b-col",
-                                  { attrs: { md: "6" } },
-                                  [
-                                    _c("b-form-input", {
-                                      staticClass: "search rounded-pill",
-                                      attrs: { placeholder: "Search Student " }
-                                    })
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c("b-col", { attrs: { md: "6" } }, [
-                                  _c("div", { staticClass: "export" }, [
-                                    _c(
-                                      "div",
-                                      { staticClass: "btn btn-export" },
-                                      [
-                                        _vm._v(
-                                          "\n                        Export\n                        "
-                                        ),
-                                        _c("i", {
-                                          staticClass: "fa fa-external-link"
-                                        })
-                                      ]
-                                    )
+                                _c("b-col", { attrs: { md: "2" } }, [
+                                  _c("p", [
+                                    _c("strong", [_vm._v("Attendance")])
                                   ])
                                 ])
                               ],
@@ -65638,86 +67148,491 @@ var render = function() {
                           ],
                           1
                         )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "attendance-table" },
-          [
-            _c("b-table", {
-              attrs: { items: _vm.items, bordered: "" },
-              scopedSlots: _vm._u([
-                {
-                  key: "cell(monday)",
-                  fn: function(data) {
-                    return [
-                      _c("span", {
-                        domProps: { innerHTML: _vm._s(data.value) }
-                      })
-                    ]
-                  }
-                },
-                {
-                  key: "cell(tuesday)",
-                  fn: function(data) {
-                    return [
-                      _c("span", {
-                        domProps: { innerHTML: _vm._s(data.value) }
-                      })
-                    ]
-                  }
-                },
-                {
-                  key: "cell(wednesday)",
-                  fn: function(data) {
-                    return [
-                      _c("span", {
-                        domProps: { innerHTML: _vm._s(data.value) }
-                      })
-                    ]
-                  }
-                },
-                {
-                  key: "cell(thursday)",
-                  fn: function(data) {
-                    return [
-                      _c("span", {
-                        domProps: { innerHTML: _vm._s(data.value) }
-                      })
-                    ]
-                  }
-                },
-                {
-                  key: "cell(friday)",
-                  fn: function(data) {
-                    return [
-                      _c("span", {
-                        domProps: { innerHTML: _vm._s(data.value) }
-                      })
-                    ]
-                  }
-                }
-              ])
-            })
-          ],
-          1
-        )
-      ])
-    ])
-  ])
+                      ]),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "attendance-table" },
+                        [
+                          _c(
+                            "b-row",
+                            [
+                              _c("b-col", { attrs: { cols: "4" } }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "text-right" },
+                                  [
+                                    _c(
+                                      "b-form-select",
+                                      {
+                                        staticClass: "week mb-3",
+                                        model: {
+                                          value: _vm.week,
+                                          callback: function($$v) {
+                                            _vm.week = $$v
+                                          },
+                                          expression: "week"
+                                        }
+                                      },
+                                      _vm._l(_vm.n, function(num, id) {
+                                        return _c(
+                                          "b-form-select-option",
+                                          { key: id, attrs: { value: num } },
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.getWeek(new Date()) == num
+                                                  ? "Current week "
+                                                  : "Week"
+                                              ) +
+                                                " " +
+                                                _vm._s(num)
+                                            )
+                                          ]
+                                        )
+                                      }),
+                                      1
+                                    )
+                                  ],
+                                  1
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "b-col",
+                                { attrs: { cols: "4" } },
+                                [
+                                  _c(
+                                    "b-form-select",
+                                    {
+                                      staticClass: "week mb-3",
+                                      model: {
+                                        value: _vm.my_class,
+                                        callback: function($$v) {
+                                          _vm.my_class = $$v
+                                        },
+                                        expression: "my_class"
+                                      }
+                                    },
+                                    _vm._l(_vm.all_class, function(lev, id) {
+                                      return _c(
+                                        "b-form-select-option",
+                                        { key: id, attrs: { value: lev } },
+                                        [_vm._v(_vm._s(lev))]
+                                      )
+                                    }),
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-table-simple",
+                            { attrs: { bordered: "" } },
+                            [
+                              _c(
+                                "b-thead",
+                                [
+                                  _c(
+                                    "b-tr",
+                                    [
+                                      _c("b-th", [_vm._v("Name")]),
+                                      _vm._v(" "),
+                                      _c("b-th", [_vm._v("Day")]),
+                                      _vm._v(" "),
+                                      _c("b-th", [_vm._v("Record")])
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-tbody",
+                                _vm._l(_vm.sorted, function(record, idx) {
+                                  return _c(
+                                    "b-tr",
+                                    { key: idx },
+                                    [
+                                      _c("b-th", [
+                                        _vm._v(_vm._s(record.user.name))
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("b-td", { staticClass: "toCaps" }, [
+                                        _vm._v(
+                                          "\n                          " +
+                                            _vm._s(record.day) +
+                                            "\n                          "
+                                        ),
+                                        _c("br"),
+                                        _vm._v(
+                                          "\n                          " +
+                                            _vm._s(record.date) +
+                                            "\n                        "
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-tbody",
+                                        [
+                                          _c(
+                                            "b-tr",
+                                            _vm._l(
+                                              JSON.parse(record.record),
+                                              function(value, id) {
+                                                return _c(
+                                                  "b-td",
+                                                  {
+                                                    key: id,
+                                                    staticClass:
+                                                      "text-center toCaps"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "\n                              " +
+                                                        _vm._s(value.subject) +
+                                                        "\n                              "
+                                                    ),
+                                                    _c("br"),
+                                                    _vm._v(" "),
+                                                    value.student
+                                                      ? _c("b-icon", {
+                                                          class: {
+                                                            green:
+                                                              value.student &&
+                                                              value.tutor,
+                                                            amber:
+                                                              value.student &&
+                                                              !value.tutor
+                                                          },
+                                                          attrs: {
+                                                            icon:
+                                                              "check-circle-fill"
+                                                          }
+                                                        })
+                                                      : _c("b-icon", {
+                                                          staticClass: "red",
+                                                          attrs: {
+                                                            icon:
+                                                              "x-circle-fill"
+                                                          }
+                                                        })
+                                                  ],
+                                                  1
+                                                )
+                                              }
+                                            ),
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                }),
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "b-tab",
+                { attrs: { title: "Todays Attendance" } },
+                [
+                  _c("h5", { staticClass: "mb-4" }, [
+                    _vm._v("   Todays Class")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "text-right select mb-3" },
+                    [
+                      _c(
+                        "b-row",
+                        [
+                          _c(
+                            "b-col",
+                            [
+                              _c(
+                                "b-form-select",
+                                {
+                                  model: {
+                                    value: _vm.level,
+                                    callback: function($$v) {
+                                      _vm.level = $$v
+                                    },
+                                    expression: "level"
+                                  }
+                                },
+                                _vm._l(_vm.myclass, function(item, idx) {
+                                  return _c(
+                                    "b-form-select-option",
+                                    { key: idx, attrs: { value: item } },
+                                    [_vm._v(_vm._s(item))]
+                                  )
+                                }),
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-col",
+                            [
+                              _c(
+                                "b-form-select",
+                                {
+                                  model: {
+                                    value: _vm.subject,
+                                    callback: function($$v) {
+                                      _vm.subject = $$v
+                                    },
+                                    expression: "subject"
+                                  }
+                                },
+                                _vm._l(_vm.todaysClass, function(item, idx) {
+                                  return _c(
+                                    "b-form-select-option",
+                                    {
+                                      key: idx,
+                                      attrs: { value: item.subject }
+                                    },
+                                    [_vm._v(_vm._s(item.subject))]
+                                  )
+                                }),
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.todaysClass.length
+                    ? _c(
+                        "b-table-simple",
+                        [
+                          _c(
+                            "b-thead",
+                            [
+                              _c(
+                                "b-tr",
+                                [
+                                  _c("b-th", [_vm._v("Name")]),
+                                  _vm._v(" "),
+                                  _c("b-th", [_vm._v("Attendance")]),
+                                  _vm._v(" "),
+                                  _c("b-th", [_vm._v("Participation")])
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-tbody",
+                            _vm._l(_vm.sortedStuds, function(item, idx) {
+                              return _c(
+                                "b-tr",
+                                { key: idx, attrs: { value: item } },
+                                [
+                                  _c("b-td", [_vm._v(_vm._s(item.name))]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-td",
+                                    [
+                                      _c(
+                                        "b-tr",
+                                        _vm._l(
+                                          _vm.sortedAtt.filter(function(i) {
+                                            return i.user.name == item.name
+                                          }),
+                                          function(val, index) {
+                                            return _c(
+                                              "b-td",
+                                              { key: index },
+                                              [
+                                                _c("b-icon", {
+                                                  staticClass: "present",
+                                                  attrs: {
+                                                    icon: "check-circle-fill"
+                                                  },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.mark(
+                                                        item,
+                                                        val,
+                                                        true
+                                                      )
+                                                    }
+                                                  }
+                                                }),
+                                                _vm._v("|\n                "),
+                                                _c("b-icon", {
+                                                  staticClass: "absent",
+                                                  attrs: {
+                                                    icon: "x-circle-fill"
+                                                  },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.mark(
+                                                        item,
+                                                        val,
+                                                        false
+                                                      )
+                                                    }
+                                                  }
+                                                }),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "span",
+                                                  { staticClass: "ml-4" },
+                                                  [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        val.tutor
+                                                          ? "Present"
+                                                          : "Absent"
+                                                      )
+                                                    )
+                                                  ]
+                                                )
+                                              ],
+                                              1
+                                            )
+                                          }
+                                        ),
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-td",
+                                    { staticClass: "part" },
+                                    [
+                                      _vm.sortedAtt.length
+                                        ? _c(
+                                            "b-row",
+                                            [
+                                              _c(
+                                                "b-col",
+                                                { attrs: { cols: "6" } },
+                                                [
+                                                  _c(
+                                                    "b-form-select",
+                                                    {
+                                                      attrs: {
+                                                        size: "sm",
+                                                        label: "Score"
+                                                      },
+                                                      on: {
+                                                        change: function(
+                                                          $event
+                                                        ) {
+                                                          return _vm.handleParticipation(
+                                                            $event,
+                                                            item
+                                                          )
+                                                        }
+                                                      }
+                                                    },
+                                                    _vm._l(_vm.n, function(
+                                                      num,
+                                                      idx
+                                                    ) {
+                                                      return _c(
+                                                        "b-form-select-option",
+                                                        {
+                                                          key: idx,
+                                                          attrs: { value: num }
+                                                        },
+                                                        [_vm._v(_vm._s(num))]
+                                                      )
+                                                    }),
+                                                    1
+                                                  )
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-col",
+                                                { attrs: { cols: "6" } },
+                                                _vm._l(
+                                                  _vm.sortedPart.filter(
+                                                    function(v) {
+                                                      return (
+                                                        v.user_id == item.id &&
+                                                        v.date ==
+                                                          new Date().toLocaleDateString()
+                                                      )
+                                                    }
+                                                  ),
+                                                  function(i, idx) {
+                                                    return _c(
+                                                      "span",
+                                                      { key: idx },
+                                                      [_vm._v(_vm._s(i.score))]
+                                                    )
+                                                  }
+                                                ),
+                                                0
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        : _vm._e()
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            }),
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    : _c("b-alert", { attrs: { show: "" } }, [
+                        _c("div", [_vm._v("No class scheduled for today")])
+                      ])
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -66342,6 +68257,63 @@ var render = function() {
                                   "\n                " +
                                     _vm._s(data.item.user.name) +
                                     "\n              "
+                                )
+                              ])
+                            ]
+                          }
+                        },
+                        {
+                          key: "cell(quiz)",
+                          fn: function(data) {
+                            return [
+                              _c("div", [
+                                _vm._v(
+                                  _vm._s(
+                                    data.item.average_quiz
+                                      ? Math.round(
+                                          data.item.quiz /
+                                            data.item.average_quiz
+                                        )
+                                      : 0
+                                  )
+                                )
+                              ])
+                            ]
+                          }
+                        },
+                        {
+                          key: "cell(assignment)",
+                          fn: function(data) {
+                            return [
+                              _c("div", [
+                                _vm._v(
+                                  _vm._s(
+                                    data.item.average_assignment
+                                      ? Math.round(
+                                          data.item.assignment /
+                                            data.item.average_assignment
+                                        )
+                                      : 0
+                                  )
+                                )
+                              ])
+                            ]
+                          }
+                        },
+                        {
+                          key: "cell(test)",
+                          fn: function(data) {
+                            return [
+                              _c("div", [
+                                _vm._v(
+                                  _vm._s(
+                                    data.item.average_test
+                                      ? Math.round(
+                                          data.item.test /
+                                            data.item.average_test
+                                        )
+                                      : 0
+                                  )
                                 )
                               ])
                             ]
@@ -67932,6 +69904,44 @@ var render = function() {
             1
           ),
           _vm._v(" "),
+          _c("div", { staticClass: "d-flex justify-content-around my-2" }, [
+            _c(
+              "span",
+              [
+                _c("b-icon", {
+                  staticClass: "upcoming-i",
+                  attrs: { icon: "circle-fill" }
+                }),
+                _vm._v(" Upcoming")
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "span",
+              [
+                _c("b-icon", {
+                  staticClass: "ongoing-i",
+                  attrs: { icon: "circle-fill" }
+                }),
+                _vm._v(" Ongoing")
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "span",
+              [
+                _c("b-icon", {
+                  staticClass: "finished-i",
+                  attrs: { icon: "circle-fill" }
+                }),
+                _vm._v(" Finished")
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
           _c(
             "b-row",
             { staticClass: " p-3" },
@@ -67942,7 +69952,25 @@ var render = function() {
                 [
                   _c(
                     "b-card",
-                    { staticClass: "mb-2", attrs: { title: "Class Detail" } },
+                    {
+                      staticClass: "mb-2",
+                      class: {
+                        ongoing:
+                          _vm.getSeconds(_vm.today) >
+                            _vm.getSeconds(val.start_time) &&
+                          _vm.getSeconds(_vm.today) <
+                            _vm.getSeconds(val.end_time),
+                        finished:
+                          _vm.getSeconds(_vm.today) >
+                            _vm.getSeconds(val.start_time) &&
+                          _vm.getSeconds(_vm.today) >
+                            _vm.getSeconds(val.end_time),
+                        upcoming:
+                          _vm.getSeconds(_vm.today) <
+                          _vm.getSeconds(val.start_time)
+                      },
+                      attrs: { title: "Class Detail" }
+                    },
                     [
                       _c("b-card-text", [
                         _vm._v("Subject : " + _vm._s(val.subject))
@@ -80162,6 +82190,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_main_vue_vue_type_template_id_09903b50_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_main_vue_vue_type_template_id_09903b50_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/student/preview.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/student/preview.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _preview_vue_vue_type_template_id_f4353b0e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./preview.vue?vue&type=template&id=f4353b0e&scoped=true& */ "./resources/js/components/student/preview.vue?vue&type=template&id=f4353b0e&scoped=true&");
+/* harmony import */ var _preview_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./preview.vue?vue&type=script&lang=js& */ "./resources/js/components/student/preview.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _preview_vue_vue_type_style_index_0_id_f4353b0e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./preview.vue?vue&type=style&index=0&id=f4353b0e&scoped=true&lang=css& */ "./resources/js/components/student/preview.vue?vue&type=style&index=0&id=f4353b0e&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _preview_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _preview_vue_vue_type_template_id_f4353b0e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _preview_vue_vue_type_template_id_f4353b0e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "f4353b0e",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/student/preview.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/student/preview.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/student/preview.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_preview_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./preview.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/preview.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_preview_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/student/preview.vue?vue&type=style&index=0&id=f4353b0e&scoped=true&lang=css&":
+/*!**************************************************************************************************************!*\
+  !*** ./resources/js/components/student/preview.vue?vue&type=style&index=0&id=f4353b0e&scoped=true&lang=css& ***!
+  \**************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_preview_vue_vue_type_style_index_0_id_f4353b0e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./preview.vue?vue&type=style&index=0&id=f4353b0e&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/preview.vue?vue&type=style&index=0&id=f4353b0e&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_preview_vue_vue_type_style_index_0_id_f4353b0e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_preview_vue_vue_type_style_index_0_id_f4353b0e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_preview_vue_vue_type_style_index_0_id_f4353b0e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_preview_vue_vue_type_style_index_0_id_f4353b0e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_preview_vue_vue_type_style_index_0_id_f4353b0e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/student/preview.vue?vue&type=template&id=f4353b0e&scoped=true&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/student/preview.vue?vue&type=template&id=f4353b0e&scoped=true& ***!
+  \************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_preview_vue_vue_type_template_id_f4353b0e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./preview.vue?vue&type=template&id=f4353b0e&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/student/preview.vue?vue&type=template&id=f4353b0e&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_preview_vue_vue_type_template_id_f4353b0e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_preview_vue_vue_type_template_id_f4353b0e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -76,8 +76,9 @@ Route::middleware('auth:api')->group(function () {
     Route::get('allmessages', 'MessagesController@getGroupChat');
 
     Route::get('student-attendance', 'AttendanceController@getStudentAttendance');
-    Route::get('student-attendance', 'AttendanceController@getStudentAttendance');
+    Route::get('sorted-student-attendance', 'AttendanceController@getsortedStudentAttendance');
     Route::get('student-live', 'LiveClassesController@getMyLive');
+    Route::get('student-part', 'ParticipationController@studpart');
 });
 
 Route::middleware('auth:tutor')->group(function () {
@@ -113,12 +114,19 @@ Route::middleware('auth:tutor')->group(function () {
     Route::post('tutor-grade-book', 'GradeBookController@getBooks');
     Route::get('tutor-grade-books', 'GradeBookController@index');
     Route::get('current-class','TimesTableController@getCurrentClass');
+    Route::get('all-class','TimesTableController@getAllClass');
     Route::get('staff-message', 'StaffChatController@fetchMessages');
     Route::post('staff-message', 'StaffChatController@sendMessage');
     Route::get('get-tutor-assessment', 'AssessmentResultController@getTutorResult');
     Route::get('students/{class}', 'ClassesController@getStudents');
     Route::get('tutor-live', 'LiveClassesController@getTutorMyLive');
+    Route::get('tutor-attendance', 'AttendanceController@getAttendance');
+    Route::get('tutor-get-attendance', 'AttendanceController@tutorgetAttendance');
+    Route::get('tutor-all-students', 'UserController@tutorGetStudents');
+    Route::put('update-attendance/{id}', 'AttendanceController@updateAttendance');
+    Route::resource('participation', 'ParticipationController');
 });
+
 Route::get('student-group/{id}', 'GroupsController@show');
 Route::post('school-register', 'SchoolController@store');
 Route::get('get-module/{name}/{level}/{school}', 'ResourceController@getModuleResource');

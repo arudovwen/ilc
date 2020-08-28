@@ -363,7 +363,7 @@ export default {
     },
     gotoHer(id) {
       if (id.type.toLowerCase() == "assessment") {
-        this.$router.push(`/student/assessment`);
+        this.$router.push(`/student/gradebook`);
       }
       if (id.type.toLowerCase() == "group") {
         this.$router.push(`/student/groups`);

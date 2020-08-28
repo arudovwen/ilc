@@ -6,15 +6,10 @@
           <b-tab title="Todays Schedule" active>
             <div class="activity">
               <b-row class="py-5">
-                <b-col md="6" >
+                <b-col md="6">
                   <div class="cards border-right p-2">
-                   
                     <div class="class_section" v-if="todaysClass.length">
-                      <div
-                        class="class-content  p-2"
-                        v-for="(item,idx) in todaysClass"
-                        :key="idx"
-                      >
+                      <div class="class-content p-2" v-for="(item,idx) in todaysClass" :key="idx">
                         <div class="class-content-top">
                           <p class="toCaps">{{item.subject}}</p>
                           <i
@@ -60,20 +55,14 @@
                             </span>
                           </p>
 
-                          <p
-                            v-if="(getSecond(today)  > getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
-                          >Ongoing</p>
-                          <p
-                            v-else-if="(getSecond(today)  <  getSecond(item.start))"
-                          >Upcoming</p>
+                          <p v-if="(getSecond(today)  > getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"> Ongoing</p>
+                          <p v-else-if="(getSecond(today) < getSecond(item.start)) ">Upcoming</p>
 
-                          <p
-                            v-else-if="(getSecond(today)   >  getSecond(item.start)) && (getSecond(today) >getSecond(item.end))"
-                          >Finished</p>
+                          <p v-else-if="(getSecond(today)   >  getSecond(item.start)) && (getSecond(today) >getSecond(item.end))">Finished</p>
                         </div>
                       </div>
                     </div>
-                    <div class="class_section phert-5" v-else>
+                    <div class="class_section p-5" v-else>
                       <div class="form-control text-align">No Class Available</div>
                     </div>
                   </div>
@@ -96,9 +85,15 @@
               <h5 class="mb-4">{{student.sub_class.toUpperCase()}}</h5>
 
               <div class="d-flex justify-content-around mb-2">
-               <span> <b-icon icon="circle-fill" class="upcoming"></b-icon> Upcoming</span>
-                <span> <b-icon icon="circle-fill" class="ongoing"></b-icon> Ongoing</span>
-                 <span> <b-icon icon="circle-fill" class="finished"></b-icon> Finished</span>
+                <span>
+                  <b-icon icon="circle-fill" class="upcoming"></b-icon>Upcoming
+                </span>
+                <span>
+                  <b-icon icon="circle-fill" class="ongoing"></b-icon>Ongoing
+                </span>
+                <span>
+                  <b-icon icon="circle-fill" class="finished"></b-icon>Finished
+                </span>
               </div>
               <table class="table table-bordered">
                 <thead class="thead-light">
@@ -106,7 +101,6 @@
                     <th>Day</th>
                     <th>Time</th>
                   </tr>
-                    
                 </thead>
                 <tbody>
                   <tr v-for="(tab,index) in table" :key="index">
@@ -114,17 +108,19 @@
                     <td class="d-flex justify-content-between p-0">
                       <table class="w-100">
                         <tr class="w-100">
-                          <td class="text-center "
-                           :class="{upcoming:getSecond(today) < getSecond(item.start) && tab.day.toLowerCase() == today_name,
+                          <td
+                            class="text-center"
+                            :class="{upcoming:getSecond(today) < getSecond(item.start) && tab.day.toLowerCase() == today_name,
                             ongoing:getSecond(today) > getSecond(item.start) && getSecond(today) <= getSecond(item.end) && tab.day.toLowerCase() == today_name,
                              finished: getSecond(today) >getSecond(item.end) && tab.day.toLowerCase() == today_name
                            }"
-                           v-for="(item,idx) in tab.courses" :key="idx">
-                        
-                            <div class="">
-                               <div  >{{item.start | format}} - {{item.end | format}}</div>
-                            <div>{{item.subject}}</div>
-                            <div>{{item.tutor}}</div>
+                            v-for="(item,idx) in tab.courses"
+                            :key="idx"
+                          >
+                            <div class>
+                              <div>{{item.start | format}} - {{item.end | format}}</div>
+                              <div>{{item.subject}}</div>
+                              <div>{{item.tutor}}</div>
                             </div>
                           </td>
                         </tr>
@@ -137,7 +133,7 @@
           </b-tab>
           <b-tab title="My Attendance">
             <div class="activity">
-              <div class="main-attendance ">
+              <div class="main-attendance">
                 <div class="attendance">
                   <div class="sort-table">
                     <div>
@@ -147,47 +143,57 @@
                             <strong>Attendance</strong>
                           </p>
                         </b-col>
-                     
-                     
                       </b-row>
                     </div>
                   </div>
                   <hr />
 
                   <div class="attendance-table">
-<div class="text-right">
-  
-<b-form-select v-model="week" class="week mb-3">
-  <b-form-select-option   :value="num" v-for="(num,id) in n" :key="id">
-   {{getWeek(new Date())==num?'Current week ':'Week' }} {{num}}
+                    <div class="text-right">
+                      <b-form-select v-model="week" class="week mb-3">
+                        <b-form-select-option
+                          :value="num"
+                          v-for="(num,id) in n"
+                          :key="id"
+                        >{{getWeek(new Date())==num?'Current week ':'Week' }} {{num}}</b-form-select-option>
+                      </b-form-select>
+                    </div>
 
-  </b-form-select-option>
-</b-form-select>
-</div>
-
-                    <b-table-simple  bordered>
+                    <b-table-simple bordered>
                       <b-thead>
                         <b-tr>
                           <b-th>Day</b-th>
-                           <b-th>Record</b-th>
+                          <b-th>Record</b-th>
                         </b-tr>
                       </b-thead>
                       <b-tbody>
-                        <b-tr v-for="(record,idx) in sorted"  :key="idx">
-                          <b-th class="toCaps">{{record.day}} <br> {{record.date}}</b-th>
+                        <b-tr v-for="(record,idx) in sorted" :key="idx">
+                          <b-th class="toCaps">
+                            {{record.day}}
+                            <br />
+                            {{record.date}}
+                          </b-th>
                           <b-tbody>
                             <b-tr>
-                              <b-td class="text-center toCaps" v-for="(value,id) in JSON.parse(record.record)" :key="id">{{value.subject}} 
-                                <br> <b-icon v-if="value.student" icon="check-circle-fill" :class="{green:value.student && value.tutor,amber:value.student && !value.tutor}"></b-icon>
-                                <b-icon v-else icon="x-circle-fill" class="red"></b-icon>
+                              <b-td
+                                class="text-center toCaps"
+                                v-for="(value,id) in JSON.parse(record.record)"
+                                :key="id"
+                              >
+                                {{value.subject}}
+                                <br />
+                                <b-icon
+                                  v-if="value.tutor"
+                                  icon="check-circle-fill"
+                                class="green"
+                                ></b-icon>
+                                
+                                <b-icon v-if="!value.tutor " icon="x-circle-fill" class="red"></b-icon>
                               </b-td>
-                           
                             </b-tr>
                           </b-tbody>
                         </b-tr>
-                        
                       </b-tbody>
-                    
                     </b-table-simple>
                   </div>
                 </div>
@@ -205,32 +211,36 @@ export default {
   props: ["student"],
   data() {
     return {
-      n:52,
-      week:'',
+      n: 52,
+      week: "",
       table: [],
       assess: [],
       todaysClass: [],
-      today_name:new Date().toLocaleString("default", { weekday: "long" }).toLowerCase(),
+      today_name: new Date()
+        .toLocaleString("default", { weekday: "long" })
+        .toLowerCase(),
       today:
         new Date().getHours() +
         ":" +
         new Date().getMinutes() +
         ":" +
         new Date().getSeconds(),
-       attendance:[]
+      attendance: [],
     };
   },
   mounted() {
     this.getTable();
     this.getTodayClass();
     this.getData();
-    this.getAttendance()
-    this.week = this.getWeek(new Date())
+    this.getAttendance();
+    this.week = this.getWeek(new Date());
   },
   computed: {
-    sorted(){
-       return  this.attendance.filter(item=>this.getWeek(item.date)== this.week)
-    }
+    sorted() {
+      return this.attendance.filter(
+        (item) => this.getWeek(item.date) == this.week
+      );
+    },
   },
   methods: {
     getData() {
@@ -280,37 +290,43 @@ export default {
         })
         .then((res) => {
           if (res.status == 200) {
-              if (res.data.length) {
+            if (res.data.length) {
               this.todaysClass = res.data[0].courses;
             }
           }
         });
     },
-    getAttendance(){
-       axios
+    getAttendance() {
+      axios
         .get(`/api/student-attendance`, {
           headers: {
             Authorization: `Bearer ${this.$props.student.access_token}`,
           },
-        }).then(res=>{
-          if (res.status ==200) {
-            this.attendance = res.data
-          }
         })
+        .then((res) => {
+          if (res.status == 200) {
+            this.attendance = res.data;
+          }
+        });
     },
-    getWeek(date){
-       
-  var date = new Date(date);
-  date.setHours(0, 0, 0, 0);
-  // Thursday in current week decides the year.
-  date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
-  // January 4 is always in week 1.
-  var week1 = new Date(date.getFullYear(), 0, 4);
-  // Adjust to Thursday in week 1 and count number of weeks from date to week1.
-  return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000
-                        - 3 + (week1.getDay() + 6) % 7) / 7);
-}
-    
+    getWeek(date) {
+      var date = new Date(date);
+      date.setHours(0, 0, 0, 0);
+      // Thursday in current week decides the year.
+      date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7));
+      // January 4 is always in week 1.
+      var week1 = new Date(date.getFullYear(), 0, 4);
+      // Adjust to Thursday in week 1 and count number of weeks from date to week1.
+      return (
+        1 +
+        Math.round(
+          ((date.getTime() - week1.getTime()) / 86400000 -
+            3 +
+            ((week1.getDay() + 6) % 7)) /
+            7
+        )
+      );
+    },
   },
 };
 </script>
@@ -385,17 +401,17 @@ small,
   color: #008e3a;
   font-size: 12px;
 }
-.ongoing{
-   color: #008e3a;
+.ongoing {
+  color: #008e3a;
 }
-.upcoming{
-    color:#FFC200;
+.upcoming {
+  color: #ffc200;
 }
-.finished{
-    color:red;
+.finished {
+  color: red;
 }
-.week{
-  width:180px;
-  margin-left:auto;
+.week {
+  width: 180px;
+  margin-left: auto;
 }
 </style>

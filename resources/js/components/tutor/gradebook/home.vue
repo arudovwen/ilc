@@ -25,12 +25,7 @@
                             >{{item.class_name}}</b-form-select-option>
                           </b-form-select>
                         </b-col>
-                        <!-- <b-col md="4">
-                          <b-form-select v-model="selected"></b-form-select>
-                        </b-col>
-                        <b-col md="4">
-                          <b-form-select v-model="selected"></b-form-select>
-                        </b-col> -->
+                       
                       </b-row>
                     </b-container>
                   </b-col>
@@ -63,6 +58,15 @@
                   {{data.item.user.name}}
                 </div>
               </template>
+                <template v-slot:cell(quiz)="data">
+                      <div>{{data.item.average_quiz?Math.round(data.item.quiz/data.item.average_quiz):0}}</div>
+                    </template>
+                     <template v-slot:cell(assignment)="data">
+                       <div>{{data.item.average_assignment?Math.round(data.item.assignment/data.item.average_assignment):0}}</div>
+                    </template>
+                     <template v-slot:cell(test)="data">
+                      <div>{{data.item.average_test?Math.round(data.item.test/data.item.average_test):0}}</div>
+                    </template>
             </b-table>
           </div>
         </b-tab>

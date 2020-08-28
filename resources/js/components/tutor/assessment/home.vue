@@ -618,7 +618,7 @@ export default {
               if (item.type == "assignment") {
                 this.assignment.push(item);
               }
-              if (item.type == "examination") {
+              if (item.type == "exam") {
                 this.examination.push(item);
               }
             });

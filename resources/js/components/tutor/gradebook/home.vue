@@ -58,6 +58,16 @@
                   {{data.item.user.name}}
                 </div>
               </template>
+               <template v-slot:cell(participation)="data">
+                <div>
+                  {{Math.round(handleParticipation(data.item.user.id))}}
+                </div>
+              </template>
+               <template v-slot:cell(attendance)="data">
+                <div>
+                  {{Math.round(handleAttendance(data.item.user.id))}}
+                </div>
+              </template>
                 <template v-slot:cell(quiz)="data">
                       <div>{{data.item.average_quiz?Math.round(data.item.quiz/data.item.average_quiz):0}}</div>
                     </template>
@@ -204,15 +214,19 @@ export default {
         'test',
         'examination',
         'total_score'
-      ]
+      ],
+      attendanceSort:[],
+   participations:[]
     };
   },
-  mounted() {
+  created() {
        this.getBook()
     this.getData();
     this.getClasses();
     this.getSubjects();
     this.getResult();
+    this.getParticipation(),
+    this.getSortAttendance()
  
   },
   computed:{
@@ -258,6 +272,67 @@ export default {
   
    
   methods: {
+    handleParticipation(id){
+   
+   
+     var newarr = []
+      this.participations.forEach(item=>{
+        if (item.user_id == id) {
+          newarr.push(item.score)
+        
+        }
+      })
+      
+        var sum = newarr.reduce((a,b)=>{
+          return a+b
+        },0)
+        return sum/newarr.length
+    },
+      handleAttendance(id){
+      console.log("handleAttendance -> id", id)
+   
+   
+     var newarr = []
+       var arr = []
+      this.attendanceSort.forEach(item=>{
+        if (item.user.id == id ) {
+          arr.push(item)
+        if (item.tutor && item.tutor!= 'pending') {
+          newarr.push(item)
+        
+        }
+        }
+      })
+      
+        
+        console.log("handleAttendance -> newarr", newarr)
+        console.log("handleAttendance -> arr", arr)
+        return (newarr.length * 5)/arr.length
+    },
+    getParticipation(){
+       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+     axios.get('/api/participation', {
+          headers: {
+            Authorization: `Bearer ${tutor.access_token}`,
+          },
+        }).then(res=>{
+  this.participations = res.data
+     })
+    },
+     getSortAttendance() {
+        let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios
+        .get(`/api/sorted-student-attendance`, {
+          headers: {
+            Authorization: `Bearer ${tutor.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.attendanceSort = res.data;
+          }
+        });
+    },
     refresh(){
         this.subject = this.my_class = this.search = this.type =''
     },

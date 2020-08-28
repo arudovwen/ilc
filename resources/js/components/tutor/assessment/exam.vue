@@ -167,7 +167,7 @@ export default {
     getData() {
       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios
-        .get(`/api/assessment/examination`, {
+        .get(`/api/assessment/exam`, {
           headers: {
             Authorization: `Bearer ${tutor.access_token}`,
           },

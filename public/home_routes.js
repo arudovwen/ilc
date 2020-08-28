@@ -19205,7 +19205,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
-      axios.get("/api/assessment/examination", {
+      axios.get("/api/assessment/exam", {
         headers: {
           Authorization: "Bearer ".concat(tutor.access_token)
         }
@@ -19863,7 +19863,7 @@ __webpack_require__.r(__webpack_exports__);
               _this15.assignment.push(item);
             }
 
-            if (item.type == "examination") {
+            if (item.type == "exam") {
               _this15.examination.push(item);
             }
           });
@@ -22028,6 +22028,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var _ref;
@@ -22088,14 +22098,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }]), _defineProperty(_ref, "ass", []), _defineProperty(_ref, "names", []), _defineProperty(_ref, "grade_book", []), _defineProperty(_ref, "grade_fields", [{
       key: 'name',
       sortable: true
-    }, 'participation', 'attendance', 'quiz', 'assignment', 'test', 'examination', 'total_score']), _ref;
+    }, 'participation', 'attendance', 'quiz', 'assignment', 'test', 'examination', 'total_score']), _defineProperty(_ref, "attendanceSort", []), _defineProperty(_ref, "participations", []), _ref;
   },
-  mounted: function mounted() {
+  created: function created() {
     this.getBook();
     this.getData();
     this.getClasses();
     this.getSubjects();
     this.getResult();
+    this.getParticipation(), this.getSortAttendance();
   },
   computed: {
     sortData: function sortData() {
@@ -22139,11 +22150,66 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   methods: {
+    handleParticipation: function handleParticipation(id) {
+      var newarr = [];
+      this.participations.forEach(function (item) {
+        if (item.user_id == id) {
+          newarr.push(item.score);
+        }
+      });
+      var sum = newarr.reduce(function (a, b) {
+        return a + b;
+      }, 0);
+      return sum / newarr.length;
+    },
+    handleAttendance: function handleAttendance(id) {
+      console.log("handleAttendance -> id", id);
+      var newarr = [];
+      var arr = [];
+      this.attendanceSort.forEach(function (item) {
+        if (item.user.id == id) {
+          arr.push(item);
+
+          if (item.tutor && item.tutor != 'pending') {
+            newarr.push(item);
+          }
+        }
+      });
+      console.log("handleAttendance -> newarr", newarr);
+      console.log("handleAttendance -> arr", arr);
+      return newarr.length * 5 / arr.length;
+    },
+    getParticipation: function getParticipation() {
+      var _this3 = this;
+
+      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios.get('/api/participation', {
+        headers: {
+          Authorization: "Bearer ".concat(tutor.access_token)
+        }
+      }).then(function (res) {
+        _this3.participations = res.data;
+      });
+    },
+    getSortAttendance: function getSortAttendance() {
+      var _this4 = this;
+
+      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios.get("/api/sorted-student-attendance", {
+        headers: {
+          Authorization: "Bearer ".concat(tutor.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this4.attendanceSort = res.data;
+        }
+      });
+    },
     refresh: function refresh() {
       this.subject = this.my_class = this.search = this.type = '';
     },
     getSubjects: function getSubjects() {
-      var _this3 = this;
+      var _this5 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios.get("/api/tutor-all-subjects", {
@@ -22152,12 +22218,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this3.subjects = res.data;
+          _this5.subjects = res.data;
         }
       });
     },
     getClasses: function getClasses() {
-      var _this4 = this;
+      var _this6 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios.get("/api/all-classes", {
@@ -22166,8 +22232,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this4.all_class = res.data;
-          _this4.my_class = res.data[0].class_name.toLowerCase(); // res.data.forEach((item) => {
+          _this6.all_class = res.data;
+          _this6.my_class = res.data[0].class_name.toLowerCase(); // res.data.forEach((item) => {
           //   this.allClass.push(item.class_name);
           //   if (item.sub_class !== "") {
           //     item.sub_class.split(",").forEach((i) => {
@@ -22179,21 +22245,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     handleData: function handleData(arr) {
-      var _this5 = this;
+      var _this7 = this;
 
       var obj = {};
       this.ass = [];
       this.assessmentField = ['name'];
       arr.forEach(function (item) {
-        _this5.assessmentField.push(item.title);
+        _this7.assessmentField.push(item.title);
 
-        if (_this5.ass.length == 0) {
+        if (_this7.ass.length == 0) {
           obj[item.title] = item.total_score;
           obj.name = item.user.name;
 
-          _this5.ass.push(obj);
+          _this7.ass.push(obj);
         } else {
-          _this5.ass.forEach(function (ite, index) {
+          _this7.ass.forEach(function (ite, index) {
             obj = {};
 
             if (Object.values(ite).includes(item.user.name)) {
@@ -22208,13 +22274,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
 
           if (Object.keys(obj).length !== 0) {
-            _this5.ass.push(obj);
+            _this7.ass.push(obj);
           }
         }
       });
     },
     getResult: function getResult() {
-      var _this6 = this;
+      var _this8 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios.get("/api/get-tutor-assessment", {
@@ -22223,9 +22289,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this6.result = res.data;
+          _this8.result = res.data;
 
-          _this6.result.sort(function (a, b) {
+          _this8.result.sort(function (a, b) {
             return a.user_id - b.user_id;
           }); // this.handleData()
 
@@ -22233,7 +22299,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     getData: function getData() {
-      var _this7 = this;
+      var _this9 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios.get("/api/tutor-assessment-result", {
@@ -22242,7 +22308,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this7.items = res.data.data;
+          _this9.items = res.data.data;
         }
       });
     },
@@ -22253,7 +22319,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.subject = name;
     },
     getBook: function getBook() {
-      var _this8 = this;
+      var _this10 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios.get("/api/tutor-grade-books", {
@@ -22262,7 +22328,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this8.grade_book = res.data;
+          _this10.grade_book = res.data;
         }
       });
     }
@@ -68523,6 +68589,44 @@ var render = function() {
                                 _vm._v(
                                   "\n                " +
                                     _vm._s(data.item.user.name) +
+                                    "\n              "
+                                )
+                              ])
+                            ]
+                          }
+                        },
+                        {
+                          key: "cell(participation)",
+                          fn: function(data) {
+                            return [
+                              _c("div", [
+                                _vm._v(
+                                  "\n                " +
+                                    _vm._s(
+                                      Math.round(
+                                        _vm.handleParticipation(
+                                          data.item.user.id
+                                        )
+                                      )
+                                    ) +
+                                    "\n              "
+                                )
+                              ])
+                            ]
+                          }
+                        },
+                        {
+                          key: "cell(attendance)",
+                          fn: function(data) {
+                            return [
+                              _c("div", [
+                                _vm._v(
+                                  "\n                " +
+                                    _vm._s(
+                                      Math.round(
+                                        _vm.handleAttendance(data.item.user.id)
+                                      )
+                                    ) +
                                     "\n              "
                                 )
                               ])

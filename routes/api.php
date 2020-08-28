@@ -77,6 +77,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('student-attendance', 'AttendanceController@getStudentAttendance');
    
+    
     Route::get('student-live', 'LiveClassesController@getMyLive');
     Route::get('student-part', 'ParticipationController@studpart');
     Route::get('student-sorted-attendance', 'AttendanceController@getStudentAttendance');

@@ -1,5 +1,5 @@
 <template>
-  <div class="main-body">
+  <b-container>
     <b-card no-body>
       <b-tabs card justified>
         <b-tab title="Attendance" active>
@@ -17,10 +17,10 @@
                     </b-row>
                   </div>
                 </div>
-               
+
                 <div class="attendance-table">
                   <b-row>
-                    <b-col cols="4">
+                    <!-- <b-col cols="4">
                       <div class="text-right">
                         <b-form-select v-model="week" class="week mb-3">
                           <b-form-select-option
@@ -30,7 +30,7 @@
                           >{{getWeek(new Date())==num?'Current week ':'Week' }} {{num}}</b-form-select-option>
                         </b-form-select>
                       </div>
-                    </b-col>
+                    </b-col> -->
                     <b-col cols="4">
                       <b-form-select v-model="my_class" class="week mb-3">
                         <b-form-select-option
@@ -42,37 +42,25 @@
                     </b-col>
                   </b-row>
 
-                  <b-table-simple>
+                  <b-table-simple bordered responsive>
                     <b-thead>
                       <b-th>Name</b-th>
                       <b-th>Record</b-th>
                     </b-thead>
                     <b-tbody>
-                      <b-tr v-for="(stud,index) in sortedStuds" :key="index">
+                      <b-tr v-for="(stud,index) in sortedStud" :key="index">
                         <b-td>{{stud.name}}</b-td>
                         <b-td>
-                          <b-tr
-                            v-for="(att,idx) in sorted.filter(item=>item.user_id==stud.id)"
-                            :key="idx"
-
-                          >
-                            <b-td class="border-0">{{att.date}}</b-td>
-                            <b-td
-                              class="text-center toCaps border-0"
-                              v-for="(value,id) in JSON.parse(att.record)"
-                              :key="id"
-                            >
-                              {{value.subject}}
-                              <br />
-                              <b-icon
-                                v-if="value.student"
-                                icon="check-circle-fill"
-                                :class="{green:value.student && value.tutor!== 'pending' ,amber:value.student && value.tutor =='pending'}"
-                              ></b-icon>
-                              <b-icon v-if="!value.tutor" icon="x-circle-fill" class="red"></b-icon>
-                            </b-td>
+                          <b-tr>
+                             <b-td  v-for="(att,index) in sorted.filter(item=>item.user_id==stud.id)" :key="index">
+                         <div class="text-center">
+                           {{att.subject}} <br>
+                           {{att.day}} <br>
+                         <b-icon class="green" v-if="att.record =='1'" icon="check-circle-fill"></b-icon>
+                           <b-icon class="red" v-if="att.record =='0'" icon="x-circle-fill"></b-icon>
+                         </div>
+                        </b-td>
                           </b-tr>
-                        
                         </b-td>
                       </b-tr>
                     </b-tbody>
@@ -87,7 +75,7 @@
           <h5 class="mb-4">Todays Class</h5>
           <div class="text-right select mb-3">
             <b-row>
-              <b-col cols="3">
+              <!-- <b-col cols="3">
                 <div class="text-right">
                   <b-form-select v-model="myweek" class="week mb-3">
                     <b-form-select-option
@@ -97,9 +85,9 @@
                     >{{getWeek(new Date())==num?'Current week ':'Week' }} {{num}}</b-form-select-option>
                   </b-form-select>
                 </div>
-              </b-col>
+              </b-col> -->
 
-              <b-col cols="3">
+              <!-- <b-col cols="3">
                 <b-form-select v-model="myday">
                   <b-form-select-option
                     :value="day.value"
@@ -108,7 +96,7 @@
                     class="toCaps"
                   >{{day.key}}</b-form-select-option>
                 </b-form-select>
-              </b-col>
+              </b-col> -->
               <b-col cols="3">
                 <b-form-select v-model="level">
                   <b-form-select-option
@@ -133,98 +121,48 @@
           <b-table-simple>
             <b-thead>
               <b-th>Name</b-th>
+
+              <b-th>Participation</b-th>
               <b-th>Attendance</b-th>
+              <b-th>Status</b-th>
             </b-thead>
             <b-tbody>
-              <b-tr v-for="(item,idx) in sortedStuds" :key="idx" :value="item">
-                <b-td>{{item.name}}</b-td>
-                <b-td v-if="sortedAtt.filter(val=>val.user.id == item.id).length">
-                  <div
-                    class="d-flex justify-content-between"
-                    v-for="(att,idx) in sortedAtt.filter(val=>val.user.id == item.id)"
-                    :key="idx"
-                  >
-                    <div>
-                    <b-button variant="success" size="sm">  <b-icon icon="check-circle-fill"    size="sm"  @click="mark(item,att,true)"></b-icon></b-button>
-                     <b-button variant="danger" size="sm"> <b-icon
-                        @click="mark(item,att,false)"
-                        icon="x-circle-fill"
-                          size="sm"
-                      
-                      ></b-icon></b-button>
-                      <span class="ml-4">{{att.tutor?'Present':'Absent'}}</span>
-                    </div>
-                    <div class="text-center d-flex align-items-center" v-if="att.tutor">
-                     
-                      <div class="mr-3">
-                        <strong>Participation</strong>
-                      </div>
-                      <div class="d-flex align-items-center" v-if="att.tutor">
-                        <b-form-select
-                          size="sm"
-                          label="Score"
-                          class="mr-3"
-                          @change="handleParticipation($event,att)"
-                        >
-                          <b-form-select-option
-                            v-for="(num,idx) in np"
-                            :key="idx"
-                            :value="num"
-                          >{{num}}</b-form-select-option>
-                        </b-form-select>
+              <b-tr v-for="(student,idx) in sortedStuds" :key="idx">
+                <b-td>{{student.name}}</b-td>
 
-                        <span
-                          v-for="(i,idx) in sortedPart.filter(part=>part.user_id == item.id)"
-                          :key="idx"
-                        >{{i.score}}</span>
-
-                       
-                      </div>
-                      <div v-else>0</div>
-                      
-                    </div>
-                  </div>
+                <b-td>
+                  <b-form-select :ref="`${student.name.replace(/ /g,'')}`">
+                    <b-form-select-option v-for="(num,idx) in np" :key="idx" :value="num">{{num}}</b-form-select-option>
+                  </b-form-select>
                 </b-td>
-                <b-td v-else> 
-                  <div
-                    class="d-flex justify-content-between"
-                  
-                  
+                <b-td>
+                  <b-button
+                    size="sm"
+                    class="mr-2"
+                    variant="success"
+                    @click="mark(student,true,idx)"
                   >
-                    <div>
-                      <!-- <b-icon icon="check-circle-fill" class="present" @click="mark(item,null,false)"></b-icon>| -->
-                    <b-button variant="danger" size="sm">  <b-icon
-                        @click="mark(item,null,false)"
-                        icon="x-circle-fill"
-                          size="sm"
-                      
-                      ></b-icon></b-button>
-                      <span class="ml-4">Absent</span>
-                    </div>
-                    <div class="text-center d-flex align-items-center" >
-                     
-                      <div class="mr-3">
-                        <strong>Participation</strong>
-                      </div>
-                      <div class="d-flex align-items-center" >
-                        0
-                       
-                      </div>
-                    
-                    </div>
-                  </div>
+                    Present
+                    <b-icon icon="check-circle"></b-icon>
+                  </b-button>
+                  <b-button size="sm" variant="danger" @click="mark(student,false,idx)">
+                    Absent
+                    <b-icon icon="x"></b-icon>
+                  </b-button>
+                </b-td>
+                <b-td>
+                  <span
+                    v-for="(att,id) in attendance.filter(item=>item.user_id== student.id && item.subject== subject && item.day ==  new Date().toDateString())"
+                    :key="id"
+                  >{{att.record !='pending' && att.record?'Present':'Absent'}} - {{att.participation_score}}</span>
                 </b-td>
               </b-tr>
             </b-tbody>
           </b-table-simple>
-
-          <b-alert>
-            <div>No class scheduled for today</div>
-          </b-alert>
         </b-tab>
       </b-tabs>
     </b-card>
-  </div>
+  </b-container>
 </template>
 
 
@@ -233,7 +171,7 @@ export default {
   props: ["tutor"],
   data() {
     return {
-      np: 10,
+      np: [0,1,2,3,4,5,6,7,8,9,10],
       attendance: [],
       todaysClass: [],
       level: "",
@@ -287,7 +225,7 @@ export default {
     this.week = this.getWeek(new Date());
     this.myweek = this.getWeek(new Date());
     this.getStud();
-    this.getSortAttendance();
+    // this.getSortAttendance();
     this.getParticipation();
     this.myday = new Date()
       .toLocaleString("default", {
@@ -298,7 +236,12 @@ export default {
   computed: {
     sortedStuds() {
       return this.allstudnts.filter((item) =>
-        item.sub_class.toLowerCase().includes(this.my_class.toLowerCase())
+        item.sub_class.toLowerCase().includes(this.level.toLowerCase())
+      );
+    },
+     sortedStud() {
+      return this.allstudnts.filter((item) =>
+        item.sub_class.toLowerCase().includes(this.my_class.toLowerCase().trim())
       );
     },
     sortedAtt() {
@@ -320,11 +263,11 @@ export default {
     },
 
     sorted() {
-      var first = this.attendance.filter(
-        (item) => this.getWeek(item.date) == this.week
-      );
-      return first.filter((item) =>
-        item.level.toLowerCase().includes(this.my_class.toLowerCase())
+      // var first = this.attendance.filter(
+      //   (item) => this.getWeek(item.day) == this.week
+      // );
+      return this.attendance.filter((item) =>
+        item.level.toLowerCase().includes(this.my_class.toLowerCase().trim())
       );
     },
     attributes() {
@@ -359,50 +302,40 @@ export default {
           }
         });
     },
-    handleParticipation(e, item) {
-      console.log("handleParticipation -> e", e);
-      console.log("handleParticipation -> item", item);
-      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
-      let data = {
-        att_id: item.id,
-        score: e,
-        subject: this.subject,
-        tutor: tutor.id,
-        user_id: item.user.id,
-        day: item.day,
-        date: item.date,
-      };
-      axios
-        .post(`/api/participation`, data, {
-          headers: { Authorization: `Bearer ${tutor.access_token}` },
-        })
-        .then((res) => {
-          if (res.status == 201) {
-            this.getParticipation();
-          }
-          if (res.status == 200) {
-            this.getParticipation();
-          }
-        });
-    },
-    mark(user, val, value) {
+  
+    mark(user, value, idx) {
       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
 
+      this.$refs[user.name.replace(/ /g, "")];
+      
       let data = {
         user_id: user.id,
         value: value,
-        subject: val.subject,
+        subject: this.subject,
+        tutor: tutor.id,
+        day: new Date().toDateString(),
+        level: this.level,
+        participation_score: this.$refs[user.name.replace(/ /g, "")][0]
+          .localValue,
       };
+      if (!value) {
+        data.participation_score = 0
+      }
       axios
-        .put(`/api/update-attendance/${val.id}`, data, {
+        .post(`/api/create-attendance/`, data, {
           headers: {
             Authorization: `Bearer ${tutor.access_token}`,
           },
         })
         .then((res) => {
-          if (res.status == 200) {
-            this.getSortAttendance();
+          if (res.status == 201 || res.status == 200) {
+            this.$toasted.info("Success");
+            this.getAttendance();
           }
+        })
+        .catch((err) => {
+          this.$toasted.error(err.data.message);
+          console.log("mark -> err.data", err.data)
         });
     },
 
@@ -451,19 +384,19 @@ export default {
           }
         });
     },
-    getSortAttendance() {
-      axios
-        .get(`/api/sorted-student-attendance`, {
-          headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            this.attendanceSort = res.data;
-          }
-        });
-    },
+    // getSortAttendance() {
+    //   axios
+    //     .get(`/api/sorted-student-attendance`, {
+    //       headers: {
+    //         Authorization: `Bearer ${this.$props.tutor.access_token}`,
+    //       },
+    //     })
+    //     .then((res) => {
+    //       if (res.status == 200) {
+    //         this.attendanceSort = res.data;
+    //       }
+    //     });
+    // },
     getSecond(hms) {
       var a = hms.split(":"); // split it at the colons
 
@@ -568,6 +501,9 @@ export default {
 </script>
 
 <style scoped>
+.container{
+  padding-top: 30px;
+}
 .sort-table p {
   font-size: 14px;
 }

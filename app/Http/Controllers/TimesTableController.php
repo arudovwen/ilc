@@ -112,20 +112,20 @@ class TimesTableController extends Controller
         foreach ($times as $time) {
             foreach (json_decode($time->table) as $value) {
                 if ($value->day == $today) {
-                    array_push($arr, $value->courses);
+                    foreach ($value->courses as $r) {
+                        $r->day = $value->day;
+                        $r->level = $time->myclass;
+                        array_push($arr, $r);
+                    }
                 }
             }
         }
-
         foreach ($arr as $value) {
-            foreach ($value as $v) {
-                $v->level = $time->myclass;
-                if ($v->tutor == $user->name) {
-                    array_push($ar, $v);
-                }
+            if ($value->tutor == $user->name) {
+                array_push($ar, $value);
             }
         }
-       
+     
         return  $ar;
     }
     public function getAllClass()
@@ -139,17 +139,16 @@ class TimesTableController extends Controller
             foreach (json_decode($time->table) as $value) {
                 foreach ($value->courses as $r) {
                     $r->day = $value->day;
+                    $r->level = $time->myclass;
+                  
                     array_push($arr, $r);
                 }
             }
         }
-     
+    
         foreach ($arr as $v) {
-           
-                $v->level = $time->myclass;
-                if ($v->tutor == $user->name) {
-                    array_push($ar, $v);
-                
+            if ($v->tutor == $user->name) {
+                array_push($ar, $v);
             }
         }
        

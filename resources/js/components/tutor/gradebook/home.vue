@@ -16,7 +16,7 @@
                     <b-container>
                       <b-row>
                         <b-col md="4">
-                         <b-form-select v-model="my_class">
+                          <b-form-select v-model="my_class">
                             <b-form-select-option
                               :value="item.class_name.toLowerCase()"
                               v-for="(item,idx) in all_class"
@@ -25,7 +25,6 @@
                             >{{item.class_name}}</b-form-select-option>
                           </b-form-select>
                         </b-col>
-                       
                       </b-row>
                     </b-container>
                   </b-col>
@@ -33,7 +32,11 @@
                     <b-container>
                       <b-row>
                         <b-col md="8">
-                          <b-form-input placeholder="Search Student name" v-model="overall_search" class="search rounded-pill"></b-form-input>
+                          <b-form-input
+                            placeholder="Search Student name"
+                            v-model="overall_search"
+                            class="search rounded-pill"
+                          ></b-form-input>
                         </b-col>
                         <b-col md="4">
                           <div class="export">
@@ -54,29 +57,23 @@
           <div class="overallgradebook-table">
             <b-table striped hover :fields="grade_fields" :items="sortGrades">
               <template v-slot:cell(name)="data">
-                <div>
-                  {{data.item.user.name}}
-                </div>
+                <div>{{data.item.user.name}}</div>
               </template>
-               <template v-slot:cell(participation)="data">
-                <div>
-                  {{Math.round(handleParticipation(data.item.user.id))}}
-                </div>
+              <template v-slot:cell(participation)="data">
+                <div>{{(handleParticipation(data.item.user.id))}}</div>
               </template>
-               <template v-slot:cell(attendance)="data">
-                <div>
-                  {{Math.round(handleAttendance(data.item.user.id))}}
-                </div>
+              <template v-slot:cell(attendance)="data">
+                <div>{{(handleAttendance(data.item.user.id))}}</div>
               </template>
-                <template v-slot:cell(quiz)="data">
-                      <div>{{data.item.average_quiz?Math.round(data.item.quiz/data.item.average_quiz):0}}</div>
-                    </template>
-                     <template v-slot:cell(assignment)="data">
-                       <div>{{data.item.average_assignment?Math.round(data.item.assignment/data.item.average_assignment):0}}</div>
-                    </template>
-                     <template v-slot:cell(test)="data">
-                      <div>{{data.item.average_test?Math.round(data.item.test/data.item.average_test):0}}</div>
-                    </template>
+              <template v-slot:cell(quiz)="data">
+                <div>{{data.item.average_quiz?(data.item.quiz/data.item.average_quiz):0}}</div>
+              </template>
+              <template v-slot:cell(assignment)="data">
+                <div>{{data.item.average_assignment?(data.item.assignment/data.item.average_assignment,2):0}}</div>
+              </template>
+              <template v-slot:cell(test)="data">
+                <div>{{data.item.average_test?(data.item.test/data.item.average_test):0}}</div>
+              </template>
             </b-table>
           </div>
         </b-tab>
@@ -93,7 +90,7 @@
                   <b-col md="8">
                     <b-container>
                       <b-row>
-                         <b-col md="2">
+                        <b-col md="2">
                           <b-form-select v-model="my_class">
                             <b-form-select-option
                               :value="item.class_name.toLowerCase()"
@@ -103,13 +100,13 @@
                             >{{item.class_name}}</b-form-select-option>
                           </b-form-select>
                         </b-col>
-                     
+
                         <b-col md="3">
                           <b-form-select v-model="type" :options="assessmentType"></b-form-select>
                         </b-col>
-                         <b-col md="3">
+                        <b-col md="3">
                           <b-form-select v-model="subject">
-                            <b-form-select-option value="">Select subject</b-form-select-option>
+                            <b-form-select-option value>Select subject</b-form-select-option>
                             <b-form-select-option
                               :value="item.name.toLowerCase()"
                               v-for="(item,idx) in subjects"
@@ -119,16 +116,23 @@
                           </b-form-select>
                         </b-col>
                         <b-col md="2">
-                          <b-form-select ></b-form-select>
+                          <b-form-select></b-form-select>
                         </b-col>
-                         <b-col md="2">
-                         <span @click="refresh"> Reset <i class="fa fa-refresh" aria-hidden="true"></i></span>
+                        <b-col md="2">
+                          <span @click="refresh">
+                            Reset
+                            <i class="fa fa-refresh" aria-hidden="true"></i>
+                          </span>
                         </b-col>
                       </b-row>
                     </b-container>
                   </b-col>
                   <b-col md="2">
-                    <b-form-input placeholder="Search Student" v-model="search" class="search rounded-pill"></b-form-input>
+                    <b-form-input
+                      placeholder="Search Student"
+                      v-model="search"
+                      class="search rounded-pill"
+                    ></b-form-input>
                   </b-col>
                 </b-row>
               </b-container>
@@ -148,12 +152,12 @@
 export default {
   data() {
     return {
-      overall_search:'',
-      search:'',
+      overall_search: "",
+      search: "",
       subject: "",
       my_class: "",
       subjects: [],
-      type:'',
+      type: "",
       all_class: [],
       selected: null,
       items: [],
@@ -193,148 +197,140 @@ export default {
           total: 80,
         },
       ],
-     
+
       assessmentType: [
-        { value: '', text: " Select Assessment" },
+        { value: "", text: " Select Assessment" },
         { value: "assignment", text: "Assignment" },
         { value: "quiz", text: "Quiz" },
         { value: "test", text: "Test" },
         { value: "examination", text: "Examination" },
       ],
-     
+
       ass: [],
       names: [],
-      grade_book:[],
-      grade_fields:[
-        {key:'name',sortable:true},
-        'participation',
-        'attendance',
-        'quiz',
-        'assignment',
-        'test',
-        'examination',
-        'total_score'
+      grade_book: [],
+      grade_fields: [
+        { key: "name", sortable: true },
+        "participation",
+        "attendance",
+        "quiz",
+        "assignment",
+        "test",
+        "examination",
+        "total_score",
       ],
-      attendanceSort:[],
-   participations:[]
+      attendance: [],
+      participations: [],
     };
   },
   created() {
-       this.getBook()
+    this.getBook();
     this.getData();
     this.getClasses();
     this.getSubjects();
     this.getResult();
-    this.getParticipation(),
-    this.getSortAttendance()
- 
+    this.getParticipation(), this.getAttendance();
   },
-  computed:{
-    sortData(){
-     var search = this.result.filter(d=>{
-      return  d.user.name.toLowerCase().includes(this.search.toLowerCase())
-      })
-      var level=  search.filter(sub=>{
-      return  sub.level.toLowerCase().includes(this.my_class.toLowerCase())
-      })
+  computed: {
+    sortData() {
+      var search = this.result.filter((d) => {
+        return d.user.name.toLowerCase().includes(this.search.toLowerCase());
+      });
+      var level = search.filter((sub) => {
+        return sub.level.toLowerCase().includes(this.my_class.toLowerCase());
+      });
 
-       var subject = level.filter(sub=>{
-      return  sub.subject.toLowerCase().includes(this.subject.toLowerCase())
-      })
-     var type = subject.filter(sub=>{
-      return  sub.type.toLowerCase().includes(this.type.toLowerCase())
-      })
-      return type
+      var subject = level.filter((sub) => {
+        return sub.subject.toLowerCase().includes(this.subject.toLowerCase());
+      });
+      var type = subject.filter((sub) => {
+        return sub.type.toLowerCase().includes(this.type.toLowerCase());
+      });
+      return type;
     },
-     sortGrades(){
-     var search = this.grade_book.filter(d=>{
-      return  d.user.name.toLowerCase().includes(this.overall_search.toLowerCase())
-      })
-      var level=  search.filter(sub=>{
-      return  sub.level.toLowerCase().includes(this.my_class.toLowerCase())
-      })
+    sortGrades() {
+      var search = this.grade_book.filter((d) => {
+        return d.user.name
+          .toLowerCase()
+          .includes(this.overall_search.toLowerCase());
+      });
+      var level = search.filter((sub) => {
+        return sub.level.toLowerCase().includes(this.my_class.toLowerCase());
+      });
 
-    //    var subject = level.filter(sub=>{
-    //   return  sub.subject.toLowerCase().includes(this.subject.toLowerCase())
-    //   })
-    //  var type = subject.filter(sub=>{
-    //   return  sub.type.toLowerCase().includes(this.type.toLowerCase())
-    //   })
-      return level
+      //    var subject = level.filter(sub=>{
+      //   return  sub.subject.toLowerCase().includes(this.subject.toLowerCase())
+      //   })
+      //  var type = subject.filter(sub=>{
+      //   return  sub.type.toLowerCase().includes(this.type.toLowerCase())
+      //   })
+      return level;
     },
   },
-   watch: {
-      sortData(newValue){
-         this.handleData(newValue)
-       
-      }
+  watch: {
+    sortData(newValue) {
+      this.handleData(newValue);
     },
-  
-   
+  },
+
   methods: {
-    handleParticipation(id){
-   
-   
-     var newarr = []
-      this.participations.forEach(item=>{
+    handleParticipation(id) {
+      var newarr = [];
+      this.attendance.forEach((item) => {
         if (item.user_id == id) {
-          newarr.push(item.score)
-        
+          newarr.push(item.participation_score);
         }
-      })
-      
-        var sum = newarr.reduce((a,b)=>{
-          return a+b
-        },0)
-        return sum/newarr.length
+      });
+
+      var sum = newarr.reduce((a, b) => {
+        return a + b;
+      }, 0);
+      console.log("handleParticipation -> sum", sum);
+      return sum / newarr.length;
     },
-      handleAttendance(id){
-      console.log("handleAttendance -> id", id)
-   
-   
-     var newarr = []
-       var arr = []
-      this.attendanceSort.forEach(item=>{
-        if (item.user.id == id ) {
-          arr.push(item)
-        if (item.tutor && item.tutor!= 'pending') {
-          newarr.push(item)
-        
+    handleAttendance(id) {
+      var newarr = [];
+      var arr = [];
+      this.attendance.forEach((item) => {
+        if (item.user.id == id) {
+          arr.push(item.score);
         }
-        }
-      })
-      
-        
-        console.log("handleAttendance -> newarr", newarr)
-        console.log("handleAttendance -> arr", arr)
-        return (newarr.length * 5)/arr.length
+      });
+
+      var sum = arr.reduce((a, b) => {
+        return a + b;
+      }, 0);
+      console.log("handleAttendance -> sum", sum);
+      return sum / arr.length;
     },
-    getParticipation(){
-       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
-     axios.get('/api/participation', {
+    getParticipation() {
+      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      axios
+        .get("/api/participation", {
           headers: {
             Authorization: `Bearer ${tutor.access_token}`,
           },
-        }).then(res=>{
-  this.participations = res.data
-     })
+        })
+        .then((res) => {
+          this.participations = res.data;
+        });
     },
-     getSortAttendance() {
-        let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+    getAttendance() {
+      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios
-        .get(`/api/sorted-student-attendance`, {
+        .get(`/api/tutor-get-attendance`, {
           headers: {
             Authorization: `Bearer ${tutor.access_token}`,
           },
         })
         .then((res) => {
           if (res.status == 200) {
-            this.attendanceSort = res.data;
+            this.attendance = res.data;
           }
         });
     },
-    refresh(){
-        this.subject = this.my_class = this.search = this.type =''
+    refresh() {
+      this.subject = this.my_class = this.search = this.type = "";
     },
     getSubjects() {
       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
@@ -361,7 +357,7 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             this.all_class = res.data;
-            this.my_class = res.data[0].class_name.toLowerCase()
+            this.my_class = res.data[0].class_name.toLowerCase();
             // res.data.forEach((item) => {
             //   this.allClass.push(item.class_name);
             //   if (item.sub_class !== "") {
@@ -373,36 +369,36 @@ export default {
           }
         });
     },
-    handleData(arr){
-       var obj = {};
-       this.ass = []
-       this.assessmentField=['name']
-       arr.forEach((item) => {
-              this.assessmentField.push(item.title);
-              if (this.ass.length == 0) {
-                obj[item.title] = item.total_score;
-                obj.name = item.user.name;
+    handleData(arr) {
+      var obj = {};
+      this.ass = [];
+      this.assessmentField = ["name"];
+      arr.forEach((item) => {
+        this.assessmentField.push(item.title);
+        if (this.ass.length == 0) {
+          obj[item.title] = item.total_score;
+          obj.name = item.user.name;
 
-                this.ass.push(obj);
-              } else {
-                this.ass.forEach((ite, index) => {
-                  obj = {};
-                  if (Object.values(ite).includes(item.user.name)) {
-                    ite[item.title] = item.total_score;
-                  } else {
-                    obj[item.title] = item.total_score;
-                    obj.name = item.user.name;
+          this.ass.push(obj);
+        } else {
+          this.ass.forEach((ite, index) => {
+            obj = {};
+            if (Object.values(ite).includes(item.user.name)) {
+              ite[item.title] = item.total_score;
+            } else {
+              obj[item.title] = item.total_score;
+              obj.name = item.user.name;
 
-                    return obj;
-                  }
-                  return obj;
-                });
+              return obj;
+            }
+            return obj;
+          });
 
-                if (Object.keys(obj).length !== 0) {
-                  this.ass.push(obj);
-                }
-              }
-            });
+          if (Object.keys(obj).length !== 0) {
+            this.ass.push(obj);
+          }
+        }
+      });
     },
     getResult() {
       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
@@ -414,14 +410,12 @@ export default {
         })
         .then((res) => {
           if (res.status == 200) {
-           
-
             this.result = res.data;
             this.result.sort(function (a, b) {
               return a.user_id - b.user_id;
             });
 
-          // this.handleData()
+            // this.handleData()
           }
         });
     },
@@ -446,7 +440,7 @@ export default {
     },
     getBook() {
       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
-     
+
       axios
         .get(`/api/tutor-grade-books`, {
           headers: { Authorization: `Bearer ${tutor.access_token}` },

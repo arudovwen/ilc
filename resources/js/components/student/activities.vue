@@ -58,7 +58,7 @@
                           <p
                             v-if="(getSecond(today)  > getSecond(item.start)) && (getSecond(today)   < getSecond(item.end))"
                           >Ongoing</p>
-                          <p v-else-if="(getSecond(today)  <  getSecond(item.start))">Upcoming</p>
+                          <!-- <p v-else-if="(getSecond(today)  <  getSecond(item.start))">Upcoming</p> -->
 
                           <p v-else-if="(getSecond(today)   >  getSecond(item.start)) && (getSecond(today) >getSecond(item.end))">Finished</p>
                         </div>
@@ -152,50 +152,25 @@
 
                   <div class="attendance-table">
                     <div class="text-right">
-                      <b-form-select v-model="week" class="week mb-3">
+                      <!-- <b-form-select v-model="week" class="week mb-3">
                         <b-form-select-option
                           :value="num"
                           v-for="(num,id) in n"
                           :key="id"
                         >{{getWeek(new Date())==num?'Current week ':'Week' }} {{num}}</b-form-select-option>
-                      </b-form-select>
+                      </b-form-select> -->
                     </div>
 
-                    <b-table-simple bordered>
-                      <b-thead>
-                        <b-tr>
-                          <b-th>Day</b-th>
-                          <b-th>Record</b-th>
-                        </b-tr>
-                      </b-thead>
-                      <b-tbody>
-                        <b-tr v-for="(record,idx) in sorted" :key="idx">
-                          <b-th class="toCaps">
-                            {{record.day}}
-                            <br />
-                            {{record.date}}
-                          </b-th>
-                          <b-tbody>
-                            <b-tr>
-                              <b-td
-                                class="text-center toCaps"
-                                v-for="(value,id) in JSON.parse(record.record)"
-                                :key="id"
-                              >
-                                {{value.subject}}
-                                <br />
-                                <b-icon
-                                  v-if="value.student"
-                                  icon="check-circle-fill"
-                                  :class="{green:value.student && value.tutor !=='pending',amber:value.student && value.tutor=='pending'}"
-                                ></b-icon>
-                                <b-icon v-if="!value.tutor" icon="x-circle-fill" class="red"></b-icon>
-                              </b-td>
-                            </b-tr>
-                          </b-tbody>
-                        </b-tr>
-                      </b-tbody>
-                    </b-table-simple>
+                   <b-table :items="attendance" :fields="att" bordered>
+                    <template v-slot:cell(record)="data">
+                      <div>
+                       <span> <b-button v-if="data.item.record=='1'" variant="success">Present <b-icon icon="check-circle-fill"></b-icon> </b-button>
+                          <b-button variant="danger" v-if="data.item.record=='0'">Absent <b-icon icon="x-circle-fill"></b-icon> </b-button>
+                           <b-button variant="info" v-if="data.item.record=='pending'">Pending <b-icon icon="clock"></b-icon> </b-button>
+                       </span>
+                      </div>
+                    </template>
+                  </b-table>
                   </div>
                 </div>
               </div>
@@ -227,6 +202,7 @@ export default {
         ":" +
         new Date().getSeconds(),
       attendance: [],
+        att: ["day", 'subject',"record"],
     };
   },
   mounted() {
@@ -387,13 +363,13 @@ small,
   display: flex;
   justify-content: space-between;
 }
-.btn {
+/* .btn {
   background: transparent;
   border: 1px solid #13a699;
   border-radius: 5px;
   color: #13a699;
   font-size: 15px;
-}
+} */
 
 .my-icon {
   color: #008e3a;

@@ -2,21 +2,23 @@
   <div>
     <b-container fluid>
       <h4 class="mb-3">Todays Class</h4>
-        <div class="d-flex justify-content-around mb-2">
-               <span> <b-icon icon="circle-fill" class="upcoming-i"></b-icon> Upcoming</span>
-                <span> <b-icon icon="circle-fill" class="ongoing-i"></b-icon> Ongoing</span>
-                 <span> <b-icon icon="circle-fill" class="finished-i"></b-icon> Finished</span>
-              </div>
+      <div class="d-flex justify-content-around mb-2">
+        <span>
+          <b-icon icon="circle-fill" class="upcoming-i"></b-icon>Upcoming
+        </span>
+        <span>
+          <b-icon icon="circle-fill" class="ongoing-i"></b-icon>Ongoing
+        </span>
+        <span>
+          <b-icon icon="circle-fill" class="finished-i"></b-icon>Finished
+        </span>
+      </div>
       <b-row class="p-3">
-        <b-col
-          cols="3"
-          class="p-2"
-          v-for="(val,id) in todaysClass"
-          :key="id"
-         
-        >
-          <b-card title="Class Detail" class="mb-2"
-           :class="{'ongoing':( getSeconds(today) > getSeconds(val.start_time) && 
+        <b-col cols="3" class="p-2" v-for="(val,id) in todaysClass" :key="id">
+          <b-card
+            title="Class Detail"
+            class="mb-2"
+            :class="{'ongoing':( getSeconds(today) > getSeconds(val.start_time) && 
           getSeconds(today)< getSeconds(val.end_time)), 
           'finished':( getSeconds(today) > getSeconds(val.start_time) && 
           getSeconds(today)> getSeconds(val.end_time)),
@@ -67,40 +69,30 @@ export default {
       let data = {
         school_id: this.$props.student.school_id,
         user_id: this.$props.student.id,
-        tutor_id: 2,
-          subject: val.subject,
-        tutor: val.tutor,
-        date: new Date().toDateString(),
-        day: new Date()
-          .toLocaleString("default", { weekday: "long" })
-          .toLowerCase(),
-        record: [
-          {
-            tutor_name: val.tutor,
-            tutor: 'pending',
-            student: true,
-            subject: val.subject,
-            level: val.level,
-            time: val.start_time,
-          },
-        ],
+        tutor: 2,
+        subject: val.subject,
+        day: new Date().toDateString(),
+        record: "pending",
         level: val.level,
         time: new Date().toLocaleTimeString(),
       };
-     if(this.getSeconds(this.today) > this.getSeconds(val.start_time) && this.getSeconds(this.today) > this.getSeconds(val.end_time)){
-       this.$toasted.info('This Class has ended')
-     }else{
-       axios
-        .post(`/api/attendance`, data, {
-          headers: {
-            Authorization: `Bearer ${this.$props.student.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 201) {
-          }
-        });
-     }
+      // if (
+      //   this.getSeconds(this.today) > this.getSeconds(val.start_time) &&
+      //   this.getSeconds(this.today) > this.getSeconds(val.end_time)
+      // ) {
+      //   this.$toasted.info("This Class has ended");
+      // } else {
+        axios
+          .post(`/api/attendance`, data, {
+            headers: {
+              Authorization: `Bearer ${this.$props.student.access_token}`,
+            },
+          })
+          .then((res) => {
+            if (res.status == 201) {
+            }
+          });
+      // }
     },
     getLive() {
       axios
@@ -140,7 +132,6 @@ h4.card-title {
 }
 .ongoing {
   border-color: #008e3a;
-  
 }
 .upcoming {
   border-color: #ffc200;
@@ -148,13 +139,13 @@ h4.card-title {
 .finished {
   border-color: red;
 }
-.ongoing-i{
-   color: #008e3a;
+.ongoing-i {
+  color: #008e3a;
 }
-.upcoming-i{
-    color:#FFC200;
+.upcoming-i {
+  color: #ffc200;
 }
-.finished-i{
-    color:red;
+.finished-i {
+  color: red;
 }
 </style>

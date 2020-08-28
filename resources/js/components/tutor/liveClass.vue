@@ -104,7 +104,7 @@ export default {
           .toLowerCase(),
         record: [
           {
-            tutor: 'pending',
+            tutor: "pending",
             student: false,
             subject: val.subject,
             level: val.level,
@@ -114,7 +114,9 @@ export default {
         level: val.level,
         time: new Date().toLocaleTimeString(),
       };
-
+if(this.getSeconds(this.today) > this.getSeconds(val.start_time) && this.getSeconds(this.today) > this.getSeconds(val.end_time)){
+       this.$toasted.info('This Class has ended')
+     }else{
       axios
         .post(`/api/create-attendance`, data, {
           headers: {
@@ -125,6 +127,7 @@ export default {
           if (res.status == 201) {
           }
         });
+     }
     },
     getSeconds(hms) {
       var a = hms.split(":"); // split it at the colons

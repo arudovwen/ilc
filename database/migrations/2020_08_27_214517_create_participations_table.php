@@ -19,10 +19,9 @@ class CreateParticipationsTable extends Migration
             $table->integer('user_id');
             $table->string('subject');
             $table->string('tutor');
-            $table->string('date');
             $table->integer('score');
             $table->string('day');
-            $table->string('att_id');
+        
             $table->timestamps();
         });
     }

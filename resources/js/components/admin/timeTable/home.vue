@@ -100,7 +100,7 @@ export default {
   },
   computed:{
      sorted(){
-      return this.live.filter(item=>item.level.toLowerCase().includes(this.select.toLowerCase()))
+      return this.live.filter(item=>item.level.toLowerCase().includes(this.select.toLowerCase().trim()))
      }
   },
   methods: {

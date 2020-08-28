@@ -14,15 +14,18 @@ class CreateAttendancesTable extends Migration
     public function up()
     {
         Schema::create('attendances', function (Blueprint $table) {
+           
             $table->id();
             $table->integer('school_id');
             $table->integer('user_id')->nullable();
             $table->integer('tutor_id')->nullable();
-            $table->longText('record')->nullable();
+            $table->string('record')->nullable();
+            $table->string('subject')->nullable();
             $table->string('level')->nullable();
-            $table->string('date');
             $table->string('day');
-            $table->string('time');
+            $table->integer('score')->nullable();
+            $table->integer('participation_id');
+            $table->integer('participation_score');
             $table->timestamps();
         });
     }

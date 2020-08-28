@@ -8,21 +8,7 @@
               <b-tab title="Overall" active>
                 <div class="grade_book overall-gradebook-student">
                   <h5 class="mb-5">Overall Grades</h5>
-                  <!-- <b-table stacked :items="overall" :fields="grade_fields" bordered>
-                  <b-table striped stacked :items="overall" :fields="grade_fields" bordered>
-                    <template v-slot:cell(name)="data">
-                      <div>{{data.item.user.name}}</div>
-                    </template>
-                    <template v-slot:cell(quiz)="data">
-                      <div>{{data.item.average_quiz?Math.round(data.item.quiz/data.item.average_quiz):0}}</div>
-                    </template>
-                    <template v-slot:cell(assignment)="data">
-                      <div>{{data.item.average_assignment?Math.round(data.item.assignment/data.item.average_assignment):0}}</div>
-                    </template>
-                    <template v-slot:cell(test)="data">
-                      <div>{{data.item.average_test?Math.round(data.item.test/data.item.average_test):0}}</div>
-                    </template>
-                  </b-table> -->
+                
 
 
                   <b-table-simple>
@@ -36,12 +22,12 @@
                     <b-tbody v-if="overall.length">
                       <b-tr>
                         <b-th>Attendance</b-th>
-                        <b-td>{{Math.round((sumAttendance.length * 5)/attendances.length)}}</b-td>
+                        <b-td>{{handleAttendance()}}</b-td>
                          <b-td></b-td>
                       </b-tr>
                        <b-tr>
                         <b-th>Participation</b-th>
-                        <b-td>{{part.length?(partsum/part.length):0}}</b-td>
+                        <b-td>{{handleParticipation()}}</b-td>
                            <b-td></b-td>
                       </b-tr>
                        <b-tr>
@@ -72,18 +58,20 @@
                 <div class="grade_book">
                   <h5 class="mb-5">Attendance Grades</h5>
                   <b-table :items="attendances" :fields="att" bordered>
-                    <template v-slot:cell(score)="data">
-                      <div >
-                        {{data.item.tutor?5:0}}
-                      </div>
-                    </template>
+                   
                   </b-table>
                 </div>
               </b-tab>
               <b-tab title="Participation">
                 <div class="grade_book">
                   <h5 class="mb-5">Participation Grades</h5>
-                  <b-table :items="part" :fields="parts" bordered></b-table>
+                  <b-table :items="attendances" :fields="parts" bordered>
+                    <template v-slot:cell(score)="data">
+                      <div>
+                        {{data.item.participation_score}}
+                      </div>
+                    </template>
+                  </b-table>
                 </div>
               </b-tab>
            
@@ -190,8 +178,8 @@ export default {
         "action",
       ],
       
-      parts: ["date", "subject", "score"],
-      att: ["date", 'subject',"score"],
+      parts: ["day", "subject", "score"],
+      att: ["day", 'subject',"score"],
       assessmentType: [
         { value: "", text: "  Type" },
         { value: "assignment", text: "Assignment" },
@@ -239,6 +227,35 @@ export default {
     this.getAttendance()
   },
   methods: {
+     handleParticipation(id) {
+      var newarr = [];
+      this.attendances.forEach((item) => {
+       
+          newarr.push(item.participation_score);
+        
+      });
+
+      var sum = newarr.reduce((a, b) => {
+        return a + b;
+      }, 0);
+     
+      return sum / newarr.length;
+    },
+    handleAttendance(id) {
+      var newarr = [];
+      var arr = [];
+      this.attendances.forEach((item) => {
+       
+          arr.push(item.score);
+        
+      });
+
+      var sum = arr.reduce((a, b) => {
+        return a + b;
+      }, 0);
+     
+      return sum / arr.length;
+    },
     preview(val) {
     
       this.options.title = val.title
@@ -307,7 +324,7 @@ export default {
           if (res.status == 200) {
             this.attendances = res.data;
 
-          this.sumAttendance  = this.attendances.filter(item=>item.tutor== true && item.tutor !='pending')
+       
 
           }
         });

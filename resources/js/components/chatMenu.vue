@@ -44,7 +44,7 @@
                 <b-avatar></b-avatar>
               </div>
               <div>
-                <strong class="toCaps">{{item.name}}  </strong>
+                <strong class="toCaps">{{item.name}}  </strong> <br>
               <small v-if="item.messages.length">{{item.messages[item.messages.length-1].message}}</small>
               </div>
             </div>
@@ -212,5 +212,8 @@ ol {
   max-width: 50%;
 
   text-align: left;
+}
+strong{
+  font-size: 14px;
 }
 </style>

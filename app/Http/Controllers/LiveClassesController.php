@@ -64,7 +64,9 @@ class LiveClassesController extends Controller
         $tab = TimesTable::where('school_id', $user->school_id)->get();
         $arr = [];
         foreach ($tab as $time) {
+            
             foreach (json_decode($time->table) as $value) {
+                
                 foreach ($value->courses as $t) {
                   
                     $live =  LiveClasses::create([
@@ -79,11 +81,12 @@ class LiveClassesController extends Controller
                     'start_time'=>$t->start,
                     'end_time'=>$t->end,
                 ]);
-                    array_push($arr, $live);
+                    array_push($arr, $time->myclass);
                 }
             }
-            return  $arr;
+          
         }
+        return  $arr;
     }
     public function getMyLive()
     {

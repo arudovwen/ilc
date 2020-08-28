@@ -40,7 +40,7 @@
                       </b-tr>
                        <b-tr>
                         <b-th>Participation</b-th>
-                        <b-td>{{partsum/part.length}}</b-td>
+                        <b-td>{{part.length?(partsum/part.length):0}}</b-td>
                            <b-td></b-td>
                       </b-tr>
                        <b-tr>

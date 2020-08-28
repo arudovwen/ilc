@@ -54822,8 +54822,10 @@ var render = function() {
                                                   _c("b-td", [
                                                     _vm._v(
                                                       _vm._s(
-                                                        _vm.partsum /
-                                                          _vm.part.length
+                                                        _vm.part.length
+                                                          ? _vm.partsum /
+                                                              _vm.part.length
+                                                          : 0
                                                       )
                                                     )
                                                   ]),

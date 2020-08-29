@@ -61,31 +61,38 @@ class LiveClassesController extends Controller
     public function makeLiveClass()
     {
       $user = auth('admin')->user();
-        $tab = TimesTable::where('school_id', $user->school_id)->get();
-        $arr = [];
-        foreach ($tab as $time) {
-            
-            foreach (json_decode($time->table) as $value) {
-                
-                foreach ($value->courses as $t) {
-                  
-                    $live =  LiveClasses::create([
-                    'school_id'=>$time->school_id,
-                     'tutor'=>$t->tutor,
-                    'date'=>null,
-                    'day'=>$value->day,
-                    'subject'=>$t->subject,
-                    'link'=>"https://",
-                    'password'=>null,
-                    'level'=>$time->myclass,
-                    'start_time'=>$t->start,
-                    'end_time'=>$t->end,
-                ]);
-                    array_push($arr, $time->myclass);
-                }
-            }
-          
+    $live =   LiveClasses::where('school_id',$user->school_id)->get();
+    if (count($live)) {
+        foreach ($live as $value) {
+            $value->delete();
         }
+    }
+    $tab = TimesTable::where('school_id', $user->school_id)->get();
+    $arr = [];
+    foreach ($tab as $time) {
+        
+        foreach (json_decode($time->table) as $value) {
+            
+            foreach ($value->courses as $t) {
+              
+                $live =  LiveClasses::create([
+                'school_id'=>$time->school_id,
+                 'tutor'=>$t->tutor,
+                'date'=>null,
+                'day'=>$value->day,
+                'subject'=>$t->subject,
+                'link'=>"https://",
+                'password'=>null,
+                'level'=>$time->myclass,
+                'start_time'=>$t->start,
+                'end_time'=>$t->end,
+            ]);
+                array_push($arr, $time->myclass);
+            }
+        }
+      
+    }
+       
         return  $arr;
     }
     public function getMyLive()

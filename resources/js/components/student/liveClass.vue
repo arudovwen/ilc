@@ -39,6 +39,11 @@
             <b-button variant="success" @click="enterClass(val)">Enter Classroom</b-button>
           </b-card>
         </b-col>
+        <b-col v-if="!todaysClass">
+          <b-alert show >
+            No class Today
+          </b-alert>
+        </b-col>
       </b-row>
     </b-container>
   </div>
@@ -76,12 +81,12 @@ export default {
         level: val.level,
         time: new Date().toLocaleTimeString(),
       };
-      // if (
-      //   this.getSeconds(this.today) > this.getSeconds(val.start_time) &&
-      //   this.getSeconds(this.today) > this.getSeconds(val.end_time)
-      // ) {
-      //   this.$toasted.info("This Class has ended");
-      // } else {
+      if (
+        this.getSeconds(this.today) > this.getSeconds(val.start_time) &&
+        this.getSeconds(this.today) > this.getSeconds(val.end_time)
+      ) {
+        this.$toasted.info("This Class has ended");
+      } else {
         axios
           .post(`/api/attendance`, data, {
             headers: {
@@ -89,10 +94,11 @@ export default {
             },
           })
           .then((res) => {
-            if (res.status == 201) {
+            if (res.status == 201 || res.status == 200) {
+          window.open('https://bootstrap-vue.org/docs/components/input-group', '_blank');
             }
           });
-      // }
+      }
     },
     getLive() {
       axios

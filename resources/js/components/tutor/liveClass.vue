@@ -42,6 +42,11 @@
             <b-button variant="success" @click="enterClass(val)">Enter Classroom</b-button>
           </b-card>
         </b-col>
+        <b-col v-if="!sorted.length">
+           <b-alert show>
+             No Class Today
+           </b-alert>
+        </b-col>
       </b-row>
     </b-container>
   </div>
@@ -117,16 +122,18 @@ export default {
 if(this.getSeconds(this.today) > this.getSeconds(val.start_time) && this.getSeconds(this.today) > this.getSeconds(val.end_time)){
        this.$toasted.info('This Class has ended')
      }else{
-      axios
-        .post(`/api/create-attendance`, data, {
-          headers: {
-            Authorization: `Bearer ${this.$props.tutor.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 201) {
-          }
-        });
+      // axios
+      //   .post(`/api/create-attendance`, data, {
+      //     headers: {
+      //       Authorization: `Bearer ${this.$props.tutor.access_token}`,
+      //     },
+      //   })
+      //   .then((res) => {
+      //     if (res.status == 201) {
+      //     }
+      //   });
+   
+window.open('https://bootstrap-vue.org/docs/components/input-group', '_blank');
      }
     },
     getSeconds(hms) {

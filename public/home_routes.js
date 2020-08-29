@@ -15196,6 +15196,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
@@ -15221,20 +15226,21 @@ __webpack_require__.r(__webpack_exports__);
         record: "pending",
         level: val.level,
         time: new Date().toLocaleTimeString()
-      }; // if (
-      //   this.getSeconds(this.today) > this.getSeconds(val.start_time) &&
-      //   this.getSeconds(this.today) > this.getSeconds(val.end_time)
-      // ) {
-      //   this.$toasted.info("This Class has ended");
-      // } else {
+      };
 
-      axios.post("/api/attendance", data, {
-        headers: {
-          Authorization: "Bearer ".concat(this.$props.student.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 201) {}
-      }); // }
+      if (this.getSeconds(this.today) > this.getSeconds(val.start_time) && this.getSeconds(this.today) > this.getSeconds(val.end_time)) {
+        this.$toasted.info("This Class has ended");
+      } else {
+        axios.post("/api/attendance", data, {
+          headers: {
+            Authorization: "Bearer ".concat(this.$props.student.access_token)
+          }
+        }).then(function (res) {
+          if (res.status == 201 || res.status == 200) {
+            window.open('https://bootstrap-vue.org/docs/components/input-group', '_blank');
+          }
+        });
+      }
     },
     getLive: function getLive() {
       var _this = this;
@@ -23540,6 +23546,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tutor"],
   data: function data() {
@@ -23605,13 +23616,17 @@ __webpack_require__.r(__webpack_exports__);
       if (this.getSeconds(this.today) > this.getSeconds(val.start_time) && this.getSeconds(this.today) > this.getSeconds(val.end_time)) {
         this.$toasted.info('This Class has ended');
       } else {
-        axios.post("/api/create-attendance", data, {
-          headers: {
-            Authorization: "Bearer ".concat(this.$props.tutor.access_token)
-          }
-        }).then(function (res) {
-          if (res.status == 201) {}
-        });
+        // axios
+        //   .post(`/api/create-attendance`, data, {
+        //     headers: {
+        //       Authorization: `Bearer ${this.$props.tutor.access_token}`,
+        //     },
+        //   })
+        //   .then((res) => {
+        //     if (res.status == 201) {
+        //     }
+        //   });
+        window.open('https://bootstrap-vue.org/docs/components/input-group', '_blank');
       }
     },
     getSeconds: function getSeconds(hms) {
@@ -57045,93 +57060,108 @@ var render = function() {
           _c(
             "b-row",
             { staticClass: "p-3" },
-            _vm._l(_vm.todaysClass, function(val, id) {
-              return _c(
-                "b-col",
-                { key: id, staticClass: "p-2", attrs: { cols: "3" } },
-                [
-                  _c(
-                    "b-card",
-                    {
-                      staticClass: "mb-2",
-                      class: {
-                        ongoing:
-                          _vm.getSeconds(_vm.today) >
-                            _vm.getSeconds(val.start_time) &&
-                          _vm.getSeconds(_vm.today) <
-                            _vm.getSeconds(val.end_time),
-                        finished:
-                          _vm.getSeconds(_vm.today) >
-                            _vm.getSeconds(val.start_time) &&
-                          _vm.getSeconds(_vm.today) >
-                            _vm.getSeconds(val.end_time),
-                        upcoming:
-                          _vm.getSeconds(_vm.today) <
-                          _vm.getSeconds(val.start_time)
-                      },
-                      attrs: { title: "Class Detail" }
-                    },
-                    [
-                      _c("b-card-text", [
-                        _vm._v("Subject : " + _vm._s(val.subject))
-                      ]),
-                      _vm._v(" "),
-                      _c("b-card-text", [
-                        _vm._v("Tutor : " + _vm._s(val.tutor))
-                      ]),
-                      _vm._v(" "),
-                      _c("b-card-text", [
-                        _vm._v("Level : " + _vm._s(val.level))
-                      ]),
-                      _vm._v(" "),
-                      _c("b-card-text", [
-                        _vm._v(
-                          "Start time : " +
-                            _vm._s(_vm._f("format")(val.start_time))
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("b-card-text", [
-                        _vm._v(
-                          "End time :" + _vm._s(_vm._f("format")(val.end_time))
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-card-text",
-                        [
-                          _vm._v("\n            Class Link :\n            "),
-                          _c("router-link", { attrs: { to: "" } }, [
-                            _vm._v(_vm._s(val.link))
-                          ])
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("b-card-text", [
-                        _vm._v("Password: " + _vm._s(val.password))
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-button",
-                        {
-                          attrs: { variant: "success" },
-                          on: {
-                            click: function($event) {
-                              return _vm.enterClass(val)
-                            }
-                          }
+            [
+              _vm._l(_vm.todaysClass, function(val, id) {
+                return _c(
+                  "b-col",
+                  { key: id, staticClass: "p-2", attrs: { cols: "3" } },
+                  [
+                    _c(
+                      "b-card",
+                      {
+                        staticClass: "mb-2",
+                        class: {
+                          ongoing:
+                            _vm.getSeconds(_vm.today) >
+                              _vm.getSeconds(val.start_time) &&
+                            _vm.getSeconds(_vm.today) <
+                              _vm.getSeconds(val.end_time),
+                          finished:
+                            _vm.getSeconds(_vm.today) >
+                              _vm.getSeconds(val.start_time) &&
+                            _vm.getSeconds(_vm.today) >
+                              _vm.getSeconds(val.end_time),
+                          upcoming:
+                            _vm.getSeconds(_vm.today) <
+                            _vm.getSeconds(val.start_time)
                         },
-                        [_vm._v("Enter Classroom")]
-                      )
+                        attrs: { title: "Class Detail" }
+                      },
+                      [
+                        _c("b-card-text", [
+                          _vm._v("Subject : " + _vm._s(val.subject))
+                        ]),
+                        _vm._v(" "),
+                        _c("b-card-text", [
+                          _vm._v("Tutor : " + _vm._s(val.tutor))
+                        ]),
+                        _vm._v(" "),
+                        _c("b-card-text", [
+                          _vm._v("Level : " + _vm._s(val.level))
+                        ]),
+                        _vm._v(" "),
+                        _c("b-card-text", [
+                          _vm._v(
+                            "Start time : " +
+                              _vm._s(_vm._f("format")(val.start_time))
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("b-card-text", [
+                          _vm._v(
+                            "End time :" +
+                              _vm._s(_vm._f("format")(val.end_time))
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "b-card-text",
+                          [
+                            _vm._v("\n            Class Link :\n            "),
+                            _c("router-link", { attrs: { to: "" } }, [
+                              _vm._v(_vm._s(val.link))
+                            ])
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("b-card-text", [
+                          _vm._v("Password: " + _vm._s(val.password))
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "b-button",
+                          {
+                            attrs: { variant: "success" },
+                            on: {
+                              click: function($event) {
+                                return _vm.enterClass(val)
+                              }
+                            }
+                          },
+                          [_vm._v("Enter Classroom")]
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              }),
+              _vm._v(" "),
+              !_vm.todaysClass
+                ? _c(
+                    "b-col",
+                    [
+                      _c("b-alert", { attrs: { show: "" } }, [
+                        _vm._v("\n          No class Today\n        ")
+                      ])
                     ],
                     1
                   )
-                ],
-                1
-              )
-            }),
-            1
+                : _vm._e()
+            ],
+            2
           )
         ],
         1
@@ -70562,93 +70592,108 @@ var render = function() {
           _c(
             "b-row",
             { staticClass: "p-3" },
-            _vm._l(_vm.sorted, function(val, id) {
-              return _c(
-                "b-col",
-                { key: id, staticClass: "p-2", attrs: { cols: "3" } },
-                [
-                  _c(
-                    "b-card",
-                    {
-                      staticClass: "mb-2",
-                      class: {
-                        ongoing:
-                          _vm.getSeconds(_vm.today) >
-                            _vm.getSeconds(val.start_time) &&
-                          _vm.getSeconds(_vm.today) <
-                            _vm.getSeconds(val.end_time),
-                        finished:
-                          _vm.getSeconds(_vm.today) >
-                            _vm.getSeconds(val.start_time) &&
-                          _vm.getSeconds(_vm.today) >
-                            _vm.getSeconds(val.end_time),
-                        upcoming:
-                          _vm.getSeconds(_vm.today) <
-                          _vm.getSeconds(val.start_time)
-                      },
-                      attrs: { title: "Class Detail" }
-                    },
-                    [
-                      _c("b-card-text", [
-                        _vm._v("Subject : " + _vm._s(val.subject))
-                      ]),
-                      _vm._v(" "),
-                      _c("b-card-text", [
-                        _vm._v("Tutor : " + _vm._s(val.tutor))
-                      ]),
-                      _vm._v(" "),
-                      _c("b-card-text", [
-                        _vm._v("Level : " + _vm._s(val.level))
-                      ]),
-                      _vm._v(" "),
-                      _c("b-card-text", [
-                        _vm._v(
-                          "Start time : " +
-                            _vm._s(_vm._f("format")(val.start_time))
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("b-card-text", [
-                        _vm._v(
-                          "End time :" + _vm._s(_vm._f("format")(val.end_time))
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-card-text",
-                        [
-                          _vm._v("\n            Class Link :\n            "),
-                          _c("router-link", { attrs: { to: "" } }, [
-                            _vm._v(_vm._s(val.link))
-                          ])
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("b-card-text", [
-                        _vm._v("Password: " + _vm._s(val.password))
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "b-button",
-                        {
-                          attrs: { variant: "success" },
-                          on: {
-                            click: function($event) {
-                              return _vm.enterClass(val)
-                            }
-                          }
+            [
+              _vm._l(_vm.sorted, function(val, id) {
+                return _c(
+                  "b-col",
+                  { key: id, staticClass: "p-2", attrs: { cols: "3" } },
+                  [
+                    _c(
+                      "b-card",
+                      {
+                        staticClass: "mb-2",
+                        class: {
+                          ongoing:
+                            _vm.getSeconds(_vm.today) >
+                              _vm.getSeconds(val.start_time) &&
+                            _vm.getSeconds(_vm.today) <
+                              _vm.getSeconds(val.end_time),
+                          finished:
+                            _vm.getSeconds(_vm.today) >
+                              _vm.getSeconds(val.start_time) &&
+                            _vm.getSeconds(_vm.today) >
+                              _vm.getSeconds(val.end_time),
+                          upcoming:
+                            _vm.getSeconds(_vm.today) <
+                            _vm.getSeconds(val.start_time)
                         },
-                        [_vm._v("Enter Classroom")]
-                      )
+                        attrs: { title: "Class Detail" }
+                      },
+                      [
+                        _c("b-card-text", [
+                          _vm._v("Subject : " + _vm._s(val.subject))
+                        ]),
+                        _vm._v(" "),
+                        _c("b-card-text", [
+                          _vm._v("Tutor : " + _vm._s(val.tutor))
+                        ]),
+                        _vm._v(" "),
+                        _c("b-card-text", [
+                          _vm._v("Level : " + _vm._s(val.level))
+                        ]),
+                        _vm._v(" "),
+                        _c("b-card-text", [
+                          _vm._v(
+                            "Start time : " +
+                              _vm._s(_vm._f("format")(val.start_time))
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("b-card-text", [
+                          _vm._v(
+                            "End time :" +
+                              _vm._s(_vm._f("format")(val.end_time))
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "b-card-text",
+                          [
+                            _vm._v("\n            Class Link :\n            "),
+                            _c("router-link", { attrs: { to: "" } }, [
+                              _vm._v(_vm._s(val.link))
+                            ])
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("b-card-text", [
+                          _vm._v("Password: " + _vm._s(val.password))
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "b-button",
+                          {
+                            attrs: { variant: "success" },
+                            on: {
+                              click: function($event) {
+                                return _vm.enterClass(val)
+                              }
+                            }
+                          },
+                          [_vm._v("Enter Classroom")]
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              }),
+              _vm._v(" "),
+              !_vm.sorted.length
+                ? _c(
+                    "b-col",
+                    [
+                      _c("b-alert", { attrs: { show: "" } }, [
+                        _vm._v("\n           No Class Today\n         ")
+                      ])
                     ],
                     1
                   )
-                ],
-                1
-              )
-            }),
-            1
+                : _vm._e()
+            ],
+            2
           )
         ],
         1

@@ -81,6 +81,7 @@
                         v-for="(schedule,idx)  in schedules.filter(item=>new Date().toDateString() == new Date(item.date).toDateString())"
                         :key="idx"
                       >
+                      
                         {{schedule.description}}
                         <b-icon icon="calendar3"></b-icon>
                       </b-list-group-item>
@@ -218,12 +219,13 @@
                           <div class="class_section" v-if="schedules.length">
                             <b-list-group>
                               <b-list-group-item
-                                class="d-flex justify-content-between"
+                                class="d-flex justify-content-between align-items-center"
                                 v-for="(schedule,idx)  in schedules"
                                 :key="idx"
                               >
-                                {{schedule.description}}
-                                <b-icon icon="calendar3"></b-icon>
+                               <span><b-icon icon="calendar3"></b-icon>
+                          {{schedule.description}}</span>
+                          <b-icon icon="x" @click="drop(schedule.id)"></b-icon>
                               </b-list-group-item>
                             </b-list-group>
                           </div>
@@ -367,6 +369,23 @@ export default {
 
           }
         });
+    },
+     drop(id) {
+      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      let del = confirm("Are you sure?");
+      if (del) {
+        axios
+          .delete(`/api/tutor-schedule/${id}`, {
+            headers: {
+              Authorization: `Bearer ${tutor.access_token}`,
+            },
+          })
+          .then((res) => {
+            if (res.status == 200) {
+              this.getSchedule();
+            }
+          });
+      }
     },
     getSchedule() {
       axios

@@ -17496,6 +17496,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -17603,8 +17605,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       });
     },
-    getSchedule: function getSchedule() {
+    drop: function drop(id) {
       var _this7 = this;
+
+      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      var del = confirm("Are you sure?");
+
+      if (del) {
+        axios["delete"]("/api/tutor-schedule/".concat(id), {
+          headers: {
+            Authorization: "Bearer ".concat(tutor.access_token)
+          }
+        }).then(function (res) {
+          if (res.status == 200) {
+            _this7.getSchedule();
+          }
+        });
+      }
+    },
+    getSchedule: function getSchedule() {
+      var _this8 = this;
 
       axios.get("/api/tutor-schedule", {
         headers: {
@@ -17612,7 +17632,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this7.schedules = res.data;
+          _this8.schedules = res.data;
         }
       });
     },
@@ -17627,7 +17647,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
     },
     getAttendance: function getAttendance() {
-      var _this8 = this;
+      var _this9 = this;
 
       axios.get("/api/tutor-get-attendance", {
         headers: {
@@ -17635,7 +17655,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this8.attendance = res.data;
+          _this9.attendance = res.data;
         }
       });
     },
@@ -17647,7 +17667,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return seconds;
     },
     getTodayClass: function getTodayClass() {
-      var _this9 = this;
+      var _this10 = this;
 
       axios.get("/api/current-class", {
         headers: {
@@ -17655,12 +17675,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this9.todaysClass = res.data;
+          _this10.todaysClass = res.data;
         }
       });
     },
     getClasses: function getClasses() {
-      var _this10 = this;
+      var _this11 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios.get("/api/all-classes", {
@@ -17673,16 +17693,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             // this.allClass.push(item.class_name);
             if (item.sub_class !== "") {
               item.sub_class.split(",").forEach(function (i) {
-                _this10.all_class.push(i);
+                _this11.all_class.push(i);
               });
             }
           });
-          _this10.my_class = _this10.all_class[0];
+          _this11.my_class = _this11.all_class[0];
         }
       });
     },
     getallClass: function getallClass() {
-      var _this11 = this;
+      var _this12 = this;
 
       axios.get("/api/all-class", {
         headers: {
@@ -17690,7 +17710,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this11.allClass = res.data;
+          _this12.allClass = res.data;
         }
       });
     },
@@ -17703,7 +17723,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.filterShow = !this.filterShow;
     },
     getTable: function getTable() {
-      var _this12 = this;
+      var _this13 = this;
 
       axios.get("/api/tutor-times-table", {
         headers: {
@@ -17711,16 +17731,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this12.tables = res.data;
-          _this12.myclass = res.data.filter(function (item) {
+          _this13.tables = res.data;
+          _this13.myclass = res.data.filter(function (item) {
             return item.myclass;
           });
-          _this12.my_class = _this12.myclass[0].myclass;
+          _this13.my_class = _this13.myclass[0].myclass;
         }
       });
     },
     getParticipation: function getParticipation() {
-      var _this13 = this;
+      var _this14 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios.get("/api/participation", {
@@ -17729,12 +17749,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this13.participation = res.data;
+          _this14.participation = res.data;
         }
       });
     },
     handleParticipation: function handleParticipation(e, item) {
-      var _this14 = this;
+      var _this15 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
       var data = {
@@ -17753,16 +17773,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 201) {
-          _this14.getParticipation();
+          _this15.getParticipation();
         }
 
         if (res.status == 200) {
-          _this14.getParticipation();
+          _this15.getParticipation();
         }
       });
     },
     mark: function mark(user, val, value) {
-      var _this15 = this;
+      var _this16 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
       var data = {
@@ -17776,12 +17796,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this15.getAtt();
+          _this16.getAtt();
         }
       });
     },
     getStud: function getStud() {
-      var _this16 = this;
+      var _this17 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios.get("/api/tutor-all-students", {
@@ -17790,12 +17810,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this16.allstudnts = res.data;
+          _this17.allstudnts = res.data;
         }
       });
     }
   }, "getTodayClass", function getTodayClass() {
-    var _this17 = this;
+    var _this18 = this;
 
     axios.get("/api/current-class", {
       headers: {
@@ -17803,7 +17823,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }).then(function (res) {
       if (res.status == 200) {
-        _this17.todaysClass = res.data;
+        _this18.todaysClass = res.data;
       }
     });
   })
@@ -61028,7 +61048,7 @@ var render = function() {
                                                   },
                                                   [
                                                     _vm._v(
-                                                      "\n                       " +
+                                                      "\n                     \n                       " +
                                                         _vm._s(
                                                           schedule.description
                                                         ) +
@@ -61551,20 +61571,40 @@ var render = function() {
                                                             {
                                                               key: idx,
                                                               staticClass:
-                                                                "d-flex justify-content-between"
+                                                                "d-flex justify-content-between align-items-center"
                                                             },
                                                             [
-                                                              _vm._v(
-                                                                "\n                               " +
-                                                                  _vm._s(
-                                                                    schedule.description
-                                                                  ) +
-                                                                  "\n                               "
+                                                              _c(
+                                                                "span",
+                                                                [
+                                                                  _c("b-icon", {
+                                                                    attrs: {
+                                                                      icon:
+                                                                        "calendar3"
+                                                                    }
+                                                                  }),
+                                                                  _vm._v(
+                                                                    "\n                         " +
+                                                                      _vm._s(
+                                                                        schedule.description
+                                                                      )
+                                                                  )
+                                                                ],
+                                                                1
                                                               ),
+                                                              _vm._v(" "),
                                                               _c("b-icon", {
                                                                 attrs: {
-                                                                  icon:
-                                                                    "calendar3"
+                                                                  icon: "x"
+                                                                },
+                                                                on: {
+                                                                  click: function(
+                                                                    $event
+                                                                  ) {
+                                                                    return _vm.drop(
+                                                                      schedule.id
+                                                                    )
+                                                                  }
                                                                 }
                                                               })
                                                             ],

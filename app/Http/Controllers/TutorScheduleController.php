@@ -86,8 +86,10 @@ class TutorScheduleController extends Controller
      * @param  \App\TutorSchedule  $tutorSchedule
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TutorSchedule $tutorSchedule)
-    {
-        //
-    }
+   
+        public function destroy($id)
+        {
+            TutorSchedule::find($id)->delete();
+        }
+    
 }

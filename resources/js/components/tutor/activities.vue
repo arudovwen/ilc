@@ -295,7 +295,7 @@ export default {
     };
   },
   mounted() {
-    this.getAtt();
+    
     this.getTodayClass();
     this.getStud();
     this.getParticipation();
@@ -547,20 +547,7 @@ export default {
         });
     },
 
-    getAtt() {
-      let tutor = JSON.parse(localStorage.getItem("typeTutor"));
-      axios
-        .get(`/api/tutor-attendance`, {
-          headers: {
-            Authorization: `Bearer ${tutor.access_token}`,
-          },
-        })
-        .then((res) => {
-          if (res.status == 200) {
-            this.attendance = res.data;
-          }
-        });
-    },
+    
     getStud() {
       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios

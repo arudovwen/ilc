@@ -17517,7 +17517,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }, _defineProperty(_ref, "n", 52), _defineProperty(_ref, "week", ""), _defineProperty(_ref, "table", []), _defineProperty(_ref, "myclass", []), _defineProperty(_ref, "overlay", false), _defineProperty(_ref, "item", false), _defineProperty(_ref, "my_class", ""), _defineProperty(_ref, "items", []), _defineProperty(_ref, "filterShow", false), _defineProperty(_ref, "todaysClass", []), _defineProperty(_ref, "today", new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()), _defineProperty(_ref, "allClass", []), _defineProperty(_ref, "attendance", []), _defineProperty(_ref, "my_class", ""), _defineProperty(_ref, "all_class", []), _ref;
   },
   mounted: function mounted() {
-    this.getAtt();
     this.getTodayClass();
     this.getStud();
     this.getParticipation();
@@ -17772,22 +17771,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       });
     },
-    getAtt: function getAtt() {
-      var _this16 = this;
-
-      var tutor = JSON.parse(localStorage.getItem("typeTutor"));
-      axios.get("/api/tutor-attendance", {
-        headers: {
-          Authorization: "Bearer ".concat(tutor.access_token)
-        }
-      }).then(function (res) {
-        if (res.status == 200) {
-          _this16.attendance = res.data;
-        }
-      });
-    },
     getStud: function getStud() {
-      var _this17 = this;
+      var _this16 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios.get("/api/tutor-all-students", {
@@ -17796,12 +17781,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this17.allstudnts = res.data;
+          _this16.allstudnts = res.data;
         }
       });
     }
   }, "getTodayClass", function getTodayClass() {
-    var _this18 = this;
+    var _this17 = this;
 
     axios.get("/api/current-class", {
       headers: {
@@ -17809,7 +17794,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }).then(function (res) {
       if (res.status == 200) {
-        _this18.todaysClass = res.data;
+        _this17.todaysClass = res.data;
       }
     });
   })

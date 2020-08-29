@@ -361,7 +361,10 @@ export default {
         })
         .then((res) => {
           if (res.status == 201) {
+            this.schedule.date=""
+            this.schedule.description=""
             this.schedules.push(res.data);
+
           }
         });
     },

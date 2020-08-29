@@ -17596,6 +17596,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (res) {
         if (res.status == 201) {
+          _this6.schedule.date = "";
+          _this6.schedule.description = "";
+
           _this6.schedules.push(res.data);
         }
       });

@@ -33,8 +33,8 @@
         <div
 
           class="single-online-tag"
-          :class="{active:active==item.name}"
-          @click="switchGroup(item.id,item.name)"
+          :class="{active:active==item.id}"
+          @click="switchGroup(item.id)"
           v-for="(item,idx) in sortedGroups"
           :key="idx"
         >

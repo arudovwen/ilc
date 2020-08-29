@@ -223,7 +223,7 @@
                                 v-for="(schedule,idx)  in schedules"
                                 :key="idx"
                               >
-                               <span><b-icon icon="calendar3"></b-icon>
+                               <span><b-icon icon="calendar3" class="mr-2"></b-icon>
                           {{schedule.description}}</span>
                           <b-icon icon="x" @click="drop(schedule.id)"></b-icon>
                               </b-list-group-item>

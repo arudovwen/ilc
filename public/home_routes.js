@@ -47466,10 +47466,10 @@ var render = function() {
                 {
                   key: idx,
                   staticClass: "single-online-tag",
-                  class: { active: _vm.active == item.name },
+                  class: { active: _vm.active == item.id },
                   on: {
                     click: function($event) {
-                      return _vm.switchGroup(item.id, item.name)
+                      return _vm.switchGroup(item.id)
                     }
                   }
                 },
@@ -61578,6 +61578,8 @@ var render = function() {
                                                                 "span",
                                                                 [
                                                                   _c("b-icon", {
+                                                                    staticClass:
+                                                                      "mr-2",
                                                                     attrs: {
                                                                       icon:
                                                                         "calendar3"

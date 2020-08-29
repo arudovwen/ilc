@@ -82,7 +82,7 @@ class AssessmentResultController extends Controller
                 'overall'=>$find->overall,
                 'record'=>\json_encode($request->record),
             ]);
-
+            $percentScore = ($request->total_score/$find->overall)*100;
             $currentTotalAssessment = AssessmentResult::where('school_id', $user->school_id)->where('user_id', $user->id)->where('level', $user->student_level)->where('subject', $request->subject)->where('type', $request->type)->get();
 
                 if (is_null($grade)) {
@@ -94,17 +94,17 @@ class AssessmentResultController extends Controller
                     $gradeNew->title =$request->title;
                     $gradeNew->record=json_encode($request->record);
                     if ($request->type=='quiz') {
-                        $gradeNew->quiz = $request->total_score;
+                        $gradeNew->quiz =  $percentScore;
                     } elseif ($request->type== 'examination') {
-                        $gradeNew->examination = $request->total_score;
+                        $gradeNew->examination =  $percentScore;
                     } elseif ($request->type == 'test') {
-                        $gradeNew->test = $request->total_score;
+                        $gradeNew->test =  $percentScore;
                     } elseif ($request->type == 'assignment') {
-                        $gradeNew->assignment = $request->total_score;
+                        $gradeNew->assignment =  $percentScore;
                     } elseif ($request->type == 'attendance') {
-                        $gradeNew->attendance = $request->total_score;
+                        $gradeNew->attendance =  $percentScore;
                     } elseif ($request->type == 'participation') {
-                        $gradeNew->participation = $request->total_score;
+                        $gradeNew->participation =  $percentScore;
                     }
                     $gradeNew->total_score = $gradeNew->assignment + $gradeNew->examination + $gradeNew->quiz + $gradeNew->test;
                     $gradeNew->average_quiz =  $gradeNew->average_test =  $gradeNew->average_assignment = 1;
@@ -118,44 +118,44 @@ class AssessmentResultController extends Controller
                     $grade->record=json_encode($request->record);
                     if ($request->type=='quiz') {
                         if (is_null($grade->quiz)) {
-                            $grade->quiz = $request->total_score;
+                            $grade->quiz =  $percentScore;
                         } else {
-                            $grade->quiz = $grade->quiz + $request->total_score;
+                            $grade->quiz = $grade->quiz +  $percentScore;
                         }
                         $grade->average_quiz = count($currentTotalAssessment);
                     } elseif ($request->type== 'examination') {
                         if (is_null($grade->examination)) {
-                            $grade->examination = $request->total_score;
+                            $grade->examination =  $percentScore;
                         } else {
-                            $grade->examination = $grade->examination + $request->total_score;
+                            $grade->examination = $grade->examination +  $percentScore;
                         }
                      
                     } elseif ($request->type == 'test') {
                         if (is_null($grade->test)) {
-                            $grade->test = $request->total_score;
+                            $grade->test =  $percentScore;
                         } else {
-                            $grade->test = $grade->test + $request->total_score;
+                            $grade->test = $grade->test +  $percentScore;
                         }
                         $grade->average_test = count($currentTotalAssessment);
                     }  elseif ($request->type == 'assignment') {
                         if (is_null($grade->assignment)) {
-                            $grade->assignment = $request->total_score;
+                            $grade->assignment =  $percentScore;
                         } else {
-                            $grade->assignment = $grade->assignment + $request->total_score;
+                            $grade->assignment = $grade->assignment +  $percentScore;
                         }
                         $grade->average_assignment = count($currentTotalAssessment);
                     }elseif ($request->type == 'attendance') {
                         if (is_null($grade->attendance)) {
-                            $grade->attendance = $request->total_score;
+                            $grade->attendance =  $percentScore;
                         } else {
-                            $grade->attendance = $grade->attendance + $request->total_score;
+                            $grade->attendance = $grade->attendance +  $percentScore;
                         }
                        
                     }elseif ($request->type == 'participation') {
                         if (is_null($grade->participation)) {
-                            $grade->participation = $request->total_score;
+                            $grade->participation =  $percentScore;
                         } else {
-                            $grade->participation = $grade->participation + $request->total_score;
+                            $grade->participation = $grade->participation +  $percentScore;
                         }
                       
                     }

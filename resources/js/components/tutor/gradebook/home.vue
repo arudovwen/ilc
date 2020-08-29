@@ -60,19 +60,22 @@
                 <div>{{data.item.user.name}}</div>
               </template>
               <template v-slot:cell(participation)="data">
-                <div>{{(handleParticipation(data.item.user.id))}}</div>
+                <div>{{(handleParticipation(data.item.user.id))}}%</div>
               </template>
               <template v-slot:cell(attendance)="data">
-                <div>{{(handleAttendance(data.item.user.id))}}</div>
+                <div>{{(handleAttendance(data.item.user.id))*100}}%</div>
               </template>
               <template v-slot:cell(quiz)="data">
-                <div>{{data.item.average_quiz?(data.item.quiz/data.item.average_quiz):0}}</div>
+                <div>{{(data.item.quiz/quiz.length).toFixed()||0}}%</div>
               </template>
               <template v-slot:cell(assignment)="data">
-                <div>{{data.item.average_assignment?(data.item.assignment/data.item.average_assignment,2):0}}</div>
+                <div>{{(data.item.assignment/assignment.length).toFixed()||0}}%</div>
               </template>
               <template v-slot:cell(test)="data">
-                <div>{{data.item.average_test?(data.item.test/data.item.average_test):0}}</div>
+                <div>{{(data.item.test/test.length).toFixed()||0}}%</div>
+              </template>
+               <template v-slot:cell(examination)="data">
+                <div>{{(data.item.examination)||0}}%</div>
               </template>
             </b-table>
           </div>
@@ -152,6 +155,16 @@
 export default {
   data() {
     return {
+      particpation_percent:0,
+      att_percent:0,
+      test_percent:0,
+      ass_percent:0,
+      quiz_percent:0,
+  exam_percent:0,
+  assignment:[],
+  examination:[],
+  quiz:[],
+  test:[],
       overall_search: "",
       search: "",
       subject: "",
@@ -217,7 +230,7 @@ export default {
         "assignment",
         "test",
         "examination",
-        "total_score",
+        // "total_score",
       ],
       attendance: [],
       participations: [],
@@ -285,7 +298,7 @@ export default {
       var sum = newarr.reduce((a, b) => {
         return a + b;
       }, 0);
-      console.log("handleParticipation -> sum", sum);
+     
       return sum / newarr.length;
     },
     handleAttendance(id) {
@@ -300,7 +313,7 @@ export default {
       var sum = arr.reduce((a, b) => {
         return a + b;
       }, 0);
-      console.log("handleAttendance -> sum", sum);
+     
       return sum / arr.length;
     },
     getParticipation() {
@@ -420,17 +433,40 @@ export default {
         });
     },
 
-    getData() {
+     getData() {
       let tutor = JSON.parse(localStorage.getItem("typeTutor"));
+      this.quiz = [];
+      this.test = [];
+      this.assignment = [];
+      this.examination = [];
+
       axios
-        .get(`/api/tutor-assessment-result`, {
-          headers: { Authorization: `Bearer ${tutor.access_token}` },
+        .get(`/api/assessment`, {
+          headers: {
+            Authorization: `Bearer ${tutor.access_token}`,
+          },
         })
         .then((res) => {
           if (res.status == 200) {
-            this.items = res.data.data;
+            this.items = res.data;
+            this.items.forEach((item) => {
+              if (item.type == "quiz") {
+                this.quiz.push(item);
+              }
+              if (item.type == "test") {
+                this.test.push(item);
+              }
+              if (item.type == "assignment") {
+                this.assignment.push(item);
+              }
+              if (item.type == "exam") {
+                this.examination.push(item);
+              }
+            });
+            
           }
-        });
+        })
+        .catch();
     },
     selectClass(name) {
       this.name = name;

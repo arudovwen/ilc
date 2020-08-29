@@ -1,6 +1,7 @@
 <template>
   <div>
     <b-container>
+    
       <b-row>
         <b-col>
           <b-card no-body>
@@ -15,40 +16,40 @@
                     <b-thead>
                       <b-tr>
                         <b-th></b-th>
-                         <b-th>Average</b-th>
+                       
                           <b-th>Average percentage</b-th>
                       </b-tr>
                     </b-thead>
                     <b-tbody v-if="overall.length">
                       <b-tr>
                         <b-th>Attendance</b-th>
-                        <b-td>{{handleAttendance()}}</b-td>
-                         <b-td></b-td>
+                        <b-td>{{handleAttendance() }}%</b-td>
+                     
                       </b-tr>
                        <b-tr>
                         <b-th>Participation</b-th>
-                        <b-td>{{handleParticipation()}}</b-td>
-                           <b-td></b-td>
+                        <b-td>{{handleParticipation()}}%</b-td>
+                         
                       </b-tr>
                        <b-tr>
                         <b-th>Assignment</b-th>
-                        <b-td>{{overall[0].average_assignment?Math.round(overall[0].assignment/overall[0].average_assignment):0}}</b-td>
-                           <b-td></b-td>
+                        <b-td>  {{handleAss('assignment').toFixed()}}%</b-td>
+                      
                       </b-tr>
                        <b-tr>
                         <b-th>Quiz</b-th>
-                        <b-td>{{overall[0].average_quiz?Math.round(overall[0].quiz/overall[0].average_quiz):0}}</b-td>
-                           <b-td></b-td>
+                        <b-td>  {{handleAss('quiz').toFixed()}}%</b-td>
+                         
                       </b-tr>
                        <b-tr>
                         <b-th>Test</b-th>
-                        <b-td>{{overall[0].average_test?Math.round(overall[0].test/overall[0].average_test):0}}</b-td>
-                           <b-td></b-td>
+                        <b-td>  {{handleAss('test').toFixed()}}%</b-td>
+                            
                       </b-tr>
                        <b-tr>
                         <b-th>Examination</b-th>
-                        <b-td>{{overall[0].examination}}</b-td>
-                           <b-td></b-td>
+                        <b-td>  {{handleAss('exam').toFixed()}}%</b-td>
+                         
                       </b-tr>
                     </b-tbody>
                   </b-table-simple>
@@ -133,6 +134,9 @@
                         <template v-slot:cell(total_mark)="data">
                           <div>{{Math.round(data.item.overall)}}</div>
                         </template>
+                         <template v-slot:cell(average_percent)="data">
+                          <div>{{(((data.item.total_score/data.item.overall)* 100).toFixed(2)) || 0}}%</div>
+                        </template>
 
                         <template v-slot:cell(action)="data">
                           <div class="cpointer" @click="preview(data.item)">View Result</div>
@@ -158,6 +162,16 @@ export default {
   props: ["student"],
   data() {
     return {
+       participation_percent: 0.1,
+      att_percent: 0.1,
+      test_percent: 0.1,
+      ass_percent: 0.1,
+      quiz_percent: 0.1,
+      exam_percent: 0.5,
+      quiz:[],
+      test:[],
+      examination:[],
+      assignment:[],
       transProps: {
         // Transition name
         name: "flip-list",
@@ -175,6 +189,7 @@ export default {
         { key: "title", sortable: true },
         { key: "score", sortable: true },
         "total_mark",
+        "Average_percent",
         "action",
       ],
       
@@ -185,7 +200,7 @@ export default {
         { value: "assignment", text: "Assignment" },
         { value: "quiz", text: "Quiz" },
         { value: "test", text: "Test" },
-        { value: "examination", text: "Examination" },
+        { value: "exam", text: "Examination" },
       ],
       options:{},
       form:[],
@@ -225,8 +240,73 @@ export default {
     this.getOverall();
     this.getPart()
     this.getAttendance()
+    this.getData()
   },
   methods: {
+     getData() {
+      let student = JSON.parse(localStorage.getItem("typeStudent"));
+      axios
+        .get(`/api/student-assessments/${student.level}`, {
+          headers: {
+            Authorization: `Bearer ${student.access_token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            this.items = res.data;
+            this.items.forEach((item) => {
+              if (item.type == "quiz") {
+                this.quiz.push(item);
+              }
+              if (item.type == "test") {
+                this.test.push(item);
+              }
+              if (item.type == "assignment") {
+                this.assignment.push(item);
+              }
+              if (item.type == "exam") {
+                this.examination.push(item);
+              }
+            });
+          }
+        })
+        .catch((err) => {
+          err.response.data;
+          console.log(" err.response.data", err.response.data);
+        });
+    },
+    handleAss(type){
+      var arr = []
+       this.ass_result.forEach(item=>{
+         if(item.type == type){
+        let div =   item.total_score/item.overall
+        let times = div * 100
+        if (times) {
+             arr.push(times)
+        }
+   
+         }
+       })
+
+       var sum = arr.reduce((a,b)=>{
+       
+         return a  + b 
+       },0)
+      
+       if (type== 'assignment') {
+          return sum/this.assignment.length || 0
+       }
+       if (type== 'exam') {
+          return sum/this.examination.length || 0
+       }
+       if (type== 'test') {
+          return sum/this.test.length || 0
+       }
+       if (type== 'quiz') {
+          return sum/this.quiz.length || 0
+       }
+      
+    },
      handleParticipation(id) {
       var newarr = [];
       this.attendances.forEach((item) => {
@@ -239,7 +319,7 @@ export default {
         return a + b;
       }, 0);
      
-      return sum / newarr.length;
+      return( sum / newarr.length) || 0;
     },
     handleAttendance(id) {
       var newarr = [];
@@ -254,7 +334,7 @@ export default {
         return a + b;
       }, 0);
      
-      return sum / arr.length;
+      return( (sum / arr.length)  * 100) || 0 ;
     },
     preview(val) {
     

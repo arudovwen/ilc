@@ -2179,21 +2179,18 @@ __webpack_require__.r(__webpack_exports__);
           this.curriculum.learner_outcome.push({
             name: ""
           });
-          console.log("addNew -> .learner_outco");
           break;
 
         case 2:
           this.curriculum.target_skills.push({
             name: ""
           });
-          console.log("addNew -> target_skills");
           break;
 
         case 3:
           this.curriculum.prerequisite.push({
             name: ""
           });
-          console.log("addNew -> prerequisite");
           break;
 
         case 4:
@@ -13720,7 +13717,6 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     selectFilter: function selectFilter(name) {
       this.filter = name;
-      console.log("selectFilter -> name", name);
     },
     gotoHer: function gotoHer(id) {
       this.$router.push("/student/resource/view/".concat(id));
@@ -13973,11 +13969,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["student"],
   data: function data() {
     return {
+      participation_percent: 0.1,
+      att_percent: 0.1,
+      test_percent: 0.1,
+      ass_percent: 0.1,
+      quiz_percent: 0.1,
+      exam_percent: 0.5,
+      quiz: [],
+      test: [],
+      examination: [],
+      assignment: [],
       transProps: {
         // Transition name
         name: "flip-list"
@@ -14001,7 +14011,7 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         key: "score",
         sortable: true
-      }, "total_mark", "action"],
+      }, "total_mark", "Average_percent", "action"],
       parts: ["day", "subject", "score"],
       att: ["day", 'subject', "score"],
       assessmentType: [{
@@ -14017,7 +14027,7 @@ __webpack_require__.r(__webpack_exports__);
         value: "test",
         text: "Test"
       }, {
-        value: "examination",
+        value: "exam",
         text: "Examination"
       }],
       options: {},
@@ -14063,8 +14073,76 @@ __webpack_require__.r(__webpack_exports__);
     this.getOverall();
     this.getPart();
     this.getAttendance();
+    this.getData();
   },
   methods: {
+    getData: function getData() {
+      var _this2 = this;
+
+      var student = JSON.parse(localStorage.getItem("typeStudent"));
+      axios.get("/api/student-assessments/".concat(student.level), {
+        headers: {
+          Authorization: "Bearer ".concat(student.access_token)
+        }
+      }).then(function (res) {
+        if (res.status == 200) {
+          _this2.items = res.data;
+
+          _this2.items.forEach(function (item) {
+            if (item.type == "quiz") {
+              _this2.quiz.push(item);
+            }
+
+            if (item.type == "test") {
+              _this2.test.push(item);
+            }
+
+            if (item.type == "assignment") {
+              _this2.assignment.push(item);
+            }
+
+            if (item.type == "exam") {
+              _this2.examination.push(item);
+            }
+          });
+        }
+      })["catch"](function (err) {
+        err.response.data;
+        console.log(" err.response.data", err.response.data);
+      });
+    },
+    handleAss: function handleAss(type) {
+      var arr = [];
+      this.ass_result.forEach(function (item) {
+        if (item.type == type) {
+          var div = item.total_score / item.overall;
+          var times = div * 100;
+
+          if (times) {
+            arr.push(times);
+          }
+        }
+      });
+      var sum = arr.reduce(function (a, b) {
+        return a + b;
+      }, 0);
+
+      if (type == 'assignment') {
+        return sum / this.assignment.length || 0;
+      }
+
+      if (type == 'exam') {
+        return sum / this.examination.length || 0;
+      }
+
+      if (type == 'test') {
+        return sum / this.test.length || 0;
+      }
+
+      if (type == 'quiz') {
+        return sum / this.quiz.length || 0;
+      }
+    },
     handleParticipation: function handleParticipation(id) {
       var newarr = [];
       this.attendances.forEach(function (item) {
@@ -14073,7 +14151,7 @@ __webpack_require__.r(__webpack_exports__);
       var sum = newarr.reduce(function (a, b) {
         return a + b;
       }, 0);
-      return sum / newarr.length;
+      return sum / newarr.length || 0;
     },
     handleAttendance: function handleAttendance(id) {
       var newarr = [];
@@ -14084,7 +14162,7 @@ __webpack_require__.r(__webpack_exports__);
       var sum = arr.reduce(function (a, b) {
         return a + b;
       }, 0);
-      return sum / arr.length;
+      return sum / arr.length * 100 || 0;
     },
     preview: function preview(val) {
       this.options.title = val.title;
@@ -14099,7 +14177,7 @@ __webpack_require__.r(__webpack_exports__);
       this.subject = this.search = this.type = "";
     },
     getSubjects: function getSubjects() {
-      var _this2 = this;
+      var _this3 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
       axios.get("/api/student-all-subjects", {
@@ -14108,41 +14186,41 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this2.subjects = res.data;
+          _this3.subjects = res.data;
         }
       });
     },
     getAss: function getAss() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get("/api/get-assessment-result", {
         headers: {
           Authorization: "Bearer ".concat(this.$props.student.access_token)
         }
       }).then(function (res) {
-        _this3.ass_result = res.data;
+        _this4.ass_result = res.data;
       });
     },
     getPart: function getPart() {
-      var _this4 = this;
+      var _this5 = this;
 
       axios.get("/api/student-part", {
         headers: {
           Authorization: "Bearer ".concat(this.$props.student.access_token)
         }
       }).then(function (res) {
-        _this4.part = res.data;
+        _this5.part = res.data;
         var score = [];
         res.data.forEach(function (item) {
           score.push(item.score);
         });
-        _this4.partsum = score.reduce(function (a, b) {
+        _this5.partsum = score.reduce(function (a, b) {
           return a + b;
         }, 0);
       });
     },
     getAttendance: function getAttendance() {
-      var _this5 = this;
+      var _this6 = this;
 
       axios.get("/api/student-sorted-attendance", {
         headers: {
@@ -14150,19 +14228,19 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this5.attendances = res.data;
+          _this6.attendances = res.data;
         }
       });
     },
     getOverall: function getOverall() {
-      var _this6 = this;
+      var _this7 = this;
 
       axios.get("/api/student-grade-book/".concat(this.$props.student.id), {
         headers: {
           Authorization: "Bearer ".concat(this.$props.student.access_token)
         }
       }).then(function (res) {
-        _this6.overall = res.data;
+        _this7.overall = res.data;
       });
     }
   }
@@ -14649,7 +14727,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     gotoHer: function gotoHer(id) {
       if (id.type.toLowerCase() == "assessment") {
-        this.$router.push("/student/gradebook");
+        this.$router.push("/student/assessment");
       }
 
       if (id.type.toLowerCase() == "group") {
@@ -16174,7 +16252,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         if (res.status == 200) {
           _this.library = res.data;
-          axios.get("/api/get-module/".concat(res.data.subject, "/").concat(_this.$props.student.level, "api/").concat(_this.$props.student.school_id)).then(function (res) {
+          axios.get("/api/get-module/".concat(res.data.subject, "/").concat(_this.$props.student.level, "/").concat(_this.$props.student.school_id)).then(function (res) {
             if (res.status == 200) {
               _this.modules = res.data;
               _this.src = JSON.parse(_this.modules[0].content)[0].file;
@@ -19839,7 +19917,6 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
 
-      console.log("handleSubmitted -> uid", uid);
       this.pending = uid;
     },
     getStudent: function getStudent(level) {
@@ -20034,7 +20111,7 @@ __webpack_require__.r(__webpack_exports__);
             _this18.getAdmins();
           }
         })["catch"](function (err) {
-          console.log("del -> err", err);
+          console.log("del -> err", err.data);
         });
       }
     },
@@ -21832,7 +21909,6 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     addGroupMessage: function addGroupMessage(message, attachment) {
-      console.log("addGroupMessage -> message savage", message);
       this.groupMessages.push({
         message: message,
         tutor: this.tutor,
@@ -22117,11 +22193,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var _ref;
 
     return _ref = {
+      particpation_percent: 0,
+      att_percent: 0,
+      test_percent: 0,
+      ass_percent: 0,
+      quiz_percent: 0,
+      exam_percent: 0,
+      assignment: [],
+      examination: [],
+      quiz: [],
+      test: [],
       overall_search: "",
       search: "",
       subject: "",
@@ -22177,7 +22266,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }]), _defineProperty(_ref, "ass", []), _defineProperty(_ref, "names", []), _defineProperty(_ref, "grade_book", []), _defineProperty(_ref, "grade_fields", [{
       key: "name",
       sortable: true
-    }, "participation", "attendance", "quiz", "assignment", "test", "examination", "total_score"]), _defineProperty(_ref, "attendance", []), _defineProperty(_ref, "participations", []), _ref;
+    }, "participation", "attendance", "quiz", "assignment", "test", "examination" // "total_score",
+    ]), _defineProperty(_ref, "attendance", []), _defineProperty(_ref, "participations", []), _ref;
   },
   created: function created() {
     this.getBook();
@@ -22239,7 +22329,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var sum = newarr.reduce(function (a, b) {
         return a + b;
       }, 0);
-      console.log("handleParticipation -> sum", sum);
       return sum / newarr.length;
     },
     handleAttendance: function handleAttendance(id) {
@@ -22253,7 +22342,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var sum = arr.reduce(function (a, b) {
         return a + b;
       }, 0);
-      console.log("handleAttendance -> sum", sum);
       return sum / arr.length;
     },
     getParticipation: function getParticipation() {
@@ -22379,15 +22467,37 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this9 = this;
 
       var tutor = JSON.parse(localStorage.getItem("typeTutor"));
-      axios.get("/api/tutor-assessment-result", {
+      this.quiz = [];
+      this.test = [];
+      this.assignment = [];
+      this.examination = [];
+      axios.get("/api/assessment", {
         headers: {
           Authorization: "Bearer ".concat(tutor.access_token)
         }
       }).then(function (res) {
         if (res.status == 200) {
-          _this9.items = res.data.data;
+          _this9.items = res.data;
+
+          _this9.items.forEach(function (item) {
+            if (item.type == "quiz") {
+              _this9.quiz.push(item);
+            }
+
+            if (item.type == "test") {
+              _this9.test.push(item);
+            }
+
+            if (item.type == "assignment") {
+              _this9.assignment.push(item);
+            }
+
+            if (item.type == "exam") {
+              _this9.examination.push(item);
+            }
+          });
         }
-      });
+      })["catch"]();
     },
     selectClass: function selectClass(name) {
       this.name = name;
@@ -26897,7 +27007,6 @@ __webpack_require__.r(__webpack_exports__);
       audio.onloadedmetadata = function () {
         window.URL.revokeObjectURL(audio.src);
         var duration = audio.duration;
-        console.log("audio.onloadedmetadata -> duration", duration);
         return duration;
       };
     },
@@ -55025,8 +55134,6 @@ var render = function() {
                                             [
                                               _c("b-th"),
                                               _vm._v(" "),
-                                              _c("b-th", [_vm._v("Average")]),
-                                              _vm._v(" "),
                                               _c("b-th", [
                                                 _vm._v("Average percentage")
                                               ])
@@ -55052,11 +55159,9 @@ var render = function() {
                                                     _vm._v(
                                                       _vm._s(
                                                         _vm.handleAttendance()
-                                                      )
+                                                      ) + "%"
                                                     )
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("b-td")
+                                                  ])
                                                 ],
                                                 1
                                               ),
@@ -55072,11 +55177,9 @@ var render = function() {
                                                     _vm._v(
                                                       _vm._s(
                                                         _vm.handleParticipation()
-                                                      )
+                                                      ) + "%"
                                                     )
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("b-td")
+                                                  ])
                                                 ],
                                                 1
                                               ),
@@ -55090,21 +55193,17 @@ var render = function() {
                                                   _vm._v(" "),
                                                   _c("b-td", [
                                                     _vm._v(
-                                                      _vm._s(
-                                                        _vm.overall[0]
-                                                          .average_assignment
-                                                          ? Math.round(
-                                                              _vm.overall[0]
-                                                                .assignment /
-                                                                _vm.overall[0]
-                                                                  .average_assignment
+                                                      "  " +
+                                                        _vm._s(
+                                                          _vm
+                                                            .handleAss(
+                                                              "assignment"
                                                             )
-                                                          : 0
-                                                      )
+                                                            .toFixed()
+                                                        ) +
+                                                        "%"
                                                     )
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("b-td")
+                                                  ])
                                                 ],
                                                 1
                                               ),
@@ -55116,21 +55215,15 @@ var render = function() {
                                                   _vm._v(" "),
                                                   _c("b-td", [
                                                     _vm._v(
-                                                      _vm._s(
-                                                        _vm.overall[0]
-                                                          .average_quiz
-                                                          ? Math.round(
-                                                              _vm.overall[0]
-                                                                .quiz /
-                                                                _vm.overall[0]
-                                                                  .average_quiz
-                                                            )
-                                                          : 0
-                                                      )
+                                                      "  " +
+                                                        _vm._s(
+                                                          _vm
+                                                            .handleAss("quiz")
+                                                            .toFixed()
+                                                        ) +
+                                                        "%"
                                                     )
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("b-td")
+                                                  ])
                                                 ],
                                                 1
                                               ),
@@ -55142,21 +55235,15 @@ var render = function() {
                                                   _vm._v(" "),
                                                   _c("b-td", [
                                                     _vm._v(
-                                                      _vm._s(
-                                                        _vm.overall[0]
-                                                          .average_test
-                                                          ? Math.round(
-                                                              _vm.overall[0]
-                                                                .test /
-                                                                _vm.overall[0]
-                                                                  .average_test
-                                                            )
-                                                          : 0
-                                                      )
+                                                      "  " +
+                                                        _vm._s(
+                                                          _vm
+                                                            .handleAss("test")
+                                                            .toFixed()
+                                                        ) +
+                                                        "%"
                                                     )
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("b-td")
+                                                  ])
                                                 ],
                                                 1
                                               ),
@@ -55170,14 +55257,15 @@ var render = function() {
                                                   _vm._v(" "),
                                                   _c("b-td", [
                                                     _vm._v(
-                                                      _vm._s(
-                                                        _vm.overall[0]
-                                                          .examination
-                                                      )
+                                                      "  " +
+                                                        _vm._s(
+                                                          _vm
+                                                            .handleAss("exam")
+                                                            .toFixed()
+                                                        ) +
+                                                        "%"
                                                     )
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c("b-td")
+                                                  ])
                                                 ],
                                                 1
                                               )
@@ -55466,6 +55554,25 @@ var render = function() {
                                                           data.item.overall
                                                         )
                                                       )
+                                                    )
+                                                  ])
+                                                ]
+                                              }
+                                            },
+                                            {
+                                              key: "cell(average_percent)",
+                                              fn: function(data) {
+                                                return [
+                                                  _c("div", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        (
+                                                          (data.item
+                                                            .total_score /
+                                                            data.item.overall) *
+                                                          100
+                                                        ).toFixed(2) || 0
+                                                      ) + "%"
                                                     )
                                                   ])
                                                 ]
@@ -68762,7 +68869,7 @@ var render = function() {
                                 _vm._v(
                                   _vm._s(
                                     _vm.handleParticipation(data.item.user.id)
-                                  )
+                                  ) + "%"
                                 )
                               ])
                             ]
@@ -68775,8 +68882,9 @@ var render = function() {
                               _c("div", [
                                 _vm._v(
                                   _vm._s(
-                                    _vm.handleAttendance(data.item.user.id)
-                                  )
+                                    _vm.handleAttendance(data.item.user.id) *
+                                      100
+                                  ) + "%"
                                 )
                               ])
                             ]
@@ -68789,10 +68897,10 @@ var render = function() {
                               _c("div", [
                                 _vm._v(
                                   _vm._s(
-                                    data.item.average_quiz
-                                      ? data.item.quiz / data.item.average_quiz
-                                      : 0
-                                  )
+                                    (
+                                      data.item.quiz / _vm.quiz.length
+                                    ).toFixed() || 0
+                                  ) + "%"
                                 )
                               ])
                             ]
@@ -68805,12 +68913,11 @@ var render = function() {
                               _c("div", [
                                 _vm._v(
                                   _vm._s(
-                                    data.item.average_assignment
-                                      ? (data.item.assignment /
-                                          data.item.average_assignment,
-                                        2)
-                                      : 0
-                                  )
+                                    (
+                                      data.item.assignment /
+                                      _vm.assignment.length
+                                    ).toFixed() || 0
+                                  ) + "%"
                                 )
                               ])
                             ]
@@ -68823,11 +68930,21 @@ var render = function() {
                               _c("div", [
                                 _vm._v(
                                   _vm._s(
-                                    data.item.average_test
-                                      ? data.item.test / data.item.average_test
-                                      : 0
-                                  )
+                                    (
+                                      data.item.test / _vm.test.length
+                                    ).toFixed() || 0
+                                  ) + "%"
                                 )
+                              ])
+                            ]
+                          }
+                        },
+                        {
+                          key: "cell(examination)",
+                          fn: function(data) {
+                            return [
+                              _c("div", [
+                                _vm._v(_vm._s(data.item.examination || 0) + "%")
                               ])
                             ]
                           }

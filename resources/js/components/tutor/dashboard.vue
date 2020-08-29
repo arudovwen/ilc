@@ -69,7 +69,7 @@ export default {
       });
     },
     addGroupMessage(message, attachment) {
-      console.log("addGroupMessage -> message savage", message);
+     
       this.groupMessages.push({
         message: message,
         tutor: this.tutor,

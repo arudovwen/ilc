@@ -78,7 +78,7 @@ export default {
   methods: {
     selectFilter(name) {
       this.filter = name;
-      console.log("selectFilter -> name", name);
+    
     },
     gotoHer(id) {
       this.$router.push(`/student/resource/view/${id}`);

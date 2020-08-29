@@ -171,16 +171,17 @@ export default {
         .then((res) => {
           if (res.status == 200) {
             this.library = res.data;
+           
 
             axios
               .get(
-                `/api/get-module/${res.data.subject}/${this.$props.student.level}api/${this.$props.student.school_id}`
+                `/api/get-module/${res.data.subject}/${this.$props.student.level}/${this.$props.student.school_id}`
               )
               .then((res) => {
                 if (res.status == 200) {
                   this.modules = res.data;
 
-                  this.src = JSON.parse(this.modules[0].content)[0].file;
+                   this.src = JSON.parse(this.modules[0].content)[0].file;
                   this.type = JSON.parse(this.modules[0].content)[0].type;
                   this.title = JSON.parse(this.modules[0].content)[0].title;
                   this.overview = JSON.parse(

@@ -116,7 +116,7 @@ export default {
         window.URL.revokeObjectURL(audio.src);
         let duration = audio.duration;
 
-        console.log("audio.onloadedmetadata -> duration", duration)
+      
         return duration;
       };
     },

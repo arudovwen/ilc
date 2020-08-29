@@ -630,7 +630,7 @@ export default {
           uid.push(i.name);
         });
       }
-      console.log("handleSubmitted -> uid", uid);
+     
       this.pending = uid;
     },
     getStudent(level) {
@@ -825,7 +825,7 @@ export default {
             }
           })
           .catch((err) => {
-            console.log("del -> err", err);
+            console.log("del -> err", err.data);
           });
       }
     },

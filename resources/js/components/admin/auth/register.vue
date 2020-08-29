@@ -82,7 +82,7 @@ export default {
   methods: {
     register() {
       let admin = JSON.parse(localStorage.getItem("typeAdmin"));
-      console.log("register -> admin", admin)
+    
       axios
         .post("/api/admin",this.admin, {
           headers: { Authorization: `Bearer ${admin.access_token}` }

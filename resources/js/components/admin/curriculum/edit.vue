@@ -292,15 +292,15 @@ export default {
       switch (value) {
         case 1:
           this.curriculum.learner_outcome.push({name:""});
-          console.log("addNew -> .learner_outco")
+         
           break;
         case 2:
           this.curriculum.target_skills.push({name:""});
-          console.log("addNew -> target_skills")
+         
           break;
         case 3:
           this.curriculum.prerequisite.push({name:""});
-          console.log("addNew -> prerequisite")
+       
           break;
         case 4:
           this.curriculum.delivery_methods.push({name:""});

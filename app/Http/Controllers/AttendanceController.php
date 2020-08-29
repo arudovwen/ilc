@@ -37,7 +37,7 @@ class AttendanceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { 
+    {
         $user=auth('api')->user();
         return Attendance::create([
             'school_id'=>$user->school_id,
@@ -151,6 +151,7 @@ class AttendanceController extends Controller
             $check->score = $score;
             $check->participation_id = $part->id;
             $check->save();
+            return $check;
         }
     }
     public function tutorgetAttendance()

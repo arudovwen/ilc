@@ -155,7 +155,11 @@
                   <span
                     v-for="(att,id) in attendance.filter(item=>item.user_id== student.id && item.subject== subject && item.day ==  new Date().toDateString())"
                     :key="id"
-                  >{{att.record !='pending' && att.record?'Present':'Absent'}} - {{att.participation_score}}</span>
+                  >
+                  <span v-if="att.record =='1'">Present - {{att.participation_score}}</span>
+                   <span v-if="att.record =='0'">Absent - {{att.participation_score}}</span>
+                      <span v-if="att.record =='pending'">Pending </span>
+                  </span>
                 </b-td>
               </b-tr>
             </b-tbody>

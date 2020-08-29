@@ -21146,6 +21146,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tutor"],
   data: function data() {
@@ -68275,15 +68279,27 @@ var render = function() {
                                   }),
                                   function(att, id) {
                                     return _c("span", { key: id }, [
-                                      _vm._v(
-                                        _vm._s(
-                                          att.record != "pending" && att.record
-                                            ? "Present"
-                                            : "Absent"
-                                        ) +
-                                          " - " +
-                                          _vm._s(att.participation_score)
-                                      )
+                                      att.record == "1"
+                                        ? _c("span", [
+                                            _vm._v(
+                                              "Present - " +
+                                                _vm._s(att.participation_score)
+                                            )
+                                          ])
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      att.record == "0"
+                                        ? _c("span", [
+                                            _vm._v(
+                                              "Absent - " +
+                                                _vm._s(att.participation_score)
+                                            )
+                                          ])
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      att.record == "pending"
+                                        ? _c("span", [_vm._v("Pending ")])
+                                        : _vm._e()
                                     ])
                                   }
                                 ),

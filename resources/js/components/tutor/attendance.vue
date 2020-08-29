@@ -58,6 +58,7 @@
                            {{att.day}} <br>
                          <b-icon class="green" v-if="att.record =='1'" icon="check-circle-fill"></b-icon>
                            <b-icon class="red" v-if="att.record =='0'" icon="x-circle-fill"></b-icon>
+                             <b-icon class="amber" v-if="att.record =='pending'" icon="check-circle-fill"></b-icon>
                          </div>
                         </b-td>
                           </b-tr>

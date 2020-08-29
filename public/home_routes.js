@@ -21145,6 +21145,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["tutor"],
   data: function data() {
@@ -68046,6 +68047,17 @@ var render = function() {
                                                               attrs: {
                                                                 icon:
                                                                   "x-circle-fill"
+                                                              }
+                                                            })
+                                                          : _vm._e(),
+                                                        _vm._v(" "),
+                                                        att.record == "pending"
+                                                          ? _c("b-icon", {
+                                                              staticClass:
+                                                                "amber",
+                                                              attrs: {
+                                                                icon:
+                                                                  "check-circle-fill"
                                                               }
                                                             })
                                                           : _vm._e()

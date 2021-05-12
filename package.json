@@ -34,7 +34,7 @@
     "dependencies": {
         "@tinymce/tinymce-vue": "^3.2.2",
         "bootstrap-vue": "^2.16.0",
-        "chart.js": "^2.9.3",
+        "chart.js": "^2.9.4",
         "filterizr": "^2.2.4",
         "isotope-layout": "^3.0.6",
         "laravel-echo": "^1.8.1",
